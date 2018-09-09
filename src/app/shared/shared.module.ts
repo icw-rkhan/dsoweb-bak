@@ -3,7 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatButtonModule, MatCardModule,
+  MatButtonModule,
+  MatCardModule,
   MatCheckboxModule,
   MatDatepickerModule,
   MatDialogModule,
@@ -19,14 +20,15 @@ import {
   MatSidenavModule,
   MatSortModule,
   MatTableModule,
+  MatTabsModule,
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
+import { CustomFormsModule } from 'ngx-custom-validators';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
-import { CustomFormsModule } from 'ngx-custom-validators';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 
 const PIPES = [
@@ -64,6 +66,8 @@ export const MODULES = [
   MatSidenavModule,
   MatListModule,
   MatCardModule,
+  MatTableModule,
+  MatTabsModule,
   CustomFormsModule,
 ];
 

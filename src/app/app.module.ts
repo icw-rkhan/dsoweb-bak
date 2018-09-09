@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { ExampleModule } from './containers/example/example.module';
 import { ApiInterceptor } from './interceptors/api.interceptor';
+import { FeedModule } from './containers/feed/feed.module';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import { ApiInterceptor } from './interceptors/api.interceptor';
     // Module import
     SharedModule,
     ExampleModule,
+    FeedModule,
     AppRoutingModule,
   ],
   providers: [

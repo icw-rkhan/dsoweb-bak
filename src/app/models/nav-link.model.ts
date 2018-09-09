@@ -1,5 +1,5 @@
 export interface NavLinkModel {
   label: string;
-  icon: string;
+  icon?: string;
   route: string;
 }

@@ -5,7 +5,7 @@ import { NgModule } from '@angular/core';
 export const ROUTES: Routes = [
   {
     path: '',
-    redirectTo: '/example',
+    redirectTo: '/feed',
     pathMatch: 'full'
   },
   {
