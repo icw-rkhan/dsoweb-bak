@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material';
 
-import { ConfirmDialogStatus } from '../../../enums/dialogs/confirm-dialog-status';
+import { ConfirmDialogStatus } from '../../../enums/confirm-dialog-status';
 import { AlertDialogParams } from './alert-dialog-params';
 
 @Component({

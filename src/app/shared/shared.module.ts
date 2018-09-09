@@ -30,6 +30,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { TruncatePipe } from '../pipes/truncate.pipe';
+import { FeedCardComponent } from './feed-card/feed-card.component';
 
 const PIPES = [
   TruncatePipe
@@ -38,7 +39,8 @@ const PIPES = [
 export const COMPONENTS = [
   SidebarComponent,
   ToolbarComponent,
-  AlertDialogComponent
+  AlertDialogComponent,
+  FeedCardComponent
 ];
 
 export const MODULES = [

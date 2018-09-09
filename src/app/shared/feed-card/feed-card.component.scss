@@ -1,0 +1,59 @@
+mat-card {
+  padding: 0;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  padding: 10px 20px;
+  background-color: #FAFBFD;
+  border-bottom: 1px solid lightgray;
+  .mat-h3 {
+    text-transform: uppercase;
+    flex: 1;
+    margin-bottom: 0;
+  }
+  .date {
+    color: #D8D8D8;
+  }
+  .body-2 {
+    align-self: center;
+    color: lightgray;
+    font-size: 13px;
+  }
+}
+
+.image {
+  position: relative;
+  img {
+    width: 100%;
+    height: auto;
+  }
+  button {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+  }
+}
+
+.content {
+  padding: 20px 30px;
+}
+
+.content-title {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 10px;
+  .mat-h2 {
+    flex: 1;
+  }
+}
+
+.actions {
+  button {
+    color: lightslategrey;
+  }
+  button:first-child {
+    margin-right: 5px;
+  }
+}

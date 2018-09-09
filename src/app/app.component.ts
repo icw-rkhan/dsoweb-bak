@@ -26,6 +26,7 @@ import { Router } from '@angular/router';
       right: 0;
     }
     .main-container {
+      background: white;
     }
   `]
 })
