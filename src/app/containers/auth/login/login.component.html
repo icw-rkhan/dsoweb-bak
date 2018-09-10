@@ -1,0 +1,40 @@
+<nav class="main-nav">
+  <div class="container main-nav-fix">
+    <div class="main-nav-wrap-icon">
+      <a [routerLink]="['/auth', 'welcome']" href="javascript:void(0);">
+        <p class="main-nav-icon-back"></p>
+      </a>
+    </div>
+  </div>
+</nav>
+<section class="login">
+  <div class="login-overlay-primary">
+    <div class="logoBox">
+      <div class="logo"></div>
+    </div>
+    <div class="login-content">
+      <div class="container">
+        <h2 class="form-title">Log In</h2>
+        <div class="form-group">
+          <input class="form-control" type="text" placeholder="{{ student ? 'School Email address' : 'Email address' }}" />
+        </div>
+        <div class="form-group withActionRight">
+          <input class="form-control" type="password" placeholder="Password" />
+          <button class="action">Show</button>
+        </div>
+        <div class="form-btn">
+          <a href="javascript:void(0);"><p>Forgot password</p></a>
+        </div>
+        <div class="loginActions">
+          <input class="btn btn-primary btn-full margin-10" type="button" value="Log In" />
+          <div *ngIf="!student" class="btn btn-linkedin-icon btn-full">
+            <input class="btn btn-linkedin btn-full" type="button" value="Log in using LinkedIn" />
+          </div>
+        </div>
+        <div class="textCenter">
+          <a class="link underline">Create an account</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

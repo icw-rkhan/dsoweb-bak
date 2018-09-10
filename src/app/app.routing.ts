@@ -2,7 +2,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { NgModule } from '@angular/core';
 
+import { authRoutes } from './containers/auth/auth.routing';
+
 export const ROUTES: Routes = [
+  ...authRoutes,
   {
     path: '',
     redirectTo: '/example',
@@ -11,7 +14,7 @@ export const ROUTES: Routes = [
   {
     path: '**',
     redirectTo: '/'
-  },
+  }
 ];
 
 @NgModule({
