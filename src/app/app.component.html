@@ -1,0 +1,12 @@
+<mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav mode="push">
+      <dso-sidebar></dso-sidebar>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
+      <ng-progress></ng-progress>
+      <div class="main-container">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

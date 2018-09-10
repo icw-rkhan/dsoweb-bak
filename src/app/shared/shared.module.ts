@@ -20,7 +20,8 @@ import {
   MatSortModule,
   MatTableModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatButtonToggleModule
 } from '@angular/material';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -28,6 +29,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { TruncatePipe } from '../pipes/truncate.pipe';
+
 
 const PIPES = [
   TruncatePipe
@@ -52,6 +54,7 @@ export const MODULES = [
   MatIconModule,
   MatInputModule,
   MatButtonModule,
+  MatButtonToggleModule,
   MatTooltipModule,
   MatSortModule,
   MatProgressSpinnerModule,

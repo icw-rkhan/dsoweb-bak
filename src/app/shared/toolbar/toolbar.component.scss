@@ -1,3 +1,20 @@
 .spacer {
   flex: 1 1 auto;
 }
+
+mat-toolbar {
+  color: #ffffff;
+  font-size:15px;
+  font-weight: 600px;
+  background-color: #787878;
+  padding: 0px;
+}
+
+mat-toolbar-row {
+  padding: 0px 5px;
+}
+
+span {
+  flex: 100%;
+  text-align: center;
+}

@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Output } from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'dso-toolbar',
@@ -9,7 +10,44 @@ export class ToolbarComponent {
 
   @Output() toggleMenu = new EventEmitter();
 
-  onToggleMenu() {
-    this.toggleMenu.emit();
+  title = "DSODENTIST";
+  btnCategory = "menu";
+
+  constructor(private router: Router) {
+    router.events.subscribe((event: Event)=> {
+      if(event instanceof NavigationEnd) {
+        if(event.url == '/dsodentist') {
+          this.setTitle('DSODENTIST');
+          this.setBtnCategory('menu');
+        }else if (event.url == '/reviews/add') {
+          this.setTitle('ADD A REVIEW');
+          this.setBtnCategory('keyboard_backspace');
+        }
+      }
+    })
+  }
+
+  onClickEvent() {
+    if(this.btnCategory == "menu") {
+      this.toggleMenu.emit();
+    }else if (this.btnCategory == 'keyboard_backspace') {
+      this.router.navigate(['/dsodentist']);
+    }
+  }
+
+  setTitle(title) {
+    this.title = title;
+  }
+
+  getTitle() {
+    return this.title;
+  }
+
+  setBtnCategory(category) {
+    this.btnCategory=category;
+  }
+
+  getBtnCategory() {
+    return this.btnCategory;
   }
 }
