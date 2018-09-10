@@ -13,6 +13,11 @@ export class AddReviewComponent implements OnInit {
     name: 'Matt Murdock',
     rate: 4
   }
+
+  articleInfo = {
+    title: 'Preventing damage to tooth enamel',
+    date: 'August 2018'
+  }
     
   constructor() { }
 
