@@ -31,6 +31,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { FeedCardComponent } from './feed-card/feed-card.component';
+import { FooterActionsComponent } from './footer-actions/footer-actions.component';
 
 const PIPES = [
   TruncatePipe
@@ -40,7 +41,8 @@ export const COMPONENTS = [
   SidebarComponent,
   ToolbarComponent,
   AlertDialogComponent,
-  FeedCardComponent
+  FeedCardComponent,
+  FooterActionsComponent
 ];
 
 export const MODULES = [

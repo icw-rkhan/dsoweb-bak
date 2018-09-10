@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
       <mat-sidenav #sidenav mode="push">
         <dso-sidebar></dso-sidebar>
       </mat-sidenav>
-      <mat-sidenav-content>
+      <mat-sidenav-content class="sidenav-content">
         <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
         <ng-progress></ng-progress>
         <div class="main-container">
@@ -25,8 +25,15 @@ import { Router } from '@angular/router';
       left: 0;
       right: 0;
     }
+    .sidenav-content {
+      display: flex;
+      flex-direction: column;
+    }
     .main-container {
       background: white;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
     }
   `]
 })

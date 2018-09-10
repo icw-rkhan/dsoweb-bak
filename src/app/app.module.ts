@@ -12,6 +12,7 @@ import { AppRoutingModule } from './app.routing';
 import { ExampleModule } from './containers/example/example.module';
 import { ApiInterceptor } from './interceptors/api.interceptor';
 import { FeedModule } from './containers/feed/feed.module';
+import { SearchPageModule } from './containers/search/search-page.module';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { FeedModule } from './containers/feed/feed.module';
     SharedModule,
     ExampleModule,
     FeedModule,
+    SearchPageModule,
     AppRoutingModule,
   ],
   providers: [

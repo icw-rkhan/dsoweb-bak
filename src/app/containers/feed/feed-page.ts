@@ -9,7 +9,6 @@ import { NavLinkModel } from '../../models/nav-link.model';
 export class FeedPageComponent implements OnInit {
 
   navLinks: NavLinkModel[] = [];
-  navFooterLinks: NavLinkModel[] = [];
 
   ngOnInit(): void {
     this.navLinks.push({
@@ -43,32 +42,6 @@ export class FeedPageComponent implements OnInit {
     this.navLinks.push({
       label: 'TIP SHEETS',
       route: '/feed/tip-sheets',
-    });
-    // Footer links
-    this.navFooterLinks.push({
-      label: 'For You',
-      route: '/feed/tip-sheets',
-      icon: 'receipt'
-    });
-    this.navFooterLinks.push({
-      label: 'Search',
-      route: '/feed/tip-sheets',
-      icon: 'search'
-    });
-    this.navFooterLinks.push({
-      label: 'Category',
-      route: '/feed/tip-sheets',
-      icon: 'view_list'
-    });
-    this.navFooterLinks.push({
-      label: 'Bookmarks',
-      route: '/feed/tip-sheets',
-      icon: 'bookmarks'
-    });
-    this.navFooterLinks.push({
-      label: 'Download',
-      route: '/feed/tip-sheets',
-      icon: 'cloud_download'
     });
   }
 
