@@ -13,6 +13,7 @@ import { ExampleModule } from './containers/example/example.module';
 import { ApiInterceptor } from './interceptors/api.interceptor';
 import { FeedModule } from './containers/feed/feed.module';
 import { SearchPageModule } from './containers/search/search-page.module';
+import { CategoryPageModule } from './containers/category/category-page.module';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { SearchPageModule } from './containers/search/search-page.module';
     ExampleModule,
     FeedModule,
     SearchPageModule,
+    CategoryPageModule,
     AppRoutingModule,
   ],
   providers: [

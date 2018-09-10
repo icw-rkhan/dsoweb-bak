@@ -14,20 +14,10 @@
   display: flex;
   background-color: #FAFAFA;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
 
-  button {
-    margin-left: 10px;
-  }
-
-  ::ng-deep mat-form-field {
-    flex: 1;
-    .mat-form-field-wrapper {
-      padding-bottom: 0 !important;
-      .mat-form-field-flex {
-        background-color: white;
-      }
-    }
-  }
+mat-form-field {
+  flex: 1;
 }
 
 .search-result {

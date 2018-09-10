@@ -1,0 +1,18 @@
+<div class="search">
+  <div class="search-form">
+    <mat-form-field>
+      <mat-select placeholder="Category">
+        <mat-option *ngFor="let category of categories" [value]="category.id">
+          {{category.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div class="search-result">
+    <div class="no-content">
+      <mat-icon class="icon-search">search</mat-icon>
+      <h2 class="mat-h2">Search by category name</h2>
+    </div>
+  </div>
+  <dso-footer-actions></dso-footer-actions>
+</div>

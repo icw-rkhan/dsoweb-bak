@@ -25,7 +25,7 @@ export class FooterActionsComponent implements OnInit {
     });
     this.navFooterLinks.push({
       label: 'Category',
-      route: '/feed/tip-sheets',
+      route: '/category',
       icon: 'view_list'
     });
     this.navFooterLinks.push({
