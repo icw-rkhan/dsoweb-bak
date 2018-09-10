@@ -10,7 +10,7 @@ body {
 .logoBox {
   padding-top: 50px; }
   .logoBox .logo {
-    background: url("../assets/images/logo.png") no-repeat;
+    background: url("../images/logo.png") no-repeat;
     background-size: contain;
     width: 260px;
     height: 50px;
@@ -60,21 +60,21 @@ table {
 
 @font-face {
   font-family: "sfRegular";
-  src: url("../assets/fonts/SF-Regular/SFProDisplay-Regular.eot");
+  src: url("../fonts/SF-Regular/SFProDisplay-Regular.eot");
   /* IE9 Compat Modes */
-  src: url("../assets/fonts/SF-Regular/SFProDisplay-Regular.woff2") format("woff2"), url("../assets/fonts/SF-Regular/SFProDisplay-Regular.woff") format("woff"), url("../assets/fonts/SF-Regular/SFProDisplay-Regular.ttf") format("truetype"); }
+  src: url("../fonts/SF-Regular/SFProDisplay-Regular.woff2") format("woff2"), url("../fonts/SF-Regular/SFProDisplay-Regular.woff") format("woff"), url("../fonts/SF-Regular/SFProDisplay-Regular.ttf") format("truetype"); }
 
 @font-face {
   font-family: "sfSemiBold";
-  src: url("../assets/fonts/SF-Semibold/SFProDisplay-Semibold.eot");
+  src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.eot");
   /* IE9 Compat Modes */
-  src: url("../assets/fonts/SF-Semibold/SFProDisplay-Semibold.woff2") format("woff2"), url("../assets/fonts/SF-Semibold/SFProDisplay-Semibold.woff") format("woff"), url("../assets/fonts/SF-Semibold/SFProDisplay-Semibold.ttf") format("truetype"); }
+  src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff2") format("woff2"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff") format("woff"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.ttf") format("truetype"); }
 
 @font-face {
   font-family: "sfBold";
-  src: url("../assets/fonts/SF-Bold/SFProDisplay-Bold.eot");
+  src: url("../fonts/SF-Bold/SFProDisplay-Bold.eot");
   /* IE9 Compat Modes */
-  src: url("../assets/fonts/SF-Bold/SFProDisplay-Bold.woff2") format("woff2"), url("../assets/fonts/SF-Bold/SFProDisplay-Bold.woff") format("woff"), url("../assets/fonts/SF-Bold/SFProDisplay-Bold.ttf") format("truetype"); }
+  src: url("../fonts/SF-Bold/SFProDisplay-Bold.woff2") format("woff2"), url("../fonts/SF-Bold/SFProDisplay-Bold.woff") format("woff"), url("../fonts/SF-Bold/SFProDisplay-Bold.ttf") format("truetype"); }
 
 body {
   margin: auto;
@@ -139,7 +139,7 @@ a {
       content: '';
       width: 40px;
       height: 40px;
-      background-image: url("../assets/images/icon-linkedin.png");
+      background-image: url("../images/icon-linkedin.png");
       background-position: center;
       background-repeat: no-repeat;
       position: absolute;
@@ -161,7 +161,7 @@ a {
   .main-nav-icon {
     width: 23px;
     height: 16px;
-    background-image: url("../assets/images/nav-icon.png");
+    background-image: url("../images/nav-icon.png");
     background-repeat: no-repeat; }
   .main-nav-wrap-icon {
     width: 23px;
@@ -169,7 +169,7 @@ a {
   .main-nav-icon-back {
     width: 23px;
     height: 16px;
-    background-image: url("../assets/images/icon-back.png");
+    background-image: url("../images/icon-back.png");
     background-repeat: no-repeat; }
 
 .form {
@@ -198,7 +198,7 @@ a {
       content: '';
       width: 20px;
       height: 20px;
-      background-image: url("../assets/images/info-icon.png");
+      background-image: url("../images/info-icon.png");
       background-repeat: no-repeat;
       background-position: center;
       position: absolute;
@@ -232,7 +232,7 @@ a {
     padding: 13px; }
 
 .login {
-  background-image: url("../assets/images/bg-1.png");
+  background-image: url("../images/bg-1.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
   height: 100vh;

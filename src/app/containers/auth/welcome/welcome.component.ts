@@ -22,8 +22,8 @@ export class WelcomeComponent implements OnInit {
     this.checkIsStudent = true;
   }
 
-  redirect(student: number) {
+  redirect(is_student: number) {
     const url = this.signup ? ['/auth', 'register'] : ['/auth', 'login'];
-    this.router.navigate(url, { queryParams: { student: student } });
+    this.router.navigate(url, { queryParams: { is_student: is_student } });
   }
 }

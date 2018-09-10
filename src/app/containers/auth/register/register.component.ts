@@ -6,10 +6,10 @@ import { CustomValidators } from 'ngx-custom-validators';
 import { ApiService } from '../../../services/api/api.service';
 
 @Component({
-  selector: 'dso-login',
-  templateUrl: './login.component.html'
+  selector: 'dso-register',
+  templateUrl: './register.component.html'
 })
-export class LoginComponent implements OnInit {
+export class RegisterComponent implements OnInit {
 
   isShowPassword: boolean;
   is_student: any;
@@ -17,8 +17,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private fb: FormBuilder,
-    private api: ApiService
+    private api: ApiService,
+    private fb: FormBuilder
   ) {
     this.isShowPassword = false;
   }
@@ -36,6 +36,10 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
+      full_name: ['', Validators.compose([
+        Validators.required
+      ])],
+      is_student: [this.is_student],
       username: ['', Validators.compose([
         Validators.required,
         CustomValidators.email
@@ -47,9 +51,10 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.api.post(['userAccount', 'login'], this.form.value).subscribe(
+    console.log(this.form.value);
+    this.api.post(['userAccount', 'register'], this.form.value).subscribe(
       (data: any) => {
-        console.log(data);
+
       }, (error: any) => {
         //
       }, () => {

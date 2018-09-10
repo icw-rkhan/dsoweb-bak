@@ -8,7 +8,7 @@ export const ROUTES: Routes = [
   ...authRoutes,
   {
     path: '',
-    redirectTo: '/example',
+    redirectTo: '/auth/welcome',
     pathMatch: 'full'
   },
   {

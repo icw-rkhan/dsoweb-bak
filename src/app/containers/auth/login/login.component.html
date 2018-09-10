@@ -15,24 +15,32 @@
     <div class="login-content">
       <div class="container">
         <h2 class="form-title">Log In</h2>
-        <div class="form-group">
-          <input class="form-control" type="text" placeholder="{{ student ? 'School Email address' : 'Email address' }}" />
-        </div>
-        <div class="form-group withActionRight">
-          <input class="form-control" type="password" placeholder="Password" />
-          <button class="action">Show</button>
-        </div>
+        <form [formGroup]="form">
+          <div class="form-group">
+            <input formControlName="username" class="form-control" type="text" placeholder="{{ is_student ? 'School Email address' : 'Email address' }}" />
+          </div>
+          <div class="form-group withActionRight">
+            <input *ngIf="isShowPassword; else hidePassword" formControlName="password" class="form-control" type="text" placeholder="Password" />
+            <ng-template #hidePassword>
+              <input formControlName="password" class="form-control" type="password" placeholder="Password" />
+            </ng-template>
+            <a (click)="isShowPassword = !isShowPassword" class="action">Show</a>
+          </div>
+        </form>
         <div class="form-btn">
           <a href="javascript:void(0);"><p>Forgot password</p></a>
         </div>
         <div class="loginActions">
-          <input class="btn btn-primary btn-full margin-10" type="button" value="Log In" />
-          <div *ngIf="!student" class="btn btn-linkedin-icon btn-full">
+          <button [disabled]="!form.valid"
+                  (click)="submit()"
+                  class="btn btn-primary btn-full margin-10"
+                  type="button">Log In</button>
+          <div *ngIf="!is_student" class="btn btn-linkedin-icon btn-full">
             <input class="btn btn-linkedin btn-full" type="button" value="Log in using LinkedIn" />
           </div>
         </div>
         <div class="textCenter">
-          <a class="link underline">Create an account</a>
+          <a [routerLink]="['/auth', 'register']" [queryParams]="{ is_student: is_student }" class="link underline">Create an account</a>
         </div>
       </div>
     </div>

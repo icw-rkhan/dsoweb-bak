@@ -4,6 +4,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { catchError, tap } from 'rxjs/operators';
 
 import { AppConfig } from '../app.config';
+import { AuthService } from '../services/auth/auth.service';
 
 const PREFIX_API = '@api/';
 const SESSION_EXPIRED_STATUS_CODES = [401, 403, 407];
@@ -11,7 +12,10 @@ const SESSION_EXPIRED_STATUS_CODES = [401, 403, 407];
 @Injectable()
 export class ApiInterceptor implements HttpInterceptor {
 
-  constructor(private appConfig: AppConfig) {
+  constructor(
+    private appConfig: AppConfig,
+    private authService: AuthService
+  ) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -26,7 +30,12 @@ export class ApiInterceptor implements HttpInterceptor {
         'Authorization': token
       } : {};
       */
-      const setHeaders = {};
+      const token = this.authService.getToken();
+
+      const setHeaders = token ? {
+        'Authorization': token,
+        'Content-Type':  'application/json'
+      } : {};
 
       request = request.clone({url, setHeaders});
     }
