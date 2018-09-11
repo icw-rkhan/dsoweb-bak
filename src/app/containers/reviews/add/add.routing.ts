@@ -5,6 +5,5 @@ export const addRoutes: Routes = [
     {
         path:'add',
         loadChildren: () => AddModule
-        
     }
 ];
