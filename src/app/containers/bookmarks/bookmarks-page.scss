@@ -44,7 +44,6 @@ h3 {
 
 .item {
   flex-basis: 50%;
-
   @include tablet {
     flex-basis: 100%;
   }

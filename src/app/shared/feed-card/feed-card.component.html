@@ -1,17 +1,18 @@
 <mat-card>
   <div class="header">
-    <h3 class="mat-h3">ORTHODONTICS</h3>
+    <h3 class="mat-h3">{{post.category.name}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <div class="image" *ngIf="post.thumbnail">
     <img [src]="post.thumbnail">
     <button mat-mini-fab color="primary">
-      <mat-icon *ngIf="type === 'video'">videocam</mat-icon>
-      <mat-icon *ngIf="type === 'podcast'">settings_voice</mat-icon>
-      <mat-icon *ngIf="type === 'animation'">toll</mat-icon>
-      <mat-icon *ngIf="type === 'article'">description</mat-icon>
-      <mat-icon *ngIf="type === 'interview'">forum</mat-icon>
-      <mat-icon *ngIf="type === 'tech-guides'">business_center</mat-icon>
+      <mat-icon *ngIf="post.format === 'video'">videocam</mat-icon>
+      <mat-icon *ngIf="post.format === 'podcast'">settings_voice</mat-icon>
+      <mat-icon *ngIf="post.format === 'animation'">toll</mat-icon>
+      <mat-icon *ngIf="post.format === 'article'">description</mat-icon>
+      <mat-icon *ngIf="post.format === 'interview'">forum</mat-icon>
+      <mat-icon *ngIf="post.format === 'tech-guides'">business_center</mat-icon>
+      <mat-icon *ngIf="post.format === 'image'">image</mat-icon>
     </button>
   </div>
   <mat-card-content class="content">
@@ -28,7 +29,9 @@
         </button>
       </div>
     </div>
-    <div class="mat-body-1" [innerHtml]="post.excerpt">
+    <div class="mat-body-1" [innerHtml]="post.content" *ngIf="post.format === 'image'">
+    </div>
+    <div class="mat-body-1" [innerHtml]="post.excerpt" *ngIf="post.format !== 'image'">
     </div>
   </mat-card-content>
 </mat-card>

@@ -9,6 +9,7 @@ import {
   MatDatepickerModule,
   MatDialogModule,
   MatFormFieldModule,
+  MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
@@ -72,6 +73,7 @@ export const MODULES = [
   MatCardModule,
   MatTableModule,
   MatTabsModule,
+  MatGridListModule,
   CustomFormsModule,
 ];
 

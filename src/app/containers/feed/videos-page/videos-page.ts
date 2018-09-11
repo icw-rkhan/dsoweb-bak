@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   templateUrl: './videos-page.html',
-  styleUrls: ['./videos-page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./videos-page.scss']
 })
 export class VideosPageComponent implements OnInit {
 

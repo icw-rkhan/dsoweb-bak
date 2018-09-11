@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../../services/post.service';
 import { Observable } from 'rxjs';
 
@@ -6,8 +6,7 @@ import { Post } from '../../../models/post.model';
 
 @Component({
   templateUrl: './latest-page.html',
-  styleUrls: ['./latest-page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./latest-page.scss']
 })
 export class LatestPageComponent implements OnInit {
 

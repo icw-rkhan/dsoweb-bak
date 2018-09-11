@@ -2,7 +2,7 @@
   <div class="search-form">
     <mat-form-field>
       <mat-select placeholder="Category">
-        <mat-option *ngFor="let category of categories" [value]="category.id">
+        <mat-option *ngFor="let category of (categories$ | async)" [value]="category.id">
           {{category.name}}
         </mat-option>
       </mat-select>
