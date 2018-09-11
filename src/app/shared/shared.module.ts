@@ -33,6 +33,7 @@ import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.compon
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { FeedCardComponent } from './feed-card/feed-card.component';
 import { FooterActionsComponent } from './footer-actions/footer-actions.component';
+import { NgxMasonryModule } from 'ngx-masonry';
 
 const PIPES = [
   TruncatePipe
@@ -75,6 +76,7 @@ export const MODULES = [
   MatTabsModule,
   MatGridListModule,
   CustomFormsModule,
+  NgxMasonryModule,
 ];
 
 @NgModule({

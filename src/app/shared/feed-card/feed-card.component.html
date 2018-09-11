@@ -1,25 +1,26 @@
 <mat-card>
   <div class="header">
-    <h3 class="mat-h3">{{post.category.name}}</h3>
+    <img class="icon-type" src="/src/assets/images/TipSheet@2x.png" *ngIf="post.format === 'image'">
+    <img class="icon-type" src="/src/assets/images/Video@2x.png" *ngIf="post.format === 'video'">
+    <img class="icon-type" src="/src/assets/images/Article@2x.png" *ngIf="post.format === 'standard'">
+    <h3 class="mat-h3">{{post.category.name}} - {{post.format}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
-  <div class="image" *ngIf="post.thumbnail">
-    <img [src]="post.thumbnail">
-    <button mat-mini-fab color="primary">
-      <mat-icon *ngIf="post.format === 'video'">videocam</mat-icon>
-      <mat-icon *ngIf="post.format === 'podcast'">settings_voice</mat-icon>
-      <mat-icon *ngIf="post.format === 'animation'">toll</mat-icon>
-      <mat-icon *ngIf="post.format === 'article'">description</mat-icon>
-      <mat-icon *ngIf="post.format === 'interview'">forum</mat-icon>
-      <mat-icon *ngIf="post.format === 'tech-guides'">business_center</mat-icon>
-      <mat-icon *ngIf="post.format === 'image'">image</mat-icon>
-    </button>
-  </div>
+  <!--<div class="image">-->
+  <!--<img [src]="post.thumbnail">-->
+  <!--<button mat-mini-fab color="primary">-->
+  <!--<mat-icon *ngIf="post.format === 'video'">videocam</mat-icon>-->
+  <!--<mat-icon *ngIf="post.format === 'podcast'">settings_voice</mat-icon>-->
+  <!--<mat-icon *ngIf="post.format === 'animation'">toll</mat-icon>-->
+  <!--<mat-icon *ngIf="post.format === 'article'">description</mat-icon>-->
+  <!--<mat-icon *ngIf="post.format === 'interview'">forum</mat-icon>-->
+  <!--<mat-icon *ngIf="post.format === 'tech-guides'">business_center</mat-icon>-->
+  <!--<mat-icon *ngIf="post.format === 'image'">image</mat-icon>-->
+  <!--</button>-->
+  <!--</div>-->
   <mat-card-content class="content">
     <div class="content-title">
-      <h2 class="mat-h2">
-        {{post.title}}
-      </h2>
+      <h2 class="mat-h2">{{post.title}}</h2>
       <div class="actions">
         <button mat-icon-button>
           <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
@@ -29,9 +30,7 @@
         </button>
       </div>
     </div>
-    <div class="mat-body-1" [innerHtml]="post.content" *ngIf="post.format === 'image'">
-    </div>
-    <div class="mat-body-1" [innerHtml]="post.excerpt" *ngIf="post.format !== 'image'">
+    <div class="inner-content mat-body-1" [innerHtml]="post.content">
     </div>
   </mat-card-content>
 </mat-card>
