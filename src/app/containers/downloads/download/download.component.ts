@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'dso-downloads-download',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DownloadComponent implements OnInit {
 
-  constructor() { }
+  constructor(public breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() 
   {
+    this.breakpointObserver.observe([
+      Breakpoints.HandsetLandscape
+    ]).subscribe(result=> {
+      if(result.matches) {
+        document.getElementById('message').style.marginTop = "50px";
+      }else {
+        document.getElementById('message').style.marginTop = "124px";
+      }
+    })
   }
 }
