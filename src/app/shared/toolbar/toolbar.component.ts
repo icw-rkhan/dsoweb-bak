@@ -17,14 +17,26 @@ export class ToolbarComponent {
     router.events.subscribe((event: Event)=> {
       if(event instanceof NavigationEnd) {
         if(event.url == '/dsodentist') {
+
           this.setTitle('DSODENTIST');
           this.setBtnCategory('menu');
+
         }else if(event.url == '/reviews/add') {
+
           this.setTitle('ADD A REVIEW');
           this.setBtnCategory('keyboard_backspace');
+
         }else if(event.url == '/reviews/view') {
+
           this.setTitle('ALL REVIEWS');
           this.setBtnCategory('keyboard_backspace'); 
+
+        }else if(event.url == '/downloads/download' ||
+         event.url == '/downloads/filter' || 
+         event.url == '/downloads/manage') {
+           
+          this.setTitle('DOWNLOADS');
+          this.setBtnCategory('menu'); 
         }
       }
     })
