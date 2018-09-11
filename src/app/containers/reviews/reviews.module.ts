@@ -5,13 +5,15 @@ import { SharedModule } from '../../shared';
 import { ReviewsComponent } from './reviews.component';
 
 import { addRoutes } from './add/add.routing';
+import { viewRoutes } from './view/view.routing';
 
 const routes: Routes = [
     {
         path: '',
         component: ReviewsComponent,
         children: [
-            ...addRoutes
+            ...addRoutes,
+            ...viewRoutes
         ]
     }
 ];

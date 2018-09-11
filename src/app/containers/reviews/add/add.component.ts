@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'dso-add',
+  selector: 'dso-reviews-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
@@ -23,5 +23,6 @@ export class AddComponent implements OnInit {
 
   ngOnInit() 
   {
+    
   }
 }

@@ -22,9 +22,9 @@ export class ToolbarComponent {
         }else if(event.url == '/reviews/add') {
           this.setTitle('ADD A REVIEW');
           this.setBtnCategory('keyboard_backspace');
-        }else if(event.url == '/downloads') {
-          this.setTitle('DOWNLOADS');
-          this.setBtnCategory('menu'); 
+        }else if(event.url == '/reviews/view') {
+          this.setTitle('ALL REVIEWS');
+          this.setBtnCategory('keyboard_backspace'); 
         }
       }
     })
