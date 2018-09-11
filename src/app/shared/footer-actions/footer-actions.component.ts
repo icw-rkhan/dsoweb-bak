@@ -30,7 +30,7 @@ export class FooterActionsComponent implements OnInit {
     });
     this.navFooterLinks.push({
       label: 'Bookmarks',
-      route: '/feed/tip-sheets',
+      route: '/bookmarks',
       icon: 'bookmarks'
     });
     this.navFooterLinks.push({

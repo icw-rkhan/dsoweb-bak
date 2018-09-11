@@ -14,6 +14,7 @@ import { ApiInterceptor } from './interceptors/api.interceptor';
 import { FeedModule } from './containers/feed/feed.module';
 import { SearchPageModule } from './containers/search/search-page.module';
 import { CategoryPageModule } from './containers/category/category-page.module';
+import { BookmarksPageModule } from './containers/bookmarks/bookmarks-page.module';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CategoryPageModule } from './containers/category/category-page.module';
     FeedModule,
     SearchPageModule,
     CategoryPageModule,
+    BookmarksPageModule,
     AppRoutingModule,
   ],
   providers: [

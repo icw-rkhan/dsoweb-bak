@@ -1,10 +1,10 @@
 <mat-card>
   <div class="header">
     <h3 class="mat-h3">ORTHODONTICS</h3>
-    <span class="mat-body-2">May 16, 2018</span>
+    <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
-  <div class="image">
-    <img src="https://material.angular.io/assets/img/examples/shiba2.jpg">
+  <div class="image" *ngIf="post.thumbnail">
+    <img [src]="post.thumbnail">
     <button mat-mini-fab color="primary">
       <mat-icon *ngIf="type === 'video'">videocam</mat-icon>
       <mat-icon *ngIf="type === 'podcast'">settings_voice</mat-icon>
@@ -17,7 +17,7 @@
   <mat-card-content class="content">
     <div class="content-title">
       <h2 class="mat-h2">
-        Village did removed enjoyed explain nor ham saw calling talking
+        {{post.title}}
       </h2>
       <div class="actions">
         <button mat-icon-button>
@@ -28,8 +28,7 @@
         </button>
       </div>
     </div>
-    <div class="mat-body-1">
-      Village did removed enjoyed explain nor ham saw calling talking. Securing as informed declared or margaret. Joy horrible moreover man feelings own shy. Request norland neither mistake for yet. Between the for morning assured country believe. On even feet time have an no at. Relation so in confined smallest children unpacked delicate. Why sir end believe uncivil respect. Always get adieus nature day course for common. My little garret repair to desire he esteem.
+    <div class="mat-body-1" [innerHtml]="post.excerpt">
     </div>
   </mat-card-content>
 </mat-card>

@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'http://52.35.67.85/profileservice/v1'
+  apiUrl: 'http://137.135.101.58/wp-json/wp/v2'
 };

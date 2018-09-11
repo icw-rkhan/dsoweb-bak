@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'dso-feed-card',
@@ -9,6 +10,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 export class FeedCardComponent implements OnInit {
 
   @Input() type: string;
+  @Input() post: Post;
 
   ngOnInit(): void {
   }

@@ -1,32 +1,32 @@
 <div class="feed">
-  <div class="item">
+  <div class="item" *ngFor="let post of (posts | async)">
     <div class="card">
-      <dso-feed-card [type]="'video'"></dso-feed-card>
+      <dso-feed-card [type]="'video'" [post]="post"></dso-feed-card>
     </div>
   </div>
-  <div class="item">
-    <div class="card">
-      <dso-feed-card [type]="'podcast'"></dso-feed-card>
-    </div>
-  </div>
-  <div class="item">
-    <div class="card">
-      <dso-feed-card [type]="'animation'"></dso-feed-card>
-    </div>
-  </div>
-  <div class="item">
-    <div class="card">
-      <dso-feed-card [type]="'article'"></dso-feed-card>
-    </div>
-  </div>
-  <div class="item">
-    <div class="card">
-      <dso-feed-card [type]="'interview'"></dso-feed-card>
-    </div>
-  </div>
-  <div class="item">
-    <div class="card">
-      <dso-feed-card [type]="'tech-guides'"></dso-feed-card>
-    </div>
-  </div>
+  <!--<div class="item">-->
+  <!--<div class="card">-->
+  <!--<dso-feed-card [type]="'podcast'"></dso-feed-card>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="item">-->
+  <!--<div class="card">-->
+  <!--<dso-feed-card [type]="'animation'"></dso-feed-card>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="item">-->
+  <!--<div class="card">-->
+  <!--<dso-feed-card [type]="'article'"></dso-feed-card>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="item">-->
+  <!--<div class="card">-->
+  <!--<dso-feed-card [type]="'interview'"></dso-feed-card>-->
+  <!--</div>-->
+  <!--</div>-->
+  <!--<div class="item">-->
+  <!--<div class="card">-->
+  <!--<dso-feed-card [type]="'tech-guides'"></dso-feed-card>-->
+  <!--</div>-->
+  <!--</div>-->
 </div>
