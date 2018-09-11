@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'dso-reviews-add',
@@ -19,10 +20,22 @@ export class AddComponent implements OnInit {
     date: 'August 2018'
   }
     
-  constructor() { }
+  constructor(public breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() 
   {
+    this.breakpointObserver.observe([
+      Breakpoints.HandsetLandscape
+    ]).subscribe(result=> {
+      if(result.matches) {
+        document.getElementById('contents').style.height = "36.5vh";
+      }else {
+        document.getElementById('contents').style.height = "calc(100vh - 422px)";
+      }
+    })    
+  }
+
+  activateHandsetLayout() {
     
   }
 }

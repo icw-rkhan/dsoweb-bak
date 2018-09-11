@@ -5,6 +5,7 @@ import { NgProgressModule } from '@ngx-progressbar/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { SharedModule } from './shared';
 import { AppComponent } from './app.component';
@@ -23,6 +24,7 @@ import { ApiInterceptor } from './interceptors/api.interceptor';
     ReactiveFormsModule,
     NgProgressModule.forRoot(),
     NgProgressHttpModule,
+    LayoutModule,
     // Module import
     SharedModule,
     AppRoutingModule,
