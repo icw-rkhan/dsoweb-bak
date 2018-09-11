@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 @Component({
   selector: 'dso-reviews-view',
@@ -26,9 +27,15 @@ export class ViewComponent implements OnInit {
     },
   ]  
 
-  constructor() { }
+  constructor(public breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() 
   {
+    this.breakpointObserver.observe([
+      Breakpoints.HandsetLandscape
+    ]).subscribe(result=> {
+      if(result.matches) {
+      }
+    })  
   }
 }

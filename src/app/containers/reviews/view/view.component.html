@@ -1,5 +1,5 @@
 <div fxLayout = "column">
-    <mat-card id = "myMatcard" fxLayout="row" fxLayoutAlign="start top" *ngFor="let userInfo of userInfoList">
+    <mat-card fxLayout="row" fxLayoutAlign="start top" *ngFor="let userInfo of userInfoList">
         <img class="mat-card-avatar" mat-card-avatar src="{{userInfo.url}}">
         <mat-card-content>
             <div fxLayoutAlign="row">

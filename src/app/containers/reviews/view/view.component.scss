@@ -1,9 +1,5 @@
-div {
-    padding: 1px 0px;
-}
-
 mat-card {
-    min-height: 110px;
+    min-height: 90px;
     margin-left: 18px;
     padding: 16px 18px;
     padding-left: 0px;
@@ -25,13 +21,14 @@ mat-card {
     color: #2c2605;
     font-size: 13px;
     font-weight: 600;   
+    padding: 0px;
 }
 
 .review-date {
     color: #9b9b9b;
     font-size: 13px;
     font-weight: 400;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 
 .review-content {
@@ -41,6 +38,7 @@ mat-card {
 }
 
 .statebar {
+    height: 20px;
     margin-left: 5px;
 
     .state-star {

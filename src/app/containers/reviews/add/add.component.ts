@@ -30,7 +30,7 @@ export class AddComponent implements OnInit {
       if(result.matches) {
         document.getElementById('contents').style.height = "36.5vh";
       }else {
-        document.getElementById('contents').style.height = "calc(100vh - 422px)";
+        document.getElementById('contents').style.height = "calc(100vh - 411px)";
       }
     })    
   }

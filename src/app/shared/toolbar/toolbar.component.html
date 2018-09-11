@@ -1,11 +1,8 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <button mat-icon-button (click)="onClickEvent()">
-      <mat-icon>{{getBtnCategory()}}</mat-icon>
-    </button>
-    <span>{{getTitle()}}</span>
-    <span class="spacer"></span>
-    <button mat-icon-button>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div>
+  <button mat-icon-button (click)="onClickEvent()">
+    <mat-icon>{{getBtnCategory()}}</mat-icon>
+  </button>
+  <p class="title">{{getTitle()}}</p>
+</div>
+    
+

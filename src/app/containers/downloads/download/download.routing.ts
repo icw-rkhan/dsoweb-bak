@@ -5,5 +5,6 @@ export const downloadRoutes: Routes = [
     {
         path:'download',
         loadChildren: () => DownloadModule
+        
     }
 ];
