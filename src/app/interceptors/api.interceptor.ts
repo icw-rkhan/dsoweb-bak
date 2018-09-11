@@ -54,8 +54,12 @@ export class ApiInterceptor implements HttpInterceptor {
 
   private handleError(error: any): Observable<HttpEvent<any>> {
     const isAuthError = this.handleAuthError(error);
-
-    return !isAuthError ? throwError(error) : <Observable<HttpEvent<any>>>of({});
+    const body = {
+      status: error.status,
+      error: error.error
+    };
+    // return !isAuthError ? throwError(error) : <Observable<HttpEvent<any>>>of({});
+    return throwError(body);
   }
 
   private handleAuthError(response: any) {

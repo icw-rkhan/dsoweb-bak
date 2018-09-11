@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { RequestOptionsArgs, RequestOptions } from '@angular/http';
-import { Observable, of } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { environment } from '../../../environments/environment';
-
 
 const apiUrl = environment.apiUrl;
 
@@ -20,30 +19,31 @@ export class ApiService {
 
   public get(uri: Array<any> | any, options?: RequestOptionsArgs): Observable<any> {
     const [url, moreOptions] = this._constructRequest(uri, options);
-    return this.http.get(url).pipe(
-      map(this.extractData),
-      catchError(this.handleError())
-    );
+    const request = this.http.get(url);
+    return this._connect(request);
   }
 
   public post(uri: Array<any> | any, body: any, options?: RequestOptionsArgs): Observable<any> {
     const [url, moreOptions] = this._constructRequest(uri, options);
-    return this.http.post(url, body, moreOptions).pipe(
-      catchError(this.handleError())
-    );
+    const request = this.http.post(url, body, moreOptions);
+    return this._connect(request);
   }
 
   public put(uri: Array<any> | any, body: any, options?: RequestOptionsArgs): Observable<any> {
     const [url, moreOptions] = this._constructRequest(uri, options);
-    return this.http.put(url, body, moreOptions).pipe(
-      catchError(this.handleError())
-    );
+    const request = this.http.put(url, body, moreOptions);
+    return this._connect(request);
   }
 
   public delete(uri: Array<any> | any, options?: RequestOptionsArgs): Observable<any> {
     const [url, moreOptions] = this._constructRequest(uri, options);
-    return this.http.delete(url, moreOptions).pipe(
-      catchError(this.handleError())
+    const request = this.http.delete(url, moreOptions);
+    return this._connect(request);
+  }
+
+  private _connect(request: any) {
+    return request.pipe(
+      map(this.extractData)
     );
   }
 
@@ -59,14 +59,5 @@ export class ApiService {
       options = options.merge(moreOptions);
     }
     return [url, options];
-  }
-
-  private handleError (operation = 'operation', result?: any) {
-    return (error: any): Observable<any> => {
-      console.error(error); // log to console instead
-      console.log(`${operation} failed: ${error.message}`);
-      // Let the app keep running by returning an empty result.
-      return of(result);
-    };
   }
 }
