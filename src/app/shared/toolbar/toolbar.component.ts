@@ -31,12 +31,6 @@ export class ToolbarComponent {
           this.setTitle('ALL REVIEWS');
           this.setBtnCategory('keyboard_backspace'); 
 
-        }else if(event.url == '/downloads/download' ||
-         event.url == '/downloads/filter' || 
-         event.url == '/downloads/manage') {
-           
-          this.setTitle('DOWNLOADS');
-          this.setBtnCategory('menu'); 
         }
       }
     })
