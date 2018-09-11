@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'app-add-review',
-  templateUrl: './add-review.component.html',
-  styleUrls: ['./add-review.component.scss']
+  selector: 'dso-add',
+  templateUrl: './add.component.html',
+  styleUrls: ['./add.component.scss']
 })
-export class AddReviewComponent implements OnInit {
+export class AddComponent implements OnInit {
 
   stateList = [{state:'nonactive'},{state:'nonactive'},{state:'nonactive'},{state:'nonactive'},{state:'nonactive'}]
   userInfo = {

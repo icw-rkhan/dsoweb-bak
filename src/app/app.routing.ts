@@ -1,17 +1,19 @@
 import { RouterModule, Routes } from '@angular/router';
 
 import { NgModule } from '@angular/core';
-import { AddReviewComponent } from './containers/add-review/add-review.component';
+
+import { reviewsRoutes } from './containers/reviews/reviews.routing';
 
 export const ROUTES: Routes = [
+  ...reviewsRoutes,
   {
     path: '',
     redirectTo: '/reviews/add',
     pathMatch: 'full'
   },
   {
-    path: 'reviews/add',
-    component: AddReviewComponent
+    path: '**',
+    redirectTo: '/'
   }
 ];
 
