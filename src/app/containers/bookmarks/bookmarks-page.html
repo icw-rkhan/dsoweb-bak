@@ -2,11 +2,16 @@
   <div class="header">
     <span class="mat-body-2">Filter bookmarks</span>
     <button mat-icon-button (click)="openFilter()">
-      <mat-icon>filter_list</mat-icon>
+      <mat-icon class="icon-filter">filter_list</mat-icon>
     </button>
   </div>
   <div class="search-result">
-    <div class="no-content">
+    <div class="item" *ngFor="let i of [1,2,3,4,5]">
+      <div class="card">
+        <dso-bookmark-card></dso-bookmark-card>
+      </div>
+    </div>
+    <div class="no-content" *ngIf="false">
       <img src="/src/assets/images/no-bookmarks.png">
       <h3 class="mat-h3">No bookmarks added yet</h3>
     </div>
