@@ -1,17 +1,1 @@
-<div class="feed" *ngIf="false">
-  <div class="item" *ngFor="let post of (posts | async)">
-    <div class="card">
-      <dso-feed-card [type]="'video'" [post]="post"></dso-feed-card>
-    </div>
-  </div>
-</div>
-
-<ngx-masonry [options]="gridOptions">
-  <ngxMasonryItem *ngFor="let post of (posts | async)">
-    <div class="grid-sizer"></div>
-    <div class="gutter-sizer"></div>
-    <div class="grid-item">
-      <dso-feed-card [type]="'video'" [post]="post"></dso-feed-card>
-    </div>
-  </ngxMasonryItem>
-</ngx-masonry>
+<dso-feed-grid [posts]="posts$ | async"></dso-feed-grid>
