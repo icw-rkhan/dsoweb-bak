@@ -9,8 +9,12 @@
         <p class="login-subTitle">Say hello to a new way to connect!</p>
         <p class="login-detail">Get to meet thousands of other health-care professionals and be one of the first few to change the way we think about dentistry.</p>
         <div class="margin-20">
-          <input (click)="signUpOrLogin(true)" class="btn btn-default btn-full margin-10" type="button" value="Get Started" />
-          <input (click)="signUpOrLogin()" class="btn btn-primary btn-full" type="button" value="Log In" />
+          <button (click)="signUpOrLogin(true)" class="btn btn-default btn-full margin-10" type="button">
+            Get Started
+          </button>
+          <button (click)="signUpOrLogin()" class="btn btn-primary btn-full" type="button">
+            Log In
+          </button>
         </div>
         <!-- <div class="login-toggle">
             <input class="btn btn-toggle" type="button" />
@@ -31,8 +35,12 @@
           <h2 class="login-title">Are you a student?</h2>
           <p class="login-detail">We use this information to show personalized content that is relevant to you.</p>
           <div class="margin-20">
-            <input (click)="redirect(1)" class="btn btn-default btn-full margin-10" type="button" value="Yes" />
-            <input (click)="redirect(0)" class="btn btn-default btn-full" type="button" value="No" />
+            <button (click)="redirect(1)" class="btn btn-default btn-full margin-10" type="button">
+              Yes
+            </button>
+            <button (click)="redirect(0)" class="btn btn-default btn-full" type="button">
+              No
+            </button>
           </div>
         </div>
       </div>
