@@ -33,11 +33,6 @@ export class FooterActionsComponent implements OnInit {
       route: '/bookmarks',
       icon: 'bookmarks'
     });
-    this.navFooterLinks.push({
-      label: 'Download',
-      route: '/feed/tip-sheets',
-      icon: 'cloud_download'
-    });
   }
 
 }
