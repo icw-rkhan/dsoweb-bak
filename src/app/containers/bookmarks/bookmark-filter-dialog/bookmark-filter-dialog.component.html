@@ -1,0 +1,21 @@
+<h2 mat-dialog-title>Filter</h2>
+<mat-dialog-content class="content">
+  <mat-form-field>
+    <mat-select placeholder="Category">
+      <mat-option *ngFor="let category of categories" [value]="category.id">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Content Type">
+      <mat-option *ngFor="let category of categories" [value]="category.id">
+        {{category.name}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Clear All</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true">Update</button>
+</mat-dialog-actions>

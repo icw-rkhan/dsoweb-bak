@@ -1,0 +1,58 @@
+@import "../../../responsive";
+
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.search {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.header {
+  padding: 10px 25px;
+  display: flex;
+  align-items: center;
+  background-color: #FAFAFA;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  span {
+    flex: 1;
+  }
+}
+
+.search-result {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.no-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  flex: 1;
+}
+
+h3 {
+  margin-top: 30px;
+}
+
+.item {
+  flex-basis: 50%;
+  @include tablet {
+    flex-basis: 100%;
+  }
+}
+
+.card {
+  padding: 10px;
+}
+
+.icon-filter {
+  color: #879AA8;
+}

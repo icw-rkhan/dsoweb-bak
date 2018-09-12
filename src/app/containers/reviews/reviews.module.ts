@@ -1,30 +1,26 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { CommonModule} from '@angular/common';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 import { SharedModule } from '../../shared';
+import { ReviewsRoutingModule } from './reviews.routing';
+
 import { ReviewsComponent } from './reviews.component';
-
-import { addRoutes } from './add/add.routing';
-import { viewRoutes } from './view/view.routing';
-
-const routes: Routes = [
-    {
-        path: '',
-        component: ReviewsComponent,
-        children: [
-            ...addRoutes,
-            ...viewRoutes
-        ]
-    }
-];
+import { AddComponent } from './add/add.component';
+import { ViewComponent } from './view/view.component';
+ 
 
 @NgModule({
     imports: [
+        CommonModule,
+        FlexLayoutModule,
         SharedModule,
-        RouterModule.forChild(routes)
+        ReviewsRoutingModule,
     ],
     declarations: [
-        ReviewsComponent
+        ReviewsComponent,
+        AddComponent,
+        ViewComponent
     ],
 })
 

@@ -1,0 +1,50 @@
+:host {
+  display: flex;
+  flex: 1;
+}
+
+.search {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.search-form {
+  padding: 10px 25px;
+  display: flex;
+  background-color: #FAFAFA;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+
+  button {
+    margin-left: 10px;
+  }
+
+  ::ng-deep mat-form-field {
+    flex: 1;
+    .mat-form-field-wrapper {
+      padding-bottom: 0 !important;
+      .mat-form-field-flex {
+        background-color: white;
+      }
+    }
+  }
+}
+
+.search-result {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.no-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+  flex: 1;
+}
+
+h3 {
+  margin-top: 30px;
+}

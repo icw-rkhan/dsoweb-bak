@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { CategoryService } from './services/category.service';
 
 @Component({
   selector: 'dso-root',
@@ -8,10 +8,12 @@ import { Router } from '@angular/router';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private router: Router) {
+  constructor(private categoryService: CategoryService) {
   }
 
   ngOnInit() {
+    // Fetch categories once
+    this.categoryService.fetchCategories();
   }
 
 }

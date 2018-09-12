@@ -2,19 +2,16 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { NgModule } from '@angular/core';
 
-import { reviewsRoutes } from './containers/reviews/reviews.routing';
- 
 export const ROUTES: Routes = [
-  ...reviewsRoutes,
   {
     path: '',
-    redirectTo: '/downloads/download',
+    redirectTo: '/feed',
     pathMatch: 'full'
   },
   {
     path: '**',
     redirectTo: '/'
-  }
+  },
 ];
 
 @NgModule({
