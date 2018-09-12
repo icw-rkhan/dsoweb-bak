@@ -1,12 +1,8 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <button mat-icon-button (click)="onToggleMenu()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <span>DSODentist</span>
-    <span class="spacer"></span>
-    <button mat-icon-button>
-      <mat-icon>exit_to_app</mat-icon>
-    </button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<div>
+  <button mat-icon-button (click)="onClickEvent()">
+    <mat-icon>{{getBtnCategory()}}</mat-icon>
+  </button>
+  <p class="title">{{getTitle()}}</p>
+</div>
+    
+
