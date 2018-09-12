@@ -28,6 +28,7 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { TruncatePipe } from '../pipes/truncate.pipe';
+import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 
 const PIPES = [
   TruncatePipe
@@ -36,7 +37,8 @@ const PIPES = [
 export const COMPONENTS = [
   SidebarComponent,
   ToolbarComponent,
-  AlertDialogComponent
+  AlertDialogComponent,
+  TermPolicyDialogComponent
 ];
 
 export const MODULES = [
@@ -82,6 +84,7 @@ export const MODULES = [
   ],
   entryComponents: [
     AlertDialogComponent,
+    TermPolicyDialogComponent
   ]
 })
 export class SharedModule {

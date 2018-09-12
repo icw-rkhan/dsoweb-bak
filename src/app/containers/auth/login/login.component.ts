@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
   submit() {
     this.api.post(['userAccount', 'login'], this.form.value).subscribe(
       (data: any) => {
-        console.log(data);
+       //
       }, (error: any) => {
         //
       }, () => {

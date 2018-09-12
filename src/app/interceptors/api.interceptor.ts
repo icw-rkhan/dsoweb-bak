@@ -31,9 +31,8 @@ export class ApiInterceptor implements HttpInterceptor {
       } : {};
       */
       const token = this.authService.getToken();
-
       const setHeaders = token ? {
-        'Authorization': token,
+        'authorization': token,
         'Content-Type':  'application/json'
       } : {};
 
@@ -54,12 +53,7 @@ export class ApiInterceptor implements HttpInterceptor {
 
   private handleError(error: any): Observable<HttpEvent<any>> {
     const isAuthError = this.handleAuthError(error);
-    const body = {
-      status: error.status,
-      error: error.error
-    };
-    // return !isAuthError ? throwError(error) : <Observable<HttpEvent<any>>>of({});
-    return throwError(body);
+    return !isAuthError ? throwError(error) : <Observable<HttpEvent<any>>>of({});
   }
 
   private handleAuthError(response: any) {

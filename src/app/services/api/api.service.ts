@@ -7,6 +7,7 @@ import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
 const apiUrl = environment.apiUrl;
+const CLIENT_ID = 'fooClientIdPassword';
 
 @Injectable({
   providedIn: 'root'
@@ -19,19 +20,19 @@ export class ApiService {
 
   public get(uri: Array<any> | any, options?: RequestOptionsArgs): Observable<any> {
     const [url, moreOptions] = this._constructRequest(uri, options);
-    const request = this.http.get(url);
+    const request = this.http.get(url, moreOptions);
     return this._connect(request);
   }
 
   public post(uri: Array<any> | any, body: any, options?: RequestOptionsArgs): Observable<any> {
     const [url, moreOptions] = this._constructRequest(uri, options);
-    const request = this.http.post(url, body, moreOptions);
+    const request = this.http.post(url, Object.assign({}, body, { client_id: CLIENT_ID }), moreOptions);
     return this._connect(request);
   }
 
   public put(uri: Array<any> | any, body: any, options?: RequestOptionsArgs): Observable<any> {
     const [url, moreOptions] = this._constructRequest(uri, options);
-    const request = this.http.put(url, body, moreOptions);
+    const request = this.http.put(url, Object.assign({}, body, { client_id: CLIENT_ID }), moreOptions);
     return this._connect(request);
   }
 

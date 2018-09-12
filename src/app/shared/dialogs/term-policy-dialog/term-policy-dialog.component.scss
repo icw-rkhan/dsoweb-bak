@@ -1,0 +1,23 @@
+:host {
+  position: relative;
+  background-color: #fff;
+  background-clip: padding-box;
+  outline: 0;
+  border-radius: 3px;
+  display: block;
+  height: 100%;
+}
+
+.mat-dialog-content {
+  // max-height: calc(100vh - 450px);
+  height: 350px;
+}
+
+h2, p {
+  color: #000;
+}
+
+ul {
+  list-style-type: disc;
+  padding-left: 50px;
+}
