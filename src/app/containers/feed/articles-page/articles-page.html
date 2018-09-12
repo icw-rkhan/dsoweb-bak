@@ -1,1 +1,8 @@
-<mat-card>Hello Component 1</mat-card>
+<div class="feed">
+    <div class="item" *ngFor="let post of (posts | async)">
+        <div class="card">
+        <dso-feed-card [type]="'article'" [post]="post"></dso-feed-card>
+        </div>
+    </div>
+</div>
+  
