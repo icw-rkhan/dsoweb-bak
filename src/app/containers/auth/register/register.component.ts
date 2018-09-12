@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 import { MatDialog } from '@angular/material';
 
-import { ApiService } from '../../../services/api/api.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { TermPolicyDialogComponent } from '../../../shared/dialogs/term-policy-dialog/term-policy-dialog.component';
 
 @Component({
@@ -14,12 +14,13 @@ import { TermPolicyDialogComponent } from '../../../shared/dialogs/term-policy-d
 export class RegisterComponent implements OnInit {
 
   isShowPassword: boolean;
-  is_student: any;
+  is_student: number;
+  is_linkedin: number;
   form: FormGroup;
 
   constructor(
     private route: ActivatedRoute,
-    private api: ApiService,
+    private auth: AuthService,
     private fb: FormBuilder,
     private dialog: MatDialog
   ) {
@@ -53,6 +54,7 @@ export class RegisterComponent implements OnInit {
         Validators.required
       ])],
       is_student: [this.is_student],
+      is_linkedin: [1],
       username: ['', Validators.compose([
         Validators.required,
         CustomValidators.email
@@ -64,13 +66,9 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
-    this.api.post(['userAccount', 'register'], Object.assign({}, this.form.value, { is_linkedin: 0 })).subscribe(
+    this.auth.register(this.form.value).subscribe(
       (data: any) => {
-        //
-      }, (error: any) => {
-        //
-      }, () => {
-        //
+        console.log(data);
       }
     );
   }

@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 
-import { ApiService } from '../../../services/api/api.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'dso-login',
@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private api: ApiService
+    private authService: AuthService
   ) {
     this.isShowPassword = false;
   }
@@ -47,13 +47,9 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.api.post(['userAccount', 'login'], this.form.value).subscribe(
+    this.authService.login(this.form.value).subscribe(
       (data: any) => {
-       //
-      }, (error: any) => {
-        //
-      }, () => {
-        //
+        console.log(data);
       }
     );
   }
