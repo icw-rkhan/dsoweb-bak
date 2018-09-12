@@ -1,8 +1,3 @@
-:host {
-  display: flex;
-  flex: 1;
-}
-
 .search {
   display: flex;
   flex: 1;
@@ -12,7 +7,7 @@
 .search-form {
   padding: 10px 25px;
   display: flex;
-  background-color: #FAFAFA;
+  background-color: white;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
 
   button {

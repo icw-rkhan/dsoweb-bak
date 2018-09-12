@@ -15,7 +15,7 @@ export class FooterActionsComponent implements OnInit {
     // Footer links
     this.navFooterLinks.push({
       label: 'For You',
-      route: '/feed/tip-sheets',
+      route: '/feed/latest',
       icon: 'receipt'
     });
     this.navFooterLinks.push({

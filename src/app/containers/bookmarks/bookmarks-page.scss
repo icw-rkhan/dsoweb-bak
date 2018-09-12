@@ -1,10 +1,5 @@
 @import "../../../responsive";
 
-:host {
-  display: flex;
-  flex: 1;
-}
-
 .search {
   display: flex;
   flex: 1;
@@ -15,7 +10,7 @@
   padding: 10px 25px;
   display: flex;
   align-items: center;
-  background-color: #FAFAFA;
+  background-color: white;
   border-bottom: 1px solid rgba(0, 0, 0, 0.12);
   span {
     flex: 1;

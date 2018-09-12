@@ -1,4 +1,5 @@
 <div class="search">
+  <dso-footer-actions></dso-footer-actions>
   <div class="search-form">
     <mat-form-field>
       <mat-select placeholder="Category" (selectionChange)="selectCategory($event)">
@@ -9,5 +10,4 @@
     </mat-form-field>
   </div>
   <dso-feed-grid [posts]="posts$ | async"></dso-feed-grid>
-  <dso-footer-actions></dso-footer-actions>
 </div>

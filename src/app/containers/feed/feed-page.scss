@@ -1,12 +1,13 @@
 :host {
-  display: flex;
   flex: 1;
-  flex-direction: column;
 }
 
 .feeds {
   display: flex;
-  flex: 1;
   flex-direction: column;
-  padding-bottom: 50px;
+  height: 100%;
+}
+
+nav {
+  background: white;
 }
