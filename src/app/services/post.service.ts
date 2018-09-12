@@ -18,4 +18,12 @@ export class PostService {
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );
   }
+
+  getPostbyCategory(category: number): Observable<Post[]> {
+    const url = `@api/posts?categories=` + category;
+    return this.http.get(url).pipe(
+      map((response: any[]) => response.map(post => new Post().deserialize(post)))
+    );    
+  }
 }
+

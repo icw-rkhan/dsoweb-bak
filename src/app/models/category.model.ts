@@ -1,7 +1,6 @@
 import { Serializable } from './serializable.model';
 
 export class Category implements Serializable<Category> {
-
   id: number;
   description: string;
   link: string;

@@ -16,6 +16,6 @@ export class ArticlesPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.posts = this.postService.posts();
+    this.posts = this.postService.getPostbyCategory(3);
   }
 }
