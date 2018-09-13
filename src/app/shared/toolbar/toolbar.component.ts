@@ -16,21 +16,17 @@ export class ToolbarComponent {
   constructor(private router: Router) {
     router.events.subscribe((event: Event)=> {
       if(event instanceof NavigationEnd) {
-        if(event.url == '/dsodentist') {
-
-          this.setTitle('DSODENTIST');
-          this.setBtnCategory('menu');
-
-        }else if(event.url == '/reviews/add') {
-
+        if(event.url == '/reviews/add') {
           this.setTitle('ADD A REVIEW');
           this.setBtnCategory('keyboard_backspace');
 
         }else if(event.url == '/reviews/view') {
-
           this.setTitle('ALL REVIEWS');
           this.setBtnCategory('keyboard_backspace'); 
 
+        }else {
+          this.setTitle('DSODENTIST');
+          this.setBtnCategory('menu');
         }
       }
     })
@@ -40,7 +36,7 @@ export class ToolbarComponent {
     if(this.btnCategory == "menu") {
       this.toggleMenu.emit();
     }else if (this.btnCategory == 'keyboard_backspace') {
-      this.router.navigate(['/dsodentist']);
+      this.router.navigate(['/feed']);
     }
   }
 
