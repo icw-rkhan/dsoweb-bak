@@ -7,9 +7,9 @@
   
     <div class="statebar" fxLayout="row" fxLayoutAlign="center center">
       <div *ngFor="let state of stateList; index as i">
-        <img *ngIf="userInfo.rate>i;else nonactive" src="assets/images/star_active.png">{{index}}
+        <img *ngIf="userInfo.rate>i;else nonactive" src="assets/images/star-active.png">{{index}}
         <ng-template #nonactive>
-          <img src="assets/images/star_nonactive.png">
+          <img src="assets/images/star-nonactive.png">
         </ng-template>
       </div>
     </div>
