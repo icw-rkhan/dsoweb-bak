@@ -23,19 +23,6 @@ mat-card {
   }
 }
 
-//.image {
-//  position: relative;
-//  img {
-//    width: 100%;
-//    height: auto;
-//  }
-//  button {
-//    position: absolute;
-//    bottom: 30px;
-//    left: 30px;
-//  }
-//}
-
 .content {
   padding: 20px 30px;
 }
@@ -67,4 +54,13 @@ mat-card {
   margin-right: 10px;
   width: 28px;
   height: 28px;
+}
+
+.more-container {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.more {
+  font-weight: bold;
 }
