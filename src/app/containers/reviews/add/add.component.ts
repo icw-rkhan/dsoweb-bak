@@ -10,7 +10,7 @@ export class AddComponent implements OnInit {
 
   stateList = [{state:'nonactive'},{state:'nonactive'},{state:'nonactive'},{state:'nonactive'},{state:'nonactive'}]
   userInfo = {
-    url: 'assets/images/Screen_Header_pic.png',
+    url: 'assets/images/user-avatar.png',
     name: 'Matt Murdock',
     rate: 4
   }
