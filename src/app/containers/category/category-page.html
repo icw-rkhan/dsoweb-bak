@@ -1,18 +1,13 @@
 <div class="search">
+  <dso-footer-actions></dso-footer-actions>
   <div class="search-form">
     <mat-form-field>
-      <mat-select placeholder="Category">
+      <mat-select placeholder="Category" (selectionChange)="selectCategory($event)">
         <mat-option *ngFor="let category of (categories$ | async)" [value]="category.id">
           {{category.name}}
         </mat-option>
       </mat-select>
     </mat-form-field>
   </div>
-  <div class="search-result">
-    <div class="no-content">
-      <img src="/src/assets/images/no-search.png">
-      <h3 class="mat-h3">Search by category name</h3>
-    </div>
-  </div>
-  <dso-footer-actions></dso-footer-actions>
+  <dso-feed-grid [posts]="posts$ | async"></dso-feed-grid>
 </div>

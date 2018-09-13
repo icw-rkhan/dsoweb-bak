@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PostService } from '../../../services/post.service';
 import { Observable } from 'rxjs';
-
 import { Post } from '../../../models/post.model';
 
 @Component({
@@ -10,13 +9,13 @@ import { Post } from '../../../models/post.model';
 })
 export class TechGuidesPageComponent implements OnInit {
 
-  posts: Observable<Post[]>;
+  posts$: Observable<Post[]>;
 
   constructor(private postService: PostService) {
   }
 
   ngOnInit(): void {
-    this.posts = this.postService.getPostbyCategory(4);
+    this.posts$ = this.postService.posts('tech-guide');
   }
 
 }

@@ -1,6 +1,5 @@
 <nav class="footer" mat-tab-nav-bar>
-  <a mat-tab-link *ngFor="let link of navFooterLinks" [routerLink]="link.route" routerLinkActive #rla="routerLinkActive"
-     [active]="rla.isActive">
+  <a mat-tab-link *ngFor="let link of navFooterLinks" [routerLink]="link.route" routerLinkActive>
     <div class="tab">
       <mat-icon>{{link.icon}}</mat-icon>
       <span>{{link.label}}</span>

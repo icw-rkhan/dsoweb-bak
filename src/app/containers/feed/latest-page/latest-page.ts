@@ -10,13 +10,13 @@ import { Post } from '../../../models/post.model';
 })
 export class LatestPageComponent implements OnInit {
 
-  posts: Observable<Post[]>;
+  posts$: Observable<Post[]>;
 
   constructor(private postService: PostService) {
   }
 
   ngOnInit(): void {
-    this.posts = this.postService.posts();
+    this.posts$ = this.postService.posts();
   }
 
 }

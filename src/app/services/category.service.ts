@@ -16,7 +16,7 @@ export class CategoryService {
   constructor(private http: HttpClient) {
   }
 
-  public fetchCategories() {
+  private fetchCategories() {
     const url = `@api/categories`;
     return this.http.get(url).pipe(
       map((response: any[]) =>

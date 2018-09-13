@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { ExampleModule } from './containers/example/example.module';
 import { ApiInterceptor } from './interceptors/api.interceptor';
-
 import { ReviewsModule } from './containers/reviews/reviews.module';
 import { FeedModule } from './containers/feed/feed.module';
 import { SearchPageModule } from './containers/search/search-page.module';
