@@ -6,18 +6,6 @@
     <h3 class="mat-h3">{{post.category.name}} - {{post.format}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
-  <!--<div class="image">-->
-  <!--<img [src]="post.thumbnail">-->
-  <!--<button mat-mini-fab color="primary">-->
-  <!--<mat-icon *ngIf="post.format === 'video'">videocam</mat-icon>-->
-  <!--<mat-icon *ngIf="post.format === 'podcast'">settings_voice</mat-icon>-->
-  <!--<mat-icon *ngIf="post.format === 'animation'">toll</mat-icon>-->
-  <!--<mat-icon *ngIf="post.format === 'article'">description</mat-icon>-->
-  <!--<mat-icon *ngIf="post.format === 'interview'">forum</mat-icon>-->
-  <!--<mat-icon *ngIf="post.format === 'tech-guides'">business_center</mat-icon>-->
-  <!--<mat-icon *ngIf="post.format === 'image'">image</mat-icon>-->
-  <!--</button>-->
-  <!--</div>-->
   <mat-card-content class="content">
     <div class="content-title">
       <h2 class="mat-h2">{{post.title}}</h2>
@@ -25,12 +13,25 @@
         <button mat-icon-button>
           <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </button>
-        <button mat-icon-button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
           <mat-icon aria-label="Options">more_vert</mat-icon>
         </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
+        </mat-menu>
+        <mat-menu #submenu="matMenu">
+          <ng-template matMenuContent>
+            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
+            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="twitter">to twitter</a></p>
+            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="linkedin">to linkedin</a></p>
+          </ng-template>
+        </mat-menu>
       </div>
     </div>
     <div class="inner-content mat-body-1" [innerHtml]="post.content">
+    </div>
+    <div class="more-container" *ngIf="post.format === 'standard'">
+      <a mat-button routerLink="." class="more">...more</a>
     </div>
   </mat-card-content>
 </mat-card>
