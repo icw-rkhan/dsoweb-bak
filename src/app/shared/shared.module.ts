@@ -35,6 +35,7 @@ import { FeedCardComponent } from './feed-card/feed-card.component';
 import { FooterActionsComponent } from './footer-actions/footer-actions.component';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FeedGridComponent } from './feed-grid/feed-grid.component';
+import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 
 const PIPES = [
   TruncatePipe
@@ -47,6 +48,7 @@ export const COMPONENTS = [
   FeedCardComponent,
   FooterActionsComponent,
   FeedGridComponent,
+  TermPolicyDialogComponent
 ];
 
 export const MODULES = [
@@ -96,6 +98,7 @@ export const MODULES = [
   ],
   entryComponents: [
     AlertDialogComponent,
+    TermPolicyDialogComponent
   ]
 })
 export class SharedModule {

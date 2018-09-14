@@ -1,0 +1,49 @@
+<section class="login">
+  <div *ngIf="!checkIsStudent; else isStudentOrNot" class="login-overlay">
+    <div class="logoBox">
+      <div class="logo"></div>
+    </div>
+    <div class="login-content">
+      <div class="container">
+        <h2 class="login-title">Welcome!</h2>
+        <p class="login-subTitle">Say hello to a new way to connect!</p>
+        <p class="login-detail">Get to meet thousands of other health-care professionals and be one of the first few to change the way we think about dentistry.</p>
+        <div class="margin-20">
+          <button (click)="signUpOrLogin(true)" class="btn btn-default btn-full margin-10" type="button">
+            Get Started
+          </button>
+          <button (click)="signUpOrLogin()" class="btn btn-primary btn-full" type="button">
+            Log In
+          </button>
+        </div>
+        <!-- <div class="login-toggle">
+            <input class="btn btn-toggle" type="button" />
+            <input class="btn btn-toggle" type="button" />
+            <input class="btn btn-toggle" type="button" />
+            <input class="btn btn-toggle" type="button" />
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <ng-template #isStudentOrNot>
+    <div class="login-overlay-primary">
+      <div class="logoBox">
+        <div class="logo"></div>
+      </div>
+      <div class="login-content">
+        <div class="container">
+          <h2 class="login-title">Are you a student?</h2>
+          <p class="login-detail">We use this information to show personalized content that is relevant to you.</p>
+          <div class="margin-20">
+            <button (click)="redirect(0)" class="btn btn-default btn-full margin-10" type="button">
+              Yes
+            </button>
+            <button (click)="redirect(1)" class="btn btn-default btn-full" type="button">
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</section>

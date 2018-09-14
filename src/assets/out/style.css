@@ -1,0 +1,270 @@
+* {
+  box-sizing: border-box; }
+
+body {
+  font-size: 14px; }
+
+.textCenter {
+  text-align: center; }
+
+.logoBox {
+  padding-top: 50px; }
+  .logoBox .logo {
+    background: url("../images/logo.png") no-repeat;
+    background-size: contain;
+    width: 260px;
+    height: 50px;
+    margin: 0 auto; }
+
+.link {
+  color: #FFF; }
+  .link.underline {
+    text-decoration: underline; }
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+body {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+blockquote, q {
+  quotes: none; }
+
+blockquote:before, blockquote:after {
+  content: '';
+  content: none; }
+
+q:before, q:after {
+  content: '';
+  content: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+@font-face {
+  font-family: "sfRegular";
+  src: url("../fonts/SF-Regular/SFProDisplay-Regular.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/SF-Regular/SFProDisplay-Regular.woff2") format("woff2"), url("../fonts/SF-Regular/SFProDisplay-Regular.woff") format("woff"), url("../fonts/SF-Regular/SFProDisplay-Regular.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "sfSemiBold";
+  src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff2") format("woff2"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff") format("woff"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.ttf") format("truetype"); }
+
+@font-face {
+  font-family: "sfBold";
+  src: url("../fonts/SF-Bold/SFProDisplay-Bold.eot");
+  /* IE9 Compat Modes */
+  src: url("../fonts/SF-Bold/SFProDisplay-Bold.woff2") format("woff2"), url("../fonts/SF-Bold/SFProDisplay-Bold.woff") format("woff"), url("../fonts/SF-Bold/SFProDisplay-Bold.ttf") format("truetype"); }
+
+body {
+  margin: auto;
+  font-family: 'sfRegular', sans-serif; }
+
+p, h2 {
+  color: #FFF; }
+
+a {
+  text-decoration: none; }
+
+.container {
+  width: 100%;
+  padding: 0px 15px;
+  margin: auto; }
+
+.margin-10 {
+  margin-bottom: 10px; }
+
+.margin-20 {
+  margin-bottom: 20px; }
+
+.margin-50 {
+  margin-bottom: 50px; }
+
+.margin-135 {
+  margin-bottom: 135px; }
+
+.btn {
+  border: none;
+  font-family: 'sfRegular';
+  font-size: 15px;
+  cursor: pointer;
+  display: inline-block;
+  padding: 13px 0px; }
+  .btn-full {
+    width: 100%; }
+  .btn-large {
+    width: 330px;
+    height: 40px; }
+  .btn-medium {
+    width: 223px;
+    height: 40px; }
+  .btn-small {
+    width: 98px;
+    height: 40px; }
+  .btn-toggle {
+    width: 55px;
+    height: 2px; }
+    .btn-toggle:hover {
+      background-color: #FFF; }
+  .btn-group {
+    margin-top: 10px; }
+  .btn-default {
+    background-color: #FFF; }
+  .btn-linkedin {
+    background-color: #007ab9;
+    color: #FFF; }
+  .btn-linkedin-icon {
+    position: relative; }
+    .btn-linkedin-icon::before {
+      content: '';
+      width: 40px;
+      height: 40px;
+      background-image: url("../images/icon-linkedin.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      position: absolute;
+      left: 0;
+      z-index: 10;
+      border-right: 2px solid #178BC7; }
+  .btn-primary {
+    background-color: #879AA8;
+    color: #FFF; }
+
+.main-nav {
+  width: 100%;
+  height: 52px;
+  position: absolute;
+  top: 0;
+  z-index: 10; }
+  .main-nav-fix {
+    margin-top: 24px; }
+  .main-nav-icon {
+    width: 23px;
+    height: 16px;
+    background-image: url("../images/nav-icon.png");
+    background-repeat: no-repeat; }
+  .main-nav-wrap-icon {
+    width: 23px;
+    padding: 5px; }
+  .main-nav-icon-back {
+    width: 23px;
+    height: 16px;
+    background-image: url("../images/icon-back.png");
+    background-repeat: no-repeat; }
+
+.form {
+  border: none;
+  border-radius: 5px;
+  padding: 0 10px; }
+  .form:hover {
+    cursor: pointer; }
+  .form-btn {
+    text-transform: uppercase;
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-end; }
+  .form-title {
+    font-size: 43px;
+    line-height: 59px;
+    margin-bottom: 20px; }
+  .form-warning {
+    font-size: 12px;
+    padding-left: 25px;
+    position: relative;
+    height: 20px;
+    display: flex;
+    align-items: center; }
+    .form-warning::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background-image: url("../images/info-icon.png");
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      left: 0; }
+  .form-content {
+    width: 80%;
+    font-size: 13px;
+    text-align: center;
+    margin: auto;
+    line-height: 20px; }
+  .form-footer {
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px; }
+
+.form-group {
+  margin-bottom: 15px;
+  position: relative; }
+  .form-group .form-control {
+    width: 100%;
+    border-radius: 5px;
+    padding: 15px 10px;
+    border: none;
+    outline: none; }
+  .form-group.withActionRight .action {
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    text-transform: uppercase;
+    color: #666;
+    padding: 13px; }
+
+.login {
+  background-image: url("../images/bg-1.png");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+  font-size: 16px; }
+  .login-overlay {
+    height: 100vh;
+    background: linear-gradient(to top, #384147, rgba(0, 0, 0, 0) 50%); }
+  .login-overlay-primary {
+    height: 100vh;
+    background: linear-gradient(to top, #384147, rgba(0, 0, 0, 0.5) 100%); }
+  .login-content {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 20px; }
+  .login-title {
+    font-size: 43px;
+    line-height: 59px;
+    letter-spacing: -2px; }
+  .login-subTitle {
+    font-size: 19px;
+    margin-bottom: 20px; }
+  .login-detail {
+    font-size: 15px;
+    line-height: 25px;
+    margin-bottom: 25px; }
+  .login-toggle {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-around; }
+  .login .loginActions {
+    margin-top: 100px; }
+  .login .signupActions {
+    margin-top: 40px; }
