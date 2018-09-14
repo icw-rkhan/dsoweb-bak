@@ -19,7 +19,6 @@
         <mat-menu #menu="matMenu" xPosition="before">
           <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
         </mat-menu>
-
         <mat-menu #submenu="matMenu">
           <ng-template matMenuContent>
             <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
