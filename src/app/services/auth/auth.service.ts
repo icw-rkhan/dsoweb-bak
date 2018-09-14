@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { JwtHelper } from 'angular2-jwt';
+import { environment } from '../../../environments/environment';
 
 const CLIENT_ID = 'fooClientIdPassword';
 
@@ -15,22 +16,23 @@ export class AuthService {
 
   constructor(
     private http: HttpClient
-  ) { }
+  ) {
+  }
 
   public getToken(): string {
     return localStorage.getItem('token');
   }
 
   login(body: any): Observable<any> {
-    const url = '@api/userAccount/login';
-    return this.http.post(url, Object.assign({ client_id: CLIENT_ID }, body)).pipe(
+    const url = `${environment.profileApiUrl}/userAccount/login`;
+    return this.http.post(url, Object.assign({client_id: CLIENT_ID}, body)).pipe(
       map(this.extractData)
     );
   }
 
   register(body: any): Observable<any> {
-    const url = '@api/userAccount/register';
-    return this.http.post(url, Object.assign({ client_id: CLIENT_ID }, body)).pipe(
+    const url = `${environment.profileApiUrl}/userAccount/register`;
+    return this.http.post(url, Object.assign({client_id: CLIENT_ID}, body)).pipe(
       map(this.extractData)
     );
   }
@@ -40,7 +42,7 @@ export class AuthService {
   }
 
   sendEmail(body: any) {
-    const url = '@api/emailToken/sendEmail';
+    const url = `${environment.profileApiUrl}/emailToken/sendEmail`;
     return this.http.post(url, body).pipe(
       map(this.extractData)
     );

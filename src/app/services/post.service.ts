@@ -4,6 +4,7 @@ import { map } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
 
 import { Post } from '../models/post.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class PostService {
   }
 
   posts(type?: string): Observable<Post[]> {
-    const url = `@api/posts?_embed`;
+    const url = `${environment.cmsApiUrl}/posts?_embed`;
     let result = this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );
@@ -28,7 +29,7 @@ export class PostService {
   }
 
   fetchByCategory(id: number): Observable<Post[]> {
-    const url = `@api/posts?_embed&categories=${id}`;
+    const url = `${environment.cmsApiUrl}/posts?_embed&categories=${id}`;
     return this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );

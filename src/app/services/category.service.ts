@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, shareReplay } from 'rxjs/internal/operators';
 import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 const CACHE_SIZE = 1;
 
@@ -17,7 +18,7 @@ export class CategoryService {
   }
 
   private fetchCategories() {
-    const url = `@api/categories`;
+    const url = `${environment.cmsApiUrl}/categories`;
     return this.http.get(url).pipe(
       map((response: any[]) =>
         response.map(category => new Category().deserialize(category))
