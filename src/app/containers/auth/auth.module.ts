@@ -8,6 +8,7 @@ import { loginRoutes } from './login/login.routing';
 import { welcomeRoutes } from './welcome/welcome.routing';
 import { registerRoutes } from './register/register.routing';
 import { forgotPasswordRoutes } from './forgot-password/forgot-password.routing';
+import { resetPasswordRoutes } from './reset-password/reset-password.routing';
 
 const routes: Routes = [
   {
@@ -17,7 +18,8 @@ const routes: Routes = [
       ...welcomeRoutes,
       ...loginRoutes,
       ...registerRoutes,
-      ...forgotPasswordRoutes
+      ...forgotPasswordRoutes,
+      ...resetPasswordRoutes
     ]
   }
 ];
