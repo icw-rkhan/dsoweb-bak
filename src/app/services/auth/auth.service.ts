@@ -28,7 +28,7 @@ export class AuthService {
     );
   }
 
-  register(body): Observable<any> {
+  register(body: any): Observable<any> {
     const url = '@api/userAccount/register';
     return this.http.post(url, Object.assign({ client_id: CLIENT_ID }, body)).pipe(
       map(this.extractData)
@@ -37,6 +37,13 @@ export class AuthService {
 
   loginSuccess(data: any) {
     this.storeUserInformation(data.resultMap);
+  }
+
+  sendEmail(body: any) {
+    const url = '@api/emailToken/sendEmail';
+    return this.http.post(url, body).pipe(
+      map(this.extractData)
+    );
   }
 
   storeUserInformation(data: any) {
