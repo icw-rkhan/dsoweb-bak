@@ -1,5 +1,5 @@
 .login {
-  background-image: url('../../assets/images/bg-1.png');
+  background-image: url('../images/bg-1.png');
   background-size: 100% 100%;
   background-repeat: no-repeat;
   height: 100vh;
@@ -21,6 +21,9 @@
     position: absolute;
     bottom: 0;
     padding-bottom: 20px;
+    p, h2 {
+      color: #FFF;
+    }
   }
 
   &-title {
