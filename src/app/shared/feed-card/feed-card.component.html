@@ -13,9 +13,19 @@
         <button mat-icon-button>
           <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </button>
-        <button mat-icon-button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
           <mat-icon aria-label="Options">more_vert</mat-icon>
         </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
+        </mat-menu>
+        <mat-menu #submenu="matMenu">
+          <ng-template matMenuContent>
+            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
+            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="twitter">to twitter</a></p>
+            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="linkedin">to linkedin</a></p>
+          </ng-template>
+        </mat-menu>
       </div>
     </div>
     <div class="inner-content mat-body-1" [innerHtml]="post.content">

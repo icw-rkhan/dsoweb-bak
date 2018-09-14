@@ -13,6 +13,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatMenuModule,
   MatNativeDateModule,
   MatPaginatorModule,
   MatProgressBarModule,
@@ -26,6 +27,7 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import { CustomFormsModule } from 'ngx-custom-validators';
+import { ShareModule } from '@ngx-share/core';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -35,6 +37,7 @@ import { FeedCardComponent } from './feed-card/feed-card.component';
 import { FooterActionsComponent } from './footer-actions/footer-actions.component';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FeedGridComponent } from './feed-grid/feed-grid.component';
+import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 
 const PIPES = [
   TruncatePipe
@@ -47,6 +50,7 @@ export const COMPONENTS = [
   FeedCardComponent,
   FooterActionsComponent,
   FeedGridComponent,
+  TermPolicyDialogComponent
 ];
 
 export const MODULES = [
@@ -73,17 +77,19 @@ export const MODULES = [
   MatDatepickerModule,
   MatSidenavModule,
   MatListModule,
+  MatMenuModule,
   MatCardModule,
   MatTableModule,
   MatTabsModule,
   MatGridListModule,
   CustomFormsModule,
-  NgxMasonryModule,
+  NgxMasonryModule
 ];
 
 @NgModule({
   imports: [
     ...MODULES,
+    ShareModule.forRoot()
   ],
   declarations: [
     ...PIPES,
@@ -96,6 +102,7 @@ export const MODULES = [
   ],
   entryComponents: [
     AlertDialogComponent,
+    TermPolicyDialogComponent
   ]
 })
 export class SharedModule {

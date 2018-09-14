@@ -1,0 +1,62 @@
+.login {
+  background-image: url('../images/bg-1.png');
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  height: 100vh;
+  position: relative;
+  font-size: 16px;
+
+  &-overlay {
+    height: 100vh;
+    background: linear-gradient(to top, #384147, rgba(0, 0, 0, 0) 50%);
+  }
+
+  &-overlay-primary {
+    height: 100vh;
+    background: linear-gradient(to top, #384147, rgba(0, 0, 0, 0.5) 100%);
+  }
+
+  &-content {
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    padding-bottom: 20px;
+    p, h2 {
+      color: #FFF;
+    }
+  }
+
+  &-title {
+    font-size: 43px;
+    line-height: 59px;
+    letter-spacing: -2px;
+  }
+
+  &-subTitle {
+    font-size: 19px;
+    margin-bottom: 20px;
+  }
+
+  &-detail {
+    font-size: 15px;
+    line-height: 25px;
+    margin-bottom: 25px;
+  }
+
+  &-toggle {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  .loginActions {
+    margin-top: 100px;
+  }
+
+  .signupActions {
+    margin-top: 40px;
+  }
+
+}
+
+
