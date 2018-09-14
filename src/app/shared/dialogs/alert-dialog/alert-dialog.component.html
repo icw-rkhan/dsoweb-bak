@@ -1,8 +1,14 @@
-<div class="modal-header">
+<!-- <div class="modal-header">
   <h5 class="modal-title">{{data.title}}</h5>
   <button (click)="close()" type="button" class="close" aria-label="Close"><span><i class="fal fa-times"></i></span>
   </button>
 </div>
 <div class="modal-body">
   <p [innerHtml]="data.body"></p>
-</div>
+</div> -->
+
+<h1 mat-dialog-title>{{ data.title }}</h1>
+<mat-dialog-content>{{ data.body }}</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>

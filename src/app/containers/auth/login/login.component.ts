@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 
-import { AuthService } from '../../../services/auth/auth.service';
+import { AuthService, ApiErrorService } from '../../../services/index';
 
 @Component({
   selector: 'dso-login',
@@ -18,7 +18,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private apiError: ApiErrorService
   ) {
     this.isShowPassword = false;
   }
@@ -34,13 +35,16 @@ export class LoginComponent implements OnInit {
     );
   }
 
+  get username() { return this.form.get('username'); }
+  get password() { return this.form.get('password'); }
+
   initForm() {
     this.form = this.fb.group({
-      username: ['', Validators.compose([
+      username: ['h1078660929@163.com', Validators.compose([
         Validators.required,
         CustomValidators.email
       ])],
-      password: ['', Validators.compose([
+      password: ['1QAZ2WSX', Validators.compose([
         Validators.required
       ])]
     });
@@ -49,7 +53,11 @@ export class LoginComponent implements OnInit {
   submit() {
     this.authService.login(this.form.value).subscribe(
       (data: any) => {
-        console.log(data);
+        if (!data.code) {
+          this.authService.loginSuccess(data);
+        } else {
+          this.apiError.checkError(data.code, 'login');
+        }
       }
     );
   }

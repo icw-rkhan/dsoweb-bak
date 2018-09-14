@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
+import { JwtHelper } from 'angular2-jwt';
 
 const CLIENT_ID = 'fooClientIdPassword';
 
@@ -9,6 +10,8 @@ const CLIENT_ID = 'fooClientIdPassword';
   providedIn: 'root'
 })
 export class AuthService {
+
+  jwtHelper: JwtHelper = new JwtHelper();
 
   constructor(
     private http: HttpClient
@@ -30,6 +33,16 @@ export class AuthService {
     return this.http.post(url, Object.assign({ client_id: CLIENT_ID }, body)).pipe(
       map(this.extractData)
     );
+  }
+
+  loginSuccess(data: any) {
+    this.storeUserInformation(data.resultMap);
+  }
+
+  storeUserInformation(data: any) {
+    if (data) {
+      localStorage.setItem('token', data.accesstoken);
+    }
   }
 
   private extractData(res: Response) {
