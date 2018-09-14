@@ -21,6 +21,27 @@ body {
   .link.underline {
     text-decoration: underline; }
 
+.whiteNav {
+  background: #FFF;
+  border-bottom: 1px solid #979797;
+  padding: 15px 0px; }
+  .whiteNav .pageTitle {
+    text-transform: uppercase;
+    text-align: center; }
+  .whiteNav .navActions {
+    position: absolute; }
+    .whiteNav .navActions.right {
+      right: 10px;
+      top: 10px; }
+    .whiteNav .navActions.left {
+      left: 10px;
+      top: 10px; }
+  .whiteNav.bgGray {
+    background: #787878;
+    color: #FFF; }
+    .whiteNav.bgGray .btn {
+      color: #FFF; }
+
 /* http://meyerweb.com/eric/tools/css/reset/ 
    v2.0 | 20110126
    License: none (public domain)
@@ -58,33 +79,37 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
+h2 {
+  font-size: 22px;
+  line-height: 28px; }
+
 @font-face {
   font-family: "sfRegular";
   src: url("../fonts/SF-Regular/SFProDisplay-Regular.eot");
   /* IE9 Compat Modes */
   src: url("../fonts/SF-Regular/SFProDisplay-Regular.woff2") format("woff2"), url("../fonts/SF-Regular/SFProDisplay-Regular.woff") format("woff"), url("../fonts/SF-Regular/SFProDisplay-Regular.ttf") format("truetype"); }
-
 @font-face {
   font-family: "sfSemiBold";
   src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.eot");
   /* IE9 Compat Modes */
   src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff2") format("woff2"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff") format("woff"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.ttf") format("truetype"); }
-
 @font-face {
   font-family: "sfBold";
   src: url("../fonts/SF-Bold/SFProDisplay-Bold.eot");
   /* IE9 Compat Modes */
   src: url("../fonts/SF-Bold/SFProDisplay-Bold.woff2") format("woff2"), url("../fonts/SF-Bold/SFProDisplay-Bold.woff") format("woff"), url("../fonts/SF-Bold/SFProDisplay-Bold.ttf") format("truetype"); }
-
 body {
   margin: auto;
   font-family: 'sfRegular', sans-serif; }
 
-p, h2 {
-  color: #FFF; }
-
 a {
   text-decoration: none; }
+
+p {
+  color: #4A4A4A; }
+
+a {
+  color: #879AA8; }
 
 .container {
   width: 100%;
@@ -103,13 +128,26 @@ a {
 .margin-135 {
   margin-bottom: 135px; }
 
+.mt-1 {
+  margin-top: 10px; }
+
+.mb-1 {
+  margin-bottom: 10px; }
+
+.mt-2 {
+  margin-top: 20px; }
+
+.mb-2 {
+  margin-bottom: 20px; }
+
 .btn {
   border: none;
   font-family: 'sfRegular';
   font-size: 15px;
   cursor: pointer;
   display: inline-block;
-  padding: 13px 0px; }
+  padding: 13px 0px;
+  outline: none; }
   .btn-full {
     width: 100%; }
   .btn-large {
@@ -126,6 +164,11 @@ a {
     height: 2px; }
     .btn-toggle:hover {
       background-color: #FFF; }
+  .btn-icon {
+    background: none;
+    color: #879AA8;
+    font-size: 24px;
+    padding: 0px; }
   .btn-group {
     margin-top: 10px; }
   .btn-default {
@@ -203,6 +246,22 @@ a {
       background-position: center;
       position: absolute;
       left: 0; }
+  .form-helper {
+    color: #FFF;
+    background: #5E6E7A;
+    padding: 10px;
+    margin: 10px 0px;
+    font-size: 12px;
+    display: flex; }
+    .form-helper .content {
+      flex-grow: 1;
+      line-height: 18px; }
+    .form-helper .close {
+      color: #879AA8;
+      font-size: 20px;
+      margin-left: 15px;
+      align-items: center;
+      display: flex; }
   .form-content {
     width: 80%;
     font-size: 13px;
@@ -223,6 +282,12 @@ a {
     padding: 15px 10px;
     border: none;
     outline: none; }
+    .form-group .form-control.withBg {
+      background: #F7F7F7; }
+  .form-group .inputError {
+    color: #B30A1F;
+    line-height: 20px;
+    margin: 10px 0px; }
   .form-group.withActionRight .action {
     position: absolute;
     right: 0px;
@@ -240,7 +305,7 @@ a {
   font-size: 16px; }
   .login-overlay {
     height: 100vh;
-    background: linear-gradient(to top, #384147, rgba(0, 0, 0, 0) 50%); }
+    background: linear-gradient(to top, #384147, transparent 50%); }
   .login-overlay-primary {
     height: 100vh;
     background: linear-gradient(to top, #384147, rgba(0, 0, 0, 0.5) 100%); }
@@ -249,6 +314,8 @@ a {
     position: absolute;
     bottom: 0;
     padding-bottom: 20px; }
+    .login-content p, .login-content h2 {
+      color: #FFF; }
   .login-title {
     font-size: 43px;
     line-height: 59px;
@@ -268,3 +335,208 @@ a {
     margin-top: 100px; }
   .login .signupActions {
     margin-top: 40px; }
+
+.forgotPasswordBox {
+  margin-top: 80px; }
+  .forgotPasswordBox h3 {
+    color: #414141;
+    margin-bottom: 20px;
+    font-size: 30px; }
+  .forgotPasswordBox p {
+    color: #414141;
+    margin: 10px 0px;
+    line-height: 22px; }
+  .forgotPasswordBox a {
+    color: #879aa8; } 
+
+/*profile css*/
+
+.header-profile {
+  width: 100%; 
+  height: 45px;
+}
+.fixed-bar {
+  position: fixed;
+  z-index: 99;
+  top: 0;
+  left: 0;
+  right: 0;
+}
+.bg-grey {
+  background: #787878;
+}
+nav.navbar {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  height: 45px;
+  align-items: center;
+}
+span.icon-bar {
+  position: absolute;
+  width: 30px;
+  left: 15px;
+  height: 30px;
+  background: url("../images/profile/icon-bars.png") no-repeat center;
+  background-size: auto;
+}
+.navbar-edit-profile {
+  position: absolute;
+  right: 15px;
+  z-index: 1; 
+  }
+ 
+.navbar-edit-profile a {
+    color: #fff;
+    text-decoration: none; }
+.navbar-edit-profile i {
+      display: inline-block;
+      margin-left: .3rem;
+    }
+.navbar-title-heading {
+  position: relative;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+  text-transform: uppercase;
+  font-family: "sfSemiBold";
+}
+.profile_content {
+    position: relative;
+    margin-top: 45px;
+    width: 100%;
+} 
+.profile-heading {
+    position: relative;
+    width: 100%;
+    height: 96px;
+    background-color: #fafbfd;
+    padding: 10px 15px;
+} 
+.profile-heading_info {
+    position: relative;
+    display: flex;
+} 
+.img_user {
+    width: 70px;
+    height: 70px;
+    background: #e9edf1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+} 
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-left: 15px;
+    width: calc(100% - 70px);
+} 
+.profile_name {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 10px;    
+    font-family: "sfBold";
+    letter-spacing: -0.18px; 
+} 
+.profile_speciality {
+    display: block;
+    width: 100%;
+} 
+.profile_speciality label {
+    color: #4a4a4a;
+    font-size: 12px;
+    display: block;
+    margin-bottom: 5px;
+} 
+.profile_speciality span {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    font-family: "sfSemiBold";
+}
+.profile_Residency {
+    position: relative;
+    width: 100%;
+    height: 96px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 1px 0px #e9edf1;
+    z-index: 1;
+} 
+.profile_Residency_title {
+    color: #9b9b9b;
+    display: block;
+    margin-bottom: 5px;
+    font-size: 12px;
+    font-weight: 400;
+} 
+.profile__content {
+    display: flex;
+    position: relative;
+} 
+.profile_Residency_content_icon {
+    width: 48px;
+    height: 48px;
+    background-color: #f9f8ee;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} 
+.profile__content_info {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    padding-left: 15px;
+    width: calc(100% - 45px);
+    flex-direction: column;
+} 
+.profile_Education {
+    position: relative;
+    width: 100%;
+    height: 96px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 1px 0 #e9edf1;
+    z-index: 1;
+    top: 1px;
+} 
+.education-icon {
+    background-color: #eef3f9;
+} 
+span.not_residency {
+    color: #9b9b9b;
+    font-size: 14px;
+} 
+.profile_Contact {
+    position: relative;
+    width: 100%;
+    height: 96px;
+    background-color: #fff;
+    padding: 10px 15px;
+    box-shadow: 0 1px 0 #e9edf1;
+} 
+.profile_Contact .profile_Residency_title {
+    margin-bottom: 15px;
+} 
+.contact-icon {
+    background: transparent;
+} 
+.pre_email_addr {
+    color: #4a4a4a;
+    font-weight: 600;
+    font-size: 14px;    
+    margin-bottom: 3px;
+    line-height: 16px;
+    font-family: "sfSemiBold";
+} 
+.addr-link {
+    font-size: 12px;
+    color: #797979;
+} 
+/*# sourceMappingURL=style.css.map */

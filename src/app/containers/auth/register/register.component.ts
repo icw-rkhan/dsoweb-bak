@@ -4,7 +4,7 @@ import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 import { MatDialog } from '@angular/material';
 
-import { AuthService } from '../../../services/auth/auth.service';
+import { AuthService, ApiErrorService } from '../../../services/index';
 import { TermPolicyDialogComponent } from '../../../shared/dialogs/term-policy-dialog/term-policy-dialog.component';
 
 @Component({
@@ -20,9 +20,10 @@ export class RegisterComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private auth: AuthService,
+    private authService: AuthService,
     private fb: FormBuilder,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private apiError: ApiErrorService
   ) {
     this.isShowPassword = false;
   }
@@ -48,27 +49,35 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  get full_name() { return this.form.get('full_name'); }
+  get username() { return this.form.get('username'); }
+  get password() { return this.form.get('password'); }
+
   initForm() {
     this.form = this.fb.group({
-      full_name: ['', Validators.compose([
+      full_name: ['Nguyen Phu Viet', Validators.compose([
         Validators.required
       ])],
       is_student: [this.is_student],
       is_linkedin: [1],
-      username: ['', Validators.compose([
+      username: ['vietdn1991@gmail.com', Validators.compose([
         Validators.required,
         CustomValidators.email
       ])],
-      password: ['', Validators.compose([
+      password: ['Viet123123', Validators.compose([
         Validators.required
       ])]
     });
   }
 
   submit() {
-    this.auth.register(this.form.value).subscribe(
+    this.authService.register(this.form.value).subscribe(
       (data: any) => {
-        console.log(data);
+        if (!data.code) {
+          this.authService.loginSuccess(data);
+        } else {
+          this.apiError.checkError(data.code, 'register');
+        }
       }
     );
   }
