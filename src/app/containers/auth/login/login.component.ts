@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 
@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
     private apiError: ApiErrorService
@@ -55,6 +56,7 @@ export class LoginComponent implements OnInit {
       (data: any) => {
         if (!data.code) {
           this.authService.loginSuccess(data);
+          this.router.navigate(['/features', 'profile']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'login');
         }
