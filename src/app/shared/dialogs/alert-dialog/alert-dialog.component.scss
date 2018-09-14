@@ -12,3 +12,14 @@
 .mat-dialog-content {
   height: 65px;
 }
+
+.alertModal {
+  text-align: center;
+  .mat-button {
+    width: 100%;
+    color: #007AFF;
+    font-weight: 400;
+    font-size: 19px;
+    border-top: 1px solid #ddd;
+  }
+}
