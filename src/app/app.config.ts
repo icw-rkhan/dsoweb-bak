@@ -11,6 +11,7 @@ export class AppConfig implements IAppConfig {
 
   production: boolean;
   apiUrl: string;
+  authUrl: string;
 
   constructor() {
     Object.assign(this, environment);

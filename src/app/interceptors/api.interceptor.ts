@@ -16,7 +16,10 @@ export class ApiInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     if (request.url.startsWith(PREFIX_API)) {
-      const url = this.appConfig.apiUrl + request.url.slice(PREFIX_API.length - 1);
+      let url = this.appConfig.apiUrl + request.url.slice(PREFIX_API.length - 1);
+      if (request.url.endsWith('login')) {
+        url = this.appConfig.authUrl + request.url.slice(PREFIX_API.length - 1);
+      }
 
       /*
       TODO: Token example
