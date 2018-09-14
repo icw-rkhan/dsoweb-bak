@@ -1,1 +1,18 @@
 @import 'login';
+
+.forgotPasswordBox {
+    margin-top: 80px;
+    h3 {
+        color: #414141;
+        margin-bottom: 20px;
+        font-size: 30px;
+    }
+    p {
+        color: #414141;
+        margin: 10px 0px;
+        line-height: 22px;
+    }
+    a {
+        color: #879aa8;
+    }
+}

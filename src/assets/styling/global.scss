@@ -6,10 +6,6 @@ body {
     font-size: 14px;
 }
 
-a {
-    cursor: pointer;
-}
-
 .textCenter {
     text-align: center;
 }
@@ -29,5 +25,33 @@ a {
     color: #FFF;
     &.underline {
         text-decoration: underline;
+    }
+}
+
+.whiteNav {
+    background: #FFF;
+    border-bottom: 1px solid #979797;
+    padding: 15px 0px;
+    .pageTitle {
+        text-transform: uppercase;
+        text-align: center;
+    }
+    .navActions {
+        position: absolute;
+        &.right {
+            right: 10px;
+            top: 10px;
+        }
+        &.left {
+            left: 10px;
+            top: 10px;
+        }
+    }
+    &.bgGray {
+        background: #787878;
+        color: #FFF;
+        .btn {
+            color: #FFF;
+        }
     }
 }

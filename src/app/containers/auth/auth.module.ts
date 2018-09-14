@@ -7,6 +7,7 @@ import { AuthComponent } from './auth.component';
 import { loginRoutes } from './login/login.routing';
 import { welcomeRoutes } from './welcome/welcome.routing';
 import { registerRoutes } from './register/register.routing';
+import { forgotPasswordRoutes } from './forgot-password/forgot-password.routing';
 
 const routes: Routes = [
   {
@@ -15,7 +16,8 @@ const routes: Routes = [
     children: [
       ...welcomeRoutes,
       ...loginRoutes,
-      ...registerRoutes
+      ...registerRoutes,
+      ...forgotPasswordRoutes
     ]
   }
 ];
