@@ -10,13 +10,16 @@ import { AuthService, ApiErrorService } from '../../../services/index';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  isError: boolean;
   form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
     private apiError: ApiErrorService
-  ) { }
+  ) {
+    this.isError = false;
+  }
 
   ngOnInit() {
     this.initForm();
@@ -36,7 +39,11 @@ export class ForgotPasswordComponent implements OnInit {
   sendEmail() {
     this.authService.sendEmail(this.form.value).subscribe(
       (data: any) => {
-        console.log(data);
+        if (!data.code) {
+          //
+        } else if (data.code === 1003) {
+          this.isError = true;
+        }
       }
     );
   }

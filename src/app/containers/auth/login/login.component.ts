@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
         if (!data.code) {
           this.authService.loginSuccess(data);
         } else {
-          this.apiError.checkError(data.code, 'login');
+          this.apiError.checkError(data.code, this.form.value, 'login');
         }
       }
     );

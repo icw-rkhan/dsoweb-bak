@@ -55,16 +55,16 @@ export class RegisterComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      full_name: ['Nguyen Phu Viet', Validators.compose([
+      full_name: ['', Validators.compose([
         Validators.required
       ])],
       is_student: [this.is_student],
       is_linkedin: [1],
-      username: ['vietdn1991@gmail.com', Validators.compose([
+      username: ['', Validators.compose([
         Validators.required,
         CustomValidators.email
       ])],
-      password: ['Viet123123', Validators.compose([
+      password: ['', Validators.compose([
         Validators.required
       ])]
     });
@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
         if (!data.code) {
           this.authService.loginSuccess(data);
         } else {
-          this.apiError.checkError(data.code, 'register');
+          this.apiError.checkError(data.code, this.form.value, 'register');
         }
       }
     );

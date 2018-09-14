@@ -13,14 +13,18 @@ export class ApiErrorService {
     private dialog: MatDialog
   ) { }
 
-  checkError(code: number, module: string) {
+  checkError(code: number, data: any, module: string) {
     if (ERRORS[module]) {
+      let errorMessage = ERRORS[module][code] ? ERRORS[module][code] : ERRORS['common'][code];
+      Object.keys(data).map((key: any) => {
+        errorMessage = errorMessage.replace(`{${key}}`, data[key]);
+      });
       this.dialog.open(AlertDialogComponent, {
         width: '300px',
         height: '200px',
         data: {
           title: 'Error',
-          body: ERRORS[module][code] ? ERRORS[module][code] : ERRORS['common'][code]
+          body: errorMessage
         }
       });
     }
