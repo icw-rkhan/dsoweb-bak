@@ -13,6 +13,7 @@ import {
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatMenuModule,
   MatNativeDateModule,
   MatPaginatorModule,
   MatProgressBarModule,
@@ -26,6 +27,7 @@ import {
   MatTooltipModule
 } from '@angular/material';
 import { CustomFormsModule } from 'ngx-custom-validators';
+import { ShareModule } from '@ngx-share/core';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -73,17 +75,19 @@ export const MODULES = [
   MatDatepickerModule,
   MatSidenavModule,
   MatListModule,
+  MatMenuModule,
   MatCardModule,
   MatTableModule,
   MatTabsModule,
   MatGridListModule,
   CustomFormsModule,
-  NgxMasonryModule,
+  NgxMasonryModule
 ];
 
 @NgModule({
   imports: [
     ...MODULES,
+    ShareModule.forRoot()
   ],
   declarations: [
     ...PIPES,

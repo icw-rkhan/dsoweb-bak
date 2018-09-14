@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material';
+import { NgxMasonryOptions } from 'ngx-masonry';
 
 import { BookmarkFilterDialogComponent } from './bookmark-filter-dialog/bookmark-filter-dialog.component';
 
@@ -9,6 +10,15 @@ import { BookmarkFilterDialogComponent } from './bookmark-filter-dialog/bookmark
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BookmarksPageComponent implements OnInit {
+
+  gridOptions: NgxMasonryOptions = {
+    transitionDuration: '0.8s',
+    percentPosition: true,
+    columnWidth: '.grid-sizer',
+    itemSelector: '.grid-item',
+    gutter: '.gutter-sizer',
+    horizontalOrder: true
+  };
 
   constructor(public dialog: MatDialog) {
   }
