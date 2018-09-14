@@ -3,6 +3,7 @@ import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 
 import { Example, ExampleParams } from '../models/example.model';
+import { environment } from '../../environments/environment.prod';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,7 @@ export class ExampleService {
   }
 
   example(params: ExampleParams): Observable<Example> {
-    const url = `@api/example`;
+    const url = `${environment.cmsApiUrl}/example`;
     const httpParams = new HttpParams()
       .set('asset', params.id.toString());
     return this.http.get<Example>(url, {

@@ -1,42 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 
 @Component({
   selector: 'dso-root',
-  template: `<router-outlet></router-outlet>`
-  // template: `
-  //   <mat-sidenav-container class="sidenav-container">
-  //     <mat-sidenav #sidenav mode="push">
-  //       <dso-sidebar></dso-sidebar>
-  //     </mat-sidenav>
-  //     <mat-sidenav-content>
-  //       <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
-  //       <ng-progress></ng-progress>
-  //       <div class="main-container">
-  //         <router-outlet></router-outlet>
-  //       </div>
-  //     </mat-sidenav-content>
-  //   </mat-sidenav-container>
-  // `,
-  // styles: [`
-  //   .sidenav-container {
-  //     position: absolute;
-  //     top: 0;
-  //     bottom: 0;
-  //     left: 0;
-  //     right: 0;
-  //   }
-  //   .main-container {
-  //     margin: 27px;
-  //   }
-  // `]
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  withMainMenu: boolean;
 
   constructor(private router: Router) {
+    this.withMainMenu = false;
   }
 
   ngOnInit() {
+    this.router.events.subscribe(router => {
+      if (router instanceof  NavigationStart) {
+        const math = router.url.match(/^(?!.*auth).*$/g);
+        this.withMainMenu = math !== null;
+      }
+    });
   }
 
 }

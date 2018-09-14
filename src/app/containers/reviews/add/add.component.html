@@ -1,0 +1,33 @@
+<div layout="column">
+    <div class="header">
+      <p class="rate">Rate the article</p>
+      <p class="title">{{articleInfo.title}}</p>
+      <p class="date">{{articleInfo.date}}</p>
+    </div>
+  
+    <div class="statebar" fxLayout="row" fxLayoutAlign="center center">
+      <div *ngFor="let state of stateList; index as i">
+        <img *ngIf="userInfo.rate>i;else nonactive" src="assets/images/star-active.png">{{index}}
+        <ng-template #nonactive>
+          <img src="assets/images/star-nonactive.png">
+        </ng-template>
+      </div>
+    </div>
+  
+    <mat-card fxLayout="row" fxLayoutAlign="start center">
+      <img mat-card-avatar src={{userInfo.url}}>
+      <mat-card-content>
+        <span class="lable">Writing review as </span>
+        <span class="user-name">{{userInfo.name}}</span>    
+      </mat-card-content>
+    </mat-card>
+  
+    <div>
+      <form action="/reviews/adds" method="POST">
+        <p><label>Write a brief review</label></p>
+        <p id="contents"><textarea autofocus></textarea></p>
+        <p><button mat-flat-button type="submit">Submit Review</button></p>
+      </form>
+    </div>
+  </div>
+  

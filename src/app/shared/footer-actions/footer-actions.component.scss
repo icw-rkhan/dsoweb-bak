@@ -1,0 +1,27 @@
+.footer {
+  //position: fixed;
+  //bottom: 0;
+  background: white;
+  width: 100%;
+  border-top: 1px solid rgba(0, 0, 0, .12);
+}
+
+::ng-deep mat-sidenav-content {
+  background-color: white;
+}
+
+.tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: gray;
+  font-weight: 200;
+  mat-icon {
+    margin-bottom: 5px;
+  }
+}
+
+.mat-tab-link {
+  flex: 1;
+  height: 60px;
+}

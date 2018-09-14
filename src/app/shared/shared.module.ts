@@ -3,14 +3,17 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
-  MatButtonModule, MatCardModule,
+  MatButtonModule,
+  MatCardModule,
   MatCheckboxModule,
   MatDatepickerModule,
   MatDialogModule,
   MatFormFieldModule,
+  MatGridListModule,
   MatIconModule,
   MatInputModule,
   MatListModule,
+  MatMenuModule,
   MatNativeDateModule,
   MatPaginatorModule,
   MatProgressBarModule,
@@ -19,15 +22,21 @@ import {
   MatSidenavModule,
   MatSortModule,
   MatTableModule,
+  MatTabsModule,
   MatToolbarModule,
   MatTooltipModule
 } from '@angular/material';
+import { CustomFormsModule } from 'ngx-custom-validators';
+import { ShareModule } from '@ngx-share/core';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
-import { CustomFormsModule } from 'ngx-custom-validators';
 import { TruncatePipe } from '../pipes/truncate.pipe';
+import { FeedCardComponent } from './feed-card/feed-card.component';
+import { FooterActionsComponent } from './footer-actions/footer-actions.component';
+import { NgxMasonryModule } from 'ngx-masonry';
+import { FeedGridComponent } from './feed-grid/feed-grid.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 
 const PIPES = [
@@ -38,6 +47,9 @@ export const COMPONENTS = [
   SidebarComponent,
   ToolbarComponent,
   AlertDialogComponent,
+  FeedCardComponent,
+  FooterActionsComponent,
+  FeedGridComponent,
   TermPolicyDialogComponent
 ];
 
@@ -65,13 +77,19 @@ export const MODULES = [
   MatDatepickerModule,
   MatSidenavModule,
   MatListModule,
+  MatMenuModule,
   MatCardModule,
+  MatTableModule,
+  MatTabsModule,
+  MatGridListModule,
   CustomFormsModule,
+  NgxMasonryModule
 ];
 
 @NgModule({
   imports: [
     ...MODULES,
+    ShareModule.forRoot()
   ],
   declarations: [
     ...PIPES,

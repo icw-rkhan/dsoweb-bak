@@ -1,0 +1,21 @@
+<div fxLayout = "column">
+    <mat-card fxLayout="row" fxLayoutAlign="start top" *ngFor="let userInfo of userInfoList">
+        <img class="mat-card-avatar" mat-card-avatar src="{{userInfo.url}}">
+        <mat-card-content>
+            <div fxLayoutAlign="row">
+                <div class="user-name">{{userInfo.name}} rated it </div>
+                <div class="statebar" fxLayout="row" fxLayoutAlign="center center">
+                    <div *ngFor="let state of stateList; index as i">
+                        <img *ngIf="userInfo.rate>i;else nonactive" src="assets/images/view-star-active.png" class="state-star">{{index}}
+                        <ng-template #nonactive>
+                        <img src="assets/images/view-star-nonactive.png" class="state-star">
+                        </ng-template>
+                    </div>
+                </div>            
+            </div>
+            
+            <div class="review-date">{{userInfo.date}}</div>
+            <div class="review-content">{{userInfo.review}}</div>
+        </mat-card-content>
+    </mat-card>            
+</div>

@@ -1,3 +1,20 @@
 .sidebar {
-  width: 220px;
+  width: 250px;
+}
+
+mat-nav-list {
+  padding-top: 0;
+}
+
+::ng-deep mat-list-item {
+  height: 63px !important;
+}
+
+::ng-deep .mat-nav-list {
+  h4 {
+    font-weight: bold !important;
+  }
+  p {
+    font-size: 12px !important;
+  }
 }

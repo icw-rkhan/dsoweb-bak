@@ -1,0 +1,13 @@
+:host {
+  flex: 1;
+}
+
+.feeds {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+nav {
+  background: white;
+}
