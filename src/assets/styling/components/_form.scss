@@ -1,0 +1,78 @@
+.form {
+  border: none;
+  border-radius: 5px;
+  padding: 0 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  &-btn {
+    text-transform: uppercase;
+    font-size: 12px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &-title {
+    font-size: 43px;
+    line-height: 59px;
+    margin-bottom: 20px;
+  }
+
+  &-warning {
+    font-size: 12px;
+    padding-left: 25px;
+    position: relative;
+    height: 20px;
+    display: flex;
+    align-items: center;
+
+    &::after {
+      content: '';
+      width: 20px;
+      height: 20px;
+      background-image: url('../../assets/images/info-icon.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      position: absolute;
+      left: 0;
+    }
+  }
+
+  &-content {
+    width: 80%;
+    font-size: 13px;
+    text-align: center;
+    margin: auto;
+    line-height: 20px;
+  }
+
+  &-footer {
+    font-size: 15px;
+    text-align: center;
+    margin-top: 20px;
+  }
+}
+
+.form-group {
+  margin-bottom: 15px;
+  position: relative;
+  .form-control {
+    width: 100%;
+    border-radius: 5px;
+    padding: 15px 10px;
+    border: none;
+    outline: none;
+  }
+  &.withActionRight {
+    .action {
+      position: absolute;
+      right: 0px;
+      top: 0px;
+      text-transform: uppercase;
+      color: #666;
+      padding: 13px;
+    }
+  }
+}

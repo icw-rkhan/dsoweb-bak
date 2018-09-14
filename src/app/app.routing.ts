@@ -2,16 +2,19 @@ import { RouterModule, Routes } from '@angular/router';
 
 import { NgModule } from '@angular/core';
 
+import { authRoutes } from './containers/auth/auth.routing';
+
 export const ROUTES: Routes = [
+  ...authRoutes,
   {
     path: '',
-    redirectTo: '/example',
+    redirectTo: '/auth/welcome',
     pathMatch: 'full'
   },
   {
     path: '**',
     redirectTo: '/'
-  },
+  }
 ];
 
 @NgModule({
