@@ -10,7 +10,7 @@
     <div class="content-title">
       <h2 class="mat-h2">{{post.title}}</h2>
       <div class="actions">
-        <button mat-icon-button>
+        <button mat-icon-button (click)="onBookmark()">
           <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </button>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">

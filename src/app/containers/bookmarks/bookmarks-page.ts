@@ -1,32 +1,27 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
-import { NgxMasonryOptions } from 'ngx-masonry';
-
+import { Component, OnInit } from '@angular/core';
+import { Bookmark } from '../../models/bookmark.model';
+import { map } from 'rxjs/internal/operators';
+import { BookmarkService } from '../../services/bookmark.service';
+import { Observable } from 'rxjs';
+import { MatDialog, MatSnackBar } from '@angular/material';
 import { BookmarkFilterDialogComponent } from './bookmark-filter-dialog/bookmark-filter-dialog.component';
 
 @Component({
   templateUrl: './bookmarks-page.html',
-  styleUrls: ['./bookmarks-page.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./bookmarks-page.scss']
 })
 export class BookmarksPageComponent implements OnInit {
 
-  gridOptions: NgxMasonryOptions = {
-    transitionDuration: '0.8s',
-    percentPosition: true,
-    columnWidth: '.grid-sizer',
-    itemSelector: '.grid-item',
-    gutter: '.gutter-sizer',
-    horizontalOrder: true
-  };
+  private bookmarks$: Observable<Bookmark[]>;
 
-  constructor(public dialog: MatDialog) {
+  constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private bookmarkService: BookmarkService) {
   }
 
   ngOnInit(): void {
+    this.bookmarks$ = this.bookmarkService.getAllByEmail('h1078660929@163.com');
   }
 
-  openFilter() {
+  openFilter(): void {
     const dialogRef = this.dialog.open(BookmarkFilterDialogComponent, {
       width: '300px',
     });
@@ -35,4 +30,17 @@ export class BookmarksPageComponent implements OnInit {
       console.log('The dialog was closed');
     });
   }
+
+  remove(bookmark: Bookmark): void {
+    this.bookmarkService.deleteOneById(bookmark.id).subscribe(() => {
+      this.bookmarks$ = this.bookmarks$.pipe(
+        map(items =>
+          items.filter(b => b.id !== bookmark.id)
+        ));
+      this.snackBar.open('Bookmark removed', 'OK', {
+        duration: 2000,
+      });
+    });
+  }
+
 }

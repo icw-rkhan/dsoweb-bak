@@ -1,6 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Post } from '../../models/post.model';
-import { ShareButtons } from '@ngx-share/core';
+import { Bookmark } from '../../models/bookmark.model';
 
 @Component({
   selector: 'dso-feed-card',
@@ -8,13 +8,18 @@ import { ShareButtons } from '@ngx-share/core';
   styleUrls: ['./feed-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FeedCardComponent implements OnInit {
+export class FeedCardComponent {
 
   @Input() type: string;
   @Input() post: Post;
+  @Output() bookmark = new EventEmitter<Bookmark>();
 
-  constructor(public share: ShareButtons){}
-
-  ngOnInit(): void {
+  onBookmark() {
+    // TODO: fetch email belongs to the user
+    this.bookmark.emit(<Bookmark>{
+      email: 'h1078660929@163.com',
+      title: this.post.title,
+      url: `https://www.google.com`,
+    });
   }
 }

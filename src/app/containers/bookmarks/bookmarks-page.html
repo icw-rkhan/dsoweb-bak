@@ -6,17 +6,5 @@
       <mat-icon class="icon-filter">filter_list</mat-icon>
     </button>
   </div>
-  <ngx-masonry [options]="gridOptions">
-    <ngxMasonryItem *ngFor="let i of [1,2,3,4,5]">
-      <div class="grid-sizer"></div>
-      <div class="gutter-sizer"></div>
-      <div class="grid-item">
-        <dso-bookmark-card></dso-bookmark-card>
-      </div>
-    </ngxMasonryItem>
-  </ngx-masonry>
-  <div class="no-content" *ngIf="false">
-    <img src="/src/assets/images/no-bookmarks.png">
-    <h3 class="mat-h3">No bookmarks added yet</h3>
-  </div>
+  <dso-bookmark-grid [bookmarks]="bookmarks$ | async" (remove)="remove($event)"></dso-bookmark-grid>
 </div>

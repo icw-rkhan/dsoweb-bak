@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 
 export class Post implements Serializable<Post> {
 
+  id: number;
   title: string;
   content: string;
   excerpt: string;
@@ -22,6 +23,7 @@ export class Post implements Serializable<Post> {
     category = _.flatMap(category).find(item => item['taxonomy'] === 'category');
 
     return <Post>Object.assign({}, {
+      id: data.id,
       title: data.title.rendered,
       content: data.content.rendered,
       excerpt: data.excerpt.rendered,

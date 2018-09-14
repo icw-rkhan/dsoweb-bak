@@ -20,11 +20,12 @@ import {
   MatProgressSpinnerModule,
   MatSelectModule,
   MatSidenavModule,
+  MatSnackBarModule,
   MatSortModule,
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
 } from '@angular/material';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { ShareModule } from '@ngx-share/core';
@@ -82,6 +83,7 @@ export const MODULES = [
   MatTableModule,
   MatTabsModule,
   MatGridListModule,
+  MatSnackBarModule,
   CustomFormsModule,
   NgxMasonryModule
 ];

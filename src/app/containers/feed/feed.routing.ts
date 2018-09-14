@@ -10,7 +10,6 @@ import { TechGuidesPageComponent } from './tech-guides-page/tech-guides-page';
 import { AnimationsPageComponent } from './animations-page/animations-page';
 import { TipSheetsPageComponent } from './tip-sheets-page/tip-sheets-page';
 import { VideosPageComponent } from './videos-page/videos-page';
-import { SearchPageComponent } from '../search/search-page';
 
 export const ROUTES: Routes = [
   {

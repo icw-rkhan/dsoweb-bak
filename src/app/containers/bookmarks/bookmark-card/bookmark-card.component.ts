@@ -1,4 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+
+import { Bookmark } from '../../../models/bookmark.model';
 
 @Component({
   selector: 'dso-bookmark-card',
@@ -6,9 +8,13 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
   styleUrls: ['./bookmark-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BookmarkCardComponent implements OnInit {
+export class BookmarkCardComponent {
 
-  ngOnInit(): void {
+  @Input() bookmark: Bookmark;
+  @Output() remove = new EventEmitter<Bookmark>();
+
+  onRemove() {
+    this.remove.emit(this.bookmark);
   }
 
 }

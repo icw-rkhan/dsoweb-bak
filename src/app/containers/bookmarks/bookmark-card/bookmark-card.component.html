@@ -11,11 +11,11 @@
         orthodontics
       </h3>
       <div class="mat-body-2">
-        Understanding the link between Enamel Erosion and Diet
+        {{bookmark.title}}
       </div>
     </div>
     <div content="actions">
-      <button mat-icon-button>
+      <button mat-icon-button (click)="onRemove()">
         <mat-icon aria-label="Bookmark" class="bookmark-icon">bookmark</mat-icon>
       </button>
     </div>

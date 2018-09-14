@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { NgxMasonryOptions } from 'ngx-masonry';
 
 import { Post } from '../../models/post.model';
+import { Bookmark } from '../../models/bookmark.model';
 
 @Component({
   selector: 'dso-feed-grid',
@@ -11,6 +12,7 @@ import { Post } from '../../models/post.model';
 export class FeedGridComponent {
 
   @Input() posts: Post[];
+  @Output() bookmark = new EventEmitter<Bookmark>();
 
   gridOptions: NgxMasonryOptions = {
     transitionDuration: '0.8s',
@@ -20,5 +22,9 @@ export class FeedGridComponent {
     gutter: '.gutter-sizer',
     horizontalOrder: true
   };
+
+  onBookmark(item: Bookmark) {
+    this.bookmark.emit(item);
+  }
 
 }
