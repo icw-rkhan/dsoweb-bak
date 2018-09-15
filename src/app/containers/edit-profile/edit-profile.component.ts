@@ -13,11 +13,15 @@ export class EditProfileComponent implements OnInit {
   userInfo: any;
   userProfile: any;
   metadata: any;
+  isEdit: boolean;
+  isSpeciality: boolean;
 
   constructor(
     private authService: AuthService,
     private profileService: ProfileService
   ) {
+    this.isEdit = true;
+    this.isSpeciality = false;
     this.metadata = {
       dentalSchool: [],
       residency: [],
@@ -71,5 +75,16 @@ export class EditProfileComponent implements OnInit {
                         : 'Present';
       });
     });
+  }
+
+  selectSpeciality() {
+    this.isEdit = !this.isEdit;
+    this.isSpeciality = !this.isSpeciality;
+  }
+
+  setSpeciality(item: any) {
+    this.userProfile.residency_id = item.id;
+    this.userProfile.speciality = item.name;
+    this.selectSpeciality();
   }
 }

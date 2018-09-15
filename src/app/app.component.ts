@@ -16,7 +16,9 @@ export class AppComponent implements OnInit {
   ngOnInit() {
     this.router.events.subscribe(router => {
       if (router instanceof  NavigationStart) {
-        this.withMainMenu = router.url !== '/' && !router.url.includes('auth');
+        this.withMainMenu = router.url !== '/'
+                            && !router.url.includes('auth')
+                            && !router.url.includes('profile');
       }
     });
   }

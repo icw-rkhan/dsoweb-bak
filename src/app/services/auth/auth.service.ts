@@ -65,6 +65,11 @@ export class AuthService {
     }
   }
 
+  isAuthenticated() {
+    const token = localStorage.getItem('token');
+    return token ? true : false;
+  }
+
   private extractData(res: Response) {
     const body = res;
     return body || {};

@@ -18,6 +18,8 @@ import { BookmarksPageModule } from './containers/bookmarks/bookmarks-page.modul
 import { ProfileModule } from './containers/profile/profile.module';
 import { EditProfileModule } from './containers/edit-profile/edit-profile.module';
 
+import { AuthGuard } from './services/auth/auth-guard';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -41,7 +43,9 @@ import { EditProfileModule } from './containers/edit-profile/edit-profile.module
     EditProfileModule,
     AppRoutingModule,
   ],
-  providers: [],
+  providers: [
+    AuthGuard
+  ],
   bootstrap: [
     AppComponent
   ]
