@@ -18,7 +18,7 @@ export class AppComponent implements OnInit {
       if (router instanceof  NavigationStart) {
         this.withMainMenu = router.url !== '/'
                             && !router.url.includes('auth')
-                            && !router.url.includes('profile');
+                            && router.url !== '/edit-profile';
       }
     });
   }
