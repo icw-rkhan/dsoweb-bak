@@ -76,7 +76,7 @@ export class RegisterComponent implements OnInit {
       (data: any) => {
         if (!data.code) {
           this.authService.loginSuccess(data);
-          this.router.navigate(['/features', 'profile']);
+          this.router.navigate(['/profile']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'register');
         }
