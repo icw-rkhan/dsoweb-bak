@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 import { environment } from '../../../environments/environment';
 
 const CLIENT_ID = 'fooClientIdPassword';
@@ -10,6 +12,8 @@ const CLIENT_ID = 'fooClientIdPassword';
   providedIn: 'root'
 })
 export class AuthService {
+
+  jwtHelper = new JwtHelperService();
 
   constructor(
     private http: HttpClient
@@ -34,15 +38,21 @@ export class AuthService {
     );
   }
 
-  loginSuccess(data: any) {
-    this.storeUserInformation(data.resultMap);
-  }
-
   sendEmail(body: any) {
     const url = `${environment.profileApiUrl}/emailToken/sendEmail`;
     return this.http.post(url, body).pipe(
       map(this.extractData)
     );
+  }
+
+  loginSuccess(data: any) {
+    this.storeUserInformation(data.resultMap);
+  }
+
+  getUserInfo() {
+    const token = localStorage.getItem('token');
+    const userInfo = this.jwtHelper.decodeToken(token);
+    return userInfo || {};
   }
 
   storeUserInformation(data: any) {
