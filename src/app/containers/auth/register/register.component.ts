@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 import { MatDialog } from '@angular/material';
@@ -19,7 +19,6 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
     private fb: FormBuilder,
@@ -30,14 +29,8 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(
-      (params: any) => {
-        if (params.is_student) {
-          this.is_student = +params.is_student;
-        }
-        this.initForm();
-      }
-    );
+    this.is_student = +localStorage.getItem('is_student');
+    this.initForm();
   }
 
   showDialog(type: string) {
@@ -76,7 +69,7 @@ export class RegisterComponent implements OnInit {
       (data: any) => {
         if (!data.code) {
           this.authService.loginSuccess(data);
-          this.router.navigate(['/features', 'profile']);
+          this.router.navigate(['/profile']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'register');
         }

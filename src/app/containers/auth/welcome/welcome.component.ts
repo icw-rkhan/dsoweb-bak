@@ -22,8 +22,9 @@ export class WelcomeComponent implements OnInit {
     this.checkIsStudent = true;
   }
 
-  redirect(is_student: number) {
+  redirect(is_student: string) {
+    localStorage.setItem('is_student', is_student);
     const url = this.signup ? ['/auth', 'register'] : ['/auth', 'login'];
-    this.router.navigate(url, { queryParams: { is_student: is_student } });
+    this.router.navigate(url);
   }
 }

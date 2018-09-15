@@ -15,6 +15,8 @@ import { FeedModule } from './containers/feed/feed.module';
 import { SearchPageModule } from './containers/search/search-page.module';
 import { CategoryPageModule } from './containers/category/category-page.module';
 import { BookmarksPageModule } from './containers/bookmarks/bookmarks-page.module';
+import { ProfileModule } from './containers/profile/profile.module';
+import { EditProfileModule } from './containers/edit-profile/edit-profile.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +37,8 @@ import { BookmarksPageModule } from './containers/bookmarks/bookmarks-page.modul
     SearchPageModule,
     CategoryPageModule,
     BookmarksPageModule,
+    ProfileModule,
+    EditProfileModule,
     AppRoutingModule,
   ],
   providers: [],
