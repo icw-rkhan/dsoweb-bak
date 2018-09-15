@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 import { AuthService, ProfileService } from '../../services/index';
 
@@ -34,10 +35,13 @@ export class ProfileComponent implements OnInit {
   }
 
   parseData() {
-    // console.log(this.userProfile);
-    const start_time = 1536733013604;
-    const end_time = 1544595413604;
-    console.log(new Date(start_time));
-    console.log(new Date(end_time));
+    ['educations', 'experiences', 'profileResidency'].map((key: any) => {
+      this.userProfile[key].map((item: any) => {
+        item.start_time = moment(item.start_time).format('MMMM YYYY');
+        item.end_date = moment(item.start_time).isBefore(moment())
+                        ? moment(item.end_time).format('MMMM YYYY')
+                        : 'Present';
+      });
+    });
   }
 }

@@ -40,7 +40,11 @@ export class AuthService {
 
   sendEmail(body: any) {
     const url = `${environment.profileApiUrl}/emailToken/sendEmail`;
-    return this.http.post(url, body).pipe(
+    const formData: FormData = new FormData();
+    Object.keys(body).map((key: any) => {
+      formData.append(key, body[key]);
+    });
+    return this.http.post(url, formData).pipe(
       map(this.extractData)
     );
   }
