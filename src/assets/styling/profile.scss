@@ -6,6 +6,7 @@ $color_5: #000;
 $color_6: #879aa8;
 $color_7: #030303;
 $color_8: #007aff;
+$color_9: #000000;
 $font_family_1: "sfSemiBold";
 $font_family_2: "sfBold";
 $font_family_3: "sfRegular";
@@ -22,6 +23,7 @@ $background_color_10: #007ab9;
 $background_color_11: #f0f0f0;
 $background_color_12: #f3f5f7;
 $background_color_13: #e9edf1;
+$background_color_14: rgba(248, 248, 248, 0.82);
 $border_color_1: #e9edf1;
 $border_color_2: #879aa8;
 
@@ -70,8 +72,6 @@ span.icon-bar {
 }
 .navbar-title-heading {
 	position: relative;
-	text-transform: uppercase;
-	font-weight: 600;
 	color: $color_1;
 	font-size: 15px;
 	font-weight: 600;
@@ -342,7 +342,10 @@ span.icon-back {
 	padding: 10px 15px;
 }
 .personal-container {
-	position: relative;
+	position: relative; 
+}
+.mh-vh {
+	min-height: calc(100vh - 55px);
 }
 .personal-group {
 	margin-bottom: 10px;
@@ -512,9 +515,13 @@ span.icon-back {
 }
 .cancel-row {
 	padding: 10px;
-	position: relative;
+	position: absolute;
 	text-align: center;
 	margin-top: 100px;
+	bottom: 5vh;
+	display: flex;
+	width: 100%;
+	justify-content: center;
 	a {
 		color: $color_6;
 		font-size: 15px;
@@ -591,7 +598,7 @@ span.icon-back {
 	position: relative;
 	width: 100%;
 	max-width: 270px;
-	background: rgba(255, 255, 255, .8);
+	background: rgba(255, 255, 255, 0.8);
 	top: calc(50% - 70px);
 	margin: 0 auto;
 	border-radius: 12px;
@@ -654,7 +661,7 @@ span.icon-back {
 		height: 25px;
 		background: #fff;
 		position: absolute;
-		box-shadow: 0px 2px 4px rgba(0,0,0,.2);
+		box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
 		transition: all .2s ease-in-out;
 		left: 2px;
 		top: 1px;
@@ -698,4 +705,38 @@ span.icon-back {
 .flex-input {
 	display: flex;
 	align-items: center;
+}
+.save-modal {
+	position: relative;
+	width: 270px;
+	height: 104px;
+	border-radius: 14px;
+	background-color: $background_color_14;
+	top: calc(50% - 65px);
+	margin: 0 auto;
+}
+.save-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100%;
+	p {
+		width: 238px;
+		height: 32px;
+		color: $color_9;
+		font-size: 13px;
+		font-weight: 400;
+		line-height: 16px;
+		letter-spacing: -0.08px;
+		text-align: center;
+	}
+}
+.save-alert {
+	color: $color_9;
+	font-size: 17px;
+	font-weight: 600;
+	line-height: 22px;
+	letter-spacing: -0.41px;
+	font-family: $font_family_1;
 }
