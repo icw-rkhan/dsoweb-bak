@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 
@@ -16,7 +16,7 @@ export class LoginComponent implements OnInit {
   form: FormGroup;
 
   constructor(
-    private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder,
     private authService: AuthService,
     private apiError: ApiErrorService
@@ -25,14 +25,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.route.queryParams.subscribe(
-      (params: any) => {
-        if (params.is_student) {
-          this.is_student = +params.is_student;
-        }
-        this.initForm();
-      }
-    );
+    this.is_student = +localStorage.getItem('is_student');
+    this.initForm();
   }
 
   get username() { return this.form.get('username'); }
@@ -40,11 +34,11 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      username: ['h1078660929@163.com', Validators.compose([
+      username: ['vietnguyenp95@gmail.com', Validators.compose([
         Validators.required,
         CustomValidators.email
       ])],
-      password: ['1QAZ2WSX', Validators.compose([
+      password: ['Viet123123', Validators.compose([
         Validators.required
       ])]
     });
@@ -55,8 +49,9 @@ export class LoginComponent implements OnInit {
       (data: any) => {
         if (!data.code) {
           this.authService.loginSuccess(data);
+          this.router.navigate(['/profile']);
         } else {
-          this.apiError.checkError(data.code, 'login');
+          this.apiError.checkError(data.code, this.form.value, 'login');
         }
       }
     );

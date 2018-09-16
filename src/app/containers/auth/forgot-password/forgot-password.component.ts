@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
+import { Router } from '@angular/router';
 
-import { AuthService, ApiErrorService } from '../../../services/index';
+import { AuthService } from '../../../services/index';
 
 @Component({
   selector: 'dso-forgot-password',
@@ -10,13 +11,16 @@ import { AuthService, ApiErrorService } from '../../../services/index';
 })
 export class ForgotPasswordComponent implements OnInit {
 
+  isError: boolean;
   form: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private authService: AuthService,
-    private apiError: ApiErrorService
-  ) { }
+    private router: Router
+  ) {
+    this.isError = false;
+  }
 
   ngOnInit() {
     this.initForm();
@@ -36,7 +40,11 @@ export class ForgotPasswordComponent implements OnInit {
   sendEmail() {
     this.authService.sendEmail(this.form.value).subscribe(
       (data: any) => {
-        console.log(data);
+        if (!data.code) {
+          this.router.navigate(['/auth', 'login']);
+        } else if (data.code === 1003) {
+          this.isError = true;
+        }
       }
     );
   }

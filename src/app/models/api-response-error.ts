@@ -3,8 +3,10 @@ export const ERRORS: any = {
     1007: 'Client id is null'
   },
   login: {
-    1001: 'Incorrect password',
-    1003: 'Username does not exist',
+    1001: `<strong>Incorrect Password</strong>
+          <br>Sorry, that password is incorrect for the account with the email address: {username}`,
+    1003: `<strong>Incorrect Email</strong>
+          <br>Sorry, we can\'\'t find an account with the email address: {username}`,
     1004: 'Incorrect format username'
   },
   register: {
