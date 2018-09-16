@@ -1,15 +1,1 @@
-<mat-sidenav-container class="sidenav-container" *ngIf="withMainMenu">
-  <mat-sidenav #sidenav mode="push">
-    <dso-sidebar></dso-sidebar>
-  </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content">
-    <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
-    <ng-progress></ng-progress>
-    <div class="main-container">
-      <router-outlet></router-outlet>
-    </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
-<div *ngIf="!withMainMenu">
-  <router-outlet></router-outlet>
-</div>
+<router-outlet></router-outlet>

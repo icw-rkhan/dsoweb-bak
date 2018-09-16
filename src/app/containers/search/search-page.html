@@ -1,17 +1,28 @@
-<div class="search">
-  <dso-footer-actions></dso-footer-actions>
-  <div class="search-form">
-    <mat-form-field appearance="outline">
-      <mat-label>Search</mat-label>
-      <input matInput>
-      <mat-icon matSuffix>search</mat-icon>
-    </mat-form-field>
-    <button mat-button routerLink="/feed/latest">Cancel</button>
-  </div>
-  <div class="search-result">
-    <div class="no-content">
-      <img src="/src/assets/images/no-search.png">
-      <h3 class="mat-h3">Search by category name, author, or content type</h3>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="push">
+    <dso-sidebar></dso-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content">
+    <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
+    <ng-progress></ng-progress>
+    <div class="main-container">
+      <div class="search">
+        <dso-footer-actions></dso-footer-actions>
+        <div class="search-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Search</mat-label>
+            <input matInput>
+            <mat-icon matSuffix>search</mat-icon>
+          </mat-form-field>
+          <button mat-button routerLink="/feed/latest">Cancel</button>
+        </div>
+        <div class="search-result">
+          <div class="no-content">
+            <img src="/src/assets/images/no-search.png">
+            <h3 class="mat-h3">Search by category name, author, or content type</h3>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

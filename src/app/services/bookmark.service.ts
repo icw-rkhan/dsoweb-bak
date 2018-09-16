@@ -36,12 +36,10 @@ export class BookmarkService {
     const url = `${environment.profileApiUrl}/bookmark/save`;
 
     // TODO: Remove this when header is sending in the interceptor
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${this.auth.getToken()}`);
+    // const headers = new HttpHeaders()
+    //   .set('Authorization', `Bearer ${this.auth.getToken()}`);
 
-    return this.http.post(url, bookmark, {
-      headers
-    });
+    return this.http.post(url, bookmark);
   }
 
   deleteOneById(id: string) {

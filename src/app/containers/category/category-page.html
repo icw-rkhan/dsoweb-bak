@@ -1,13 +1,24 @@
-<div class="search">
-  <dso-footer-actions></dso-footer-actions>
-  <div class="search-form">
-    <mat-form-field>
-      <mat-select placeholder="Category" (selectionChange)="selectCategory($event)">
-        <mat-option *ngFor="let category of (categories$ | async)" [value]="category.id">
-          {{category.name}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-  <dso-feed-grid [posts]="posts$ | async"></dso-feed-grid>
-</div>
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="push">
+    <dso-sidebar></dso-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content class="sidenav-content">
+    <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
+    <ng-progress></ng-progress>
+    <div class="main-container">
+      <div class="search">
+        <dso-footer-actions></dso-footer-actions>
+        <div class="search-form">
+          <mat-form-field>
+            <mat-select placeholder="Category" (selectionChange)="selectCategory($event)">
+              <mat-option *ngFor="let category of (categories$ | async)" [value]="category.id">
+                {{category.name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+        <dso-feed-grid [posts]="posts$ | async"></dso-feed-grid>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

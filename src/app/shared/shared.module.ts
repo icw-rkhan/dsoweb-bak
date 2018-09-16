@@ -39,6 +39,8 @@ import { FooterActionsComponent } from './footer-actions/footer-actions.componen
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FeedGridComponent } from './feed-grid/feed-grid.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { NgProgressModule } from '@ngx-progressbar/core';
 
 const PIPES = [
   TruncatePipe
@@ -85,7 +87,9 @@ export const MODULES = [
   MatGridListModule,
   MatSnackBarModule,
   CustomFormsModule,
-  NgxMasonryModule
+  NgxMasonryModule,
+  NgProgressModule,
+  NgProgressHttpModule,
 ];
 
 @NgModule({
