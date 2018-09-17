@@ -1,5 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable } from 'rxjs';
+
+import { CommentService } from '../../../services/comment.service';
+import { Comment } from '../../../models/comment.model';
 
 @Component({
   selector: 'dso-reviews-view',
@@ -8,26 +12,15 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 })
 export class ViewComponent implements OnInit {
 
-  stateList = [{state:'nonactive'},{state:'nonactive'},{state:'nonactive'},{state:'nonactive'},{state:'nonactive'}]
 
-  userInfoList = [
-    {
-    url: 'assets/images/user-avatar.png',
-    name: 'Matt Heafy',
-    rate: 4,
-    date: '3 jul, 2017',
-    review: 'A wonderful experience reading up on the new trends of dental heath.'
-    },
-    {
-      url: 'assets/images/user-avatar.png',
-      name: 'Matt Heafy',
-      rate: 4,
-      date: '3 jul, 2017',
-      review: 'A wonderful experience reading up on the new trends of dental heath.'
-    },
-  ]  
+  postId: number;
+  comments$: Observable<Comment[]>;
 
-  constructor(public breakpointObserver: BreakpointObserver) { }
+  stateList = [{state:'inactive'},{state:'inactive'},{state:'inactive'},{state:'inactive'},{state:'inactive'}]
+
+  constructor(public breakpointObserver: BreakpointObserver, private commentService: CommentService) { 
+    this.postId = 28;
+  }
 
   ngOnInit() 
   {
@@ -37,5 +30,7 @@ export class ViewComponent implements OnInit {
       if(result.matches) {
       }
     })  
+
+    this.comments$ = this.commentService.comments(this.postId);
   }
 }
