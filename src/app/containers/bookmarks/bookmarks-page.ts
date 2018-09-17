@@ -23,7 +23,7 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.progress.start();
+    // this.progress.start();
     const bookmarks$ = this.bookmarkService.getAllByEmail('h1078660929@163.com');
 
     this.bookmarkSub = bookmarks$.subscribe(bookmarks => {
