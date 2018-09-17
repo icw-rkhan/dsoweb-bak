@@ -28,7 +28,7 @@
         </mat-menu>
       </div>
     </div>
-    <div class="inner-content mat-body-1" [innerHtml]="post.content">
+    <div class="inner-content mat-body-1" [innerHtml]="post.excerpt">
     </div>
     <div class="more-container" *ngIf="post.format === 'standard'">
       <a mat-button routerLink="." class="more">...more</a>

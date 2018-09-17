@@ -19,7 +19,7 @@ export class FeedCardComponent {
     this.bookmark.emit(<Bookmark>{
       email: 'h1078660929@163.com',
       title: this.post.title,
-      post_id: this.post.id.toString()
+      postId: this.post.id.toString()
     });
   }
 }

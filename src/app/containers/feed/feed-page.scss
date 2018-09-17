@@ -16,7 +16,9 @@
 }
 
 .main-container {
-  background-color: #FAFAFA;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .feeds {

@@ -1,11 +1,5 @@
 @import "../../../responsive";
 
-.search {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
 .header {
   padding: 10px 25px;
   display: flex;
@@ -54,4 +48,10 @@ ngx-masonry {
 
 .gutter-sizer {
   width: 10px;
+}
+
+.main-container {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }

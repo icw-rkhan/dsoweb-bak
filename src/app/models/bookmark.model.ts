@@ -6,7 +6,7 @@ export class Bookmark implements Serializable<Bookmark> {
   email: string;
   id?: string;
   title: string;
-  post_id: string;
+  postId: string;
   user_id?: string;
 
   deserialize(data: any): Bookmark {
@@ -15,7 +15,7 @@ export class Bookmark implements Serializable<Bookmark> {
       email: data.email,
       id: data.id,
       title: data.title,
-      post_id: data.post_id,
+      postId: data.post_id,
       user_id: data.user_id
     });
   }

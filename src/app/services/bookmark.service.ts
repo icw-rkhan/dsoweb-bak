@@ -28,7 +28,7 @@ export class BookmarkService {
     }).pipe(
       map((response: any) =>
         response.resultMap.bookmarkList.map(post => new Bookmark().deserialize(post))
-      )
+      ),
     );
   }
 
@@ -41,7 +41,7 @@ export class BookmarkService {
 
     console.log(this.auth.getToken());
 
-    return this.http.post(url, bookmark, { headers });
+    return this.http.post(url, bookmark, {headers});
   }
 
   deleteOneById(id: string) {
