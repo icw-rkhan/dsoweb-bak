@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'dso-main-container',
@@ -7,5 +7,11 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class MainContainerComponent {
+
+  @Input() displayMainActions: boolean;
+
+  constructor() {
+    this.displayMainActions = true;
+  }
 
 }

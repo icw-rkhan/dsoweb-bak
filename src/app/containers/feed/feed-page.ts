@@ -8,7 +8,7 @@ import { NavLinkModel } from '../../models/nav-link.model';
 export class FeedPageComponent implements OnInit {
 
   navLinks: NavLinkModel[] = [];
-
+  
   ngOnInit(): void {
     this.navLinks.push({
       label: 'LATEST',

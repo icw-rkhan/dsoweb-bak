@@ -4,9 +4,8 @@
   </mat-sidenav>
   <mat-sidenav-content class="sidenav-content">
     <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
-    <ng-progress [thick]="false" [meteor]="true" [color]="'black'"></ng-progress>
     <div class="main-container">
-      <dso-footer-actions></dso-footer-actions>
+      <dso-main-actions *ngIf="displayMainActions"></dso-main-actions>
       <!-- Content here-->
       <ng-content></ng-content>
     </div>

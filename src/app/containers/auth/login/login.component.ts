@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit {
       (data: any) => {
         if (!data.code) {
           this.authService.loginSuccess(data);
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/feed/latest']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'login');
         }

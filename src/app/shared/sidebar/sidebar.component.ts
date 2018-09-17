@@ -15,7 +15,7 @@ export class SidebarComponent {
     this.links.push({
       label: 'General Content',
       icon: 'folder_open',
-      route: ''
+      route: '/feed/latest'
     });
     this.links.push({
       label: 'Education',
@@ -40,13 +40,17 @@ export class SidebarComponent {
     this.links.push({
       label: 'My Profile',
       icon: 'account_box',
-      route: ''
+      route: '/profile'
     });
     this.links.push({
       label: 'Settings',
       icon: 'settings_applications',
       route: ''
     });
+  }
+
+  onClick(link: NavLinkModel) {
+    this.router.navigate([link.route]);
   }
 
 }

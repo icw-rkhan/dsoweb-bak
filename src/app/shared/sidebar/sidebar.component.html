@@ -6,12 +6,10 @@
       <p mat-line>New Jersey, NJ</p>
     </mat-list-item>
     <mat-divider></mat-divider>
-    <div *ngFor="let link of links">
-      <mat-list-item>
-        <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
-        <a matLine>{{link.label}}</a>
-      </mat-list-item>
-      <mat-divider></mat-divider>
-    </div>
+    <mat-list-item *ngFor="let link of links">
+      <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
+      <a matLine (click)="onClick(link)">{{link.label}}</a>
+    </mat-list-item>
+    <mat-divider></mat-divider>
   </mat-nav-list>
 </div>

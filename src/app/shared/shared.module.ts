@@ -35,12 +35,11 @@ import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { FeedCardComponent } from './feed-card/feed-card.component';
-import { FooterActionsComponent } from './footer-actions/footer-actions.component';
+import { MainActionsComponent } from './main-actions/main-actions.component';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { FeedGridComponent } from './feed-grid/feed-grid.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
-import { NgProgressModule } from '@ngx-progressbar/core';
 import { MainContainerComponent } from './main-container/main-container.component';
 
 const PIPES = [
@@ -52,7 +51,7 @@ export const COMPONENTS = [
   ToolbarComponent,
   AlertDialogComponent,
   FeedCardComponent,
-  FooterActionsComponent,
+  MainActionsComponent,
   FeedGridComponent,
   TermPolicyDialogComponent,
   MainContainerComponent
@@ -90,7 +89,6 @@ export const MODULES = [
   MatSnackBarModule,
   CustomFormsModule,
   NgxMasonryModule,
-  NgProgressModule,
   NgProgressHttpModule,
 ];
 
