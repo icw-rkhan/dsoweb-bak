@@ -54,7 +54,7 @@ span.icon-bar {
 	width: 30px;
 	left: 15px;
 	height: 30px;
-	background: url(../images/profile/icon-bars.png) no-repeat center;
+	background: url(../assets/images/profile/icon-bars.png) no-repeat center;
 	background-size: auto;
 }
 .navbar-edit-profile {
@@ -166,7 +166,7 @@ span.icon-bar {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background-image: url(../images/profile/icon_residency.png);
+	background-image: url(../assets/images/profile/icon_residency.png);
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -189,7 +189,7 @@ span.icon-bar {
 }
 .education-icon {
 	background-color: $background_color_4;
-	background-image: url(../images/profile/icon_education.png);
+	background-image: url(../assets/images/profile/icon_education.png);
 	background-repeat: no-repeat;
 	background-position: center;
 }
@@ -209,7 +209,7 @@ span.not_residency {
 	}
 }
 .contact-icon {
-	background-image: url(../images/profile/icon_email.png);
+	background-image: url(../assets/images/profile/icon_email.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: $background_color_5;
@@ -264,24 +264,24 @@ span.not_residency {
 }
 .education-icon2 {
 	background-color: $background_color_6;
-	background-image: url(../images/profile/icon_edu2.png);
+	background-image: url(../assets/images/profile/icon_edu2.png);
 	background-repeat: no-repeat;
 	background-position: center;
 }
 .mobile-icon {
-	background-image: url(../images/profile/mobile_icon.png);
+	background-image: url(../assets/images/profile/mobile_icon.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: $background_color_5;
 }
 .practice-icon {
-	background-image: url(../images/profile/icon_practice.png);
+	background-image: url(../assets/images/profile/icon_practice.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: $background_color_5;
 }
 .exp_icon {
-	background-image: url(../images/profile/exp_icon.png);
+	background-image: url(../assets/images/profile/exp_icon.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: $background_color_7;
@@ -295,7 +295,7 @@ a.back-link {
 	top: 8px;
 }
 span.icon-back {
-	background: url(../images/profile/back_icon.png) no-repeat center;
+	background: url(../assets/images/profile/back_icon.png) no-repeat center;
 }
 .profile-header {
 	height: 200px;
@@ -331,7 +331,7 @@ span.icon-back {
 	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 	background-color: $background_color_8;
 	border-radius: 100%;
-	background-image: url(../images/profile/edit_icon.png);
+	background-image: url(../assets/images/profile/edit_icon.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	cursor: pointer;
@@ -366,13 +366,13 @@ span.icon-back {
 	margin-bottom: 0;
 }
 .upload-icon {
-	background-image: url(../images/profile/upload_icon.png);
+	background-image: url(../assets/images/profile/upload_icon.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: $background_color_9;
 }
 .linkedin-upload {
-	background-image: url(../images/profile/linkedin-medium.png);
+	background-image: url(../assets/images/profile/linkedin-medium.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: $background_color_10;
@@ -385,7 +385,7 @@ span.icon-back {
 	width: 20px;
 	height: 20px;
 	cursor: pointer;
-	background: url(../images/profile/addNew_icon.png) no-repeat center;
+	background: url(../assets/images/profile/addNew_icon.png) no-repeat center;
 	top: 16px;
 	right: 15px;
 }
@@ -394,12 +394,12 @@ span.icon-back {
 	width: 20px;
 	height: 20px;
 	cursor: pointer;
-	background: url(../images/profile/arrow-right.png) no-repeat center;
+	background: url(../assets/images/profile/arrow-right.png) no-repeat center;
 	top: calc(50% - 8px);
 	right: 0;
 }
 .exp_owner {
-	background-image: url(../images/profile/logo_exp_1.png);
+	background-image: url(../assets/images/profile/logo_exp_1.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: $background_color_11;
@@ -415,7 +415,7 @@ span.icon-back {
 .icon_linkedin {
 	width: 16px;
 	height: 16px;
-	background: url(../images/profile/icon-linkedin.png) no-repeat center;
+	background: url(../assets/images/profile/icon-linkedin.png) no-repeat center;
 	display: inline-block;
 	position: relative;
 }
@@ -448,7 +448,7 @@ span.icon-back {
 	width: 15px;
 	height: 15px;
 	position: absolute;
-	background: url(../images/profile/icon-search.png) no-repeat center;
+	background: url(../assets/images/profile/icon-search.png) no-repeat center;
 	top: 10px;
 	left: 10px;
 }
@@ -532,7 +532,7 @@ span.icon-back {
 	width: 20px;
 	height: 20px;
 	cursor: pointer;
-	background: url(../images/profile/edit_icon.png) no-repeat center;
+	background: url(../assets/images/profile/edit_icon.png) no-repeat center;
 	top: calc(50% - 8px);
 	right: 10px;
 }
@@ -739,4 +739,47 @@ span.icon-back {
 	line-height: 22px;
 	letter-spacing: -0.41px;
 	font-family: $font_family_1;
+}
+
+.process-profile {
+    width: 100%;
+    height: 31px;
+    border-bottom: 1px solid $background_color_13;
+    background-color: #fafbfd;
+    position: relative;
+}
+
+.process-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    position: relative;
+    align-items: center;
+    height: 31px;
+} 
+.process-container {
+	&:before {
+	content: "";
+	position: absolute;
+	height: 4px;
+	border-radius: 4px;
+	background-color: $background_color_13;
+	width: calc(100% - 110px);
+	}
+}
+.process-bar {
+    position: relative;
+    height: 4px;
+    background: $color_6;
+    border-radius: 4px;
+}
+
+.process-info {
+    position: relative;
+    color: $color_6;
+    font-size: 12px;
+}
+strong {
+  font-weight: bold;
+  font-family: "sfSemiBold";
 }

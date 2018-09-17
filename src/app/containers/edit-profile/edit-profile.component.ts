@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 import { AuthService, ProfileService } from '../../services/index';
+import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -87,5 +88,10 @@ export class EditProfileComponent implements OnInit {
     this.userProfile.residency_id = item.id;
     this.userProfile.speciality = item.name;
     this.selectSpeciality();
+  }
+
+  onSave(form: NgForm) {
+    console.log('save');
+    console.log(form.valid);
   }
 }
