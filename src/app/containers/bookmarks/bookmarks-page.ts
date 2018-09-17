@@ -13,7 +13,8 @@ import { NgProgress } from '@ngx-progressbar/core';
 })
 export class BookmarksPageComponent implements OnInit, OnDestroy {
 
-  private bookmarks$: Observable<Bookmark[]>;
+  bookmarks$: Observable<Bookmark[]>;
+
   private bookmarkSub: Subscription;
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private bookmarkService: BookmarkService,
