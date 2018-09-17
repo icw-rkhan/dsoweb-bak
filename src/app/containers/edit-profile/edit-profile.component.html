@@ -28,7 +28,7 @@
             <input type="text" name="fullName" class="input-mb" required [(ngModel)]="userProfile.full_name"
                    #fullname="ngModel">
             <div [hidden]="fullname.valid || fullname.pristine"
-                 class="alert alert-danger">
+                 class="validation-message">
               Full name is required
             </div>
           </div>
@@ -137,7 +137,15 @@
           </div>
           <div class="personal-group">
             <label class="profile_title mb0">Preferred email address</label>
-            <input type="text" name="email" class="input-mb" required [(ngModel)]="userProfile.email">
+            <input type="email" name="email" class="input-mb" required email="true" [(ngModel)]="userProfile.email" #email="ngModel">
+            <div [hidden]="!email.hasError('required') || email.pristine"
+                 class="validation-message">
+              Email is required
+            </div>
+            <div [hidden]="!email.hasError('email') || email.pristine"
+                 class="validation-message">
+              Email is wrong format
+            </div>
           </div>
         </div>
       </section>

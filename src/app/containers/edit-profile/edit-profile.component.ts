@@ -91,7 +91,8 @@ export class EditProfileComponent implements OnInit {
   }
 
   onSave(form: NgForm) {
-    console.log('save');
-    console.log(form.valid);
+    if (form.valid) {
+
+    }
   }
 }
