@@ -19,6 +19,7 @@
           </div>
         </div>
       </section>
+
       <section class="personal-info">
         <div class="profile_title small f300 mb15">Personal Info</div>
         <div class="personal-container">
@@ -34,10 +35,11 @@
           <div class="personal-group">
             <label class="profile_title mb0">Speciality</label>
             <input (focus)="selectSpeciality()" type="text" name="" class="input-mb"
-                   value="{{ userProfile?.speciality }}">
+                   value="{{ userProfile?.speciality }}" contenteditable="false">
           </div>
         </div>
       </section>
+
       <section class="profile_Education">
         <div class="profile_title small f300">Upload resume or import data</div>
         <div class="profile__content">
@@ -49,17 +51,8 @@
             </div>
           </div>
         </div>
-        <div class="profile__content">
-          <div class="profile__icon linkedin-upload"></div>
-          <div class="profile__content_info">
-            <div class="profile_info">
-              <div class="profile_subtitle">Import from LinkedIn</div>
-              <div class="profile-job">Information imported from LinkedIn will not be shared without your permission.
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
+
       <section *ngIf="is_student" class="profile_Residency">
         <div class="profile_title small f300">Experience</div>
         <span class="addNew-icon"></span>
