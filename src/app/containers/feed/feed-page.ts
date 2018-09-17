@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NavLinkModel } from '../../models/nav-link.model';
 
 @Component({
