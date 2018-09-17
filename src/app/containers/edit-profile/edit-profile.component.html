@@ -25,8 +25,12 @@
         <div class="personal-container">
           <div class="personal-group">
             <label class="profile_title mb0">Fullname</label>
-            <input type="text" name="fullName" class="input-mb" required [(ngModel)]="userProfile.full_name"
-                   #fullname="ngModel">
+            <div class="d-flex">
+              <input type="text" name="fullName" class="input-mb" required [(ngModel)]="userProfile.full_name"
+                     #fullname="ngModel">
+              <i class="fa fa-pencil personal-edit-icon"></i>
+            </div>
+            <div class="personal-underline"></div>
             <div [hidden]="fullname.valid || fullname.pristine"
                  class="validation-message">
               Full name is required
@@ -34,8 +38,12 @@
           </div>
           <div class="personal-group">
             <label class="profile_title mb0">Speciality</label>
-            <input (focus)="selectSpeciality()" type="text" name="" class="input-mb"
-                   value="{{ userProfile?.speciality }}" contenteditable="false">
+            <div class="d-flex">
+              <input (focus)="selectSpeciality()" type="text" name="" class="input-mb"
+                     value="{{ userProfile?.speciality }}" contenteditable="false">
+              <span class="arrow-right-input"></span>
+            </div>
+            <div class="personal-underline"></div>
           </div>
         </div>
       </section>
@@ -134,10 +142,13 @@
           <div class="personal-group">
             <label class="profile_title mb0">Mobile number</label>
             <input type="text" name="phone" class="input-mb" [(ngModel)]="userProfile.phone">
+            <div class="personal-underline"></div>
           </div>
           <div class="personal-group">
             <label class="profile_title mb0">Preferred email address</label>
-            <input type="email" name="email" class="input-mb" required email="true" [(ngModel)]="userProfile.email" #email="ngModel">
+            <input type="email" name="email" class="input-mb" required email="true" [(ngModel)]="userProfile.email"
+                   #email="ngModel">
+            <div class="personal-underline"></div>
             <div [hidden]="!email.hasError('required') || email.pristine"
                  class="validation-message">
               Email is required

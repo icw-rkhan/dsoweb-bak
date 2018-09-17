@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
 
-import { AuthService, ProfileService } from '../../services/index';
+import {AuthService, ProfileService} from '../../services/index';
 import {NgForm} from '@angular/forms';
 
 @Component({
@@ -18,10 +18,8 @@ export class EditProfileComponent implements OnInit {
   isEditSpeciality: boolean;
   isEditExperience: boolean;
 
-  constructor(
-    private authService: AuthService,
-    private profileService: ProfileService
-  ) {
+  constructor(private authService: AuthService,
+              private profileService: ProfileService) {
     this.isEdit = true;
     this.isEditSpeciality = false;
     this.isEditExperience = false;
@@ -60,7 +58,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   fetchProfile(email: string) {
-    this.profileService.findOneByEmail({ email: email }).subscribe(
+    this.profileService.findOneByEmail({email: email}).subscribe(
       (data: any) => {
         this.userProfile = data.resultMap.data;
         this.parseData();
@@ -73,8 +71,8 @@ export class EditProfileComponent implements OnInit {
       this.userProfile[key].map((item: any) => {
         item.start_time = moment(item.start_time).format('MMMM YYYY');
         item.end_date = moment(item.start_time).isBefore(moment())
-                        ? moment(item.end_time).format('MMMM YYYY')
-                        : 'Present';
+          ? moment(item.end_time).format('MMMM YYYY')
+          : 'Present';
       });
     });
   }
@@ -92,7 +90,12 @@ export class EditProfileComponent implements OnInit {
 
   onSave(form: NgForm) {
     if (form.valid) {
-
+      this.profileService.saveProfile(this.userProfile).subscribe(profile => {
+          console.log(profile);
+        },
+        error => {
+          console.log(error);
+        });
     }
   }
 }

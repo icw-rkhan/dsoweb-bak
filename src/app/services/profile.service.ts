@@ -5,6 +5,7 @@ import { map } from 'rxjs/internal/operators';
 import { forkJoin } from 'rxjs';
 
 import { environment } from '../../environments/environment';
+import {post} from 'selenium-webdriver/http';
 
 @Injectable({
   providedIn: 'root'
@@ -68,6 +69,12 @@ export class ProfileService {
       formData.append(key, data[key]);
     });
     return formData;
+  }
+
+  saveProfile(profile) {
+    const url = `${environment.profileApiUrl}/userProfile/save`;
+    const headers = this.customHeader();
+    return this.http.post(url, profile, { headers: headers });
   }
 
   private extractData(res: Response) {
