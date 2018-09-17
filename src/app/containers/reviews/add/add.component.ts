@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
 import { AuthService } from '../../../services/auth/auth.service';
@@ -18,13 +19,15 @@ export class AddComponent implements OnInit {
   body: any;
   userInfo: any;
   articleInfo: any;
+  routeParams: any;
 
   stateList = [{state:false},{state:false},{state:false},{state:false},{state:false}]
 
   constructor(public breakpointObserver: BreakpointObserver, 
     private commentService: CommentService,
     private authService: AuthService,
-    private _location: Location) {
+    private _location: Location,
+    private activeRoute: ActivatedRoute) {
       this.rate = 0;
       this.comment = "";
       this.condition = false;
@@ -42,14 +45,16 @@ export class AddComponent implements OnInit {
       }
     })
 
+    this.routeParams = this.activeRoute.snapshot.params;
+
     this.userInfo = {
       url: this.authService.getUserInfo().user_url,
       name: this.authService.getUserInfo().user_name
     }
 
     this.articleInfo = {
-      title: 'Preventing damage to tooth enamel',
-      date: 'August 2018'
+      title: this.routeParams.postTitle,
+      date: this.routeParams.postDate
     }
   }
 
@@ -66,7 +71,7 @@ export class AddComponent implements OnInit {
   saveComment() {
     this.body = {
       'userId': this.authService.getUserInfo().user_id,
-      'postId': '28',
+      'postId': this.routeParams.postId,
       'comment': this.comment,
       'rating': this.rate
     }

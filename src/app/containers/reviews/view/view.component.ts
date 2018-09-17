@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
+import { NgProgress } from '@ngx-progressbar/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { CommentService } from '../../../services/comment.service';
 import { Comment } from '../../../models/comment.model';
@@ -11,15 +13,17 @@ import { Comment } from '../../../models/comment.model';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
-
-
   postId: number;
   comments$: Observable<Comment[]>;
+  commentsSub: Subscription;
+  routeParams: any;
 
   stateList = [{state:'inactive'},{state:'inactive'},{state:'inactive'},{state:'inactive'},{state:'inactive'}]
 
-  constructor(public breakpointObserver: BreakpointObserver, private commentService: CommentService) { 
-    this.postId = 28;
+  constructor(public breakpointObserver: BreakpointObserver, 
+    private commentService: CommentService,
+    private progress: NgProgress, 
+    private activeRoute: ActivatedRoute) { 
   }
 
   ngOnInit() 
@@ -29,8 +33,17 @@ export class ViewComponent implements OnInit {
     ]).subscribe(result=> {
       if(result.matches) {
       }
-    })  
+    }) 
 
+    this.routeParams = this.activeRoute.snapshot.params;
+    this.postId = this.routeParams.postId;
+
+    this.progress.start();
     this.comments$ = this.commentService.comments(this.postId);
+    this.commentsSub = this.comments$.subscribe(() => this.progress.complete());
+  }
+
+  ngOnDestroy(): void {
+    this.commentsSub.unsubscribe();
   }
 }
