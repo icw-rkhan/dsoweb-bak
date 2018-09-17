@@ -42,7 +42,6 @@ export class EditProfileComponent implements OnInit {
   getMetaData() {
     this.profileService.getMetaData().subscribe(
       (data: any) => {
-        console.log(data);
         if (data[0]) {
           this.metadata.residency = data[0].resultMap.data;
         }
