@@ -1,15 +1,15 @@
 <div *ngIf="isEdit">
-  <header class="header-profile fixed-bar">
-    <nav class="navbar bg-grey">
-      <a [routerLink]="['/profile']" class="back-link"><span class="icon-bar icon-back"></span></a>
-      <div class="navbar-title-heading">Edit Profile</div>
-      <div class="navbar-edit-profile">
-        <a href="javascript:void(0)" (click)="onSave(profileForm)">Save</a>
-      </div>
-    </nav>
-  </header>
-  <div class="profile_content">
-    <form #profileForm="ngForm" *ngIf="userProfile !== undefined">
+  <form #profileForm="ngForm" *ngIf="userProfile !== undefined">
+    <header class="header-profile fixed-bar">
+      <nav class="navbar bg-grey">
+        <a [routerLink]="['/profile']" class="back-link"><span class="icon-bar icon-back"></span></a>
+        <div class="navbar-title-heading">Edit Profile</div>
+        <div class="navbar-edit-profile">
+          <a href="javascript:void(0)" (click)="onSave(profileForm)">Save</a>
+        </div>
+      </nav>
+    </header>
+    <div class="profile_content">
       <section class="profile-heading profile-header">
         <div class="profile-img">
           <div class="profile_title">Profile Photo</div>
@@ -19,6 +19,7 @@
           </div>
         </div>
       </section>
+
       <section class="personal-info">
         <div class="profile_title small f300 mb15">Personal Info</div>
         <div class="personal-container">
@@ -34,10 +35,11 @@
           <div class="personal-group">
             <label class="profile_title mb0">Speciality</label>
             <input (focus)="selectSpeciality()" type="text" name="" class="input-mb"
-                   value="{{ userProfile?.speciality }}">
+                   value="{{ userProfile?.speciality }}" contenteditable="false">
           </div>
         </div>
       </section>
+
       <section class="profile_Education">
         <div class="profile_title small f300">Upload resume or import data</div>
         <div class="profile__content">
@@ -49,17 +51,8 @@
             </div>
           </div>
         </div>
-        <div class="profile__content">
-          <div class="profile__icon linkedin-upload"></div>
-          <div class="profile__content_info">
-            <div class="profile_info">
-              <div class="profile_subtitle">Import from LinkedIn</div>
-              <div class="profile-job">Information imported from LinkedIn will not be shared without your permission.
-              </div>
-            </div>
-          </div>
-        </div>
       </section>
+
       <section *ngIf="is_student" class="profile_Residency">
         <div class="profile_title small f300">Experience</div>
         <span class="addNew-icon"></span>
@@ -148,8 +141,8 @@
           </div>
         </div>
       </section>
-    </form>
-  </div>
+    </div>
+  </form>
 </div>
 <div *ngIf="isEditSpeciality">
   <header class="header-profile fixed-bar">
