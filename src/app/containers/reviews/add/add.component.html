@@ -7,9 +7,9 @@
   
     <div class="statebar" fxLayout="row" fxLayoutAlign="center center">
       <div *ngFor="let state of stateList; index as i">
-        <img *ngIf="userInfo.rate>i;else nonactive" src="assets/images/star-active.png">{{index}}
-        <ng-template #nonactive>
-          <img src="assets/images/star-nonactive.png">
+        <img *ngIf="i<rate;else inactive" class="active" src="assets/images/star-active.png" (click)="eventRating($event)">
+        <ng-template #inactive>
+          <img class="inactive" src="assets/images/star-inactive.png" (click)="eventRating($event)">
         </ng-template>
       </div>
     </div>
@@ -22,12 +22,10 @@
       </mat-card-content>
     </mat-card>
   
-    <div>
-      <form action="/reviews/adds" method="POST">
-        <p><label>Write a brief review</label></p>
-        <p id="contents"><textarea autofocus></textarea></p>
-        <p><button mat-flat-button type="submit">Submit Review</button></p>
-      </form>
+    <div class="comments">
+      <p><label>Write a brief review</label></p>
+      <p id="contents"><textarea [(ngModel)]="comment" autofocus></textarea></p>
+      <p><button mat-flat-button (click)="saveComment()">Submit Review</button></p>
     </div>
   </div>
   
