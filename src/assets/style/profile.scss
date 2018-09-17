@@ -342,13 +342,23 @@ span.icon-back {
 	padding: 10px 15px;
 }
 .personal-container {
-	position: relative; 
+	position: relative;
 }
 .mh-vh {
 	min-height: calc(100vh - 55px);
 }
 .personal-group {
 	margin-bottom: 10px;
+}
+.personal-underline {
+  height: 1px;
+  background-color: $color_3;
+  width: 100%;
+  margin-bottom: 5px;
+}
+.personal-edit-icon {
+  color: $color_3;
+  font-size: 18px;
 }
 .input-mb {
 	height: 44px;
@@ -397,6 +407,14 @@ span.icon-back {
 	background: url(../assets/images/profile/arrow-right.png) no-repeat center;
 	top: calc(50% - 8px);
 	right: 0;
+}
+.arrow-right-input {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  background: url(../assets/images/profile/arrow-right.png) no-repeat center;
+  //top: calc(50% - 8px);
+  //right: 0;
 }
 .exp_owner {
 	background-image: url(../assets/images/profile/logo_exp_1.png);
@@ -756,7 +774,7 @@ span.icon-back {
     position: relative;
     align-items: center;
     height: 31px;
-} 
+}
 .process-container {
 	&:before {
 	content: "";
