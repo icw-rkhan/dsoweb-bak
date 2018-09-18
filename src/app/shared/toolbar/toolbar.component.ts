@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'dso-toolbar',
@@ -13,7 +14,7 @@ export class ToolbarComponent {
   title = "DSODENTIST";
   btnCategory = "menu";
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private _location: Location) {
     router.events.subscribe((event: Event)=> {
       if(event instanceof NavigationEnd) {
         if(event.url == '/dsodentist') {
@@ -40,7 +41,7 @@ export class ToolbarComponent {
     if(this.btnCategory == "menu") {
       this.toggleMenu.emit();
     }else if (this.btnCategory == 'keyboard_backspace') {
-      this.router.navigate(['/dsodentist']);
+      this._location.back();
     }
   }
 
