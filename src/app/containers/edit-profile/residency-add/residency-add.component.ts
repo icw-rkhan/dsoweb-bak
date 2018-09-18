@@ -39,7 +39,7 @@ export class ResidencyAddComponent implements OnInit {
 
   changeYear(e) {
     if (this.residency) {
-      this.residency.year = parseInt(e.target.value);
+      this.residency.year = parseInt(e.target.value) || null;
     }
   }
 

@@ -10,6 +10,7 @@ export class ResidencyEditComponent implements OnInit {
   @Input('residency') residency: Residency;
   @Output() updateResidency: EventEmitter<Residency> = new EventEmitter(null);
   isDelete = false;
+  isError = false;
   constructor() { }
 
   ngOnInit() {
@@ -20,8 +21,26 @@ export class ResidencyEditComponent implements OnInit {
     this.isDelete = true;
   }
 
+  changeYear(e) {
+    if (this.residency) {
+      this.residency.year = parseInt(e.target.value) || null;
+    }
+  }
+
   _updateResidency() {
+    this.isError = false;
+    if (this.residency.year < 1950 || this.residency.year > new Date().getFullYear()) {
+      this.isError = true;
+      return;
+    }
     this.updateResidency.emit(this.residency);
+  }
+
+  keyDown(e) {
+    if (!(parseInt(e.key) >= 0 && parseInt(e.key) <= 9) && e.keyCode != 8 || (e.target.value.length > 3) && e.keyCode != 8) {
+      e.preventDefault();
+      return;
+    }
   }
 
 }
