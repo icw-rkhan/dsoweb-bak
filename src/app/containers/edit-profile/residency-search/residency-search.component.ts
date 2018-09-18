@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
 import { ResidencyService } from '../../../services/residency.service';
 import { Residency } from '../../../models/residency.model';
 
@@ -8,10 +8,11 @@ import { Residency } from '../../../models/residency.model';
   styleUrls: ['./residency-search.component.scss']
 })
 export class ResidencySearchComponent implements OnInit {
+  @Input('residency') residency: Residency;
   oresidencies: Residency[] = [];
   residencies: Residency[] = [];
   searchText = '';
-  @Output() selectResidency: EventEmitter<Residency> = new EventEmitter(null);
+  @Output() selectedResidency: EventEmitter<Residency> = new EventEmitter(null);
 
   constructor(private residencyService: ResidencyService) { }
 
@@ -28,7 +29,7 @@ export class ResidencySearchComponent implements OnInit {
   _selectResidency(r: Residency) {
     this.searchText = r.name;
     this._filter(r.name);
-    this.selectResidency.emit(r);
+    this.selectedResidency.emit(r);
   }
 
   private _filter(str) {
