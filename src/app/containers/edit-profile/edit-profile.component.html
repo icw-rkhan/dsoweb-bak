@@ -102,7 +102,7 @@
           </div>
         </div>
         <ng-template #noResidency>
-          <span class="addNew-icon"></span>
+          <span class="addNew-icon" (click)="editResidencyModel.show()"></span>
           <div class="profile__content">
             <div class="profile__icon"></div>
             <div class="profile__content_info">
@@ -222,6 +222,19 @@
           </ul>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #editResidencyModel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name3"
+  id="waitingPopup" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <dso-residency-search (selectedResidency)="selectedResidency($event)" [residency]="residency" *ngIf="residency_page == RESIDENCY_AT"></dso-residency-search>
+        <dso-residency-add *ngIf="residency_page == RESIDENCY_ADD" (cancelResidency)="cancelResidency()" [residency]="residency" (selectResidency)="selectResidency()" (addResidency)="addResidency($event)"></dso-residency-add>
+        <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (updateResidency)="updateResidency($event)" [residency]="residency"></dso-residency-edit>
     </div>
   </div>
 </div>
