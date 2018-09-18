@@ -7,6 +7,7 @@ import { BookmarkService } from '../../services/bookmark.service';
 import { BookmarkFilterDialogComponent } from './bookmark-filter-dialog/bookmark-filter-dialog.component';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post.model';
+import { AuthService } from '../../services';
 
 @Component({
   templateUrl: './bookmarks-page.html',
@@ -19,26 +20,28 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
   private bookmarkSub: Subscription;
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private bookmarkService: BookmarkService,
-              private postService: PostService, private progress: NgProgress) {
+              private postService: PostService, private progress: NgProgress, private authService: AuthService) {
   }
 
   ngOnInit(): void {
-    // this.progress.start();
-    const bookmarks$ = this.bookmarkService.getAllByEmail('h1078660929@163.com');
+    const email = this.authService.getUserInfo().user_name;
+    this.progress.start();
+    const bookmarks$ = this.bookmarkService.getAllByEmail(email);
 
     this.bookmarkSub = bookmarks$.subscribe(bookmarks => {
       const posts = [];
       bookmarks.forEach(bookmark => {
         const innerSub = this.postService.fetchById(+bookmark.postId)
           .subscribe(p => {
+            p.bookmarkId = bookmark.id;
             posts.push(p);
             if (bookmarks.length === posts.length) {
               this.posts = posts;
-              // this.progress.complete();
             }
             innerSub.unsubscribe();
           });
       });
+      this.progress.complete();
     });
   }
 
@@ -57,9 +60,9 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
 
   remove(post: Post): void {
     this.progress.start();
-    this.bookmarkService.deleteOneById(post.id.toString()).subscribe(() => {
+    this.bookmarkService.deleteOneById(post.bookmarkId).subscribe(() => {
       this.progress.complete();
-      this.posts = this.posts.filter(b => b.id !== post.id);
+      this.posts = this.posts.filter(b => b.id !== +post.id);
       this.snackBar.open('Bookmark removed', 'OK', {
         duration: 2000,
       });

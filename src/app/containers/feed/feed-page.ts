@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
 import { NavLinkModel } from '../../models/nav-link.model';
 
 @Component({
@@ -17,31 +16,31 @@ export class FeedPageComponent implements OnInit {
     });
     this.navLinks.push({
       label: 'VIDEOS',
-      route: '/feed/videos',
+      route: '/feed/post-type/29',
     });
     this.navLinks.push({
       label: 'ARTICLES',
-      route: '/feed/articles',
+      route: '/feed/post-type/28',
     });
     this.navLinks.push({
       label: 'PODCASTS',
-      route: '/feed/podcasts',
-    });
-    this.navLinks.push({
-      label: 'INTERVIEWS',
-      route: '/feed/interviews',
+      route: '/feed/post-type/30',
     });
     this.navLinks.push({
       label: 'TECH GUIDES',
-      route: '/feed/tech-guides',
+      route: '/feed/post-type/31',
     });
     this.navLinks.push({
       label: 'ANIMATIONS',
-      route: '/feed/animations',
+      route: '/feed/post-type/195',
+    });
+    this.navLinks.push({
+      label: 'INTERVIEWS',
+      route: '/feed/post-type/194',
     });
     this.navLinks.push({
       label: 'TIP SHEETS',
-      route: '/feed/tip-sheets',
+      route: '/feed/post-type/196',
     });
   }
 

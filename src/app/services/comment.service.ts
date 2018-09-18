@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
 
+import { AuthService } from './auth/auth.service';
 import { environment } from '../../environments/environment';
 import { Comment } from '../models/comment.model';
 
@@ -11,15 +12,17 @@ import { Comment } from '../models/comment.model';
 })
 export class CommentService {
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private auth: AuthService) {
   }
 
   comments(postId: number): Observable<Comment[]> {
     const url = `${environment.profileApiUrl}/getComments/${postId}`;
-    console.log(url);
     
-    return this.http.get(url).pipe(
-      map((response: any[]) =>{
+    const headers = new HttpHeaders()
+      .set('Authorization', `Bearer ${this.auth.getToken()}`);
+    
+    return this.http.get(url, {headers}).pipe(
+      map((response: any[]) => {
         return response['resultMap']['comments'];
       })
     );
@@ -27,13 +30,12 @@ export class CommentService {
 
   setComment(body: any) {
     const url = `${environment.profileApiUrl}/saveComment`;
-    return this.http.post(url, Object.assign(body)).pipe(
-      map(this.extractData)
-    );
-  }
 
-  private extractData(res: Response) {
-    const body = res;
-    return body || {};
+    const headers = new HttpHeaders()
+      .append('Authorization', `Bearer ${this.auth.getToken()}`)
+      .append('Content-Type', 'application/json');
+
+    return this.http.post(url, body, {headers});
   }
+  
 }

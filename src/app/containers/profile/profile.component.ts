@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
 
 import { AuthService, ProfileService } from '../../services/index';
+import {SharingService} from '../../services/sharing.service';
 
 @Component({
   selector: 'dso-profile',
@@ -15,9 +16,11 @@ export class ProfileComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
-    private profileService: ProfileService
+    private profileService: ProfileService,
+    private sharingService: SharingService
   ) {
     this.userInfo = this.authService.getUserInfo();
+    this.sharingService.showLoading̣̣(true);
   }
 
   ngOnInit() {
@@ -28,6 +31,7 @@ export class ProfileComponent implements OnInit {
   fetchProfile(email: string) {
     this.profileService.findOneByEmail({ email: email }).subscribe(
       (data: any) => {
+        this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
         this.parseData();
       }

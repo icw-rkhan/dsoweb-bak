@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
-import { AuthService } from '../../../services/auth/auth.service';
+import { AuthService, ProfileService } from '../../../services/index';
 import { CommentService } from '../../../services/comment.service';
 
 @Component({
@@ -14,27 +14,33 @@ import { CommentService } from '../../../services/comment.service';
 export class AddComponent implements OnInit {
   rate: number;
   comment: string;
+  user_id: string;
   condition: boolean;
   res: any;
   body: any;
   userInfo: any;
   articleInfo: any;
   routeParams: any;
+  profileSub: any;
 
   stateList = [{state:false},{state:false},{state:false},{state:false},{state:false}]
 
   constructor(public breakpointObserver: BreakpointObserver, 
-    private commentService: CommentService,
-    private authService: AuthService,
-    private _location: Location,
-    private activeRoute: ActivatedRoute) {
+    private commentService: CommentService, private authService: AuthService,
+    private profileService: ProfileService, private _location: Location, private activeRoute: ActivatedRoute) {
+      //init variables
       this.rate = 0;
       this.comment = "";
       this.condition = false;
+      //gets params from url
+      this.routeParams = this.activeRoute.snapshot.params;
+      //gets userInfo from user's email
+      this.getUserInfo(this.authService.getUserInfo().user_name);
     }
 
   ngOnInit() 
   {
+    //responsive layout
     this.breakpointObserver.observe([
       Breakpoints.HandsetLandscape
     ]).subscribe(result=> {
@@ -44,20 +50,31 @@ export class AddComponent implements OnInit {
         document.getElementById('contents').style.height = "calc(100vh - 411px)";
       }
     })
-
-    this.routeParams = this.activeRoute.snapshot.params;
-
-    this.userInfo = {
-      url: this.authService.getUserInfo().user_url,
-      name: this.authService.getUserInfo().user_name
-    }
-
+    //gets post's title, created date from the params of the route and view them
     this.articleInfo = {
       title: this.routeParams.postTitle,
       date: this.routeParams.postDate
     }
   }
+  //gets userInfo from user's email
+  getUserInfo(email: string) {
 
+    this.profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
+      (data: any) => {
+        const res = data.resultMap.data;
+        //sets userInfo
+        this.user_id = res.id;
+
+        this.userInfo = {
+          url: res.photo_url,
+          name: res.full_name
+        }
+
+        return data.resultMap.data;
+      }
+    );
+  }
+  //make a rating point
   eventRating(event) {
     status = event.target.getAttribute('class');
 
@@ -67,18 +84,24 @@ export class AddComponent implements OnInit {
       this.rate--;
     }
   }
-
+  //save the comment and redirect to previous url
   saveComment() {
     this.body = {
-      'userId': this.authService.getUserInfo().user_id,
-      'postId': this.routeParams.postId,
+      'userId': this.user_id,
+      'postId': '28',
       'comment': this.comment,
       'rating': this.rate
     }
 
-    this.res = this.commentService.setComment(this.body);
-    console.log(this.res);
-        
-    this._location.back();
+    this.commentService.setComment(this.body).subscribe(
+      (data: any) => {
+        console.log(data);
+
+        this._location.back();
+      });
+  }
+
+  ngOnDestroy(): void {
+    this.profileSub.unsubscribe();
   }
 }

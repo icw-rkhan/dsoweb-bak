@@ -1,32 +1,12 @@
-:host {
-  flex: 1;
-}
-
-.sidenav-container {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
-
-.sidenav-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.main-container {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-}
-
-.feeds {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
 nav {
   background: white;
+}
+
+::ng-deep .mat-tab-links {
+  overflow-x: auto;
+}
+
+.mat-tab-link {
+  min-width: 120px;
+  flex: 1;
 }

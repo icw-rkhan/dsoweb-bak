@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
+import { NgProgressModule } from '@ngx-progressbar/core';
 
 import { SharedModule } from './shared';
 import { AppComponent } from './app.component';
@@ -14,7 +15,6 @@ import { CategoryPageModule } from './containers/category/category-page.module';
 import { BookmarksPageModule } from './containers/bookmarks/bookmarks-page.module';
 import { ProfileModule } from './containers/profile/profile.module';
 import { EditProfileModule } from './containers/edit-profile/edit-profile.module';
-
 import { AuthGuard } from './services/auth/auth-guard';
 
 @NgModule({
@@ -26,6 +26,10 @@ import { AuthGuard } from './services/auth/auth-guard';
     BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    NgProgressModule.forRoot({
+      meteor: false,
+      color: '#0D47A1'
+    }),
     // Module import
     SharedModule,
     ReviewsModule,

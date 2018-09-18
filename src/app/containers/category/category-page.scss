@@ -1,4 +1,4 @@
-.search {
+.container {
   display: flex;
   flex: 1;
   flex-direction: column;
@@ -13,23 +13,4 @@
 
 mat-form-field {
   flex: 1;
-}
-
-.search-result {
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-}
-
-.no-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 40px 0;
-  flex: 1;
-}
-
-h3 {
-  margin-top: 30px;
 }

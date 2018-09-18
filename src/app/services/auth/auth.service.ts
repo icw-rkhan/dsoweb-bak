@@ -5,6 +5,7 @@ import { map } from 'rxjs/internal/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
 
 import { environment } from '../../../environments/environment';
+import {isNullOrUndefined} from 'util';
 
 const CLIENT_ID = 'fooClientIdPassword';
 
@@ -29,6 +30,10 @@ export class AuthService {
     return this.http.post(url, Object.assign({client_id: CLIENT_ID}, body)).pipe(
       map(this.extractData)
     );
+  }
+
+  public logOut() {
+    localStorage.removeItem('token');
   }
 
   register(body: any): Observable<any> {
@@ -73,5 +78,15 @@ export class AuthService {
   private extractData(res: Response) {
     const body = res;
     return body || {};
+  }
+
+  public isTokenExpired() {
+    const token = localStorage.getItem('token');
+    if (isNullOrUndefined(token)) {
+      return true;
+    }
+    const date = this.jwtHelper.getTokenExpirationDate(token);
+    if (date === undefined) return false;
+    return !(date.valueOf() > new Date().valueOf());
   }
 }

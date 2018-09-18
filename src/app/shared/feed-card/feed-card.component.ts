@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
+import { AuthService } from '../../services';
 
 @Component({
   selector: 'dso-feed-card',
@@ -12,14 +13,26 @@ export class FeedCardComponent {
 
   @Input() type: string;
   @Input() post: Post;
-  @Output() bookmark = new EventEmitter<Bookmark>();
+  @Output() addBookmark = new EventEmitter<Bookmark>();
+  @Output() removeBookmark = new EventEmitter<string>();
 
-  onBookmark() {
-    // TODO: fetch email belongs to the user
-    this.bookmark.emit(<Bookmark>{
-      email: 'h1078660929@163.com',
+  constructor(private authService: AuthService) {
+  }
+
+  onAddBookmark() {
+    this.post.bookmarked = true;
+    const email = this.authService.getUserInfo().user_name;
+    this.addBookmark.emit(<Bookmark>{
+      email: email,
       title: this.post.title,
       postId: this.post.id.toString()
     });
   }
+
+  onRemoveBookmark() {
+    this.post.bookmarked = false;
+    console.log(this.post);
+    this.removeBookmark.emit(this.post.bookmarkId);
+  }
+
 }

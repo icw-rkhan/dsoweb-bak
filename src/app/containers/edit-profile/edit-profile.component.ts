@@ -1,14 +1,32 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
 import * as moment from 'moment';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { AuthService, ProfileService } from '../../services/index';
+import { Residency } from '../../models/residency.model';
+
+import {NgForm} from '@angular/forms';
+import {SharingService} from '../../services/sharing.service';
 
 @Component({
   selector: 'dso-edit-profile',
-  templateUrl: './edit-profile.component.html'
+  templateUrl: './edit-profile.component.html',
+  animations: [
+    trigger('slideUpDown', [
+      state('up', style({ bottom: 0 })),
+      state('down', style({ bottom: '-110px' })),
+      transition(':enter', [
+        style({bottom: '-110px'}),
+        animate(300)
+      ]),
+      transition('up => down', animate('300ms')),
+      transition('down => up', animate('300ms')),
+    ])
+  ]
 })
 export class EditProfileComponent implements OnInit {
-
+  @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   is_student: number;
   userInfo: any;
   userProfile: any;
@@ -16,14 +34,25 @@ export class EditProfileComponent implements OnInit {
   isEdit: boolean;
   isEditSpeciality: boolean;
   isEditExperience: boolean;
+  isUploadResume: boolean;
+  isUploadResumeSlide: boolean;
 
-  constructor(
-    private authService: AuthService,
-    private profileService: ProfileService
-  ) {
+  RESIDENCY_AT = 1;
+  RESIDENCY_ADD = 2;
+  RESIDENCY_EDIT = 3;
+  residency_page = 2;
+  residency: Residency;
+
+  constructor(private authService: AuthService,
+              private profileService: ProfileService,
+              private sharingService: SharingService) {
+    this.sharingService.showLoading̣̣(true);
     this.isEdit = true;
     this.isEditSpeciality = false;
     this.isEditExperience = false;
+    this.isUploadResume = false;
+    this.isUploadResumeSlide = false;
+
     this.metadata = {
       dentalSchool: [],
       residency: [],
@@ -59,8 +88,9 @@ export class EditProfileComponent implements OnInit {
   }
 
   fetchProfile(email: string) {
-    this.profileService.findOneByEmail({ email: email }).subscribe(
+    this.profileService.findOneByEmail({email: email}).subscribe(
       (data: any) => {
+        this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
         this.parseData();
       }
@@ -72,8 +102,8 @@ export class EditProfileComponent implements OnInit {
       this.userProfile[key].map((item: any) => {
         item.start_time = moment(item.start_time).format('MMMM YYYY');
         item.end_date = moment(item.start_time).isBefore(moment())
-                        ? moment(item.end_time).format('MMMM YYYY')
-                        : 'Present';
+          ? moment(item.end_time).format('MMMM YYYY')
+          : 'Present';
       });
     });
   }
@@ -87,5 +117,50 @@ export class EditProfileComponent implements OnInit {
     this.userProfile.residency_id = item.id;
     this.userProfile.speciality = item.name;
     this.selectSpeciality();
+  }
+
+  selectedResidency(e: Residency) {
+    this.residency = e;
+    this.residency_page = this.RESIDENCY_ADD;
+  }
+
+  addResidency(e: Residency) {
+    this.residency = e;
+    this.residency_page = this.RESIDENCY_EDIT;
+  }
+
+  selectResidency() {
+    this.residency_page = this.RESIDENCY_AT;
+  }
+
+  cancelResidency() {
+    this.residency = null;
+    this.editResidencyModel.hide();
+  }
+
+  updateResidency(e: Residency) {
+    console.log(e);
+    this.residency = e;
+    this.editResidencyModel.hide();
+  }
+
+  onSave(form: NgForm) {
+    if (form.valid) {
+      this.profileService.saveProfile(this.userProfile).subscribe(profile => {
+          console.log(profile);
+        },
+        error => {
+          console.log(error);
+        });
+    }
+  }
+
+  closeUploadResume(e) {
+    if (e.target.className.includes('modal-overlay upload-file')) {
+      this.isUploadResumeSlide = false;
+      setTimeout(() => {
+        this.isUploadResume = false;
+      }, 400);
+    }
   }
 }

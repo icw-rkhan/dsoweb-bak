@@ -131,6 +131,11 @@ mat-card {
 
     div {
         background-color: #f8f8f8;
+        img {
+            border: 1px solid #f8f8f8;
+            border-radius: 5px;
+        }
+
         img:hover {
             cursor: pointer;
         }

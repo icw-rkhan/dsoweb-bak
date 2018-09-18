@@ -15,7 +15,10 @@
     </div>
   
     <mat-card fxLayout="row" fxLayoutAlign="start center">
-      <img mat-card-avatar src={{userInfo.url}}>
+      <img *ngIf="userInfo.url; else defaultUrl" mat-card-avatar src={{userInfo.url}}>
+      <ng-template #defaultUrl>
+        <img mat-card-avatar src="assets/images/user-avatar.png">
+      </ng-template>
       <mat-card-content>
         <span class="lable">Writing review as </span>
         <span class="user-name">{{userInfo.name}}</span>    

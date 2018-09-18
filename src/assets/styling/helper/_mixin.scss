@@ -1,9 +1,0 @@
-@mixin font($font-name, $folder, $font) {
-  @font-face {
-    font-family: $font-name;
-    src: url('../../assets/fonts/'+ $folder +'/'+ $font +'.eot'); /* IE9 Compat Modes */
-    src: url('../../assets/fonts/'+ $folder +'/'+ $font +'.woff2') format('woff2'), /* Super Modern Browsers */
-        url('../../assets/fonts/'+ $folder +'/'+ $font +'.woff') format('woff'), /* Pretty Modern Browsers */
-        url('../../assets/fonts/'+ $folder +'/'+ $font +'.ttf')  format('truetype'), /* Safari, Android, iOS */
-  }
-}
