@@ -15,6 +15,7 @@ export class FeedCardComponent {
   @Output() bookmark = new EventEmitter<Bookmark>();
 
   onBookmark() {
+    this.post.bookmarked = true;
     // TODO: fetch email belongs to the user
     this.bookmark.emit(<Bookmark>{
       email: 'h1078660929@163.com',

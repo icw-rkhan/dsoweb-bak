@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
+import { forkJoin, Observable, Subscription } from 'rxjs';
 import { MatSnackBar } from '@angular/material';
 import { NgProgress } from '@ngx-progressbar/core';
 
@@ -7,6 +7,8 @@ import { PostService } from '../../../services/post.service';
 import { Post } from '../../../models/post.model';
 import { Bookmark } from '../../../models/bookmark.model';
 import { BookmarkService } from '../../../services/bookmark.service';
+import { map } from 'rxjs/internal/operators';
+import * as _ from 'lodash';
 
 @Component({
   templateUrl: './latest-page.html',
@@ -24,12 +26,22 @@ export class LatestPageComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.progress.start();
-    this.posts$ = this.postService.posts();
+    this.posts$ = forkJoin(
+      this.postService.posts(),
+      this.bookmarkService.getAllByEmail('h1078660929@163.com')
+    ).pipe(
+      map(items => items[0].map(p =>
+        Object.assign({}, p, {
+          bookmarked: !_.isUndefined(items[1].find(b => +b.postId === p.id))
+        })
+      ))
+    );
+
     this.postSub = this.posts$.subscribe(() => this.progress.complete());
   }
 
   ngOnDestroy(): void {
-    this.postSub.unsubscribe();
+    // this.postSub.unsubscribe();
   }
 
   bookmark(value: Bookmark) {
