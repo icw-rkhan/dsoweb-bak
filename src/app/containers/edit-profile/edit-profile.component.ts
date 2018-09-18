@@ -1,7 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
 import * as moment from 'moment';
 
-import {AuthService, ProfileService} from '../../services/index';
+import { AuthService, ProfileService } from '../../services/index';
+import { Residency } from '../../models/residency.model';
+
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
 
@@ -10,7 +13,7 @@ import {SharingService} from '../../services/sharing.service';
   templateUrl: './edit-profile.component.html'
 })
 export class EditProfileComponent implements OnInit {
-
+  @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   is_student: number;
   userInfo: any;
   userProfile: any;
@@ -18,6 +21,12 @@ export class EditProfileComponent implements OnInit {
   isEdit: boolean;
   isEditSpeciality: boolean;
   isEditExperience: boolean;
+
+  RESIDENCY_AT = 1;
+  RESIDENCY_ADD = 2;
+  RESIDENCY_EDIT = 3;
+  residency_page = 2;
+  residency: Residency;
 
   constructor(private authService: AuthService,
               private profileService: ProfileService,
@@ -90,6 +99,31 @@ export class EditProfileComponent implements OnInit {
     this.userProfile.residency_id = item.id;
     this.userProfile.speciality = item.name;
     this.selectSpeciality();
+  }
+
+  selectedResidency(e: Residency) {
+    this.residency = e;
+    this.residency_page = this.RESIDENCY_ADD;
+  }
+
+  addResidency(e: Residency) {
+    this.residency = e;
+    this.residency_page = this.RESIDENCY_EDIT;
+  }
+
+  selectResidency() {
+    this.residency_page = this.RESIDENCY_AT;
+  }
+
+  cancelResidency() {
+    this.residency = null;
+    this.editResidencyModel.hide();
+  }
+
+  updateResidency(e: Residency) {
+    console.log(e);
+    this.residency = e;
+    this.editResidencyModel.hide();
   }
 
   onSave(form: NgForm) {
