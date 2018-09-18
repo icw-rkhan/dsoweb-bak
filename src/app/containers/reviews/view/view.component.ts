@@ -33,7 +33,7 @@ export class ViewComponent implements OnInit {
     ]).subscribe(result=> {
       if(result.matches) {
       }
-    }) 
+    })
 
     this.routeParams = this.activeRoute.snapshot.params;
     this.postId = this.routeParams.postId;

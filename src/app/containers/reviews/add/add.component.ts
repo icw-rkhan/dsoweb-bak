@@ -21,6 +21,7 @@ export class AddComponent implements OnInit {
   userInfo: any;
   articleInfo: any;
   routeParams: any;
+  profileSub: any;
 
   stateList = [{state:false},{state:false},{state:false},{state:false},{state:false}]
 
@@ -58,7 +59,7 @@ export class AddComponent implements OnInit {
 
   getUserInfo(email: string) {
 
-    this.profileService.findOneByEmail({ email: email }).subscribe(
+    this.profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
       (data: any) => {
         const res = data.resultMap.data;
 
@@ -97,5 +98,9 @@ export class AddComponent implements OnInit {
     this.commentService.setComment(this.body);
         
     this._location.back();
+  }
+
+  ngOnDestroy(): void {
+    this.profileSub.unsubscribe();
   }
 }
