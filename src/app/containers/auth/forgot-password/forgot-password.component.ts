@@ -42,6 +42,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   sendEmail() {
+    this.sharingService.showLoading̣̣(true);
     this.authService.sendEmail(this.form.value).subscribe(
       (data: any) => {
         if (!data.code) {
@@ -49,6 +50,7 @@ export class ForgotPasswordComponent implements OnInit {
         } else if (data.code === 1003) {
           this.isError = true;
         }
+        this.sharingService.showLoading̣̣(false);
       }
     );
   }

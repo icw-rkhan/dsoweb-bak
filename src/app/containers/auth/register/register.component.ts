@@ -75,8 +75,10 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
+    this.sharingService.showLoading̣̣(true);
     this.authService.register(this.form.value).subscribe(
       (data: any) => {
+        this.sharingService.showLoading̣̣(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
           this.router.navigate(['/profile']);

@@ -8,7 +8,7 @@ export class SharingService {
   isLoading: BehaviorSubject<boolean>;
 
   constructor() {
-    this.isLoading = new BehaviorSubject<boolean>(true);
+    this.isLoading = new BehaviorSubject<boolean>(false);
   }
 
   showLoading̣̣(status: boolean): void {

@@ -52,8 +52,10 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
+    this.sharingService.showLoading̣̣(true);
     this.authService.login(this.form.value).subscribe(
       (data: any) => {
+        this.sharingService.showLoading̣̣(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
           this.router.navigate(['/feed/latest']);
