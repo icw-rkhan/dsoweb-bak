@@ -8,6 +8,8 @@ import { BookmarkFilterDialogComponent } from './bookmark-filter-dialog/bookmark
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post.model';
 import { AuthService } from '../../services';
+import { filter } from 'rxjs/internal/operators';
+import { FilterDialogStatus } from '../../enums/filter-dialog-status';
 
 @Component({
   templateUrl: './bookmarks-page.html',
@@ -24,25 +26,7 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const email = this.authService.getUserInfo().user_name;
-    this.progress.start();
-    const bookmarks$ = this.bookmarkService.getAllByEmail(email);
-
-    this.bookmarkSub = bookmarks$.subscribe(bookmarks => {
-      const posts = [];
-      bookmarks.forEach(bookmark => {
-        const innerSub = this.postService.fetchById(+bookmark.postId)
-          .subscribe(p => {
-            p.bookmarkId = bookmark.id;
-            posts.push(p);
-            if (bookmarks.length === posts.length) {
-              this.posts = posts;
-            }
-            innerSub.unsubscribe();
-          });
-      });
-      this.progress.complete();
-    });
+    this.fetchBookmarks();
   }
 
   openFilter(): void {
@@ -50,7 +34,15 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
       width: '300px',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
+    const dialogSub = dialogRef.afterClosed().pipe(
+      filter(result => result !== undefined)
+    ).subscribe(result => {
+      if (FilterDialogStatus.Clear === result) {
+        this.fetchBookmarks();
+      } else {
+        this.fetchBookmarks(result);
+      }
+      dialogSub.unsubscribe();
     });
   }
 
@@ -66,6 +58,36 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
       this.snackBar.open('Bookmark removed', 'OK', {
         duration: 2000,
       });
+    });
+  }
+
+  private fetchBookmarks(categoryId?: number): void {
+    this.progress.start();
+
+    const email = this.authService.getUserInfo().user_name;
+    const bookmarks$ = this.bookmarkService.getAllByEmail(email);
+
+    this.bookmarkSub = bookmarks$.subscribe(bookmarks => {
+      const posts = [];
+      let bookmarksLength = 0;
+      // Iterate bookmarks to find its post information
+      bookmarks.forEach(bookmark => {
+        const innerSub = this.postService.fetchById(+bookmark.postId)
+          .subscribe(p => {
+            // Check if we are filtering by category
+            console.log(`categoryId: ${categoryId} - p.category.id: ${p.category.id}`);
+            if (categoryId === undefined || (categoryId === +p.category.id)) {
+              p.bookmarkId = bookmark.id;
+              posts.push(p);
+            }
+            console.log(`${bookmarks.length} - ${bookmarksLength}`);
+            if (bookmarks.length === ++bookmarksLength) {
+              this.posts = posts;
+            }
+            innerSub.unsubscribe();
+          });
+      });
+      this.progress.complete();
     });
   }
 
