@@ -1,12 +1,24 @@
 import {Component, OnInit} from '@angular/core';
 import * as moment from 'moment';
-
+import { trigger, state, style, animate, transition } from '@angular/animations';
 import {AuthService, ProfileService} from '../../services/index';
 import {NgForm} from '@angular/forms';
 
 @Component({
   selector: 'dso-edit-profile',
-  templateUrl: './edit-profile.component.html'
+  templateUrl: './edit-profile.component.html',
+  animations: [
+    trigger('slideUpDown', [
+      state('up', style({ bottom: 0 })),
+      state('down', style({ bottom: '-110px' })),
+      transition(':enter', [
+        style({bottom: '-110px'}),
+        animate(300)
+      ]),
+      transition('up => down', animate('300ms')),
+      transition('down => up', animate('300ms')),
+    ])
+  ]
 })
 export class EditProfileComponent implements OnInit {
 
@@ -17,12 +29,17 @@ export class EditProfileComponent implements OnInit {
   isEdit: boolean;
   isEditSpeciality: boolean;
   isEditExperience: boolean;
+  isUploadResume: boolean;
+  isUploadResumeSlide: boolean;
 
   constructor(private authService: AuthService,
               private profileService: ProfileService) {
     this.isEdit = true;
     this.isEditSpeciality = false;
     this.isEditExperience = false;
+    this.isUploadResume = false;
+    this.isUploadResumeSlide = false;
+
     this.metadata = {
       dentalSchool: [],
       residency: [],
@@ -96,6 +113,15 @@ export class EditProfileComponent implements OnInit {
         error => {
           console.log(error);
         });
+    }
+  }
+
+  closeUploadResume(e) {
+    if (e.target.className.includes('modal-overlay upload-file')) {
+      this.isUploadResumeSlide = false;
+      setTimeout(() => {
+        this.isUploadResume = false;
+      }, 400);
     }
   }
 }
