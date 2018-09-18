@@ -12,10 +12,10 @@ import { Bookmark } from '../../models/bookmark.model';
 export class FeedGridComponent {
 
   @Input() posts: Post[];
-  @Output() bookmark = new EventEmitter<Bookmark>();
+  @Output() addBookmark = new EventEmitter<Bookmark>();
+  @Output() removeBookmark = new EventEmitter<string>();
 
   gridOptions: NgxMasonryOptions = {
-    transitionDuration: '0.8s',
     percentPosition: true,
     columnWidth: '.grid-sizer',
     itemSelector: '.grid-item',
@@ -23,8 +23,12 @@ export class FeedGridComponent {
     horizontalOrder: true
   };
 
-  onBookmark(item: Bookmark) {
-    this.bookmark.emit(item);
+  onAddBookmark(item: Bookmark) {
+    this.addBookmark.emit(item);
+  }
+
+  onRemoveBookmark(id: string) {
+    this.removeBookmark.emit(id);
   }
 
 }

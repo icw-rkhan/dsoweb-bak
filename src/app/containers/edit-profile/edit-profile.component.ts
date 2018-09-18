@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import * as moment from 'moment';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 import { AuthService, ProfileService } from '../../services/index';
 import { Residency } from '../../models/residency.model';
@@ -10,7 +11,19 @@ import {SharingService} from '../../services/sharing.service';
 
 @Component({
   selector: 'dso-edit-profile',
-  templateUrl: './edit-profile.component.html'
+  templateUrl: './edit-profile.component.html',
+  animations: [
+    trigger('slideUpDown', [
+      state('up', style({ bottom: 0 })),
+      state('down', style({ bottom: '-110px' })),
+      transition(':enter', [
+        style({bottom: '-110px'}),
+        animate(300)
+      ]),
+      transition('up => down', animate('300ms')),
+      transition('down => up', animate('300ms')),
+    ])
+  ]
 })
 export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
@@ -21,6 +34,8 @@ export class EditProfileComponent implements OnInit {
   isEdit: boolean;
   isEditSpeciality: boolean;
   isEditExperience: boolean;
+  isUploadResume: boolean;
+  isUploadResumeSlide: boolean;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
@@ -35,6 +50,9 @@ export class EditProfileComponent implements OnInit {
     this.isEdit = true;
     this.isEditSpeciality = false;
     this.isEditExperience = false;
+    this.isUploadResume = false;
+    this.isUploadResumeSlide = false;
+
     this.metadata = {
       dentalSchool: [],
       residency: [],
@@ -134,6 +152,15 @@ export class EditProfileComponent implements OnInit {
         error => {
           console.log(error);
         });
+    }
+  }
+
+  closeUploadResume(e) {
+    if (e.target.className.includes('modal-overlay upload-file')) {
+      this.isUploadResumeSlide = false;
+      setTimeout(() => {
+        this.isUploadResume = false;
+      }, 400);
     }
   }
 }

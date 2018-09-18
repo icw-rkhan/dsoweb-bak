@@ -14,6 +14,8 @@ export class Post implements Serializable<Post> {
   date: Date;
   category: Category;
   format: string;
+  bookmarked: boolean;
+  bookmarkId: string;
 
   deserialize(data: any): Post {
     const media = data['_embedded']['wp\:featuredmedia'];

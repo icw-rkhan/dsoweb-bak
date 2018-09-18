@@ -14,7 +14,6 @@ export class BookmarkGridComponent {
   @Output() remove = new EventEmitter<Post>();
 
   gridOptions: NgxMasonryOptions = {
-    transitionDuration: '0.8s',
     percentPosition: true,
     columnWidth: '.grid-sizer',
     itemSelector: '.grid-item',

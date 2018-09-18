@@ -1,3 +1,12 @@
 nav {
   background: white;
 }
+
+::ng-deep .mat-tab-links {
+  overflow-x: auto;
+}
+
+.mat-tab-link {
+  min-width: 120px;
+  flex: 1;
+}

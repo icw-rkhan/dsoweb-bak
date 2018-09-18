@@ -1,6 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import {SharingService} from '../../../services/sharing.service';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'dso-welcome',
@@ -12,13 +11,10 @@ export class WelcomeComponent implements OnInit {
   signup: boolean;
 
   constructor(
-    private router: Router,
-    private sharingService: SharingService) {
-    this.sharingService.showLoading̣̣(true);
+    private router: Router) {
   }
 
   ngOnInit() {
-    this.sharingService.showLoading̣̣(false);
   }
 
   signUpOrLogin(signup: boolean = false) {
