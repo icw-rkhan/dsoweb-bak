@@ -16,7 +16,6 @@ export class FeedGridComponent {
   @Output() removeBookmark = new EventEmitter<string>();
 
   gridOptions: NgxMasonryOptions = {
-    transitionDuration: '0.8s',
     percentPosition: true,
     columnWidth: '.grid-sizer',
     itemSelector: '.grid-item',
