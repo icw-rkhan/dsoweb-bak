@@ -3,7 +3,7 @@ import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 
-import { AuthService } from '../../../services/auth/auth.service';
+import { AuthService, ProfileService } from '../../../services/index';
 import { CommentService } from '../../../services/comment.service';
 
 @Component({
@@ -14,6 +14,7 @@ import { CommentService } from '../../../services/comment.service';
 export class AddComponent implements OnInit {
   rate: number;
   comment: string;
+  user_id: string;
   condition: boolean;
   res: any;
   body: any;
@@ -26,11 +27,15 @@ export class AddComponent implements OnInit {
   constructor(public breakpointObserver: BreakpointObserver, 
     private commentService: CommentService,
     private authService: AuthService,
+    private profileService: ProfileService,
     private _location: Location,
     private activeRoute: ActivatedRoute) {
       this.rate = 0;
       this.comment = "";
       this.condition = false;
+
+      this.routeParams = this.activeRoute.snapshot.params;
+      this.getUserInfo(this.authService.getUserInfo().user_name);
     }
 
   ngOnInit() 
@@ -45,17 +50,28 @@ export class AddComponent implements OnInit {
       }
     })
 
-    this.routeParams = this.activeRoute.snapshot.params;
-
-    this.userInfo = {
-      url: this.authService.getUserInfo().user_url,
-      name: this.authService.getUserInfo().user_name
-    }
-
     this.articleInfo = {
       title: this.routeParams.postTitle,
       date: this.routeParams.postDate
     }
+  }
+
+  getUserInfo(email: string) {
+
+    this.profileService.findOneByEmail({ email: email }).subscribe(
+      (data: any) => {
+        const res = data.resultMap.data;
+
+        this.user_id = res.id;
+
+        this.userInfo = {
+          url: res.photo_url,
+          name: res.full_name
+        }
+
+        return data.resultMap.data;
+      }
+    );
   }
 
   eventRating(event) {
@@ -70,14 +86,15 @@ export class AddComponent implements OnInit {
 
   saveComment() {
     this.body = {
-      'userId': this.authService.getUserInfo().user_id,
+      'userId': this.user_id,
       'postId': this.routeParams.postId,
       'comment': this.comment,
       'rating': this.rate
     }
 
-    this.res = this.commentService.setComment(this.body);
-    console.log(this.res);
+    console.log(this.body);
+
+    this.commentService.setComment(this.body);
         
     this._location.back();
   }

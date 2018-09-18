@@ -55,7 +55,8 @@ export class AuthService {
 
   getUserInfo() {
     const token = localStorage.getItem('token');
-    const userInfo = this.jwtHelper.decodeToken(token);
+    const userInfo = this.jwtHelper.decodeToken(token)
+    
     return userInfo || {};
   }
 
