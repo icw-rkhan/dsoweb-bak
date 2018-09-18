@@ -1,9 +1,18 @@
 <dso-main-container [displayMainActions]="false">
+  <header class="header-profile fixed-bar">
+    <nav class="navbar bg-grey">
+      <span class="icon-bar"></span>
+      <div class="navbar-title-heading">Profile</div>
+      <div class="navbar-edit-profile">
+        <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
+      </div>
+    </nav>
+  </header>
   <div class="profile_content">
     <section class="profile-heading">
       <div class="profile-heading_info">
         <div class="img_user">
-          <img src="../assets/images/profile/icon_user_profile.png">
+          <img src="../assets/assets/images/profile/icon_user_profile.png">
         </div>
         <div class="profile-info">
           <div class="profile_name">{{ userProfile?.full_name }}</div>
