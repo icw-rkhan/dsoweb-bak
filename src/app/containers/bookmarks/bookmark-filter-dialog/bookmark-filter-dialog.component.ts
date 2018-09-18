@@ -1,5 +1,7 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Category } from '../../../models/category.model';
+import { CategoryService } from '../../../services/category.service';
+import { Observable } from 'rxjs';
 
 @Component({
   templateUrl: './bookmark-filter-dialog.component.html',
@@ -8,29 +10,43 @@ import { Category } from '../../../models/category.model';
 })
 export class BookmarkFilterDialogComponent implements OnInit {
 
-  categories: Category[] = [];
+  categories: Observable<Category[]>;
+  contentTypes: any;
+
+  constructor(private categoryService: CategoryService) {
+  }
 
   ngOnInit(): void {
-    // this.categories.push({
-    //   id: 1,
-    //   name: 'Orthodontics'
-    // });
-    // this.categories.push({
-    //   id: 2,
-    //   name: 'Practice Management'
-    // });
-    // this.categories.push({
-    //   id: 3,
-    //   name: 'DSOs'
-    // });
-    // this.categories.push({
-    //   id: 4,
-    //   name: 'Generic Dentistry'
-    // });
-    // this.categories.push({
-    //   id: 5,
-    //   name: 'Implant Dentistry'
-    // });
+    this.categories = this.categoryService.categories;
+    this.contentTypes = [];
+    this.contentTypes.push({
+      id: 0,
+      name: 'Videos'
+    });
+    this.contentTypes.push({
+      id: 1,
+      name: 'Articles'
+    });
+    this.contentTypes.push({
+      id: 2,
+      name: 'Podcast'
+    });
+    this.contentTypes.push({
+      id: 3,
+      name: 'Interview'
+    });
+    this.contentTypes.push({
+      id: 4,
+      name: 'Tech Guides'
+    });
+    this.contentTypes.push({
+      id: 5,
+      name: 'Animations'
+    });
+    this.contentTypes.push({
+      id: 6,
+      name: 'Tip Sheets'
+    });
   }
 
 }

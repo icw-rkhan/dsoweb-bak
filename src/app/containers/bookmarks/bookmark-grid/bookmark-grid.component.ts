@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { Bookmark } from '../../../models/bookmark.model';
 import { NgxMasonryOptions } from 'ngx-masonry';
+import { Post } from '../../../models/post.model';
 
 @Component({
   selector: 'dso-bookmark-grid',
@@ -10,8 +10,8 @@ import { NgxMasonryOptions } from 'ngx-masonry';
 })
 export class BookmarkGridComponent {
 
-  @Input() bookmarks: Bookmark[] = [];
-  @Output() remove = new EventEmitter<Bookmark>();
+  @Input() posts: Post[] = [];
+  @Output() remove = new EventEmitter<Post>();
 
   gridOptions: NgxMasonryOptions = {
     transitionDuration: '0.8s',
@@ -22,8 +22,8 @@ export class BookmarkGridComponent {
     horizontalOrder: true
   };
 
-  onRemove(bookmark: Bookmark): void {
-    this.remove.emit(bookmark);
+  onRemove(post: Post): void {
+    this.remove.emit(post);
   }
 
 }

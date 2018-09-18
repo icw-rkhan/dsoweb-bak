@@ -35,4 +35,11 @@ export class PostService {
     );
   }
 
+  fetchById(id: number): Observable<Post> {
+    const url = `${environment.cmsApiUrl}/posts/${id}?_embed`;
+    return this.http.get(url).pipe(
+      map((response: any) => new Post().deserialize(response))
+    );
+  }
+
 }

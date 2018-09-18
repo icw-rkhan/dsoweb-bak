@@ -2,12 +2,12 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { NavLinkModel } from '../../models/nav-link.model';
 
 @Component({
-  selector: 'dso-footer-actions',
-  templateUrl: './footer-actions.component.html',
-  styleUrls: ['./footer-actions.component.scss'],
+  selector: 'dso-main-actions',
+  templateUrl: './main-actions.component.html',
+  styleUrls: ['./main-actions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FooterActionsComponent implements OnInit {
+export class MainActionsComponent implements OnInit {
 
   navFooterLinks: NavLinkModel[] = [];
 
