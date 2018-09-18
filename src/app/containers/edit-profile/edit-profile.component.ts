@@ -7,6 +7,7 @@ import { AuthService, ProfileService } from '../../services/index';
 import { Residency } from '../../models/residency.model';
 
 import {NgForm} from '@angular/forms';
+import {SharingService} from '../../services/sharing.service';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -43,7 +44,9 @@ export class EditProfileComponent implements OnInit {
   residency: Residency;
 
   constructor(private authService: AuthService,
-              private profileService: ProfileService) {
+              private profileService: ProfileService,
+              private sharingService: SharingService) {
+    this.sharingService.showLoading̣̣(true);
     this.isEdit = true;
     this.isEditSpeciality = false;
     this.isEditExperience = false;
@@ -87,6 +90,7 @@ export class EditProfileComponent implements OnInit {
   fetchProfile(email: string) {
     this.profileService.findOneByEmail({email: email}).subscribe(
       (data: any) => {
+        this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
         this.parseData();
       }

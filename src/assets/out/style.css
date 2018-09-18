@@ -6,7 +6,7 @@ body { font-size: 14px; }
 
 .logoBox { padding-top: 50px; }
 
-.logoBox .logo { background: url("../assets/images/logo.png") no-repeat; background-size: contain; width: 260px; height: 50px; margin: 0 auto; }
+.logoBox .logo { background: url("../images/logo.png") no-repeat; background-size: contain; width: 260px; height: 50px; margin: 0 auto; }
 
 .link { color: #FFF; }
 
@@ -34,7 +34,7 @@ body { font-size: 14px; }
 
 nav.navbar { position: relative; display: flex; flex-direction: row; justify-content: center; height: 45px; align-items: center; }
 
-span.icon-bar { position: absolute; width: 30px; left: 15px; height: 30px; background: url(../assets/images/profile/icon-bars.png) no-repeat center; background-size: auto; }
+span.icon-bar { position: absolute; width: 30px; left: 15px; height: 30px; background: url(../images/profile/icon-bars.png) no-repeat center; background-size: auto; }
 
 .navbar-edit-profile { position: absolute; right: 15px; z-index: 1; }
 
@@ -70,13 +70,13 @@ span.icon-bar { position: absolute; width: 30px; left: 15px; height: 30px; backg
 
 .profile__content:last-child { margin-bottom: 0; }
 
-.profile__icon { width: 48px; height: 48px; background-color: #f9f8ee; display: flex; justify-content: center; align-items: center; background-image: url(../assets/images/profile/icon_residency.png); background-repeat: no-repeat; background-position: center; }
+.profile__icon { width: 48px; height: 48px; background-color: #f9f8ee; display: flex; justify-content: center; align-items: center; background-image: url(../images/profile/icon_residency.png); background-repeat: no-repeat; background-position: center; }
 
 .profile__content_info { display: flex; justify-content: center; align-content: center; padding-left: 15px; width: calc(100% - 45px); flex-direction: column; }
 
 .profile_Education { position: relative; width: 100%; min-height: 96px; background-color: #fff; padding: 10px 15px; border-bottom: 1px solid #e9edf1; z-index: 1; }
 
-.education-icon { background-color: #eef3f9; background-image: url(../assets/images/profile/icon_education.png); background-repeat: no-repeat; background-position: center; }
+.education-icon { background-color: #eef3f9; background-image: url(../images/profile/icon_education.png); background-repeat: no-repeat; background-position: center; }
 
 span.not_residency { color: #9b9b9b; font-size: 14px; }
 
@@ -84,7 +84,7 @@ span.not_residency { color: #9b9b9b; font-size: 14px; }
 
 .profile_Contact .profile_title { margin-bottom: 15px; }
 
-.contact-icon { background-image: url(../assets/images/profile/icon_email.png); background-repeat: no-repeat; background-position: center; background-color: transparent; }
+.contact-icon { background-image: url(../images/profile/icon_email.png); background-repeat: no-repeat; background-position: center; background-color: transparent; }
 
 .pre_email_addr { color: #4a4a4a; font-weight: 600; font-size: 14px; margin-bottom: 3px; line-height: 16px; font-family: "sfSemiBold"; }
 
@@ -100,19 +100,19 @@ span.not_residency { color: #9b9b9b; font-size: 14px; }
 
 .bt:last-child:before { display: none; }
 
-.education-icon2 { background-color: #f9f2ee; background-image: url(../assets/images/profile/icon_edu2.png); background-repeat: no-repeat; background-position: center; }
+.education-icon2 { background-color: #f9f2ee; background-image: url(../images/profile/icon_edu2.png); background-repeat: no-repeat; background-position: center; }
 
-.mobile-icon { background-image: url(../assets/images/profile/mobile_icon.png); background-repeat: no-repeat; background-position: center; background-color: transparent; }
+.mobile-icon { background-image: url(../images/profile/mobile_icon.png); background-repeat: no-repeat; background-position: center; background-color: transparent; }
 
-.practice-icon { background-image: url(../assets/images/profile/icon_practice.png); background-repeat: no-repeat; background-position: center; background-color: transparent; }
+.practice-icon { background-image: url(../images/profile/icon_practice.png); background-repeat: no-repeat; background-position: center; background-color: transparent; }
 
-.exp_icon { background-image: url(../assets/images/profile/exp_icon.png); background-repeat: no-repeat; background-position: center; background-color: #f1f5ef; }
+.exp_icon { background-image: url(../images/profile/exp_icon.png); background-repeat: no-repeat; background-position: center; background-color: #f1f5ef; }
 
 .cl4a { color: #4a4a4a; }
 
 a.back-link { position: absolute; left: 0; top: 8px; }
 
-span.icon-back { background: url(../assets/images/profile/back_icon.png) no-repeat center; }
+span.icon-back { background: url(../images/profile/back_icon.png) no-repeat center; }
 
 .profile-header { height: 200px; background-color: #ffffff; display: flex; justify-content: center; align-items: center; }
 
@@ -124,7 +124,7 @@ span.icon-back { background: url(../assets/images/profile/back_icon.png) no-repe
 
 .edit_profile { display: block; position: relative; }
 
-.edit-icon { position: absolute; z-index: 1; bottom: -10px; right: -20px; width: 41px; height: 41px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); background-color: #ffffff; border-radius: 100%; background-image: url(../assets/images/profile/edit_icon.png); background-repeat: no-repeat; background-position: center; cursor: pointer; }
+.edit-icon { position: absolute; z-index: 1; bottom: -10px; right: -20px; width: 41px; height: 41px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); background-color: #ffffff; border-radius: 100%; background-image: url(../images/profile/edit_icon.png); background-repeat: no-repeat; background-position: center; cursor: pointer; }
 
 .personal-info { position: relative; display: block; padding: 10px 15px; }
 
@@ -140,21 +140,21 @@ span.icon-back { background: url(../assets/images/profile/back_icon.png) no-repe
 
 .mb0 { margin-bottom: 0; }
 
-.upload-icon { background-image: url(../assets/images/profile/upload_icon.png); background-repeat: no-repeat; background-position: center; background-color: #f5a623; }
+.upload-icon { background-image: url(../images/profile/upload_icon.png); background-repeat: no-repeat; background-position: center; background-color: #f5a623; }
 
-.linkedin-upload { background-image: url(../assets/images/profile/linkedin-medium.png); background-repeat: no-repeat; background-position: center; background-color: #007ab9; }
+.linkedin-upload { background-image: url(../images/profile/linkedin-medium.png); background-repeat: no-repeat; background-position: center; background-color: #007ab9; }
 
 .mt10 { margin-top: 10px; }
 
-.addNew-icon { position: absolute; width: 20px; height: 20px; cursor: pointer; background: url(../assets/images/profile/addNew_icon.png) no-repeat center; top: 16px; right: 15px; }
+.addNew-icon { position: absolute; width: 20px; height: 20px; cursor: pointer; background: url(../images/profile/addNew_icon.png) no-repeat center; top: 16px; right: 15px; }
 
-.arrow-right { position: absolute; width: 20px; height: 20px; cursor: pointer; background: url(../assets/images/profile/arrow-right.png) no-repeat center; top: calc(50% - 8px); right: 0; }
+.arrow-right { position: absolute; width: 20px; height: 20px; cursor: pointer; background: url(../images/profile/arrow-right.png) no-repeat center; top: calc(50% - 8px); right: 0; }
 
-.exp_owner { background-image: url(../assets/images/profile/logo_exp_1.png); background-repeat: no-repeat; background-position: center; background-color: #f0f0f0; }
+.exp_owner { background-image: url(../images/profile/logo_exp_1.png); background-repeat: no-repeat; background-position: center; background-color: #f0f0f0; }
 
 .target_link { position: absolute; right: 0; top: 0; width: 16px; height: 16px; display: inline-block; }
 
-.icon_linkedin { width: 16px; height: 16px; background: url(../assets/images/profile/icon-linkedin.png) no-repeat center; display: inline-block; position: relative; }
+.icon_linkedin { width: 16px; height: 16px; background: url(../images/profile/icon-linkedin.png) no-repeat center; display: inline-block; position: relative; }
 
 .speciality-container { position: relative; margin-top: 45px; }
 
@@ -164,7 +164,7 @@ span.icon-back { background: url(../assets/images/profile/back_icon.png) no-repe
 
 .input-search { height: 36px; border-radius: 8px; background-color: #f3f5f7; width: 100%; border: 0; padding: 0 10px 0 35px; font-size: 15px; font-weight: 400; font-family: "sfRegular"; }
 
-.icon-search { width: 15px; height: 15px; position: absolute; background: url(../assets/images/profile/icon-search.png) no-repeat center; top: 10px; left: 10px; }
+.icon-search { width: 15px; height: 15px; position: absolute; background: url(../images/profile/icon-search.png) no-repeat center; top: 10px; left: 10px; }
 
 .speciality-content { display: flex; position: relative; }
 
@@ -192,7 +192,7 @@ span.icon-back { background: url(../assets/images/profile/back_icon.png) no-repe
 
 .cancel-row a { color: #879aa8; font-size: 15px; }
 
-.edit-practice { position: absolute; width: 20px; height: 20px; cursor: pointer; background: url(../assets/images/profile/edit_icon.png) no-repeat center; top: calc(50% - 8px); right: 10px; }
+.edit-practice { position: absolute; width: 20px; height: 20px; cursor: pointer; background: url(../images/profile/edit_icon.png) no-repeat center; top: calc(50% - 8px); right: 10px; }
 
 .modal-overlay { position: fixed; top: 0; left: 0; bottom: 0; right: 0; z-index: 99; }
 
@@ -289,11 +289,11 @@ table { border-collapse: collapse; border-spacing: 0; }
 
 h2 { font-size: 22px; line-height: 28px; }
 
-@font-face { font-family: "sfRegular"; src: url("../assets/fonts/SF-Regular/SFProDisplay-Regular.eot"); /* IE9 Compat Modes */ src: url("../assets/fonts/SF-Regular/SFProDisplay-Regular.woff2") format("woff2"), url("../assets/fonts/SF-Regular/SFProDisplay-Regular.woff") format("woff"), url("../assets/fonts/SF-Regular/SFProDisplay-Regular.ttf") format("truetype"); }
+@font-face { font-family: "sfRegular"; src: url("../fonts/SF-Regular/SFProDisplay-Regular.eot"); /* IE9 Compat Modes */ src: url("../fonts/SF-Regular/SFProDisplay-Regular.woff2") format("woff2"), url("../fonts/SF-Regular/SFProDisplay-Regular.woff") format("woff"), url("../fonts/SF-Regular/SFProDisplay-Regular.ttf") format("truetype"); }
 
-@font-face { font-family: "sfSemiBold"; src: url("../assets/fonts/SF-Semibold/SFProDisplay-Semibold.eot"); /* IE9 Compat Modes */ src: url("../assets/fonts/SF-Semibold/SFProDisplay-Semibold.woff2") format("woff2"), url("../assets/fonts/SF-Semibold/SFProDisplay-Semibold.woff") format("woff"), url("../assets/fonts/SF-Semibold/SFProDisplay-Semibold.ttf") format("truetype"); }
+@font-face { font-family: "sfSemiBold"; src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.eot"); /* IE9 Compat Modes */ src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff2") format("woff2"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff") format("woff"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.ttf") format("truetype"); }
 
-@font-face { font-family: "sfBold"; src: url("../assets/fonts/SF-Bold/SFProDisplay-Bold.eot"); /* IE9 Compat Modes */ src: url("../assets/fonts/SF-Bold/SFProDisplay-Bold.woff2") format("woff2"), url("../assets/fonts/SF-Bold/SFProDisplay-Bold.woff") format("woff"), url("../assets/fonts/SF-Bold/SFProDisplay-Bold.ttf") format("truetype"); }
+@font-face { font-family: "sfBold"; src: url("../fonts/SF-Bold/SFProDisplay-Bold.eot"); /* IE9 Compat Modes */ src: url("../fonts/SF-Bold/SFProDisplay-Bold.woff2") format("woff2"), url("../fonts/SF-Bold/SFProDisplay-Bold.woff") format("woff"), url("../fonts/SF-Bold/SFProDisplay-Bold.ttf") format("truetype"); }
 
 body { margin: auto; font-family: 'sfRegular', sans-serif; }
 
@@ -345,7 +345,7 @@ a { color: #879AA8; }
 
 .btn-linkedin-icon { position: relative; }
 
-.btn-linkedin-icon::before { content: ''; width: 40px; height: 40px; background-image: url("../assets/images/icon-linkedin.png"); background-position: center; background-repeat: no-repeat; position: absolute; left: 0; z-index: 10; border-right: 2px solid #178BC7; }
+.btn-linkedin-icon::before { content: ''; width: 40px; height: 40px; background-image: url("../images/icon-linkedin.png"); background-position: center; background-repeat: no-repeat; position: absolute; left: 0; z-index: 10; border-right: 2px solid #178BC7; }
 
 .btn-primary { background-color: #879AA8; color: #FFF; }
 
@@ -353,11 +353,11 @@ a { color: #879AA8; }
 
 .main-nav-fix { margin-top: 24px; }
 
-.main-nav-icon { width: 23px; height: 16px; background-image: url("../assets/images/nav-icon.png"); background-repeat: no-repeat; }
+.main-nav-icon { width: 23px; height: 16px; background-image: url("../images/nav-icon.png"); background-repeat: no-repeat; }
 
 .main-nav-wrap-icon { width: 23px; padding: 5px; }
 
-.main-nav-icon-back { width: 23px; height: 16px; background-image: url("../assets/images/icon-back.png"); background-repeat: no-repeat; }
+.main-nav-icon-back { width: 23px; height: 16px; background-image: url("../images/icon-back.png"); background-repeat: no-repeat; }
 
 .form { border: none; border-radius: 5px; padding: 0 10px; }
 
@@ -369,7 +369,7 @@ a { color: #879AA8; }
 
 .form-warning { font-size: 12px; padding-left: 25px; position: relative; height: 20px; display: flex; align-items: center; }
 
-.form-warning::after { content: ''; width: 20px; height: 20px; background-image: url("../assets/images/info-icon.png"); background-repeat: no-repeat; background-position: center; position: absolute; left: 0; }
+.form-warning::after { content: ''; width: 20px; height: 20px; background-image: url("../images/info-icon.png"); background-repeat: no-repeat; background-position: center; position: absolute; left: 0; }
 
 .form-helper { color: #FFF; background: #5E6E7A; padding: 10px; margin: 10px 0px; font-size: 12px; display: flex; }
 
@@ -395,7 +395,7 @@ a { color: #879AA8; }
 
 .form-group.withActionRight .action { position: absolute; right: 0px; top: 0px; text-transform: uppercase; color: #666; padding: 13px; }
 
-.login { background-image: url("../assets/images/bg-1.png"); background-size: 100% 100%; background-repeat: no-repeat; height: 100vh; position: relative; font-size: 16px; }
+.login { background-image: url("../images/bg-1.png"); background-size: 100% 100%; background-repeat: no-repeat; height: 100vh; position: relative; font-size: 16px; }
 
 .login-overlay { height: 100vh; background: linear-gradient(to top, #384147, transparent 50%); }
 

@@ -1,4 +1,7 @@
 <div content="app-container">
+  <div *ngIf="isLoading" class="loading">
+    <div class="loader">Loading...</div>
+  </div>
   <ng-progress></ng-progress>
   <router-outlet></router-outlet>
 </div>

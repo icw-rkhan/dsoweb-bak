@@ -30,6 +30,18 @@ export class FeedPageComponent implements OnInit {
       label: 'TECH GUIDES',
       route: '/feed/post-type/31',
     });
+    this.navLinks.push({
+      label: 'ANIMATIONS',
+      route: '/feed/post-type/195',
+    });
+    this.navLinks.push({
+      label: 'INTERVIEWS',
+      route: '/feed/post-type/194',
+    });
+    this.navLinks.push({
+      label: 'TIP SHEETS',
+      route: '/feed/post-type/196',
+    });
   }
 
 }
