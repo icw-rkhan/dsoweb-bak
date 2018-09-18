@@ -1,7 +1,10 @@
 <div fxLayout = "column">
     <mat-card fxLayout="column" fxLayoutAlign="start top" *ngFor="let comment of (comments$ | async)">
         <div fxLayout="row">
-            <img class="mat-card-avatar" mat-card-avatar src={{comment.userUrl}}>
+            <img *ngIf="comment.userUrl; else defaultUrl" class="mat-card-avatar" mat-card-avatar src={{comment.userUrl}}>
+            <ng-template #defaultUrl>
+                <img class="mat-card-avatar" mat-card-avatar src="assets/images/user-avatar.png">
+            </ng-template>
             <mat-card-content>
                 <div fxLayoutAlign="row">
                     <div class="user-name">{{comment.userName}} rated it </div>

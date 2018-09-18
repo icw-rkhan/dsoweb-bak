@@ -21,9 +21,7 @@ export class ViewComponent implements OnInit {
   stateList = [{state:'inactive'},{state:'inactive'},{state:'inactive'},{state:'inactive'},{state:'inactive'}]
 
   constructor(public breakpointObserver: BreakpointObserver, 
-    private commentService: CommentService,
-    private progress: NgProgress, 
-    private activeRoute: ActivatedRoute) { 
+    private commentService: CommentService, private progress: NgProgress, private activeRoute: ActivatedRoute) { 
   }
 
   ngOnInit() 

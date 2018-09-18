@@ -26,21 +26,21 @@ export class AddComponent implements OnInit {
   stateList = [{state:false},{state:false},{state:false},{state:false},{state:false}]
 
   constructor(public breakpointObserver: BreakpointObserver, 
-    private commentService: CommentService,
-    private authService: AuthService,
-    private profileService: ProfileService,
-    private _location: Location,
-    private activeRoute: ActivatedRoute) {
+    private commentService: CommentService, private authService: AuthService,
+    private profileService: ProfileService, private _location: Location, private activeRoute: ActivatedRoute) {
+      //init variables
       this.rate = 0;
       this.comment = "";
       this.condition = false;
-
+      //gets params from url
       this.routeParams = this.activeRoute.snapshot.params;
+      //gets userInfo from user's email
       this.getUserInfo(this.authService.getUserInfo().user_name);
     }
 
   ngOnInit() 
   {
+    //responsive layout
     this.breakpointObserver.observe([
       Breakpoints.HandsetLandscape
     ]).subscribe(result=> {
@@ -50,19 +50,19 @@ export class AddComponent implements OnInit {
         document.getElementById('contents').style.height = "calc(100vh - 411px)";
       }
     })
-
+    //gets post's title, created date from the params of the route and view them
     this.articleInfo = {
       title: this.routeParams.postTitle,
       date: this.routeParams.postDate
     }
   }
-
+  //gets userInfo from user's email
   getUserInfo(email: string) {
 
     this.profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
       (data: any) => {
         const res = data.resultMap.data;
-
+        //sets userInfo
         this.user_id = res.id;
 
         this.userInfo = {
@@ -74,7 +74,7 @@ export class AddComponent implements OnInit {
       }
     );
   }
-
+  //make a rating point
   eventRating(event) {
     status = event.target.getAttribute('class');
 
@@ -84,7 +84,7 @@ export class AddComponent implements OnInit {
       this.rate--;
     }
   }
-
+  //save the comment and redirect to previous url
   saveComment() {
     this.body = {
       'userId': this.user_id,
@@ -92,8 +92,6 @@ export class AddComponent implements OnInit {
       'comment': this.comment,
       'rating': this.rate
     }
-
-    console.log(this.body);
 
     this.commentService.setComment(this.body);
         
