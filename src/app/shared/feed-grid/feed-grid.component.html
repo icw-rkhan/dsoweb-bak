@@ -3,7 +3,8 @@
     <div class="grid-sizer"></div>
     <div class="gutter-sizer"></div>
     <div class="grid-item">
-      <dso-feed-card [type]="'video'" [post]="post" (bookmark)="onBookmark($event)"></dso-feed-card>
+      <dso-feed-card [type]="'video'" [post]="post" (addBookmark)="onAddBookmark($event)"
+                     (removeBookmark)="onRemoveBookmark($event)"></dso-feed-card>
     </div>
   </ngxMasonryItem>
 </ngx-masonry>

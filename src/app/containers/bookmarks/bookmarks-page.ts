@@ -7,7 +7,7 @@ import { BookmarkService } from '../../services/bookmark.service';
 import { BookmarkFilterDialogComponent } from './bookmark-filter-dialog/bookmark-filter-dialog.component';
 import { PostService } from '../../services/post.service';
 import { Post } from '../../models/post.model';
-import { Bookmark } from '../../models/bookmark.model';
+import { AuthService } from '../../services';
 
 @Component({
   templateUrl: './bookmarks-page.html',
@@ -20,12 +20,13 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
   private bookmarkSub: Subscription;
 
   constructor(private dialog: MatDialog, private snackBar: MatSnackBar, private bookmarkService: BookmarkService,
-              private postService: PostService, private progress: NgProgress) {
+              private postService: PostService, private progress: NgProgress, private authService: AuthService) {
   }
 
   ngOnInit(): void {
+    const email = this.authService.getUserInfo().user_name;
     this.progress.start();
-    const bookmarks$ = this.bookmarkService.getAllByEmail('h1078660929@163.com');
+    const bookmarks$ = this.bookmarkService.getAllByEmail(email);
 
     this.bookmarkSub = bookmarks$.subscribe(bookmarks => {
       const posts = [];

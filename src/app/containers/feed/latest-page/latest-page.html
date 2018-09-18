@@ -1,1 +1,2 @@
-<dso-feed-grid [posts]="posts$ | async" (bookmark)="bookmark($event)"></dso-feed-grid>
+<dso-feed-grid [posts]="posts$ | async" (addBookmark)="addBookmark($event)"
+               (removeBookmark)="removeBookmark($event)"></dso-feed-grid>
