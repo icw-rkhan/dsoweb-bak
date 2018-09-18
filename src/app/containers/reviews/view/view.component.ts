@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 
 import { CommentService } from '../../../services/comment.service';
 import { Comment } from '../../../models/comment.model';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'dso-reviews-view',
@@ -34,11 +35,15 @@ export class ViewComponent implements OnInit {
     })
 
     this.routeParams = this.activeRoute.snapshot.params;
-    this.postId = this.routeParams.postId;
+    this.postId = 28;//this.routeParams.postId;
 
     this.progress.start();
     this.comments$ = this.commentService.comments(this.postId);
     this.commentsSub = this.comments$.subscribe(() => this.progress.complete());
+  }
+
+  dateFormat(date) {
+    return formatDate(date, 'd MMM, y', 'en-US');
   }
 
   ngOnDestroy(): void {

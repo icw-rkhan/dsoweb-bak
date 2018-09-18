@@ -17,12 +17,11 @@ export class CommentService {
 
   comments(postId: number): Observable<Comment[]> {
     const url = `${environment.profileApiUrl}/getComments/${postId}`;
-    console.log(url);
     
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${this.auth.getToken()}`);
     
-    return this.http.get(url,{headers}).pipe(
+    return this.http.get(url, {headers}).pipe(
       map((response: any[]) => {
         return response['resultMap']['comments'];
       })
@@ -33,7 +32,8 @@ export class CommentService {
     const url = `${environment.profileApiUrl}/saveComment`;
 
     const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${this.auth.getToken()}`);
+      .append('Authorization', `Bearer ${this.auth.getToken()}`)
+      .append('Content-Type', 'application/json');
 
     return this.http.post(url, body, {headers});
   }

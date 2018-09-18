@@ -88,14 +88,17 @@ export class AddComponent implements OnInit {
   saveComment() {
     this.body = {
       'userId': this.user_id,
-      'postId': this.routeParams.postId,
+      'postId': '28',
       'comment': this.comment,
       'rating': this.rate
     }
 
-    this.commentService.setComment(this.body);
-        
-    this._location.back();
+    this.commentService.setComment(this.body).subscribe(
+      (data: any) => {
+        console.log(data);
+
+        this._location.back();
+      });
   }
 
   ngOnDestroy(): void {
