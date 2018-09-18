@@ -42,4 +42,11 @@ export class PostService {
     );
   }
 
+  search(term: string): Observable<Post[]> {
+    const url = `${environment.cmsApiUrl}/posts?_embed&search=${term}`;
+    return this.http.get(url).pipe(
+      map((response: any[]) => response.map(post => new Post().deserialize(post)))
+    );
+  }
+
 }
