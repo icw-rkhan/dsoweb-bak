@@ -5,8 +5,9 @@
   <mat-sidenav-content class="sidenav-content">
     <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
     <div class="main-container">
-      <router-outlet></router-outlet>
+      <dso-main-actions *ngIf="displayMainActions"></dso-main-actions>
+      <!-- Content here-->
+      <ng-content></ng-content>
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
-  

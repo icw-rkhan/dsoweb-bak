@@ -1,21 +1,27 @@
 <div fxLayout = "column">
-    <mat-card fxLayout="row" fxLayoutAlign="start top" *ngFor="let userInfo of userInfoList">
-        <img class="mat-card-avatar" mat-card-avatar src="{{userInfo.url}}">
-        <mat-card-content>
-            <div fxLayoutAlign="row">
-                <div class="user-name">{{userInfo.name}} rated it </div>
-                <div class="statebar" fxLayout="row" fxLayoutAlign="center center">
-                    <div *ngFor="let state of stateList; index as i">
-                        <img *ngIf="userInfo.rate>i;else nonactive" src="assets/images/view-star-active.png" class="state-star">{{index}}
-                        <ng-template #nonactive>
-                        <img src="assets/images/view-star-nonactive.png" class="state-star">
-                        </ng-template>
-                    </div>
-                </div>            
-            </div>
-            
-            <div class="review-date">{{userInfo.date}}</div>
-            <div class="review-content">{{userInfo.review}}</div>
-        </mat-card-content>
+    <mat-card fxLayout="column" fxLayoutAlign="start top" *ngFor="let comment of (comments$ | async)">
+        <div fxLayout="row">
+            <img *ngIf="comment.userUrl; else defaultUrl" class="mat-card-avatar" mat-card-avatar src={{comment.userUrl}}>
+            <ng-template #defaultUrl>
+                <img class="mat-card-avatar" mat-card-avatar src="assets/images/user-avatar.png">
+            </ng-template>
+            <mat-card-content>
+                <div fxLayoutAlign="row">
+                    <div class="user-name">{{comment.userName}} rated it </div>
+                    <div class="statebar" fxLayout="row" fxLayoutAlign="center center">
+                        <div *ngFor="let state of stateList; index as i">
+                            <img *ngIf="comment.rating>i;else inactive" src="assets/images/view-star-active.png" class="state-star">
+                            <ng-template #inactive>
+                            <img src="assets/images/view-star-inactive.png" class="state-star">
+                            </ng-template>
+                        </div>
+                    </div>            
+                </div>
+                
+                <div class="review-date">{{dateFormat(comment.creationDt)}}</div>
+                <div class="review-content">{{comment.comment}}</div>
+            </mat-card-content>
+        </div>
+        <div class="split"></div>
     </mat-card>            
 </div>

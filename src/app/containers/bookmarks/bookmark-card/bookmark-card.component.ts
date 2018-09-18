@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-
-import { Bookmark } from '../../../models/bookmark.model';
+import { Post } from '../../../models/post.model';
 
 @Component({
   selector: 'dso-bookmark-card',
@@ -10,11 +9,11 @@ import { Bookmark } from '../../../models/bookmark.model';
 })
 export class BookmarkCardComponent {
 
-  @Input() bookmark: Bookmark;
-  @Output() remove = new EventEmitter<Bookmark>();
+  @Input() post: Post;
+  @Output() remove = new EventEmitter<Post>();
 
   onRemove() {
-    this.remove.emit(this.bookmark);
+    this.remove.emit(this.post);
   }
 
 }

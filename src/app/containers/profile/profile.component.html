@@ -1,109 +1,120 @@
-<div class="profile_content">
-  <section class="profile-heading">
-    <div class="profile-heading_info">
-      <div class="img_user">
-        <img src="../assets/images/profile/icon_user_profile.png">
+<dso-main-container [displayMainActions]="false">
+  <header class="header-profile fixed-bar">
+    <nav class="navbar bg-grey">
+      <span class="icon-bar"></span>
+      <div class="navbar-title-heading">Profile</div>
+      <div class="navbar-edit-profile">
+        <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
       </div>
-      <div class="profile-info">
-        <div class="profile_name">{{ userProfile?.full_name }}</div>
-        <div class="profile_speciality">
-          <label>Speciality</label>
-          <span>Lorem ispum</span>
+    </nav>
+  </header>
+  <div class="profile_content">
+    <section class="profile-heading">
+      <div class="profile-heading_info">
+        <div class="img_user">
+          <img src="../assets/assets/images/profile/icon_user_profile.png">
         </div>
-      </div>
-    </div>
-  </section>
-  <section *ngIf="is_student" class="profile_Residency">
-    <div class="profile_title small f300">Experience</div>
-    <div *ngIf="userProfile?.experiences.length; else noExperience">
-      <div *ngFor="let item of userProfile?.experiences" class="profile__content bt">
-        <div class="profile__icon exp_owner"></div>
-        <div class="profile__content_info">
-          <div class="profile_info">
-            <div class="profile_subtitle">Owner Dentist</div>
-            <div class="profile-job">Smile Dental (Aspen)</div>
-            <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+        <div class="profile-info">
+          <div class="profile_name">{{ userProfile?.full_name }}</div>
+          <div class="profile_speciality">
+            <label>Speciality</label>
+            <span>Lorem ispum</span>
           </div>
         </div>
       </div>
-    </div>
-    <ng-template #noExperience>
-      <div class="profile__content">
-        <div class="profile__icon exp_icon"></div>
-        <div class="profile__content_info">
-          <span class="not_residency">No experience added yet.</span>
-        </div>
-      </div>
-    </ng-template>
-  </section>
-  <section class="profile_Residency">
-    <div class="profile_title small f300">Residency</div>
-    <div *ngIf="userProfile?.profileResidency.length; else noResidency">
-      <div *ngFor="let item of userProfile?.profileResidency" class="profile__content bt">
-        <div class="profile__icon"></div>
-        <div class="profile__content_info">
-          <div  class="profile_info">
-            <div class="profile_subtitle">Residency</div>
-            <div class="profile-job">{{ item?.dental_school?.name }}</div>
-            <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+    </section>
+    <section *ngIf="is_student" class="profile_Residency">
+      <div class="profile_title small f300">Experience</div>
+      <div *ngIf="userProfile?.experiences.length; else noExperience">
+        <div *ngFor="let item of userProfile?.experiences" class="profile__content bt">
+          <div class="profile__icon exp_owner"></div>
+          <div class="profile__content_info">
+            <div class="profile_info">
+              <div class="profile_subtitle">Owner Dentist</div>
+              <div class="profile-job">Smile Dental (Aspen)</div>
+              <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <ng-template #noResidency>
-      <div class="profile__content">
-        <div class="profile__icon"></div>
-        <div class="profile__content_info">
-          <span class="not_residency">No residency added yet.</span>
+      <ng-template #noExperience>
+        <div class="profile__content">
+          <div class="profile__icon exp_icon"></div>
+          <div class="profile__content_info">
+            <span class="not_residency">No experience added yet.</span>
+          </div>
         </div>
-      </div>
-    </ng-template>
-  </section>
-  <section class="profile_Education">
-    <div class="profile_title small f300">Education</div>
-    <div *ngIf="userProfile?.educations.length; else noEducation">
-      <div *ngFor="let item of userProfile?.educations" class="profile__content bt">
-        <div class="profile__icon education-icon"></div>
-        <div class="profile__content_info">
-          <div class="profile_info">
-            <div class="profile_subtitle">{{ item?.dental_school?.name }}</div>
-            <div class="profile-job">Certificate, Advanced Periodontology</div>
-            <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+      </ng-template>
+    </section>
+    <section class="profile_Residency">
+      <div class="profile_title small f300">Residency</div>
+      <div *ngIf="userProfile?.profileResidency.length; else noResidency">
+        <div *ngFor="let item of userProfile?.profileResidency" class="profile__content bt">
+          <div class="profile__icon"></div>
+          <div class="profile__content_info">
+            <div class="profile_info">
+              <div class="profile_subtitle">Residency</div>
+              <div class="profile-job">{{ item?.dental_school?.name }}</div>
+              <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <ng-template #noEducation>
-      <div class="profile__content">
-        <div class="profile__icon education-icon"></div>
-        <div class="profile__content_info">
-          <span class="not_residency">No education added yet.</span>
+      <ng-template #noResidency>
+        <div class="profile__content">
+          <div class="profile__icon"></div>
+          <div class="profile__content_info">
+            <span class="not_residency">No residency added yet.</span>
+          </div>
+        </div>
+      </ng-template>
+    </section>
+    <section class="profile_Education">
+      <div class="profile_title small f300">Education</div>
+      <div *ngIf="userProfile?.educations.length; else noEducation">
+        <div *ngFor="let item of userProfile?.educations" class="profile__content bt">
+          <div class="profile__icon education-icon"></div>
+          <div class="profile__content_info">
+            <div class="profile_info">
+              <div class="profile_subtitle">{{ item?.dental_school?.name }}</div>
+              <div class="profile-job">Certificate, Advanced Periodontology</div>
+              <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+            </div>
+          </div>
         </div>
       </div>
-    </ng-template>
-  </section>
-  <section class="profile_Contact">
-    <div class="profile_title small f300">Contact</div>
-    <div *ngIf="is_student && userProfile?.practiceAddress" class="profile__content bt">
-      <div class="profile__icon practice-icon"></div>
-      <div class="profile__content_info">
-        <span class="pre_email_addr"><strong>Practice Address</strong></span> 
-        <span class="addr-link cl4a">124 Park Avenue, 45th Street, Boston, MA - 20230</span>
+      <ng-template #noEducation>
+        <div class="profile__content">
+          <div class="profile__icon education-icon"></div>
+          <div class="profile__content_info">
+            <span class="not_residency">No education added yet.</span>
+          </div>
+        </div>
+      </ng-template>
+    </section>
+    <section class="profile_Contact">
+      <div class="profile_title small f300">Contact</div>
+      <div *ngIf="is_student && userProfile?.practiceAddress" class="profile__content bt">
+        <div class="profile__icon practice-icon"></div>
+        <div class="profile__content_info">
+          <span class="pre_email_addr"><strong>Practice Address</strong></span>
+          <span class="addr-link cl4a">124 Park Avenue, 45th Street, Boston, MA - 20230</span>
+        </div>
       </div>
-    </div>
-    <div *ngIf="userProfile?.phone" class="profile__content bt">
-      <div class="profile__icon mobile-icon"></div>
-      <div class="profile__content_info">
-        <span class="pre_email_addr"><strong>Mobile Number</strong></span>
-        <span class="addr-link cl4a">207-782-8410</span>
+      <div *ngIf="userProfile?.phone" class="profile__content bt">
+        <div class="profile__icon mobile-icon"></div>
+        <div class="profile__content_info">
+          <span class="pre_email_addr"><strong>Mobile Number</strong></span>
+          <span class="addr-link cl4a">207-782-8410</span>
+        </div>
       </div>
-    </div>
-    <div class="profile__content bt">
-      <div class="profile__icon contact-icon"></div>
-      <div class="profile__content_info">
-        <span class="pre_email_addr"><strong>Preferred Email Address</strong></span>
-        <span class="addr-link">{{ userProfile?.email }}</span>
+      <div class="profile__content bt">
+        <div class="profile__icon contact-icon"></div>
+        <div class="profile__content_info">
+          <span class="pre_email_addr"><strong>Preferred Email Address</strong></span>
+          <span class="addr-link">{{ userProfile?.email }}</span>
+        </div>
       </div>
-    </div>
-  </section>
-</div>
+    </section>
+  </div>
+</dso-main-container>

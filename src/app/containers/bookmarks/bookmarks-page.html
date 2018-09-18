@@ -1,21 +1,11 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="push">
-    <dso-sidebar></dso-sidebar>
-  </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content">
-    <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
-    <ng-progress></ng-progress>
-    <div class="main-container">
-      <div class="search">
-        <dso-footer-actions></dso-footer-actions>
-        <div class="header">
-          <span class="mat-body-2">Filter bookmarks</span>
-          <button mat-icon-button (click)="openFilter()">
-            <mat-icon class="icon-filter">filter_list</mat-icon>
-          </button>
-        </div>
-        <dso-bookmark-grid [bookmarks]="bookmarks$ | async" (remove)="remove($event)"></dso-bookmark-grid>
-      </div>
+<dso-main-container>
+  <div content="container">
+    <div class="header">
+      <span class="mat-body-2">Filter bookmarks</span>
+      <button mat-icon-button (click)="openFilter()">
+        <mat-icon class="icon-filter">filter_list</mat-icon>
+      </button>
     </div>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+    <dso-bookmark-grid [posts]="posts" (remove)="remove($event)"></dso-bookmark-grid>
+  </div>
+</dso-main-container>

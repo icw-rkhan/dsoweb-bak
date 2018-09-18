@@ -1,5 +1,12 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable, Subscription } from 'rxjs';
+import { NgProgress } from '@ngx-progressbar/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { CommentService } from '../../../services/comment.service';
+import { Comment } from '../../../models/comment.model';
+import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'dso-reviews-view',
@@ -7,27 +14,16 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit {
+  postId: number;
+  comments$: Observable<Comment[]>;
+  commentsSub: Subscription;
+  routeParams: any;
 
-  stateList = [{state:'nonactive'},{state:'nonactive'},{state:'nonactive'},{state:'nonactive'},{state:'nonactive'}]
+  stateList = [{state:'inactive'},{state:'inactive'},{state:'inactive'},{state:'inactive'},{state:'inactive'}]
 
-  userInfoList = [
-    {
-    url: 'assets/images/user-avatar.png',
-    name: 'Matt Heafy',
-    rate: 4,
-    date: '3 jul, 2017',
-    review: 'A wonderful experience reading up on the new trends of dental heath.'
-    },
-    {
-      url: 'assets/images/user-avatar.png',
-      name: 'Matt Heafy',
-      rate: 4,
-      date: '3 jul, 2017',
-      review: 'A wonderful experience reading up on the new trends of dental heath.'
-    },
-  ]  
-
-  constructor(public breakpointObserver: BreakpointObserver) { }
+  constructor(public breakpointObserver: BreakpointObserver, 
+    private commentService: CommentService, private progress: NgProgress, private activeRoute: ActivatedRoute) { 
+  }
 
   ngOnInit() 
   {
@@ -36,6 +32,21 @@ export class ViewComponent implements OnInit {
     ]).subscribe(result=> {
       if(result.matches) {
       }
-    })  
+    })
+
+    this.routeParams = this.activeRoute.snapshot.params;
+    this.postId = 28;//this.routeParams.postId;
+
+    this.progress.start();
+    this.comments$ = this.commentService.comments(this.postId);
+    this.commentsSub = this.comments$.subscribe(() => this.progress.complete());
+  }
+
+  dateFormat(date) {
+    return formatDate(date, 'd MMM, y', 'en-US');
+  }
+
+  ngOnDestroy(): void {
+    this.commentsSub.unsubscribe();
   }
 }
