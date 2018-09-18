@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { CustomValidators } from 'ngx-custom-validators';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
+import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import {CustomValidators} from 'ngx-custom-validators';
 
-import { AuthService, ApiErrorService } from '../../../services/index';
+import {AuthService, ApiErrorService} from '../../../services/index';
+import {SharingService} from '../../../services/sharing.service';
 
 @Component({
   selector: 'dso-login',
@@ -15,22 +16,28 @@ export class LoginComponent implements OnInit {
   is_student: any;
   form: FormGroup;
 
-  constructor(
-    private router: Router,
-    private fb: FormBuilder,
-    private authService: AuthService,
-    private apiError: ApiErrorService
-  ) {
+  constructor(private router: Router,
+              private fb: FormBuilder,
+              private authService: AuthService,
+              private apiError: ApiErrorService,
+              private sharingService: SharingService) {
+    this.sharingService.showLoading̣̣(true);
     this.isShowPassword = false;
   }
 
   ngOnInit() {
     this.is_student = +localStorage.getItem('is_student');
     this.initForm();
+    this.sharingService.showLoading̣̣(false);
   }
 
-  get username() { return this.form.get('username'); }
-  get password() { return this.form.get('password'); }
+  get username() {
+    return this.form.get('username');
+  }
+
+  get password() {
+    return this.form.get('password');
+  }
 
   initForm() {
     this.form = this.fb.group({
