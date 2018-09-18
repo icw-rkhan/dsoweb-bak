@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {SharingService} from './services/sharing.service';
 
 @Component({
   selector: 'dso-root',
@@ -6,4 +7,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  isLoading = true;
+
+  constructor(public sharingService: SharingService) {
+    this.sharingService.isLoading.subscribe(isLoading => {
+      this.isLoading = isLoading;
+    });
+  }
 }
