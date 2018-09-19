@@ -1,21 +1,22 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ModalDirective} from 'ngx-bootstrap';
 import * as moment from 'moment';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
-import { AuthService, ProfileService } from '../../services/index';
-import { Residency } from '../../models/residency.model';
+import {AuthService, ProfileService} from '../../services/index';
+import {Residency} from '../../models/residency.model';
 
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'dso-edit-profile',
   templateUrl: './edit-profile.component.html',
   animations: [
     trigger('slideUpDown', [
-      state('up', style({ bottom: 0 })),
-      state('down', style({ bottom: '-110px' })),
+      state('up', style({bottom: 0})),
+      state('down', style({bottom: '-110px'})),
       transition(':enter', [
         style({bottom: '-110px'}),
         animate(300)
@@ -42,6 +43,8 @@ export class EditProfileComponent implements OnInit {
   RESIDENCY_EDIT = 3;
   residency_page = 2;
   residency: Residency;
+
+  filteredSpeciality: any;
 
   constructor(private authService: AuthService,
               private profileService: ProfileService,
@@ -73,6 +76,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         if (data[0]) {
           this.metadata.residency = data[0].resultMap.data;
+          this.filteredSpeciality = this.metadata.residency;
         }
         if (data[1]) {
           this.metadata.dentalSchool = data[1].resultMap.data;
@@ -111,12 +115,24 @@ export class EditProfileComponent implements OnInit {
   selectSpeciality() {
     this.isEdit = !this.isEdit;
     this.isEditSpeciality = !this.isEditSpeciality;
+    if (!this.isEditSpeciality) {
+      this.filteredSpeciality = this.metadata.residency;
+    }
   }
 
   setSpeciality(item: any) {
-    this.userProfile.residency_id = item.id;
-    this.userProfile.speciality = item.name;
+    if (this.userProfile.educations.length !== 0) {
+      this.userProfile.educations[0].major = item.name;
+    }
     this.selectSpeciality();
+  }
+
+  searchSpeciality(key: string) {
+    if (isNullOrUndefined(key) || key === '') {
+      this.filteredSpeciality = this.metadata.residency;
+    } else {
+      this.filteredSpeciality = this.metadata.residency.filter(spec => spec.name.toLowerCase().includes(key.toLowerCase()));
+    }
   }
 
   selectedResidency(e: Residency) {
@@ -146,11 +162,14 @@ export class EditProfileComponent implements OnInit {
 
   onSave(form: NgForm) {
     if (form.valid) {
+      this.sharingService.showLoading̣̣(true);
       this.profileService.saveProfile(this.userProfile).subscribe(profile => {
           console.log(profile);
+          this.sharingService.showLoading̣̣(false);
         },
         error => {
           console.log(error);
+          this.sharingService.showLoading̣̣(false);
         });
     }
   }
