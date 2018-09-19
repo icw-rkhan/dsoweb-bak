@@ -3,43 +3,43 @@
     <img class="icon-type" src="/src/assets/images/TipSheet@2x.png" *ngIf="post.format === 'image'">
     <img class="icon-type" src="/src/assets/images/Video@2x.png" *ngIf="post.format === 'video'">
     <img class="icon-type" src="/src/assets/images/Article@2x.png" *ngIf="post.format === 'standard'">
-    <h3 class="mat-h3">{{post.category.name}} - {{post.format}}</h3>
+    <h3 class="mat-h3">{{post.category.name}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content class="content">
-    <div class="inner-container">
-      <div class="image">
-        <img [src]="post.thumbnail"/>
+    <div class="image" *ngIf="post.thumbnail">
+      <img [src]="post.thumbnail"/>
+    </div>
+    <div class="content-title">
+      <h2 class="mat-h2">{{post.title}}</h2>
+      <div class="actions">
+        <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+          <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+          <mat-icon aria-label="Bookmark">bookmark</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+          <mat-icon aria-label="Options">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+          <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
+        </mat-menu>
+        <mat-menu #submenu="matMenu">
+          <ng-template matMenuContent>
+            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
+            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="twitter">to twitter</a></p>
+            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="linkedin">to linkedin</a></p>
+          </ng-template>
+        </mat-menu>
       </div>
-      <div class="content-title">
-        <h2 class="mat-h2">{{post.title}}</h2>
-        <div class="actions">
-          <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
-            <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
-          </button>
-          <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
-            <mat-icon aria-label="Bookmark">bookmark</mat-icon>
-          </button>
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-            <mat-icon aria-label="Options">more_vert</mat-icon>
-          </button>
-          <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
-          </mat-menu>
-          <mat-menu #submenu="matMenu">
-            <ng-template matMenuContent>
-              <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
-              <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="twitter">to twitter</a></p>
-              <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="linkedin">to linkedin</a></p>
-            </ng-template>
-          </mat-menu>
-        </div>
+    </div>
+    <div class="inner-content">
+      <div class="mat-body-1" [innerHtml]="post.excerpt">
       </div>
-      <div class="inner-content mat-body-1" [innerHtml]="post.excerpt">
-      </div>
-      <div class="more-container" *ngIf="post.format === 'standard'">
-        <a mat-button routerLink="." class="more">...more</a>
-      </div>
+    </div>
+    <div class="more-container" *ngIf="post.format === 'standard'">
+      <a mat-button routerLink="." class="more">...more</a>
     </div>
   </mat-card-content>
 </mat-card>

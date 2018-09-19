@@ -1,21 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalDirective } from 'ngx-bootstrap';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {ModalDirective} from 'ngx-bootstrap';
 import * as moment from 'moment';
-import { trigger, state, style, animate, transition } from '@angular/animations';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
-import { AuthService, ProfileService } from '../../services/index';
-import { Residency } from '../../models/residency.model';
+import {AuthService, ProfileService} from '../../services/index';
+import {Residency} from '../../models/residency.model';
 
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
+import {isNullOrUndefined} from 'util';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'dso-edit-profile',
   templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.scss'],
   animations: [
     trigger('slideUpDown', [
-      state('up', style({ bottom: 0 })),
-      state('down', style({ bottom: '-110px' })),
+      state('up', style({bottom: 0})),
+      state('down', style({bottom: '-110px'})),
       transition(':enter', [
         style({bottom: '-110px'}),
         animate(300)
@@ -42,10 +45,14 @@ export class EditProfileComponent implements OnInit {
   RESIDENCY_EDIT = 3;
   residency_page = 2;
   residency: Residency;
+  residencyIndex: number;
+
+  filteredSpeciality: any;
 
   constructor(private authService: AuthService,
               private profileService: ProfileService,
-              private sharingService: SharingService) {
+              private sharingService: SharingService,
+              private alertService: AlertService) {
     this.sharingService.showLoading̣̣(true);
     this.isEdit = true;
     this.isEditSpeciality = false;
@@ -73,6 +80,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         if (data[0]) {
           this.metadata.residency = data[0].resultMap.data;
+          this.filteredSpeciality = this.metadata.residency;
         }
         if (data[1]) {
           this.metadata.dentalSchool = data[1].resultMap.data;
@@ -92,13 +100,14 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        this.userProfile['is_student'] = this.is_student;
         this.parseData();
       }
     );
   }
 
   parseData() {
-    ['educations', 'experiences', 'profileResidency'].map((key: any) => {
+    ['educations', 'experiences'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
         item.start_time = moment(item.start_time).format('MMMM YYYY');
         item.end_date = moment(item.start_time).isBefore(moment())
@@ -106,17 +115,34 @@ export class EditProfileComponent implements OnInit {
           : 'Present';
       });
     });
+
+    this.userProfile['profileResidency'].map((item: any) => {
+      item.start_time = moment(item.start_time).format();
+      item.end_time = moment(item.end_time).format();
+    });
   }
 
   selectSpeciality() {
     this.isEdit = !this.isEdit;
     this.isEditSpeciality = !this.isEditSpeciality;
+    if (!this.isEditSpeciality) {
+      this.filteredSpeciality = this.metadata.residency;
+    }
   }
 
   setSpeciality(item: any) {
-    this.userProfile.residency_id = item.id;
-    this.userProfile.speciality = item.name;
+    if (this.userProfile.educations.length !== 0) {
+      this.userProfile.educations[0].major = item.name;
+    }
     this.selectSpeciality();
+  }
+
+  searchSpeciality(key: string) {
+    if (isNullOrUndefined(key) || key === '') {
+      this.filteredSpeciality = this.metadata.residency;
+    } else {
+      this.filteredSpeciality = this.metadata.residency.filter(spec => spec.name.toLowerCase().includes(key.toLowerCase()));
+    }
   }
 
   selectedResidency(e: Residency) {
@@ -125,8 +151,16 @@ export class EditProfileComponent implements OnInit {
   }
 
   addResidency(e: Residency) {
-    this.residency = e;
-    this.residency_page = this.RESIDENCY_EDIT;
+    this.editResidencyModel.hide();
+    this.userProfile.profileResidency.push({
+      residency_school: {
+        id: e.id,
+        name: e.name
+      },
+      end_time: e.year + '-01-01T00:00:00.000Z',
+      start_time: (e.year - 1) + '-01-01T00:00:00.000Z'
+    });
+    this.residency = null;
   }
 
   selectResidency() {
@@ -139,19 +173,56 @@ export class EditProfileComponent implements OnInit {
   }
 
   updateResidency(e: Residency) {
-    console.log(e);
-    this.residency = e;
+    this.residency = null;
+    this.userProfile.profileResidency[this.residencyIndex] = {
+      residency_school: {
+        id: e.id,
+        name: e.name
+      },
+      end_time: e.year + '-01-01T00:00:00.000Z',
+      start_time: (e.year - 1) + '-01-01T00:00:00.000Z'
+    };
     this.editResidencyModel.hide();
+  }
+
+  editResidency(i) {
+    console.log(this.userProfile.profileResidency);
+    this.residencyIndex = i;
+    this.residency = null;
+    const dt = {
+      id: this.userProfile.profileResidency[i].residency_school.id,
+      name: this.userProfile.profileResidency[i].residency_school.name,
+      year: this.userProfile.profileResidency[i].end_time.split('-')[0]
+    };
+    this.residency = new Residency().deserialize(dt);
+    this.editResidencyModel.show();
+    this.residency_page = this.RESIDENCY_EDIT;
+  }
+
+  deleteResidency() {
+    if (this.residencyIndex >= 0) {
+      if (this.userProfile.profileResidency[this.residencyIndex]) {
+        (<any[]>this.userProfile.profileResidency).splice(this.residencyIndex, 1);
+      }
+    }
+    this.editResidencyModel.hide();
+    this.residencyIndex = -1;
   }
 
   onSave(form: NgForm) {
     if (form.valid) {
-      this.profileService.saveProfile(this.userProfile).subscribe(profile => {
-          console.log(profile);
-        },
-        error => {
-          console.log(error);
-        });
+      this.sharingService.showLoading̣̣(true);
+
+      (this.userProfile.is_linkedin !== 1) ? this.userProfile.is_linkedin = 0 : this.userProfile.is_linkedin = 1;
+
+      this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
+        if (!data.code) {
+          this.alertService.alertInfo('Success', 'Saved successfully');
+        } else {
+          this.alertService.alertInfo('Error', data.msg);
+        }
+        this.sharingService.showLoading̣̣(false);
+      });
     }
   }
 
