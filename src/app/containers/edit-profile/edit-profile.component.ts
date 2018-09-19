@@ -105,13 +105,18 @@ export class EditProfileComponent implements OnInit {
   }
 
   parseData() {
-    ['educations', 'experiences', 'profileResidency'].map((key: any) => {
+    ['educations', 'experiences'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
         item.start_time = moment(item.start_time).format('MMMM YYYY');
         item.end_date = moment(item.start_time).isBefore(moment())
           ? moment(item.end_time).format('MMMM YYYY')
           : 'Present';
       });
+    });
+
+    this.userProfile['profileResidency'].map((item: any) => {
+      item.start_time = moment(item.start_time).format();
+      item.end_time = moment(item.end_time).format();
     });
   }
 
@@ -147,7 +152,8 @@ export class EditProfileComponent implements OnInit {
     this.editResidencyModel.hide();
     this.userProfile.profileResidency.push({
       residency_school: {
-        id: e.id
+        id: e.id,
+        name: e.name
       },
       end_time: e.year + '-01-01T00:00:00.000Z',
       start_time: (e.year - 1) + '-01-01T00:00:00.000Z'
@@ -168,7 +174,8 @@ export class EditProfileComponent implements OnInit {
     this.residency = null;
     this.userProfile.profileResidency[this.residencyIndex] = {
       residency_school: {
-        id: e.id
+        id: e.id,
+        name: e.name
       },
       end_time: e.year + '-01-01T00:00:00.000Z',
       start_time: (e.year - 1) + '-01-01T00:00:00.000Z'
@@ -177,19 +184,15 @@ export class EditProfileComponent implements OnInit {
   }
 
   editResidency(i) {
+    console.log(this.userProfile.profileResidency);
     this.residencyIndex = i;
     this.residency = null;
-    for (let j = 0; j < this.metadata.residency.length; j++) {
-      if (parseInt(this.metadata.residency[j].id) == this.userProfile.profileResidency[i].residency_school.id) {
-        const dt = {
-          id: this.metadata.residency[j].id,
-          name: this.metadata.residency[j].name,
-          year: this.userProfile.profileResidency[i].end_time.split('-')[0];
-        };
-        this.residency = new Residency().deserialize(dt);
-        break;
-      }
-    }
+    const dt = {
+      id: this.userProfile.profileResidency[i].residency_school.id,
+      name: this.userProfile.profileResidency[i].residency_school.name,
+      year: this.userProfile.profileResidency[i].end_time.split('-')[0]
+    };
+    this.residency = new Residency().deserialize(dt);
     this.editResidencyModel.show();
     this.residency_page = this.RESIDENCY_EDIT;
   }
