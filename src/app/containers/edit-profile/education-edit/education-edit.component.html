@@ -1,6 +1,6 @@
 <header class="header-profile fixed-bar">
   <nav class="navbar bg-grey">
-    <a href="#" class="back-link"><span class="icon-bar icon-back"></span></a>
+    <a class="back-link" (click)="_cancel()"><span class="icon-bar icon-back cursor"></span></a>
     <div class="navbar-title-heading">Edit Education</div>
     <div class="navbar-edit-profile">
       <a href="#" class="">Save</a>
@@ -20,7 +20,8 @@
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Dental School</label>
-        <input type="text" name="" class="input-mb" value="Manchester Dental School">
+        <input type="text" *ngIf="typeEducation == 1" (click)="_selectEducation()" class="input-mb" [value]="education ? education.name : ''">
+        <input type="text" *ngIf="typeEducation == 2" class="input-mb" value="">
         <span class="edit-practice"></span>
       </div>
       <div class="personal-group practice-group">

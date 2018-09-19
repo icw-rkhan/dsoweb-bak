@@ -5,6 +5,7 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 
 import { AuthService, ProfileService } from '../../services/index';
 import { Residency } from '../../models/residency.model';
+import { Education } from '../../models/education.model';
 
 import {NgForm} from '@angular/forms';
 
@@ -42,6 +43,11 @@ export class EditProfileComponent implements OnInit {
   residency_page = 2;
   education_page = 3;
   residency: Residency;
+
+  EDIT = 1;
+  ADD = 2;
+  typeEducation = 1;
+  education: Education;
 
   constructor(private authService: AuthService,
               private profileService: ProfileService) {
@@ -159,5 +165,14 @@ export class EditProfileComponent implements OnInit {
         this.isUploadResume = false;
       }, 400);
     }
+  }
+
+  selectEducation() {
+    this.education_page = this.RESIDENCY_AT;
+  }
+
+  selectedEducation(e: Education) {
+    this.education = e;
+    this.education_page = this.RESIDENCY_EDIT;
   }
 }
