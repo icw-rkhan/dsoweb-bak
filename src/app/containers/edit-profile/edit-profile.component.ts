@@ -63,6 +63,7 @@ export class EditProfileComponent implements OnInit {
       practiceType: []
     };
     this.userInfo = this.authService.getUserInfo();
+    console.log(this.userInfo);
   }
 
   ngOnInit() {
@@ -96,6 +97,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        this.userProfile['is_student'] = this.is_student;
         this.parseData();
       }
     );
@@ -163,12 +165,15 @@ export class EditProfileComponent implements OnInit {
   onSave(form: NgForm) {
     if (form.valid) {
       this.sharingService.showLoading̣̣(true);
+
+      (this.userProfile.is_linkedin !== 1) ? this.userProfile.is_linkedin = 0 : this.userProfile.is_linkedin = 1;
+
       this.profileService.saveProfile(this.userProfile).subscribe(profile => {
           console.log(profile);
           this.sharingService.showLoading̣̣(false);
         },
         error => {
-          console.log(error);
+          console.log('error: ', error);
           this.sharingService.showLoading̣̣(false);
         });
     }
