@@ -14,6 +14,7 @@ import {AlertService} from '../../services/alert.service';
 @Component({
   selector: 'dso-edit-profile',
   templateUrl: './edit-profile.component.html',
+  styleUrls: ['./edit-profile.component.scss'],
   animations: [
     trigger('slideUpDown', [
       state('up', style({bottom: 0})),
