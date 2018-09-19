@@ -58,7 +58,7 @@ export class LoginComponent implements OnInit {
         this.sharingService.showLoading̣̣(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
-          this.router.navigate(['/feed/latest']);
+          this.router.navigate(['/posts/latest']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'login');
         }

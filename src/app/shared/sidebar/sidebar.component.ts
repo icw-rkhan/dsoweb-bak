@@ -15,7 +15,7 @@ export class SidebarComponent {
     this.links.push({
       label: 'General Content',
       icon: 'folder_open',
-      route: '/feed/latest'
+      route: '/posts/latest'
     });
     this.links.push({
       label: 'Education',

@@ -13,10 +13,10 @@ import { BookmarkService } from '../../../services/bookmark.service';
 import { Bookmark } from '../../../models/bookmark.model';
 
 @Component({
-  templateUrl: './post-type-page.html',
-  styleUrls: ['./post-type-page.scss']
+  templateUrl: './posts-page.html',
+  styleUrls: ['./posts-page.scss']
 })
-export class PostTypePageComponent implements OnInit, OnDestroy {
+export class PostsPageComponent implements OnInit, OnDestroy {
 
   posts: Post[];
 

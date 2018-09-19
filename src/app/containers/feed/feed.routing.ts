@@ -3,25 +3,25 @@ import { NgModule } from '@angular/core';
 
 import { FeedPageComponent } from './feed-page';
 import { AuthGuard } from '../../services/auth/auth-guard';
-import { PostTypePageComponent } from './post-type-page/post-type-page';
+import { PostsPageComponent } from './posts-page/posts-page';
 
 export const ROUTES: Routes = [
   {
-    path: 'feed',
+    path: 'posts',
     canActivate: [AuthGuard],
     component: FeedPageComponent,
     children: [
       {
         path: 'latest',
-        component: PostTypePageComponent,
+        component: PostsPageComponent,
       },
       {
-        path: 'post-type/:id',
-        component: PostTypePageComponent,
+        path: 'type/:id',
+        component: PostsPageComponent,
       },
       {
-        path: 'latest',
-        component: PostTypePageComponent,
+        path: 'sponsor/:id',
+        component: PostsPageComponent,
       },
     ]
   },

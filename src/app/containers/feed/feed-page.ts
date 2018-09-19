@@ -12,35 +12,35 @@ export class FeedPageComponent implements OnInit {
   ngOnInit(): void {
     this.navLinks.push({
       label: 'LATEST',
-      route: '/feed/latest',
+      route: '/posts/latest',
     });
     this.navLinks.push({
       label: 'VIDEOS',
-      route: '/feed/post-type/29',
+      route: '/posts/type/29',
     });
     this.navLinks.push({
       label: 'ARTICLES',
-      route: '/feed/post-type/28',
+      route: '/posts/type/28',
     });
     this.navLinks.push({
       label: 'PODCASTS',
-      route: '/feed/post-type/30',
+      route: '/posts/type/30',
     });
     this.navLinks.push({
       label: 'TECH GUIDES',
-      route: '/feed/post-type/31',
+      route: '/posts/type/31',
     });
     this.navLinks.push({
       label: 'ANIMATIONS',
-      route: '/feed/post-type/195',
+      route: '/posts/type/195',
     });
     this.navLinks.push({
       label: 'INTERVIEWS',
-      route: '/feed/post-type/194',
+      route: '/posts/type/194',
     });
     this.navLinks.push({
       label: 'TIP SHEETS',
-      route: '/feed/post-type/196',
+      route: '/posts/type/196',
     });
   }
 

@@ -4,11 +4,11 @@ import { CommonModule } from '@angular/common';
 import { SharedModule } from '../../shared';
 import { FeedRoutingModule } from './feed.routing';
 import { FeedPageComponent } from './feed-page';
-import { PostTypePageComponent } from './post-type-page/post-type-page';
+import { PostsPageComponent } from './posts-page/posts-page';
 
 export const COMPONENTS = [
   FeedPageComponent,
-  PostTypePageComponent
+  PostsPageComponent
 ];
 
 @NgModule({
