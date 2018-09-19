@@ -2,7 +2,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 
 import { FeedPageComponent } from './feed-page';
-import { LatestPageComponent } from './latest-page/latest-page';
 import { AuthGuard } from '../../services/auth/auth-guard';
 import { PostTypePageComponent } from './post-type-page/post-type-page';
 
@@ -14,10 +13,14 @@ export const ROUTES: Routes = [
     children: [
       {
         path: 'latest',
-        component: LatestPageComponent,
+        component: PostTypePageComponent,
       },
       {
         path: 'post-type/:id',
+        component: PostTypePageComponent,
+      },
+      {
+        path: 'latest',
         component: PostTypePageComponent,
       },
     ]

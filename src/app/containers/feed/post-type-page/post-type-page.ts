@@ -32,12 +32,13 @@ export class PostTypePageComponent implements OnInit, OnDestroy {
     this.paramsSub = this.route.params.subscribe(params => {
       this.progress.start();
 
-      const id = +params['id'];
+      const id = params['id'];
       const email = this.authService.getUserInfo().user_name;
+      const postService = _.isUndefined(id) ? this.postService.posts() : this.postService.fetchByCategory(id);
 
       // Join bookmarks and post
       this.postSub = forkJoin(
-        this.postService.fetchByCategory(id),
+        postService,
         this.bookmarkService.getAllByEmail(email)
       ).pipe(
         map(items => items[0].map(p => {
