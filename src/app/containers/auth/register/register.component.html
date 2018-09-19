@@ -23,7 +23,7 @@
             </div>
           </div>
           <div class="form-group">
-            <input formControlName="username" class="form-control" type="text" placeholder="{{ !is_student ? 'School email address' : 'Email address' }}" />
+            <input formControlName="username" class="form-control" type="text" placeholder="Email address" />
             <div *ngIf="username.invalid && (username.dirty || username.touched)">
               <div class="invalid-input" *ngIf="username.errors.required">The email can't be blank.</div>
               <div class="invalid-input" *ngIf="username.errors.email">Please input correct email format!</div>

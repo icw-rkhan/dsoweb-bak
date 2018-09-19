@@ -33,7 +33,7 @@
             <div class="personal-underline"></div>
             <div [hidden]="fullname.valid || fullname.pristine"
                  class="validation-message">
-              Full name is required
+              Full name can't be blank.
             </div>
           </div>
           <div class="personal-group">
@@ -157,11 +157,11 @@
             <div class="personal-underline"></div>
             <div [hidden]="!email.hasError('required') || email.pristine"
                  class="validation-message">
-              Email is required
+              The email can't be blank.
             </div>
             <div [hidden]="!email.hasError('email') || email.pristine"
                  class="validation-message">
-              Email is wrong format
+              Please input correct email format!
             </div>
           </div>
         </div>
