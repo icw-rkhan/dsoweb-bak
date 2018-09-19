@@ -105,15 +105,10 @@
     .action {
       position: absolute;
       right: 0px;
-      top: auto;
+      top: 6px;
       text-transform: uppercase;
       color: #666;
       padding: 13px;
     }
-  }
-
-  &.withActionRight {
-    display: flex !important;
-    align-items: center !important;
   }
 }
