@@ -11,7 +11,6 @@ import { AuthService } from '../../services';
 })
 export class FeedCardComponent {
 
-  @Input() type: string;
   @Input() post: Post;
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
@@ -25,7 +24,8 @@ export class FeedCardComponent {
     this.addBookmark.emit(<Bookmark>{
       email: email,
       title: this.post.title,
-      postId: this.post.id.toString()
+      postId: this.post.id.toString(),
+      url: 'http://www.dsodentist.com',
     });
   }
 

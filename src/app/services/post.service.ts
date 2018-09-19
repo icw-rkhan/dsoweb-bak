@@ -49,4 +49,11 @@ export class PostService {
     );
   }
 
+  fetchBySponsorId(id: number): Observable<Post[]> {
+    const url = `${environment.cmsApiUrl}/posts?_embed&tags=${id}`;
+    return this.http.get(url).pipe(
+      map((response: any[]) => response.map(post => new Post().deserialize(post)))
+    );
+  }
+
 }

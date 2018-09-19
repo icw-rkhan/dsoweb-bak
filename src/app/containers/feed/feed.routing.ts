@@ -20,7 +20,7 @@ export const ROUTES: Routes = [
         component: PostsPageComponent,
       },
       {
-        path: 'sponsor/:id',
+        path: 'sponsor/:sponsorId',
         component: PostsPageComponent,
       },
     ]

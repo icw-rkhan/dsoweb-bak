@@ -34,3 +34,20 @@ ngx-masonry {
 h3 {
   margin-top: 30px;
 }
+
+.sponsor {
+  margin: 10px;
+  text-align: center;
+
+  img {
+    display: none;
+  }
+
+  @include phone {
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+}

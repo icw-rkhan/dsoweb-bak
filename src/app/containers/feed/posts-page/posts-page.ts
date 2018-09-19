@@ -19,6 +19,7 @@ import { Bookmark } from '../../../models/bookmark.model';
 export class PostsPageComponent implements OnInit, OnDestroy {
 
   posts: Post[];
+  sponsorId: number;
 
   private postSub: Subscription;
   private paramsSub: Subscription;
@@ -32,9 +33,19 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     this.paramsSub = this.route.params.subscribe(params => {
       this.progress.start();
 
+      // Params
       const id = params['id'];
+      const sponsorId = params['sponsorId'];
+      // Services
       const email = this.authService.getUserInfo().user_name;
-      const postService = _.isUndefined(id) ? this.postService.posts() : this.postService.fetchByCategory(id);
+      let postService = this.postService.posts();
+
+      if (!_.isUndefined(id)) {
+        postService = this.postService.fetchByCategory(id);
+      } else if (!_.isUndefined(sponsorId)) {
+        this.sponsorId = +sponsorId;
+        postService = this.postService.fetchBySponsorId(sponsorId);
+      }
 
       // Join bookmarks and post
       this.postSub = forkJoin(
