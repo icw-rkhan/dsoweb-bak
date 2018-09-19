@@ -17,10 +17,7 @@ export class BookmarkService {
 
   getAllByEmail(email: string): Observable<Bookmark[]> {
     const url = `${environment.profileApiUrl}/bookmark/getAllByEmail`;
-
-    // TODO: Remove this when header is sending in the interceptor
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${this.auth.getToken()}`);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.auth.getToken()}`);
 
     return this.http.post(url, null, {
       headers,
@@ -34,22 +31,14 @@ export class BookmarkService {
 
   saveBookmark(bookmark: Bookmark) {
     const url = `${environment.profileApiUrl}/bookmark/save`;
-
-    // TODO: Remove this when header is sending in the interceptor
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${this.auth.getToken()}`);
-
-    console.log(this.auth.getToken());
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.auth.getToken()}`);
 
     return this.http.post(url, bookmark, {headers});
   }
 
   deleteOneById(id: string) {
     const url = `${environment.profileApiUrl}/bookmark/deleteOneById`;
-
-    // TODO: Remove this when header is sending in the interceptor
-    const headers = new HttpHeaders()
-      .set('Authorization', `Bearer ${this.auth.getToken()}`);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.auth.getToken()}`);
 
     return this.http.post(url, null, {
       headers,

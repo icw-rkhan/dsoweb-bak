@@ -1,13 +1,13 @@
 <h2 mat-dialog-title>Filter</h2>
 <mat-dialog-content class="content">
   <mat-form-field>
-    <mat-select placeholder="Category">
+    <mat-select #categoryElem placeholder="Category" [(ngModel)]="categoryId">
       <mat-option *ngFor="let category of (categories | async)" [value]="category.id">
         {{category.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field>
+  <mat-form-field *ngIf="false">
     <mat-select placeholder="Content Type">
       <mat-option *ngFor="let type of contentTypes" [value]="type.id">
         {{type.name}}
@@ -16,6 +16,6 @@
   </mat-form-field>
 </mat-dialog-content>
 <mat-dialog-actions>
-  <button mat-button mat-dialog-close>Clear All</button>
-  <button mat-raised-button color="primary" [mat-dialog-close]="true">Update</button>
+  <button mat-button mat-dialog-close (click)="onClear()">Clear All</button>
+  <button mat-raised-button color="primary" [mat-dialog-close]="true" (click)="onFilter()">Update</button>
 </mat-dialog-actions>

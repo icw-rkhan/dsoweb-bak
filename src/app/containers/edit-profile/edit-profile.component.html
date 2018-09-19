@@ -14,7 +14,7 @@
         <div class="profile-img">
           <div class="profile_title">Profile Photo</div>
           <div class="avatar_profile">
-            <img src="../assets/assets/images/profile/avatar_profile.png">
+            <img src="../assets/images/profile/avatar_profile.png">
             <a href="#" class="edit_profile"><span class="edit-icon icons"></span></a>
           </div>
         </div>
@@ -33,14 +33,14 @@
             <div class="personal-underline"></div>
             <div [hidden]="fullname.valid || fullname.pristine"
                  class="validation-message">
-              Full name is required
+              Full name can't be blank.
             </div>
           </div>
           <div class="personal-group">
             <label class="profile_title mb0">Speciality</label>
             <div class="d-flex">
               <input (focus)="selectSpeciality()" type="text" name="" class="input-mb"
-                     value="{{ userProfile?.speciality }}" contenteditable="false">
+                     value="{{ this.userProfile?.educations[0]?.major }}" contenteditable="false">
               <span class="arrow-right-input"></span>
             </div>
             <div class="personal-underline"></div>
@@ -50,7 +50,7 @@
 
       <section class="profile_Education">
         <div class="profile_title small f300">Upload resume or import data</div>
-        <div class="profile__content">
+        <div class="profile__content" (click)="isUploadResume = true; isUploadResumeSlide = true">
           <div class="profile__icon upload-icon"></div>
           <div class="profile__content_info">
             <div class="profile_info">
@@ -157,11 +157,11 @@
             <div class="personal-underline"></div>
             <div [hidden]="!email.hasError('required') || email.pristine"
                  class="validation-message">
-              Email is required
+              The email can't be blank.
             </div>
             <div [hidden]="!email.hasError('email') || email.pristine"
                  class="validation-message">
-              Email is wrong format
+              Please input correct email format!
             </div>
           </div>
         </div>
@@ -179,7 +179,8 @@
   <div class="speciality-container">
     <div class="speciality-search">
       <div class="search-container">
-        <input type="text" name="" placeholder="Search ..." class="input-search">
+        <input type="text" name="searchSpeciality" #searchSpecialityInput placeholder="Search ..." class="input-search"
+               (input)="searchSpeciality(searchSpecialityInput.value)">
         <span class="icon-search"></span>
       </div>
     </div>
@@ -187,38 +188,9 @@
       <div class="speciality__list ">
         <div class="list__left">
           <ul class="speciality-ul">
-            <li *ngFor="let item of metadata.residency">
+            <li *ngFor="let item of filteredSpeciality">
               <a (click)="setSpeciality(item)">{{ item?.name }}</a>
             </li>
-          </ul>
-        </div>
-        <div class="right w15">
-          <ul class="alpha-text">
-            <li><a href="#">#</a></li>
-            <li><a href="#" class="active">A</a></li>
-            <li><a href="#">B</a></li>
-            <li><a href="#">C</a></li>
-            <li><a href="#">D</a></li>
-            <li><a href="#">E</a></li>
-            <li><a href="#">F</a></li>
-            <li><a href="#">I</a></li>
-            <li><a href="#">J</a></li>
-            <li><a href="#">K</a></li>
-            <li><a href="#">L</a></li>
-            <li><a href="#">M</a></li>
-            <li><a href="#">N</a></li>
-            <li><a href="#">O</a></li>
-            <li><a href="#">P</a></li>
-            <li><a href="#">Q</a></li>
-            <li><a href="#">R</a></li>
-            <li><a href="#">S</a></li>
-            <li><a href="#">T</a></li>
-            <li><a href="#">U</a></li>
-            <li><a href="#">V</a></li>
-            <li><a href="#">W</a></li>
-            <li><a href="#">X</a></li>
-            <li><a href="#">Y</a></li>
-            <li><a href="#">Z</a></li>
           </ul>
         </div>
       </div>
@@ -226,15 +198,30 @@
   </div>
 </div>
 
+<div *ngIf="isUploadResume" class="modal-overlay upload-file" (click)="closeUploadResume($event)">
+  <div class="modal-container" [@slideUpDown]="isUploadResumeSlide ? 'up': 'down'">
+    <div class="upload-content">
+      <div class="profile_title small f300 mb10">Upload Resume</div>
+      <div class="upload-browse">
+        <input type="file" name="" class="upload-hidden">
+        <span class="type-upload">Browse</span>
+      </div>
+    </div>
+  </div>
+</div>
 
-<div bsModal #editResidencyModel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name3"
-  id="waitingPopup" [config]="{backdrop: 'static'}">
+<div bsModal #editResidencyModel="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="waitingPopup" [config]="{backdrop: 'static'}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <dso-residency-search [listResidency]="metadata.residency" (closeResidencySearch)="residency_page = RESIDENCY_ADD" (selectedResidency)="selectedResidency($event)" [residency]="residency" *ngIf="residency_page == RESIDENCY_AT"></dso-residency-search>
-        <dso-residency-add *ngIf="residency_page == RESIDENCY_ADD" (cancelResidency)="cancelResidency()" [residency]="residency" (selectResidency)="selectResidency()" (addResidency)="addResidency($event)"></dso-residency-add>
-        <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (deleteResidency)="deleteResidency()" (cancelResidency)="cancelResidency()" (updateResidency)="updateResidency($event)" [residency]="residency"></dso-residency-edit>
+        <dso-residency-search [listResidency]="metadata.residency" (closeResidencySearch)="residency_page = RESIDENCY_ADD" 
+            (selectedResidency)="selectedResidency($event)" [residency]="residency" *ngIf="residency_page == RESIDENCY_AT"></dso-residency-search>
+        <dso-residency-add *ngIf="residency_page == RESIDENCY_ADD" (cancelResidency)="cancelResidency()" [residency]="residency" 
+            (selectResidency)="selectResidency()" (addResidency)="addResidency($event)"></dso-residency-add>
+        <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (deleteResidency)="deleteResidency()" (cancelResidency)="cancelResidency()" 
+            (updateResidency)="updateResidency($event)" [residency]="residency"></dso-residency-edit>
     </div>
   </div>
 </div>

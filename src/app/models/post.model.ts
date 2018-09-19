@@ -14,13 +14,16 @@ export class Post implements Serializable<Post> {
   date: Date;
   category: Category;
   format: string;
+  bookmarked: boolean;
+  bookmarkId: string;
 
   deserialize(data: any): Post {
-    const media = data['_embedded']['wp\:featuredmedia'];
+    let thumbnail = data['_embedded']['wp\:featuredmedia'];
     let category = data['_embedded']['wp\:term'];
 
     // find category object
     category = _.flatMap(category).find(item => item['taxonomy'] === 'category');
+    thumbnail = thumbnail !== undefined ? (thumbnail[0].media_details.sizes.medium.source_url) : {};
 
     return <Post>Object.assign({}, {
       id: data.id,
@@ -30,7 +33,7 @@ export class Post implements Serializable<Post> {
       format: data.format,
       date: new Date(data.date_gmt),
       author: new Author().deserialize(data._embedded.author[0]),
-      thumbnail: media ? media[0]['source_url'] : undefined,
+      thumbnail: thumbnail,
       category: new Category().deserialize(category),
     });
   }
