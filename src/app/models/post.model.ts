@@ -23,7 +23,6 @@ export class Post implements Serializable<Post> {
 
     // find category object
     category = _.flatMap(category).find(item => item['taxonomy'] === 'category');
-    console.log(data.id);
     thumbnail = thumbnail !== undefined ? (thumbnail[0].media_details ? thumbnail[0].media_details.sizes.full.source_url : undefined) : undefined;
 
     return <Post>Object.assign({}, {
