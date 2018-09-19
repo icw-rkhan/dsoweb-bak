@@ -9,6 +9,7 @@ import {Residency} from '../../models/residency.model';
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
 import {isNullOrUndefined} from 'util';
+import {AlertService} from '../../services/alert.service';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -48,7 +49,8 @@ export class EditProfileComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private profileService: ProfileService,
-              private sharingService: SharingService) {
+              private sharingService: SharingService,
+              private alertService: AlertService) {
     this.sharingService.showLoading̣̣(true);
     this.isEdit = true;
     this.isEditSpeciality = false;
@@ -63,7 +65,6 @@ export class EditProfileComponent implements OnInit {
       practiceType: []
     };
     this.userInfo = this.authService.getUserInfo();
-    console.log(this.userInfo);
   }
 
   ngOnInit() {
@@ -168,14 +169,14 @@ export class EditProfileComponent implements OnInit {
 
       (this.userProfile.is_linkedin !== 1) ? this.userProfile.is_linkedin = 0 : this.userProfile.is_linkedin = 1;
 
-      this.profileService.saveProfile(this.userProfile).subscribe(profile => {
-          console.log(profile);
-          this.sharingService.showLoading̣̣(false);
-        },
-        error => {
-          console.log('error: ', error);
-          this.sharingService.showLoading̣̣(false);
-        });
+      this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
+        if (!data.code) {
+          this.alertService.alertInfo('Success', 'Saved successfully');
+        } else {
+          this.alertService.alertInfo('Error', data.msg);
+        }
+        this.sharingService.showLoading̣̣(false);
+      });
     }
   }
 
