@@ -8,7 +8,7 @@
   </div>
   <mat-card-content class="content">
     <div class="inner-container">
-      <div class="image">
+      <div class="image" *ngIf="post.thumbnail">
         <img [src]="post.thumbnail"/>
       </div>
       <div class="content-title">
