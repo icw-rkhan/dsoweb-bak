@@ -31,8 +31,11 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.is_student = +localStorage.getItem('is_student');
+    console.log('after');
     this.initForm();
-    this.sharingService.showLoading̣̣(false);
+    setTimeout(() => {
+      this.sharingService.showLoading̣̣(false);
+    });
   }
 
   showDialog(type: string) {
