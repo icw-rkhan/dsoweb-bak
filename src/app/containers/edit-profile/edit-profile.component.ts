@@ -26,6 +26,7 @@ export class EditProfileComponent implements OnInit {
   RESIDENCY_EDIT = 3;
   residency_page = 2;
   residency: Residency;
+  residencyIndex: number;
 
   constructor(private authService: AuthService,
               private profileService: ProfileService) {
@@ -103,8 +104,15 @@ export class EditProfileComponent implements OnInit {
   }
 
   addResidency(e: Residency) {
-    this.residency = e;
-    this.residency_page = this.RESIDENCY_EDIT;
+    this.editResidencyModel.hide();
+    this.userProfile.profileResidency.push({
+      residency_school: {
+        id: e.id
+      },
+      end_time: e.year + '-01-01T00:00:00.000Z',
+      start_time: null
+    });
+    this.residency = null;
   }
 
   selectResidency() {
@@ -117,9 +125,43 @@ export class EditProfileComponent implements OnInit {
   }
 
   updateResidency(e: Residency) {
-    console.log(e);
-    this.residency = e;
+    this.residency = null;
+    this.userProfile.profileResidency[this.residencyIndex] = {
+      residency_school: {
+        id: e.id
+      },
+      end_time: e.year + '-01-01T00:00:00.000Z',
+      start_time: null
+    };
     this.editResidencyModel.hide();
+  }
+
+  editResidency(i) {
+    this.residencyIndex = i;
+    this.residency = null;
+    for (let j = 0; j < this.metadata.residency.length; j++) {
+      if (parseInt(this.metadata.residency[j].id) == this.userProfile.profileResidency[i].residency_school.id) {
+        const dt = {
+          id: this.metadata.residency[j].id,
+          name: this.metadata.residency[j].name,
+          year: this.userProfile.profileResidency[i].end_time.split('-')[0];
+        };
+        this.residency = new Residency().deserialize(dt);
+        break;
+      }
+    }
+    this.editResidencyModel.show();
+    this.residency_page = this.RESIDENCY_EDIT;
+  }
+
+  deleteResidency() {
+    if (this.residencyIndex >= 0) {
+      if (this.userProfile.profileResidency[this.residencyIndex]) {
+        (<any[]>this.userProfile.profileResidency).splice(this.residencyIndex, 1);
+      }
+    }
+    this.editResidencyModel.hide();
+    this.residencyIndex = -1;
   }
 
   onSave(form: NgForm) {

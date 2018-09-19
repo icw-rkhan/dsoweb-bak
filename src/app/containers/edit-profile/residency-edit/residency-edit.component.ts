@@ -9,6 +9,8 @@ import { Residency } from '../../../models/residency.model';
 export class ResidencyEditComponent implements OnInit {
   @Input('residency') residency: Residency;
   @Output() updateResidency: EventEmitter<Residency> = new EventEmitter(null);
+  @Output() cancelResidency: EventEmitter<null> = new EventEmitter(null);
+  @Output() deleteResidency: EventEmitter<null> = new EventEmitter(null);
   isDelete = false;
   isError = false;
   constructor() { }
@@ -16,9 +18,9 @@ export class ResidencyEditComponent implements OnInit {
   ngOnInit() {
   }
 
-  deleteResidency() {
-    console.log('here')
-    this.isDelete = true;
+  _deleteResidency() {
+    this.isDelete = false;
+    this.deleteResidency.emit();
   }
 
   changeYear(e) {
@@ -41,6 +43,10 @@ export class ResidencyEditComponent implements OnInit {
       e.preventDefault();
       return;
     }
+  }
+
+  _cancelResidency() {
+    this.cancelResidency.emit();
   }
 
 }
