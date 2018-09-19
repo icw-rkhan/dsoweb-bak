@@ -29,6 +29,9 @@ export class ToolbarComponent {
           this.setTitle('ALL REVIEWS');
           this.setBtnCategory('keyboard_backspace'); 
 
+        }else {
+          this.setTitle('DSODENTIST');
+          this.setBtnCategory('menu');
         }
       }
     })

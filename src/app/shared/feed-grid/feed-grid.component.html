@@ -8,7 +8,7 @@
     </div>
   </ngxMasonryItem>
 </ngx-masonry>
-<div class="no-content" *ngIf="posts === null || posts?.length === 0">
+<div class="no-content" *ngIf="posts === undefined || posts?.length === 0">
   <img src="/src/assets/images/no-bookmarks.png">
-  <h3 class="mat-h3">No items found</h3>
+  <h3 class="mat-h3">{{noFoundMessage}}</h3>
 </div>

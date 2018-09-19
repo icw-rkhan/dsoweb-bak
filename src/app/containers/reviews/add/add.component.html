@@ -7,9 +7,9 @@
   
     <div class="statebar" fxLayout="row" fxLayoutAlign="center center">
       <div *ngFor="let state of stateList; index as i">
-        <img *ngIf="i<rate;else inactive" class="active" src="assets/images/star-active.png" (click)="eventRating($event)">
+        <img *ngIf="i<rate;else inactive" class="active" src="assets/images/review/star-active.png" (click)="eventRating($event)">
         <ng-template #inactive>
-          <img class="inactive" src="assets/images/star-inactive.png" (click)="eventRating($event)">
+          <img class="inactive" src="assets/images/review/star-inactive.png" (click)="eventRating($event)">
         </ng-template>
       </div>
     </div>
@@ -17,7 +17,7 @@
     <mat-card fxLayout="row" fxLayoutAlign="start center">
       <img *ngIf="userInfo.url; else defaultUrl" mat-card-avatar src={{userInfo.url}}>
       <ng-template #defaultUrl>
-        <img mat-card-avatar src="assets/images/user-avatar.png">
+        <img mat-card-avatar src="assets/images/review/user-avatar.png">
       </ng-template>
       <mat-card-content>
         <span class="lable">Writing review as </span>
