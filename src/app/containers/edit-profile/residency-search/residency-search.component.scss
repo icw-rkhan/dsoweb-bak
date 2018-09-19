@@ -7,9 +7,6 @@
     -moz-user-select: none;
     -ms-user-select: none;
     user-select: none;
-    position: absolute;
-    right: 43px;
-    top: 8px;
 }
 
 .container-checkbox input {
@@ -58,5 +55,10 @@
 }
 
 .container-r {
-    position: relative;
+    display: flex;
+    flex-direction: row;
+    a {
+        flex: 1 1 auto;
+        padding-right: 5px;
+    }
 }

@@ -25,7 +25,9 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit() {
     this.initForm();
-    this.sharingService.showLoading̣̣(false);
+    setTimeout(() => {
+      this.sharingService.showLoading̣̣(false);
+    });
   }
 
   get email() {

@@ -1,35 +1,39 @@
 <header class="header-profile fixed-bar">
   <nav class="navbar bg-grey">
-    <a href="#" class="back-link"><span class="icon-bar icon-back"></span></a>
+    <a (click)="_cancelResidency()" class="back-link cursor"><span class="icon-bar icon-back"></span></a>
     <div class="navbar-title-heading">Edit Residency</div>
     <div class="navbar-edit-profile">
       <a class="cursor" (click)="_updateResidency()">Save</a>
     </div>
   </nav>
 </header>
-<div class="profile_content"> 
-  <section class="personal-info practice-add"> 
-    <div class="personal-container mh-vh"> 
+<div *ngIf="residency" class="profile_content">
+  <section class="personal-info practice-add">
+    <div class="personal-container mh-vh">
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Residency at</label>
         <div class="input-mb flex-input">{{residency.name}}</div>
         <span class="arrow-right"></span>
-      </div> 
+      </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Year of Completion</label>
         <input type="text" name="" class="input-mb" (keydown)="keyDown($event)" (input)="changeYear($event)" [value]="residency.year">
         <span *ngIf="isError" class="text-danger">Please enter valid year (1950-now)</span>
         <span class="edit-practice"></span>
-      </div> 
-      <div class="cancel-row"><a class="cursor" (click)="deleteResidency()">Delete Redency</a></div>
+      </div>
+      <div class="cancel-row"><a class="cursor" (click)="isDelete = true">Delete Redency</a></div>
     </div>
-  </section> 
-</div> 
+  </section>
+</div>
 <div *ngIf="isDelete" class="modal-overlay upload-file">
   <div class="save-modal">
     <div class="save-container">
       <div class="save-alert">Delete Residency</div>
       <p>Are you sure you want to delete this residency?</p>
+      <div class="alert-action">
+        <a (click)="isDelete = false" class="dont-allow cursor">No</a>
+        <a (click)="_deleteResidency()" class="allow cursor">Yes</a>
+      </div>
     </div>
   </div>
 </div>
