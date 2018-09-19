@@ -9,4 +9,13 @@ nav {
 .mat-tab-link {
   min-width: 120px;
   flex: 1;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.mat-tab-label-active {
+  background-color: #f7f7f7;
 }

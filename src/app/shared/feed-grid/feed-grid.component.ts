@@ -12,8 +12,13 @@ import { Bookmark } from '../../models/bookmark.model';
 export class FeedGridComponent {
 
   @Input() posts: Post[];
+  @Input() noFoundMessage: string;
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
+
+  constructor() {
+    this.noFoundMessage = 'No items found';
+  }
 
   gridOptions: NgxMasonryOptions = {
     percentPosition: true,
