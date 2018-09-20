@@ -13,16 +13,16 @@
       <div class="personal-group practice-group">
         <div class="toggle-div">
           <label class="profile_title mb0">Attended Dental School in the US</label>
-          <div (click)="type = !type" class="switch" [ngClass]="{'on': type}">
+          <div (click)="type = !type" class="switch" [ngClass]="{'on': type == 0}">
             <div class="handle"></div>
           </div>
         </div>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Dental School</label>
-        <input type="text" *ngIf="typeEducation == 1" (click)="_selectEducation()" class="input-mb" [value]="education ? education.name : ''">
-        <input type="text" *ngIf="typeEducation == 2" class="input-mb" [(ngModel)]="school_name">
-        <span *ngIf="isErrorName" class="text-danger">Please enter valid year (1950-now)</span>
+        <input type="text" *ngIf="type == 0" (click)="_selectEducation()" class="input-mb" [value]="education ? education.name : ''">
+        <input type="text" *ngIf="type == 1" class="input-mb" [(ngModel)]="school_name">
+        <span *ngIf="isErrorName" class="text-danger">Please enter a Dental School</span>
         <span class="edit-practice"></span>
       </div>
       <div class="personal-group practice-group">

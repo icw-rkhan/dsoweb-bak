@@ -175,4 +175,24 @@ export class EditProfileComponent implements OnInit {
     this.education = e;
     this.education_page = this.RESIDENCY_EDIT;
   }
+
+  saveEducation(e: Education) {
+    if (this.typeEducation == this.ADD) {
+      console.log(e);
+      this.userProfile.educations.push({
+        email: this.userInfo.email,
+        start_time: (e.year - 1) + "-01-01T06:16:53.604Z",
+        end_time: e.year + "-12-12T06:16:53.603Z",
+        major: "1",
+        dental_school: {
+          id: e.id || null
+        },
+        school_name: e.name,
+        types: e.types
+      });
+      this.profileService.saveProfile(this.userProfile).subscribe(profile => {
+        console.log(profile);
+      });
+    }
+  }
 }

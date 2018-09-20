@@ -255,9 +255,18 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <dso-education-search (backSearchEducation)="education_page = RESIDENCY_EDIT" (selectedEducation)="selectedEducation($event)" [listSchool]="metadata.dentalSchool" *ngIf="education_page == RESIDENCY_AT"></dso-education-search>
-        <dso-education-edit [education]="education" (selectEducation)="selectEducation()" [typeEducation]="typeEducation" 
-              (cancel)="educationModel.hide()" *ngIf="education_page == RESIDENCY_EDIT"></dso-education-edit>
+        <dso-education-search 
+                    (backSearchEducation)="education_page = RESIDENCY_EDIT" 
+                    (selectedEducation)="selectedEducation($event)" 
+                    [listSchool]="metadata.dentalSchool" 
+                    *ngIf="education_page == RESIDENCY_AT"></dso-education-search>
+        <dso-education-edit
+                    (saveEducation)="saveEducation($event)"
+                    [education]="education" 
+                    (selectEducation)="selectEducation()" 
+                    [typeEducation]="typeEducation" 
+                    (cancel)="educationModel.hide()" 
+                    *ngIf="education_page == RESIDENCY_EDIT"></dso-education-edit>
       </div>
     </div>
   </div>

@@ -11,7 +11,8 @@ export class EducationEditComponent implements OnInit, OnChanges {
   @Input('education') education: Education;
   @Output() cancel: EventEmitter<null> = new EventEmitter(null);
   @Output() selectEducation: EventEmitter<null> = new EventEmitter(null);
-  type: boolean;
+  @Output() saveEducation: EventEmitter<Education> = new EventEmitter(null);
+  type: number;
   school_name: string;
   dental_school: string;
   year: number;
@@ -28,12 +29,15 @@ export class EducationEditComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.type = (this.typeEducation == 1);
+    this.type = (this.typeEducation == 1) ? 0: 1;
+    if (changes.education)
+      this.type = 0;
   }
 
   _save() {
-    console.log(this.year);
-    console.log(this.school_name);
+    if (this.type == 0) {
+      this.school_name = this.education.name;
+    }
     this.isErrorName = this.isErrorYear = false;
     if (this.school_name.length < 1) {
       this.isErrorName = true;
@@ -44,6 +48,16 @@ export class EducationEditComponent implements OnInit, OnChanges {
     if (this.isErrorName || this.isErrorYear) {
       return;
     }
+    
+    const dt = {
+      id: this.education ? this.education.id : null,
+      name: this.school_name,
+      year: this.year,
+      types: this.type
+    };
+    this.school_name = '';
+    this.year = null;
+    this.saveEducation.emit(new Education().deserialize(dt));
   }
 
   _cancel() {
@@ -55,12 +69,10 @@ export class EducationEditComponent implements OnInit, OnChanges {
   }
 
   keyDown(e) {
-    if (!(parseInt(e.key) <= 9 && parseInt(e.key) >=0) && e.keyCode !=8 || (e.target.value.length > 3 && e.keyCode != 8)) {
+    if (!(parseInt(e.key) <= 9 && parseInt(e.key) >= 0) && e.keyCode != 8 || (e.target.value.length > 3 && e.keyCode != 8)) {
       e.preventDefault();
       return;
     }
-    console.log(e);
-    console.log(e.target.value);
   }
 
 }

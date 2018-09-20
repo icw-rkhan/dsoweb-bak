@@ -10,13 +10,13 @@ export class Education implements Serializable<Education> {
         if (data.id) {
             return <Education>Object.assign({}, {
                 id: data.id,
-                name: data.school,
+                name: data.name,
                 year: data.year || null,
                 types: data.types || 0
             });
         }
         return <Education>Object.assign({}, {
-            name: data.school,
+            name: data.name,
             year: data.year || null,
             types: data.types || 0
         });
