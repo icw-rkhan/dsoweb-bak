@@ -6,7 +6,8 @@ import {SharingService} from '../../services/sharing.service';
 
 @Component({
   selector: 'dso-profile',
-  templateUrl: './profile.component.html'
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
 
