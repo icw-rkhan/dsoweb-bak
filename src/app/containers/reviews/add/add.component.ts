@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { NgProgress } from '@ngx-progressbar/core';
+import { formatDate } from '@angular/common';
 
 import { AuthService, ProfileService } from '../../../services/index';
 import { CommentService } from '../../../services/comment.service';
@@ -11,97 +13,97 @@ import { CommentService } from '../../../services/comment.service';
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })
-export class AddComponent implements OnInit {
+export class AddComponent implements OnInit, OnDestroy {
   rate: number;
+  postId: number;
   comment: string;
-  user_id: string;
+  userId: string;
+  postTitle: string;
+  postDate: string;
   condition: boolean;
   res: any;
   body: any;
   userInfo: any;
   articleInfo: any;
-  routeParams: any;
   profileSub: any;
 
-  stateList = [{state:false},{state:false},{state:false},{state:false},{state:false}]
+  rateList = [{state: false}, {state: false}, {state: false}, {state: false}, {state: false}];
 
-  constructor(public breakpointObserver: BreakpointObserver, 
+  constructor(public breakpointObserver: BreakpointObserver, private progress: NgProgress,
     private commentService: CommentService, private authService: AuthService,
-    private profileService: ProfileService, private _location: Location, private activeRoute: ActivatedRoute) {
-      //init variables
+    private profileService: ProfileService, private _location: Location, private route: ActivatedRoute) {
+      // init variables
       this.rate = 0;
-      this.comment = "";
+      this.comment = '';
       this.condition = false;
-      //gets params from url
-      this.routeParams = this.activeRoute.snapshot.params;
-      //gets userInfo from user's email
+      // gets userInfo from user's email
       this.getUserInfo(this.authService.getUserInfo().user_name);
     }
 
-  ngOnInit() 
-  {
-    //responsive layout
+  ngOnInit() {
+    // responsive layout
     this.breakpointObserver.observe([
       Breakpoints.HandsetLandscape
-    ]).subscribe(result=> {
-      if(result.matches) {
-        document.getElementById('contents').style.height = "36.5vh";
-      }else {
-        document.getElementById('contents').style.height = "calc(100vh - 411px)";
+    ]).subscribe(result => {
+      if (result.matches) {
+        document.getElementById('contents').style.height = '36.5vh';
+      } else {
+        document.getElementById('contents').style.height = 'calc(100vh - 411px)';
       }
-    })
-    //gets post's title, created date from the params of the route and view them
-    this.articleInfo = {
-      title: this.routeParams.postTitle,
-      date: this.routeParams.postDate
-    }
-  }
-  //gets userInfo from user's email
-  getUserInfo(email: string) {
+    });
 
+    this.route.params.subscribe(params => {
+      this.progress.start();
+      // gets post's id, title, created date from the params of the route and view them
+      this.postId = params['id'];
+      this.postTitle = params['title'];
+      this.postDate = params['date'];
+      this.progress.complete();
+    });
+  }
+
+  ngOnDestroy(): void {
+    
+  }
+  // gets userInfo from user's email
+  getUserInfo(email: string) {
     this.profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
       (data: any) => {
         const res = data.resultMap.data;
-        //sets userInfo
-        this.user_id = res.id;
+        // sets userInfo
+        this.userId = res.id;
 
         this.userInfo = {
           url: res.photo_url,
           name: res.full_name
-        }
+        };
 
         return data.resultMap.data;
       }
     );
   }
-  //make a rating point
-  eventRating(event) {
-    status = event.target.getAttribute('class');
-
-    if(status.includes('inactive') && this.rate < 5) {
-      this.rate++;
-    }else if(this.rate > 0) {
-      this.rate--;
-    }
+  // make a rating point
+  eventRating(i) {
+    this.rate = i + 1;
   }
-  //save the comment and redirect to previous url
+  // save the comment and redirect to previous url
   saveComment() {
     this.body = {
-      'userId': this.user_id,
-      'postId': '28',
+      'userId': this.userId,
+      'postId': this.postId,
       'comment': this.comment,
       'rating': this.rate
-    }
-
-    this.commentService.setComment(this.body).subscribe(
+    };
+    const commentSub = this.commentService.setComment(this.body).subscribe(
       (data: any) => {
         console.log(data);
 
+        commentSub.unsubscribe();
+        
         this._location.back();
       });
   }
-
-  ngOnDestroy(): void {
-    this.profileSub.unsubscribe();
+  dateFormat(date) {
+    return formatDate(date, 'MMMM y', 'en-US');
   }
 }

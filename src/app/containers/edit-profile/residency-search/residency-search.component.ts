@@ -1,5 +1,4 @@
 import { Component, OnInit, EventEmitter, Output, Input } from '@angular/core';
-import { ResidencyService } from '../../../services/residency.service';
 import { Residency } from '../../../models/residency.model';
 
 @Component({
@@ -9,30 +8,29 @@ import { Residency } from '../../../models/residency.model';
 })
 export class ResidencySearchComponent implements OnInit {
   @Input('residency') residency: Residency;
-  oresidencies: Residency[] = [];
-  residencies: Residency[] = [];
-  searchText = '';
+  @Input('listResidency') listResidency: any[];
   @Output() selectedResidency: EventEmitter<Residency> = new EventEmitter(null);
-
-  constructor(private residencyService: ResidencyService) { }
+  @Output() closeResidencySearch: EventEmitter<null> = new EventEmitter(null);
+  residencies: any[] = [];
+  searchText = '';
+  
+  constructor() { }
 
   ngOnInit() {
-    this.residencyService.fetchResidencies().subscribe((res: Residency[]) => {
-      this.residencies = this.oresidencies = res;
-    });
+    this.residencies = this.listResidency;
   }
 
   changeInput(e) {
-    this._filter(e.target.value);
+    this.residencies = this.listResidency.filter((r: any) =>  r.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()));
   }
 
-  _selectResidency(r: Residency) {
+  _selectResidency(r: any) {
     this.searchText = r.name;
-    this._filter(r.name);
-    this.selectedResidency.emit(r);
+    const re = new Residency().deserialize(r);
+    this.selectedResidency.emit(re);
   }
 
-  private _filter(str) {
-    this.residencies = this.oresidencies.filter((r: Residency) =>  r.name.toLocaleLowerCase().includes(str.toLocaleLowerCase()));
+  close() {
+    this.closeResidencySearch.emit();
   }
 }

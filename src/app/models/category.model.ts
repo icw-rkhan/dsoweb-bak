@@ -3,16 +3,17 @@ import { Serializable } from './serializable.model';
 export class Category implements Serializable<Category> {
 
   id: number;
-  description: string;
   link: string;
   name: string;
 
   deserialize(data: any): Category {
+    // Remove asterisk from the name
+    const name = data.name.substring(data.name.indexOf('*') + 1);
+
     return <Category>Object.assign({}, {
-      id: data.id,
-      description: data.description,
+      id: +data.id,
       link: data.link,
-      name: data.name
+      name: name,
     });
   }
 }

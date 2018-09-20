@@ -1,5 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgxMasonryOptions } from 'ngx-masonry';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
@@ -7,24 +6,28 @@ import { Bookmark } from '../../models/bookmark.model';
 @Component({
   selector: 'dso-feed-grid',
   templateUrl: './feed-grid.component.html',
-  styleUrls: ['./feed-grid.component.scss']
+  styleUrls: ['./feed-grid.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeedGridComponent {
 
+  @Input() noFoundMessage: string;
+  @Input() sponsorId: number;
   @Input() posts: Post[];
-  @Output() bookmark = new EventEmitter<Bookmark>();
 
-  gridOptions: NgxMasonryOptions = {
-    transitionDuration: '0.8s',
-    percentPosition: true,
-    columnWidth: '.grid-sizer',
-    itemSelector: '.grid-item',
-    gutter: '.gutter-sizer',
-    horizontalOrder: true
-  };
+  @Output() addBookmark = new EventEmitter<Bookmark>();
+  @Output() removeBookmark = new EventEmitter<string>();
 
-  onBookmark(item: Bookmark) {
-    this.bookmark.emit(item);
+  constructor() {
+    this.noFoundMessage = 'No items found';
+  }
+
+  onAddBookmark(item: Bookmark) {
+    this.addBookmark.emit(item);
+  }
+
+  onRemoveBookmark(id: string) {
+    this.removeBookmark.emit(id);
   }
 
 }

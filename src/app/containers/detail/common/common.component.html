@@ -1,0 +1,91 @@
+<div class="inner-content topic-date" fxLayout="row">
+    <span *ngIf="post.category" class="topic" fxFlex="50">{{post.category.name}}</span>
+    <span *ngIf="post" class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
+</div>
+<div class="inner-thumbnail" fxLayout="column">
+    <img class="inner-thumbnail" src="{{post.thumbnail}}">
+</div>
+<div class="inner-content" fxLayout="row">
+    <div fxFlex="80" class="title">
+        <span>{{post.title}}</span>
+    </div>
+    <div fxFlex="20" fxLayout="row" fxLayoutAlign="end start">
+        <button mat-icon-button (click)="onAddBookmark()" *ngIf="post && !post.bookmarked">
+                <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post && post.bookmarked">
+            <mat-icon aria-label="Bookmark">bookmark</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <mat-icon aria-label="Options">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
+        </mat-menu>
+        <mat-menu #submenu="matMenu">
+            <ng-template matMenuContent>
+                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
+                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="twitter">to twitter</a></p>
+                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="linkedin">to linkedin</a></p>
+            </ng-template>
+        </mat-menu>
+    </div>
+</div>
+<div id="contents" class="inner-content" [innerHtml]="post.content"></div>
+<div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
+    <div class="review-question">
+        <span>Finished the content?</span>
+    </div>
+    <div class="review-add">
+        <span>Add your review</span>
+    </div>
+    <div>
+        <img *ngFor="let rate of rateList" src="assets/images/review/star-inactive.png">
+    </div>
+</div>
+<div fxLayout="row" class="inner-content rate">
+    <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
+        <div class="review-count">
+            <span *ngIf="comments && comments.length; else zeReviews">{{comments.length}} Reviews</span>
+            <ng-template #zeReviews>
+                <span>0 Reviews</span>
+            </ng-template>
+        </div>
+        <div fxLayout="row" class="ratebar">
+            <div *ngFor="let rate of rateList; index as i">
+                <img *ngIf="getRating(comments, 1)>i;else inactive" src="assets/images/review/view-star-active.png" class="rate-star">
+                <ng-template #inactive>
+                <img src="assets/images/review/view-star-inactive.png" class="rate-star">
+                </ng-template>
+            </div>
+            <span class="review-count">{{getRating(comments, 0)}}</span> 
+        </div>
+    </div>
+    <div fxFlex="50" fxLayoutAlign="end center">
+        <button mat-button class="viewBtn" (click)="onViewAll(post.id)">View all</button>
+    </div>
+</div>
+<div class="inner-content" fxLayout="row">
+    <div fxFlex="100" fxLayoutAlign="end start">
+        <button mat-icon-button (click)="onAddBookmark()" *ngIf="post && !post.bookmarked">
+                <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post && post.bookmarked">
+            <mat-icon aria-label="Bookmark">bookmark</mat-icon>
+        </button>
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <mat-icon aria-label="Options">more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
+        </mat-menu>
+        <mat-menu #submenu="matMenu">
+            <ng-template matMenuContent>
+                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
+                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="twitter">to twitter</a></p>
+                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="linkedin">to linkedin</a></p>
+            </ng-template>
+        </mat-menu>
+    </div>
+</div>
+    

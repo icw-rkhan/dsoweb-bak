@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
+import { AuthService } from '../../services';
 
 @Component({
   selector: 'dso-feed-card',
@@ -10,16 +12,35 @@ import { Bookmark } from '../../models/bookmark.model';
 })
 export class FeedCardComponent {
 
-  @Input() type: string;
   @Input() post: Post;
-  @Output() bookmark = new EventEmitter<Bookmark>();
 
-  onBookmark() {
-    // TODO: fetch email belongs to the user
-    this.bookmark.emit(<Bookmark>{
-      email: 'h1078660929@163.com',
+  @Output() addBookmark = new EventEmitter<Bookmark>();
+  @Output() removeBookmark = new EventEmitter<string>();
+
+  constructor(private authService: AuthService, private router: Router) {
+  }
+
+  onAddBookmark() {
+    this.post.bookmarked = true;
+    const email = this.authService.getUserInfo().user_name;
+    this.addBookmark.emit(<Bookmark>{
+      email: email,
       title: this.post.title,
-      postId: this.post.id.toString()
+      postId: this.post.id.toString(),
+      url: 'http://www.dsodentist.com',
     });
+  }
+
+  onRemoveBookmark() {
+    this.post.bookmarked = false;
+    this.removeBookmark.emit(this.post.bookmarkId);
+  }
+
+  onViewDetail() {
+    if (this.post.tags.includes(197) || this.post.tags.includes(260) || this.post.tags.includes(259)) {
+      this.router.navigate([`/detail/sponsor/${this.post.id}`]);
+    } else {
+      this.router.navigate([`/detail/${this.post.id}`]);
+    }
   }
 }

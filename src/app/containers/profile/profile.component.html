@@ -12,13 +12,12 @@
     <section class="profile-heading">
       <div class="profile-heading_info">
         <div class="img_user">
-          <img src="../assets/assets/images/profile/icon_user_profile.png">
+          <img src="../assets/images/profile/icon_user_profile.png">
         </div>
         <div class="profile-info">
           <div class="profile_name">{{ userProfile?.full_name }}</div>
           <div class="profile_speciality">
             <label>Speciality</label>
-            <span>Lorem ispum</span>
           </div>
         </div>
       </div>
@@ -105,7 +104,7 @@
         <div class="profile__icon mobile-icon"></div>
         <div class="profile__content_info">
           <span class="pre_email_addr"><strong>Mobile Number</strong></span>
-          <span class="addr-link cl4a">207-782-8410</span>
+          <span class="addr-link cl4a">{{userProfile?.phone}}</span>
         </div>
       </div>
       <div class="profile__content bt">

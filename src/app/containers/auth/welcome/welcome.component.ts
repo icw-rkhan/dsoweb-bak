@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'dso-welcome',
@@ -11,8 +11,8 @@ export class WelcomeComponent implements OnInit {
   signup: boolean;
 
   constructor(
-    private router: Router
-  ) {}
+    private router: Router) {
+  }
 
   ngOnInit() {
   }

@@ -77,6 +77,22 @@ export class ProfileService {
     return this.http.post(url, profile, { headers: headers });
   }
 
+  uploadResume(f) {
+    const url = `${environment.profileApiUrl}/resumeUpload`;
+    let form = new FormData();
+    form.append('file', f);
+    const headers = this.customHeader();
+    return this.http.post(url, form, { headers: headers });
+  }
+
+  uploadAvatar(f) {
+    const url = `${environment.profileApiUrl}/photoUpload`;
+    let form = new FormData();
+    form.append('file', f);
+    const headers = this.customHeader();
+    return this.http.post(url, form, { headers: headers });
+  }
+
   private extractData(res: Response) {
     const body = res;
     return body || {};
