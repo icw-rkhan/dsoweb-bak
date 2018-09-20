@@ -85,14 +85,8 @@ export class AddComponent implements OnInit, OnDestroy {
     );
   }
   // make a rating point
-  eventRating(event) {
-    status = event.target.getAttribute('class');
-
-    if (status.includes('inactive') && this.rate < 5) {
-      this.rate++;
-    } else if (this.rate > 0) {
-      this.rate--;
-    }
+  eventRating(i) {
+    this.rate = i + 1;
   }
   // save the comment and redirect to previous url
   saveComment() {
