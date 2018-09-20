@@ -48,6 +48,7 @@ export class EditProfileComponent implements OnInit {
   ADD = 2;
   typeEducation = 1;
   education: Education;
+  educationIndex: number;
 
   constructor(private authService: AuthService,
               private profileService: ProfileService) {
@@ -176,13 +177,24 @@ export class EditProfileComponent implements OnInit {
     this.education_page = this.RESIDENCY_EDIT;
   }
 
+  editEducation(i) {
+    this.educationIndex = i;
+    // const dt = {
+    //   id: this.userProfile.educations[i]['dental_school']['id'],
+    //   name: this.userProfile.educations[i].school_name,
+    //   year: this.userProfile.educations[i].school_name
+    // }
+    // this.education 
+  }
+
+
   saveEducation(e: Education) {
     if (this.typeEducation == this.ADD) {
       console.log(e);
       this.userProfile.educations.push({
         email: this.userInfo.email,
-        start_time: (e.year - 1) + "-01-01T06:16:53.604Z",
-        end_time: e.year + "-12-12T06:16:53.603Z",
+        start_time: (e.year - 1) + "-01-01T00:00:00.000Z",
+        end_time: e.year + "-01-01T00:00:00.000Z",
         major: "1",
         dental_school: {
           id: e.id || null
