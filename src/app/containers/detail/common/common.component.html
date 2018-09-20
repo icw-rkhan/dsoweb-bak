@@ -46,7 +46,10 @@
 <div fxLayout="row" class="inner-content rate">
     <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
         <div class="review-count">
-            <span *ngIf="comments.length">{{comments.length}} Reviews</span>
+            <span *ngIf="comments.length; else zeReviews">{{comments.length}} Reviews</span>
+            <ng-template #zeReviews>
+                <span>0 Reviews</span>
+            </ng-template>
         </div>
         <div fxLayout="row" class="ratebar">
             <div *ngFor="let rate of rateList; index as i">

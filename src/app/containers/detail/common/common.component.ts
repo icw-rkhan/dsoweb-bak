@@ -1,11 +1,12 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input,
-  Output, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import {Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 import { formatDate } from '@angular/common';
 
 import { PostService } from '../../../services/post.service';
 import { CommentService } from '../../../services/comment.service';
+import { BookmarkService } from '../../../services/bookmark.service';
 import { AuthService } from '../../../services';
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
@@ -13,8 +14,7 @@ import { Comment } from '../../../models/comment.model';
 @Component({
   selector: 'dso-detail-common',
   templateUrl: './common.component.html',
-  styleUrls: ['./common.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  styleUrls: ['./common.component.scss']
 })
 export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
 
@@ -26,12 +26,10 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
   postSub: any;
   commentSub: any;
 
-  @Output() addBookmark = new EventEmitter<Bookmark>();
-  @Output() removeBookmark = new EventEmitter<string>();
-
   rateList = [{status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}];
   constructor(private route: ActivatedRoute, private router: Router, private postService: PostService,
-    private authService: AuthService, private progress: NgProgress, private commentService: CommentService) {
+    private authService: AuthService, private progress: NgProgress, private commentService: CommentService,
+    private bookmarkService: BookmarkService, private snackBar: MatSnackBar) {
     this.review_count = 0;
     this.rate = 0;
   }
@@ -46,22 +44,37 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
         this.commentSub = this.commentService.comments(this.postId).subscribe(c => {
           this.comments = c;
         });
-
-        this.progress.complete();
       });
     });
   }
   // relayout the contents gets from server
   ngAfterViewInit(): void {
-    const childs = document.getElementById('contents');
+    const parentTag = document.getElementById('contents');
 
-    const len = childs.getElementsByTagName('p').length;
+    this.reLayout('p', parentTag);
+    this.reLayout('ul', parentTag);
+    this.reLayout('ol', parentTag);
+
+    this.progress.complete();
+  }
+
+  reLayout(childTagName, parentTag): void {
+    const len = parentTag.getElementsByTagName(childTagName).length;
     let i = 0;
     for ( i = 0; i < len; i++) {
-      childs.getElementsByTagName('p')[i].style.color = '#4a4a4a';
-      childs.getElementsByTagName('p')[i].style.marginBottom = '10px';
-      childs.getElementsByTagName('p')[i].style.lineHeight = '20px';
-      childs.getElementsByTagName('p')[i].style.fontSize = '15px';
+      const childTag = parentTag.getElementsByTagName(childTagName)[i];
+      if (childTagName === 'img') {
+        childTag.style.width = '100%';
+        childTag.style.height = 'auto';
+      } else if (childTagName === 'ul' || childTagName === 'ol') {
+        this.reLayout('li', childTag);
+      } else {
+        this.reLayout('img', childTag);
+        childTag.style.color = '#4a4a4a';
+        childTag.style.marginBottom = '10px';
+        childTag.style.lineHeight = '20px';
+        childTag.style.fontSize = '15px';
+      }
     }
   }
 
@@ -81,16 +94,29 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
   onAddBookmark(): void {
     this.post.bookmarked = true;
     const email = this.authService.getUserInfo().user_name;
-    this.addBookmark.emit(<Bookmark>{
+
+    const bookmarkSub = this.bookmarkService.saveBookmark(<Bookmark>{
       email: email,
       title: this.post.title,
-      postId: this.post.id.toString()
+      postId: this.post.id.toString(),
+      url: 'http://www.dsodentist.com',
+    }).subscribe(x => {
+      this.snackBar.open('Bookmark added', 'OK', {
+        duration: 2000,
+      });
+      bookmarkSub.unsubscribe();
     });
   }
   // remove bookmark
   onRemoveBookmark(): void {
     this.post.bookmarked = false;
-    this.removeBookmark.emit(this.post.bookmarkId);
+
+    const bookmarkSub = this.bookmarkService.deleteOneById(this.post.bookmarkId).subscribe(x => {
+      this.snackBar.open('Bookmark removed', 'OK', {
+        duration: 2000,
+      });
+      bookmarkSub.unsubscribe();
+    });
   }
   // get averave rating of the comments by postId 
   getRating(comments, type): any {
