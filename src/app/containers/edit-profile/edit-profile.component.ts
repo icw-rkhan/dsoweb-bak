@@ -8,9 +8,9 @@ import {Residency} from '../../models/residency.model';
 
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
-import {isNullOrUndefined} from 'util';
 import {AlertService} from '../../services/alert.service';
 import { environment } from '../../../environments/environment';
+import {Speciality} from '../../models/speciality.model';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -31,11 +31,11 @@ import { environment } from '../../../environments/environment';
 })
 export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
+  @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
   is_student: number;
   userInfo: any;
   userProfile: any;
   metadata: any;
-  isEdit: boolean;
   isEditSpeciality: boolean;
   isEditExperience: boolean;
   isUploadFile: boolean;
@@ -45,21 +45,22 @@ export class EditProfileComponent implements OnInit {
   RESIDENCY_ADD = 2;
   RESIDENCY_EDIT = 3;
   residency_page = 2;
+  education_page = 3;
   residency: Residency;
   residencyIndex: number;
 
   RESUME_FILE = 1;
   PHOTO_FILE = 2;
   typeFile: number;
-
   filteredSpeciality: any;
+  speciality: Speciality;
+
   baseUrl: String;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private sharingService: SharingService,
               private alertService: AlertService) {
     this.sharingService.showLoading̣̣(true);
-    this.isEdit = true;
     this.isEditSpeciality = false;
     this.isEditExperience = false;
     this.isUploadFile = false;
@@ -128,27 +129,17 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  selectSpeciality() {
-    this.isEdit = !this.isEdit;
-    this.isEditSpeciality = !this.isEditSpeciality;
-    if (!this.isEditSpeciality) {
-      this.filteredSpeciality = this.metadata.residency;
-    }
-  }
-
-  setSpeciality(item: any) {
+  setSpeciality(speciality: any) {
+    this.speciality = speciality;
     if (this.userProfile.educations.length !== 0) {
-      this.userProfile.educations[0].major = item.name;
+      this.userProfile.educations[0].major = speciality.name;
     }
-    this.selectSpeciality();
+    this.closeSpecialityModal();
   }
 
-  searchSpeciality(key: string) {
-    if (isNullOrUndefined(key) || key === '') {
-      this.filteredSpeciality = this.metadata.residency;
-    } else {
-      this.filteredSpeciality = this.metadata.residency.filter(spec => spec.name.toLowerCase().includes(key.toLowerCase()));
-    }
+  closeSpecialityModal() {
+    this.specialityModal.hide();
+    this.isEditSpeciality = false;
   }
 
   selectedResidency(e: Residency) {

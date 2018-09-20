@@ -1,3 +1,5 @@
+@import "../../../../responsive";
+
 .inner-content {
     width: 100%;
     height: auto;
@@ -114,4 +116,8 @@ p {
     color: #879aa8;
     font-size: 13px;
     font-weight: 600;
+}
+
+.inner-html-margin {
+    margin-bottom: 10px;
 }

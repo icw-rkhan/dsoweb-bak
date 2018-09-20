@@ -26,8 +26,6 @@ export class AddComponent implements OnInit, OnDestroy {
   userInfo: any;
   articleInfo: any;
   profileSub: any;
-  commentSub: any;
-  paramsSub: any;
 
   rateList = [{state: false}, {state: false}, {state: false}, {state: false}, {state: false}];
 
@@ -43,29 +41,29 @@ export class AddComponent implements OnInit, OnDestroy {
     }
 
   ngOnInit() {
-    this.paramsSub = this.route.params.subscribe(params => {
+    // responsive layout
+    this.breakpointObserver.observe([
+      Breakpoints.HandsetLandscape
+    ]).subscribe(result => {
+      if (result.matches) {
+        document.getElementById('contents').style.height = '36.5vh';
+      } else {
+        document.getElementById('contents').style.height = 'calc(100vh - 411px)';
+      }
+    });
+
+    this.route.params.subscribe(params => {
       this.progress.start();
       // gets post's id, title, created date from the params of the route and view them
       this.postId = params['id'];
       this.postTitle = params['title'];
       this.postDate = params['date'];
-      // responsive layout
-      this.breakpointObserver.observe([
-        Breakpoints.HandsetLandscape
-      ]).subscribe(result => {
-        if (result.matches) {
-          document.getElementById('contents').style.height = '36.5vh';
-        } else {
-          document.getElementById('contents').style.height = 'calc(100vh - 411px)';
-        }
-      });
       this.progress.complete();
     });
   }
 
   ngOnDestroy(): void {
-    this.commentSub.unsubscribe();
-    this.paramsSub.unsubscribe();
+    
   }
   // gets userInfo from user's email
   getUserInfo(email: string) {
@@ -96,10 +94,12 @@ export class AddComponent implements OnInit, OnDestroy {
       'comment': this.comment,
       'rating': this.rate
     };
-    this.commentSub = this.commentService.setComment(this.body).subscribe(
+    const commentSub = this.commentService.setComment(this.body).subscribe(
       (data: any) => {
         console.log(data);
 
+        commentSub.unsubscribe();
+        
         this._location.back();
       });
   }

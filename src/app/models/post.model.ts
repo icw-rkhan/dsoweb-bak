@@ -16,6 +16,7 @@ export class Post implements Serializable<Post> {
   format: string;
   bookmarked: boolean;
   bookmarkId: string;
+  tags: number[];
 
   deserialize(data: any): Post {
     let thumbnail = data['_embedded']['wp\:featuredmedia'];
@@ -23,7 +24,8 @@ export class Post implements Serializable<Post> {
 
     // find category object
     category = _.flatMap(category).find(item => item['taxonomy'] === 'category');
-    thumbnail = thumbnail !== undefined ? (thumbnail[0].media_details ? thumbnail[0].media_details.sizes.full.source_url : undefined) : undefined;
+    thumbnail = thumbnail !== undefined ? (thumbnail[0].media_details ?
+      thumbnail[0].media_details.sizes.full.source_url : undefined) : undefined;
 
     return <Post>Object.assign({}, {
       id: data.id,
@@ -35,6 +37,7 @@ export class Post implements Serializable<Post> {
       author: new Author().deserialize(data._embedded.author[0]),
       thumbnail: thumbnail,
       category: new Category().deserialize(category),
+      tags: data.tags,
     });
   }
 

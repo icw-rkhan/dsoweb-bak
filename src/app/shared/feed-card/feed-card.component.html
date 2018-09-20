@@ -7,11 +7,11 @@
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content class="content">
-    <div class="image" *ngIf="post.thumbnail" (click)="onViewDetail(post.id)">
+    <div class="image" *ngIf="post.thumbnail" (click)="onViewDetail(post.id, post.tags)">
       <img [src]="post.thumbnail"/>
     </div>
     <div class="content-title">
-      <h2 class="mat-h2" (click)="onViewDetail(post.id)">{{post.title}}</h2>
+      <h2 class="mat-h2" (click)="onViewDetail(post.id, post.tags)">{{post.title}}</h2>
       <div class="actions">
         <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
           <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
@@ -34,7 +34,7 @@
         </mat-menu>
       </div>
     </div>
-    <div class="inner-content">
+    <div class="inner-content" (click)="onViewDetail(post.id, post.tags)">
       <div class="mat-body-1" [innerHtml]="post.excerpt">
       </div>
     </div>
