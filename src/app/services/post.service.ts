@@ -23,7 +23,6 @@ export class PostService {
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );
 
-    // TODO: Temporal while API is ready to filter in the server
     if (type) {
       result = result.pipe(map(posts => posts.filter(post => post.format === type)));
     }
@@ -69,8 +68,11 @@ export class PostService {
     );
   }
 
-  fetchBySponsorId(id: number): Observable<Post[]> {
-    const url = `${environment.cmsApiUrl}/posts?_embed&tags=${id}&order=desc`;
+  fetchBySponsorId(id: number, categoryId?: number): Observable<Post[]> {
+    let url = `${environment.cmsApiUrl}/posts?_embed&tags=${id}&order=desc`;
+    if (categoryId) {
+      url += `&categories=${categoryId}`;
+    }
     return this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );

@@ -12,7 +12,12 @@ export const ROUTES: Routes = [
     component: FeedPageComponent,
     children: [
       {
-        path: 'latest',
+        path: '',
+        redirectTo: '/posts/type',
+        pathMatch: 'full'
+      },
+      {
+        path: 'type',
         component: PostsPageComponent,
       },
       {
@@ -21,6 +26,10 @@ export const ROUTES: Routes = [
       },
       {
         path: 'sponsor/:sponsorId',
+        component: PostsPageComponent,
+      },
+      {
+        path: 'sponsor/:sponsorId/:id',
         component: PostsPageComponent,
       },
     ]
