@@ -47,6 +47,32 @@
       </div>
     </section>
 
+      <section class="personal-info">
+        <div class="profile_title small f300 mb15">Personal Info</div>
+        <div class="personal-container">
+          <div class="personal-group">
+            <label class="profile_title mb0">Fullname</label>
+            <div class="d-flex">
+              <input type="text" name="fullName" class="input-mb" required [(ngModel)]="userProfile.full_name"
+                #fullname="ngModel">
+              <i class="fa fa-pencil personal-edit-icon"></i>
+            </div>
+            <div class="personal-underline"></div>
+            <div [hidden]="fullname.valid || fullname.pristine" class="validation-message">
+              Full name is required
+            </div>
+          </div>
+          <div class="personal-group">
+            <label class="profile_title mb0">Speciality</label>
+            <div class="d-flex">
+              <input (focus)="isEditSpeciality = !isEditSpeciality; SpecialityModal.show();" type="text" name="" class="input-mb" value="{{ userProfile?.speciality }}"
+                contenteditable="false">
+              <span class="arrow-right-input"></span>
+            </div>
+            <div class="personal-underline"></div>
+          </div>
+        </div>
+  </section>
     <section class="profile_Education">
       <div class="profile_title small f300">Upload resume or import data</div>
       <div class="profile__content" (click)="isUploadResume = true; isUploadResumeSlide = true">
@@ -136,8 +162,8 @@
             <span class="not_residency">No education added yet.</span>
           </div>
         </div>
-      </ng-template>
-    </section>
+        </ng-template>
+      </section>
     <section class="personal-info">
       <div class="profile_title small f300 mb15 mt10">Contact Info</div>
       <div class="personal-container">
@@ -161,9 +187,20 @@
                class="validation-message">
             The email can't be blank.
           </div>
-          <div [hidden]="!email.hasError('email') || email.pristine"
-               class="validation-message">
-            Please input correct email format!
+          <div class="personal-group">
+            <label class="profile_title mb0">Preferred email address</label>
+            <div class="d-flex">
+              <input type="email" name="email" class="input-mb" required email="true" [(ngModel)]="userProfile.email"
+                #email="ngModel">
+              <i class="fa fa-pencil personal-edit-icon"></i>
+            </div>
+            <div class="personal-underline"></div>
+            <div [hidden]="!email.hasError('required') || email.pristine" class="validation-message">
+              Email is required
+            </div>
+            <div [hidden]="!email.hasError('email') || email.pristine" class="validation-message">
+              Email is wrong format
+            </div>
           </div>
         </div>
       </div>
@@ -216,6 +253,19 @@
                             (closeSpeciality)="closeSpecialityModal()"
                             [speciality]="speciality"
                             *ngIf="isEditSpeciality"></dso-app-speciality>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #educationModel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name3"
+  [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <dso-education-search *ngIf="education_page == RESIDENCY_AT"></dso-education-search>
+          <dso-education-edit *ngIf="education_page == RESIDENCY_EDIT"></dso-education-edit>
+            <!-- <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (updateResidency)="updateResidency($event)" [residency]="residency"></dso-residency-edit> -->
       </div>
     </div>
   </div>
