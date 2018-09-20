@@ -1,6 +1,6 @@
 <div class="inner-content topic-date" fxLayoutAlign="row">
-    <span class="topic" fxFlex="50">{{post.category.name}}</span>
-    <span class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
+    <span *ngIf="post.category" class="topic" fxFlex="50">{{post.category.name}}</span>
+    <span *ngIf="post" class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
 </div>
 <div class="inner-thumbnail" fxLayout="column">
     <img class="inner-thumbnail" src="{{post.thumbnail}}">
@@ -55,7 +55,10 @@
 <div fxLayout="row" class="inner-content rate">
     <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
         <div class="review-count">
-            <span>{{comments.length}} Reviews</span>
+            <span *ngIf="comments && comments.length; else zeReviews">{{comments.length}} Reviews</span>
+            <ng-template #zeReviews>
+                <span>0 Reviews</span>
+            </ng-template>
         </div>
         <div fxLayout="row" class="ratebar">
             <div *ngFor="let rate of rateList; index as i">

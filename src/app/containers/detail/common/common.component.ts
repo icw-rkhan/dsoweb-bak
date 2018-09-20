@@ -3,6 +3,7 @@ import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { formatDate } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { PostService } from '../../../services/post.service';
 import { CommentService } from '../../../services/comment.service';
@@ -23,8 +24,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
   postId: number;
   review_count: number;
   comments: Comment[];
-  postSub: any;
-  commentSub: any;
+  paramsSub: Subscription;
 
   rateList = [{status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}];
   constructor(private route: ActivatedRoute, private router: Router, private postService: PostService,
@@ -32,19 +32,23 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
     private bookmarkService: BookmarkService, private snackBar: MatSnackBar) {
     this.review_count = 0;
     this.rate = 0;
+    this.post = new Post();
   }
   // gets the postId from article page and gets the postInfo and the commentInfo with postId from server
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.paramsSub = this.route.params.subscribe(params => {
       this.progress.start();
       this.postId = params['id'];
-      this.postSub = this.postService.fetchById(this.postId).subscribe(p => {
+      const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
+        postSub.unsubscribe();
 
-        this.commentSub = this.commentService.comments(this.postId).subscribe(c => {
+        const commentSub = this.commentService.comments(this.postId).subscribe(c => {
           this.comments = c;
+          commentSub.unsubscribe();
         });
       });
+      this.progress.complete();
     });
   }
   // relayout the contents gets from server
@@ -54,8 +58,6 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
     this.reLayout('p', parentTag);
     this.reLayout('ul', parentTag);
     this.reLayout('ol', parentTag);
-
-    this.progress.complete();
   }
 
   reLayout(childTagName, parentTag): void {
@@ -79,8 +81,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngOnDestroy(): void {
-    this.postSub.unsubscribe();
-    this.commentSub.unsubscribe();
+    this.paramsSub.unsubscribe();
   }
   // post the page to review all comments with postId
   onViewAll(postId): void {
@@ -120,6 +121,10 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   // get averave rating of the comments by postId 
   getRating(comments, type): any {
+    if (!comments) {
+      return 0;
+    }
+
     const len = comments.length;
 
     if (len === 0) {
@@ -142,6 +147,9 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   // change the format of the data
   dateFormat(date): any {
-    return formatDate(date, 'MMM d, y', 'en-US');
+    if (date) {
+      return formatDate(date, 'MMM d, y', 'en-US'); 
+    }
+    return '';
   }
 }

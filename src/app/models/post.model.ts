@@ -41,7 +41,7 @@ export class Post implements Serializable<Post> {
       author: new Author().deserialize(author),
       thumbnail: thumbnail,
       category: new Category().deserialize(category),
-      tags: data.tags
+      tags: data.tags,
     });
   }
 

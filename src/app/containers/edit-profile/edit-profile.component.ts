@@ -8,8 +8,9 @@ import {Residency} from '../../models/residency.model';
 
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
-import {isNullOrUndefined} from 'util';
 import {AlertService} from '../../services/alert.service';
+import { environment } from '../../../environments/environment';
+import {Speciality} from '../../models/speciality.model';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -30,35 +31,41 @@ import {AlertService} from '../../services/alert.service';
 })
 export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
+  @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
   is_student: number;
   userInfo: any;
   userProfile: any;
   metadata: any;
-  isEdit: boolean;
   isEditSpeciality: boolean;
   isEditExperience: boolean;
-  isUploadResume: boolean;
-  isUploadResumeSlide: boolean;
+  isUploadFile: boolean;
+  isUploadFileSlide: boolean;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
   RESIDENCY_EDIT = 3;
   residency_page = 2;
+  education_page = 3;
   residency: Residency;
   residencyIndex: number;
 
+  RESUME_FILE = 1;
+  PHOTO_FILE = 2;
+  typeFile: number;
   filteredSpeciality: any;
+  speciality: Speciality;
 
+  baseUrl: String;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private sharingService: SharingService,
               private alertService: AlertService) {
     this.sharingService.showLoading̣̣(true);
-    this.isEdit = true;
     this.isEditSpeciality = false;
     this.isEditExperience = false;
-    this.isUploadResume = false;
-    this.isUploadResumeSlide = false;
+    this.isUploadFile = false;
+    this.isUploadFileSlide = false;
+    this.baseUrl = environment.profileApiUrl;
 
     this.metadata = {
       dentalSchool: [],
@@ -100,6 +107,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        this.userProfile.educations.push({});
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
       }
@@ -122,27 +130,17 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  selectSpeciality() {
-    this.isEdit = !this.isEdit;
-    this.isEditSpeciality = !this.isEditSpeciality;
-    if (!this.isEditSpeciality) {
-      this.filteredSpeciality = this.metadata.residency;
-    }
-  }
-
-  setSpeciality(item: any) {
+  setSpeciality(speciality: any) {
+    this.speciality = speciality;
     if (this.userProfile.educations.length !== 0) {
-      this.userProfile.educations[0].major = item.name;
+      this.userProfile.educations[0].major = speciality.name;
     }
-    this.selectSpeciality();
+    this.closeSpecialityModal();
   }
 
-  searchSpeciality(key: string) {
-    if (isNullOrUndefined(key) || key === '') {
-      this.filteredSpeciality = this.metadata.residency;
-    } else {
-      this.filteredSpeciality = this.metadata.residency.filter(spec => spec.name.toLowerCase().includes(key.toLowerCase()));
-    }
+  closeSpecialityModal() {
+    this.specialityModal.hide();
+    this.isEditSpeciality = false;
   }
 
   selectedResidency(e: Residency) {
@@ -217,21 +215,51 @@ export class EditProfileComponent implements OnInit {
 
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
+          this.fetchProfile(this.userInfo.user_name);
           this.alertService.alertInfo('Success', 'Saved successfully');
         } else {
           this.alertService.alertInfo('Error', data.msg);
         }
         this.sharingService.showLoading̣̣(false);
-      });
+      },
+        error2 => {
+          this.alertService.alertInfo('Error', 'Something went wrong');
+          this.sharingService.showLoading̣̣(false);
+        });
     }
   }
 
   closeUploadResume(e) {
     if (e.target.className.includes('modal-overlay upload-file')) {
-      this.isUploadResumeSlide = false;
+      this.isUploadFileSlide = false;
       setTimeout(() => {
-        this.isUploadResume = false;
+        this.isUploadFile = false;
       }, 400);
+    }
+  } 
+
+  selectFile(file) {
+    this.sharingService.showLoading̣̣(true);
+    if (this.typeFile == this.RESUME_FILE) {
+      this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
+        if (res['code'] == 0) {
+          this.userProfile.document_library = {
+            document_name: res['resultMap']['resumeName']
+          }
+        }
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
+      });
+    } else {
+      this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
+        if (res['code'] == 0) {
+          this.userProfile.photo_album = {
+            photo_name: res['resultMap']['photoName']
+          }
+        }
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
+      })
     }
   }
 }
