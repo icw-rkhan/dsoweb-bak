@@ -4,9 +4,9 @@
 </div>
 <div class="inner-thumbnail" fxLayout="column">
     <img class="inner-thumbnail" src="{{post.thumbnail}}">
-    <img *ngIf="isGsk(post.tags)"class="inner-thumbnail" src = "assets/images/detail/gsk-banner.png">
-    <img *ngIf="isAlign(post.tags)"class="inner-thumbnail" src = "assets/images/detail/align-banner.png">
-    <img *ngIf="isNobel(post.tags)"class="inner-thumbnail" src = "assets/images/detail/nobel-banner.png">
+    <img *ngIf="isGsk(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png">
+    <img *ngIf="isAlign(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png">
+    <img *ngIf="isNobel(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png">
 </div>
 <div class="inner-content" fxLayout="row">
     <div fxFlex="80" class="title">
@@ -35,11 +35,11 @@
     </div>
 </div>
 <div id="contents" class="inner-content" [innerHtml]="post.content"></div>
-<div class="inner-content gsk" fxLayout="column" fxLayoutAlign="center center">
-    <span class="label-gsk">Want more content from GSK?</span>
-    <img *ngIf="isGsk(post.tags)"class="inner-thumbnail" src = "assets/images/detail/gsk-btn.png">
-    <img *ngIf="isAlign(post.tags)"class="inner-thumbnail" src = "assets/images/detail/align-btn.png">
-    <img *ngIf="isNobel(post.tags)"class="inner-thumbnail" src = "assets/images/detail/nobel-btn.png">
+<div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
+    <span class="label-sponsor">Want more content from GSK?</span>
+    <button mat-button *ngIf="isGsk(post.tags)"class="sponsorBtn gskBtn" (click)="onPostSponsor(post.id)">Access GSK Science</button>
+    <button mat-button *ngIf="isAlign(post.tags)"class="sponsorBtn alignBtn" (click)="onPostSponsor(post.id)">Access Align Resources</button>
+    <button mat-button *ngIf="isNobel(post.tags)"class="sponsorBtn nobelBtn" (click)="onPostSponsor(post.id)">Access Nobel Biocare Resources</button>
 </div>
 <div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
     <div class="review-question">

@@ -119,6 +119,10 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewInit {
       bookmarkSub.unsubscribe();
     });
   }
+  // post sponsor article by postId
+  onPostSponsor(postId) {
+    this.router.navigate([`/posts/sponsor/${postId}`]);
+  }
   // get average rating of the comments by postId
   getRating(comments, type): any {
     const len = comments.length;
