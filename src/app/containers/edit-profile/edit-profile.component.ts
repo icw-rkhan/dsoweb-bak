@@ -101,6 +101,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        this.userProfile.educations.push({});
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
       }
@@ -213,7 +214,11 @@ export class EditProfileComponent implements OnInit {
           this.alertService.alertInfo('Error', data.msg);
         }
         this.sharingService.showLoading̣̣(false);
-      });
+      },
+        error2 => {
+          this.alertService.alertInfo('Error', 'Something went wrong');
+          this.sharingService.showLoading̣̣(false);
+        });
     }
   }
 
