@@ -44,6 +44,7 @@ export class EditProfileComponent implements OnInit {
   RESIDENCY_ADD = 2;
   RESIDENCY_EDIT = 3;
   residency_page = 2;
+  education_page = 3;
   residency: Residency;
   residencyIndex: number;
 
