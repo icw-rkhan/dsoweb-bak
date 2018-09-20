@@ -86,7 +86,9 @@ export class AuthService {
       return true;
     }
     const date = this.jwtHelper.getTokenExpirationDate(token);
-    if (date === undefined) return false;
+    if (date === undefined) {
+      return false;
+    }
     return !(date.valueOf() > new Date().valueOf());
   }
 }

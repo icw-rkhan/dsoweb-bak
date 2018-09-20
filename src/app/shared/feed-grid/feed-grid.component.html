@@ -1,14 +1,21 @@
-<ngx-masonry [options]="gridOptions" *ngIf="posts?.length > 0">
-  <ngxMasonryItem *ngFor="let post of posts">
-    <div class="grid-sizer"></div>
-    <div class="gutter-sizer"></div>
-    <div class="grid-item">
-      <dso-feed-card [type]="'video'" [post]="post" (addBookmark)="onAddBookmark($event)"
-                     (removeBookmark)="onRemoveBookmark($event)"></dso-feed-card>
-    </div>
-  </ngxMasonryItem>
-</ngx-masonry>
-<div class="no-content" *ngIf="posts === null || posts?.length === 0">
-  <img src="/src/assets/images/no-bookmarks.png">
-  <h3 class="mat-h3">No items found</h3>
+<div class="feed-grid-container">
+  <div class="sponsor">
+    <img src="../../../assets/images/align_banner.png" *ngIf="sponsorId === 260"/>
+    <img src="../../../assets/images/gsk_banner.png" *ngIf="sponsorId === 197"/>
+    <img src="../../../assets/images/nobel_banner.png" *ngIf="sponsorId === 259"/>
+  </div>
+  <ngx-masonry [options]="gridOptions" [useImagesLoaded]="true" *ngIf="posts?.length > 0">
+    <ngxMasonryItem *ngFor="let post of posts">
+      <div class="grid-sizer"></div>
+      <div class="gutter-sizer"></div>
+      <div class="grid-item">
+        <dso-feed-card [post]="post" (addBookmark)="onAddBookmark($event)"
+                       (removeBookmark)="onRemoveBookmark($event)"></dso-feed-card>
+      </div>
+    </ngxMasonryItem>
+  </ngx-masonry>
+  <div class="no-content" *ngIf="posts === null || posts === undefined || posts?.length === 0">
+    <img src="/src/assets/images/no-bookmarks.png">
+    <h3 class="mat-h3">{{noFoundMessage}}</h3>
+  </div>
 </div>

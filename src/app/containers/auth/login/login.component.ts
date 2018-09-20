@@ -28,7 +28,9 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
     this.is_student = +localStorage.getItem('is_student');
     this.initForm();
-    this.sharingService.showLoading̣̣(false);
+    setTimeout(() => {
+      this.sharingService.showLoading̣̣(false);
+    });
   }
 
   get username() {
@@ -41,11 +43,11 @@ export class LoginComponent implements OnInit {
 
   initForm() {
     this.form = this.fb.group({
-      username: ['vietnguyenp95@gmail.com', Validators.compose([
+      username: ['', Validators.compose([
         Validators.required,
         CustomValidators.email
       ])],
-      password: ['Viet123123', Validators.compose([
+      password: ['', Validators.compose([
         Validators.required
       ])]
     });
@@ -58,7 +60,7 @@ export class LoginComponent implements OnInit {
         this.sharingService.showLoading̣̣(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
-          this.router.navigate(['/feed/latest']);
+          this.router.navigate(['/posts/latest']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'login');
         }

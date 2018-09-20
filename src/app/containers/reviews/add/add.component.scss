@@ -105,6 +105,7 @@ mat-card {
     }
 
     .title {
+        width: 80%;
         color: #262424;
         font-size: 15px;
         font-weight: 600;
@@ -124,7 +125,7 @@ mat-card {
     }    
 }
 
-.statebar {
+.ratebar {
     padding: 15px 0px;
     background-color: #f8f8f8;
     text-align: center;
@@ -140,21 +141,4 @@ mat-card {
             cursor: pointer;
         }
     }
-}
-
-.active {
-    background-color: #879aa8;
-}
-
-.nonactive {
-    background-color: #dddddd;
-}
-
-.mat-icon {
-    width: 20px;
-    height: 20px;
-}
-
-.material-icons {
-    font-size: 20px
 }

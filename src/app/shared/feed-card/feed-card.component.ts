@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
 import { AuthService } from '../../services';
@@ -11,12 +12,11 @@ import { AuthService } from '../../services';
 })
 export class FeedCardComponent {
 
-  @Input() type: string;
   @Input() post: Post;
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   onAddBookmark() {
@@ -25,7 +25,8 @@ export class FeedCardComponent {
     this.addBookmark.emit(<Bookmark>{
       email: email,
       title: this.post.title,
-      postId: this.post.id.toString()
+      postId: this.post.id.toString(),
+      url: 'http://www.dsodentist.com',
     });
   }
 
@@ -35,4 +36,7 @@ export class FeedCardComponent {
     this.removeBookmark.emit(this.post.bookmarkId);
   }
 
+  onViewDetail(postId) {
+    this.router.navigate([`/detail/${postId}`]);
+  }
 }

@@ -24,7 +24,17 @@ mat-card {
 }
 
 .content {
+  display: block;
   padding: 20px 30px;
+}
+
+.image {
+  margin-bottom: 20px;
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
 }
 
 .content-title {
@@ -48,6 +58,7 @@ mat-card {
 .inner-content {
   overflow: scroll;
   position: relative;
+  display: block;
 }
 
 .icon-type {
