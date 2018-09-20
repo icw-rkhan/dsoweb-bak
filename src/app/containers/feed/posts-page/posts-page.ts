@@ -74,7 +74,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   addBookmark(value: Bookmark) {
     const bookmarkSub = this.bookmarkService.saveBookmark(value).subscribe(x => {
       this.snackBar.open('Bookmark added', 'OK', {
-        duration: 2000,
+        duration: 1000,
       });
       bookmarkSub.unsubscribe();
     });
@@ -83,7 +83,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   removeBookmark(id: string) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe(x => {
       this.snackBar.open('Bookmark removed', 'OK', {
-        duration: 2000,
+        duration: 1000,
       });
       bookmarkSub.unsubscribe();
     });

@@ -5,6 +5,10 @@ mat-card {
   border-radius: 0;
 }
 
+mat-card-content {
+  cursor: pointer;
+}
+
 .header {
   display: flex;
   flex-direction: row;
@@ -35,34 +39,34 @@ mat-card {
 }
 
 .content {
-  display: block;
-  padding: 10px 20px;
+  display: flex;
+  flex-direction: row;
+  padding: 15px;
 }
 
 .image {
-  margin-bottom: 20px;
   text-align: center;
+  flex-basis: 20%;
+  min-width: 80px;
+  min-height: 80px;
 
   img {
     max-width: 100%;
     height: auto;
-    margin-bottom: -10px;
   }
 }
 
-.content-title {
-  display: flex;
-  flex-direction: row;
-  padding-bottom: 10px;
-
-  .mat-h2 {
-    flex: 1;
-    color: #354051;
-    cursor: pointer;
-  }
+.title {
+  color: #354051;
+  flex-grow: 1;
+  margin: 0 15px;
 }
 
 .actions {
+  flex-shrink: 1;
+  min-width: 85px;
+  text-align: right;
+
   button {
     color: lightslategrey;
   }
@@ -70,13 +74,6 @@ mat-card {
   button:first-child {
     margin-right: 5px;
   }
-}
-
-.inner-content {
-  overflow: scroll;
-  position: relative;
-  display: block;
-  cursor: pointer;
 }
 
 .icon-type {

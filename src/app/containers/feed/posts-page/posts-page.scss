@@ -1,3 +1,5 @@
-.posts-page-container {
-  margin-top: -20px;
+::ng-deep .cdk-overlay-pane {
+  .mat-snack-bar-container {
+    border-radius: 0;
+  }
 }

@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
-import { NgxMasonryOptions } from 'ngx-masonry';
 
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
