@@ -36,7 +36,11 @@ export class FeedCardComponent {
     this.removeBookmark.emit(this.post.bookmarkId);
   }
 
-  onViewDetail(postId) {
-    this.router.navigate([`/detail/${postId}`]);
+  onViewDetail(postId, tags) {
+    if (tags.includes(197) || tags.includes(260) || tags.includes(259)) {
+      this.router.navigate([`/detail/sponsor/${postId}`]);
+    } else {
+      this.router.navigate([`/detail/${postId}`]);
+    }
   }
 }

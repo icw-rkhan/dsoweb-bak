@@ -17,8 +17,7 @@ export class ToolbarComponent {
   constructor(private router: Router, private _location: Location) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-          console.log(event.url);
-        if (event.url.includes('/feed')) {
+        if (event.url.includes('/posts')) {
             this.title = 'DSODENTIST';
             this.btnTitle = 'menu';
         } else if (event.url.includes('/reviews/add')) {
@@ -27,12 +26,21 @@ export class ToolbarComponent {
         } else if (event.url.includes('/reviews/view')) {
             this.title = 'ALL REVIEWS';
             this.btnTitle = 'keyboard_backspace';
+        } else if (event.url.includes('/detail/sponsor')) {
+            this.title = 'SPONSORED CONTENT';
+            this.btnTitle = 'keyboard_backspace';
         } else if (event.url.includes('/detail')) {
             this.title = '';
             this.btnTitle = 'keyboard_backspace';
-        }  else if (event.url.includes('/detail/sponsor')) {
-            this.title = 'SPONSORED CONTENT';
-            this.btnTitle = 'keyboard_backspace';
+        } else if (event.url.includes('/bookmarks')) {
+          this.title = 'BOOKMARKS';
+          this.btnTitle = 'menu';
+        } else if (event.url.includes('/category')) {
+          this.title = 'CATEGORY';
+          this.btnTitle = 'menu';
+        } else if (event.url.includes('/search')) {
+          this.title = 'SEARCH';
+          this.btnTitle = 'menu';
         } else {
           this.title = 'DSODENTIST';
           this.btnTitle = 'menu';
@@ -42,7 +50,7 @@ export class ToolbarComponent {
   }
 
   onClickEvent() {
-    if (this.title === 'menu') {
+    if (this.btnTitle === 'menu') {
       this.toggleMenu.emit();
     } else if (this.btnTitle === 'keyboard_backspace') {
       this._location.back();
