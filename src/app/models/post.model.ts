@@ -28,11 +28,14 @@ export class Post implements Serializable<Post> {
     thumbnail = thumbnail && thumbnail[0] ? (thumbnail[0].media_details ?
       thumbnail[0].media_details.sizes.full.source_url : undefined) : undefined;
 
+    // Remove link-more
+    const cleanTextExcerpt = data.excerpt.rendered.replace(/<p[^>]* class=\"link-more\">(.*?)<\/p>/g, '');
+
     return <Post>Object.assign({}, {
       id: data.id,
       title: data.title.rendered,
       content: data.content.rendered,
-      excerpt: data.excerpt.rendered,
+      excerpt: cleanTextExcerpt,
       format: data.format,
       date: new Date(data.date_gmt),
       author: new Author().deserialize(author),
