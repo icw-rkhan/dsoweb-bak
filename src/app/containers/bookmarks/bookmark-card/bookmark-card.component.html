@@ -13,7 +13,7 @@
       <div class="mat-body-2">
         {{post.title}}
       </div>
-      <div class="mat-body-1" [innerHTML]="post.excerpt" (click)="onPostBookmark(post.excerpt)"></div>
+      <div class="mat-body-1" [innerHTML]="post.excerpt" (click)="onPostBookmark(post.id, post.tags)"></div>
     </div>
     <div content="actions">
       <button mat-icon-button (click)="onRemove()">

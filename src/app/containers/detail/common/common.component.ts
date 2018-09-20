@@ -10,6 +10,7 @@ import { BookmarkService } from '../../../services/bookmark.service';
 import { AuthService } from '../../../services';
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
+import { Post } from '../../../models/post.model';
 
 @Component({
   selector: 'dso-detail-common',
@@ -17,8 +18,7 @@ import { Comment } from '../../../models/comment.model';
   styleUrls: ['./common.component.scss']
 })
 export class CommonComponent implements OnInit, OnDestroy, AfterViewInit {
-
-  post: any;
+  post: Post;
   rate: number;
   postId: number;
   review_count: number;
