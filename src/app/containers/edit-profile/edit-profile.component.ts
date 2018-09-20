@@ -37,8 +37,8 @@ export class EditProfileComponent implements OnInit {
   isEdit: boolean;
   isEditSpeciality: boolean;
   isEditExperience: boolean;
-  isUploadResume: boolean;
-  isUploadResumeSlide: boolean;
+  isUploadFile: boolean;
+  isUploadFileSlide: boolean;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
@@ -46,6 +46,10 @@ export class EditProfileComponent implements OnInit {
   residency_page = 2;
   residency: Residency;
   residencyIndex: number;
+
+  RESUME_FILE = 1;
+  PHOTO_FILE = 2;
+  typeFile: number;
 
   filteredSpeciality: any;
 
@@ -57,8 +61,8 @@ export class EditProfileComponent implements OnInit {
     this.isEdit = true;
     this.isEditSpeciality = false;
     this.isEditExperience = false;
-    this.isUploadResume = false;
-    this.isUploadResumeSlide = false;
+    this.isUploadFile = false;
+    this.isUploadFileSlide = false;
 
     this.metadata = {
       dentalSchool: [],
@@ -228,10 +232,35 @@ export class EditProfileComponent implements OnInit {
 
   closeUploadResume(e) {
     if (e.target.className.includes('modal-overlay upload-file')) {
-      this.isUploadResumeSlide = false;
+      this.isUploadFileSlide = false;
       setTimeout(() => {
-        this.isUploadResume = false;
+        this.isUploadFile = false;
       }, 400);
+    }
+  } 
+
+  selectFile(file) {
+    this.sharingService.showLoading̣̣(true);
+    if (this.typeFile == this.RESUME_FILE) {
+      this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
+        if (res['code'] == 0) {
+          this.userProfile.document_library = {
+            document_name: res['resultMap']['resumeName']
+          }
+        }
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
+      });
+    } else {
+      this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
+        if (res['code'] == 0) {
+          this.userProfile.photo_album = {
+            photo_name: res['resultMap']['photoName']
+          }
+        }
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
+      })
     }
   }
 }
