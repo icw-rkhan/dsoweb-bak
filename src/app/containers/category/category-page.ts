@@ -20,7 +20,7 @@ import { AuthService } from '../../services';
 export class CategoryPageComponent implements OnInit {
 
   categories$: Observable<Category[]>;
-  posts$: Observable<Post[]>;
+  posts: Post[];
 
   constructor(private categoryService: CategoryService, private postService: PostService,
               private progress: NgProgress, private bookmarkService: BookmarkService,
@@ -35,7 +35,7 @@ export class CategoryPageComponent implements OnInit {
     this.progress.start();
 
     const email = this.authService.getUserInfo().user_name;
-    this.posts$ = forkJoin(
+    const postsSubs = forkJoin(
       this.postService.fetchByCategory(event.value),
       this.bookmarkService.getAllByEmail(email)
     ).pipe(
@@ -46,11 +46,10 @@ export class CategoryPageComponent implements OnInit {
           bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
         });
       }))
-    );
-
-    const categorySub = this.posts$.subscribe(() => {
+    ).subscribe(posts => {
       this.progress.complete();
-      categorySub.unsubscribe();
+      this.posts = posts;
+      postsSubs.unsubscribe();
     });
   }
 

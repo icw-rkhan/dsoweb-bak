@@ -41,6 +41,7 @@ import { FeedGridComponent } from './feed-grid/feed-grid.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { MainContainerComponent } from './main-container/main-container.component';
+import { SponsorCardComponent } from './sponsor-card/sponsor-card.component';
 
 const PIPES = [
   TruncatePipe
@@ -51,6 +52,7 @@ export const COMPONENTS = [
   ToolbarComponent,
   AlertDialogComponent,
   FeedCardComponent,
+  SponsorCardComponent,
   MainActionsComponent,
   FeedGridComponent,
   TermPolicyDialogComponent,

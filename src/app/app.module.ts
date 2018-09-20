@@ -29,7 +29,7 @@ import {AuthGuard} from './services/auth/auth-guard';
     ReactiveFormsModule,
     NgProgressModule.forRoot({
       meteor: false,
-      color: '#0D47A1'
+      color: '#354051'
     }),
     // Module import
     SharedModule,

@@ -9,7 +9,7 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <dso-feed-grid [posts]="posts$ | async" (removeBookmark)="removeBookmark($event)"
+    <dso-feed-grid [posts]="posts" (removeBookmark)="removeBookmark($event)"
                    (addBookmark)="addBookmark($event)" [noFoundMessage]="'Search by category'"></dso-feed-grid>
   </div>
 </dso-main-container>

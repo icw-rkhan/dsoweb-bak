@@ -5,12 +5,12 @@ import { Bookmark } from '../../models/bookmark.model';
 import { AuthService } from '../../services';
 
 @Component({
-  selector: 'dso-feed-card',
-  templateUrl: './feed-card.component.html',
-  styleUrls: ['./feed-card.component.scss'],
+  selector: 'dso-sponsor-card',
+  templateUrl: './sponsor-card.component.html',
+  styleUrls: ['./sponsor-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FeedCardComponent {
+export class SponsorCardComponent {
 
   @Input() post: Post;
 
