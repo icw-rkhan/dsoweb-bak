@@ -38,7 +38,8 @@
         <div class="personal-group">
           <label class="profile_title mb0">Speciality</label>
           <div class="d-flex">
-            <input (focus)="isEditSpeciality = !isEditSpeciality; SpecialityModal.show();" type="text" name="" class="input-mb"
+            <input (focus)="isEditSpeciality = !isEditSpeciality; SpecialityModal.show();" type="text" name=""
+                   class="input-mb"
                    value="{{ speciality?.name }}" contenteditable="false">
             <span class="arrow-right-input"></span>
           </div>
@@ -62,7 +63,7 @@
 
     <section *ngIf="is_student" class="profile_Residency">
       <div class="profile_title small f300">Experience</div>
-      <span class="addNew-icon"></span>
+      <span class="addNew-icon" (click)="ExperienceModal.show()"></span>
       <div *ngIf="userProfile?.experiences.length; else noExperience">
         <div *ngFor="let item of userProfile?.experiences" class="profile__content bt">
           <div class="profile__icon exp_owner"></div>
@@ -216,6 +217,20 @@
                             (closeSpeciality)="closeSpecialityModal()"
                             [speciality]="speciality"
                             *ngIf="isEditSpeciality"></dso-app-speciality>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #ExperienceModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="experienceModal" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-edit-experience (closeModal)="ExperienceModal.hide()"
+                             (saveExperience)="saveExperience(ex)"
+                             [experience]="experiences" ></app-edit-experience>
       </div>
     </div>
   </div>

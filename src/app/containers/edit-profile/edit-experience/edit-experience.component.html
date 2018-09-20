@@ -1,0 +1,65 @@
+<header class="header-profile fixed-bar">
+  <nav class="navbar bg-grey">
+    <a href="javascript:void(0)" (click)="close()" class="back-link"><span class="icon-bar icon-back"></span></a>
+    <div class="navbar-title-heading">Edit Experience</div>
+    <div class="navbar-edit-profile">
+      <a href="javascript:void(0)" (click)="save()" class="">Save</a>
+    </div>
+  </nav>
+</header>
+<div class="profile_content">
+  <section class="personal-info practice-add">
+    <div class="personal-container mh-vh">
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">Practice Type</label>
+        <div class="input-mb flex-input" (click)="PracticeTypeModal.show()">{{experience?.practice_Type?.name}}</div>
+        <span class="arrow-right" (click)="PracticeTypeModal.show()"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">Role at Practice</label>
+        <div class="input-mb flex-input">{{experience?.practice_Role?.name}}</div>
+        <span class="arrow-right"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">Name of Dental Support Organization (DSO)</label>
+        <div class="input-mb flex-input">{{experience?.practice_name}}</div>
+        <span class="arrow-right"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <div class="toggle-div">
+          <label class="profile_title mb0">I currently work in this role</label>
+          <div class="switch on">
+            <div class="handle"></div>
+          </div>
+        </div>
+      </div>
+      <div class="personal-group practice-group">
+        <div class="flex">
+          <div class="col s6">
+            <label class="profile_title mb0">From</label>
+            <input type="text" name="" class="input-mb" value="June 2017">
+            <span class="arrow-right"></span>
+          </div>
+          <div class="col s6">
+            <label class="profile_title mb0">To</label>
+            <input type="text" name="" class="input-mb" value="Present">
+            <span class="arrow-right"></span>
+          </div>
+        </div>
+      </div>
+      <div class="cancel-row"><a href="javascript:void(0)" (click)="close()">Cancel</a></div>
+    </div>
+  </section>
+</div>
+
+<div bsModal #PracticeTypeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="practiceTypeModal" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-practice-type></app-practice-type>
+      </div>
+    </div>
+  </div>
+</div>

@@ -10,6 +10,7 @@ import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
 import {AlertService} from '../../services/alert.service';
 import {Speciality} from '../../models/speciality.model';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -31,12 +32,12 @@ import {Speciality} from '../../models/speciality.model';
 export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
+  @ViewChild('ExperienceModal') private experienceModal: ModalDirective;
   is_student: number;
   userInfo: any;
   userProfile: any;
   metadata: any;
   isEditSpeciality: boolean;
-  isEditExperience: boolean;
   isUploadResume: boolean;
   isUploadResumeSlide: boolean;
 
@@ -50,13 +51,14 @@ export class EditProfileComponent implements OnInit {
   filteredSpeciality: any;
   speciality: Speciality;
 
+  experiences: any;
+
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private sharingService: SharingService,
               private alertService: AlertService) {
     this.sharingService.showLoading̣̣(true);
     this.isEditSpeciality = false;
-    this.isEditExperience = false;
     this.isUploadResume = false;
     this.isUploadResumeSlide = false;
 
@@ -133,6 +135,14 @@ export class EditProfileComponent implements OnInit {
   closeSpecialityModal() {
     this.specialityModal.hide();
     this.isEditSpeciality = false;
+  }
+
+  saveExperience(ex: any) {
+    this.experiences = ex;
+    if (!isNullOrUndefined(this.userProfile.experiences) && this.userProfile.experiences.length !== 0){
+      this.userProfile.experiences = this.experiences;
+    }
+    this.experienceModal.hide();
   }
 
   selectedResidency(e: Residency) {
