@@ -3,8 +3,9 @@ import {ModalDirective} from 'ngx-bootstrap';
 import * as moment from 'moment';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
-import {AuthService, ProfileService} from '../../services/index';
-import {Residency} from '../../models/residency.model';
+import { AuthService, ProfileService } from '../../services/index';
+import { Residency } from '../../models/residency.model';
+import { Education } from '../../models/education.model';
 
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
@@ -48,6 +49,12 @@ export class EditProfileComponent implements OnInit {
   education_page = 3;
   residency: Residency;
   residencyIndex: number;
+
+  EDIT = 1;
+  ADD = 2;
+  typeEducation = 1;
+  education: Education;
+  educationIndex: number;
 
   RESUME_FILE = 1;
   PHOTO_FILE = 2;
@@ -260,6 +267,46 @@ export class EditProfileComponent implements OnInit {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
       })
+    }
+  }
+
+  selectEducation() {
+    this.education_page = this.RESIDENCY_AT;
+  }
+
+  selectedEducation(e: Education) {
+    this.education = e;
+    this.education_page = this.RESIDENCY_EDIT;
+  }
+
+  editEducation(i) {
+    this.educationIndex = i;
+    // const dt = {
+    //   id: this.userProfile.educations[i]['dental_school']['id'],
+    //   name: this.userProfile.educations[i].school_name,
+    //   year: this.userProfile.educations[i].school_name
+    // }
+    // this.education 
+  }
+
+
+  saveEducation(e: Education) {
+    if (this.typeEducation == this.ADD) {
+      console.log(e);
+      this.userProfile.educations.push({
+        email: this.userInfo.email,
+        start_time: (e.year - 1) + "-01-01T00:00:00.000Z",
+        end_time: e.year + "-01-01T00:00:00.000Z",
+        major: "1",
+        dental_school: {
+          id: e.id || null
+        },
+        school_name: e.name,
+        types: e.types
+      });
+      this.profileService.saveProfile(this.userProfile).subscribe(profile => {
+        console.log(profile);
+      });
     }
   }
 }

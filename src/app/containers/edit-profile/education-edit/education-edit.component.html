@@ -1,9 +1,9 @@
 <header class="header-profile fixed-bar">
   <nav class="navbar bg-grey">
-    <a href="#" class="back-link"><span class="icon-bar icon-back"></span></a>
-    <div class="navbar-title-heading">Edit Education</div>
+    <a class="back-link" (click)="_cancel()"><span class="icon-bar icon-back cursor"></span></a>
+    <div class="navbar-title-heading">{{typeEducation == 1 ? 'Edit': 'Add'}} Education</div>
     <div class="navbar-edit-profile">
-      <a href="#" class="">Save</a>
+      <a (click)="_save()" class="cursor">Save</a>
     </div>
   </nav>
 </header>
@@ -13,19 +13,22 @@
       <div class="personal-group practice-group">
         <div class="toggle-div">
           <label class="profile_title mb0">Attended Dental School in the US</label>
-          <div class="switch">
+          <div (click)="type = !type" class="switch" [ngClass]="{'on': type == 0}">
             <div class="handle"></div>
           </div>
         </div>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Dental School</label>
-        <input type="text" name="" class="input-mb" value="Manchester Dental School">
+        <input type="text" *ngIf="type == 0" (click)="_selectEducation()" class="input-mb" [value]="education ? education.name : ''">
+        <input type="text" *ngIf="type == 1" class="input-mb" [(ngModel)]="school_name">
+        <span *ngIf="isErrorName" class="text-danger">Please enter a Dental School</span>
         <span class="edit-practice"></span>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Year of Graduation</label>
-        <input type="text" name="" class="input-mb" value="2006">
+        <input type="text" name="" class="input-mb" [(ngModel)]="year" (keydown)="keyDown($event)">
+        <span *ngIf="isErrorYear" class="text-danger">Please enter valid year (1950-now)</span>
         <span class="edit-practice"></span>
       </div>
       <div class="cancel-row"><a href="#">Delete Experience</a></div>
