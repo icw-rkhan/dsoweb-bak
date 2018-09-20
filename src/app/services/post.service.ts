@@ -18,7 +18,7 @@ export class PostService {
   }
 
   posts(type?: string): Observable<Post[]> {
-    const url = `${environment.cmsApiUrl}/posts?_embed`;
+    const url = `${environment.cmsApiUrl}/posts?_embed&order=desc`;
     let result = this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );
@@ -63,14 +63,14 @@ export class PostService {
   }
 
   search(term: string): Observable<Post[]> {
-    const url = `${environment.cmsApiUrl}/posts?_embed&search=${term}`;
+    const url = `${environment.cmsApiUrl}/posts?_embed&search=${term}&order=desc`;
     return this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );
   }
 
   fetchBySponsorId(id: number): Observable<Post[]> {
-    const url = `${environment.cmsApiUrl}/posts?_embed&tags=${id}`;
+    const url = `${environment.cmsApiUrl}/posts?_embed&tags=${id}&order=desc`;
     return this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );

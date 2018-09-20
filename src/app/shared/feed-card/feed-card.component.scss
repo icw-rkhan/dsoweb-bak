@@ -1,5 +1,12 @@
+@import "../../../variables";
+
 mat-card {
   padding: 0;
+  border-radius: 0;
+}
+
+mat-card-content {
+  cursor: pointer;
 }
 
 .header {
@@ -7,33 +14,43 @@ mat-card {
   flex-direction: row;
   padding: 10px 20px;
   background-color: #FAFBFD;
-  border-bottom: 1px solid lightgray;
+
   .mat-h3 {
     text-transform: uppercase;
     flex: 1;
     margin-bottom: 0;
+    letter-spacing: 0.8px;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: $primary;
   }
+
   .date {
     color: #D8D8D8;
   }
+
   .mat-body-1 {
     align-self: center;
-    color: lightgray;
     font-size: 12px;
+    letter-spacing: 0.8px;
+    font-weight: 300;
+    color: #9b9b9b;
   }
 }
 
 .content {
   display: block;
-  padding: 20px 30px;
+  padding: 10px 20px;
 }
 
 .image {
   margin-bottom: 20px;
+  text-align: center;
 
   img {
     max-width: 100%;
     height: auto;
+    margin-bottom: -10px;
   }
 }
 
@@ -41,8 +58,10 @@ mat-card {
   display: flex;
   flex-direction: row;
   padding-bottom: 10px;
+
   .mat-h2 {
     flex: 1;
+    color: #354051;
   }
 }
 
@@ -50,6 +69,7 @@ mat-card {
   button {
     color: lightslategrey;
   }
+
   button:first-child {
     margin-right: 5px;
   }

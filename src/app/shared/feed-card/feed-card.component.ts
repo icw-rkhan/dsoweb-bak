@@ -13,6 +13,7 @@ import { AuthService } from '../../services';
 export class FeedCardComponent {
 
   @Input() post: Post;
+
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
 
@@ -36,11 +37,11 @@ export class FeedCardComponent {
     this.removeBookmark.emit(this.post.bookmarkId);
   }
 
-  onViewDetail(postId, tags) {
-    if (tags.includes(197) || tags.includes(260) || tags.includes(259)) {
-      this.router.navigate([`/detail/sponsor/${postId}`]);
+  onViewDetail() {
+    if (this.post.tags.includes(197) || this.post.tags.includes(260) || this.post.tags.includes(259)) {
+      this.router.navigate([`/detail/sponsor/${this.post.id}`]);
     } else {
-      this.router.navigate([`/detail/${postId}`]);
+      this.router.navigate([`/detail/${this.post.id}`]);
     }
   }
 }
