@@ -12,11 +12,11 @@ export const ROUTES: Routes = [
       component: ReviewsComponent,
       children: [
         {
-          path: 'add',
+          path: 'add/:id/:title/:date',
           component: AddComponent,
         },
         {
-          path: 'view',
+          path: 'view/:id',
           component: ViewComponent,
         }
       ]

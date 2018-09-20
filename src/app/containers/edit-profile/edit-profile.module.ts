@@ -9,6 +9,7 @@ import { ResidencyAddComponent } from './residency-add/residency-add.component';
 import { ResidencyEditComponent } from './residency-edit/residency-edit.component';
 import { EducationSearchComponent } from './education-search/education-search.component';
 import { EducationEditComponent } from './education-edit/education-edit.component';
+import {SpecialityComponent} from './speciality/speciality.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { EducationEditComponent } from './education-edit/education-edit.componen
     ResidencyAddComponent,
     ResidencyEditComponent,
     EducationSearchComponent,
-    EducationEditComponent
+    EducationEditComponent,
+    SpecialityComponent
   ],
 })
 export class EditProfileModule { }

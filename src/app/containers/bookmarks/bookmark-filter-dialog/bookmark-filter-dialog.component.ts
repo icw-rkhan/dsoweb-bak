@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { Category } from '../../../models/category.model';
 import { CategoryService } from '../../../services/category.service';
 import { Observable } from 'rxjs';
+import { MatDialogRef } from '@angular/material';
+import { FilterDialogStatus } from '../../../enums/filter-dialog-status';
 
 @Component({
   templateUrl: './bookmark-filter-dialog.component.html',
@@ -12,8 +14,9 @@ export class BookmarkFilterDialogComponent implements OnInit {
 
   categories: Observable<Category[]>;
   contentTypes: any;
+  categoryId: number;
 
-  constructor(private categoryService: CategoryService) {
+  constructor(public dialogRef: MatDialogRef<BookmarkFilterDialogComponent>, private categoryService: CategoryService) {
   }
 
   ngOnInit(): void {
@@ -47,6 +50,18 @@ export class BookmarkFilterDialogComponent implements OnInit {
       id: 6,
       name: 'Tip Sheets'
     });
+  }
+
+  onFilter() {
+    if (this.categoryId === undefined) {
+      this.dialogRef.close(FilterDialogStatus.Clear);
+    } else {
+      this.dialogRef.close(this.categoryId);
+    }
+  }
+
+  onClear() {
+    this.dialogRef.close(FilterDialogStatus.Clear);
   }
 
 }

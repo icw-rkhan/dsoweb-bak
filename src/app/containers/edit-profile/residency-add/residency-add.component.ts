@@ -30,7 +30,7 @@ export class ResidencyAddComponent implements OnInit {
     if (!this.residency) {
       return;
     }
-    if (this.residency.year < 1950 || this.residency.year > new Date().getFullYear()) {
+    if (!this.residency.year || this.residency.year < 1950 || this.residency.year > new Date().getFullYear()) {
       this.isError = true;
       return;
     }

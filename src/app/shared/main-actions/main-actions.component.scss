@@ -1,3 +1,5 @@
+@import "../../../variables";
+
 .footer {
   //position: fixed;
   //bottom: 0;
@@ -14,7 +16,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  color: gray;
+  color: $primary;
   font-weight: 200;
   mat-icon {
     margin-bottom: 5px;
@@ -24,4 +26,14 @@
 .mat-tab-link {
   flex: 1;
   height: 60px;
+  opacity: 1;
+  border-right: 1px solid rgba(0, 0, 0, 0.12);
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.active {
+  background-color: #f7f7f7;
 }

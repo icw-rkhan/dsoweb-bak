@@ -8,40 +8,42 @@ import { NavLinkModel } from '../../models/nav-link.model';
 export class FeedPageComponent implements OnInit {
 
   navLinks: NavLinkModel[] = [];
-  
+
   ngOnInit(): void {
     this.navLinks.push({
       label: 'LATEST',
-      route: '/feed/latest',
+      route: '/posts/latest',
     });
     this.navLinks.push({
       label: 'VIDEOS',
-      route: '/feed/videos',
+      route: '/posts/type/29',
     });
     this.navLinks.push({
       label: 'ARTICLES',
-      route: '/feed/articles',
+      route: '/posts/type/28',
     });
     this.navLinks.push({
       label: 'PODCASTS',
-      route: '/feed/podcasts',
-    });
-    this.navLinks.push({
-      label: 'INTERVIEWS',
-      route: '/feed/interviews',
+      route: '/posts/type/30',
     });
     this.navLinks.push({
       label: 'TECH GUIDES',
-      route: '/feed/tech-guides',
+      route: '/posts/type/31',
     });
     this.navLinks.push({
       label: 'ANIMATIONS',
-      route: '/feed/animations',
+      route: '/posts/type/195',
+    });
+    this.navLinks.push({
+      label: 'INTERVIEWS',
+      route: '/posts/type/194',
     });
     this.navLinks.push({
       label: 'TIP SHEETS',
-      route: '/feed/tip-sheets',
+      route: '/posts/type/196',
     });
   }
+
+
 
 }

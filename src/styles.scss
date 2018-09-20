@@ -1,11 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
+@import '~@angular/material/theming';
+@import "_variables.scss";
+
+@include mat-core();
 
 body {
   margin: 0;
 }
 
-.d-flex{
+.d-flex {
   display: flex;
   align-items: center;
 }
@@ -17,6 +21,15 @@ body {
 .cursor {
   cursor: pointer;
 }
+
 .validation-message {
   color: red;
 }
+
+// Create the theme object (a Sass map containing all of the palettes).
+$app-theme: mat-light-theme($app-primary, $app-accent, $app-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($app-theme);
