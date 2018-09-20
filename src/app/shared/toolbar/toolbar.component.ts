@@ -11,53 +11,49 @@ export class ToolbarComponent {
 
   @Output() toggleMenu = new EventEmitter();
 
-  title = "DSODENTIST";
-  btnCategory = "menu";
+  title = 'DSODENTIST';
+  btnTitle = 'menu';
 
   constructor(private router: Router, private _location: Location) {
-    router.events.subscribe((event: Event)=> {
-      if(event instanceof NavigationEnd) {
-        if(event.url == '/feed') {
-          this.setTitle('DSODENTIST');
-          this.setBtnCategory('menu');
-
-        }else if(event.url == '/reviews/add') {
-          this.setTitle('ADD A REVIEW');
-          this.setBtnCategory('keyboard_backspace');
-
-        }else if(event.url == '/reviews/view') {
-          this.setTitle('ALL REVIEWS');
-          this.setBtnCategory('keyboard_backspace'); 
-
-        }else {
-          this.setTitle('DSODENTIST');
-          this.setBtnCategory('menu');
+    router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+          console.log(event.url);
+        if (event.url.includes('/feed')) {
+            this.title = 'DSODENTIST';
+            this.btnTitle = 'menu';
+        } else if (event.url.includes('/reviews/add')) {
+            this.title = 'ADD A REVIEW';
+            this.btnTitle = 'keyboard_backspace';
+        } else if (event.url.includes('/reviews/view')) {
+            this.title = 'ALL REVIEWS';
+            this.btnTitle = 'keyboard_backspace';
+        } else if (event.url.includes('/detail')) {
+            this.title = '';
+            this.btnTitle = 'keyboard_backspace';
+        }  else if (event.url.includes('/detail/sponsor')) {
+            this.title = 'SPONSORED CONTENT';
+            this.btnTitle = 'keyboard_backspace';
+        } else {
+          this.title = 'DSODENTIST';
+          this.btnTitle = 'menu';
         }
       }
-    })
+    });
   }
 
   onClickEvent() {
-    if(this.btnCategory == "menu") {
+    if (this.title === 'menu') {
       this.toggleMenu.emit();
-    }else if (this.btnCategory == 'keyboard_backspace') {
+    } else if (this.btnTitle === 'keyboard_backspace') {
       this._location.back();
     }
   }
 
-  setTitle(title) {
-    this.title = title;
+  onPrevious() {
+
   }
 
-  getTitle() {
-    return this.title;
-  }
+  onNext() {
 
-  setBtnCategory(category) {
-    this.btnCategory = category;
-  }
-
-  getBtnCategory() {
-    return this.btnCategory;
   }
 }

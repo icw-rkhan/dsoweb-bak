@@ -1,0 +1,117 @@
+.inner-content {
+    width: 100%;
+    height: auto;
+    padding: 19px 19px;
+
+    .inner-thumbnail {
+        margin-top: 20px;
+    }
+}
+
+.inner-content.gsk {
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
+    padding: 29px 0px;
+  
+    .label-gsk {
+        color: #9b9b9b;
+        font-size: 13px;
+        font-weight: 400
+    }
+}
+
+.inner-thumbnail {
+    width: 100%;
+    height: auto;
+}
+
+.topic-date {
+    padding: 15px 19px;
+
+    .topic {
+        color: #4a4a4a;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1px
+    }
+    
+    .date {
+        color: #9b9b9b;
+        font-size: 12px;
+        font-weight: 400;
+        text-align: right;
+    }
+}
+
+
+
+.title {
+    color: #000000;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 24px;
+    padding-top: 7px;
+}
+
+
+div {
+    img {
+        margin-right: 3px;
+    }
+}
+
+.review {
+    border-top: 1px solid #efefef;
+    background-color: #f8f8f8;
+    padding: 18px;
+
+    .review-question {
+        color: #9b9b9b;
+        line-height: 15px;
+        font-size: 13px;
+        font-weight: 400px;
+    }
+    
+    .review-add {
+        color: #4a4a4a;
+        line-height: 15px;
+        font-size: 13px;
+        font-weight: 500;
+        margin-bottom: 10px; 
+    }
+}
+
+.rate {
+    border-top: 1px solid #efefef;
+    border-bottom: 1px solid #efefef;
+    padding: 18px 19px;
+
+    .review-count {
+        color: #4a4a4a;
+        font-size: 13px;
+        font-weight: 600;
+    }
+    
+    .viewBtn {
+        color: #879aa8;
+        font-size: 12px;
+        font-weight: 500;
+    }
+
+    .ratebar {
+        margin-top: 12px;
+    }
+}
+
+p {
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.btn-pn {
+    color: #879aa8;
+    font-size: 13px;
+    font-weight: 600;
+}

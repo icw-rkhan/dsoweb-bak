@@ -1,34 +1,34 @@
 <div layout="column">
-    <div class="header">
-      <p class="rate">Rate the article</p>
-      <p class="title">{{articleInfo.title}}</p>
-      <p class="date">{{articleInfo.date}}</p>
-    </div>
-  
-    <div class="statebar" fxLayout="row" fxLayoutAlign="center center">
-      <div *ngFor="let state of stateList; index as i">
-        <img *ngIf="i<rate;else inactive" class="active" src="assets/images/review/star-active.png" (click)="eventRating($event)">
-        <ng-template #inactive>
-          <img class="inactive" src="assets/images/review/star-inactive.png" (click)="eventRating($event)">
-        </ng-template>
-      </div>
-    </div>
-  
-    <mat-card fxLayout="row" fxLayoutAlign="start center">
-      <img *ngIf="userInfo.url; else defaultUrl" mat-card-avatar src={{userInfo.url}}>
-      <ng-template #defaultUrl>
-        <img mat-card-avatar src="assets/images/review/user-avatar.png">
+  <div class="header" fxLayout="column" fxLayoutAlign="center center">
+    <p class="rate">Rate the article</p>
+    <p class="title">{{postTitle}}</p>
+    <p class="date">{{dateFormat(postDate)}}</p>
+  </div>
+
+  <div class="ratebar" fxLayout="row" fxLayoutAlign="center center">
+    <div *ngFor="let rate of rateList; index as i">
+      <img *ngIf="i<rate;else inactive" class="active" src="assets/images/review/star-active.png" (click)="eventRating($event)">
+      <ng-template #inactive>
+        <img class="inactive" src="assets/images/review/star-inactive.png" (click)="eventRating($event)">
       </ng-template>
-      <mat-card-content>
-        <span class="lable">Writing review as </span>
-        <span class="user-name">{{userInfo.name}}</span>    
-      </mat-card-content>
-    </mat-card>
-  
-    <div class="comments">
-      <p><label>Write a brief review</label></p>
-      <p id="contents"><textarea [(ngModel)]="comment" autofocus></textarea></p>
-      <p><button mat-flat-button (click)="saveComment()">Submit Review</button></p>
     </div>
   </div>
+
+  <mat-card fxLayout="row" fxLayoutAlign="start center">
+    <img *ngIf="userInfo.url; else defaultUrl" mat-card-avatar src={{userInfo.url}}>
+    <ng-template #defaultUrl>
+      <img mat-card-avatar src="assets/images/review/user-avatar.png">
+    </ng-template>
+    <mat-card-content>
+      <span class="lable">Writing review as </span>
+      <span class="user-name">{{userInfo.name}}</span>    
+    </mat-card-content>
+  </mat-card>
+
+  <div class="comments">
+    <p><label>Write a brief review</label></p>
+    <p id="contents"><textarea [(ngModel)]="comment" autofocus></textarea></p>
+    <p><button mat-flat-button (click)="saveComment()">Submit Review</button></p>
+  </div>
+</div>
   
