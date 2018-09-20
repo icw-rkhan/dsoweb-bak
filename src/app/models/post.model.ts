@@ -19,12 +19,13 @@ export class Post implements Serializable<Post> {
   tags: number[];
 
   deserialize(data: any): Post {
-    let thumbnail = data['_embedded']['wp\:featuredmedia'];
-    let category = data['_embedded']['wp\:term'];
+    let thumbnail = data['_embedded'] ? data['_embedded']['wp\:featuredmedia'] : {};
+    let category = data['_embedded'] ? data['_embedded']['wp\:term'] : {};
+    const author = data['_embedded'] ? data['_embedded'].author[0] : {};
 
     // find category object
     category = _.flatMap(category).find(item => item['taxonomy'] === 'category');
-    thumbnail = thumbnail !== undefined ? (thumbnail[0].media_details ?
+    thumbnail = thumbnail && thumbnail[0] ? (thumbnail[0].media_details ?
       thumbnail[0].media_details.sizes.full.source_url : undefined) : undefined;
 
     return <Post>Object.assign({}, {
@@ -34,7 +35,7 @@ export class Post implements Serializable<Post> {
       excerpt: data.excerpt.rendered,
       format: data.format,
       date: new Date(data.date_gmt),
-      author: new Author().deserialize(data._embedded.author[0]),
+      author: new Author().deserialize(author),
       thumbnail: thumbnail,
       category: new Category().deserialize(category),
       tags: data.tags
