@@ -13,7 +13,7 @@
       <div class="personal-group practice-group">
         <div class="toggle-div">
           <label class="profile_title mb0">Attended Dental School in the US</label>
-          <div (click)="type = !type" class="switch" [ngClass]="{'on': type == 0}">
+          <div (click)="type = 1-type" class="switch" [ngClass]="{'on': type == 0}">
             <div class="handle"></div>
           </div>
         </div>
