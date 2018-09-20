@@ -1,13 +1,13 @@
 <header class="header-profile fixed-bar">
   <nav class="navbar bg-grey">
-    <a href="#" class="back-link"><span class="icon-bar icon-back"></span></a>
+    <a class="back-link cursor" (click)="_backSearchEducation()"><span class="icon-bar icon-back"></span></a>
     <div class="navbar-title-heading">Education at</div> 
   </nav>
 </header>
 <div class="speciality-container">
   <div class="speciality-search">
     <div class="search-container">
-      <input type="text" name="" placeholder="Search ..." class="input-search">
+      <input type="text" (input)="search($event)" placeholder="Search ..." class="input-search">
       <span class="icon-search"></span>
     </div>
   </div>
@@ -15,19 +15,7 @@
     <div class="speciality__list ">
       <div class="list__left">
         <ul class="speciality-ul">
-          <li><a href="#">Creighton University School of Dentistry</a></li>
-          <li><a href="#">Howard University College of Dentistry</a></li>
-          <li><a href="#">Indiana University School of Dentistry</a></li>
-          <li><a href="#">LECOM College of Dental Medicine</a></li>
-          <li><a href="#"> Marquette University School of Dentistry</a></li>
-          <li><a href="#"> Meharry Medical College School of Dentistry</a></li>
-          <li><a href="#"> Meharry Medical College School of Dentistry</a></li>
-          <li><a href="#"> New York University College of Dentistry</a></li>
-          <li><a href="#"> Ohio State University College of Dentistry</a></li>
-          <li><a href="#"> Rutgers School of Dental Medicine</a></li>
-          <li><a href="#"> Texas A&M University College of Dentistry</a></li>
-          <li><a href="#"> University of Kentucky College of Dentistry</a></li>
-          <li><a href="#"> University of Louisville School of Dentistry</a></li>
+          <li *ngFor="let s of listSchoolS"><a (click)="selected(s)" class="cursor">{{s.name}}</a></li>
         </ul>
       </div>
     </div>

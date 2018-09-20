@@ -42,9 +42,11 @@ import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-pol
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { SponsorCardComponent } from './sponsor-card/sponsor-card.component';
+import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
 
 const PIPES = [
-  TruncatePipe
+  TruncatePipe,
+  MultipleCategoriesPipe
 ];
 
 export const COMPONENTS = [

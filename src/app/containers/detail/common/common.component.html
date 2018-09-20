@@ -1,5 +1,5 @@
 <div class="inner-content topic-date" fxLayout="row">
-    <span *ngIf="post.category" class="topic" fxFlex="50">{{post.category.name}}</span>
+    <span *ngIf="post.categories.length > 0" class="topic" fxFlex="50">{{post.categories | multipleCategories}}</span>
     <span *ngIf="post" class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
 </div>
 <div class="inner-thumbnail" fxLayout="column">
@@ -58,7 +58,7 @@
                 <img src="assets/images/review/view-star-inactive.png" class="rate-star">
                 </ng-template>
             </div>
-            <span class="review-count">{{getRating(comments, 0)}}</span> 
+            <span class="review-count">{{getRating(comments, 0)}}</span>
         </div>
     </div>
     <div fxFlex="50" fxLayoutAlign="end center">
@@ -88,4 +88,3 @@
         </mat-menu>
     </div>
 </div>
-    
