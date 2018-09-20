@@ -3,7 +3,7 @@
     <img class="icon-type" src="/src/assets/images/TipSheet@2x.png" *ngIf="post.format === 'image'">
     <img class="icon-type" src="/src/assets/images/Video@2x.png" *ngIf="post.format === 'video'">
     <img class="icon-type" src="/src/assets/images/Article@2x.png" *ngIf="post.format === 'standard'">
-    <h3 class="mat-h3">ARTICLES, VIDEOS</h3>
+    <h3 class="mat-h3">{{post.categories | multipleCategories}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>
@@ -12,7 +12,7 @@
     </div>
     <div class="content">
       <div class="content-title">
-        <h2 class="mat-h2" (click)="onViewDetail()">{{post.title}}</h2>
+        <h2 class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></h2>
         <div class="actions">
           <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>

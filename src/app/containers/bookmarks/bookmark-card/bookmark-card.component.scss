@@ -1,3 +1,5 @@
+@import "../../../../variables";
+
 .bookmark-card {
   display: flex;
   flex-direction: row;
@@ -5,27 +7,26 @@
 
 .information {
   display: flex;
-  flex: 1;
-  flex-basis: 40%;
+  flex-grow: 1;
   flex-direction: column;
   padding-left: 20px;
-  h3 {
+
+  h4 {
     text-transform: uppercase;
+    letter-spacing: 0.9px;
+    color: #4c4c4c;
   }
 }
 
 .image {
-  flex-basis: 40%;
+  flex-basis: 25%;
+  min-width: 100px;
+  min-height: 100px;
   position: relative;
+
   .bookmark-image {
     max-width: 100%;
     height: auto;
-    border: 1px solid rgba(0, 0, 0, 0.12);
-  }
-  .type {
-    position: absolute;
-    bottom: 10px;
-    left: 10px;
   }
 }
 
@@ -35,4 +36,9 @@
 
 .mat-body-2 {
   margin-bottom: 10px;
+  color: #354051;
+}
+
+.actions {
+  flex-shrink: 1;
 }
