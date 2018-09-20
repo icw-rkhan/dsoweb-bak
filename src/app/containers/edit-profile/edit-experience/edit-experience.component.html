@@ -58,7 +58,10 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <app-practice-type></app-practice-type>
+        <app-practice-type [practiceTypeList]="practiceTypeList"
+                           [practiceType]="experience?.practice_Type"
+                           (closePracticeType)="PracticeTypeModal.hide()"
+                           (selectPracticeType)="selectPracticeType($event)"></app-practice-type>
       </div>
     </div>
   </div>

@@ -57,13 +57,6 @@ export class ProfileService {
     );
   }
 
-  getPracticeTypes(): Observable<any> {
-    const headers: any = this.customHeader();
-    const url = `${environment.profileApiUrl}/experience/findAllPracticeType`;
-    const formData = this.parseFormData({ name: '' });
-    return this.http.post(url, formData, { headers: headers });
-  }
-
   customHeader() {
     return {
       'Authorization': `Bearer ${localStorage.getItem('token')}`

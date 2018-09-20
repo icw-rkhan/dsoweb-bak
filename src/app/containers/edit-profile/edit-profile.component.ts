@@ -10,7 +10,6 @@ import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
 import {AlertService} from '../../services/alert.service';
 import {Speciality} from '../../models/speciality.model';
-import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -32,12 +31,12 @@ import {isNullOrUndefined} from 'util';
 export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
-  @ViewChild('ExperienceModal') private experienceModal: ModalDirective;
   is_student: number;
   userInfo: any;
   userProfile: any;
   metadata: any;
   isEditSpeciality: boolean;
+  isEditExperience: boolean;
   isUploadResume: boolean;
   isUploadResumeSlide: boolean;
 
@@ -45,6 +44,7 @@ export class EditProfileComponent implements OnInit {
   RESIDENCY_ADD = 2;
   RESIDENCY_EDIT = 3;
   residency_page = 2;
+  education_page = 3;
   residency: Residency;
   residencyIndex: number;
 
@@ -59,6 +59,7 @@ export class EditProfileComponent implements OnInit {
               private alertService: AlertService) {
     this.sharingService.showLoading̣̣(true);
     this.isEditSpeciality = false;
+    this.isEditExperience = false;
     this.isUploadResume = false;
     this.isUploadResumeSlide = false;
 
@@ -102,6 +103,8 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        this.userProfile.educations.push({});
+        this.experiences = this.userProfile.experiences;
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
       }
@@ -137,12 +140,8 @@ export class EditProfileComponent implements OnInit {
     this.isEditSpeciality = false;
   }
 
-  saveExperience(ex: any) {
-    this.experiences = ex;
-    if (!isNullOrUndefined(this.userProfile.experiences) && this.userProfile.experiences.length !== 0){
-      this.userProfile.experiences = this.experiences;
-    }
-    this.experienceModal.hide();
+  saveExperience(ex) {
+
   }
 
   selectedResidency(e: Residency) {
@@ -222,7 +221,11 @@ export class EditProfileComponent implements OnInit {
           this.alertService.alertInfo('Error', data.msg);
         }
         this.sharingService.showLoading̣̣(false);
-      });
+      },
+        error2 => {
+          this.alertService.alertInfo('Error', 'Something went wrong');
+          this.sharingService.showLoading̣̣(false);
+        });
     }
   }
 

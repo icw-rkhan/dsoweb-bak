@@ -229,7 +229,9 @@
     <div class="modal-content">
       <div class="modal-body">
         <app-edit-experience (closeModal)="ExperienceModal.hide()"
-                             (saveExperience)="saveExperience(ex)"
+                             (saveExperience)="saveExperience($event)"
+                             [practiceTypeList]="metadata.practiceType"
+                             [practiceRoleList]="metadata.practiceRole"
                              [experience]="experiences" ></app-edit-experience>
       </div>
     </div>
