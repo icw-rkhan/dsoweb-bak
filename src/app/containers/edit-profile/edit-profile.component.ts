@@ -33,6 +33,7 @@ import {Speciality} from '../../models/speciality.model';
 export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
+  @ViewChild('educationModel') private educationModel: ModalDirective;
   is_student: number;
   userInfo: any;
   userProfile: any;
@@ -114,7 +115,8 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
-        this.userProfile.educations.push({});
+        this.userProfile.educations = [];
+        // this.userProfile.educations.push({});
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
       }
@@ -304,9 +306,7 @@ export class EditProfileComponent implements OnInit {
         school_name: e.name,
         types: e.types
       });
-      this.profileService.saveProfile(this.userProfile).subscribe(profile => {
-        console.log(profile);
-      });
+      this.educationModel.hide();
     }
   }
 }
