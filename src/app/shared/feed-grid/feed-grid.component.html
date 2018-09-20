@@ -1,8 +1,8 @@
 <div class="feed-grid-container">
   <div class="sponsor">
-    <img src="../../../assets/images/align_banner.png" *ngIf="sponsorId === 260"/>
-    <img src="../../../assets/images/gsk_banner.png" *ngIf="sponsorId === 197"/>
-    <img src="../../../assets/images/nobel_banner.png" *ngIf="sponsorId === 259"/>
+    <img src="../../../assets/images/sponsor/align-banner.png" *ngIf="sponsorId === 260"/>
+    <img src="../../../assets/images/sponsor/gsk-banner.png" *ngIf="sponsorId === 197"/>
+    <img src="../../../assets/images/sponsor/nobel-banner.png" *ngIf="sponsorId === 259"/>
   </div>
   <ngx-masonry [options]="gridOptions" [useImagesLoaded]="true" *ngIf="posts?.length > 0">
     <ngxMasonryItem *ngFor="let post of posts">
