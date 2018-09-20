@@ -14,7 +14,7 @@
         <div class="profile-img">
           <div class="profile_title">Profile Photo</div>
           <div class="avatar_profile">
-            <img src="{{userProfile.photo_url ? userProfile.photo_url : '../assets/images/profile/avatar_profile.png'}}">
+            <img src="{{userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/avatar_profile.png'}}">
             <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span class="edit-icon icons"></span></a>
           </div>
         </div>

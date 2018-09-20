@@ -10,6 +10,7 @@ import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
 import {isNullOrUndefined} from 'util';
 import {AlertService} from '../../services/alert.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -52,7 +53,7 @@ export class EditProfileComponent implements OnInit {
   typeFile: number;
 
   filteredSpeciality: any;
-
+  baseUrl: String;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private sharingService: SharingService,
@@ -63,6 +64,7 @@ export class EditProfileComponent implements OnInit {
     this.isEditExperience = false;
     this.isUploadFile = false;
     this.isUploadFileSlide = false;
+    this.baseUrl = environment.profileApiUrl;
 
     this.metadata = {
       dentalSchool: [],
@@ -221,6 +223,7 @@ export class EditProfileComponent implements OnInit {
 
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
+          this.fetchProfile(this.userInfo.user_name);
           this.alertService.alertInfo('Success', 'Saved successfully');
         } else {
           this.alertService.alertInfo('Error', data.msg);
