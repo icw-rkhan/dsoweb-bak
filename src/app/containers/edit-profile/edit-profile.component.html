@@ -8,16 +8,17 @@
       </div>
     </nav>
   </header>
-  <div class="profile_content">
-    <section class="profile-heading profile-header">
-      <div class="profile-img">
-        <div class="profile_title">Profile Photo</div>
-        <div class="avatar_profile">
-          <img src="../assets/images/profile/avatar_profile.png">
-          <a href="#" class="edit_profile"><span class="edit-icon icons"></span></a>
+    <div class="profile_content">
+      <section class="profile-heading profile-header">
+        <div class="profile-img">
+          <div class="profile_title">Profile Photo</div>
+          <div class="avatar_profile">
+            <img [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/avatar_profile.png'">
+            <!-- <img [src]="baseUrl + '/photoDownload?' + userProfile.photo_url"> -->
+            <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span class="edit-icon icons"></span></a>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
     <section class="personal-info">
       <div class="profile_title small f300 mb15">Personal Info</div>
@@ -73,10 +74,10 @@
           </div>
         </div>
   </section>
-    <section class="profile_Education">
-      <div class="profile_title small f300">Upload resume or import data</div>
-      <div class="profile__content" (click)="isUploadResume = true; isUploadResumeSlide = true">
-        <div class="profile__icon upload-icon"></div>
+  <section class="profile_Education">
+    <div class="profile_title small f300">Upload resume or import data</div>
+    <div class="profile__content" (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = RESUME_FILE">
+      <div class="profile__icon upload-icon"></div>
         <div class="profile__content_info">
           <div class="profile_info">
             <div class="profile_subtitle">Upload Resume</div>
@@ -85,7 +86,6 @@
         </div>
       </div>
     </section>
-
     <section *ngIf="is_student" class="profile_Residency">
       <div class="profile_title small f300">Experience</div>
       <span class="addNew-icon"></span>
@@ -208,12 +208,13 @@
   </div>
 </form>
 
-<div *ngIf="isUploadResume" class="modal-overlay upload-file" (click)="closeUploadResume($event)">
-  <div class="modal-container" [@slideUpDown]="isUploadResumeSlide ? 'up': 'down'">
+<div *ngIf="isUploadFile" class="modal-overlay upload-file" (click)="closeUploadResume($event)">
+  <div class="modal-container" [@slideUpDown]="isUploadFileSlide ? 'up': 'down'">
     <div class="upload-content">
-      <div class="profile_title small f300 mb10">Upload Resume</div>
+      <div class="profile_title small f300 mb10">Upload {{typeFile == RESUME_FILE ? 'Resume': 'Photo'}}</div>
       <div class="upload-browse">
-        <input type="file" name="" class="upload-hidden">
+        <input type="file" *ngIf="typeFile == RESUME_FILE" accept=".xls,.xlsx,.doc,.docx" (input)="selectFile($event)" class="upload-hidden">
+        <input type="file" *ngIf="typeFile == PHOTO_FILE" (input)="selectFile($event)" accept="image/*" class="upload-hidden">
         <span class="type-upload">Browse</span>
       </div>
     </div>
