@@ -21,11 +21,12 @@ export class BookmarkCardComponent {
     this.remove.emit(this.post);
   }
   // post a bookmark by url
-  onPostBookmark(content) {
-    const start = content.indexOf('href=\"');
-    const end = content.indexOf('/\"');
-    const url =  content.substring(start + 6, end);
-    location.href = url;
+  onPostBookmark(postId, tags) {
+    if (tags.includes(197) || tags.includes(260) || tags.includes(259)) {
+      this.router.navigate([`/detail/sponsor/${postId}`]);
+    } else {
+      this.router.navigate([`/detail/${postId}`]);
+    }
   }
 
 }
