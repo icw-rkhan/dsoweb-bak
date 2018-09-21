@@ -1,5 +1,5 @@
 <div fxLayout = "column">
-    <mat-card fxLayout="column" fxLayoutAlign="center top" *ngFor="let comment of (comments$ | async)">
+    <mat-card fxLayout="column" fxLayoutAlign="center top" *ngFor="let comment of comments$">
         <div fxLayout="row">
             <img *ngIf="comment.userUrl; else defaultUrl" class="mat-card-avatar" mat-card-avatar src={{comment.userUrl}}>
             <ng-template #defaultUrl>
