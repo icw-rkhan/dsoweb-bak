@@ -224,15 +224,13 @@
 
 <div bsModal #ExperienceModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
      aria-labelledby="dialog-sizes-name3"
-     id="experienceModal" [config]="{backdrop: 'static'}">
+     id="experienceModal" [config]="{backdrop: 'static', keyboard: false}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
         <app-edit-experience (closeModal)="ExperienceModal.hide()"
-                             (saveExperience)="saveExperience($event)"
-                             [practiceTypeList]="metadata.practiceType"
-                             [practiceRoleList]="metadata.practiceRole"
-                             [experience]="experiences" ></app-edit-experience>
+                             (editExperience)="editExperience($event)"
+        ></app-edit-experience>
       </div>
     </div>
   </div>

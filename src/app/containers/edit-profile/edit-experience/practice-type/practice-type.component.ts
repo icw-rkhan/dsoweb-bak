@@ -1,4 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {EditProfileService} from '../../edit-profile.service';
 
 @Component({
   selector: 'app-practice-type',
@@ -6,42 +7,36 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./practice-type.component.scss']
 })
 export class PracticeTypeComponent implements OnInit {
-  @Input('practiceTypeList') practiceTypeList: any[];
-  @Input('practiceType') practiceType: any;
   @Output('closePracticeType') closePracticeType: EventEmitter<null> = new EventEmitter(null);
-  @Output('selectPracticeType') selectPracticeType: EventEmitter<any> = new EventEmitter(null);
 
   practiceTypes: any[] = [];
+  filterList: any[] = [];
   searchText = '';
 
-  isSearch = false;
 
-  constructor() {
+  constructor(public experienceService: EditProfileService) {
+    this.experienceService.S_practiceTypes.subscribe(p => {
+      this.practiceTypes = p;
+      this.filterList = this.practiceTypes;
+    });
   }
 
   ngOnInit() {
-    console.log(this.practiceTypeList);
-    this.practiceTypes = this.practiceTypeList;
+
   }
 
   _selectPracticeType(p) {
-    console.log(p);
-    this.searchText = p.name;
-    this.practiceTypeList = this.practiceTypes;
-    this.selectPracticeType.emit(p);
-  }
-
-  changeInput(key) {
-    if (!this.isSearch) {
-      this.practiceTypes = this.practiceTypeList;
-      this.isSearch = true;
-    }
-    this.practiceTypeList = this.practiceTypes.filter((speciality: any) => speciality.name.toLocaleLowerCase().includes(key.toLocaleLowerCase()));
-  }
-
-  close() {
-    this.practiceTypeList = this.practiceTypes;
+    this.searchText = '';
+    this.experienceService.selectPracticeType(p);
     this.closePracticeType.emit();
   }
 
+  changeInput(key) {
+    this.filterList = this.experienceService.S_practiceTypes.getValue().filter((speciality: any) => speciality.name.toLocaleLowerCase().includes(key.toLocaleLowerCase()));
+  }
+
+  close() {
+    this.searchText = '';
+    this.closePracticeType.emit();
+  }
 }

@@ -1,7 +1,7 @@
 <header class="header-profile fixed-bar">
   <nav class="navbar bg-grey">
     <a (click)="close()" class="back-link cursor"><span class="icon-bar icon-back"></span></a>
-    <div class="navbar-title-heading">Pracice Type</div>
+    <div class="navbar-title-heading">Dental Support Organization</div>
   </nav>
 </header>
 <div class="speciality-container">
@@ -15,9 +15,9 @@
     <div class="speciality__list ">
       <div class="list__left">
         <ul class="speciality-ul">
-          <li *ngFor="let p of filterList" class="container-r" (click)="_selectPracticeType(p)"><a href="javascript:void(0)" >{{p.name}}</a>
+          <li *ngFor="let p of filterList" class="container-r" (click)="_selectPracticeDSO(p)"><a href="javascript:void(0)" >{{p?.name}}</a>
             <label class="container-checkbox">
-              <input type="checkbox" [checked]="experienceService.S_experiences[0]?.practice_Type && experienceService.S_experiences[0]?.practice_Type.id == p.id">
+              <input type="checkbox" [checked]="experienceService.S_experiences[0]?.practice_DSO && experienceService.S_experiences[0]?.practice_DSO.id == p.id">
               <span class="checkmark"></span>
             </label>
           </li>

@@ -10,6 +10,8 @@ import {ResidencyEditComponent} from './residency-edit/residency-edit.component'
 import {SpecialityComponent} from './speciality/speciality.component';
 import {EditExperienceComponent} from './edit-experience/edit-experience.component';
 import {PracticeTypeComponent} from './edit-experience/practice-type/practice-type.component';
+import {PracticeRoleComponent} from './edit-experience/practice-role/practice-role.component';
+import {PracticeDSOComponent} from './edit-experience/practice-dso/practice-dso.component';
 
 @NgModule({
   imports: [
@@ -25,7 +27,9 @@ import {PracticeTypeComponent} from './edit-experience/practice-type/practice-ty
     ResidencyEditComponent,
     SpecialityComponent,
     EditExperienceComponent,
-    PracticeTypeComponent
+    PracticeTypeComponent,
+    PracticeRoleComponent,
+    PracticeDSOComponent
   ],
 })
 export class EditProfileModule { }

@@ -20,7 +20,7 @@ import {AuthGuard} from './services/auth/auth-guard';
 
 @NgModule({
   declarations: [
-    AppComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -41,7 +41,7 @@ import {AuthGuard} from './services/auth/auth-guard';
     BookmarksPageModule,
     ProfileModule,
     EditProfileModule,
-    AppRoutingModule,
+    AppRoutingModule
   ],
   providers: [
     AuthGuard

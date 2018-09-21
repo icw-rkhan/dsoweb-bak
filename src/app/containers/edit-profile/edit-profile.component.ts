@@ -10,11 +10,13 @@ import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
 import {AlertService} from '../../services/alert.service';
 import {Speciality} from '../../models/speciality.model';
+import {EditProfileService} from './edit-profile.service';
 
 @Component({
   selector: 'dso-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
+  providers: [EditProfileService],
   animations: [
     trigger('slideUpDown', [
       state('up', style({bottom: 0})),
@@ -56,7 +58,8 @@ export class EditProfileComponent implements OnInit {
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private sharingService: SharingService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private editProfileService: EditProfileService) {
     this.sharingService.showLoading̣̣(true);
     this.isEditSpeciality = false;
     this.isEditExperience = false;
@@ -67,7 +70,8 @@ export class EditProfileComponent implements OnInit {
       dentalSchool: [],
       residency: [],
       practiceRole: [],
-      practiceType: []
+      practiceType: [],
+      practiceDSO: []
     };
     this.userInfo = this.authService.getUserInfo();
   }
@@ -90,9 +94,15 @@ export class EditProfileComponent implements OnInit {
         }
         if (data[2]) {
           this.metadata.practiceRole = data[2].resultMap.data;
+          this.editProfileService.S_practiceRoles.next(data[2].resultMap.data);
         }
         if (data[3]) {
           this.metadata.practiceType = data[3].resultMap.data;
+          this.editProfileService.S_practiceTypes.next(data[3].resultMap.data);
+        }
+        if (data[4]) {
+          this.metadata.practiceType = data[4].resultMap.data;
+          this.editProfileService.S_practiceDSO.next(data[4].resultMap.data);
         }
       }
     );
@@ -140,8 +150,9 @@ export class EditProfileComponent implements OnInit {
     this.isEditSpeciality = false;
   }
 
-  saveExperience(ex) {
-
+  editExperience(ex) {
+    this.experiences = ex;
+    this.userProfile.experiences = ex;
   }
 
   selectedResidency(e: Residency) {
