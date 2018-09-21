@@ -1,7 +1,7 @@
 <header class="header-profile fixed-bar">
   <nav class="navbar bg-grey">
     <a (click)="close()" class="back-link cursor"><span class="icon-bar icon-back"></span></a>
-    <div class="navbar-title-heading">SPECIALITY</div>
+    <div class="navbar-title-heading">SPECIALTY</div>
   </nav>
 </header>
 <div class="speciality-container">
@@ -17,7 +17,7 @@
         <ul class="speciality-ul">
           <li *ngFor="let s of specialities" class="container-r" (click)="_selectSpeciality(s)"><a href="javascript:void(0)" >{{s.name}}</a>
             <label class="container-checkbox">
-              <input type="checkbox" [checked]="speciality && speciality.id == s.id">
+              <input type="checkbox" [checked]="specialty && specialty.id == s.id">
               <span class="checkmark"></span>
             </label>
           </li>

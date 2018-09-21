@@ -11,7 +11,7 @@ import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
 import {AlertService} from '../../services/alert.service';
 import { environment } from '../../../environments/environment';
-import {Speciality} from '../../models/speciality.model';
+import {Specialty} from '../../models/speciality.model';
 import {EditProfileService} from './edit-profile.service';
 import {isNullOrUndefined} from 'util';
 
@@ -64,7 +64,7 @@ export class EditProfileComponent implements OnInit {
   PHOTO_FILE = 2;
   typeFile: number;
   filteredSpeciality: any;
-  speciality: Speciality;
+  speciality: Specialty;
 
   baseUrl: String;
   constructor(private authService: AuthService,
@@ -127,6 +127,7 @@ export class EditProfileComponent implements OnInit {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
         this.userProfile.educations = [];
+        this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
       }
@@ -151,6 +152,7 @@ export class EditProfileComponent implements OnInit {
 
   setSpeciality(speciality: any) {
     this.speciality = speciality;
+    this.userProfile.specialty = {id: this.speciality.id, name: this.speciality.name};
     this.closeSpecialityModal();
   }
 

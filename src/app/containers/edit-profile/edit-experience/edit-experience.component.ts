@@ -6,7 +6,7 @@ import {isNullOrUndefined} from 'util';
 
 export const MY_FORMATS = {
   parse: {
-    dateInput: 'MM/YYYY',
+    dateInput: 'dd/MM/YYYY',
   },
   display: {
     dateInput: 'MM/YYYY',

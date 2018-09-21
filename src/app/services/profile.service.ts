@@ -69,6 +69,7 @@ export class ProfileService {
   parseFormData(data: any) {
     const formData: FormData = new FormData();
     Object.keys(data).map((key: any) => {
+      console.log(data[key]);
       formData.append(key, data[key]);
     });
     return formData;
