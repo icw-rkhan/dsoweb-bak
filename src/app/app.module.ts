@@ -17,6 +17,8 @@ import {BookmarksPageModule} from './containers/bookmarks/bookmarks-page.module'
 import {ProfileModule} from './containers/profile/profile.module';
 import {EditProfileModule} from './containers/edit-profile/edit-profile.module';
 import {AuthGuard} from './services/auth/auth-guard';
+import {MatDatepickerModule} from '@angular/material';
+
 
 @NgModule({
   declarations: [
@@ -42,10 +44,12 @@ import {AuthGuard} from './services/auth/auth-guard';
     ProfileModule,
     EditProfileModule,
     AppRoutingModule,
+    MatDatepickerModule
   ],
   providers: [
     AuthGuard
   ],
+  exports: [MatDatepickerModule],
   bootstrap: [
     AppComponent
   ]

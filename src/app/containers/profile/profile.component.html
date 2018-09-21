@@ -1,13 +1,4 @@
 <dso-main-container [displayMainActions]="false">
-  <header class="header-profile fixed-bar">
-    <nav class="navbar bg-grey">
-      <!-- <span class="icon-bar"></span> -->
-      <div class="navbar-title-heading">Profile</div>
-      <div class="navbar-edit-profile">
-        <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
-      </div>
-    </nav>
-  </header>
   <div class="profile_content">
     <section class="profile-heading">
       <div class="profile-heading_info">
@@ -18,6 +9,7 @@
           <div class="profile_name">{{ userProfile?.full_name }}</div>
           <div class="profile_speciality">
             <label>Speciality</label>
+            <div class="profile_subtitle">{{ userProfile?.specialty?.name }}</div>
           </div>
         </div>
       </div>
@@ -29,9 +21,9 @@
           <div class="profile__icon exp_owner"></div>
           <div class="profile__content_info">
             <div class="profile_info">
-              <div class="profile_subtitle">Owner Dentist</div>
-              <div class="profile-job">Smile Dental (Aspen)</div>
-              <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+              <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
+              <div class="profile-job">{{ item?.practice_Type?.name }}</div>
+              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy'}} - {{ item?.end_time | date: 'MMM yyyy'}}</div>
             </div>
           </div>
         </div>
@@ -53,8 +45,8 @@
           <div class="profile__content_info">
             <div class="profile_info">
               <div class="profile_subtitle">Residency</div>
-              <div class="profile-job">{{ item?.dental_school?.name }}</div>
-              <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+              <div class="profile-job">{{ item?.residency_school?.name }}</div>
+              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy'}} - {{ item?.end_time | date: 'MMM yyyy'}}</div>
             </div>
           </div>
         </div>

@@ -11,12 +11,15 @@ import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
 import {AlertService} from '../../services/alert.service';
 import { environment } from '../../../environments/environment';
-import {Speciality} from '../../models/speciality.model';
+import {Specialty} from '../../models/speciality.model';
+import {EditProfileService} from './edit-profile.service';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'dso-edit-profile',
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.scss'],
+  providers: [EditProfileService],
   animations: [
     trigger('slideUpDown', [
       state('up', style({bottom: 0})),
@@ -61,13 +64,14 @@ export class EditProfileComponent implements OnInit {
   PHOTO_FILE = 2;
   typeFile: number;
   filteredSpeciality: any;
-  speciality: Speciality;
+  speciality: Specialty;
 
   baseUrl: String;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private sharingService: SharingService,
-              private alertService: AlertService) {
+              private alertService: AlertService,
+              private editProfileService: EditProfileService) {
     this.sharingService.showLoading̣̣(true);
     this.isEditSpeciality = false;
     this.isEditExperience = false;
@@ -79,7 +83,8 @@ export class EditProfileComponent implements OnInit {
       dentalSchool: [],
       residency: [],
       practiceRole: [],
-      practiceType: []
+      practiceType: [],
+      practiceDSO: []
     };
     this.userInfo = this.authService.getUserInfo();
   }
@@ -102,9 +107,15 @@ export class EditProfileComponent implements OnInit {
         }
         if (data[2]) {
           this.metadata.practiceRole = data[2].resultMap.data;
+          this.editProfileService.S_practiceRoles.next(data[2].resultMap.data);
         }
         if (data[3]) {
           this.metadata.practiceType = data[3].resultMap.data;
+          this.editProfileService.S_practiceTypes.next(data[3].resultMap.data);
+        }
+        if (data[4]) {
+          this.metadata.practiceType = data[4].resultMap.data;
+          this.editProfileService.S_practiceDSO.next(data[4].resultMap.data);
         }
       }
     );
@@ -116,7 +127,7 @@ export class EditProfileComponent implements OnInit {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
         this.userProfile.educations = [];
-        // this.userProfile.educations.push({});
+        this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
       }
@@ -141,15 +152,33 @@ export class EditProfileComponent implements OnInit {
 
   setSpeciality(speciality: any) {
     this.speciality = speciality;
-    if (this.userProfile.educations.length !== 0) {
-      this.userProfile.educations[0].major = speciality.name;
-    }
+    this.userProfile.specialty = {id: this.speciality.id, name: this.speciality.name};
     this.closeSpecialityModal();
   }
 
   closeSpecialityModal() {
     this.specialityModal.hide();
     this.isEditSpeciality = false;
+  }
+
+  addExperience(ex) {
+    console.log(ex);
+    this.userProfile.experiences.push(ex);
+    this.editProfileService.S_experience = {};
+    this.editProfileService.S_experienceEdit = undefined;
+    this.isEditExperience = false;
+  }
+
+  editExperience(ex) {
+    this.userProfile.experiences[this.editProfileService.S_editIndex] = ex;
+    this.editProfileService.S_experience = {};
+    this.editProfileService.S_experienceEdit = undefined;
+    this.isEditExperience = false;
+  }
+
+  EditExperienceMode(item, index) {
+    this.editProfileService.S_experienceEdit = item;
+    this.editProfileService.S_editIndex = index;
   }
 
   selectedResidency(e: Residency) {
@@ -245,7 +274,7 @@ export class EditProfileComponent implements OnInit {
         this.isUploadFile = false;
       }, 400);
     }
-  } 
+  }
 
   selectFile(file) {
     this.sharingService.showLoading̣̣(true);
@@ -254,7 +283,7 @@ export class EditProfileComponent implements OnInit {
         if (res['code'] == 0) {
           this.userProfile.document_library = {
             document_name: res['resultMap']['resumeName']
-          }
+          };
         }
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
@@ -264,11 +293,11 @@ export class EditProfileComponent implements OnInit {
         if (res['code'] == 0) {
           this.userProfile.photo_album = {
             photo_name: res['resultMap']['photoName']
-          }
+          };
         }
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
-      })
+      });
     }
   }
 
@@ -288,7 +317,7 @@ export class EditProfileComponent implements OnInit {
     //   name: this.userProfile.educations[i].school_name,
     //   year: this.userProfile.educations[i].school_name
     // }
-    // this.education 
+    // this.education
   }
 
 
@@ -297,9 +326,9 @@ export class EditProfileComponent implements OnInit {
       console.log(e);
       this.userProfile.educations.push({
         email: this.userInfo.email,
-        start_time: (e.year - 1) + "-01-01T00:00:00.000Z",
-        end_time: e.year + "-01-01T00:00:00.000Z",
-        major: "1",
+        start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
+        end_time: e.year + '-01-01T00:00:00.000Z',
+        major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
         dental_school: {
           id: e.id || null
         },

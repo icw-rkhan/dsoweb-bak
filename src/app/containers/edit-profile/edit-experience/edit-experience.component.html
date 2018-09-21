@@ -1,0 +1,113 @@
+<header class="header-profile fixed-bar">
+  <nav class="navbar bg-grey">
+    <a href="javascript:void(0)" (click)="close()" class="back-link"><span class="icon-bar icon-back"></span></a>
+    <div class="navbar-title-heading">Edit Experience</div>
+    <div class="navbar-edit-profile">
+      <a href="javascript:void(0)" (click)="save()" class="">Save</a>
+    </div>
+  </nav>
+</header>
+<div class="profile_content">
+  <section class="personal-info practice-add">
+    <div class="personal-container mh-vh">
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">Practice Type</label>
+        <div class="input-mb flex-input" (click)="PracticeTypeModal.show()">
+          {{experienceService.S_experience?.practice_Type?.name}}
+        </div>
+        <span class="arrow-right" (click)="PracticeTypeModal.show()"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">Role at Practice</label>
+        <div class="input-mb flex-input" (click)="PracticeRoleModal.show()">
+          {{experienceService.S_experience?.practice_Role?.name}}
+        </div>
+        <span class="arrow-right" (click)="PracticeRoleModal.show()"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">Name of Dental Support Organization (DSO)</label>
+        <div class="input-mb flex-input" (click)="PracticeDSOModal.show()">
+          {{experienceService.S_experience?.practice_DSO?.name}}
+        </div>
+        <span class="arrow-right" (click)="PracticeDSOModal.show()"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <div class="toggle-div">
+          <label class="profile_title mb0">I currently work in this role</label>
+          <div (click)="toggleCurrentWork()" class="switch" [ngClass]="{'on': isCurrentWork}">
+            <div class="handle"></div>
+          </div>
+        </div>
+      </div>
+      <div class="personal-group practice-group">
+        <div class="flex">
+          <div class="col s6">
+            <label class="profile_title mb0">From</label>
+            <mat-form-field>
+              <input matInput [matDatepicker]="dp"
+                     [ngModel]="startDate" name="startDate1" #startDate1="ngModel">
+              <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+              <mat-datepicker #dp
+                              startView="multi-year"
+                              (monthSelected)="chosenStartDate($event, dp)"
+                              panelClass="example-month-picker">
+              </mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col s6">
+            <label class="profile_title mb0">To</label>
+            <mat-form-field>
+              <input matInput [matDatepicker]="to"
+                     [ngModel]="endDate" name="endDate1" #endDate1="ngModel">
+              <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
+              <mat-datepicker #to
+                              startView="multi-year"
+                              (monthSelected)="chosenEndDate($event, to)"
+                              panelClass="example-month-picker"></mat-datepicker>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <div class="cancel-row"><a href="javascript:void(0)" (click)="close()">Cancel</a></div>
+    </div>
+  </section>
+</div>
+
+<div bsModal #PracticeTypeModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="practiceTypeModal" [config]="{backdrop: 'static', keyboard: false}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-practice-type (closePracticeType)="PracticeTypeModal.hide()"
+        ></app-practice-type>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #PracticeRoleModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="PracticeRoleModal" [config]="{backdrop: 'static', keyboard: false}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-practice-role (closePracticeRole)="PracticeRoleModal.hide()"
+        ></app-practice-role>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #PracticeDSOModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="PracticeDSOModal" [config]="{backdrop: 'static', keyboard: false}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-practice-dso (closePracticeDSO)="PracticeDSOModal.hide()"
+        ></app-practice-dso>
+      </div>
+    </div>
+  </div>
+</div>

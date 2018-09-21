@@ -3,6 +3,9 @@
       <mat-icon>{{btnTitle}}</mat-icon>
     </button>
     <h3 class="mt-h3">{{title}}</h3>
+    <div *ngIf="url == '/profile'" class="navbar-edit-profile">
+      <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
+    </div>
   </div>
   
   

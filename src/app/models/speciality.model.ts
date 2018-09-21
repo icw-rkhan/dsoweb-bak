@@ -1,5 +1,5 @@
 
-export class Speciality {
+export class Specialty {
 
   id: number;
   name: string;
