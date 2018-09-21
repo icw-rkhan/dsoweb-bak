@@ -13,6 +13,9 @@
       <dso-feed-card [post]="post" (addBookmark)="onAddBookmark($event)"
                      (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts"></dso-feed-card>
     </div>
+    <div class="load-more">
+      <button button mat-stroked-button color="primary" (click)="onLoadMore()">Load More</button>
+    </div>
   </div>
   <div class="no-content" *ngIf="posts === null || posts === undefined || posts?.length === 0">
     <img src="assets/images/no-bookmarks.png">

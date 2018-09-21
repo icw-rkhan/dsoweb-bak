@@ -29,6 +29,8 @@ import {
 } from '@angular/material';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { ShareModule } from '@ngx-share/core';
+import { NgxMasonryModule } from 'ngx-masonry';
+import { NgProgressHttpModule } from '@ngx-progressbar/http';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -36,10 +38,8 @@ import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.compon
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { FeedCardComponent } from './feed-card/feed-card.component';
 import { MainActionsComponent } from './main-actions/main-actions.component';
-import { NgxMasonryModule } from 'ngx-masonry';
 import { FeedGridComponent } from './feed-grid/feed-grid.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
-import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { SponsorCardComponent } from './sponsor-card/sponsor-card.component';
 import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
