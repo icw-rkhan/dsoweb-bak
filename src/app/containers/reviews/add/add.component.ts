@@ -25,7 +25,7 @@ export class AddComponent implements OnInit, OnDestroy {
   body: any;
   userInfo: any;
   articleInfo: any;
-  profileSub: any;
+  paramSub: any;
 
   rateList = [{state: false}, {state: false}, {state: false}, {state: false}, {state: false}];
 
@@ -36,8 +36,6 @@ export class AddComponent implements OnInit, OnDestroy {
       this.rate = 0;
       this.comment = '';
       this.condition = false;
-      // gets userInfo from user's email
-      this.getUserInfo(this.authService.getUserInfo().user_name);
     }
 
   ngOnInit() {
@@ -52,35 +50,32 @@ export class AddComponent implements OnInit, OnDestroy {
       }
     });
 
-    this.route.params.subscribe(params => {
+    this.paramSub = this.route.params.subscribe(params => {
       this.progress.start();
       // gets post's id, title, created date from the params of the route and view them
       this.postId = params['id'];
       this.postTitle = params['title'];
       this.postDate = params['date'];
-      this.progress.complete();
-    });
+      // gets userInfo from user's email
+      const email = this.authService.getUserInfo().user_name;
+      const profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
+        (data: any) => {
+          const res = data.resultMap.data;
+          // sets userInfo
+          this.userId = res.id;
+          this.userInfo = {
+            url: res.photo_url,
+            name: res.full_name
+          };
+
+          profileSub.unsubscribe();
+          this.progress.complete();
+        });
+      });
   }
 
   ngOnDestroy(): void {
-    
-  }
-  // gets userInfo from user's email
-  getUserInfo(email: string) {
-    this.profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
-      (data: any) => {
-        const res = data.resultMap.data;
-        // sets userInfo
-        this.userId = res.id;
-
-        this.userInfo = {
-          url: res.photo_url,
-          name: res.full_name
-        };
-
-        return data.resultMap.data;
-      }
-    );
+    this.paramSub.unsubscribe();
   }
   // make a rating point
   eventRating(i) {

@@ -25,7 +25,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
   paramsSub: Subscription;
   review_count: number;
   comments: Comment[];
-  rateList = [{status: 'inactive'}, {status: 'inactive'}, 
+  rateList = [{status: 'inactive'}, {status: 'inactive'},
   {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}];
 
   constructor(private route: ActivatedRoute, private router: Router, private postService: PostService,
@@ -47,9 +47,8 @@ export class SponsorComponent implements OnInit, OnDestroy {
       const commentSub = this.commentService.comments(this.postId).subscribe(c => {
         this.comments = c;
         commentSub.unsubscribe();
+        this.progress.complete();
       });
-
-      this.progress.complete();
     });
   }
   // custome the style of the content
@@ -145,7 +144,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
   // change the format of the data
   dateFormat(date): any {
     if (date) {
-      return formatDate(date, 'MMM d, y', 'en-US'); 
+      return formatDate(date, 'MMM d, y', 'en-US');
     }
     return '';
   }
