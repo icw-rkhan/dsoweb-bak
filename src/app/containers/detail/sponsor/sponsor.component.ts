@@ -105,8 +105,16 @@ export class SponsorComponent implements OnInit, OnDestroy {
     });
   }
   // post sponsor article by postId
-  onPostSponsor(postId) {
-    this.router.navigate([`/posts/sponsor/${postId}`]);
+  onPostSponsor(type) {
+    let sponsorId: number;
+    if (type === 'gsk') {
+      sponsorId = 197;
+    } else if (type === 'align') {
+      sponsorId = 260;
+    } else if (type === 'nobel') {
+      sponsorId = 259;
+    }
+    this.router.navigate([`/posts/sponsor/${sponsorId}`]);
   }
   // get average rating of the comments by postId
   getRating(comments, type): any {
