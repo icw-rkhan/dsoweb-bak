@@ -70,7 +70,6 @@ export class EditExperienceComponent implements OnInit {
   }
 
   save() {
-    console.log(this.experienceService.S_experience);
     if (!this.experienceService.S_experience.practice_Type) {
       this.alertService.alertInfo('Error', 'Practice type can\'t be blank.');
       return;
