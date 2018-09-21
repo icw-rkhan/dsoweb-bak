@@ -92,13 +92,14 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.userProfile);
     this.is_student = +localStorage.getItem('is_student');
-    this.getMetaData();
     this.fetchProfile(this.userInfo.user_name);
   }
 
   getMetaData() {
-    this.profileService.getMetaData().subscribe(
+    const specialty = this.userProfile.specialty ? this.userProfile.specialty.id || null : null;
+    this.profileService.getMetaData(specialty).subscribe(
       (data: any) => {
         if (data[0]) {
           this.metadata.residency = data[0].resultMap.data;
@@ -119,6 +120,12 @@ export class EditProfileComponent implements OnInit {
           this.metadata.practiceType = data[4].resultMap.data;
           this.editProfileService.S_practiceDSO.next(data[4].resultMap.data);
         }
+        if (data[5]) {
+          this.metadata.listResidency = data[5].resultMap.data;
+        }
+        // if (data[6]) {
+        //   this.metadata.listResidency = data[5].resultMap.data;
+        // }
       }
     );
   }
@@ -128,6 +135,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        this.getMetaData();
         this.userProfile.educations = [];
         console.log(this.userProfile);
         this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};

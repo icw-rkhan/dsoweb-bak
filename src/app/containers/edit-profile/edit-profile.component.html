@@ -202,14 +202,19 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <dso-residency-search [listResidency]="metadata.residency"
-                              (closeResidencySearch)="residency_page = RESIDENCY_ADD"
-                              (selectedResidency)="selectedResidency($event)" [residency]="residency"
-                              *ngIf="residency_page == RESIDENCY_AT"></dso-residency-search>
-        <dso-residency-add *ngIf="residency_page == RESIDENCY_ADD" (cancelResidency)="cancelResidency()"
-                           [residency]="residency"
-                           (selectResidency)="selectResidency()"
-                           (addResidency)="addResidency($event)"></dso-residency-add>
+        <dso-residency-search 
+                [listResidency]="metadata.listResidency" 
+                (closeResidencySearch)="residency_page = RESIDENCY_ADD"
+                (selectedResidency)="selectedResidency($event)" 
+                [residency]="residency" 
+                *ngIf="residency_page == RESIDENCY_AT"></dso-residency-search>
+        <dso-residency-add 
+                *ngIf="residency_page == RESIDENCY_ADD" 
+                (cancelResidency)="cancelResidency()" 
+                [residency]="residency"
+                (selectResidency)="selectResidency()" 
+                (addResidency)="addResidency($event)"></dso-residency-add>
+
         <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (deleteResidency)="deleteResidency()"
                             (cancelResidency)="cancelResidency()" (updateResidency)="updateResidency($event)"
                             [residency]="residency"></dso-residency-edit>
