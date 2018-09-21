@@ -14,13 +14,18 @@ import {EditExperienceComponent} from './edit-experience/edit-experience.compone
 import {PracticeTypeComponent} from './edit-experience/practice-type/practice-type.component';
 import {PracticeRoleComponent} from './edit-experience/practice-role/practice-role.component';
 import {PracticeDSOComponent} from './edit-experience/practice-dso/practice-dso.component';
+import {MatDatepickerModule} from '@angular/material';
 
 @NgModule({
   imports: [
     SharedModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
-    EditProfileRoutingModule
+    EditProfileRoutingModule,
+    MatDatepickerModule
+  ],
+  exports: [
+    MatDatepickerModule
   ],
   declarations: [
     EditProfileComponent,

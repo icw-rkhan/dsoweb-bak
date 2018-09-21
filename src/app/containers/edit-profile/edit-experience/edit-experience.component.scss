@@ -5,3 +5,7 @@
 .modal-body {
   padding: 0;
 }
+
+/deep/ .mat-form-field-infix {
+  border-top: none;
+}

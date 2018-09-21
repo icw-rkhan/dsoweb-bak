@@ -17,7 +17,7 @@
         <ul class="speciality-ul">
           <li *ngFor="let p of filterList" class="container-r" (click)="_selectPracticeDSO(p)"><a href="javascript:void(0)" >{{p?.name}}</a>
             <label class="container-checkbox">
-              <input type="checkbox" [checked]="experienceService.S_experiences[0]?.practice_DSO && experienceService.S_experiences[0]?.practice_DSO.id == p.id">
+              <input type="checkbox" [checked]="experienceService.S_experience?.practice_DSO && experienceService.S_experience?.practice_DSO.id == p.id">
               <span class="checkmark"></span>
             </label>
           </li>

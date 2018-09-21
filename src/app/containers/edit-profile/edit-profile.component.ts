@@ -66,8 +66,6 @@ export class EditProfileComponent implements OnInit {
   filteredSpeciality: any;
   speciality: Speciality;
 
-  experiences: any;
-
   baseUrl: String;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
@@ -161,9 +159,24 @@ export class EditProfileComponent implements OnInit {
     this.isEditSpeciality = false;
   }
 
+  addExperience(ex) {
+    console.log(ex);
+    this.userProfile.experiences.push(ex);
+    this.editProfileService.S_experience = {};
+    this.editProfileService.S_experienceEdit = undefined;
+    this.isEditExperience = false;
+  }
+
   editExperience(ex) {
-    this.experiences = ex;
-    this.userProfile.experiences = ex;
+    this.userProfile.experiences[this.editProfileService.S_editIndex] = ex;
+    this.editProfileService.S_experience = {};
+    this.editProfileService.S_experienceEdit = undefined;
+    this.isEditExperience = false;
+  }
+
+  EditExperienceMode(item, index) {
+    this.editProfileService.S_experienceEdit = item;
+    this.editProfileService.S_editIndex = index;
   }
 
   selectedResidency(e: Residency) {
