@@ -32,13 +32,13 @@ export class ViewComponent implements OnInit, OnDestroy {
     });
 
     this.paramsSub = this.route.params.subscribe(params => {
-      this.progress.start();
+      //this.progress.start();
       this.postId = params['id'];
 
       this.comments$ = this.commentService.comments(this.postId);
       const commentsSub = this.comments$.subscribe(() => {
         commentsSub.unsubscribe();
-        this.progress.complete();
+        //this.progress.complete();
       });
     });
   }
