@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
+import { AuthService } from '../../../services/auth/auth.service';
 
 @Component({
   selector: 'dso-welcome',
@@ -11,10 +12,14 @@ export class WelcomeComponent implements OnInit {
   signup: boolean;
 
   constructor(
+    private authService: AuthService,
     private router: Router) {
   }
 
   ngOnInit() {
+    if (this.authService.isAuthenticated()) {
+      this.router.navigate(['/profile']);
+    }
   }
 
   signUpOrLogin(signup: boolean = false) {

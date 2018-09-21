@@ -3,7 +3,8 @@
     <section class="profile-heading">
       <div class="profile-heading_info">
         <div class="img_user">
-          <img src="../assets/images/profile/icon_user_profile.png">
+          <!-- <img src="../assets/images/profile/icon_user_profile.png"> -->
+          <img [src]="userProfile?.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/avatar_profile.png'">
         </div>
         <div class="profile-info">
           <div class="profile_name">{{ userProfile?.full_name }}</div>
@@ -23,7 +24,7 @@
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
               <div class="profile-job">{{ item?.practice_Type?.name }}</div>
-              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy'}} - {{ item?.end_time | date: 'MMM yyyy'}}</div>
+              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy' }} - {{ item?.end_time | date: 'MMM yyyy' }}</div>
             </div>
           </div>
         </div>
@@ -46,7 +47,7 @@
             <div class="profile_info">
               <div class="profile_subtitle">Residency</div>
               <div class="profile-job">{{ item?.residency_school?.name }}</div>
-              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy'}} - {{ item?.end_time | date: 'MMM yyyy'}}</div>
+              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy' }} - {{ item?.end_time | date: 'MMM yyyy' }}</div>
             </div>
           </div>
         </div>
@@ -69,7 +70,7 @@
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.dental_school?.name }}</div>
               <div class="profile-job">Certificate, Advanced Periodontology</div>
-              <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy' }} - {{ item?.end_time | date: 'MMM yyyy' }}</div>
             </div>
           </div>
         </div>
