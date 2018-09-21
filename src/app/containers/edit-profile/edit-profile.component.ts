@@ -43,6 +43,7 @@ export class EditProfileComponent implements OnInit {
   metadata: any;
   isEditSpeciality: boolean;
   isEditExperience: boolean;
+  isPracticeAddress: boolean;
   isUploadFile: boolean;
   isUploadFileSlide: boolean;
 
@@ -75,6 +76,7 @@ export class EditProfileComponent implements OnInit {
     this.sharingService.showLoading̣̣(true);
     this.isEditSpeciality = false;
     this.isEditExperience = false;
+    this.isPracticeAddress = false;
     this.isUploadFile = false;
     this.isUploadFileSlide = false;
     this.baseUrl = environment.profileApiUrl;
@@ -127,6 +129,7 @@ export class EditProfileComponent implements OnInit {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
         this.userProfile.educations = [];
+        console.log(this.userProfile);
         this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
@@ -137,10 +140,8 @@ export class EditProfileComponent implements OnInit {
   parseData() {
     ['educations', 'experiences'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
-        item.start_time = moment(item.start_time).format('MMMM YYYY');
-        item.end_date = moment(item.start_time).isBefore(moment())
-          ? moment(item.end_time).format('MMMM YYYY')
-          : 'Present';
+        item.start_time = moment(item.start_time);
+        item.end_time = moment(item.end_time);
       });
     });
 
@@ -148,6 +149,10 @@ export class EditProfileComponent implements OnInit {
       item.start_time = moment(item.start_time).format();
       item.end_time = moment(item.end_time).format();
     });
+  }
+
+  setPracticeAddress(address: any) {
+    this.userProfile.practiceAddress = address;
   }
 
   setSpeciality(speciality: any) {
