@@ -25,22 +25,22 @@ export class SidebarComponent {
     this.links.push({
       label: 'Education',
       icon: 'account_balance',
-      route: ''
+      route: '#'
     });
     this.links.push({
       label: 'Careers',
       icon: 'notifications_active',
-      route: ''
+      route: '#'
     });
     this.links.push({
       label: 'Events',
       icon: 'calendar_today',
-      route: ''
+      route: '#'
     });
     this.links.push({
       label: 'Unite',
       icon: 'bookmarks',
-      route: ''
+      route: '#'
     });
     this.links.push({
       label: 'My Profile',
@@ -48,14 +48,16 @@ export class SidebarComponent {
       route: '/profile'
     });
     this.links.push({
-      label: 'Settings',
-      icon: 'settings_applications',
+      label: 'Logout',
+      icon: 'exit_to_app',
       route: ''
     });
   }
 
   onClick(link: NavLinkModel) {
-    this.router.navigate([link.route]);
+    if (link.route !== '#') {
+      this.router.navigate([link.route]);
+    }
   }
 
   getUserInfo() {
