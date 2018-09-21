@@ -1,0 +1,41 @@
+<header class="header-profile fixed-bar">
+  <nav class="navbar bg-grey">
+    <a href="javascript:void(0)" (click)="close()" class="back-link"><span class="icon-bar icon-back"></span></a>
+    <div class="navbar-title-heading">Practice address</div>
+    <div class="navbar-edit-profile">
+      <a href="javascript:void(0)" (click)="save()" class="">Save</a>
+    </div>
+  </nav>
+</header>
+<div class="profile_content">
+  <section class="personal-info practice-add">
+    <div class="personal-container mh-vh">
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">Address 1</label>
+        <input type="text" [(ngModel)]="practiceAddress.address1" name="address1" class="input-mb">
+        <span class="edit-practice"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">Address 2</label>
+        <input type="text" [(ngModel)]="practiceAddress.address2" name="address2" class="input-mb">
+        <span class="edit-practice"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">Zip Code</label>
+        <input type="text" [(ngModel)]="practiceAddress.zipCode" name="zipCode" class="input-mb">
+        <span class="edit-practice"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">City</label>
+        <input type="text" [(ngModel)]="practiceAddress.city" name="city" class="input-mb" value="New Yorke">
+        <span class="edit-practice"></span>
+      </div>
+      <div class="personal-group practice-group">
+        <label class="profile_title mb0">State</label>
+        <input type="text" name="" class="input-mb" value="New York">
+        <span class="arrow-right" style="right: 10px"></span>
+      </div>
+      <div class="cancel-row"><a href="javascript:void(0)" (click)="close()">Cancel</a></div>
+    </div>
+  </section>
+</div>

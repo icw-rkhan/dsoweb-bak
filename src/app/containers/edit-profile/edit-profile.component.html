@@ -13,10 +13,11 @@
       <div class="profile-img">
         <div class="profile_title">Profile Photo</div>
         <div class="avatar_profile">
-          <img [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/avatar_profile.png'">
+          <img
+            [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/avatar_profile.png'">
           <!-- <img [src]="baseUrl + '/photoDownload?' + userProfile.photo_url"> -->
           <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
-              class="edit-icon icons"></span></a>
+            class="edit-icon icons"></span></a>
         </div>
       </div>
     </section>
@@ -27,7 +28,8 @@
         <div class="personal-group">
           <label class="profile_title mb0">Fullname</label>
           <div class="d-flex">
-            <input type="text" name="fullName" class="input-mb" required [(ngModel)]="userProfile.full_name" #fullname="ngModel">
+            <input type="text" name="fullName" class="input-mb" required [(ngModel)]="userProfile.full_name"
+                   #fullname="ngModel">
             <i class="fa fa-pencil personal-edit-icon"></i>
           </div>
           <div class="personal-underline"></div>
@@ -38,8 +40,9 @@
         <div class="personal-group">
           <label class="profile_title mb0">Speciality</label>
           <div class="d-flex">
-            <input (focus)="isEditSpeciality = !isEditSpeciality; SpecialityModal.show();" type="text" name="" class="input-mb"
-              value="{{ speciality?.name }}" contenteditable="false">
+            <input (focus)="isEditSpeciality = !isEditSpeciality; SpecialityModal.show();" type="text" name=""
+                   class="input-mb"
+                   value="{{ speciality?.name }}" contenteditable="false">
             <span class="arrow-right-input"></span>
           </div>
           <div class="personal-underline"></div>
@@ -47,31 +50,6 @@
       </div>
     </section>
 
-    <section class="personal-info">
-      <div class="profile_title small f300 mb15">Personal Info</div>
-      <div class="personal-container">
-        <div class="personal-group">
-          <label class="profile_title mb0">Fullname</label>
-          <div class="d-flex">
-            <input type="text" name="fullName" class="input-mb" required [(ngModel)]="userProfile.full_name" #fullname="ngModel">
-            <i class="fa fa-pencil personal-edit-icon"></i>
-          </div>
-          <div class="personal-underline"></div>
-          <div [hidden]="fullname.valid || fullname.pristine" class="validation-message">
-            Full name is required
-          </div>
-        </div>
-        <div class="personal-group">
-          <label class="profile_title mb0">Speciality</label>
-          <div class="d-flex">
-            <input (focus)="isEditSpeciality = !isEditSpeciality; SpecialityModal.show();" type="text" name="" class="input-mb"
-              value="{{ userProfile?.speciality }}" contenteditable="false">
-            <span class="arrow-right-input"></span>
-          </div>
-          <div class="personal-underline"></div>
-        </div>
-      </div>
-    </section>
     <section class="profile_Education">
       <div class="profile_title small f300">Upload resume or import data</div>
       <div class="profile__content" (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = RESUME_FILE">
@@ -86,15 +64,18 @@
     </section>
     <section *ngIf="is_student" class="profile_Residency">
       <div class="profile_title small f300">Experience</div>
-      <span class="addNew-icon"></span>
+      <span class="addNew-icon" (click)="ExperienceModal.show(); isEditExperience = true"></span>
       <div *ngIf="userProfile?.experiences.length; else noExperience">
-        <div *ngFor="let item of userProfile?.experiences" class="profile__content bt">
+        <div *ngFor="let item of userProfile?.experiences; let i = index"
+             (click)="EditExperienceMode(item, i); ExperienceModal.show(); isEditExperience = true"
+             class="profile__content bt">
           <div class="profile__icon exp_owner"></div>
           <div class="profile__content_info">
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
               <div class="profile-job">{{ item?.practice_Type?.name }}</div>
-              <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+              <div class="date-job">{{ item?.start_time | date:"MMM yyyy"}} - {{ item?.end_time | date:"MMM yyyy"}}
+              </div>
             </div>
           </div>
         </div>
@@ -110,7 +91,8 @@
     </section>
     <section class="profile_Residency ">
       <div class="profile_title small f300 mt10">Residency</div>
-      <span class="addNew-icon" (click)="residency_page = RESIDENCY_ADD; residency = null; editResidencyModel.show()"></span>
+      <span class="addNew-icon"
+            (click)="residency_page = RESIDENCY_ADD; residency = null; editResidencyModel.show()"></span>
       <div *ngIf="userProfile?.profileResidency.length; else noResidency">
         <div *ngFor="let item of userProfile?.profileResidency; let i = index" class="profile__content bt">
           <div class="profile__icon"></div>
@@ -119,14 +101,15 @@
             <div class="profile_info">
               <div class="profile_subtitle">Residency</div>
               <div class="profile-job">{{ item?.residency_school?.name }}</div>
-              <div class="date-job">{{ item?.start_time | date: 'MMMM y' }} - {{ item?.end_time | date: 'MMMM y' }}
+              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy' }} - {{ item?.end_time | date: 'MMM yyyy' }}
               </div>
             </div>
           </div>
         </div>
       </div>
       <ng-template #noResidency>
-        <span class="addNew-icon" (click)="residency_page = RESIDENCY_ADD; residency = null; editResidencyModel.show()"></span>
+        <span class="addNew-icon"
+              (click)="residency_page = RESIDENCY_ADD; residency = null; editResidencyModel.show()"></span>
         <div class="profile__content">
           <div class="profile__icon"></div>
           <div class="profile__content_info">
@@ -146,7 +129,7 @@
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.dental_school?.name }}</div>
               <div class="profile-job">Certificate, Advanced Periodontology</div>
-              <div class="date-job">{{ item?.start_time }} - {{ item?.end_time }}</div>
+              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy' }} - {{ item?.end_time | date: 'MMM yyyy' }}</div>
             </div>
           </div>
         </div>
@@ -162,6 +145,16 @@
     </section>
     <section class="personal-info">
       <div class="profile_title small f300 mb15 mt10">Contact Info</div>
+      <div class="personal-group" *ngIf="is_student">
+        <label class="profile_title mb0">Practice address</label>
+        <div class="d-flex">
+          <input (focus)="isPracticeAddress = true; AddressModal.show();" type="text" name=""
+                 class="input-mb"
+                 value="{{ userProfile?.userPracticeAddress?.address1 }}" contenteditable="false">
+          <span class="arrow-right-input" (click)="isPracticeAddress = true; AddressModal.show();"></span>
+        </div>
+        <div class="personal-underline"></div>
+      </div>
       <div class="personal-container">
         <div class="personal-group">
           <label class="profile_title mb0">Mobile number</label>
@@ -175,7 +168,7 @@
           <label class="profile_title mb0">Preferred email address</label>
           <div class="d-flex">
             <input type="email" name="email" class="input-mb" required email="true" [(ngModel)]="userProfile.email"
-              #email="ngModel">
+                   #email="ngModel">
             <i class="fa fa-pencil personal-edit-icon"></i>
           </div>
           <div class="personal-underline"></div>
@@ -194,51 +187,102 @@
       <div class="profile_title small f300 mb10">Upload {{typeFile == RESUME_FILE ? 'Resume': 'Photo'}}</div>
       <div class="upload-browse">
         <input type="file" *ngIf="typeFile == RESUME_FILE" accept=".xls,.xlsx,.doc,.docx" (input)="selectFile($event)"
-          class="upload-hidden">
-        <input type="file" *ngIf="typeFile == PHOTO_FILE" (input)="selectFile($event)" accept="image/*" class="upload-hidden">
+               class="upload-hidden">
+        <input type="file" *ngIf="typeFile == PHOTO_FILE" (input)="selectFile($event)" accept="image/*"
+               class="upload-hidden">
         <span class="type-upload">Browse</span>
       </div>
     </div>
   </div>
 </div>
 
-<div bsModal #editResidencyModel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name3"
-  id="waitingPopup" [config]="{backdrop: 'static'}">
+<div bsModal #editResidencyModel="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="waitingPopup" [config]="{backdrop: 'static'}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <dso-residency-search [listResidency]="metadata.residency" (closeResidencySearch)="residency_page = RESIDENCY_ADD"
-          (selectedResidency)="selectedResidency($event)" [residency]="residency" *ngIf="residency_page == RESIDENCY_AT"></dso-residency-search>
-        <dso-residency-add *ngIf="residency_page == RESIDENCY_ADD" (cancelResidency)="cancelResidency()" [residency]="residency"
-          (selectResidency)="selectResidency()" (addResidency)="addResidency($event)"></dso-residency-add>
+        <dso-residency-search 
+                [listResidency]="metadata.listResidency" 
+                (closeResidencySearch)="residency_page = RESIDENCY_ADD"
+                (selectedResidency)="selectedResidency($event)" 
+                [residency]="residency" 
+                *ngIf="residency_page == RESIDENCY_AT"></dso-residency-search>
+        <dso-residency-add 
+                *ngIf="residency_page == RESIDENCY_ADD" 
+                (cancelResidency)="cancelResidency()" 
+                [residency]="residency"
+                (selectResidency)="selectResidency()" 
+                (addResidency)="addResidency($event)"></dso-residency-add>
+
         <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (deleteResidency)="deleteResidency()"
-          (cancelResidency)="cancelResidency()" (updateResidency)="updateResidency($event)" [residency]="residency"></dso-residency-edit>
+                            (cancelResidency)="cancelResidency()" (updateResidency)="updateResidency($event)"
+                            [residency]="residency"></dso-residency-edit>
       </div>
     </div>
   </div>
 </div>
 
-<div bsModal #SpecialityModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name3"
-  id="Modal" [config]="{backdrop: 'static'}">
+<div bsModal #SpecialityModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="Modal" [config]="{backdrop: 'static'}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <dso-app-speciality [listSpeciality]="metadata.residency" (setSpeciality)="setSpeciality($event)"
-          (closeSpeciality)="closeSpecialityModal()" [speciality]="speciality" *ngIf="isEditSpeciality"></dso-app-speciality>
+        <dso-app-specialty [listSpecialty]="metadata.residency" (setSpecialty)="setSpeciality($event)"
+                            (closeSpecialty)="closeSpecialityModal()" [specialty]="speciality"
+                            *ngIf="isEditSpeciality"></dso-app-specialty>
       </div>
     </div>
   </div>
 </div>
 
-<div bsModal #educationModel="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-sizes-name3"
-  [config]="{backdrop: 'static'}">
+<div bsModal #ExperienceModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="experienceModal" [config]="{backdrop: 'static', keyboard: false}">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <dso-education-search (backSearchEducation)="education_page = RESIDENCY_EDIT" (selectedEducation)="selectedEducation($event)"
-          [listSchool]="metadata.dentalSchool" *ngIf="education_page == RESIDENCY_AT"></dso-education-search>
-        <dso-education-edit (saveEducation)="saveEducation($event)" [education]="education" (selectEducation)="selectEducation()"
-          [typeEducation]="typeEducation" (cancel)="educationModel.hide()" *ngIf="education_page == RESIDENCY_EDIT"></dso-education-edit>
+        <app-edit-experience *ngIf="isEditExperience"
+                             (closeModal)="ExperienceModal.hide(); isEditExperience = false;"
+                             (addExperience)="addExperience($event)"
+                             (editExperience)="editExperience($event)"
+        ></app-edit-experience>
+      </div>
+    </div>
+  </div>
+</div>
+<div bsModal #educationModel="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <dso-education-search (backSearchEducation)="education_page = RESIDENCY_EDIT"
+                              (selectedEducation)="selectedEducation($event)"
+                              [education]="education"
+                              [listSchool]="metadata.dentalSchool"
+                              *ngIf="education_page == RESIDENCY_AT"></dso-education-search>
+        <dso-education-edit (saveEducation)="saveEducation($event)" [education]="education"
+                            (selectEducation)="selectEducation()"
+                            [typeEducation]="typeEducation" (cancel)="educationModel.hide()"
+                            *ngIf="education_page == RESIDENCY_EDIT"></dso-education-edit>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #AddressModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="AddressModal" [config]="{backdrop: 'static', keyboard: false}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-practice-address *ngIf="isPracticeAddress"
+                              [userPracticeAddress]="userProfile.userPracticeAddress"
+                             (closeModal)="AddressModal.hide(); isPracticeAddress = false;"
+                             (setPracticeAddress)="setPracticeAddress($event)"
+        ></app-practice-address>
       </div>
     </div>
   </div>

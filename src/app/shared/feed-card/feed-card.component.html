@@ -1,8 +1,7 @@
 <mat-card>
   <div class="header">
-    <img class="icon-type" src="/src/assets/images/TipSheet@2x.png" *ngIf="post.format === 'image'">
-    <img class="icon-type" src="/src/assets/images/Video@2x.png" *ngIf="post.categories[0].id == 29">
-    <img class="icon-type" src="/src/assets/images/Article@2x.png" *ngIf="post.categories[0].id == 28">
+    <img class="icon-type" src="assets/images/Video@2x.png" *ngIf="post.categories[0].id == 29">
+    <img class="icon-type" src="assets/images/Article@2x.png" *ngIf="post.categories[0].id != 29">
     <h3 class="mat-h3">{{post.categories | multipleCategories}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>

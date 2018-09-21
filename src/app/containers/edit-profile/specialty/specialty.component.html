@@ -1,13 +1,13 @@
 <header class="header-profile fixed-bar">
   <nav class="navbar bg-grey">
-    <a class="back-link cursor" (click)="_backSearchEducation()"><span class="icon-bar icon-back"></span></a>
-    <div class="navbar-title-heading">Education at</div> 
+    <a (click)="close()" class="back-link cursor"><span class="icon-bar icon-back"></span></a>
+    <div class="navbar-title-heading">SPECIALTY</div>
   </nav>
 </header>
 <div class="speciality-container">
   <div class="speciality-search">
     <div class="search-container">
-      <input type="text" (input)="search($event)" placeholder="Search ..." class="input-search">
+      <input type="text" name="" placeholder="Search ..." [value]="searchText" (input)="changeInput($event)" class="input-search">
       <span class="icon-search"></span>
     </div>
   </div>
@@ -15,9 +15,9 @@
     <div class="speciality__list ">
       <div class="list__left">
         <ul class="speciality-ul">
-          <li *ngFor="let s of listSchoolS" class="container-r" (click)="selected(s)"><a class="cursor">{{s.name}}</a>
+          <li *ngFor="let s of specialities" class="container-r" (click)="_selectSpeciality(s)"><a href="javascript:void(0)" >{{s.name}}</a>
             <label class="container-checkbox">
-              <input type="checkbox" [checked]="education && education.id == s.id">
+              <input type="checkbox" [checked]="specialty && specialty.id == s.id">
               <span class="checkmark"></span>
             </label>
           </li>

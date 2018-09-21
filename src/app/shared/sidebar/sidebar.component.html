@@ -3,15 +3,15 @@
     <mat-list-item>
       <img *ngIf="userPhoto; else default" mat-list-avatar src="{{userPhoto}}"/>
       <ng-template #default>
-        <img mat-list-avatar src="../../../assets/avatar.png"/>
+        <img mat-list-avatar src="../../../assets/images/profile/icon_user_profile.png"/>
       </ng-template>
       <h4 *ngIf="userName" mat-line>{{userName}}</h4>
-      <p mat-line>New Jersey, NJ</p>
+      <p mat-line></p>
     </mat-list-item>
     <mat-divider></mat-divider>
-    <mat-list-item *ngFor="let link of links">
+    <mat-list-item *ngFor="let link of links" (click)="onClick(link)">
       <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
-      <a matLine (click)="onClick(link)">{{link.label}}</a>
+      <a matLine>{{link.label}}</a>
     </mat-list-item>
     <mat-divider></mat-divider>
   </mat-nav-list>
