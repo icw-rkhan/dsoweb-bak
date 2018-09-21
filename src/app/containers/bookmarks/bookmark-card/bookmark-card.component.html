@@ -1,19 +1,14 @@
 <mat-card>
   <mat-card-content class="bookmark-card">
-    <!--<div class="image">-->
-      <!--<img class="bookmark-image" src="/src/assets/images/bookmark-image.jpg">-->
-      <!--<div class="type">-->
-        <!--<img src="/src/assets/images/Animation.png">-->
-      <!--</div>-->
-    <!--</div>-->
-    <div class="information">
-      <h3 class="mat-h3">
-        {{post.category.name}}
-      </h3>
-      <div class="mat-body-2">
-        {{post.title}}
+    <div class="image" (click)="onPostBookmark(post.id, post.tags)">
+      <img class="bookmark-image" [src]="post.thumbnail">
+    </div>
+    <div class="information" (click)="onPostBookmark(post.id, post.tags)">
+      <h4 class="mat-h4">
+        {{post.categories | multipleCategories}}
+      </h4>
+      <div class="mat-body-2" [innerHTML]="post.title">
       </div>
-      <div class="mat-body-1" [innerHTML]="post.excerpt" (click)="onPostBookmark(post.id, post.tags)"></div>
     </div>
     <div content="actions">
       <button mat-icon-button (click)="onRemove()">

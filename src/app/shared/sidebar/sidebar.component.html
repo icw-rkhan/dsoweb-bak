@@ -1,14 +1,17 @@
 <div class="sidebar">
   <mat-nav-list>
     <mat-list-item>
-      <img mat-list-avatar src="./../../../assets/avatar.png"/>
-      <h4 mat-line>John Stewart</h4>
+      <img *ngIf="userPhoto; else default" mat-list-avatar src="{{userPhoto}}"/>
+      <ng-template #default>
+        <img mat-list-avatar src="../../../assets/avatar.png"/>
+      </ng-template>
+      <h4 *ngIf="userName" mat-line>{{userName}}</h4>
       <p mat-line>New Jersey, NJ</p>
     </mat-list-item>
     <mat-divider></mat-divider>
-    <mat-list-item *ngFor="let link of links">
+    <mat-list-item *ngFor="let link of links" (click)="onClick(link)">
       <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
-      <a matLine (click)="onClick(link)">{{link.label}}</a>
+      <a matLine>{{link.label}}</a>
     </mat-list-item>
     <mat-divider></mat-divider>
   </mat-nav-list>

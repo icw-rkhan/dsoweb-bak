@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
@@ -18,7 +18,7 @@ import { Post } from '../../../models/post.model';
   templateUrl: './sponsor.component.html',
   styleUrls: ['./sponsor.component.scss']
 })
-export class SponsorComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SponsorComponent implements OnInit, OnDestroy {
   post: Post;
   rate: number;
   postId: number;
@@ -52,31 +52,15 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewInit {
       this.progress.complete();
     });
   }
-  // relayout the contents gets from server
-  ngAfterViewInit(): void {
-    const parentTag = document.getElementById('contents');
-
-    this.reLayout('p', parentTag);
-    this.reLayout('ul', parentTag);
-    this.reLayout('ol', parentTag);
-  }
-
-  reLayout(childTagName, parentTag): void {
-    const len = parentTag.getElementsByTagName(childTagName).length;
-    let i = 0;
-    for ( i = 0; i < len; i++) {
-      const childTag = parentTag.getElementsByTagName(childTagName)[i];
-      if (childTagName === 'img') {
-        childTag.style.width = '100%';
-        childTag.style.height = 'auto';
-      } else if (childTagName === 'ul' || childTagName === 'ol') {
-        this.reLayout('li', childTag);
-      } else {
-        this.reLayout('img', childTag);
-        childTag.style.color = '#4a4a4a';
-        childTag.style.marginBottom = '10px';
-        childTag.style.lineHeight = '20px';
-        childTag.style.fontSize = '15px';
+  // custome the style of the content
+  reLayout(tagName): void {
+    const paretTag = document.getElementById('contents');
+    const tag = paretTag.getElementsByTagName(tagName);
+    if (tag && tag.length > 0) {
+      let i = 0;
+      for (i = 0; i < tag.length; i++) {
+        tag[i].style.width = '100%';
+        tag[i].style.height = 'auto';
       }
     }
   }
@@ -121,8 +105,16 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
   // post sponsor article by postId
-  onPostSponsor(postId) {
-    this.router.navigate([`/posts/sponsor/${postId}`]);
+  onPostSponsor(type) {
+    let sponsorId: number;
+    if (type === 'gsk') {
+      sponsorId = 197;
+    } else if (type === 'align') {
+      sponsorId = 260;
+    } else if (type === 'nobel') {
+      sponsorId = 259;
+    }
+    this.router.navigate([`/posts/sponsor/${sponsorId}`]);
   }
   // get average rating of the comments by postId
   getRating(comments, type): any {

@@ -2,9 +2,9 @@
   <div class="posts" *ngIf="posts?.length > 0">
     <div *ngIf="sponsorId > 0">
       <div class="sponsor">
-        <img src="../../../assets/images/sponsor/align-banner.png" *ngIf="sponsorId === 260"/>
-        <img src="../../../assets/images/sponsor/gsk-banner.png" *ngIf="sponsorId === 197"/>
-        <img src="../../../assets/images/sponsor/nobel-banner.png" *ngIf="sponsorId === 259"/>
+        <img src="../../../assets/images/sponsor/align-header.png" *ngIf="sponsorId === 260"/>
+        <img src="../../../assets/images/sponsor/gsk-header.png" *ngIf="sponsorId === 197"/>
+        <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="sponsorId === 259"/>
       </div>
       <dso-sponsor-card [post]="post" (addBookmark)="onAddBookmark($event)"
                         (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts"></dso-sponsor-card>
@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="no-content" *ngIf="posts === null || posts === undefined || posts?.length === 0">
-    <img src="/src/assets/images/no-bookmarks.png">
+    <img src="assets/images/no-bookmarks.png">
     <h3 class="mat-h3">{{noFoundMessage}}</h3>
   </div>
 </div>

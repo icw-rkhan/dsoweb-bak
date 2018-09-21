@@ -19,7 +19,10 @@ export class ToolbarComponent {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.url = event.url; 
-        if (event.url.includes('/posts')) {
+        if (event.url.includes('/posts/sponsor')) {
+          this.title = 'SPONSORED CONTENT';
+          this.btnTitle = 'keyboard_backspace';
+        } else if (event.url.includes('/posts')) {
             this.title = 'DSODENTIST';
             this.btnTitle = 'menu';
         } else if (event.url.includes('/reviews/add')) {
