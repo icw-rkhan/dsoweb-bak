@@ -3,7 +3,7 @@
     <mat-list-item>
       <img *ngIf="userPhoto; else default" mat-list-avatar src="{{userPhoto}}"/>
       <ng-template #default>
-        <img mat-list-avatar src="../../../assets/avatar.png"/>
+        <img mat-list-avatar src="../../../assets/images/profile/icon_user_profile.png"/>
       </ng-template>
       <h4 *ngIf="userName" mat-line>{{userName}}</h4>
       <p mat-line></p>
