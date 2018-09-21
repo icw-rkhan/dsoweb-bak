@@ -46,8 +46,6 @@ export class EditExperienceComponent implements OnInit {
       this.endDate = this.experienceService.S_experienceEdit.end_time;
     }
     this.isCurrentWork = false;
-
-    console.log('init ex', this.experienceService.S_experience);
   }
 
   ngOnInit() {
@@ -59,8 +57,6 @@ export class EditExperienceComponent implements OnInit {
       this.experienceService.S_experience = this.experienceService.S_experienceEdit;
     }
     this.isCurrentWork = false;
-
-    console.log('init ex', this.experienceService.S_experience);
   }
 
   chosenStartDate(date: Date, datepicker: MatDatepicker<Date>) {
@@ -74,6 +70,27 @@ export class EditExperienceComponent implements OnInit {
   }
 
   save() {
+    console.log(this.experienceService.S_experience);
+    if (!this.experienceService.S_experience.practice_Type) {
+      this.alertService.alertInfo('Error', 'Practice type can\'t be blank.');
+      return;
+    }
+
+    if (!this.experienceService.S_experience.practice_Role) {
+      this.alertService.alertInfo('Error', 'Practice role can\'t be blank.');
+      return;
+    }
+
+    if (!this.experienceService.S_experience.practice_Role) {
+      this.alertService.alertInfo('Error', 'Name of Dental Support Organization can\'t be blank.');
+      return;
+    }
+
+    if (!this.startDate || !this.endDate) {
+      this.alertService.alertInfo('Error', 'Working time can\'t be blank.');
+      return;
+    }
+
     if (this.startDate > this.endDate) {
       this.alertService.alertInfo('Error', 'Start date must before end date');
       return;
@@ -100,6 +117,7 @@ export class EditExperienceComponent implements OnInit {
 
   close() {
     this.experienceService.S_experience = {};
+    this.experienceService.S_experienceEdit = undefined;
     this.closeModal.emit();
   }
 }
