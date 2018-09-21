@@ -8,6 +8,7 @@ import { Education } from '../../../models/education.model';
 })
 export class EducationSearchComponent implements OnInit {
   @Input('listSchool') listSchool: any[];
+  @Input('education') education: Education;
   @Output() selectedEducation: EventEmitter<Education> = new EventEmitter(null);
   @Output() backSearchEducation: EventEmitter<null> = new EventEmitter(null);
   listSchoolS: any[];
