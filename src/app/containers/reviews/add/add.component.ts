@@ -67,7 +67,6 @@ export class AddComponent implements OnInit, OnDestroy {
             url: res.photo_url,
             name: res.full_name
           };
-
           profileSub.unsubscribe();
           this.progress.complete();
         });

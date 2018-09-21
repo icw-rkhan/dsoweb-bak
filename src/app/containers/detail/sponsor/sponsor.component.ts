@@ -42,11 +42,11 @@ export class SponsorComponent implements OnInit, OnDestroy {
       this.postId = params['id'];
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
+        const commentSub = this.commentService.comments(this.postId).subscribe(c => {
+          this.comments = c;
+          commentSub.unsubscribe();
+        });
         postSub.unsubscribe();
-      });
-      const commentSub = this.commentService.comments(this.postId).subscribe(c => {
-        this.comments = c;
-        commentSub.unsubscribe();
         this.progress.complete();
       });
     });

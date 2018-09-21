@@ -48,7 +48,7 @@ export class ToolbarComponent {
           this.btnTitle = 'menu';
         } else if (event.url.includes('/profile')) {
           this.title = 'PROFILE';
-          this.btnTitle = 'keyboard_backspace';
+          this.btnTitle = 'menu';
         } else {
           this.title = 'DSODENTIST';
           this.btnTitle = 'menu';
