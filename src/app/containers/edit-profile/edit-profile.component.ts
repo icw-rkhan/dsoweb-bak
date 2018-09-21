@@ -94,7 +94,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.userProfile);
     this.is_student = +localStorage.getItem('is_student');
     this.fetchProfile(this.userInfo.user_name);
   }
