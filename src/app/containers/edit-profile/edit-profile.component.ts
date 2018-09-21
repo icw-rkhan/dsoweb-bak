@@ -94,13 +94,14 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.userProfile);
     this.is_student = +localStorage.getItem('is_student');
-    this.getMetaData();
     this.fetchProfile(this.userInfo.user_name);
   }
 
   getMetaData() {
-    this.profileService.getMetaData().subscribe(
+    const specialty = this.userProfile.specialty ? this.userProfile.specialty.id || null : null;
+    this.profileService.getMetaData(specialty).subscribe(
       (data: any) => {
         if (data[0]) {
           this.metadata.residency = data[0].resultMap.data;
@@ -121,6 +122,12 @@ export class EditProfileComponent implements OnInit {
           this.metadata.practiceType = data[4].resultMap.data;
           this.editProfileService.S_practiceDSO.next(data[4].resultMap.data);
         }
+        if (data[5]) {
+          this.metadata.listResidency = data[5].resultMap.data;
+        }
+        // if (data[6]) {
+        //   this.metadata.listResidency = data[5].resultMap.data;
+        // }
       }
     );
   }
@@ -130,8 +137,9 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
-        this.userProfile.educations = [];
         this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
+        this.userProfile.educations = this.userProfile.educations || [];
+        this.getMetaData();
         this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
@@ -140,13 +148,17 @@ export class EditProfileComponent implements OnInit {
   }
 
   parseData() {
-    ['educations', 'experiences'].map((key: any) => {
+    ['experiences'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
         item.start_time = moment(item.start_time);
         item.end_time = moment(item.end_time);
       });
     });
 
+    this.userProfile['educations'].map((item: any) => {
+      item.start_time = moment(item.start_time).format();
+      item.end_time = moment(item.end_time).format();
+    });
     this.userProfile['profileResidency'].map((item: any) => {
       item.start_time = moment(item.start_time).format();
       item.end_time = moment(item.end_time).format();
@@ -293,23 +305,37 @@ export class EditProfileComponent implements OnInit {
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile == this.RESUME_FILE) {
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
         if (res['code'] == 0) {
           this.userProfile.document_library = {
             document_name: res['resultMap']['resumeName']
           };
+          this.alertService.alertInfo('Success', 'Uploaded successfully');
+        } else {
+          this.alertService.alertInfo('Error', 'Upload Failed');
         }
+      }, (err) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
+        this.alertService.alertInfo('Error', 'Upload Failed');
       });
     } else {
       this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
         if (res['code'] == 0) {
           this.userProfile.photo_album = {
             photo_name: res['resultMap']['photoName']
           };
+          this.alertService.alertInfo('Success', 'Uploaded successfully');
+        } else {
+          this.alertService.alertInfo('Error', 'Upload Failed');
         }
+      }, (err) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
+        this.alertService.alertInfo('Error', 'Upload Failed');
       });
     }
   }

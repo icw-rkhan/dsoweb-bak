@@ -36,7 +36,9 @@
 </div>
 <div id="contents" class="inner-content" [innerHtml]="post.content">{{reLayout('video')}}{{reLayout('img')}}</div>
 <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
-    <span class="label-sponsor">Want more content from GSK?</span>
+    <span *ngIf="isGsk(post.tags)" class="label-sponsor">Want more content from GSK?</span>
+    <span *ngIf="isAlign(post.tags)" class="label-sponsor">Want more content from Align?</span>
+    <span *ngIf="isNobel(post.tags)" class="label-sponsor">Want more content from Nobel?</span>
     <button mat-button *ngIf="isGsk(post.tags)"class="sponsorBtn gskBtn" (click)="onPostSponsor('gsk')">Access GSK Science</button>
     <button mat-button *ngIf="isAlign(post.tags)"class="sponsorBtn alignBtn" (click)="onPostSponsor('align')">Access Align Resources</button>
     <button mat-button *ngIf="isNobel(post.tags)"class="sponsorBtn nobelBtn" (click)="onPostSponsor('nobel')">Access Nobel Biocare Resources</button>
