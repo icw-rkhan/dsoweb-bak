@@ -94,15 +94,15 @@ export class AddComponent implements OnInit, OnDestroy {
       'comment': this.comment,
       'rating': this.rate
     };
+    console.log(this.body);
+
     const commentSub = this.commentService.setComment(this.body).subscribe(
       (data: any) => {
-        console.log(data);
-
         commentSub.unsubscribe();
-        
         this._location.back();
-      });
+    });
   }
+  // change the format of the data
   dateFormat(date) {
     return formatDate(date, 'MMMM y', 'en-US');
   }
