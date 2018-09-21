@@ -15,9 +15,9 @@
     <div class="speciality__list ">
       <div class="list__left">
         <ul class="speciality-ul">
-          <li *ngFor="let s of states" class="container-r" (click)="_selectState(s)"><a href="javascript:void(0)" >{{s.name}}</a>
+          <li *ngFor="let s of states" class="container-r" (click)="_selectState(s)"><a href="javascript:void(0)" >{{s.state}}</a>
             <label class="container-checkbox">
-              <input type="checkbox" [checked]="state && state === s.name">
+              <input type="checkbox" [checked]="state && state === s.state">
               <span class="checkmark"></span>
             </label>
           </li>
