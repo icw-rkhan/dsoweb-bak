@@ -34,7 +34,7 @@
         </mat-menu>
     </div>
 </div>
-<div id="contents" class="inner-content" [innerHtml]="post.content"></div>
+<div id="contents" class="inner-content" [innerHtml]="post.content">{{reLayout('video')}}{{reLayout('img')}}</div>
 <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
     <span class="label-sponsor">Want more content from GSK?</span>
     <button mat-button *ngIf="isGsk(post.tags)"class="sponsorBtn gskBtn" (click)="onPostSponsor(post.id)">Access GSK Science</button>

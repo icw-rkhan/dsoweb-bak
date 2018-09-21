@@ -7,7 +7,7 @@
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>
-    <div class="image" *ngIf="post.thumbnail">
+    <div class="image" *ngIf="post.thumbnail" (click)="onViewDetail()">
       <img [src]="post.thumbnail"/>
     </div>
     <div class="content">

@@ -31,7 +31,7 @@
         </mat-menu>
     </div>
 </div>
-<div id="contents" class="inner-content" [innerHtml]="post.content"></div>
+<div id="contents" class="inner-content" [innerHtml]="post.content">{{reLayout('video')}}{{reLayout('img')}}</div>
 <div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
     <div class="review-question">
         <span>Finished the content?</span>
