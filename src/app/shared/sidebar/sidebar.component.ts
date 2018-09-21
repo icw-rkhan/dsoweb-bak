@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavLinkModel } from '../../models/nav-link.model';
+import { AuthService, ProfileService } from '../../services';
 
 @Component({
   selector: 'dso-sidebar',
@@ -8,34 +9,38 @@ import { NavLinkModel } from '../../models/nav-link.model';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  userName: string;
+  userPhoto: string;
 
   links: NavLinkModel[] = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService, private profileService: ProfileService) {
+    this.getUserInfo();
+
     this.links.push({
       label: 'General Content',
       icon: 'folder_open',
-      route: '/feed/latest'
+      route: '/posts'
     });
     this.links.push({
       label: 'Education',
       icon: 'account_balance',
-      route: ''
+      route: '#'
     });
     this.links.push({
       label: 'Careers',
       icon: 'notifications_active',
-      route: ''
+      route: '#'
     });
     this.links.push({
       label: 'Events',
       icon: 'calendar_today',
-      route: ''
+      route: '#'
     });
     this.links.push({
       label: 'Unite',
       icon: 'bookmarks',
-      route: ''
+      route: '#'
     });
     this.links.push({
       label: 'My Profile',
@@ -43,14 +48,30 @@ export class SidebarComponent {
       route: '/profile'
     });
     this.links.push({
-      label: 'Settings',
-      icon: 'settings_applications',
+      label: 'Logout',
+      icon: 'exit_to_app',
       route: ''
     });
   }
 
   onClick(link: NavLinkModel) {
-    this.router.navigate([link.route]);
+    if (link.route !== '#') {
+      this.router.navigate([link.route]);
+    }
   }
 
+  getUserInfo() {
+    const email = this.authService.getUserInfo().user_name;
+
+    const profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
+      (data: any) => {
+        const res = data.resultMap.data;
+        this.userName = res.full_name;
+        this.userPhoto = res.photo_url;
+
+        console.log(data.resultMap.data);
+
+        profileSub.unsubscribe();
+      });
+  }
 }

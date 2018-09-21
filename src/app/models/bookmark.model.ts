@@ -8,6 +8,7 @@ export class Bookmark implements Serializable<Bookmark> {
   title: string;
   postId: string;
   user_id?: string;
+  url?: string;
 
   deserialize(data: any): Bookmark {
     return <Bookmark>Object.assign({}, {

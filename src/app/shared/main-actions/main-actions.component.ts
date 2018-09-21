@@ -29,7 +29,7 @@ export class MainActionsComponent implements OnInit {
     this.navFooterLinks.push({
       id: 0,
       label: 'For You',
-      route: '/feed/latest',
+      route: '/posts',
       icon: 'receipt'
     });
     this.navFooterLinks.push({
@@ -54,7 +54,7 @@ export class MainActionsComponent implements OnInit {
 
   isActive(link: NavLinkModel) {
     if (0 === link.id) {
-      return this.currentUrl === '/feed/latest' || this.currentUrl.startsWith('/feed/post-type');
+      return this.currentUrl === '/posts/latest' || this.currentUrl.startsWith('/posts/type');
     } else if (1 === link.id) {
       return this.currentUrl === '/search';
     } else if (2 === link.id) {

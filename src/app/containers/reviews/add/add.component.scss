@@ -105,6 +105,7 @@ mat-card {
     }
 
     .title {
+        width: 80%;
         color: #262424;
         font-size: 15px;
         font-weight: 600;
@@ -124,7 +125,7 @@ mat-card {
     }    
 }
 
-.statebar {
+.ratebar {
     padding: 15px 0px;
     background-color: #f8f8f8;
     text-align: center;

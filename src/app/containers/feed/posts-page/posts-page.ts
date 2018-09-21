@@ -13,12 +13,13 @@ import { BookmarkService } from '../../../services/bookmark.service';
 import { Bookmark } from '../../../models/bookmark.model';
 
 @Component({
-  templateUrl: './post-type-page.html',
-  styleUrls: ['./post-type-page.scss']
+  templateUrl: './posts-page.html',
+  styleUrls: ['./posts-page.scss']
 })
-export class PostTypePageComponent implements OnInit, OnDestroy {
+export class PostsPageComponent implements OnInit, OnDestroy {
 
   posts: Post[];
+  sponsorId: number;
 
   private postSub: Subscription;
   private paramsSub: Subscription;
@@ -32,12 +33,24 @@ export class PostTypePageComponent implements OnInit, OnDestroy {
     this.paramsSub = this.route.params.subscribe(params => {
       this.progress.start();
 
-      const id = +params['id'];
+      // Params
+      const id = params['id'];
+      const sponsorId = params['sponsorId'];
+
+      // Services
       const email = this.authService.getUserInfo().user_name;
+      let postService = this.postService.posts();
+
+      if (!_.isUndefined(sponsorId)) {
+        this.sponsorId = +sponsorId;
+        postService = this.postService.fetchBySponsorId(sponsorId, id);
+      } else if (!_.isUndefined(id)) {
+        postService = this.postService.fetchByCategory(id);
+      }
 
       // Join bookmarks and post
       this.postSub = forkJoin(
-        this.postService.fetchByCategory(id),
+        postService,
         this.bookmarkService.getAllByEmail(email)
       ).pipe(
         map(items => items[0].map(p => {
@@ -62,7 +75,7 @@ export class PostTypePageComponent implements OnInit, OnDestroy {
   addBookmark(value: Bookmark) {
     const bookmarkSub = this.bookmarkService.saveBookmark(value).subscribe(x => {
       this.snackBar.open('Bookmark added', 'OK', {
-        duration: 2000,
+        duration: 1000,
       });
       bookmarkSub.unsubscribe();
     });
@@ -71,7 +84,7 @@ export class PostTypePageComponent implements OnInit, OnDestroy {
   removeBookmark(id: string) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe(x => {
       this.snackBar.open('Bookmark removed', 'OK', {
-        duration: 2000,
+        duration: 1000,
       });
       bookmarkSub.unsubscribe();
     });

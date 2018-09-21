@@ -1,7 +1,7 @@
 <dso-main-container>
   <nav mat-tab-nav-bar>
     <a mat-tab-link #rla="routerLinkActive" *ngFor="let link of navLinks" [routerLink]="link.route" routerLinkActive
-       [active]="rla.isActive">
+       [class.active]="isActive(link)">
       {{link.label}}
     </a>
   </nav>
