@@ -1,0 +1,28 @@
+<header class="header-profile fixed-bar">
+  <nav class="navbar bg-grey">
+    <a (click)="close()" class="back-link cursor"><span class="icon-bar icon-back"></span></a>
+    <div class="navbar-title-heading">Dental Support Organization</div>
+  </nav>
+</header>
+<div class="speciality-container">
+  <div class="speciality-search">
+    <div class="search-container">
+      <input type="text" name="" #search placeholder="Search ..." [value]="searchText" (input)="changeInput(search.value)" class="input-search">
+      <span class="icon-search"></span>
+    </div>
+  </div>
+  <div class="speciality-content">
+    <div class="speciality__list ">
+      <div class="list__left">
+        <ul class="speciality-ul">
+          <li *ngFor="let p of filterList" class="container-r" (click)="_selectPracticeDSO(p)"><a href="javascript:void(0)" >{{p?.name}}</a>
+            <label class="container-checkbox">
+              <input type="checkbox" [checked]="experienceService.S_experience?.practice_DSO && experienceService.S_experience?.practice_DSO.id == p.id">
+              <span class="checkmark"></span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

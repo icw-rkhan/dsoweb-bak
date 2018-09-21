@@ -31,7 +31,7 @@ export class ProfileService {
     const url2 = `${environment.profileApiUrl}/dentalSchool/getAll`;
     const url3 = `${environment.profileApiUrl}/experience/findAllPracticeRole`;
     const url4 = `${environment.profileApiUrl}/experience/findAllPracticeType`;
-    // const url5 = `${environment.profileApiUrl}/experience/findAllPracticeDSO`;
+    const url5 = `${environment.profileApiUrl}/experience/findAllPracticeDSO`;
     // const url6 = `${environment.profileApiUrl}/usZipSv/findAllusZipSvByZip`;
     const formData = this.parseFormData({ name: '' });
     // const formData6 = this.parseFormData({ zip: '' });
@@ -46,6 +46,9 @@ export class ProfileService {
         map(this.extractData)
       ),
       this.http.post(url4, formData, { headers: headers }).pipe(
+        map(this.extractData)
+      ),
+      this.http.post(url5, formData, { headers: headers }).pipe(
         map(this.extractData)
       ),
       // this.http.post(url5, formData, { headers: headers }).pipe(
@@ -66,6 +69,7 @@ export class ProfileService {
   parseFormData(data: any) {
     const formData: FormData = new FormData();
     Object.keys(data).map((key: any) => {
+      console.log(data[key]);
       formData.append(key, data[key]);
     });
     return formData;

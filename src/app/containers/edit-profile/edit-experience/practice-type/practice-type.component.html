@@ -1,13 +1,13 @@
 <header class="header-profile fixed-bar">
   <nav class="navbar bg-grey">
     <a (click)="close()" class="back-link cursor"><span class="icon-bar icon-back"></span></a>
-    <div class="navbar-title-heading">SPECIALITY</div>
+    <div class="navbar-title-heading">Pracice Type</div>
   </nav>
 </header>
 <div class="speciality-container">
   <div class="speciality-search">
     <div class="search-container">
-      <input type="text" name="" placeholder="Search ..." [value]="searchText" (input)="changeInput($event)" class="input-search">
+      <input type="text" name="" #search placeholder="Search ..." [value]="searchText" (input)="changeInput(search.value)" class="input-search">
       <span class="icon-search"></span>
     </div>
   </div>
@@ -15,9 +15,9 @@
     <div class="speciality__list ">
       <div class="list__left">
         <ul class="speciality-ul">
-          <li *ngFor="let s of specialities" class="container-r" (click)="_selectSpeciality(s)"><a href="javascript:void(0)" >{{s.name}}</a>
+          <li *ngFor="let p of filterList" class="container-r" (click)="_selectPracticeType(p)"><a href="javascript:void(0)" >{{p.name}}</a>
             <label class="container-checkbox">
-              <input type="checkbox" [checked]="speciality && speciality.id == s.id">
+              <input type="checkbox" [checked]="experienceService.S_experience?.practice_Type && experienceService.S_experience?.practice_Type.id == p.id">
               <span class="checkmark"></span>
             </label>
           </li>
