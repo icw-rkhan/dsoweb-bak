@@ -25,16 +25,16 @@ export class ProfileService {
     );
   }
 
-  getMetaData(): Observable<any> {
+  getMetaData(specialty): Observable<any> {
     const headers: any = this.customHeader();
     const url1 = `${environment.profileApiUrl}/residencySpecialty/findAllSpecialty`;
     const url2 = `${environment.profileApiUrl}/dentalSchool/getAll`;
     const url3 = `${environment.profileApiUrl}/experience/findAllPracticeRole`;
     const url4 = `${environment.profileApiUrl}/experience/findAllPracticeType`;
-    const url5 = `${environment.profileApiUrl}/residencySpecialty/findAllResidency`;
-    const url6 = `${environment.profileApiUrl}/residencySpecialty/getResidencyBySpecialty`;
     // const url5 = `${environment.profileApiUrl}/experience/findAllPracticeDSO`;
-    // const url6 = `${environment.profileApiUrl}/usZipSv/findAllusZipSvByZip`;
+    const url5 = `${environment.profileApiUrl}/experience/findAllPracticeDSO`;
+    const url6 = `${environment.profileApiUrl}/residencySpecialty/findAllResidency`;
+    const url7 = `${environment.profileApiUrl}/residencySpecialty/getResidencyBySpecialty`;
     const formData = this.parseFormData({ name: '' });
     // const formData6 = this.parseFormData({ zip: '' });
     return forkJoin(
@@ -53,6 +53,12 @@ export class ProfileService {
       this.http.post(url5, formData, { headers: headers }).pipe(
         map(this.extractData)
       ),
+      this.http.post(url6, formData, { headers: headers }).pipe(
+        map(this.extractData)
+      ),
+      // this.http.post(url7, { specialtyId: specialty }, { headers: headers }).pipe(
+      //   map(this.extractData)
+      // ),
       // this.http.post(url5, formData, { headers: headers }).pipe(
       //   map(this.extractData)
       // ),
@@ -71,6 +77,7 @@ export class ProfileService {
   parseFormData(data: any) {
     const formData: FormData = new FormData();
     Object.keys(data).map((key: any) => {
+      console.log(data[key]);
       formData.append(key, data[key]);
     });
     return formData;
