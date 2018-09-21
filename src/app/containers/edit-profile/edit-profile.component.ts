@@ -126,7 +126,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
-        this.userProfile.educations = [];
+        this.userProfile.educations = this.userProfile.educations || [];
         this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
@@ -135,7 +135,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   parseData() {
-    ['educations', 'experiences'].map((key: any) => {
+    ['experiences'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
         item.start_time = moment(item.start_time).format('MMMM YYYY');
         item.end_date = moment(item.start_time).isBefore(moment())
@@ -144,6 +144,10 @@ export class EditProfileComponent implements OnInit {
       });
     });
 
+    this.userProfile['educations'].map((item: any) => {
+      item.start_time = moment(item.start_time).format();
+      item.end_time = moment(item.end_time).format();
+    });
     this.userProfile['profileResidency'].map((item: any) => {
       item.start_time = moment(item.start_time).format();
       item.end_time = moment(item.end_time).format();
