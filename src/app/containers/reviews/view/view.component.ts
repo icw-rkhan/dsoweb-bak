@@ -16,7 +16,7 @@ import { formatDate } from '@angular/common';
 export class ViewComponent implements OnInit, OnDestroy {
   postId: number;
   paramsSub: any;
-  comments$: Observable<Comment[]>;
+  comments$: Comment[];
 
   rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
 
@@ -35,9 +35,9 @@ export class ViewComponent implements OnInit, OnDestroy {
       this.progress.start();
       this.postId = params['id'];
 
-      this.comments$ = this.commentService.comments(this.postId);
-      const commentsSub = this.comments$.subscribe(() => {
-        commentsSub.unsubscribe();
+      const commentSub = this.commentService.comments(this.postId).subscribe((data) => {
+        this.comments$ = data;
+        commentSub.unsubscribe();
         this.progress.complete();
       });
     });

@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment';
 import {Specialty} from '../../models/speciality.model';
 import {EditProfileService} from './edit-profile.service';
 import {isNullOrUndefined} from 'util';
+import {json} from 'ngx-custom-validators/src/app/json/validator';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -37,6 +38,7 @@ export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
   @ViewChild('educationModel') private educationModel: ModalDirective;
+  @ViewChild('AddressModal') private addressModal: ModalDirective;
   is_student: number;
   userInfo: any;
   userProfile: any;
@@ -92,7 +94,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.userProfile);
     this.is_student = +localStorage.getItem('is_student');
     this.fetchProfile(this.userInfo.user_name);
   }
@@ -135,6 +136,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
         this.userProfile.educations = this.userProfile.educations || [];
         this.getMetaData();
         this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};
@@ -164,6 +166,13 @@ export class EditProfileComponent implements OnInit {
 
   setPracticeAddress(address: any) {
     this.userProfile.practiceAddress = address;
+    this.editProfileService.S_practiceAddress = address;
+  }
+
+  closeAddressModal() {
+    this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
+    this.isPracticeAddress = false;
+    this.addressModal.hide();
   }
 
   setSpeciality(speciality: any) {
@@ -178,7 +187,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   addExperience(ex) {
-    console.log(ex);
     this.userProfile.experiences.push(ex);
     this.editProfileService.S_experience = {};
     this.editProfileService.S_experienceEdit = undefined;

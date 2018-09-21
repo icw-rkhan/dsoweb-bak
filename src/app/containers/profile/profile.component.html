@@ -86,11 +86,11 @@
     </section>
     <section class="profile_Contact">
       <div class="profile_title small f300">Contact</div>
-      <div *ngIf="is_student && userProfile?.userPracticeAddress" class="profile__content bt">
+      <div *ngIf="is_student && userProfile?.practiceAddress" class="profile__content bt">
         <div class="profile__icon practice-icon"></div>
         <div class="profile__content_info">
           <span class="pre_email_addr"><strong>Practice Address</strong></span>
-          <span class="addr-link cl4a">124 Park Avenue, 45th Street, Boston, MA - 20230</span>
+          <span class="addr-link cl4a">{{userProfile?.practiceAddress?.address1}}</span>
         </div>
       </div>
       <div *ngIf="userProfile?.phone" class="profile__content bt">
