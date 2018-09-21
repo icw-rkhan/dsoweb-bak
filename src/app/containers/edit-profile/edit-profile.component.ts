@@ -285,23 +285,37 @@ export class EditProfileComponent implements OnInit {
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile == this.RESUME_FILE) {
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
         if (res['code'] == 0) {
           this.userProfile.document_library = {
             document_name: res['resultMap']['resumeName']
           };
+          this.alertService.alertInfo('Success', 'Uploaded successfully');
+        } else {
+          this.alertService.alertInfo('Error', 'Upload Failed');
         }
+      }, (err) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
+        this.alertService.alertInfo('Error', 'Upload Failed');
       });
     } else {
       this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
         if (res['code'] == 0) {
           this.userProfile.photo_album = {
             photo_name: res['resultMap']['photoName']
           };
+          this.alertService.alertInfo('Success', 'Uploaded successfully');
+        } else {
+          this.alertService.alertInfo('Error', 'Upload Failed');
         }
+      }, (err) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
+        this.alertService.alertInfo('Error', 'Upload Failed');
       });
     }
   }
