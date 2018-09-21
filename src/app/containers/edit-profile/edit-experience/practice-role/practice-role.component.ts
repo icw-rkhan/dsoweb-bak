@@ -16,7 +16,6 @@ export class PracticeRoleComponent implements OnInit {
 
   constructor(public experienceService: EditProfileService) {
     this.experienceService.S_practiceRoles.subscribe(p => {
-      console.log('con' ,p);
       this.practiceRoles = p;
       this.filterList = this.practiceRoles;
     });
