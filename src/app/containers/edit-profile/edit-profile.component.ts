@@ -85,6 +85,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.userProfile);
     this.is_student = +localStorage.getItem('is_student');
     this.getMetaData();
     this.fetchProfile(this.userInfo.user_name);
@@ -105,6 +106,9 @@ export class EditProfileComponent implements OnInit {
         }
         if (data[3]) {
           this.metadata.practiceType = data[3].resultMap.data;
+        }
+        if (data[4]) {
+          this.metadata.listResidency = data[4].resultMap.data;
         }
       }
     );

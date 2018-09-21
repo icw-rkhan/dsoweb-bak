@@ -32,6 +32,7 @@ export class ProfileService {
     const url3 = `${environment.profileApiUrl}/experience/findAllPracticeRole`;
     const url4 = `${environment.profileApiUrl}/experience/findAllPracticeType`;
     const url5 = `${environment.profileApiUrl}/residencySpecialty/findAllResidency`;
+    const url6 = `${environment.profileApiUrl}/residencySpecialty/getResidencyBySpecialty`;
     // const url5 = `${environment.profileApiUrl}/experience/findAllPracticeDSO`;
     // const url6 = `${environment.profileApiUrl}/usZipSv/findAllusZipSvByZip`;
     const formData = this.parseFormData({ name: '' });
