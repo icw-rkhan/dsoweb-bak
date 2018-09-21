@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavLinkModel } from '../../models/nav-link.model';
+import { AuthService, ProfileService } from '../../services';
 
 @Component({
   selector: 'dso-sidebar',
@@ -8,14 +9,18 @@ import { NavLinkModel } from '../../models/nav-link.model';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  userName: string;
+  userPhoto: string;
 
   links: NavLinkModel[] = [];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private authService: AuthService, private profileService: ProfileService) {
+    this.getUserInfo();
+
     this.links.push({
       label: 'General Content',
       icon: 'folder_open',
-      route: '/posts/latest'
+      route: '/posts'
     });
     this.links.push({
       label: 'Education',
@@ -53,4 +58,18 @@ export class SidebarComponent {
     this.router.navigate([link.route]);
   }
 
+  getUserInfo() {
+    const email = this.authService.getUserInfo().user_name;
+
+    const profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
+      (data: any) => {
+        const res = data.resultMap.data;
+        this.userName = res.full_name;
+        this.userPhoto = res.photo_url;
+
+        console.log(data.resultMap.data);
+
+        profileSub.unsubscribe();
+      });
+  }
 }
