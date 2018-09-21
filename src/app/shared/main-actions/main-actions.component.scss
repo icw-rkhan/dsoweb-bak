@@ -1,8 +1,8 @@
 @import "../../../variables";
 
 .footer {
-  //position: fixed;
-  //bottom: 0;
+  position: fixed;
+  bottom: 0;
   background: white;
   width: 100%;
   border-top: 1px solid rgba(0, 0, 0, .12);
@@ -18,8 +18,13 @@
   align-items: center;
   color: $primary;
   font-weight: 200;
+
   mat-icon {
     margin-bottom: 5px;
+  }
+
+  mat-icon, span {
+    color: #dddddd;
   }
 }
 
@@ -36,4 +41,8 @@
 
 .active {
   background-color: #f7f7f7;
+
+  mat-icon, span {
+    color: #889aa7;
+  }
 }

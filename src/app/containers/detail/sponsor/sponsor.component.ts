@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
 import { formatDate } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { PostService } from '../../../services/post.service';
 import { CommentService } from '../../../services/comment.service';
@@ -17,71 +18,55 @@ import { Post } from '../../../models/post.model';
   templateUrl: './sponsor.component.html',
   styleUrls: ['./sponsor.component.scss']
 })
-export class SponsorComponent implements OnInit, OnDestroy, AfterViewInit {
+export class SponsorComponent implements OnInit, OnDestroy {
   post: Post;
   rate: number;
   postId: number;
-  paramsSub: any;
+  paramsSub: Subscription;
   review_count: number;
   comments: Comment[];
-  postSub: any;
-  commentSub: any;
+  rateList = [{status: 'inactive'}, {status: 'inactive'}, 
+  {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}];
 
-  rateList = [{status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}];
   constructor(private route: ActivatedRoute, private router: Router, private postService: PostService,
     private authService: AuthService, private progress: NgProgress, private commentService: CommentService,
     private bookmarkService: BookmarkService, private snackBar: MatSnackBar) {
     this.review_count = 0;
     this.rate = 0;
+    this.post = new Post();
   }
   // gets the postId from article page and gets the postInfo and the commentInfo with postId from server
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
+    this.paramsSub = this.route.params.subscribe(params => {
       this.progress.start();
       this.postId = params['id'];
-      this.postSub = this.postService.fetchById(this.postId).subscribe(p => {
+      const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
-
-        this.commentSub = this.commentService.comments(this.postId).subscribe(c => {
-          this.comments = c;
-        });
+        postSub.unsubscribe();
       });
+      const commentSub = this.commentService.comments(this.postId).subscribe(c => {
+        this.comments = c;
+        commentSub.unsubscribe();
+      });
+
+      this.progress.complete();
     });
   }
-  // relayout the contents gets from server
-  ngAfterViewInit(): void {
-    const parentTag = document.getElementById('contents');
-
-    this.reLayout('p', parentTag);
-    this.reLayout('ul', parentTag);
-    this.reLayout('ol', parentTag);
-
-    this.progress.complete();
-  }
-
-  reLayout(childTagName, parentTag): void {
-    const len = parentTag.getElementsByTagName(childTagName).length;
-    let i = 0;
-    for ( i = 0; i < len; i++) {
-      const childTag = parentTag.getElementsByTagName(childTagName)[i];
-      if (childTagName === 'img') {
-        childTag.style.width = '100%';
-        childTag.style.height = 'auto';
-      } else if (childTagName === 'ul' || childTagName === 'ol') {
-        this.reLayout('li', childTag);
-      } else {
-        this.reLayout('img', childTag);
-        childTag.style.color = '#4a4a4a';
-        childTag.style.marginBottom = '10px';
-        childTag.style.lineHeight = '20px';
-        childTag.style.fontSize = '15px';
+  // custome the style of the content
+  reLayout(tagName): void {
+    const paretTag = document.getElementById('contents');
+    const tag = paretTag.getElementsByTagName(tagName);
+    if (tag && tag.length > 0) {
+      let i = 0;
+      for (i = 0; i < tag.length; i++) {
+        tag[i].style.width = '100%';
+        tag[i].style.height = 'auto';
       }
     }
   }
 
   ngOnDestroy(): void {
-    this.postSub.unsubscribe();
-    this.commentSub.unsubscribe();
+    this.paramsSub.unsubscribe();
   }
   // post the page to review all comments with postId
   onViewAll(postId): void {
@@ -120,11 +105,23 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewInit {
     });
   }
   // post sponsor article by postId
-  onPostSponsor(postId) {
-    this.router.navigate([`/posts/sponsor/${postId}`]);
+  onPostSponsor(type) {
+    let sponsorId: number;
+    if (type === 'gsk') {
+      sponsorId = 197;
+    } else if (type === 'align') {
+      sponsorId = 260;
+    } else if (type === 'nobel') {
+      sponsorId = 259;
+    }
+    this.router.navigate([`/posts/sponsor/${sponsorId}`]);
   }
   // get average rating of the comments by postId
   getRating(comments, type): any {
+    if (!comments) {
+      return 0;
+    }
+
     const len = comments.length;
 
     if (len === 0) {
@@ -147,25 +144,28 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewInit {
   }
   // change the format of the data
   dateFormat(date): any {
-    return formatDate(date, 'MMM d, y', 'en-US');
+    if (date) {
+      return formatDate(date, 'MMM d, y', 'en-US'); 
+    }
+    return '';
   }
   // check gsk tag
   isGsk(tags): boolean {
-    if (tags.includes(197)) {
+    if (tags && tags.includes(197)) {
       return true;
     }
     return false;
   }
   // check align tag
   isAlign(tags): boolean {
-    if (tags.includes(260)) {
+    if (tags && tags.includes(260)) {
       return true;
     }
     return false;
   }
   // check nobel tag
   isNobel(tags): boolean {
-    if (tags.includes(259)) {
+    if (tags && tags.includes(259)) {
       return true;
     }
     return false;

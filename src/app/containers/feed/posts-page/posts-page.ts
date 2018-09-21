@@ -36,15 +36,16 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       // Params
       const id = params['id'];
       const sponsorId = params['sponsorId'];
+
       // Services
       const email = this.authService.getUserInfo().user_name;
       let postService = this.postService.posts();
 
-      if (!_.isUndefined(id)) {
-        postService = this.postService.fetchByCategory(id);
-      } else if (!_.isUndefined(sponsorId)) {
+      if (!_.isUndefined(sponsorId)) {
         this.sponsorId = +sponsorId;
-        postService = this.postService.fetchBySponsorId(sponsorId);
+        postService = this.postService.fetchBySponsorId(sponsorId, id);
+      } else if (!_.isUndefined(id)) {
+        postService = this.postService.fetchByCategory(id);
       }
 
       // Join bookmarks and post
@@ -74,7 +75,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   addBookmark(value: Bookmark) {
     const bookmarkSub = this.bookmarkService.saveBookmark(value).subscribe(x => {
       this.snackBar.open('Bookmark added', 'OK', {
-        duration: 2000,
+        duration: 1000,
       });
       bookmarkSub.unsubscribe();
     });
@@ -83,7 +84,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   removeBookmark(id: string) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe(x => {
       this.snackBar.open('Bookmark removed', 'OK', {
-        duration: 2000,
+        duration: 1000,
       });
       bookmarkSub.unsubscribe();
     });

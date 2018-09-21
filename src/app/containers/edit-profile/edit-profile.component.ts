@@ -3,14 +3,17 @@ import {ModalDirective} from 'ngx-bootstrap';
 import * as moment from 'moment';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 
-import {AuthService, ProfileService} from '../../services/index';
-import {Residency} from '../../models/residency.model';
+import { AuthService, ProfileService } from '../../services/index';
+import { Residency } from '../../models/residency.model';
+import { Education } from '../../models/education.model';
 
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
 import {AlertService} from '../../services/alert.service';
+import { environment } from '../../../environments/environment';
 import {Speciality} from '../../models/speciality.model';
 import {EditProfileService} from './edit-profile.service';
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -33,14 +36,15 @@ import {EditProfileService} from './edit-profile.service';
 export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
+  @ViewChild('educationModel') private educationModel: ModalDirective;
   is_student: number;
   userInfo: any;
   userProfile: any;
   metadata: any;
   isEditSpeciality: boolean;
   isEditExperience: boolean;
-  isUploadResume: boolean;
-  isUploadResumeSlide: boolean;
+  isUploadFile: boolean;
+  isUploadFileSlide: boolean;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
@@ -50,11 +54,21 @@ export class EditProfileComponent implements OnInit {
   residency: Residency;
   residencyIndex: number;
 
+  EDIT = 1;
+  ADD = 2;
+  typeEducation = 1;
+  education: Education;
+  educationIndex: number;
+
+  RESUME_FILE = 1;
+  PHOTO_FILE = 2;
+  typeFile: number;
   filteredSpeciality: any;
   speciality: Speciality;
 
   experiences: any;
 
+  baseUrl: String;
   constructor(private authService: AuthService,
               private profileService: ProfileService,
               private sharingService: SharingService,
@@ -63,8 +77,9 @@ export class EditProfileComponent implements OnInit {
     this.sharingService.showLoading̣̣(true);
     this.isEditSpeciality = false;
     this.isEditExperience = false;
-    this.isUploadResume = false;
-    this.isUploadResumeSlide = false;
+    this.isUploadFile = false;
+    this.isUploadFileSlide = false;
+    this.baseUrl = environment.profileApiUrl;
 
     this.metadata = {
       dentalSchool: [],
@@ -113,8 +128,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
-        this.userProfile.educations.push({});
-        this.experiences = this.userProfile.experiences;
+        this.userProfile.educations = [];
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
       }
@@ -139,9 +153,6 @@ export class EditProfileComponent implements OnInit {
 
   setSpeciality(speciality: any) {
     this.speciality = speciality;
-    if (this.userProfile.educations.length !== 0) {
-      this.userProfile.educations[0].major = speciality.name;
-    }
     this.closeSpecialityModal();
   }
 
@@ -227,6 +238,7 @@ export class EditProfileComponent implements OnInit {
 
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
+          this.fetchProfile(this.userInfo.user_name);
           this.alertService.alertInfo('Success', 'Saved successfully');
         } else {
           this.alertService.alertInfo('Error', data.msg);
@@ -242,10 +254,73 @@ export class EditProfileComponent implements OnInit {
 
   closeUploadResume(e) {
     if (e.target.className.includes('modal-overlay upload-file')) {
-      this.isUploadResumeSlide = false;
+      this.isUploadFileSlide = false;
       setTimeout(() => {
-        this.isUploadResume = false;
+        this.isUploadFile = false;
       }, 400);
+    }
+  }
+
+  selectFile(file) {
+    this.sharingService.showLoading̣̣(true);
+    if (this.typeFile == this.RESUME_FILE) {
+      this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
+        if (res['code'] == 0) {
+          this.userProfile.document_library = {
+            document_name: res['resultMap']['resumeName']
+          };
+        }
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
+      });
+    } else {
+      this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
+        if (res['code'] == 0) {
+          this.userProfile.photo_album = {
+            photo_name: res['resultMap']['photoName']
+          };
+        }
+        this.sharingService.showLoading̣̣(false);
+        this.isUploadFile = false;
+      });
+    }
+  }
+
+  selectEducation() {
+    this.education_page = this.RESIDENCY_AT;
+  }
+
+  selectedEducation(e: Education) {
+    this.education = e;
+    this.education_page = this.RESIDENCY_EDIT;
+  }
+
+  editEducation(i) {
+    this.educationIndex = i;
+    // const dt = {
+    //   id: this.userProfile.educations[i]['dental_school']['id'],
+    //   name: this.userProfile.educations[i].school_name,
+    //   year: this.userProfile.educations[i].school_name
+    // }
+    // this.education
+  }
+
+
+  saveEducation(e: Education) {
+    if (this.typeEducation == this.ADD) {
+      console.log(e);
+      this.userProfile.educations.push({
+        email: this.userInfo.email,
+        start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
+        end_time: e.year + '-01-01T00:00:00.000Z',
+        major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
+        dental_school: {
+          id: e.id || null
+        },
+        school_name: e.name,
+        types: e.types
+      });
+      this.educationModel.hide();
     }
   }
 }

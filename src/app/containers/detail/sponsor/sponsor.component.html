@@ -1,12 +1,12 @@
 <div class="inner-content topic-date" fxLayoutAlign="row">
-    <span class="topic" fxFlex="50">{{post.category.name}}</span>
-    <span class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
+    <span *ngIf="post.categories?.length > 0" class="topic" fxFlex="50">{{post.categories | multipleCategories}}</span>
+    <span *ngIf="post" class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
 </div>
 <div class="inner-thumbnail" fxLayout="column">
     <img class="inner-thumbnail" src="{{post.thumbnail}}">
-    <img *ngIf="isGsk(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png">
-    <img *ngIf="isAlign(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png">
-    <img *ngIf="isNobel(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png">
+    <img *ngIf="isGsk(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png" (click)="onPostSponsor('gsk')">
+    <img *ngIf="isAlign(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png" (click)="onPostSponsor('align')">
+    <img *ngIf="isNobel(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png" (click)="onPostSponsor('nobel')">
 </div>
 <div class="inner-content" fxLayout="row">
     <div fxFlex="80" class="title">
@@ -34,12 +34,12 @@
         </mat-menu>
     </div>
 </div>
-<div id="contents" class="inner-content" [innerHtml]="post.content"></div>
+<div id="contents" class="inner-content" [innerHtml]="post.content">{{reLayout('video')}}{{reLayout('img')}}</div>
 <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
     <span class="label-sponsor">Want more content from GSK?</span>
-    <button mat-button *ngIf="isGsk(post.tags)"class="sponsorBtn gskBtn" (click)="onPostSponsor(post.id)">Access GSK Science</button>
-    <button mat-button *ngIf="isAlign(post.tags)"class="sponsorBtn alignBtn" (click)="onPostSponsor(post.id)">Access Align Resources</button>
-    <button mat-button *ngIf="isNobel(post.tags)"class="sponsorBtn nobelBtn" (click)="onPostSponsor(post.id)">Access Nobel Biocare Resources</button>
+    <button mat-button *ngIf="isGsk(post.tags)"class="sponsorBtn gskBtn" (click)="onPostSponsor('gsk')">Access GSK Science</button>
+    <button mat-button *ngIf="isAlign(post.tags)"class="sponsorBtn alignBtn" (click)="onPostSponsor('align')">Access Align Resources</button>
+    <button mat-button *ngIf="isNobel(post.tags)"class="sponsorBtn nobelBtn" (click)="onPostSponsor('nobel')">Access Nobel Biocare Resources</button>
 </div>
 <div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
     <div class="review-question">
@@ -55,7 +55,10 @@
 <div fxLayout="row" class="inner-content rate">
     <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
         <div class="review-count">
-            <span>{{comments.length}} Reviews</span>
+            <span *ngIf="comments && comments.length; else zeReviews">{{comments.length}} Reviews</span>
+            <ng-template #zeReviews>
+                <span>0 Reviews</span>
+            </ng-template>
         </div>
         <div fxLayout="row" class="ratebar">
             <div *ngFor="let rate of rateList; index as i">
@@ -94,4 +97,3 @@
         </mat-menu>
     </div>
 </div>
-    

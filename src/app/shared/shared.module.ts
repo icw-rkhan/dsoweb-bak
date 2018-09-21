@@ -41,9 +41,12 @@ import { FeedGridComponent } from './feed-grid/feed-grid.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { MainContainerComponent } from './main-container/main-container.component';
+import { SponsorCardComponent } from './sponsor-card/sponsor-card.component';
+import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
 
 const PIPES = [
-  TruncatePipe
+  TruncatePipe,
+  MultipleCategoriesPipe
 ];
 
 export const COMPONENTS = [
@@ -51,6 +54,7 @@ export const COMPONENTS = [
   ToolbarComponent,
   AlertDialogComponent,
   FeedCardComponent,
+  SponsorCardComponent,
   MainActionsComponent,
   FeedGridComponent,
   TermPolicyDialogComponent,

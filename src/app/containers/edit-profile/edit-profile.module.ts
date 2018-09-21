@@ -1,12 +1,14 @@
 import {NgModule} from '@angular/core';
 
-import {SharedModule} from '../../shared';
-import {EditProfileComponent} from './edit-profile.component';
-import {ResidencySearchComponent} from './residency-search/residency-search.component';
-import {EditProfileRoutingModule} from './edit-profile.routing';
-import {BsDatepickerModule, ModalModule} from 'ngx-bootstrap';
-import {ResidencyAddComponent} from './residency-add/residency-add.component';
-import {ResidencyEditComponent} from './residency-edit/residency-edit.component';
+import { SharedModule } from '../../shared';
+import { EditProfileComponent } from './edit-profile.component';
+import { ResidencySearchComponent } from './residency-search/residency-search.component';
+import { EditProfileRoutingModule } from './edit-profile.routing';
+import { ModalModule, BsDatepickerModule } from 'ngx-bootstrap';
+import { ResidencyAddComponent } from './residency-add/residency-add.component';
+import { ResidencyEditComponent } from './residency-edit/residency-edit.component';
+import { EducationSearchComponent } from './education-search/education-search.component';
+import { EducationEditComponent } from './education-edit/education-edit.component';
 import {SpecialityComponent} from './speciality/speciality.component';
 import {EditExperienceComponent} from './edit-experience/edit-experience.component';
 import {PracticeTypeComponent} from './edit-experience/practice-type/practice-type.component';
@@ -29,7 +31,10 @@ import {PracticeDSOComponent} from './edit-experience/practice-dso/practice-dso.
     EditExperienceComponent,
     PracticeTypeComponent,
     PracticeRoleComponent,
-    PracticeDSOComponent
+    PracticeDSOComponent,
+    EducationSearchComponent,
+    EducationEditComponent,
+    SpecialityComponent
   ],
 })
 export class EditProfileModule { }

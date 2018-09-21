@@ -38,7 +38,7 @@ span.icon-bar { position: absolute; width: 30px; left: 15px; height: 30px; backg
 
 .navbar-edit-profile { position: absolute; right: 15px; z-index: 1; }
 
-.navbar-edit-profile a { color: #fff; text-decoration: none; }
+.navbar-edit-profile a { color: #fff !important; text-decoration: none; }
 
 .navbar-edit-profile i { display: inline-block; margin-left: .3rem; }
 

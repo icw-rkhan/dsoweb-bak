@@ -29,7 +29,7 @@ export class MainActionsComponent implements OnInit {
     this.navFooterLinks.push({
       id: 0,
       label: 'For You',
-      route: '/posts/latest',
+      route: '/posts',
       icon: 'receipt'
     });
     this.navFooterLinks.push({

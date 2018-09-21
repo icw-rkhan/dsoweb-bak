@@ -1,6 +1,6 @@
-<div class="inner-content topic-date" fxLayoutAlign="row">
-    <span class="topic" fxFlex="50">{{post.category.name}}</span>
-    <span class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
+<div class="inner-content topic-date" fxLayout="row">
+    <span *ngIf="post.categories?.length > 0" class="topic" fxFlex="50">{{post.categories | multipleCategories}}</span>
+    <span *ngIf="post" class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
 </div>
 <div class="inner-thumbnail" fxLayout="column">
     <img class="inner-thumbnail" src="{{post.thumbnail}}">
@@ -9,11 +9,11 @@
     <div fxFlex="80" class="title">
         <span>{{post.title}}</span>
     </div>
-    <div fxFlex="20" fxLayoutAlign="end top">
-        <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+    <div fxFlex="20" fxLayout="row" fxLayoutAlign="end start">
+        <button mat-icon-button (click)="onAddBookmark()" *ngIf="post && !post.bookmarked">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </button>
-        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post && post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
         </button>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
@@ -31,7 +31,7 @@
         </mat-menu>
     </div>
 </div>
-<div id="contents" class="inner-content" [innerHtml]="post.content"></div>
+<div id="contents" class="inner-content" [innerHtml]="post.content">{{reLayout('video')}}{{reLayout('img')}}</div>
 <div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
     <div class="review-question">
         <span>Finished the content?</span>
@@ -46,7 +46,7 @@
 <div fxLayout="row" class="inner-content rate">
     <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
         <div class="review-count">
-            <span *ngIf="comments.length; else zeReviews">{{comments.length}} Reviews</span>
+            <span *ngIf="comments && comments.length; else zeReviews">{{comments.length}} Reviews</span>
             <ng-template #zeReviews>
                 <span>0 Reviews</span>
             </ng-template>
@@ -58,7 +58,7 @@
                 <img src="assets/images/review/view-star-inactive.png" class="rate-star">
                 </ng-template>
             </div>
-            <span class="review-count">{{getRating(comments, 0)}}</span> 
+            <span class="review-count">{{getRating(comments, 0)}}</span>
         </div>
     </div>
     <div fxFlex="50" fxLayoutAlign="end center">
@@ -66,11 +66,11 @@
     </div>
 </div>
 <div class="inner-content" fxLayout="row">
-    <div fxFlex="100" fxLayoutAlign="end top">
-        <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+    <div fxFlex="100" fxLayoutAlign="end start">
+        <button mat-icon-button (click)="onAddBookmark()" *ngIf="post && !post.bookmarked">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </button>
-        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post && post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
         </button>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
@@ -88,4 +88,3 @@
         </mat-menu>
     </div>
 </div>
-    
