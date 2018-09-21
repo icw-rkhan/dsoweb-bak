@@ -1,9 +1,9 @@
 <mat-card>
   <mat-card-content class="bookmark-card">
-    <div class="image">
+    <div class="image" (click)="onPostBookmark(post.id, post.tags)">
       <img class="bookmark-image" [src]="post.thumbnail">
     </div>
-    <div class="information">
+    <div class="information" (click)="onPostBookmark(post.id, post.tags)">
       <h4 class="mat-h4">
         {{post.categories | multipleCategories}}
       </h4>
