@@ -3,8 +3,7 @@
     <section class="profile-heading">
       <div class="profile-heading_info">
         <div class="img_user">
-          <!-- <img src="../assets/images/profile/icon_user_profile.png"> -->
-          <img [src]="userProfile?.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/avatar_profile.png'">
+          <img [src]="userProfile?.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/icon_user_profile.png'">
         </div>
         <div class="profile-info">
           <div class="profile_name">{{ userProfile?.full_name }}</div>
