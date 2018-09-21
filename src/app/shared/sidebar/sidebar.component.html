@@ -1,12 +1,12 @@
 <div class="sidebar">
   <mat-nav-list>
     <mat-list-item>
-      <img *ngIf="userPhoto; else default" mat-list-avatar src="{{userPhoto}}"/>
+      <img *ngIf="userPhoto; else default" mat-list-avatar [src]="userPhoto? (baseUrl + '/photoDownload?' + userPhoto) : '../assets/images/profile/icon_user_profile.png'"/>
       <ng-template #default>
-        <img mat-list-avatar src="../../../assets/avatar.png"/>
+        <img mat-list-avatar src="../../../assets/images/profile/icon_user_profile.png"/>
       </ng-template>
       <h4 *ngIf="userName" mat-line>{{userName}}</h4>
-      <p mat-line>New Jersey, NJ</p>
+      <p mat-line></p>
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item *ngFor="let link of links" (click)="onClick(link)">

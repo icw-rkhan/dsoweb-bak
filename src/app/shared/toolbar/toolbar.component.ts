@@ -13,10 +13,12 @@ export class ToolbarComponent {
 
   title = 'DSODENTIST';
   btnTitle = 'menu';
+  url = '';
 
   constructor(private router: Router, private _location: Location) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
+        this.url = event.url; 
         if (event.url.includes('/posts/sponsor')) {
           this.title = 'SPONSORED CONTENT';
           this.btnTitle = 'keyboard_backspace';
@@ -44,6 +46,9 @@ export class ToolbarComponent {
         } else if (event.url.includes('/search')) {
           this.title = 'SEARCH';
           this.btnTitle = 'menu';
+        } else if (event.url.includes('/profile')) {
+          this.title = 'PROFILE';
+          this.btnTitle = 'menu';
         } else {
           this.title = 'DSODENTIST';
           this.btnTitle = 'menu';
@@ -58,13 +63,5 @@ export class ToolbarComponent {
     } else if (this.btnTitle === 'keyboard_backspace') {
       this._location.back();
     }
-  }
-
-  onPrevious() {
-
-  }
-
-  onNext() {
-
   }
 }

@@ -41,14 +41,14 @@ export class CommonComponent implements OnInit, OnDestroy {
       this.postId = params['id'];
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
-        postSub.unsubscribe();
 
         const commentSub = this.commentService.comments(this.postId).subscribe(c => {
           this.comments = c;
           commentSub.unsubscribe();
         });
+        postSub.unsubscribe();
+        this.progress.complete();
       });
-      this.progress.complete();
     });
   }
   // custome the style of the content

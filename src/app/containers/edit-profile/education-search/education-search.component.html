@@ -15,7 +15,12 @@
     <div class="speciality__list ">
       <div class="list__left">
         <ul class="speciality-ul">
-          <li *ngFor="let s of listSchoolS"><a (click)="selected(s)" class="cursor">{{s.name}}</a></li>
+          <li *ngFor="let s of listSchoolS" class="container-r" (click)="selected(s)"><a class="cursor">{{s.name}}</a>
+            <label class="container-checkbox">
+              <input type="checkbox" [checked]="education && education.id == s.id">
+              <span class="checkmark"></span>
+            </label>
+          </li>
         </ul>
       </div>
     </div>
