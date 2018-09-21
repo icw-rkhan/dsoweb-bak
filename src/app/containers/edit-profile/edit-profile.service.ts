@@ -11,6 +11,8 @@ export class EditProfileService {
   S_practiceRoles: BehaviorSubject<any[]>;
   S_practiceDSO: BehaviorSubject<any[]>;
 
+  S_practiceAddress: any
+
   constructor() {
     if (isNullOrUndefined(this.S_experience)) {
       this.S_experience = {};
