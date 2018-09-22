@@ -53,16 +53,30 @@
 
     <section class="profile_Education">
       <div class="profile_title small f300">Upload resume or import data</div>
-      <div class="profile__content" (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = RESUME_FILE">
+      <div class="profile__content" *ngIf="!this.resumeFile" (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = RESUME_FILE">
         <div class="profile__icon upload-icon"></div>
-        <div class="profile__content_info">
+        <div *ngIf="!this.resumeFile" class="profile__content_info">
           <div class="profile_info">
             <div class="profile_subtitle">Upload Resume</div>
             <div class="profile-job">Your professional information will be imported automatically.</div>
           </div>
         </div>
       </div>
+
+      <div class="profile__content" *ngIf="this.resumeFile">
+        <div class="profile__icon upload-icon"></div>
+        <div  class="uploaded_profile__content_info">
+          <div class="uploaded_profile_info">
+            <div class="uploaded_profile_subtitle">{{this.resumeFile?.name}}</div>
+            <div class="profile-job">{{this.resumeFile?.size / (1024*1024) | number:'.1'}} Mb</div>
+          </div>
+          <div class="uploaded_remove">
+            <i class="fa fa-trash"></i>
+          </div>
+        </div>
+      </div>
     </section>
+
     <section *ngIf="is_student" class="profile_Residency">
       <div class="profile_title small f300">Experience</div>
       <span class="addNew-icon" (click)="ExperienceModal.show(); isEditExperience = true"></span>

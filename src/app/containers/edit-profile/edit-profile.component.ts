@@ -48,6 +48,7 @@ export class EditProfileComponent implements OnInit {
   isPracticeAddress: boolean;
   isUploadFile: boolean;
   isUploadFileSlide: boolean;
+  resumeFile: any;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
@@ -304,12 +305,14 @@ export class EditProfileComponent implements OnInit {
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile == this.RESUME_FILE) {
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
+        console.log(res);
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
         if (res['code'] == 0) {
           this.userProfile.document_library = {
             document_name: res['resultMap']['resumeName']
           };
+          this.resumeFile = file.target.files[0];
           this.alertService.successAlert('Uploaded successfully');
         } else {
           this.alertService.errorAlert('Upload Failed');
