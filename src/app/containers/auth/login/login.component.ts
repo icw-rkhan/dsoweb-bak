@@ -1,10 +1,17 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from '@angular/router';
-import {FormGroup, Validators, FormBuilder} from '@angular/forms';
-import {CustomValidators} from 'ngx-custom-validators';
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { CustomValidators } from 'ngx-custom-validators';
 
-import {AuthService, ApiErrorService} from '../../../services/index';
-import {SharingService} from '../../../services/sharing.service';
+import { SharingService } from '../../../services/sharing.service';
+import { ApiErrorService, AuthService } from '../../../services';
+import { LinkedInService } from 'angular-linkedin-sdk';
+import { Observable } from 'rxjs';
+import 'rxjs/add/operator/switchMap';
+import { AlertDialogComponent } from '../../../shared/dialogs/alert-dialog/alert-dialog.component';
+import { MatDialog } from '@angular/material';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'dso-login',
@@ -15,12 +22,19 @@ export class LoginComponent implements OnInit {
   isShowPassword: boolean;
   is_student: any;
   form: FormGroup;
+  isUserAuthenticated: Observable<boolean>;
+  isInitialized: Observable<boolean>;
+  isUserAuthenticatedEmittedValue: boolean;
+  isInitializedEmittedValue: boolean;
 
   constructor(private router: Router,
               private fb: FormBuilder,
               private authService: AuthService,
               private apiError: ApiErrorService,
-              private sharingService: SharingService) {
+              private sharingService: SharingService,
+              private linkedInService: LinkedInService,
+              private dialog: MatDialog,
+              private http: HttpClient) {
     this.sharingService.showLoading̣̣(true);
     this.isShowPassword = false;
   }
@@ -30,6 +44,21 @@ export class LoginComponent implements OnInit {
     this.initForm();
     setTimeout(() => {
       this.sharingService.showLoading̣̣(false);
+    });
+
+    this.isUserAuthenticated = this.linkedInService.isUserAuthenticated$;
+    this.isInitialized = this.linkedInService.isInitialized$;
+
+    this.linkedInService.isUserAuthenticated$.subscribe({
+      next: (state) => {
+        this.isUserAuthenticatedEmittedValue = true;
+      }
+    });
+
+    this.linkedInService.isInitialized$.subscribe({
+      next: (state) => {
+        this.isInitializedEmittedValue = true;
+      }
     });
   }
 
@@ -67,4 +96,55 @@ export class LoginComponent implements OnInit {
       }
     );
   }
+
+  onLoginLinkedIn() {
+    this.linkedInService.login().subscribe({
+      next: (state) => {
+        if (state) {
+          // this.router.navigate(['/posts']);
+          const anonymousToken = this.linkedInService.getSdkIN().ENV.auth.anonymous_token;
+          this.getAccessToken(anonymousToken);
+        } else {
+          this.dialog.open(AlertDialogComponent, {
+            width: '300px',
+            height: '200px',
+            data: {
+              title: 'Error',
+              body: 'Login error with LinkedIn'
+            }
+          });
+        }
+      }
+    });
+  }
+
+  logoutLinkedIn() {
+    this.linkedInService.logout().subscribe({
+      next: () => {
+        console.log('Logout emitted.');
+      },
+      complete: () => {
+        console.log('Logout completed.');
+      }
+    });
+  }
+
+  private getAccessToken(authorizationToken: string) {
+    const url = `https://www.linkedin.com/oauth/v2/accessToken`;
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/x-www-form-urlencoded');
+
+    return this.http.post(url, {
+      grant_type: 'authorization_code',
+      code: authorizationToken,
+      redirect_uri: 'http://localhost:4200/',
+      client_id: environment.linkedinClientId,
+      client_secret: environment.linkedingClientSecret
+    }, {
+      headers
+    }).subscribe(result => {
+      console.log(`Access Token: ${authorizationToken}`);
+    });
+  }
+
 }

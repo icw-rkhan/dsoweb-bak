@@ -1,7 +1,7 @@
 <div class="sidebar">
   <mat-nav-list>
     <mat-list-item>
-      <img *ngIf="userPhoto; else default" mat-list-avatar src="{{userPhoto}}"/>
+      <img *ngIf="userPhoto; else default" mat-list-avatar [src]="userPhoto? (baseUrl + '/photoDownload?' + userPhoto) : '../assets/images/profile/icon_user_profile.png'"/>
       <ng-template #default>
         <img mat-list-avatar src="../../../assets/images/profile/icon_user_profile.png"/>
       </ng-template>

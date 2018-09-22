@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Observable } from 'rxjs';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -48,6 +47,6 @@ export class ViewComponent implements OnInit, OnDestroy {
   }
 
   dateFormat(date) {
-    return formatDate(date, 'd MMM, y', 'en-US');
+    return formatDate(date.split(' ')[0], 'd MMM, y', 'en-US');
   }
 }

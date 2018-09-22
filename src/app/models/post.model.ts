@@ -52,3 +52,11 @@ export class Post implements Serializable<Post> {
   }
 
 }
+
+export class PostArgs {
+  page: number;
+  per_page: number;
+  type?: string;
+  categoryId?: number;
+  sponsorId?: number;
+}
