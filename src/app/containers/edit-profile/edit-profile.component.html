@@ -39,7 +39,7 @@
           </div>
         </div>
         <div class="personal-group">
-          <label class="profile_title mb0">Speciality</label>
+          <label class="profile_title mb0">Specialty</label>
           <div class="d-flex">
             <input (focus)="isEditSpeciality = !isEditSpeciality; SpecialityModal.show();" type="text" name=""
                    class="input-mb"
@@ -53,16 +53,30 @@
 
     <section class="profile_Education">
       <div class="profile_title small f300">Upload resume or import data</div>
-      <div class="profile__content" (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = RESUME_FILE">
+      <div class="profile__content" *ngIf="!this.resumeFile" (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = RESUME_FILE">
         <div class="profile__icon upload-icon"></div>
-        <div class="profile__content_info">
+        <div *ngIf="!this.resumeFile" class="profile__content_info">
           <div class="profile_info">
             <div class="profile_subtitle">Upload Resume</div>
             <div class="profile-job">Your professional information will be imported automatically.</div>
           </div>
         </div>
       </div>
+
+      <div class="profile__content" *ngIf="this.resumeFile">
+        <div class="profile__icon upload-icon"></div>
+        <div  class="uploaded_profile__content_info">
+          <div class="uploaded_profile_info">
+            <div class="uploaded_profile_subtitle">{{this.resumeFile?.name}}</div>
+            <div class="profile-job">{{this.resumeFile?.size / (1024*1024) | number:'.1'}} Mb</div>
+          </div>
+          <div class="uploaded_remove">
+            <i class="fa fa-trash"></i>
+          </div>
+        </div>
+      </div>
     </section>
+
     <section *ngIf="is_student" class="profile_Residency">
       <div class="profile_title small f300">Experience</div>
       <span class="addNew-icon" (click)="ExperienceModal.show(); isEditExperience = true"></span>
@@ -203,17 +217,17 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <dso-residency-search 
-                [listResidency]="metadata.listResidency" 
+        <dso-residency-search
+                [listResidency]="metadata.listResidency"
                 (closeResidencySearch)="residency_page = RESIDENCY_ADD"
-                (selectedResidency)="selectedResidency($event)" 
-                [residency]="residency" 
-                *ngIf="residency_page == RESIDENCY_AT"></dso-residency-search>
-        <dso-residency-add 
-                *ngIf="residency_page == RESIDENCY_ADD" 
-                (cancelResidency)="cancelResidency()" 
+                (selectedResidency)="selectedResidency($event)"
                 [residency]="residency"
-                (selectResidency)="selectResidency()" 
+                *ngIf="residency_page == RESIDENCY_AT"></dso-residency-search>
+        <dso-residency-add
+                *ngIf="residency_page == RESIDENCY_ADD"
+                (cancelResidency)="cancelResidency()"
+                [residency]="residency"
+                (selectResidency)="selectResidency()"
                 (addResidency)="addResidency($event)"></dso-residency-add>
 
         <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (deleteResidency)="deleteResidency()"

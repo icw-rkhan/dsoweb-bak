@@ -89,7 +89,11 @@ export class LoginComponent implements OnInit {
         this.sharingService.showLoading̣̣(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
-          this.router.navigate(['/posts']);
+          if (this.is_student) {
+            this.router.navigate(['/profile']);
+          } else {
+            this.router.navigate(['/posts']);
+          }
         } else {
           this.apiError.checkError(data.code, this.form.value, 'login');
         }

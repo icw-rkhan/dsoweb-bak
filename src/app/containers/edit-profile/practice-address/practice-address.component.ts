@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {isNullOrUndefined} from 'util';
 import {AlertService} from '../../../services/alert.service';
 import {EditProfileService} from '../edit-profile.service';
+import {ProfileService} from '../../../services';
 
 @Component({
   selector: 'app-practice-address',
@@ -16,10 +17,12 @@ export class PracticeAddressComponent implements OnInit {
   PAddress: any;
 
   isEditState: boolean;
+  listState: any[];
 
   state: any;
 
   constructor(private alertService: AlertService,
+              private profileService: ProfileService,
               private editProfileService: EditProfileService) {
     this.isEditState = false;
     console.log('init', this.editProfileService.S_practiceAddress);
@@ -38,36 +41,43 @@ export class PracticeAddressComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getListStates();
+  }
+
+  getListStates() {
+    this.profileService.getListState().subscribe(states => {
+      this.listState = states.resultMap.data;
+    });
   }
 
   setState(s) {
-    this.PAddress.states = s.name;
-    this.state = s.name;
+    this.PAddress.states = s.state;
+    this.state = s.state;
   }
 
   save() {
     if (this.PAddress.address1 === '') {
-      this.alertService.alertInfo('Error', 'Address can\'t be blank');
+      this.alertService.errorAlert('Address can\'t be blank');
       return;
     }
 
     if (isNaN(this.PAddress.zipCode)) {
-      this.alertService.alertInfo('Error', 'Zipcode format is wrong');
+      this.alertService.errorAlert('Zipcode format is wrong');
       return;
     }
 
     if (this.PAddress.zipCode === '') {
-      this.alertService.alertInfo('Error', 'Zipcode can\'t be blank');
+      this.alertService.errorAlert('Zipcode can\'t be blank');
       return;
     }
 
     if (this.PAddress.city === '') {
-      this.alertService.alertInfo('Error', 'City can\'t be blank');
+      this.alertService.errorAlert('City can\'t be blank');
       return;
     }
 
     if (this.PAddress.states === '') {
-      this.alertService.alertInfo('Error', 'States can\'t be blank');
+      this.alertService.errorAlert('States can\'t be blank');
       return;
     }
 
