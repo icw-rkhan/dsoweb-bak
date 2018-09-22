@@ -9,15 +9,18 @@ import { Education } from '../../../models/education.model';
 export class EducationEditComponent implements OnInit, OnChanges {
   @Input('typeEducation') typeEducation: number;
   @Input('education') education: Education;
-  @Output() cancel: EventEmitter<null> = new EventEmitter(null);
+  @Output() delete: EventEmitter<null> = new EventEmitter(null);
   @Output() selectEducation: EventEmitter<null> = new EventEmitter(null);
   @Output() saveEducation: EventEmitter<Education> = new EventEmitter(null);
+  // @Output() deleteEducation: EventEmitter<null> = new EventEmitter(null);
+
   type: number;
   school_name: string;
   dental_school: string;
   year: number;
   isErrorName: boolean;
   isErrorYear: boolean;
+  isDelete: boolean;
 
   constructor() {
     this.isErrorName = this.isErrorYear = false;
@@ -25,13 +28,26 @@ export class EducationEditComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.school_name = '';
-    this.year = null;
+    this.isDelete = false;
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.type = (this.typeEducation == 1) ? 0: 1;
-    if (changes.education)
+    this.type = (this.typeEducation == 1) ? 0: 1;//typeEducation: 1 edit, 2 add, type: 0 US, 1 non US
+    if (changes.education) {
       this.type = 0;
+      if (this.typeEducation == 1) {//edit
+        if (changes.education.currentValue && changes.education.currentValue.year != null) {
+          this.year = changes.education.currentValue.year;
+        }
+          
+        if (changes.education.currentValue) {
+          if (changes.education.currentValue.types) {
+            this.type = changes.education.currentValue.types;
+          }
+          this.school_name = changes.education.currentValue.id ? '' : changes.education.currentValue.name;
+        }
+      }
+    }
   }
 
   _save() {
@@ -61,7 +77,29 @@ export class EducationEditComponent implements OnInit, OnChanges {
   }
 
   _cancel() {
-    this.cancel.emit();
+    this._onRefresh();
+    this.delete.emit();
+  }
+
+  onDelete() {
+    if (this.typeEducation == 1) {
+      this.isDelete = true;
+    } else {
+      this._onRefresh();
+      this.delete.emit();
+    }
+  }
+
+  _deleteEducation() {
+    this._onRefresh();
+    this.delete.emit();
+  }
+
+  _onRefresh() {
+    this.school_name = '';
+    this.year = null;
+    this.type = 1;
+    this.isDelete = false;
   }
 
   _selectEducation() {
