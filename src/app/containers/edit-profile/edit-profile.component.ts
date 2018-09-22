@@ -350,28 +350,55 @@ export class EditProfileComponent implements OnInit {
 
   editEducation(i) {
     this.educationIndex = i;
-    // const dt = {
-    //   id: this.userProfile.educations[i]['dental_school']['id'],
-    //   name: this.userProfile.educations[i].school_name,
-    //   year: this.userProfile.educations[i].school_name
-    // }
-    // this.education
+    const dt = {
+      id: this.userProfile.educations[i].types == '0' ? this.userProfile.educations[i]['dental_school']['id'] : null,
+      name: this.userProfile.educations[i].types == '0' ? this.userProfile.educations[i]['dental_school']['name'] : this.userProfile.educations[i].school_name,
+      year: this.userProfile.educations[i].end_time.split('-')[0],
+      types: parseInt(this.userProfile.educations[i].types)
+    }
+    this.education = new Education().deserialize(dt);
+    this.education_page = this.RESIDENCY_EDIT;
+    this.typeEducation = this.EDIT;
+    this.educationModel.show();
   }
 
+  onDeleteEducation() {
+    if (this.typeEducation == this.EDIT && this.educationIndex > -1) {
+      if (this.userProfile.educations[this.educationIndex]) {
+        (<any[]>this.userProfile.educations).splice(this.educationIndex, 1);
+        this.education = null;
+      }
+    }
+    this.educationModel.hide();
+  }
 
   saveEducation(e: Education) {
     if (this.typeEducation == this.ADD) {
-      console.log(e);
       this.userProfile.educations.push({
         email: this.userInfo.email,
         start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
         end_time: e.year + '-01-01T00:00:00.000Z',
         major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
         dental_school: {
-          id: e.id || null
+          id: e.id || null,
+          name: e.name || ''
         },
         school_name: e.name,
-        types: e.types
+        types: e.types.toString()
+      });
+      this.educationModel.hide();
+    } else {
+      console.log(e);
+      this.userProfile.educations[this.educationIndex] = Object.assign(this.userProfile.educations[this.educationIndex], {
+        start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
+        end_time: e.year + '-01-01T00:00:00.000Z',
+        major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
+        dental_school: {
+          id: e.id || null,
+          name: e.name || ''
+        },
+        school_name: e.name,
+        types: e.types.toString()
       });
       this.educationModel.hide();
     }

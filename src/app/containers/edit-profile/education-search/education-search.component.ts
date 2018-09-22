@@ -21,8 +21,11 @@ export class EducationSearchComponent implements OnInit {
   }
 
   selected(s: any) {
+    if (this.education && this.education.year) {
+      s.year = this.education.year;
+    }
     const e = new Education().deserialize(s);
-    this.selectedEducation.emit(s);
+    this.selectedEducation.emit(e);
   }
 
   search(e) {
