@@ -9,6 +9,10 @@ body {
   margin: 0;
 }
 
+*, *:focus, *:active, *:hover {
+  outline: none;
+}
+
 .d-flex {
   display: flex;
   align-items: center;
@@ -24,6 +28,16 @@ body {
 
 .validation-message {
   color: red;
+}
+
+.alert-cancel-button {
+  color: #007aff !important;
+  background: none !important;
+  padding: 0.3em 0.7em 0 0.7em !important;
+}
+
+.alert-cancel-button:focus {
+  box-shadow: none !important;
 }
 
 // Create the theme object (a Sass map containing all of the palettes).

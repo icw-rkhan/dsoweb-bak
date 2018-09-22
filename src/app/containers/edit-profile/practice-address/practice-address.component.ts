@@ -57,27 +57,27 @@ export class PracticeAddressComponent implements OnInit {
 
   save() {
     if (this.PAddress.address1 === '') {
-      this.alertService.alertInfo('Error', 'Address can\'t be blank');
+      this.alertService.errorAlert('Address can\'t be blank');
       return;
     }
 
     if (isNaN(this.PAddress.zipCode)) {
-      this.alertService.alertInfo('Error', 'Zipcode format is wrong');
+      this.alertService.errorAlert('Zipcode format is wrong');
       return;
     }
 
     if (this.PAddress.zipCode === '') {
-      this.alertService.alertInfo('Error', 'Zipcode can\'t be blank');
+      this.alertService.errorAlert('Zipcode can\'t be blank');
       return;
     }
 
     if (this.PAddress.city === '') {
-      this.alertService.alertInfo('Error', 'City can\'t be blank');
+      this.alertService.errorAlert('City can\'t be blank');
       return;
     }
 
     if (this.PAddress.states === '') {
-      this.alertService.alertInfo('Error', 'States can\'t be blank');
+      this.alertService.errorAlert('States can\'t be blank');
       return;
     }
 
