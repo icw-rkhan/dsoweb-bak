@@ -15,7 +15,8 @@ import {PracticeTypeComponent} from './edit-experience/practice-type/practice-ty
 import {PracticeRoleComponent} from './edit-experience/practice-role/practice-role.component';
 import {PracticeDSOComponent} from './edit-experience/practice-dso/practice-dso.component';
 import {MatDatepickerModule} from '@angular/material';
-import { PracticeAddressComponent } from './practice-address/practice-address.component';
+import {PracticeAddressComponent} from './practice-address/practice-address.component';
+import { StatesComponent } from './practice-address/states/states.component';
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import { PracticeAddressComponent } from './practice-address/practice-address.co
     EducationSearchComponent,
     EducationEditComponent,
     SpecialtyComponent,
-    PracticeAddressComponent
+    PracticeAddressComponent,
+    StatesComponent
   ],
 })
 export class EditProfileModule { }

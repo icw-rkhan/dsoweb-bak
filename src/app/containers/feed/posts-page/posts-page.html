@@ -1,4 +1,7 @@
-<dso-feed-grid [posts]="posts" [sponsorId]="sponsorId"
-               (addBookmark)="addBookmark($event)"
-               (removeBookmark)="removeBookmark($event)">
-</dso-feed-grid>
+<div class="search-results">
+  <dso-feed-grid [posts]="posts" [sponsorId]="sponsorId"
+                 (addBookmark)="addBookmark($event)"
+                 (removeBookmark)="removeBookmark($event)"
+                 (loadMore)="loadMore($event)">
+  </dso-feed-grid>
+</div>

@@ -15,9 +15,10 @@
         <div class="avatar_profile">
           <img
             [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/avatar_profile.png'">
-          <!-- <img [src]="baseUrl + '/photoDownload?' + userProfile.photo_url"> -->
-          <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
+          <a class="edit_profile cursor"><span
             class="edit-icon icons"></span></a>
+          <!-- <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
+            class="edit-icon icons"></span></a> -->
         </div>
       </div>
     </section>
@@ -150,7 +151,7 @@
         <div class="d-flex">
           <input (focus)="isPracticeAddress = true; AddressModal.show();" type="text" name=""
                  class="input-mb"
-                 value="{{ userProfile?.userPracticeAddress?.address1 }}" contenteditable="false">
+                 value="{{ userProfile?.practiceAddress?.address1 }}" contenteditable="false">
           <span class="arrow-right-input" (click)="isPracticeAddress = true; AddressModal.show();"></span>
         </div>
         <div class="personal-underline"></div>
@@ -230,8 +231,23 @@
     <div class="modal-content">
       <div class="modal-body">
         <dso-app-specialty [listSpecialty]="metadata.residency" (setSpecialty)="setSpeciality($event)"
-                            (closeSpecialty)="closeSpecialityModal()" [specialty]="speciality"
-                            *ngIf="isEditSpeciality"></dso-app-specialty>
+                           (closeSpecialty)="closeSpecialityModal()" [specialty]="speciality"
+                           *ngIf="isEditSpeciality"></dso-app-specialty>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #AddressModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="AddressModal" [config]="{backdrop: 'static', keyboard: false}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-practice-address [userPracticeAddress]="userProfile.practiceAddress"
+                              (closeModal)="closeAddressModal()"
+                              (setPracticeAddress)="setPracticeAddress($event)"
+                              *ngIf="isPracticeAddress"></app-practice-address>
       </div>
     </div>
   </div>
@@ -267,22 +283,6 @@
                             (selectEducation)="selectEducation()"
                             [typeEducation]="typeEducation" (cancel)="educationModel.hide()"
                             *ngIf="education_page == RESIDENCY_EDIT"></dso-education-edit>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div bsModal #AddressModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="dialog-sizes-name3"
-     id="AddressModal" [config]="{backdrop: 'static', keyboard: false}">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-body">
-        <app-practice-address *ngIf="isPracticeAddress"
-                              [userPracticeAddress]="userProfile.userPracticeAddress"
-                             (closeModal)="AddressModal.hide(); isPracticeAddress = false;"
-                             (setPracticeAddress)="setPracticeAddress($event)"
-        ></app-practice-address>
       </div>
     </div>
   </div>

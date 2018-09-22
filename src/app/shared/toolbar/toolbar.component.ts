@@ -48,7 +48,7 @@ export class ToolbarComponent {
           this.btnTitle = 'menu';
         } else if (event.url.includes('/profile')) {
           this.title = 'PROFILE';
-          this.btnTitle = 'keyboard_backspace';
+          this.btnTitle = 'menu';
         } else {
           this.title = 'DSODENTIST';
           this.btnTitle = 'menu';
@@ -61,19 +61,7 @@ export class ToolbarComponent {
     if (this.btnTitle === 'menu') {
       this.toggleMenu.emit();
     } else if (this.btnTitle === 'keyboard_backspace') {
-      if ( this.title === 'PROFILE') {
-        this.router.navigate(['/posts']);
-      } else {
-        this._location.back();
-      }
+      this._location.back();
     }
-  }
-
-  onPrevious() {
-
-  }
-
-  onNext() {
-
   }
 }

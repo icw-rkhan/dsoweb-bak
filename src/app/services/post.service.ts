@@ -4,7 +4,7 @@ import { map } from 'rxjs/internal/operators';
 import { forkJoin, Observable } from 'rxjs';
 import * as _ from 'lodash';
 
-import { Post } from '../models/post.model';
+import { Post, PostArgs } from '../models/post.model';
 import { environment } from '../../environments/environment';
 import { BookmarkService } from './bookmark.service';
 import { AuthService } from './auth/auth.service';
@@ -17,21 +17,34 @@ export class PostService {
   constructor(private http: HttpClient, private bookmarkService: BookmarkService, private authService: AuthService) {
   }
 
-  posts(type?: string): Observable<Post[]> {
-    const url = `${environment.cmsApiUrl}/posts?_embed&order=desc`;
+  posts(args: PostArgs): Observable<Post[]> {
+    let url = `${environment.cmsApiUrl}/posts?_embed&order=desc`;
+    if (args.page) {
+      url += `&page=${args.page}`;
+    }
+    if (args.per_page) {
+      url += `&per_page=${args.per_page}`;
+    }
     let result = this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );
-
-    if (type) {
-      result = result.pipe(map(posts => posts.filter(post => post.format === type)));
+    // Filter locally by category
+    if (args.type) {
+      result = result.pipe(map(posts => posts.filter(post => post.format === args.type)));
     }
 
     return result;
   }
 
-  fetchByCategory(id: number): Observable<Post[]> {
-    const url = `${environment.cmsApiUrl}/posts?_embed&categories=${id}`;
+  fetchByCategory(args: PostArgs): Observable<Post[]> {
+    let url = `${environment.cmsApiUrl}/posts?_embed&categories=${args.categoryId}`;
+    if (args.page) {
+      url += `&page=${args.page}`;
+    }
+    if (args.per_page) {
+      url += `&per_page=${args.per_page}`;
+    }
+
     return this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );
@@ -68,10 +81,16 @@ export class PostService {
     );
   }
 
-  fetchBySponsorId(id: number, categoryId?: number): Observable<Post[]> {
-    let url = `${environment.cmsApiUrl}/posts?_embed&tags=${id}&order=desc`;
-    if (categoryId) {
-      url += `&categories=${categoryId}`;
+  fetchBySponsorId(args: PostArgs): Observable<Post[]> {
+    let url = `${environment.cmsApiUrl}/posts?_embed&tags=${args.sponsorId}&order=desc`;
+    if (args.categoryId) {
+      url += `&categories=${args.categoryId}`;
+    }
+    if (args.page) {
+      url += `&page=${args.page}`;
+    }
+    if (args.per_page) {
+      url += `&per_page=${args.per_page}`;
     }
     return this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))

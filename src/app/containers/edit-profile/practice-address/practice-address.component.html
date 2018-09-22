@@ -12,30 +12,44 @@
     <div class="personal-container mh-vh">
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Address 1</label>
-        <input type="text" [(ngModel)]="practiceAddress.address1" name="address1" class="input-mb">
+        <input type="text" [(ngModel)]="PAddress.address1" name="address1" class="input-mb">
         <span class="edit-practice"></span>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Address 2</label>
-        <input type="text" [(ngModel)]="practiceAddress.address2" name="address2" class="input-mb">
+        <input type="text" [(ngModel)]="PAddress.address2" name="address2" class="input-mb">
         <span class="edit-practice"></span>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Zip Code</label>
-        <input type="text" [(ngModel)]="practiceAddress.zipCode" name="zipCode" class="input-mb">
+        <input type="text" [(ngModel)]="PAddress.zipCode" name="zipCode" class="input-mb" pattern= "[0-9]">
         <span class="edit-practice"></span>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">City</label>
-        <input type="text" [(ngModel)]="practiceAddress.city" name="city" class="input-mb" value="New Yorke">
+        <input type="text" [(ngModel)]="PAddress.city" name="city" class="input-mb" value="New Yorke">
         <span class="edit-practice"></span>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">State</label>
-        <input type="text" name="" class="input-mb" value="New York">
-        <span class="arrow-right" style="right: 10px"></span>
+        <input type="text" name="" value="{{PAddress.states}}" class="input-mb" (click)="StateModal.show(); isEditState = true" contenteditable="false">
+        <span class="arrow-right" style="right: 10px" (click)="StateModal.show(); isEditState = true"></span>
       </div>
       <div class="cancel-row"><a href="javascript:void(0)" (click)="close()">Cancel</a></div>
     </div>
   </section>
+</div>
+
+<div bsModal #StateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+     aria-labelledby="dialog-sizes-name3"
+     id="StateModal" [config]="{backdrop: 'static'}">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-body">
+        <app-states [listStates]="[{id: 1, name: 'name1'}, {id: 2, name: 'name2'}]" (setState)="setState($event)"
+                           (closeState)="StateModal.hide(); isEditState = false" [state]="state"
+                           *ngIf="isEditState"></app-states>
+      </div>
+    </div>
+  </div>
 </div>

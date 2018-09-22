@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavLinkModel } from '../../models/nav-link.model';
 import { AuthService, ProfileService } from '../../services';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'dso-sidebar',
@@ -11,12 +12,13 @@ import { AuthService, ProfileService } from '../../services';
 export class SidebarComponent {
   userName: string;
   userPhoto: string;
+  baseUrl: String;
 
   links: NavLinkModel[] = [];
 
   constructor(private router: Router, private authService: AuthService, private profileService: ProfileService) {
     this.getUserInfo();
-
+    this.baseUrl = environment.profileApiUrl;
     this.links.push({
       label: 'General Content',
       icon: 'folder_open',
@@ -55,8 +57,14 @@ export class SidebarComponent {
   }
 
   onClick(link: NavLinkModel) {
-    if (link.route !== '#') {
-      this.router.navigate([link.route]);
+    console.log(link);
+    if (link.label == 'Logout') {
+      this.authService.logOut();
+      this.router.navigate(['/']);
+    } else {
+      if (link.route !== '#') {
+        this.router.navigate([link.route]);
+      }
     }
   }
 

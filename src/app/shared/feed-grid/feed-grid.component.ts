@@ -17,9 +17,13 @@ export class FeedGridComponent {
 
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
+  @Output() loadMore = new EventEmitter();
+
+  private page: number;
 
   constructor() {
     this.noFoundMessage = 'No items found';
+    this.page = 1;
   }
 
   onAddBookmark(item: Bookmark) {
@@ -28,6 +32,10 @@ export class FeedGridComponent {
 
   onRemoveBookmark(id: string) {
     this.removeBookmark.emit(id);
+  }
+
+  onLoadMore() {
+    this.loadMore.emit(++this.page);
   }
 
 }
