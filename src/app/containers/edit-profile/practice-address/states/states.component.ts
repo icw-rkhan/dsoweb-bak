@@ -19,6 +19,7 @@ export class StatesComponent implements OnInit {
 
   ngOnInit() {
     this.states = this.listStates;
+    console.log(this.listStates);
   }
 
   changeInput(e) {
@@ -26,7 +27,7 @@ export class StatesComponent implements OnInit {
   }
 
   _selectState(state: any) {
-    this.searchText = state.name;
+    this.searchText = state.state;
     this.setState.emit(state);
     this.closeState.emit();
   }

@@ -25,6 +25,12 @@ export class ProfileService {
     );
   }
 
+  getListState(): Observable<any> {
+    const url = `${environment.profileApiUrl}/usZipSv/findAllStateByState`;
+    const headers: any = this.customHeader();
+    return this.http.post(url, this.parseFormData({state: ''}), { headers: headers });
+  }
+
   getMetaData(specialty): Observable<any> {
     const headers: any = this.customHeader();
     const url1 = `${environment.profileApiUrl}/residencySpecialty/findAllSpecialty`;

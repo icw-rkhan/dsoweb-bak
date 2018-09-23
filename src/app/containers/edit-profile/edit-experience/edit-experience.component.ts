@@ -71,27 +71,27 @@ export class EditExperienceComponent implements OnInit {
 
   save() {
     if (!this.experienceService.S_experience.practice_Type) {
-      this.alertService.alertInfo('Error', 'Practice type can\'t be blank.');
+      this.alertService.errorAlert('Practice type can\'t be blank.');
       return;
     }
 
     if (!this.experienceService.S_experience.practice_Role) {
-      this.alertService.alertInfo('Error', 'Practice role can\'t be blank.');
+      this.alertService.errorAlert('Practice role can\'t be blank.');
       return;
     }
 
     if (!this.experienceService.S_experience.practice_Role) {
-      this.alertService.alertInfo('Error', 'Name of Dental Support Organization can\'t be blank.');
+      this.alertService.errorAlert('Name of Dental Support Organization can\'t be blank.');
       return;
     }
 
     if (!this.startDate || !this.endDate) {
-      this.alertService.alertInfo('Error', 'Working time can\'t be blank.');
+      this.alertService.errorAlert('Working time can\'t be blank.');
       return;
     }
 
     if (this.startDate > this.endDate) {
-      this.alertService.alertInfo('Error', 'Start date must before end date');
+      this.alertService.errorAlert('Start date must before end date');
       return;
     }
 

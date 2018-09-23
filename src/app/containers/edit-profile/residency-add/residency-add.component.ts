@@ -19,9 +19,9 @@ export class ResidencyAddComponent implements OnInit {
 
   ngOnInit() {
     if (this.residency) {
-      this.year = this.residency.year
+      this.year = this.residency.year;
     } else {
-      this.year = new Date().getFullYear()
+      this.year = null;
     }
   }
 

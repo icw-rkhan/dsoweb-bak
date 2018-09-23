@@ -46,7 +46,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <app-states [listStates]="[{id: 1, name: 'name1'}, {id: 2, name: 'name2'}]" (setState)="setState($event)"
+        <app-states [listStates]="listState" (setState)="setState($event)"
                            (closeState)="StateModal.hide(); isEditState = false" [state]="state"
                            *ngIf="isEditState"></app-states>
       </div>

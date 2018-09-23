@@ -48,6 +48,7 @@ export class EditProfileComponent implements OnInit {
   isPracticeAddress: boolean;
   isUploadFile: boolean;
   isUploadFileSlide: boolean;
+  resumeFile: any;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
@@ -278,14 +279,14 @@ export class EditProfileComponent implements OnInit {
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
           this.fetchProfile(this.userInfo.user_name);
-          this.alertService.alertInfo('Success', 'Saved successfully');
+          this.alertService.successAlert('Saved successfully');
         } else {
-          this.alertService.alertInfo('Error', data.msg);
+          this.alertService.errorAlert(data.msg);
         }
         this.sharingService.showLoading̣̣(false);
       },
         error2 => {
-          this.alertService.alertInfo('Error', 'Something went wrong');
+          this.alertService.errorAlert('Something went wrong');
           this.sharingService.showLoading̣̣(false);
         });
     }
@@ -304,20 +305,22 @@ export class EditProfileComponent implements OnInit {
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile == this.RESUME_FILE) {
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
+        console.log(res);
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
         if (res['code'] == 0) {
           this.userProfile.document_library = {
             document_name: res['resultMap']['resumeName']
           };
-          this.alertService.alertInfo('Success', 'Uploaded successfully');
+          this.resumeFile = file.target.files[0];
+          this.alertService.successAlert('Uploaded successfully');
         } else {
-          this.alertService.alertInfo('Error', 'Upload Failed');
+          this.alertService.errorAlert('Upload Failed');
         }
       }, (err) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
-        this.alertService.alertInfo('Error', 'Upload Failed');
+        this.alertService.errorAlert('Upload Failed');
       });
     } else {
       this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
@@ -327,14 +330,14 @@ export class EditProfileComponent implements OnInit {
           this.userProfile.photo_album = {
             photo_name: res['resultMap']['photoName']
           };
-          this.alertService.alertInfo('Success', 'Uploaded successfully');
+          this.alertService.successAlert('Uploaded successfully');
         } else {
-          this.alertService.alertInfo('Error', 'Upload Failed');
+          this.alertService.errorAlert('Upload Failed');
         }
       }, (err) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
-        this.alertService.alertInfo('Error', 'Upload Failed');
+        this.alertService.errorAlert('Upload Failed');
       });
     }
   }
@@ -350,28 +353,55 @@ export class EditProfileComponent implements OnInit {
 
   editEducation(i) {
     this.educationIndex = i;
-    // const dt = {
-    //   id: this.userProfile.educations[i]['dental_school']['id'],
-    //   name: this.userProfile.educations[i].school_name,
-    //   year: this.userProfile.educations[i].school_name
-    // }
-    // this.education
+    const dt = {
+      id: this.userProfile.educations[i].types == '0' ? this.userProfile.educations[i]['dental_school']['id'] : null,
+      name: this.userProfile.educations[i].types == '0' ? this.userProfile.educations[i]['dental_school']['name'] : this.userProfile.educations[i].school_name,
+      year: this.userProfile.educations[i].end_time.split('-')[0],
+      types: parseInt(this.userProfile.educations[i].types)
+    }
+    this.education = new Education().deserialize(dt);
+    this.education_page = this.RESIDENCY_EDIT;
+    this.typeEducation = this.EDIT;
+    this.educationModel.show();
   }
 
+  onDeleteEducation() {
+    if (this.typeEducation == this.EDIT && this.educationIndex > -1) {
+      if (this.userProfile.educations[this.educationIndex]) {
+        (<any[]>this.userProfile.educations).splice(this.educationIndex, 1);
+        this.education = null;
+      }
+    }
+    this.educationModel.hide();
+  }
 
   saveEducation(e: Education) {
     if (this.typeEducation == this.ADD) {
-      console.log(e);
       this.userProfile.educations.push({
         email: this.userInfo.email,
         start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
         end_time: e.year + '-01-01T00:00:00.000Z',
         major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
         dental_school: {
-          id: e.id || null
+          id: e.id || null,
+          name: e.name || ''
         },
         school_name: e.name,
-        types: e.types
+        types: e.types.toString()
+      });
+      this.educationModel.hide();
+    } else {
+      console.log(e);
+      this.userProfile.educations[this.educationIndex] = Object.assign(this.userProfile.educations[this.educationIndex], {
+        start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
+        end_time: e.year + '-01-01T00:00:00.000Z',
+        major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
+        dental_school: {
+          id: e.id || null,
+          name: e.name || ''
+        },
+        school_name: e.name,
+        types: e.types.toString()
       });
       this.educationModel.hide();
     }
