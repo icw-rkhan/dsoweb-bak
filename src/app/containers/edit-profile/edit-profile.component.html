@@ -138,7 +138,7 @@
       <span class="addNew-icon" (click)="typeEducation = 2; educationModel.show()"></span>
       <div *ngIf="userProfile?.educations.length; else noEducation">
         <div *ngFor="let item of userProfile?.educations; let i = index;" class="profile__content bt">
-          <div class="profile__icon education-icon2"></div>
+          <div class="profile__icon education-icon"></div>
           <div class="profile__content_info">
             <span class="arrow-right" (click)="editEducation(i)"></span>
             <div class="profile_info">
