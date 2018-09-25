@@ -6,9 +6,16 @@
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>
-    <div class="image" *ngIf="post.thumbnail" (click)="onViewDetail()">
+    <div class="image" *ngIf="post.thumbnail; else elseBlock" (click)="onViewDetail()">
       <img [src]="post.thumbnail"/>
     </div>
+    <ng-template #elseBlock>
+      <div class="image sponsor" (click)="onViewDetail()">
+        <img src="../../../assets/images/sponsor/align-header.png" *ngIf="onCheckSponsorType(post.tags,260)"/>
+        <img src="../../../assets/images/sponsor/gsk-header.png" *ngIf="onCheckSponsorType(post.tags,197)"/>
+        <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="onCheckSponsorType(post.tags,259)"/>
+      </div>         
+    </ng-template>
     <div class="content">
       <div class="content-title">
         <h2 class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></h2>
@@ -35,8 +42,7 @@
         </div>
       </div>
       <div class="inner-content" (click)="onViewDetail()">
-        <div class="mat-body-1" [innerHtml]="post.excerpt">
-        </div>
+        <div class="mat-body-1" [innerHtml]="post.excerpt"></div>
       </div>
     </div>
   </mat-card-content>
