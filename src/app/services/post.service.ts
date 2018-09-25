@@ -25,6 +25,7 @@ export class PostService {
     if (args.per_page) {
       url += `&per_page=${args.per_page}`;
     }
+
     let result = this.http.get(url).pipe(
       map((response: any[]) => response.map(post => new Post().deserialize(post)))
     );

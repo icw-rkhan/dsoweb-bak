@@ -11,6 +11,7 @@ export class Post implements Serializable<Post> {
   excerpt: string;
   author: Author;
   thumbnail: string;
+  link: string;
   date: Date;
   categories: Category[];
   format: string;
@@ -19,7 +20,7 @@ export class Post implements Serializable<Post> {
   tags: number[];
 
   deserialize(data: any): Post {
-    let thumbnailObj = data['_embedded'] ? data['_embedded']['wp\:featuredmedia'] : {};
+    let thumbnailObj = data['_embedded'] && data['_embedded']['wp\:featuredmedia'] ? data['_embedded']['wp\:featuredmedia'] : {};
     const categoryObj = data['_embedded'] ? data['_embedded']['wp\:term'] : {};
     const authorObj = data['_embedded'] ? data['_embedded'].author[0] : {};
 
@@ -31,7 +32,8 @@ export class Post implements Serializable<Post> {
         categories.push(new Category().deserialize(c))
       );
 
-    thumbnailObj = thumbnailObj && thumbnailObj[0] ? (thumbnailObj[0].media_details ?
+    thumbnailObj = thumbnailObj && thumbnailObj[0] ? (thumbnailObj[0].media_details &&
+      thumbnailObj[0].media_details.sizes && thumbnailObj[0].media_details.sizes.full ?
       thumbnailObj[0].media_details.sizes.full.source_url : undefined) : undefined;
 
     // Remove link-more
@@ -46,6 +48,7 @@ export class Post implements Serializable<Post> {
       date: new Date(data.date_gmt),
       author: new Author().deserialize(authorObj),
       thumbnail: thumbnailObj,
+      link: data.link,
       categories: categories,
       tags: data.tags,
     });
