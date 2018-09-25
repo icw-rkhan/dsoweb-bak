@@ -11,6 +11,7 @@ import { environment } from '../../../environments/environment';
 })
 export class SidebarComponent {
   userName: string;
+  userspecialtyName: string;
   userPhoto: string;
   baseUrl: String;
 
@@ -75,6 +76,7 @@ export class SidebarComponent {
       (data: any) => {
         const res = data.resultMap.data;
         this.userName = res.full_name;
+        this.userspecialtyName = res.specialty ? res.specialty.name : '';
         this.userPhoto = res.photo_url;
 
         console.log(data.resultMap.data);

@@ -73,6 +73,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
     // Services
     const email = this.authService.getUserInfo().user_name;
+    
     let postService = this.postService.posts({
       page,
       per_page: 5
@@ -92,7 +93,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         per_page: 5
       });
     }
-
     // Join bookmarks and post
     this.postSub = forkJoin(
       postService,
@@ -110,6 +110,8 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         ...this.posts,
         ...posts
       ];
+      this.progress.complete();
+    }, err => {
       this.progress.complete();
     });
   }

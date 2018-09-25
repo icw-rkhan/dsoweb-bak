@@ -10,6 +10,6 @@
       </mat-form-field>
     </div>
     <dso-feed-grid [posts]="posts" (removeBookmark)="removeBookmark($event)"
-                   (addBookmark)="addBookmark($event)" [noFoundMessage]="'Search by category'"></dso-feed-grid>
+        (addBookmark)="addBookmark($event)" [noFoundMessage]="'Search by category'" (loadMore)="loadMore($event)"></dso-feed-grid>
   </div>
 </dso-main-container>

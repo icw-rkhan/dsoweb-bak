@@ -3,10 +3,15 @@
     <span *ngIf="post" class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
 </div>
 <div class="inner-thumbnail" fxLayout="column">
-    <img class="inner-thumbnail" src="{{post.thumbnail}}">
-    <img *ngIf="isGsk(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png" (click)="onPostSponsor('gsk')">
-    <img *ngIf="isAlign(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png" (click)="onPostSponsor('align')">
-    <img *ngIf="isNobel(post.tags)"class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png" (click)="onPostSponsor('nobel')">
+    <img *ngIf="post.thumbnail; else elseBlock"class="inner-thumbnail" src="{{post.thumbnail}}">
+    <ng-template #elseBlock>
+        <img src="../../../assets/images/sponsor/align-header.png" *ngIf="isAlign(post.tags)"/>
+        <img src="../../../assets/images/sponsor/gsk-header.png" *ngIf="isGsk(post.tags)"/>
+        <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="isNobel(post.tags)"/>
+    </ng-template>
+    <img *ngIf="isGsk(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png" (click)="onPostSponsor('gsk')">
+    <img *ngIf="isAlign(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png" (click)="onPostSponsor('align')">
+    <img *ngIf="isNobel(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png" (click)="onPostSponsor('nobel')">
 </div>
 <div class="inner-content" fxLayout="row">
     <div fxFlex="80" class="title">
@@ -92,9 +97,9 @@
         </mat-menu>
         <mat-menu #submenu="matMenu">
             <ng-template matMenuContent>
-                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
-                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="twitter">to twitter</a></p>
-                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="linkedin">to linkedin</a></p>
+                <p><a mat-menu-item url="{{post.link}}" shareButton="facebook">to facebook</a></p>
+                <p><a mat-menu-item url="{{post.link}}" shareButton="twitter">to twitter</a></p>
+                <p><a mat-menu-item url="{{post.link}}" shareButton="linkedin">to linkedin</a></p>
             </ng-template>
         </mat-menu>
     </div>

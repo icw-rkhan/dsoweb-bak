@@ -6,9 +6,16 @@
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>
-    <div class="image" *ngIf="post.thumbnail" (click)="onViewDetail()">
+    <div class="image" *ngIf="post.thumbnail; else elseBlock" (click)="onViewDetail()">
       <img [src]="post.thumbnail"/>
     </div>
+    <ng-template #elseBlock>
+      <div class="image sponsor" (click)="onViewDetail()">
+        <img src="../../../assets/images/sponsor/align-header.png" *ngIf="onCheckSponsorType(post.tags,260)"/>
+        <img src="../../../assets/images/sponsor/gsk-header.png" *ngIf="onCheckSponsorType(post.tags,197)"/>
+        <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="onCheckSponsorType(post.tags,259)"/>
+      </div>         
+    </ng-template>
     <div class="content">
       <div class="content-title">
         <h2 class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></h2>
@@ -23,15 +30,19 @@
             <mat-icon aria-label="Options">more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before">
-            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
-            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="twitter">to twitter</a></p>
-            <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="linkedin">to linkedin</a></p>
+            <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
+          </mat-menu>
+          <mat-menu #submenu="matMenu">
+              <ng-template matMenuContent>
+                  <p><a mat-menu-item url="{{post.link}}" shareButton="facebook">to facebook</a></p>
+                  <p><a mat-menu-item url="{{post.link}}" shareButton="twitter">to twitter</a></p>
+                  <p><a mat-menu-item url="{{post.link}}" shareButton="linkedin">to linkedin</a></p>
+              </ng-template>
           </mat-menu>
         </div>
       </div>
       <div class="inner-content" (click)="onViewDetail()">
-        <div class="mat-body-1" [innerHtml]="post.excerpt">
-        </div>
+        <div class="mat-body-1" [innerHtml]="post.excerpt"></div>
       </div>
     </div>
   </mat-card-content>

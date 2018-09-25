@@ -6,7 +6,7 @@
         <img mat-list-avatar src="../../../assets/images/profile/icon_user_profile.png"/>
       </ng-template>
       <h4 *ngIf="userName" mat-line>{{userName}}</h4>
-      <p mat-line></p>
+      <p id="specialyName" *ngIf="this.userspecialtyName" mat-line>{{this.userspecialtyName}}</p>
     </mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item *ngFor="let link of links" (click)="onClick(link)">

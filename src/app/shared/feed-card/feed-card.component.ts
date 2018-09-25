@@ -43,4 +43,8 @@ export class FeedCardComponent {
       this.router.navigate([`/detail/${this.post.id}`]);
     }
   }
+
+  onCheckSponsorType(tags, sponsorId: number) {
+    return tags.includes(sponsorId);
+  }
 }
