@@ -37,13 +37,13 @@
             </div>
           </div>
         </form>
-        <p class="form-warning">Password Requirements</p>
+        <p id="form-warning" class="form-warning">Password Requirements</p>
         <div class="signupActions">
-          <p class="form-content">
+          <p id="form-content" class="form-content">
             By creating an account, you agree to DSODentist’s
-            <a (click)="showDialog('term')" class="link underline">Terms of Service</a> and <a (click)="showDialog('policy')" class="link underline">Privacy Policy</a>.
+            <a id="tos" (click)="showDialog('term')" class="link underline">Terms of Service</a> and <a id="pp" (click)="showDialog('policy')" class="link underline">Privacy Policy</a>.
           </p>
-          <div class="btn-group margin-20">
+          <div class="btn-group">
             <button (click)="submit()"
                     [disabled]="!form.valid"
                     class="btn btn-default btn-full btn-signup"

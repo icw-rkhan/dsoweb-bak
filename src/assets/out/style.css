@@ -26,6 +26,10 @@ body {
   color: #FFF;
 }
 
+#tos, #pp {
+  color: #40a7f1;
+}
+
 .link.underline {
   text-decoration: underline;
 }
@@ -1141,11 +1145,20 @@ a {
 .form-title {
   font-size: 43px;
   line-height: 59px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+}
+
+#form-warning {
+  font-size: 14px;
+  padding-left: 25px;
+  position: relative;
+  height: 20px;
+  display: flex;
+  align-items: center;
 }
 
 .form-warning {
-  font-size: 12px;
+  font-size: 14px;
   padding-left: 25px;
   position: relative;
   height: 20px;
@@ -1154,6 +1167,7 @@ a {
 }
 
 .form-warning::after {
+  color: white;
   content: '';
   width: 20px;
   height: 20px;
@@ -1186,8 +1200,12 @@ a {
   display: flex;
 }
 
+#form-content {
+  width: 90%;
+}
+
 .form-content {
-  width: 80%;
+  width: 90%;
   font-size: 13px;
   text-align: center;
   margin: auto;
@@ -1301,7 +1319,7 @@ a {
 }
 
 .login .signupActions {
-  margin-top: 40px;
+  margin-top: 10px;
 }
 
 .forgotPasswordBox {
