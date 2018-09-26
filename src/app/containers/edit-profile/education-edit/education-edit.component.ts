@@ -82,7 +82,7 @@ export class EducationEditComponent implements OnInit, OnChanges {
   }
 
   onDelete() {
-    if (this.typeEducation == 1) {
+    if (this.typeEducation === 1) {
       this.isDelete = true;
     } else {
       this._onRefresh();
@@ -107,7 +107,8 @@ export class EducationEditComponent implements OnInit, OnChanges {
   }
 
   keyDown(e) {
-    if (!(parseInt(e.key) <= 9 && parseInt(e.key) >= 0) && e.keyCode != 8 || (e.target.value.length > 3 && e.keyCode != 8)) {
+    if (!(parseInt(e.key) <= 9 && parseInt(e.key) >= 0) &&
+     e.keyCode != 8 || (e.target.value.length > 3 && e.keyCode != 8)) {
       e.preventDefault();
       return;
     }

@@ -78,9 +78,6 @@ export class SidebarComponent {
         this.userName = res.full_name;
         this.userspecialtyName = res.specialty ? res.specialty.name : '';
         this.userPhoto = res.photo_url;
-
-        console.log(data.resultMap.data);
-
         profileSub.unsubscribe();
       });
   }
