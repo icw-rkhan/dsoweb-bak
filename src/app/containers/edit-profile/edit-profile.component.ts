@@ -137,6 +137,8 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ display user profile ~~~~~~~~~~~~~~~~~~~~~~~~~~');
+        console.log(this.userProfile);
         this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
         this.userProfile.educations = this.userProfile.educations || [];
         this.getMetaData();
@@ -355,10 +357,10 @@ export class EditProfileComponent implements OnInit {
   editEducation(i) {
     this.educationIndex = i;
     const dt = {
-      id: this.userProfile.educations[i].types === 0 &&
+      id: this.userProfile.educations[i].types === 1 &&
         this.userProfile.educations[i]['dental_school'] ?
         this.userProfile.educations[i]['dental_school']['id'] : this.userProfile.educations[i].id,
-      name: this.userProfile.educations[i].types === 0 &&
+      name: this.userProfile.educations[i].types === 1 &&
        this.userProfile.educations[i]['dental_school'] ? this.userProfile.educations[i]['dental_school']['name'] :
        this.userProfile.educations[i].school_name,
       year: this.userProfile.educations[i].end_time.split('-')[0],
@@ -381,19 +383,21 @@ export class EditProfileComponent implements OnInit {
   }
 
   saveEducation(e: Education) {
+    console.log(e);
     const educationInfo = {
+      id: `${(this.userProfile.educations.length + 1)}`,
       email: this.userInfo.user_name,
       start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
       end_time: e.year + '-01-01T00:00:00.000Z',
       major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
-      dental_school: null,
-      school_name: null,
-      types: e.types.toString()
+      dental_school: {id: '1', name: ''},
+      school_name: 'default',
+      types: `${e.types}`
     };
     // check type of the education is dental school
-    if (e.types === 0) {
+    if (e.types === 1) {
       educationInfo.dental_school = {
-        id: e.id || null,
+        id: e.id.toString() || null,
         name: e.name || ''
       };
     } else {
@@ -404,6 +408,7 @@ export class EditProfileComponent implements OnInit {
       this.userProfile.educations.push(educationInfo);
       this.educationModel.hide();
     } else {
+      educationInfo.id = `${e.id}`;
       this.userProfile.educations[this.educationIndex] = Object.assign(this.userProfile.educations[this.educationIndex], educationInfo);
       this.educationModel.hide();
     }

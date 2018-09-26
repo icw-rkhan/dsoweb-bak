@@ -13,15 +13,15 @@
       <div class="personal-group practice-group">
         <div class="toggle-div">
           <label class="profile_title mb0">Attended Dental School in the US</label>
-          <div (click)="type = 1-type" class="switch" [ngClass]="{'on': type == 0}">
+          <div (click)="type = 1-type" class="switch" [ngClass]="{'on': type == 1}">
             <div class="handle"></div>
           </div>
         </div>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Dental School</label>
-        <div class="input-mb flex-input cursor" (click)="_selectEducation()" *ngIf="type == 0">{{education ? education.name : ''}}</div>
-        <input type="text" *ngIf="type == 1" class="input-mb" [(ngModel)]="school_name">
+        <div class="input-mb flex-input cursor" (click)="_selectEducation()" *ngIf="type == 1">{{education ? education.name : ''}}</div>
+        <input type="text" *ngIf="type == 0" class="input-mb" [(ngModel)]="school_name">
         <span *ngIf="isErrorName" class="text-danger">Please enter a Dental School</span>
         <span class="edit-practice"></span>
       </div>

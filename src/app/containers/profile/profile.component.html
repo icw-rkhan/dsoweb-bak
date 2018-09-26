@@ -67,7 +67,10 @@
           <div class="profile__icon education-icon"></div>
           <div class="profile__content_info">
             <div class="profile_info">
-              <div class="profile_subtitle">{{ item?.dental_school?.name }}</div>
+              <div *ngIf="item && item.dental_school; else elseBlock" class="profile_subtitle">{{ item?.dental_school?.name }}</div>
+              <ng-template #elseBlock>
+                <div class="profile_subtitle">{{ item?.school_name }}</div>
+              </ng-template>
               <div class="profile-job">Certificate, Advanced Periodontology</div>
               <div class="date-job">{{ item?.start_time | date: 'MMM yyyy' }} - {{ item?.end_time | date: 'MMM yyyy' }}</div>
             </div>

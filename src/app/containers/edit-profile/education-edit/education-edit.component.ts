@@ -32,26 +32,26 @@ export class EducationEditComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    this.type = (this.typeEducation == 1) ? 0: 1;//typeEducation: 1 edit, 2 add, type: 0 US, 1 non US
+    this.type = (this.typeEducation === 1) ? 1: 0;//typeEducation: 1 edit, 2 add, type: 1 US, 0 non US
     if (changes.education) {
-      this.type = 0;
-      if (this.typeEducation == 1) {//edit
-        if (changes.education.currentValue && changes.education.currentValue.year != null) {
+      this.type = 1;
+      if (this.typeEducation === 1 && changes.education.currentValue) {//edit
+        console.log(changes.education.currentValue);
+        if (changes.education.currentValue.year != null) {
           this.year = changes.education.currentValue.year;
         }
-          
-        if (changes.education.currentValue) {
-          if (changes.education.currentValue.types) {
-            this.type = changes.education.currentValue.types;
-          }
-          this.school_name = changes.education.currentValue.id ? '' : changes.education.currentValue.name;
+        if (changes.education.currentValue.name != null) {
+          this.school_name = changes.education.currentValue.name;
+        }
+        if (changes.education.currentValue.types != null) {
+          this.type = changes.education.currentValue.types;
         }
       }
     }
   }
 
   _save() {
-    if (this.type == 0) {
+    if (this.type === 1) {
       this.school_name = this.education.name;
     }
     this.isErrorName = this.isErrorYear = false;
@@ -61,10 +61,10 @@ export class EducationEditComponent implements OnInit, OnChanges {
     if (this.year < 1950 || this.year > new Date().getFullYear()) {
       this.isErrorYear = true;
     }
+
     if (this.isErrorName || this.isErrorYear) {
       return;
     }
-    
     const dt = {
       id: this.education ? this.education.id : null,
       name: this.school_name,
@@ -73,6 +73,7 @@ export class EducationEditComponent implements OnInit, OnChanges {
     };
     this.school_name = '';
     this.year = null;
+
     this.saveEducation.emit(new Education().deserialize(dt));
   }
 
@@ -98,7 +99,7 @@ export class EducationEditComponent implements OnInit, OnChanges {
   _onRefresh() {
     this.school_name = '';
     this.year = null;
-    this.type = 1;
+    this.type = 0;
     this.isDelete = false;
   }
 
