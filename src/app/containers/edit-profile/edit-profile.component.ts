@@ -275,6 +275,9 @@ export class EditProfileComponent implements OnInit {
 
       (this.userProfile.is_linkedin !== 1) ? this.userProfile.is_linkedin = 0 : this.userProfile.is_linkedin = 1;
 
+      console.log('~~~~~~~~~~~~ save user-profile ~~~~~~~~~~~~~~~~~');
+      console.log(this.userProfile);
+
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
           this.fetchProfile(this.userInfo.user_name);
@@ -352,9 +355,10 @@ export class EditProfileComponent implements OnInit {
   editEducation(i) {
     this.educationIndex = i;
     const dt = {
-      id: this.userProfile.educations[i].types === '0' &&
-        this.userProfile.educations[i]['dental_school'] ? this.userProfile.educations[i]['dental_school']['id'] : null,
-      name: this.userProfile.educations[i].types === '0' &&
+      id: this.userProfile.educations[i].types === 0 &&
+        this.userProfile.educations[i]['dental_school'] ?
+        this.userProfile.educations[i]['dental_school']['id'] : this.userProfile.educations[i].id,
+      name: this.userProfile.educations[i].types === 0 &&
        this.userProfile.educations[i]['dental_school'] ? this.userProfile.educations[i]['dental_school']['name'] :
        this.userProfile.educations[i].school_name,
       year: this.userProfile.educations[i].end_time.split('-')[0],
@@ -377,32 +381,30 @@ export class EditProfileComponent implements OnInit {
   }
 
   saveEducation(e: Education) {
-    if (this.typeEducation == this.ADD) {
-      this.userProfile.educations.push({
-        email: this.userInfo.user_name,
-        start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
-        end_time: e.year + '-01-01T00:00:00.000Z',
-        major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
-        dental_school: {
-          id: e.id || null,
-          name: e.name || ''
-        },
-        school_name: e.name,
-        types: e.types.toString()
-      });
+    const educationInfo = {
+      email: this.userInfo.user_name,
+      start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
+      end_time: e.year + '-01-01T00:00:00.000Z',
+      major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
+      dental_school: null,
+      school_name: null,
+      types: e.types.toString()
+    };
+    // check type of the education is dental school
+    if (e.types === 0) {
+      educationInfo.dental_school = {
+        id: e.id || null,
+        name: e.name || ''
+      };
+    } else {
+      educationInfo.school_name = e.name;
+    }
+
+    if (this.typeEducation === this.ADD) {
+      this.userProfile.educations.push(educationInfo);
       this.educationModel.hide();
     } else {
-      this.userProfile.educations[this.educationIndex] = Object.assign(this.userProfile.educations[this.educationIndex], {
-        start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
-        end_time: e.year + '-01-01T00:00:00.000Z',
-        major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
-        dental_school: {
-          id: e.id || null,
-          name: e.name || ''
-        },
-        school_name: e.name,
-        types: e.types.toString()
-      });
+      this.userProfile.educations[this.educationIndex] = Object.assign(this.userProfile.educations[this.educationIndex], educationInfo);
       this.educationModel.hide();
     }
   }
