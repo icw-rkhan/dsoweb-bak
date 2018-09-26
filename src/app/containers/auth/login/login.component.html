@@ -25,7 +25,7 @@
           </div>
           <div class="form-group withActionRight">
             <input [type]="isShowPassword ? 'text' : 'password'" formControlName="password" class="form-control" placeholder="Password" />
-            <a (click)="isShowPassword = !isShowPassword" class="action">Show</a>
+            <a (click)="isShowPassword = !isShowPassword" class="action">{{isShowPassword ? 'Hide' : 'Show'}}</a>
             <div *ngIf="password.invalid && (password.dirty || password.touched)">
               <div class="invalid-input" *ngIf="password.errors.required">The password can't be blank.</div>
             </div>
@@ -40,8 +40,11 @@
                   class="btn btn-primary btn-full margin-10"
                   type="button">Log In</button>
           <div *ngIf="is_student" class="btn btn-linkedin-icon btn-full">
-            <button class="btn btn-linkedin btn-full" type="button">
-              Log in using LinkedIn
+            <button class="btn btn-linkedin btn-full" type="button" (click)="onLoginLinkedIn()" *ngIf="!(isUserAuthenticated | async)">
+              Login with LinkedIn
+            </button>
+            <button class="btn btn-linkedin btn-full" type="button" (click)="logoutLinkedIn()" *ngIf="isUserAuthenticated | async">
+              Logout from LinkedIn
             </button>
           </div>
         </div>

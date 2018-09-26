@@ -1,11 +1,12 @@
 <div>
-  <button mat-icon-button (click)="onClickEvent()" class="btn-menu">
-    <mat-icon>{{getBtnCategory()}}</mat-icon>
-  </button>
-  <h3 class="mt-h3">{{getTitle()}}</h3>
-  <!-- <button mat-icon-button (click)="logout" class="btn-logout">
-    <mat-icon>logout</mat-icon>
-  </button> -->
-</div>
-
-
+    <button mat-icon-button (click)="onClickEvent()" class="btn-menu">
+      <mat-icon>{{btnTitle}}</mat-icon>
+    </button>
+    <h3 class="mt-h3">{{title}}</h3>
+    <div *ngIf="url == '/profile'" class="navbar-edit-profile">
+      <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
+    </div>
+  </div>
+  
+  
+  

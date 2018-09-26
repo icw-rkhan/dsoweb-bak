@@ -3,6 +3,7 @@ import * as moment from 'moment';
 
 import { AuthService, ProfileService } from '../../services/index';
 import {SharingService} from '../../services/sharing.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'dso-profile',
@@ -13,6 +14,7 @@ export class ProfileComponent implements OnInit {
   is_student: number;
   userInfo: any;
   userProfile: any;
+  baseUrl: String;
 
   constructor(
     private authService: AuthService,
@@ -21,6 +23,7 @@ export class ProfileComponent implements OnInit {
   ) {
     this.userInfo = this.authService.getUserInfo();
     this.sharingService.showLoading̣̣(true);
+    this.baseUrl = environment.profileApiUrl;
   }
 
   ngOnInit() {
@@ -41,10 +44,8 @@ export class ProfileComponent implements OnInit {
   parseData() {
     ['educations', 'experiences', 'profileResidency'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
-        item.start_time = moment(item.start_time).format('MMMM YYYY');
-        item.end_date = moment(item.start_time).isBefore(moment())
-                        ? moment(item.end_time).format('MMMM YYYY')
-                        : 'Present';
+        item.start_time = moment(item.start_time).format();
+        item.end_date = moment(item.end_time).format();
       });
     });
   }

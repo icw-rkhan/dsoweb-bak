@@ -1,5 +1,11 @@
+@import "../../../variables";
+@import "../../../responsive";
+
 mat-card {
   padding: 0;
+  border-radius: 0;
+  box-shadow: none !important;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.10);
 }
 
 .header {
@@ -7,33 +13,43 @@ mat-card {
   flex-direction: row;
   padding: 10px 20px;
   background-color: #FAFBFD;
-  border-bottom: 1px solid lightgray;
+
   .mat-h3 {
     text-transform: uppercase;
     flex: 1;
     margin-bottom: 0;
+    letter-spacing: 0.9px;
+    font-size: 0.8em;
+    font-weight: 500;
+    color: $primary;
   }
+
   .date {
     color: #D8D8D8;
   }
+
   .mat-body-1 {
     align-self: center;
-    color: lightgray;
     font-size: 12px;
+    letter-spacing: 0.8px;
+    font-weight: 300;
+    color: #9b9b9b;
   }
 }
 
 .content {
   display: block;
-  padding: 20px 30px;
+  padding: 10px 20px;
 }
 
 .image {
   margin-bottom: 20px;
+  text-align: center;
 
   img {
     max-width: 100%;
     height: auto;
+    margin-bottom: -10px;
   }
 }
 
@@ -41,8 +57,11 @@ mat-card {
   display: flex;
   flex-direction: row;
   padding-bottom: 10px;
+
   .mat-h2 {
     flex: 1;
+    color: #354051;
+    cursor: pointer;
   }
 }
 
@@ -50,6 +69,7 @@ mat-card {
   button {
     color: lightslategrey;
   }
+
   button:first-child {
     margin-right: 5px;
   }
@@ -59,6 +79,7 @@ mat-card {
   overflow: scroll;
   position: relative;
   display: block;
+  cursor: pointer;
 }
 
 .icon-type {
@@ -67,16 +88,18 @@ mat-card {
   height: 28px;
 }
 
-.more-container {
-  display: flex;
-  justify-content: flex-end;
-}
+.sponsor {
+  text-align: center;
 
-.more {
-  font-weight: bold;
-}
+  img {
+    display: none;
+  }
 
-.share-btn:hover {
-  cursor: pointer;
-  background-color: #eeeeee;
+  @include phone {
+    img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
 }

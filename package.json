@@ -32,6 +32,7 @@
     "@ngx-progressbar/http": "^5.1.2",
     "@ngx-share/core": "^6.0.1",
     "@types/lodash": "^4.14.116",
+    "angular-linkedin-sdk": "^0.1.7",
     "core-js": "^2.5.4",
     "express": "^4.16.3",
     "font-awesome": "^4.7.0",
@@ -44,7 +45,11 @@
     "ramda": "^0.25.0",
     "rxjs": "^6.3.2",
     "rxjs-compat": "^6.3.2",
+<<<<<<< HEAD
     "sweetalert2": "^7.26.29",
+=======
+    "sweetalert2": "^7.22.0",
+>>>>>>> 2128eabc2ee33a9f04997e5ef3c3c49824c02d6a
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

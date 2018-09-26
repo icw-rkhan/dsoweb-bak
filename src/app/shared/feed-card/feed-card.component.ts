@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
 import { AuthService } from '../../services';
@@ -12,10 +13,11 @@ import { AuthService } from '../../services';
 export class FeedCardComponent {
 
   @Input() post: Post;
+
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
   }
 
   onAddBookmark() {
@@ -31,8 +33,18 @@ export class FeedCardComponent {
 
   onRemoveBookmark() {
     this.post.bookmarked = false;
-    console.log(this.post);
     this.removeBookmark.emit(this.post.bookmarkId);
   }
 
+  onViewDetail() {
+    if (this.post.tags.includes(197) || this.post.tags.includes(260) || this.post.tags.includes(259)) {
+      this.router.navigate([`/detail/sponsor/${this.post.id}`]);
+    } else {
+      this.router.navigate([`/detail/${this.post.id}`]);
+    }
+  }
+
+  onCheckSponsorType(tags, sponsorId: number) {
+    return tags.includes(sponsorId);
+  }
 }

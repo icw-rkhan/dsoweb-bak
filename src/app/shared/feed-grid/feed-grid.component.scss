@@ -1,25 +1,13 @@
 @import "../../../responsive";
 
-ngx-masonry {
-  margin-left: 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+.feed-grid-container {
+  display: flex;
+  flex-direction: column;
 }
 
-.grid-sizer, .grid-item {
-  width: calc(50% - 10px);
-
-  @include desktop {
-    width: calc(100% - 10px);
-  }
-}
-
-.grid-item {
-  margin-bottom: 10px;
-}
-
-.gutter-sizer {
-  width: 10px;
+.posts {
+  display: flex;
+  flex-direction: column;
 }
 
 .no-content {
@@ -35,19 +23,8 @@ h3 {
   margin-top: 30px;
 }
 
-.sponsor {
-  margin: 10px;
-  text-align: center;
-
-  img {
-    display: none;
-  }
-
-  @include phone {
-    img {
-      display: block;
-      width: 100%;
-      height: auto;
-    }
-  }
+.load-more {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
 }

@@ -1,21 +1,15 @@
 <div class="feed-grid-container">
-  <div class="sponsor">
-    <img src="../../../assets/images/align_banner.png" *ngIf="sponsorId === 260"/>
-    <img src="../../../assets/images/gsk_banner.png" *ngIf="sponsorId === 197"/>
-    <img src="../../../assets/images/nobel_banner.png" *ngIf="sponsorId === 259"/>
+  <div class="posts" *ngIf="posts?.length > 0">
+    <div>
+      <dso-feed-card [post]="post" (addBookmark)="onAddBookmark($event)"
+                     (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts"></dso-feed-card>
+    </div>
+    <div class="load-more">
+      <button button mat-stroked-button color="primary" (click)="onLoadMore()">Load More</button>
+    </div>
   </div>
-  <ngx-masonry [options]="gridOptions" [useImagesLoaded]="true" *ngIf="posts?.length > 0">
-    <ngxMasonryItem *ngFor="let post of posts">
-      <div class="grid-sizer"></div>
-      <div class="gutter-sizer"></div>
-      <div class="grid-item">
-        <dso-feed-card [post]="post" (addBookmark)="onAddBookmark($event)"
-                       (removeBookmark)="onRemoveBookmark($event)"></dso-feed-card>
-      </div>
-    </ngxMasonryItem>
-  </ngx-masonry>
   <div class="no-content" *ngIf="posts === null || posts === undefined || posts?.length === 0">
-    <img src="/src/assets/images/no-bookmarks.png">
+    <img src="assets/images/no-bookmarks.png">
     <h3 class="mat-h3">{{noFoundMessage}}</h3>
   </div>
 </div>

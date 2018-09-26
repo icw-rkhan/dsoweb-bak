@@ -14,7 +14,7 @@ import { Bookmark } from '../../../models/bookmark.model';
 
 @Component({
   templateUrl: './posts-page.html',
-  styleUrls: ['./posts-page.scss']
+  styleUrls: ['./posts-page.scss'],
 })
 export class PostsPageComponent implements OnInit, OnDestroy {
 
@@ -23,6 +23,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   private postSub: Subscription;
   private paramsSub: Subscription;
+  private typeId: number;
 
   constructor(private postService: PostService, private progress: NgProgress, private route: ActivatedRoute,
               private authService: AuthService, private bookmarkService: BookmarkService, private snackBar: MatSnackBar) {
@@ -31,38 +32,12 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     // Fetch post type id param
     this.paramsSub = this.route.params.subscribe(params => {
-      this.progress.start();
-
+      this.posts = [];
       // Params
-      const id = params['id'];
-      const sponsorId = params['sponsorId'];
-      // Services
-      const email = this.authService.getUserInfo().user_name;
-      let postService = this.postService.posts();
+      this.typeId = params['id'];
+      this.sponsorId = params['sponsorId'];
 
-      if (!_.isUndefined(id)) {
-        postService = this.postService.fetchByCategory(id);
-      } else if (!_.isUndefined(sponsorId)) {
-        this.sponsorId = +sponsorId;
-        postService = this.postService.fetchBySponsorId(sponsorId);
-      }
-
-      // Join bookmarks and post
-      this.postSub = forkJoin(
-        postService,
-        this.bookmarkService.getAllByEmail(email)
-      ).pipe(
-        map(items => items[0].map(p => {
-          const bookmark = items[1].find(b => +b.postId === p.id);
-          return Object.assign({}, p, {
-            bookmarked: !_.isUndefined(bookmark),
-            bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
-          });
-        }))
-      ).subscribe(posts => {
-        this.posts = posts;
-        this.progress.complete();
-      });
+      this.fetchPosts(1);
     });
   }
 
@@ -74,7 +49,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   addBookmark(value: Bookmark) {
     const bookmarkSub = this.bookmarkService.saveBookmark(value).subscribe(x => {
       this.snackBar.open('Bookmark added', 'OK', {
-        duration: 2000,
+        duration: 1000,
       });
       bookmarkSub.unsubscribe();
     });
@@ -83,9 +58,61 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   removeBookmark(id: string) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe(x => {
       this.snackBar.open('Bookmark removed', 'OK', {
-        duration: 2000,
+        duration: 1000,
       });
       bookmarkSub.unsubscribe();
+    });
+  }
+
+  loadMore(page: number) {
+    this.fetchPosts(page);
+  }
+
+  private fetchPosts(page: number) {
+    this.progress.start();
+
+    // Services
+    const email = this.authService.getUserInfo().user_name;
+    
+    let postService = this.postService.posts({
+      page,
+      per_page: 5
+    });
+
+    if (!_.isUndefined(this.sponsorId)) {
+      postService = this.postService.fetchBySponsorId({
+        categoryId: this.typeId,
+        sponsorId: this.sponsorId,
+        page,
+        per_page: 5
+      });
+    } else if (!_.isUndefined(this.typeId)) {
+      postService = this.postService.fetchByCategory({
+        categoryId: this.typeId,
+        page,
+        per_page: 5
+      });
+    }
+    // Join bookmarks and post
+    this.postSub = forkJoin(
+      postService,
+      this.bookmarkService.getAllByEmail(email)
+    ).pipe(
+      map(items => items[0].map(p => {
+        const bookmark = items[1].find(b => +b.postId === p.id);
+        return Object.assign({}, p, {
+          bookmarked: !_.isUndefined(bookmark),
+          bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
+        });
+      }))
+    ).subscribe(posts => {
+      this.posts = [
+        ...this.posts,
+        ...posts
+      ];
+      this.progress.complete();
+    }, err => {
+      this.progress.complete();
     });
   }
 
