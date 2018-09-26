@@ -352,11 +352,14 @@ export class EditProfileComponent implements OnInit {
   editEducation(i) {
     this.educationIndex = i;
     const dt = {
-      id: this.userProfile.educations[i].types == '0' ? this.userProfile.educations[i]['dental_school']['id'] : null,
-      name: this.userProfile.educations[i].types == '0' ? this.userProfile.educations[i]['dental_school']['name'] : this.userProfile.educations[i].school_name,
+      id: this.userProfile.educations[i].types === '0' &&
+        this.userProfile.educations[i]['dental_school'] ? this.userProfile.educations[i]['dental_school']['id'] : null,
+      name: this.userProfile.educations[i].types === '0' &&
+       this.userProfile.educations[i]['dental_school'] ? this.userProfile.educations[i]['dental_school']['name'] :
+       this.userProfile.educations[i].school_name,
       year: this.userProfile.educations[i].end_time.split('-')[0],
       types: parseInt(this.userProfile.educations[i].types)
-    }
+    };
     this.education = new Education().deserialize(dt);
     this.education_page = this.RESIDENCY_EDIT;
     this.typeEducation = this.EDIT;
