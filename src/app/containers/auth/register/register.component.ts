@@ -79,6 +79,7 @@ export class RegisterComponent implements OnInit {
 
   submit() {
     this.sharingService.showLoading̣̣(true);
+    this.form.value.username = this.form.value.username.toLowerCase();
     this.authService.register(this.form.value).subscribe(
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
