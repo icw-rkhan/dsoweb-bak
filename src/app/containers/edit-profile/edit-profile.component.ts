@@ -119,7 +119,7 @@ export class EditProfileComponent implements OnInit {
           this.editProfileService.S_practiceTypes.next(data[3].resultMap.data);
         }
         if (data[4]) {
-          this.metadata.practiceType = data[4].resultMap.data;
+          this.metadata.practiceDSO = data[4].resultMap.data;
           this.editProfileService.S_practiceDSO.next(data[4].resultMap.data);
         }
         if (data[5]) {
@@ -247,7 +247,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   editResidency(i) {
-    console.log(this.userProfile.profileResidency);
     this.residencyIndex = i;
     this.residency = null;
     const dt = {
@@ -305,7 +304,6 @@ export class EditProfileComponent implements OnInit {
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile == this.RESUME_FILE) {
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
-        console.log(res);
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
         if (res['code'] == 0) {
@@ -378,7 +376,7 @@ export class EditProfileComponent implements OnInit {
   saveEducation(e: Education) {
     if (this.typeEducation == this.ADD) {
       this.userProfile.educations.push({
-        email: this.userInfo.email,
+        email: this.userInfo.user_name,
         start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
         end_time: e.year + '-01-01T00:00:00.000Z',
         major: isNullOrUndefined(this.speciality) ? '' : this.speciality.name,
@@ -391,7 +389,6 @@ export class EditProfileComponent implements OnInit {
       });
       this.educationModel.hide();
     } else {
-      console.log(e);
       this.userProfile.educations[this.educationIndex] = Object.assign(this.userProfile.educations[this.educationIndex], {
         start_time: (e.year - 1) + '-01-01T00:00:00.000Z',
         end_time: e.year + '-01-01T00:00:00.000Z',
