@@ -42,7 +42,8 @@
         </div>
       </div>
       <div class="inner-content" (click)="onViewDetail()">
-        <div class="mat-body-1" [innerHtml]="post.excerpt"></div>
+        <div class="mat-body-1" [class.excerpt-content]="!isViewMore" [innerHtml]="post.excerpt"></div>
+        <a id="more-text-btn" (click)="onViewMore($event)">... More</a>
       </div>
     </div>
   </mat-card-content>

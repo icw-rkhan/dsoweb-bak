@@ -11,13 +11,14 @@ import { AuthService } from '../../services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeedCardComponent {
-
+  private isViewMore: boolean;
   @Input() post: Post;
 
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
 
   constructor(private authService: AuthService, private router: Router) {
+    this.isViewMore = false;
   }
 
   onAddBookmark() {
@@ -46,5 +47,17 @@ export class FeedCardComponent {
 
   onCheckSponsorType(tags, sponsorId: number) {
     return tags.includes(sponsorId);
+  }
+
+  onViewMore(e) {
+    console.log(e);
+    this.isViewMore = !this.isViewMore;
+
+    if (this.isViewMore) {
+      e.target.innerText = 'Less';
+    } else {
+      e.target.innerText = '... More';
+    }
+    e.stopPropagation();
   }
 }
