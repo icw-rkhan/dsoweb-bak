@@ -32,14 +32,15 @@
 .topic-date {
     background-color: #fafbfd;
     width: 100%;
-    height: 40px;
+    height: 48px;
     padding: 15px 19px;
 
     .topic {
         color: #4a4a4a;
         font-size: 12px;
         font-weight: 600;
-        letter-spacing: 1px
+        letter-spacing: 1px;
+        text-transform: uppercase;
     }
     
     .date {
@@ -49,8 +50,6 @@
         text-align: right;
     }
 }
-
-
 
 .title {
     color: #000000;
