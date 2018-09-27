@@ -81,6 +81,9 @@
         <button mat-button class="viewBtn" (click)="onViewAll(post.id)">View all</button>
     </div>
 </div>
+<div fxLayout ="column">
+    <dso-review-card [comment]="comment" *ngFor="let comment of comments | slice:0:3"></dso-review-card>
+</div>
 <div class="inner-content" fxLayout="row">
     <div fxFlex="100" fxLayoutAlign="end top">
         <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
 import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
@@ -44,6 +45,7 @@ import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-pol
 import { MainContainerComponent } from './main-container/main-container.component';
 import { SponsorCardComponent } from './sponsor-card/sponsor-card.component';
 import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
+import { ReviewComponent } from './review-card/review-card.component';
 
 const PIPES = [
   TruncatePipe,
@@ -55,6 +57,7 @@ export const COMPONENTS = [
   ToolbarComponent,
   AlertDialogComponent,
   FeedCardComponent,
+  ReviewComponent,
   SponsorCardComponent,
   MainActionsComponent,
   FeedGridComponent,
@@ -66,6 +69,7 @@ export const MODULES = [
   CommonModule,
   RouterModule,
   FormsModule,
+  FlexLayoutModule,
   ReactiveFormsModule,
   NgxInfiniteScrollerModule,
   // Angular material modules

@@ -71,6 +71,10 @@ div {
     background-color: #f8f8f8;
     padding: 18px;
 
+    div {
+        background-color: #f8f8f8;
+    }
+
     .review-question {
         color: #9b9b9b;
         line-height: 15px;
@@ -130,11 +134,15 @@ p {
     color:#4a4a4a;
     width: 100%;
     height: auto;
-    margin-top:10px;
+    border-top: 1px solid #dddddd;
     line-height:25px;
     font-size:15px;
 }
 
 .btn-ctrl {
     width: 28px;
-  }
+}
+
+div {
+    background-color: #fff;
+}

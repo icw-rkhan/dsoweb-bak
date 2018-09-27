@@ -5,7 +5,6 @@ import { ActivatedRoute } from '@angular/router';
 
 import { CommentService } from '../../../services/comment.service';
 import { Comment } from '../../../models/comment.model';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'dso-reviews-view',
@@ -15,7 +14,7 @@ import { formatDate } from '@angular/common';
 export class ViewComponent implements OnInit, OnDestroy {
   postId: number;
   paramsSub: any;
-  comments$: Comment[];
+  comments: Comment[];
 
   rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
 
@@ -35,7 +34,7 @@ export class ViewComponent implements OnInit, OnDestroy {
       this.postId = params['id'];
 
       const commentSub = this.commentService.comments(this.postId).subscribe((data) => {
-        this.comments$ = data;
+        this.comments = data;
         commentSub.unsubscribe();
         this.progress.complete();
       });
@@ -44,9 +43,5 @@ export class ViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.paramsSub.unsubscribe();
-  }
-
-  dateFormat(date) {
-    return formatDate(date.split(' ')[0], 'd MMM, y', 'en-US');
   }
 }
