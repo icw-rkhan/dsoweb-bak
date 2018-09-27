@@ -139,6 +139,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ display user profile ~~~~~~~~~~~~~~~~~~~~~~~~~~');
         console.log(this.userProfile);
         this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
