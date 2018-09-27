@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  cmsApiUrl: 'http://137.135.101.58/wp-json/wp/v2',
-  profileApiUrl: 'http://52.35.67.85/profile/profileservice/v1',
+  cmsApiUrl: 'https://ws.dsodentist.com/wp-json/wp/v2',
+  profileApiUrl: 'https://upapi.dsodentist.com/profile/profileservice/v1',
   linkedinClientId: '78k2yzhi7fd5k8',
   linkedingClientSecret: 'SEwGEC8wA7KFuX2i'
 };

@@ -45,11 +45,7 @@
     "ramda": "^0.25.0",
     "rxjs": "^6.3.2",
     "rxjs-compat": "^6.3.2",
-<<<<<<< HEAD
-    "sweetalert2": "^7.26.29",
-=======
     "sweetalert2": "^7.22.0",
->>>>>>> 2128eabc2ee33a9f04997e5ef3c3c49824c02d6a
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
