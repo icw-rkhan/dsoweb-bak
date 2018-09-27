@@ -99,10 +99,7 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     this.is_student = +localStorage.getItem('is_student');
     this.fetchProfile(this.userInfo.user_name);
-  }
-
-  onFormatNumber(value) {
-    document.getElementById('phone').value = formatNumber({country: 'US', phone: `${value}`}, 'International');
+    this.userProfile.phone = formatNumber({country: 'US', phone: `${this.userProfile.phone}`}, 'International');
   }
 
   getMetaData() {
