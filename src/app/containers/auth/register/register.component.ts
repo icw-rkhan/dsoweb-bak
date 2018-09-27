@@ -1,4 +1,4 @@
-import {Component, OnInit, AfterViewChecked} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ngx-custom-validators';
@@ -12,7 +12,7 @@ import {SharingService} from '../../../services/sharing.service';
   selector: 'dso-register',
   templateUrl: './register.component.html'
 })
-export class RegisterComponent implements OnInit, AfterViewChecked {
+export class RegisterComponent implements OnInit {
 
   isShowPassword: boolean;
   is_student: number;
@@ -38,21 +38,6 @@ export class RegisterComponent implements OnInit, AfterViewChecked {
     setTimeout(() => {
       this.sharingService.showLoading̣̣(false);
     });
-  }
-
-  ngAfterViewChecked() {
-    this.matchHeight(document.body, '');
-  }
-
-  matchHeight(parent: HTMLElement, className: string) {
-    const height_min = parent.offsetHeight;
-    console.log('~~~~~~~~~~ response layout ~~~~~~~~~~~~~' + height_min);
-    if (height_min < 640) {
-      console.log('~~~~~~~~~~ response layout ~~~~~~~~~~~~~');
-      this.isScroll = true;
-    } else {
-      this.isScroll = false;
-    }
   }
   
   showDialog(type: string) {

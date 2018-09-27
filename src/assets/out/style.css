@@ -1143,6 +1143,10 @@ a {
   justify-content: flex-end;
 }
 
+#form-title {
+  margin-bottom: 10px;
+}
+
 .form-title {
   font-size: 43px;
   line-height: 59px;
