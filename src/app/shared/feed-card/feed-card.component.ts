@@ -11,7 +11,7 @@ import { AuthService } from '../../services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeedCardComponent {
-  private isViewMore: boolean;
+  public isViewMore: boolean;
   @Input() post: Post;
 
   @Output() addBookmark = new EventEmitter<Bookmark>();
