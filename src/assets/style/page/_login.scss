@@ -5,17 +5,7 @@
   height: 100vh;
   position: relative;
   font-size: 16px;
-
-  &-overlay {
-    height: 100vh;
-    background: linear-gradient(to top, #384147, rgba(0, 0, 0, 0) 50%);
-  }
-
-  &-overlay-primary {
-    height: 100vh;
-    background: linear-gradient(to top, #384147, rgba(0, 0, 0, 0.5) 100%);
-  }
-
+  
   &-content {
     width: 100%;
     position: absolute;
@@ -50,7 +40,7 @@
   }
 
   .loginActions {
-    margin-top: 100px;
+    margin-top: 90px;
   }
 
   .signupActions {

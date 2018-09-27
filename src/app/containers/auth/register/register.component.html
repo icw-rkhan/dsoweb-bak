@@ -8,13 +8,13 @@
   </div>
 </nav>
 <section class="login" [class.scroll-active]="isScroll">
-  <div id="login-overlay-height" class="login-overlay-primary">
+  <div class="login-overlay-primary">
     <div class="logoBox">
       <div class="logo"></div>
     </div>
     <div class="login-content">
       <div class="container">
-        <h2 id="form-title" class="form-title">Sign Up</h2>
+        <h2 class="form-title">Sign Up</h2>
         <form [formGroup]="form">
           <div class="form-group">
             <input formControlName="full_name" class="form-control" type="text" placeholder="Full name" />
@@ -43,7 +43,7 @@
             By creating an account, you agree to DSODentist’s
             <a id="tos" (click)="showDialog('term')" class="link underline">Terms of Service</a> and <a id="pp" (click)="showDialog('policy')" class="link underline">Privacy Policy</a>.
           </p>
-          <div class="btn-group">
+          <div class="mt-1">
             <button (click)="submit()"
                     [disabled]="!form.valid"
                     class="btn btn-default btn-full btn-signup"

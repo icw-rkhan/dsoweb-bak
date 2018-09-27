@@ -1,5 +1,5 @@
 <section class="login">
-  <div id="login-overlay-height" *ngIf="!checkIsStudent; else isStudentOrNot" class="login-overlay">
+  <div *ngIf="!checkIsStudent; else isStudentOrNot" class="login-overlay">
     <div class="logoBox">
       <div class="logo"></div>
     </div>
@@ -26,7 +26,7 @@
     </div>
   </div>
   <ng-template #isStudentOrNot>
-    <div id="login-overlay-height" class="login-overlay-primary">
+    <div class="login-overlay-primary">
       <div class="logoBox">
         <div class="logo"></div>
       </div>

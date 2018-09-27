@@ -27,7 +27,7 @@ body {
 }
 
 #tos, #pp {
-  color: #40a7f1;
+  color: #0070c0;
   text-decoration: underline;
 }
 
@@ -1019,7 +1019,7 @@ a {
   font-size: 15px;
   cursor: pointer;
   display: inline-block;
-  padding: 13px 0px;
+  padding: 10px 0px;
   outline: none;
 }
 
@@ -1143,10 +1143,6 @@ a {
   justify-content: flex-end;
 }
 
-#form-title {
-  margin-bottom: 10px;
-}
-
 .form-title {
   font-size: 43px;
   line-height: 59px;
@@ -1224,14 +1220,14 @@ a {
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: 10px;
   position: relative;
 }
 
 .form-group .form-control {
   width: 100%;
   border-radius: 5px;
-  padding: 15px 10px;
+  padding: 10px 10px;
   border: none;
   outline: none;
 }
@@ -1274,19 +1270,12 @@ a {
   font-size: 16px;
 }
 
-#login-overlay-height {
-  height: 100%;
-}
-
 .login-overlay {
   height: 100%;
-  background: linear-gradient(to top, #384147, transparent 50%);
 }
 
 .login-overlay-primary {
   height: 100%;
-  background: linear-gradient(to top, #384147, rgba(255, 255, 255, 0.5) 100%) !important;
-  color: #000
 }
 
 .scroll-active {
@@ -1298,6 +1287,7 @@ a {
   position: absolute;
   bottom: 0;
   padding-bottom: 20px;
+  background: linear-gradient(to top, #394555, transparent 100%) !important;
 }
 
 .login-content p, .login-content h2 {
@@ -1328,7 +1318,7 @@ a {
 }
 
 .login .loginActions {
-  margin-top: 100px;
+  margin-top: 90px;
 }
 
 .login .signupActions {
