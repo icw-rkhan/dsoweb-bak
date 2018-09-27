@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  cmsApiUrl: 'https://ws.dsodentist.com/wp-json/wp/v2',
+  cmsApiUrl: 'https://wp.dsodentist.com/wp-json/wp/v2',
   profileApiUrl: 'https://upapi.dsodentist.com/profile/profileservice/v1',
   linkedinClientId: '78k2yzhi7fd5k8',
   linkedingClientSecret: 'SEwGEC8wA7KFuX2i'
