@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  cmsApiUrl: 'http://137.135.101.58/wp-json/wp/v2',
-  profileApiUrl: 'http://52.35.67.85/profile/profileservice/v1',
+  cmsApiUrl: 'https://wp.dsodentist.com/wp-json/wp/v2',
+  profileApiUrl: 'https://upapi.dsodentist.com/profile/profileservice/v1',
   linkedinClientId: '',
   linkedingClientSecret: ''
 };
