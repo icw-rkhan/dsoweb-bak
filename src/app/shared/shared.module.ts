@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
@@ -66,6 +67,7 @@ export const MODULES = [
   RouterModule,
   FormsModule,
   ReactiveFormsModule,
+  NgxInfiniteScrollerModule,
   // Angular material modules
   MatToolbarModule,
   MatNativeDateModule,
