@@ -98,6 +98,9 @@ export class AddComponent implements OnInit, OnDestroy {
   }
   // change the format of the data
   dateFormat(date) {
-    return formatDate(date, 'MMMM y', 'en-US');
+    if (date) {
+      return formatDate(date, 'MMMM y', 'en-US');
+    }
+    return '';
   }
 }

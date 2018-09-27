@@ -60,4 +60,38 @@ export class FeedCardComponent {
     }
     e.stopPropagation();
   }
+  // post sponsor article by postId
+  onPostSponsor(type) {
+    let sponsorId: number;
+    if (type === 'gsk') {
+      sponsorId = 197;
+    } else if (type === 'align') {
+      sponsorId = 260;
+    } else if (type === 'nobel') {
+      sponsorId = 259;
+    }
+    this.router.navigate([`/posts/sponsor/${sponsorId}`]);
+  }
+  // check gsk tag
+  isGsk(tags): boolean {
+    if (tags && tags.includes(197)) {
+      return true;
+    }
+    return false;
+  }
+  // check align tag
+  isAlign(tags): boolean {
+    console.log(tags);
+    if (tags && tags.includes(260)) {
+      return true;
+    }
+    return false;
+  }
+  // check nobel tag
+  isNobel(tags): boolean {
+    if (tags && tags.includes(259)) {
+      return true;
+    }
+    return false;
+  }
 }
