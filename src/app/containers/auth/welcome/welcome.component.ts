@@ -24,6 +24,10 @@ export class WelcomeComponent implements OnInit {
 
   signUpOrLogin(signup: boolean = false) {
     this.signup = signup;
+
+    if (signup === false) {
+      this.router.navigate(['/auth', 'login']);
+    }
     this.checkIsStudent = true;
   }
 

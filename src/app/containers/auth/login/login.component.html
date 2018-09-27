@@ -1,4 +1,4 @@
-<nav class="main-nav">
+<nav *ngIf="!checkIsStudent" class="main-nav">
   <div class="container main-nav-fix">
     <div class="main-nav-wrap-icon">
       <a [routerLink]="['/auth', 'welcome']" href="javascript:void(0);">
@@ -8,7 +8,7 @@
   </div>
 </nav>
 <section class="login">
-  <div class="login-overlay-primary">
+  <div *ngIf="!checkIsStudent; else isStudentOrNot" class="login-overlay-primary">
     <div class="logoBox">
       <div class="logo"></div>
     </div>
@@ -49,9 +49,31 @@
           </div>
         </div>
         <div class="textCenter">
-          <a [routerLink]="['/auth', 'register']" class="link underline">Create an account</a>
+          <a [routerLink]="" class="link underline" (click)="signUp()">Create an account</a>
         </div>
       </div>
     </div>
   </div>
+  <ng-template #isStudentOrNot>
+    <div class="login-overlay-primary">
+      <div class="logoBox">
+        <div class="logo"></div>
+      </div>
+      <div class="login-content">
+        <div class="container">
+          <h2 class="login-title">Are you a student?</h2>
+          <p class="login-detail">We use this information to show personalized content that is relevant to you.</p>
+          <div class="margin-20">
+            <button (click)="redirect('0')" class="btn btn-default btn-full margin-10" type="button">
+              Yes
+            </button>
+            <button (click)="redirect('1')" class="btn btn-default btn-full" type="button">
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-template>
 </section>
+
