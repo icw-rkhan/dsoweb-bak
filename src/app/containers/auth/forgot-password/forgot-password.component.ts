@@ -48,7 +48,7 @@ export class ForgotPasswordComponent implements OnInit {
     this.authService.sendEmail(this.form.value).subscribe(
       (data: any) => {
         if (!data.code) {
-          this.router.navigate(['/auth', 'login']);
+          this.router.navigate(['/auth', 'reset-password']);
         } else if (data.code === 1003) {
           this.isError = true;
         }
