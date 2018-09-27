@@ -174,7 +174,7 @@
         <div class="personal-group">
           <label class="profile_title mb0">Mobile number</label>
           <div class="d-flex">
-            <input type="text" name="phone" class="input-mb" [(ngModel)]="userProfile.phone">
+            <input id="phone" type="text" name="phone" class="input-mb" [(ngModel)]="userProfile.phone" (change)="onFormatNumber(userProfile.phone)">
             <i class="fa fa-pencil personal-edit-icon"></i>
           </div>
           <div class="personal-underline"></div>

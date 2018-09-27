@@ -1,7 +1,8 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
 import * as moment from 'moment';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { formatNumber, ParsedNumber } from 'libphonenumber-js';
 
 import { AuthService, ProfileService } from '../../services/index';
 import { Residency } from '../../models/residency.model';
@@ -34,6 +35,7 @@ import {json} from 'ngx-custom-validators/src/app/json/validator';
     ])
   ]
 })
+
 export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
@@ -97,6 +99,10 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     this.is_student = +localStorage.getItem('is_student');
     this.fetchProfile(this.userInfo.user_name);
+  }
+
+  onFormatNumber(value) {
+    document.getElementById('phone').value = formatNumber({country: 'US', phone: `${value}`}, 'International');
   }
 
   getMetaData() {
@@ -294,6 +300,10 @@ export class EditProfileComponent implements OnInit {
           this.sharingService.showLoading̣̣(false);
         });
     }
+  }
+
+  onChange(e) {
+    console.log(e);
   }
 
   closeUploadResume(e) {
