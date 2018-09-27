@@ -139,7 +139,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
       return Math.floor(avgRating);
     }
 
-    return avgRating.toFixed(2);
+    return avgRating.toFixed(1);
   }
   // change the format of the data
   dateFormat(date): any {

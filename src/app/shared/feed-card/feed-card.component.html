@@ -20,13 +20,13 @@
       <div class="content-title">
         <h2 class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></h2>
         <div class="actions">
-          <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+          <button mat-icon-button class="btn-ctrl" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
           </button>
-          <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+          <button mat-icon-button class="btn-ctrl" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
           </button>
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+          <button mat-icon-button class="btn-ctrl" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
             <mat-icon aria-label="Options">more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before">
