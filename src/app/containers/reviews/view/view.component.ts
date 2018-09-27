@@ -16,8 +16,6 @@ export class ViewComponent implements OnInit, OnDestroy {
   paramsSub: any;
   comments: Comment[];
 
-  rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
-
   constructor(public breakpointObserver: BreakpointObserver,
     private commentService: CommentService, private progress: NgProgress, private route: ActivatedRoute) { }
 

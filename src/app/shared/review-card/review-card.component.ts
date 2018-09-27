@@ -12,6 +12,8 @@ export class ReviewComponent {
 
   @Input() comment: Comment;
 
+  rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
+
   constructor() {
   }
 
