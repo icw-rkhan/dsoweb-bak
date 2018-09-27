@@ -17,10 +17,8 @@ export class CommentService {
 
   comments(postId: number): Observable<Comment[]> {
     const url = `${environment.profileApiUrl}/getComments/${postId}`;
-    
     const headers = new HttpHeaders()
       .set('Authorization', `Bearer ${this.auth.getToken()}`);
-    
     return this.http.get(url, {headers}).pipe(
       map((response: any[]) => {
         return response['resultMap']['comments'];
@@ -39,5 +37,4 @@ export class CommentService {
 
     return this.http.post(url, body, {headers});
   }
-  
 }

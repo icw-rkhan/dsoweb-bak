@@ -18,6 +18,7 @@ export class RegisterComponent implements OnInit {
   is_student: number;
   is_linkedin: number;
   form: FormGroup;
+  isScroll: boolean;
 
   constructor(private router: Router,
               private authService: AuthService,
@@ -27,6 +28,7 @@ export class RegisterComponent implements OnInit {
               private sharingService: SharingService) {
     this.sharingService.showLoading̣̣(true);
     this.isShowPassword = false;
+    this.isScroll = false;
   }
 
   ngOnInit() {
@@ -37,7 +39,7 @@ export class RegisterComponent implements OnInit {
       this.sharingService.showLoading̣̣(false);
     });
   }
-
+  
   showDialog(type: string) {
     this.dialog.open(TermPolicyDialogComponent, {
       width: '600px',

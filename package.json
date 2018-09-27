@@ -40,6 +40,7 @@
     "moment": "^2.22.2",
     "ngx-bootstrap": "^3.0.1",
     "ngx-custom-validators": "^6.0.5",
+    "ngx-infinite-scroller": "^0.3.5",
     "ngx-masonry": "^1.1.2",
     "path": "^0.12.7",
     "ramda": "^0.25.0",

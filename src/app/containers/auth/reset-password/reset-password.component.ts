@@ -1,4 +1,5 @@
 import {Component, OnInit} from '@angular/core';
+import { Router } from '@angular/router';
 import {FormBuilder, FormGroup} from '@angular/forms';
 
 import {ApiErrorService, AuthService} from '../../../services/index';
@@ -12,7 +13,8 @@ export class ResetPasswordComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(private fb: FormBuilder,
+  constructor(private router: Router,
+              private fb: FormBuilder,
               private authService: AuthService,
               private apiError: ApiErrorService,
               private sharingService: SharingService) {
@@ -27,5 +29,9 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   initForm() {
+  }
+
+  onResetPwd() {
+    this.router.navigate(['/auth', 'login']);
   }
 }

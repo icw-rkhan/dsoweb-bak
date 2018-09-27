@@ -103,3 +103,22 @@ mat-card {
     }
   }
 }
+
+.btn-ctrl {
+  width: 28px;
+}
+
+.excerpt-content {
+  height: 55px;
+  overflow: hidden;
+}
+
+#more-text-btn {
+  color: #879aa8;
+  position: absolute;
+  background-color: white;
+  bottom: 0;
+  right: 0px;
+  font-weight: 600;
+  z-index: 5;
+}

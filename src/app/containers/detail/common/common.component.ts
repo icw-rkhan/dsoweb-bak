@@ -103,7 +103,7 @@ export class CommonComponent implements OnInit, OnDestroy {
       bookmarkSub.unsubscribe();
     });
   }
-  // get averave rating of the comments by postId 
+  // get averave rating of the comments by postId
   getRating(comments, type): any {
     if (!comments) {
       return 0;
@@ -127,12 +127,12 @@ export class CommonComponent implements OnInit, OnDestroy {
       return Math.floor(avgRating);
     }
 
-    return avgRating.toFixed(2);
+    return avgRating.toFixed(1);
   }
   // change the format of the data
   dateFormat(date): any {
     if (date) {
-      return formatDate(date, 'MMM d, y', 'en-US'); 
+      return formatDate(date, 'MMM d, y', 'en-US');
     }
     return '';
   }

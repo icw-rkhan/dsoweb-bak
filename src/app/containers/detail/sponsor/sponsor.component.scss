@@ -55,9 +55,10 @@
 
     .topic {
         color: #4a4a4a;
-        font-size: 12px;
+        font-size: 0.8em;
         font-weight: 600;
-        letter-spacing: 1px
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
     }
     
     .date {
@@ -86,6 +87,10 @@ div {
 .review {
     background-color: #f8f8f8;
     padding: 18px;
+
+    div {
+        background-color: #f8f8f8;
+    }
 
     .review-question {
         color: #9b9b9b;
@@ -142,7 +147,14 @@ p {
     color:#4a4a4a;
     width: 100%;
     height: auto;
-    margin-top:10px;
     line-height:25px;
     font-size:15px;
+}
+
+.btn-ctrl {
+    width: 28px;
+}
+
+div {
+    background-color: #fff;
 }
