@@ -28,6 +28,7 @@ body {
 
 #tos, #pp {
   color: #40a7f1;
+  text-decoration: underline;
 }
 
 .link.underline {
@@ -1264,7 +1265,7 @@ a {
   background-image: url("../images/bg-1.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  height: 100vh;
+  min-height: 640px;
   position: relative;
   font-size: 16px;
 }
@@ -1274,10 +1275,18 @@ a {
   background: linear-gradient(to top, #384147, transparent 50%);
 }
 
+#login-overlay-primary {
+  height: 100%;
+}
+
 .login-overlay-primary {
-  height: 100vh;
+  height: 100%;
   background: linear-gradient(to top, #384147, rgba(255, 255, 255, 0.5) 100%) !important;
   color: #000
+}
+
+.scroll-active {
+  overflow-y: auto;
 }
 
 .login-content {

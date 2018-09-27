@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewChecked} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ngx-custom-validators';
@@ -12,12 +12,13 @@ import {SharingService} from '../../../services/sharing.service';
   selector: 'dso-register',
   templateUrl: './register.component.html'
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent implements OnInit, AfterViewChecked {
 
   isShowPassword: boolean;
   is_student: number;
   is_linkedin: number;
   form: FormGroup;
+  isScroll: boolean;
 
   constructor(private router: Router,
               private authService: AuthService,
@@ -27,6 +28,7 @@ export class RegisterComponent implements OnInit {
               private sharingService: SharingService) {
     this.sharingService.showLoading̣̣(true);
     this.isShowPassword = false;
+    this.isScroll = false;
   }
 
   ngOnInit() {
@@ -38,6 +40,21 @@ export class RegisterComponent implements OnInit {
     });
   }
 
+  ngAfterViewChecked() {
+    this.matchHeight(document.body, '');
+  }
+
+  matchHeight(parent: HTMLElement, className: string) {
+    const height_min = parent.offsetHeight;
+    console.log('~~~~~~~~~~ response layout ~~~~~~~~~~~~~' + height_min);
+    if (height_min < 640) {
+      console.log('~~~~~~~~~~ response layout ~~~~~~~~~~~~~');
+      this.isScroll = true;
+    } else {
+      this.isScroll = false;
+    }
+  }
+  
   showDialog(type: string) {
     this.dialog.open(TermPolicyDialogComponent, {
       width: '600px',
