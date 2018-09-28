@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
 import * as moment from 'moment';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import { formatNumber, ParsedNumber } from 'libphonenumber-js';
+import { formatNumber, parseNumber } from 'libphonenumber-js';
 
 import { AuthService, ProfileService } from '../../services/index';
 import { Residency } from '../../models/residency.model';
@@ -139,7 +139,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
-        // this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
+        this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ display user profile ~~~~~~~~~~~~~~~~~~~~~~~~~~');
         console.log(this.userProfile);
         this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
@@ -279,6 +279,9 @@ export class EditProfileComponent implements OnInit {
       this.sharingService.showLoading̣̣(true);
 
       (this.userProfile.is_linkedin !== 1) ? this.userProfile.is_linkedin = 0 : this.userProfile.is_linkedin = 1;
+
+      this.userProfile.phone = parseNumber(`Phone: ${this.userProfile.phone}`, 'US') ?
+       parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
 
       console.log('~~~~~~~~~~~~ save user-profile ~~~~~~~~~~~~~~~~~');
       console.log(this.userProfile);
