@@ -139,7 +139,7 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
-        this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
+        // this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ display user profile ~~~~~~~~~~~~~~~~~~~~~~~~~~');
         console.log(this.userProfile);
         this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
@@ -314,11 +314,11 @@ export class EditProfileComponent implements OnInit {
 
   selectFile(file) {
     this.sharingService.showLoading̣̣(true);
-    if (this.typeFile == this.RESUME_FILE) {
+    if (this.typeFile === this.RESUME_FILE) {
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
-        if (res['code'] == 0) {
+        if (res['code'] === 0) {
           this.userProfile.document_library = {
             document_name: res['resultMap']['resumeName']
           };
@@ -336,7 +336,7 @@ export class EditProfileComponent implements OnInit {
       this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
-        if (res['code'] == 0) {
+        if (res['code'] === 0) {
           this.userProfile.photo_album = {
             photo_name: res['resultMap']['photoName']
           };
@@ -371,7 +371,7 @@ export class EditProfileComponent implements OnInit {
        this.userProfile.educations[i]['dental_school'] ? this.userProfile.educations[i]['dental_school']['name'] :
        this.userProfile.educations[i].school_name,
       year: this.userProfile.educations[i].end_time.split('-')[0],
-      types: parseInt(this.userProfile.educations[i].types)
+      types: this.userProfile.educations[i].types
     };
     this.education = new Education().deserialize(dt);
     this.education_page = this.RESIDENCY_EDIT;
@@ -380,7 +380,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   onDeleteEducation() {
-    if (this.typeEducation == this.EDIT && this.educationIndex > -1) {
+    if (this.typeEducation === this.EDIT && this.educationIndex > -1) {
       if (this.userProfile.educations[this.educationIndex]) {
         (<any[]>this.userProfile.educations).splice(this.educationIndex, 1);
         this.education = null;
