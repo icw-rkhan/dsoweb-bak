@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { formatNumber, parseNumber } from 'libphonenumber-js';
 import * as moment from 'moment';
 
 import { AuthService, ProfileService } from '../../services/index';
@@ -36,6 +37,7 @@ export class ProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
         this.parseData();
       }
     );
