@@ -59,7 +59,8 @@ span.icon-bar {
 }
 .navbar-edit-profile {
 	position: absolute;
-	right: 15px;
+	padding: 5px 15px;
+	right: 0px;
 	z-index: 1;
 	a {
 		color: $color_1;
