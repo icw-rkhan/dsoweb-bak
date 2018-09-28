@@ -1,6 +1,6 @@
 <mat-card fxLayout="column" fxLayoutAlign="center top" >
     <div fxLayout="row">
-        <img  class="mat-card-avatar" mat-card-avatar src={{comment.userUrl}}>
+        <img  class="mat-card-avatar" mat-card-avatar [src]="baseUrl + '/photoDownload?' + comment.userUrl">
         <ng-template #defaultUrl>
             <img class="mat-card-avatar" mat-card-avatar src="assets/images/review/user-avatar.png">
         </ng-template>
