@@ -33,6 +33,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
       const commentSub = this.commentService.comments(this.postId).subscribe((data) => {
         this.comments = data;
+        console.log(this.comments);
         commentSub.unsubscribe();
         this.progress.complete();
       });

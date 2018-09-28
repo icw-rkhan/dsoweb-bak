@@ -15,7 +15,6 @@ import { environment } from '../../../environments/environment';
 import {Specialty} from '../../models/speciality.model';
 import {EditProfileService} from './edit-profile.service';
 import {isNullOrUndefined} from 'util';
-import {json} from 'ngx-custom-validators/src/app/json/validator';
 
 @Component({
   selector: 'dso-edit-profile',

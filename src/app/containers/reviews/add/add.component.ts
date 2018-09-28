@@ -7,6 +7,7 @@ import { formatDate } from '@angular/common';
 
 import { AuthService, ProfileService } from '../../../services/index';
 import { CommentService } from '../../../services/comment.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'dso-reviews-add',
@@ -20,6 +21,7 @@ export class AddComponent implements OnInit, OnDestroy {
   userId: string;
   postTitle: string;
   postDate: string;
+  baseUrl: string;
   condition: boolean;
   res: any;
   body: any;
@@ -36,6 +38,7 @@ export class AddComponent implements OnInit, OnDestroy {
       this.rate = 0;
       this.comment = '';
       this.condition = false;
+      this.baseUrl = environment.profileApiUrl;
     }
 
   ngOnInit() {
