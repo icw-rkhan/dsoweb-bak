@@ -37,7 +37,9 @@ export class ProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
-        this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
+        if (this.userProfile && this.userProfile.phone) {
+          this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
+        }
         this.parseData();
       }
     );

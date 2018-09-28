@@ -138,7 +138,9 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
-        this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
+        if (this.userProfile && this.userProfile.phone) {
+          this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
+        }
         console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ display user profile ~~~~~~~~~~~~~~~~~~~~~~~~~~');
         console.log(this.userProfile);
         this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
@@ -279,8 +281,10 @@ export class EditProfileComponent implements OnInit {
 
       (this.userProfile.is_linkedin !== 1) ? this.userProfile.is_linkedin = 0 : this.userProfile.is_linkedin = 1;
 
-      this.userProfile.phone = parseNumber(`Phone: ${this.userProfile.phone}`, 'US') ?
-       parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
+      if (this.userProfile.phone) {
+        this.userProfile.phone = parseNumber(`Phone: ${this.userProfile.phone}`, 'US') ?
+        parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
+      }
 
       console.log('~~~~~~~~~~~~ save user-profile ~~~~~~~~~~~~~~~~~');
       console.log(this.userProfile);
