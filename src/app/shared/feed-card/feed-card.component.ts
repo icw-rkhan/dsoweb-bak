@@ -72,6 +72,10 @@ export class FeedCardComponent {
     }
     this.router.navigate([`/posts/sponsor/${sponsorId}`]);
   }
+  // remove *
+  resetCategoryName(category: string) {
+    return category.substring(category.indexOf('*') + 1);
+  }
   // check gsk tag
   isGsk(tags): boolean {
     if (tags && tags.includes(197)) {
