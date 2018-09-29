@@ -16,12 +16,15 @@ export class ProfileComponent implements OnInit {
   userInfo: any;
   userProfile: any;
   baseUrl: String;
+  certificate: string;
 
   constructor(
     private authService: AuthService,
     private profileService: ProfileService,
     private sharingService: SharingService
   ) {
+    // this.certificate = 'Certificate, Advanced Periodontology';
+    this.certificate = '';
     this.userInfo = this.authService.getUserInfo();
     this.sharingService.showLoading̣̣(true);
     this.baseUrl = environment.profileApiUrl;

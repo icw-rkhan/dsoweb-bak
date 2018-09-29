@@ -50,6 +50,7 @@ export class EditProfileComponent implements OnInit {
   isUploadFile: boolean;
   isUploadFileSlide: boolean;
   resumeFile: any;
+  certificate: string;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
@@ -83,6 +84,8 @@ export class EditProfileComponent implements OnInit {
     this.isPracticeAddress = false;
     this.isUploadFile = false;
     this.isUploadFileSlide = false;
+    // this.certificate = 'Certificate, Advanced Periodontology';
+    this.certificate = '';
     this.baseUrl = environment.profileApiUrl;
 
     this.metadata = {
