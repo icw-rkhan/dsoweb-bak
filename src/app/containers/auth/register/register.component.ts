@@ -39,7 +39,6 @@ export class RegisterComponent implements OnInit {
       this.sharingService.showLoading̣̣(false);
     });
   }
-  
   showDialog(type: string) {
     this.dialog.open(TermPolicyDialogComponent, {
       width: '600px',
@@ -87,7 +86,7 @@ export class RegisterComponent implements OnInit {
         this.sharingService.showLoading̣̣(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
-          this.router.navigate(['/profile']);
+          this.router.navigate(['/posts']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'register');
         }
