@@ -108,7 +108,7 @@ mat-card {
 }
 
 .excerpt-content {
-  height: 55px;
+  height: 77px;
   overflow: hidden;
 }
 
@@ -117,7 +117,9 @@ mat-card {
   position: absolute;
   background-color: white;
   bottom: 0;
+  letter-spacing: 1px;
   right: 0px;
+  font-size: 15px;
   font-weight: 600;
 }
 
