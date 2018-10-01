@@ -11,14 +11,14 @@ export class ToolbarComponent {
 
   @Output() toggleMenu = new EventEmitter();
 
-  title = 'DSODENTIST';
-  btnTitle = 'menu';
-  url = '';
+  title: string;
+  btnTitle: string;
+  url: string;
 
   constructor(private router: Router, private _location: Location) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        this.url = event.url; 
+        this.url = event.url;
         if (event.url.includes('/posts/sponsor')) {
           this.title = 'SPONSORED CONTENT';
           this.btnTitle = 'keyboard_backspace';

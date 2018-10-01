@@ -10,13 +10,34 @@ import { Subscription } from 'rxjs';
 })
 export class FeedPageComponent implements OnInit, OnDestroy {
 
+  url: string;
+  headerImageUrl: string;
   navLinks: NavLinkModel[] = [];
 
   private currentUrl: string;
   private routerSubs: Subscription;
+  private paramsSub: Subscription;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.currentUrl = router.url;
+
+    router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        this.url = event.url;
+        if (event.url.includes('/posts/sponsor')) {
+          const sponsorId = event.url.split('/')[3];
+          if (sponsorId === '197') {
+            this.headerImageUrl = 'assets/images/sponsor/gsk-header.png';
+          } else if (sponsorId === '259') {
+            this.headerImageUrl = 'assets/images/sponsor/nobel-header.png';
+          } else if (sponsorId === '260') {
+            this.headerImageUrl = 'assets/images/sponsor/align-header.png';
+          }
+        } else if (event.url.includes('/posts')) {
+          this.headerImageUrl = 'assets/images/header-pic.png';
+        }
+      }
+    });
   }
 
   ngOnInit(): void {

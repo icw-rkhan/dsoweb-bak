@@ -1,6 +1,6 @@
 <dso-main-container>
   <div class="header-pic">
-    <img src="assets/images/header_pic.png">
+    <img src={{headerImageUrl}}>
   </div>
   <nav mat-tab-nav-bar>
     <a mat-tab-link #rla="routerLinkActive" *ngFor="let link of navLinks" [routerLink]="link.route" routerLinkActive
