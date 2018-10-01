@@ -144,8 +144,6 @@ export class EditProfileComponent implements OnInit {
         if (this.userProfile && this.userProfile.phone) {
           this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
         }
-        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ display user profile ~~~~~~~~~~~~~~~~~~~~~~~~~~');
-        console.log(this.userProfile);
         this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
         this.userProfile.educations = this.userProfile.educations || [];
         this.getMetaData();
@@ -289,9 +287,6 @@ export class EditProfileComponent implements OnInit {
         parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
       }
 
-      console.log('~~~~~~~~~~~~ save user-profile ~~~~~~~~~~~~~~~~~');
-      console.log(this.userProfile);
-
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
           this.fetchProfile(this.userInfo.user_name);
@@ -324,7 +319,6 @@ export class EditProfileComponent implements OnInit {
   selectFile(file) {
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile === this.RESUME_FILE) {
-      console.log('~~~~~~~~~~~~~ upload resume file ~~~~~~~~~~~~~~~~~~');
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
@@ -343,16 +337,13 @@ export class EditProfileComponent implements OnInit {
         this.alertService.errorAlert('Upload Failed');
       });
     } else {
-      console.log('~~~~~~~~~~~~~ upload avatar file ~~~~~~~~~~~~~~~~~~');
       this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
         if (res['code'] === 0) {
-          console.log(res['resultMap']['photoName']);
           this.userProfile.photo_album = {
             photo_name: res['resultMap']['photoName']
           };
-          console.log(this.userProfile);
           this.alertService.successAlert('Uploaded successfully');
         } else {
           this.alertService.errorAlert('Upload Failed');
@@ -403,7 +394,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   saveEducation(e: Education) {
-    console.log(e);
     const educationInfo = {
       id: `${(this.userProfile.educations.length + 1)}`,
       email: this.userInfo.user_name,

@@ -50,7 +50,6 @@ export class FeedCardComponent {
   }
 
   onViewMore(e) {
-    console.log(e);
     this.isViewMore = !this.isViewMore;
 
     if (this.isViewMore) {
@@ -85,7 +84,6 @@ export class FeedCardComponent {
   }
   // check align tag
   isAlign(tags): boolean {
-    console.log(tags);
     if (tags && tags.includes(260)) {
       return true;
     }

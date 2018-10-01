@@ -48,8 +48,6 @@ export class CategoryPageComponent implements OnInit {
   }
 
   selectCategory(event: MatSelectChange) {
-    console.log(event.value);
-
     this.progress.start();
 
     const email = this.authService.getUserInfo().user_name;
