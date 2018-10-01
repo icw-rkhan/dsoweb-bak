@@ -289,6 +289,7 @@ export class EditProfileComponent implements OnInit {
         parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
       }
 
+      console.log(this.userProfile);
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
           this.fetchProfile(this.userInfo.user_name);
