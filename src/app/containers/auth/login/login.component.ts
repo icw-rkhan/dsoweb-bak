@@ -19,6 +19,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class LoginComponent implements OnInit {
 
+  checkIsStudent: boolean;
   isShowPassword: boolean;
   is_student: any;
   form: FormGroup;
@@ -37,6 +38,7 @@ export class LoginComponent implements OnInit {
               private http: HttpClient) {
     this.sharingService.showLoading̣̣(true);
     this.isShowPassword = false;
+    this.checkIsStudent = false;
   }
 
   ngOnInit() {
@@ -90,11 +92,7 @@ export class LoginComponent implements OnInit {
         this.sharingService.showLoading̣̣(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
-          if (this.is_student) {
-            this.router.navigate(['/profile']);
-          } else {
-            this.router.navigate(['/posts']);
-          }
+          this.router.navigate(['/posts']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'login');
         }
@@ -150,6 +148,15 @@ export class LoginComponent implements OnInit {
     }).subscribe(result => {
       console.log(`Access Token: ${authorizationToken}`);
     });
+  }
+
+  signUp() {
+    this.checkIsStudent = true;
+  }
+
+  redirect(is_student: string) {
+    localStorage.setItem('is_student', is_student);
+    this.router.navigate(['/auth', 'register']);
   }
 
 }

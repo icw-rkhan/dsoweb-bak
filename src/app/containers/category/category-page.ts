@@ -19,7 +19,7 @@ import { AuthService } from '../../services';
 })
 export class CategoryPageComponent implements OnInit {
 
-  categories$: Observable<Category[]>;
+  categories$: Category[];
   posts: Post[];
   sponsorId: number;
 
@@ -33,12 +33,21 @@ export class CategoryPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categories$ = this.categoryService.categories;
+    this.categoryService.categories.subscribe(date => {
+      const categoryList = [];
+      let i = 0;
+      for (i = 0; i < date.length; i++) {
+        const categoryItem = date[i];
+        if (!categoryItem.name.includes('*')) {
+          categoryList.push(categoryItem);
+        }
+      }
+
+      this.categories$ = categoryList;
+    });
   }
 
   selectCategory(event: MatSelectChange) {
-    console.log(event.value);
-
     this.progress.start();
 
     const email = this.authService.getUserInfo().user_name;
@@ -91,7 +100,6 @@ export class CategoryPageComponent implements OnInit {
 
     // Services
     const email = this.authService.getUserInfo().user_name;
-    
     let postService = this.postService.posts({
       page,
       per_page: 5

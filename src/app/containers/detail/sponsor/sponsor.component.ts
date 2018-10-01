@@ -58,6 +58,9 @@ export class SponsorComponent implements OnInit, OnDestroy {
     if (tag && tag.length > 0) {
       let i = 0;
       for (i = 0; i < tag.length; i++) {
+        if (tagName === 'video') {
+          tag[i].style.backgroundColor = 'black';
+        }
         tag[i].style.width = '100%';
         tag[i].style.height = 'auto';
       }

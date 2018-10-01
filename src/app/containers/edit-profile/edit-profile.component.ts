@@ -1,7 +1,9 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap';
+import { Component, OnInit, ViewChild} from '@angular/core';
+import { ModalDirective } from 'ngx-bootstrap';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import { formatNumber, parseNumber } from 'libphonenumber-js';
 
 import { AuthService, ProfileService } from '../../services/index';
 import { Residency } from '../../models/residency.model';
@@ -14,7 +16,6 @@ import { environment } from '../../../environments/environment';
 import {Specialty} from '../../models/speciality.model';
 import {EditProfileService} from './edit-profile.service';
 import {isNullOrUndefined} from 'util';
-import {json} from 'ngx-custom-validators/src/app/json/validator';
 
 @Component({
   selector: 'dso-edit-profile',
@@ -34,6 +35,7 @@ import {json} from 'ngx-custom-validators/src/app/json/validator';
     ])
   ]
 })
+
 export class EditProfileComponent implements OnInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
@@ -49,6 +51,7 @@ export class EditProfileComponent implements OnInit {
   isUploadFile: boolean;
   isUploadFileSlide: boolean;
   resumeFile: any;
+  certificate: string;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
@@ -71,7 +74,8 @@ export class EditProfileComponent implements OnInit {
   speciality: Specialty;
 
   baseUrl: String;
-  constructor(private authService: AuthService,
+  constructor(private router: Router,
+              private authService: AuthService,
               private profileService: ProfileService,
               private sharingService: SharingService,
               private alertService: AlertService,
@@ -82,6 +86,8 @@ export class EditProfileComponent implements OnInit {
     this.isPracticeAddress = false;
     this.isUploadFile = false;
     this.isUploadFileSlide = false;
+    // this.certificate = 'Certificate, Advanced Periodontology';
+    this.certificate = '';
     this.baseUrl = environment.profileApiUrl;
 
     this.metadata = {
@@ -137,8 +143,9 @@ export class EditProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
-        console.log('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ display user profile ~~~~~~~~~~~~~~~~~~~~~~~~~~');
-        console.log(this.userProfile);
+        if (this.userProfile && this.userProfile.phone) {
+          this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
+        }
         this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
         this.userProfile.educations = this.userProfile.educations || [];
         this.getMetaData();
@@ -277,13 +284,17 @@ export class EditProfileComponent implements OnInit {
 
       (this.userProfile.is_linkedin !== 1) ? this.userProfile.is_linkedin = 0 : this.userProfile.is_linkedin = 1;
 
-      console.log('~~~~~~~~~~~~ save user-profile ~~~~~~~~~~~~~~~~~');
-      console.log(this.userProfile);
+      if (this.userProfile.phone) {
+        this.userProfile.phone = parseNumber(`Phone: ${this.userProfile.phone}`, 'US') ?
+        parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
+      }
 
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
           this.fetchProfile(this.userInfo.user_name);
-          this.alertService.successAlert('Saved successfully');
+          this.alertService.successAlert('Saved successfully').then((result) => {
+            this.router.navigate(['/profile']);
+          });
         } else {
           this.alertService.errorAlert(data.msg);
         }
@@ -294,6 +305,10 @@ export class EditProfileComponent implements OnInit {
           this.sharingService.showLoading̣̣(false);
         });
     }
+  }
+
+  onChange(e) {
+    console.log(e);
   }
 
   closeUploadResume(e) {
@@ -307,11 +322,11 @@ export class EditProfileComponent implements OnInit {
 
   selectFile(file) {
     this.sharingService.showLoading̣̣(true);
-    if (this.typeFile == this.RESUME_FILE) {
+    if (this.typeFile === this.RESUME_FILE) {
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
-        if (res['code'] == 0) {
+        if (res['code'] === 0) {
           this.userProfile.document_library = {
             document_name: res['resultMap']['resumeName']
           };
@@ -329,7 +344,7 @@ export class EditProfileComponent implements OnInit {
       this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
         this.sharingService.showLoading̣̣(false);
         this.isUploadFile = false;
-        if (res['code'] == 0) {
+        if (res['code'] === 0) {
           this.userProfile.photo_album = {
             photo_name: res['resultMap']['photoName']
           };
@@ -364,7 +379,7 @@ export class EditProfileComponent implements OnInit {
        this.userProfile.educations[i]['dental_school'] ? this.userProfile.educations[i]['dental_school']['name'] :
        this.userProfile.educations[i].school_name,
       year: this.userProfile.educations[i].end_time.split('-')[0],
-      types: parseInt(this.userProfile.educations[i].types)
+      types: this.userProfile.educations[i].types
     };
     this.education = new Education().deserialize(dt);
     this.education_page = this.RESIDENCY_EDIT;
@@ -373,7 +388,7 @@ export class EditProfileComponent implements OnInit {
   }
 
   onDeleteEducation() {
-    if (this.typeEducation == this.EDIT && this.educationIndex > -1) {
+    if (this.typeEducation === this.EDIT && this.educationIndex > -1) {
       if (this.userProfile.educations[this.educationIndex]) {
         (<any[]>this.userProfile.educations).splice(this.educationIndex, 1);
         this.education = null;
@@ -383,7 +398,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   saveEducation(e: Education) {
-    console.log(e);
     const educationInfo = {
       id: `${(this.userProfile.educations.length + 1)}`,
       email: this.userInfo.user_name,

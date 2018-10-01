@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { formatNumber, parseNumber } from 'libphonenumber-js';
 import * as moment from 'moment';
 
 import { AuthService, ProfileService } from '../../services/index';
@@ -15,12 +16,15 @@ export class ProfileComponent implements OnInit {
   userInfo: any;
   userProfile: any;
   baseUrl: String;
+  certificate: string;
 
   constructor(
     private authService: AuthService,
     private profileService: ProfileService,
     private sharingService: SharingService
   ) {
+    // this.certificate = 'Certificate, Advanced Periodontology';
+    this.certificate = '';
     this.userInfo = this.authService.getUserInfo();
     this.sharingService.showLoading̣̣(true);
     this.baseUrl = environment.profileApiUrl;
@@ -36,6 +40,9 @@ export class ProfileComponent implements OnInit {
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
+        if (this.userProfile && this.userProfile.phone) {
+          this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
+        }
         this.parseData();
       }
     );

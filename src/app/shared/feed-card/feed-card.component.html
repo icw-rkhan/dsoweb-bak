@@ -1,6 +1,6 @@
 <mat-card>
   <div class="header">
-    <h3 class="mat-h3">{{post.categories | multipleCategories}}</h3>
+    <h3 class="mat-h3">{{resetCategoryName(post.categories | multipleCategories)}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>
@@ -14,6 +14,9 @@
         <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="onCheckSponsorType(post.tags,259)"/>
       </div>         
     </ng-template>
+    <img *ngIf="isGsk(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png" (click)="onPostSponsor('gsk')">
+    <img *ngIf="isAlign(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png" (click)="onPostSponsor('align')">
+    <img *ngIf="isNobel(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png" (click)="onPostSponsor('nobel')">
     <div class="content">
       <div class="content-title">
         <h2 class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></h2>
@@ -39,9 +42,9 @@
           </mat-menu>
         </div>
       </div>
-      <div class="inner-content" (click)="onViewDetail()">
+      <div class="inner-content" (click)="onViewDetail()" style="overflow: hidden">
         <div class="mat-body-1" [class.excerpt-content]="!isViewMore" [innerHtml]="post.excerpt"></div>
-        <a id="more-text-btn">... More</a>
+        <a id="more-text-btn">... more</a>
       </div>
     </div>
   </mat-card-content>

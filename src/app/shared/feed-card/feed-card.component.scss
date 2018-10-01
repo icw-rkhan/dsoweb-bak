@@ -43,11 +43,10 @@ mat-card {
 }
 
 .image {
-  margin-bottom: 20px;
   text-align: center;
 
   img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     margin-bottom: -10px;
   }
@@ -109,7 +108,7 @@ mat-card {
 }
 
 .excerpt-content {
-  height: 55px;
+  height: 77px;
   overflow: hidden;
 }
 
@@ -118,7 +117,12 @@ mat-card {
   position: absolute;
   background-color: white;
   bottom: 0;
+  letter-spacing: 1px;
   right: 0px;
+  font-size: 15px;
   font-weight: 600;
-  z-index: 5;
+}
+
+mat-card-content>img {
+  width: 100%;
 }
