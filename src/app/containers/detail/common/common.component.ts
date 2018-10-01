@@ -42,6 +42,10 @@ export class CommonComponent implements OnInit, OnDestroy {
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
 
+        if (this.post.categories && this.post.categories.length > 0) {
+          this.post.categories[0].name = this.post.categories[0].name.substring(this.post.categories[0].name.indexOf('*') + 1);
+        }
+
         const commentSub = this.commentService.comments(this.postId).subscribe(c => {
           this.comments = c;
           commentSub.unsubscribe();
@@ -58,6 +62,9 @@ export class CommonComponent implements OnInit, OnDestroy {
     if (tag && tag.length > 0) {
       let i = 0;
       for (i = 0; i < tag.length; i++) {
+        if (tagName === 'video') {
+          tag[i].style.backgroundColor = 'black';
+        }
         tag[i].style.width = '100%';
         tag[i].style.height = 'auto';
       }
@@ -103,7 +110,7 @@ export class CommonComponent implements OnInit, OnDestroy {
       bookmarkSub.unsubscribe();
     });
   }
-  // get averave rating of the comments by postId 
+  // get averave rating of the comments by postId
   getRating(comments, type): any {
     if (!comments) {
       return 0;
@@ -127,12 +134,12 @@ export class CommonComponent implements OnInit, OnDestroy {
       return Math.floor(avgRating);
     }
 
-    return avgRating.toFixed(2);
+    return avgRating.toFixed(1);
   }
   // change the format of the data
   dateFormat(date): any {
     if (date) {
-      return formatDate(date, 'MMM d, y', 'en-US'); 
+      return formatDate(date, 'MMM d, y', 'en-US');
     }
     return '';
   }

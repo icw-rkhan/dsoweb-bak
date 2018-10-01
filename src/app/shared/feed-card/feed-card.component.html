@@ -1,8 +1,6 @@
 <mat-card>
   <div class="header">
-    <img class="icon-type" src="assets/images/Video@2x.png" *ngIf="post.categories[0].id == 29">
-    <img class="icon-type" src="assets/images/Article@2x.png" *ngIf="post.categories[0].id != 29">
-    <h3 class="mat-h3">{{post.categories | multipleCategories}}</h3>
+    <h3 class="mat-h3">{{resetCategoryName(post.categories | multipleCategories)}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>
@@ -16,17 +14,20 @@
         <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="onCheckSponsorType(post.tags,259)"/>
       </div>         
     </ng-template>
+    <img *ngIf="isGsk(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png" (click)="onPostSponsor('gsk')">
+    <img *ngIf="isAlign(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png" (click)="onPostSponsor('align')">
+    <img *ngIf="isNobel(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png" (click)="onPostSponsor('nobel')">
     <div class="content">
       <div class="content-title">
         <h2 class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></h2>
         <div class="actions">
-          <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+          <button mat-icon-button class="btn-ctrl" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
           </button>
-          <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+          <button mat-icon-button class="btn-ctrl" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
           </button>
-          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+          <button mat-icon-button class="btn-ctrl" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
             <mat-icon aria-label="Options">more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before">
@@ -41,8 +42,9 @@
           </mat-menu>
         </div>
       </div>
-      <div class="inner-content" (click)="onViewDetail()">
-        <div class="mat-body-1" [innerHtml]="post.excerpt"></div>
+      <div class="inner-content" (click)="onViewDetail()" style="overflow: hidden">
+        <div class="mat-body-1" [class.excerpt-content]="!isViewMore" [innerHtml]="post.excerpt"></div>
+        <a id="more-text-btn">... more</a>
       </div>
     </div>
   </mat-card-content>

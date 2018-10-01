@@ -43,11 +43,10 @@ mat-card {
 }
 
 .image {
-  margin-bottom: 20px;
   text-align: center;
 
   img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
     margin-bottom: -10px;
   }
@@ -102,4 +101,28 @@ mat-card {
       height: auto;
     }
   }
+}
+
+.btn-ctrl {
+  width: 28px;
+}
+
+.excerpt-content {
+  height: 77px;
+  overflow: hidden;
+}
+
+#more-text-btn {
+  color: #879aa8;
+  position: absolute;
+  background-color: white;
+  bottom: 0;
+  letter-spacing: 1px;
+  right: 0px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+mat-card-content>img {
+  width: 100%;
 }

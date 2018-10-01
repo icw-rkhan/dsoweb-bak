@@ -15,7 +15,7 @@
   </div>
 
   <mat-card fxLayout="row" fxLayoutAlign="start center">
-    <img *ngIf="userInfo && userInfo.url; else defaultUrl" mat-card-avatar src={{userInfo.url}}>
+    <img *ngIf="userInfo && userInfo.url; else defaultUrl" mat-card-avatar [src]="baseUrl + '/photoDownload?' + userInfo.url">
     <ng-template #defaultUrl>
       <img mat-card-avatar src="assets/images/review/user-avatar.png">
     </ng-template>

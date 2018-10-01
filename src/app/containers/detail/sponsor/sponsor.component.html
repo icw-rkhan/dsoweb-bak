@@ -18,13 +18,13 @@
         <span>{{post.title}}</span>
     </div>
     <div fxFlex="20" fxLayoutAlign="end top">
-        <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+        <button mat-icon-button class="btn-ctrl" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </button>
-        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+        <button mat-icon-button class="btn-ctrl" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
         </button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+        <button mat-icon-button class="btn-ctrl" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
             <mat-icon aria-label="Options">more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
@@ -80,6 +80,9 @@
     <div fxFlex="50" fxLayoutAlign="end center">
         <button mat-button class="viewBtn" (click)="onViewAll(post.id)">View all</button>
     </div>
+</div>
+<div fxLayout ="column">
+    <dso-review-card [comment]="comment" *ngFor="let comment of comments | slice:0:3"></dso-review-card>
 </div>
 <div class="inner-content" fxLayout="row">
     <div fxFlex="100" fxLayoutAlign="end top">

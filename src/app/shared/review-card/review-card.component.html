@@ -1,0 +1,25 @@
+<mat-card fxLayout="column" fxLayoutAlign="center top" >
+    <div fxLayout="row">
+        <img  *ngIf="comment.userUrl; else defaultUrl" class="mat-card-avatar" mat-card-avatar [src]="baseUrl + '/photoDownload?' + comment.userUrl">
+        <ng-template #defaultUrl>
+            <img class="mat-card-avatar" mat-card-avatar src="assets/images/review/user-avatar.png">
+        </ng-template>
+        <mat-card-content>
+            <div fxLayoutAlign="row">
+                <div class="user-name">{{comment.userName}} rated it </div>
+                <div class="ratebar" fxLayout="row" fxLayoutAlign="center center">
+                    <div *ngFor="let rate of rateList; index as i">
+                        <img *ngIf="comment.rating>i;else inactive" src="assets/images/review/view-star-active.png" class="rate-star">
+                        <ng-template #inactive>
+                        <img src="assets/images/review/view-star-inactive.png" class="rate-star">
+                        </ng-template>
+                    </div>
+                </div>            
+            </div>
+            
+            <div class="review-date">{{dateFormat(comment.creationDt)}}</div>
+            <div class="review-content">{{comment.comment}}</div>
+        </mat-card-content>
+    </div>
+    <div class="split"></div>
+</mat-card>

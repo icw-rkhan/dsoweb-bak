@@ -32,6 +32,12 @@ export class Post implements Serializable<Post> {
         categories.push(new Category().deserialize(c))
       );
 
+    const category = [];
+    if (categories.length > 1) {
+      category.push(categories[1]);
+    } else {
+      category.push(categories[0]);
+    }
     thumbnailObj = thumbnailObj && thumbnailObj[0] ? (thumbnailObj[0].media_details &&
       thumbnailObj[0].media_details.sizes && thumbnailObj[0].media_details.sizes.full ?
       thumbnailObj[0].media_details.sizes.full.source_url : undefined) : undefined;
@@ -49,7 +55,7 @@ export class Post implements Serializable<Post> {
       author: new Author().deserialize(authorObj),
       thumbnail: thumbnailObj,
       link: data.link,
-      categories: categories,
+      categories: category,
       tags: data.tags,
     });
   }

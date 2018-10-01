@@ -11,13 +11,14 @@ import { AuthService } from '../../services';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeedCardComponent {
-
+  public isViewMore: boolean;
   @Input() post: Post;
 
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
 
   constructor(private authService: AuthService, private router: Router) {
+    this.isViewMore = false;
   }
 
   onAddBookmark() {
@@ -46,5 +47,53 @@ export class FeedCardComponent {
 
   onCheckSponsorType(tags, sponsorId: number) {
     return tags.includes(sponsorId);
+  }
+
+  onViewMore(e) {
+    this.isViewMore = !this.isViewMore;
+
+    if (this.isViewMore) {
+      e.target.innerText = 'Less';
+    } else {
+      e.target.innerText = '... More';
+    }
+    e.stopPropagation();
+  }
+  // post sponsor article by postId
+  onPostSponsor(type) {
+    let sponsorId: number;
+    if (type === 'gsk') {
+      sponsorId = 197;
+    } else if (type === 'align') {
+      sponsorId = 260;
+    } else if (type === 'nobel') {
+      sponsorId = 259;
+    }
+    this.router.navigate([`/posts/sponsor/${sponsorId}`]);
+  }
+  // remove *
+  resetCategoryName(category: string) {
+    return category.substring(category.indexOf('*') + 1);
+  }
+  // check gsk tag
+  isGsk(tags): boolean {
+    if (tags && tags.includes(197)) {
+      return true;
+    }
+    return false;
+  }
+  // check align tag
+  isAlign(tags): boolean {
+    if (tags && tags.includes(260)) {
+      return true;
+    }
+    return false;
+  }
+  // check nobel tag
+  isNobel(tags): boolean {
+    if (tags && tags.includes(259)) {
+      return true;
+    }
+    return false;
   }
 }
