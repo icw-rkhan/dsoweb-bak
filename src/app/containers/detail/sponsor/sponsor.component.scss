@@ -47,27 +47,33 @@
     }
 }
 
-.topic-date {
-    background-color: #fafbfd;
-    width: 100%;
-    height: 40px;
-    padding: 15px 19px;
-
-    .topic {
-        color: #4a4a4a;
-        font-size: 0.8em;
-        font-weight: 600;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
+.header {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+    background-color: #FAFBFD;
+  
+    .mat-h3 {
+      text-transform: uppercase;
+      flex: 1;
+      margin-bottom: 0;
+      letter-spacing: 0.9px;
+      font-size: 0.8em;
+      font-weight: 500;
     }
-    
+  
     .date {
-        color: #9b9b9b;
-        font-size: 12px;
-        font-weight: 400;
-        text-align: right;
+      color: #D8D8D8;
     }
-}
+  
+    .mat-body-1 {
+      align-self: center;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+      font-weight: 300;
+      color: #9b9b9b;
+    }
+  }
 
 .title {
     color: #000000;

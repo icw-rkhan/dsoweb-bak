@@ -74,6 +74,10 @@ export class CommonComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.paramsSub.unsubscribe();
   }
+  // remove *
+  resetCategoryName(category: string) {
+    return category.substring(category.indexOf('*') + 1);
+  }
   // post the page to review all comments with postId
   onViewAll(postId): void {
     this.router.navigate([`/reviews/view/${postId}`]);

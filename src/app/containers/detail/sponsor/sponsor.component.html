@@ -1,6 +1,6 @@
-<div class="inner-content topic-date" fxLayoutAlign="row">
-    <span *ngIf="post.categories?.length > 0" class="topic" fxFlex="75">{{post.categories | multipleCategories}}</span>
-    <span *ngIf="post" class="date" fxFlex="25">{{dateFormat(post.date)}}</span>
+<div class="header">
+    <h3 class="mat-h3">{{resetCategoryName(post.categories | multipleCategories)}}</h3>
+    <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
 </div>
 <div class="inner-thumbnail" fxLayout="column">
     <img *ngIf="post.thumbnail; else elseBlock"class="inner-thumbnail" src="{{post.thumbnail}}">
