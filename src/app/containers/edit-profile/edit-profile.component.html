@@ -89,7 +89,11 @@
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
               <div class="profile-job">{{ item?.practice_Type?.name }}</div>
-              <div class="date-job">{{ item?.start_time | date:"MMM yyyy":'+0000'}} - {{ item?.end_time | date:"MMM yyyy":'+0000'}}
+              <div class="date-job">
+                <span>{{ item?.start_time | date:"MMM yyyy":'+0000'}}</span>
+                <span> - </span>
+                <span *ngIf="item.end_time">{{ item?.end_time | date:"MMM yyyy":'+0000'}}</span>
+                <span *ngIf="!item.end_time">Present</span>
               </div>
             </div>
           </div>
