@@ -59,7 +59,7 @@ export class SidebarComponent {
 
   onClick(link: NavLinkModel) {
     console.log(link);
-    if (link.label == 'Logout') {
+    if (link.label === 'Logout') {
       this.authService.logOut();
       this.router.navigate(['/']);
     } else {

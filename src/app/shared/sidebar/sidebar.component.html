@@ -1,18 +1,15 @@
 <div class="sidebar">
-  <mat-nav-list>
-    <mat-list-item>
-      <img *ngIf="userPhoto; else default" mat-list-avatar [src]="userPhoto? (baseUrl + '/photoDownload?' + userPhoto) : '../assets/images/profile/icon_user_profile.png'"/>
-      <ng-template #default>
-        <img mat-list-avatar src="../../../assets/images/profile/icon_user_profile.png"/>
-      </ng-template>
+  <mat-nav-list class="my-list">
+    <mat-list-item id="header-item">
+      <img id="header-avatar" mat-list-avatar [src]="userPhoto? (baseUrl + '/photoDownload?' + userPhoto) : '../assets/images/profile/icon_user_profile.png'"/>
       <h4 *ngIf="userName" mat-line>{{userName}}</h4>
       <p id="specialyName" *ngIf="this.userspecialtyName" mat-line>{{this.userspecialtyName}}</p>
+      <mat-divider [inset]="true"></mat-divider>
     </mat-list-item>
-    <mat-divider></mat-divider>
     <mat-list-item *ngFor="let link of links" (click)="onClick(link)">
       <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
       <a matLine>{{link.label}}</a>
+      <mat-divider [inset]="true"></mat-divider>
     </mat-list-item>
-    <mat-divider></mat-divider>
   </mat-nav-list>
 </div>
