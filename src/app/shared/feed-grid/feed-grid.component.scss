@@ -13,11 +13,12 @@
 
 .no-content {
   display: flex;
+  height: calc(100vh - 200px);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 0;
   flex: 1;
+  overflow: auto;
 }
 
 h3 {
