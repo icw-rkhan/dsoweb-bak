@@ -3,6 +3,7 @@
 .feed-grid-container {
   display: flex;
   flex-direction: column;
+  padding-bottom: 60px;
 }
 
 .posts {
@@ -32,6 +33,7 @@ h3 {
 #article-contents {
   height: calc(100vh - 91px);
   overflow: auto;
+  z-index: 2;
 }
 
 .no-find-message {

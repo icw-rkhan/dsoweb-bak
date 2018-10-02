@@ -1,5 +1,5 @@
 <form #profileForm="ngForm" *ngIf="userProfile !== undefined">
-  <header class="header-profile fixed-bar">
+  <header class="header-profile">
     <nav class="navbar bg-grey">
       <a [routerLink]="['/profile']" class="back-link"><span class="icon-bar icon-back"></span></a>
       <div class="navbar-title-heading">Edit Profile</div>
@@ -15,8 +15,6 @@
         <div class="avatar_profile">
           <img
             [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/icon_user_profile.png'">
-          <!--<a class="edit_profile cursor"><span
-            class="edit-icon icons"></span></a>-->
           <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
             class="edit-icon icons"></span></a>
         </div>
