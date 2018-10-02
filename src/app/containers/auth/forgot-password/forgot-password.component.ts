@@ -4,6 +4,7 @@ import {CustomValidators} from 'ngx-custom-validators';
 import {Router} from '@angular/router';
 
 import {AuthService} from '../../../services/index';
+import {AlertService} from '../../../services/alert.service';
 import {SharingService} from '../../../services/sharing.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(private fb: FormBuilder,
               private authService: AuthService,
               private router: Router,
+              private alertService: AlertService,
               private sharingService: SharingService) {
     this.sharingService.showLoading̣̣(true);
     this.isError = false;
@@ -48,7 +50,12 @@ export class ForgotPasswordComponent implements OnInit {
     this.authService.sendEmail(this.form.value).subscribe(
       (data: any) => {
         if (!data.code) {
-          this.router.navigate(['/auth', 'reset-password']);
+          this.alertService.successAlert('Your new password is on its way to your email address.')
+            .then(() => {
+              this.router.navigate(['/auth', 'reset-password'], { queryParams: {
+                email: this.form.value.email,
+              }});
+            });
         } else if (data.code === 1003) {
           this.isError = true;
         }
