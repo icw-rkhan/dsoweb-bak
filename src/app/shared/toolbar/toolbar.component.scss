@@ -6,38 +6,44 @@ div {
     background-color: #787878;
   }
   
-  .mt-h3 {
-    color: #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: row;
-    flex: 1;
-    letter-spacing: 1px;
-  }
-  
-  button {
-    position: absolute;
-    top: 2px;
-  }
-  
-  .btn-menu {
-    left: 5px;
-  }
-  
-  .btn-logout {
-    right: 0;
-  }
+.mt-h3 {
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  flex: 1;
+  letter-spacing: 1px;
+}
 
-  .btn-previous {
-    right: 45px;
-  }
+button {
+  position: absolute;
+  top: 2px;
+}
 
-  .btn-next {
-    right: 5px;
-  }
-  
-  .navbar-edit-profile {
-    width: auto;
-    align-items: center;
-  }
+.btn-menu {
+  left: 5px;
+}
+
+.btn-logout {
+  right: 0;
+}
+
+.btn-previous {
+  right: 45px;
+}
+
+.btn-next {
+  right: 5px;
+}
+
+.navbar-edit-profile {
+  width: auto;
+  align-items: center;
+}
+
+.topic-title {
+  font-size: 15px;
+  font-family: 'SF UI Text';
+  font-weight: 600;
+}

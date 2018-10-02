@@ -34,6 +34,7 @@ export class CategoryPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.categoryService.categories.subscribe(date => {
+      console.log(date);
       const categoryList = [];
       let i = 0;
       for (i = 0; i < date.length; i++) {

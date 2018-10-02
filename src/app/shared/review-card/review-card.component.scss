@@ -2,6 +2,7 @@ mat-card {
     padding: 18px;
     padding-bottom: 0px;
     border-radius: 0px;
+    font-family: 'SF UI Text';
 }
 
 .mat-card:not([class*="mat-elevation-z"]) {
@@ -34,6 +35,7 @@ mat-card {
     font-size: 13px;
     font-weight: 400;
     min-height: 15px;
+    margin-top: 13px;
 }
 
 .ratebar {
