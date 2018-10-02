@@ -1,6 +1,7 @@
 div {
     height: calc(100vh-45px);
     background-color: #ffffff;
+    font-family: 'SF UI Text';
 }
 
 img {
@@ -16,11 +17,12 @@ mat-card {
     min-height: 50px;
     border-bottom: 1px solid #dddddd;
     border-radius: 0px;
+    font-family: 'SF UI Text';
     padding: 10px 16px;
 
     img {
-        width: 35px;
-        height: 35px;
+        width: 30px;
+        height: 30px;
         margin: 0px;
     }
 
@@ -56,6 +58,7 @@ mat-card {
             background-color: #879aa8;
             border: 0px;
             font-size: 15px;
+            font-family: 'SF UI Text';
             font-weight: 600;
             letter-spacing: -0.2px;
         }

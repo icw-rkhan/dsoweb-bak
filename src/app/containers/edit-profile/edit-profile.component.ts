@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ModalDirective } from 'ngx-bootstrap';
+import { Router } from '@angular/router';
 import * as moment from 'moment';
 import {animate, state, style, transition, trigger} from '@angular/animations';
 import { formatNumber, parseNumber } from 'libphonenumber-js';
@@ -73,7 +74,8 @@ export class EditProfileComponent implements OnInit {
   speciality: Specialty;
 
   baseUrl: String;
-  constructor(private authService: AuthService,
+  constructor(private router: Router,
+              private authService: AuthService,
               private profileService: ProfileService,
               private sharingService: SharingService,
               private alertService: AlertService,
@@ -157,8 +159,8 @@ export class EditProfileComponent implements OnInit {
   parseData() {
     ['experiences'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
-        item.start_time = moment(item.start_time);
-        item.end_time = moment(item.end_time);
+        item.start_time = moment(item.start_time).format();
+        item.end_time = moment(item.end_time).format();
       });
     });
 
@@ -290,7 +292,9 @@ export class EditProfileComponent implements OnInit {
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
           this.fetchProfile(this.userInfo.user_name);
-          this.alertService.successAlert('Saved successfully');
+          this.alertService.successAlert('Saved successfully').then((result) => {
+            this.router.navigate(['/profile']);
+          });
         } else {
           this.alertService.errorAlert(data.msg);
         }

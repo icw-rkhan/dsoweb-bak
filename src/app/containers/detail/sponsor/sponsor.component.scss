@@ -77,11 +77,8 @@
     padding-top: 7px;
 }
 
-
-div {
-    img {
-        margin-right: 3px;
-    }
+.rate-star {
+    margin-right: 3px;
 }
 
 .review {
@@ -118,11 +115,16 @@ div {
         font-size: 13px;
         font-weight: 600;
     }
+
+    .mat-button {
+        min-width: 50px;
+    }
     
     .viewBtn {
         color: #879aa8;
         font-size: 12px;
         font-weight: 500;
+        padding: 0px;
     }
 
     .ratebar {
@@ -153,6 +155,14 @@ p {
 
 .btn-ctrl {
     width: 28px;
+}
+
+.bookmarkBtn {
+    right: -8px;
+}
+
+.moreBtn {
+    right: -10px;
 }
 
 div {

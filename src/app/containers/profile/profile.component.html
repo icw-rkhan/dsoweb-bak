@@ -23,7 +23,7 @@
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
               <div class="profile-job">{{ item?.practice_Type?.name }}</div>
-              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy' }} - {{ item?.end_time | date: 'MMM yyyy' }}</div>
+              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy':'+0000' }} - {{ item?.end_time | date: 'MMM yyyy':'+0000' }}</div>
             </div>
           </div>
         </div>
@@ -46,7 +46,7 @@
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.residency_school?.name }}</div>
               <div class="profile-job"></div>
-              <div class="date-job">{{ item?.end_time | date: 'yyyy' }}</div>
+              <div class="date-job">{{ item?.end_time | date: 'yyyy':'+0000' }}</div>
             </div>
           </div>
         </div>
@@ -72,7 +72,7 @@
                 <div class="profile_subtitle">{{ item?.school_name }}</div>
               </ng-template>
               <div class="profile-job">{{certificate}}</div>
-              <div class="date-job">{{ item?.end_time | date: 'yyyy' }}</div>
+              <div class="date-job">{{ item?.end_time | date: 'yyyy':'+0000' }}</div>
             </div>
           </div>
         </div>
@@ -109,6 +109,9 @@
           <span class="addr-link">{{ userProfile?.email }}</span>
         </div>
       </div>
+    </section>
+    <section class="profile_footer">
+
     </section>
   </div>
 </dso-main-container>

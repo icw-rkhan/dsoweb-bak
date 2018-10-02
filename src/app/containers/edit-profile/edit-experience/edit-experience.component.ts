@@ -39,6 +39,7 @@ export class EditExperienceComponent implements OnInit {
     if (isNullOrUndefined(this.experienceService.S_experienceEdit)) {
       this.title = 'Add Experience';
       this.experienceService.S_experience = {};
+      this.endDate = new Date();
     } else {
       this.title = 'Edit Experience';
       this.experienceService.S_experience = this.experienceService.S_experienceEdit;

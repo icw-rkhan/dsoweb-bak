@@ -10,7 +10,6 @@ import { Bookmark } from '../../models/bookmark.model';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class FeedGridComponent {
-  
   @Input() noFoundMessage: string;
   @Input() sponsorId: number;
   @Input() posts: Post[];

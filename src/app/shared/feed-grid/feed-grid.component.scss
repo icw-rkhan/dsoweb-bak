@@ -3,6 +3,7 @@
 .feed-grid-container {
   display: flex;
   flex-direction: column;
+  padding-bottom: 60px;
 }
 
 .posts {
@@ -32,4 +33,15 @@ h3 {
 #article-contents {
   height: calc(100vh - 91px);
   overflow: auto;
+  z-index: 2;
+}
+
+.no-find-message {
+  color: #4a4a4a;
+  width: 186px;
+  font-size: 15px;
+  font-family: 'SF UI Text';
+  font-weight: 400;
+  text-align: center;
+  margin-top: 100px;
 }

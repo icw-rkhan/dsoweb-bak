@@ -1,5 +1,5 @@
 <form #profileForm="ngForm" *ngIf="userProfile !== undefined">
-  <header class="header-profile fixed-bar">
+  <header class="header-profile">
     <nav class="navbar bg-grey">
       <a [routerLink]="['/profile']" class="back-link"><span class="icon-bar icon-back"></span></a>
       <div class="navbar-title-heading">Edit Profile</div>
@@ -15,8 +15,6 @@
         <div class="avatar_profile">
           <img
             [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/icon_user_profile.png'">
-          <!--<a class="edit_profile cursor"><span
-            class="edit-icon icons"></span></a>-->
           <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
             class="edit-icon icons"></span></a>
         </div>
@@ -89,7 +87,7 @@
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
               <div class="profile-job">{{ item?.practice_Type?.name }}</div>
-              <div class="date-job">{{ item?.start_time | date:"MMM yyyy"}} - {{ item?.end_time | date:"MMM yyyy"}}
+              <div class="date-job">{{ item?.start_time | date:"MMM yyyy":'+0000'}} - {{ item?.end_time | date:"MMM yyyy":'+0000'}}
               </div>
             </div>
           </div>
@@ -116,7 +114,7 @@
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.residency_school?.name }}</div>
               <div class="profile-job"></div>
-              <div class="date-job">{{ item?.end_time | date: 'yyyy' }}
+              <div class="date-job">{{ item?.end_time | date: 'yyyy':'+0000' }}
               </div>
             </div>
           </div>
@@ -144,7 +142,7 @@
             <div class="profile_info">
               <div class="profile_subtitle">{{ item.types == "1" ? item?.dental_school?.name : item.school_name }}</div>
               <div class="profile-job">{{certificate}}</div>
-              <div class="date-job">{{ item?.end_time | date: 'yyyy' }}</div>
+              <div class="date-job">{{ item?.end_time | date: 'yyyy':'+0000' }}</div>
             </div>
           </div>
         </div>

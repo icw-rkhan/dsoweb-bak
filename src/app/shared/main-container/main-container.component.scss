@@ -11,9 +11,6 @@
   flex-direction: column;
 }
 
-.main-container {
-  //display: flex;
-  //flex: 1;
-  //flex-direction: column;
-  margin-bottom: 62px;
+.main-actions {
+  z-index: 2;
 }

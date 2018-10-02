@@ -1,6 +1,6 @@
 <div class="inner-content topic-date" fxLayout="row">
-    <span *ngIf="post.categories?.length > 0" class="topic" fxFlex="50">{{post.categories | multipleCategories}}</span>
-    <span *ngIf="post" class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
+    <span *ngIf="post.categories?.length > 0" class="topic" fxFlex="75">{{post.categories | multipleCategories}}</span>
+    <span *ngIf="post" class="date" fxFlex="25">{{dateFormat(post.date)}}</span>
 </div>
 <div class="inner-thumbnail" fxLayout="column">
     <img class="inner-thumbnail" src="{{post.thumbnail}}">
@@ -10,13 +10,13 @@
         <span>{{post.title}}</span>
     </div>
     <div fxFlex="20" fxLayout="row" fxLayoutAlign="end start">
-        <button mat-icon-button class="btn-ctrl" (click)="onAddBookmark()" *ngIf="post && !post.bookmarked">
+        <button mat-icon-button class="btn-ctrl bookmarkBtn" (click)="onAddBookmark()" *ngIf="post && !post.bookmarked">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </button>
-        <button mat-icon-button class="btn-ctrl" (click)="onRemoveBookmark()" *ngIf="post && post.bookmarked">
+        <button mat-icon-button class="btn-ctrl bookmarkBtn" (click)="onRemoveBookmark()" *ngIf="post && post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
         </button>
-        <button mat-icon-button class="btn-ctrl" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+        <button mat-icon-button class="btn-ctrl moreBtn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
             <mat-icon aria-label="Options">more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
@@ -40,7 +40,7 @@
         <span>Add your review</span>
     </div>
     <div>
-        <img *ngFor="let rate of rateList" src="assets/images/review/star-inactive.png">
+        <img *ngFor="let rate of rateList" src="assets/images/review/star-inactive.png" class="rate-star">
     </div>
 </div>
 <div fxLayout="row" class="inner-content rate">
@@ -70,13 +70,13 @@
 </div>
 <div class="inner-content" fxLayout="row">
     <div fxFlex="100" fxLayoutAlign="end start">
-        <button mat-icon-button (click)="onAddBookmark()" *ngIf="post && !post.bookmarked">
+        <button mat-icon-button class="btn-ctrl bookmarkBtn" (click)="onAddBookmark()" *ngIf="post && !post.bookmarked">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </button>
-        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post && post.bookmarked">
+        <button mat-icon-button class="btn-ctrl bookmarkBtn" (click)="onRemoveBookmark()" *ngIf="post && post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
         </button>
-        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+        <button mat-icon-button class="btn-ctrl moreBtn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
             <mat-icon aria-label="Options">more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu" xPosition="before">
