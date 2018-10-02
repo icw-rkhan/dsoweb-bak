@@ -49,7 +49,7 @@ export class AddComponent implements OnInit, OnDestroy {
       if (result.matches) {
         document.getElementById('contents').style.height = '36.5vh';
       } else {
-        document.getElementById('contents').style.height = 'calc(100vh - 411px)';
+        document.getElementById('contents').style.height = 'calc(100vh - 400px)';
       }
     });
 
