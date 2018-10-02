@@ -10,6 +10,7 @@ export class EducationEditComponent implements OnInit, OnChanges {
   @Input('typeEducation') typeEducation: number;
   @Input('education') education: Education;
   @Output() delete: EventEmitter<null> = new EventEmitter(null);
+  @Output() cancel: EventEmitter<null> = new EventEmitter(null);
   @Output() selectEducation: EventEmitter<null> = new EventEmitter(null);
   @Output() saveEducation: EventEmitter<Education> = new EventEmitter(null);
   // @Output() deleteEducation: EventEmitter<null> = new EventEmitter(null);
@@ -79,7 +80,7 @@ export class EducationEditComponent implements OnInit, OnChanges {
 
   _cancel() {
     this._onRefresh();
-    this.delete.emit();
+    this.cancel.emit();
   }
 
   onDelete() {

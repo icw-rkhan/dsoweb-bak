@@ -261,7 +261,7 @@ export class EditProfileComponent implements OnInit {
     const dt = {
       id: this.userProfile.profileResidency[i].residency_school.id,
       name: this.userProfile.profileResidency[i].residency_school.name,
-      year: this.userProfile.profileResidency[i].end_time.split('-')[0]
+      year: moment(this.userProfile.profileResidency[i].end_time).utcOffset(0).year()
     };
     this.residency = new Residency().deserialize(dt);
     this.editResidencyModel.show();
@@ -375,10 +375,10 @@ export class EditProfileComponent implements OnInit {
       id: this.userProfile.educations[i].types === 1 &&
         this.userProfile.educations[i]['dental_school'] ?
         this.userProfile.educations[i]['dental_school']['id'] : this.userProfile.educations[i].id,
-      name: this.userProfile.educations[i].types === 1 &&
+      name: this.userProfile.educations[i].types === '1' &&
        this.userProfile.educations[i]['dental_school'] ? this.userProfile.educations[i]['dental_school']['name'] :
        this.userProfile.educations[i].school_name,
-      year: this.userProfile.educations[i].end_time.split('-')[0],
+      year: moment(this.userProfile.educations[i].end_time).utcOffset(0).year(),
       types: this.userProfile.educations[i].types
     };
     this.education = new Education().deserialize(dt);
@@ -394,6 +394,11 @@ export class EditProfileComponent implements OnInit {
         this.education = null;
       }
     }
+    this.educationModel.hide();
+  }
+
+  onCancelEducation() {
+    this.education = null;
     this.educationModel.hide();
   }
 

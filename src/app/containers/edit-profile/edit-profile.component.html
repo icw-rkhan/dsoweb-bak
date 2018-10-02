@@ -293,10 +293,15 @@
                               [education]="education"
                               [listSchool]="metadata.dentalSchool"
                               *ngIf="education_page == RESIDENCY_AT"></dso-education-search>
-        <dso-education-edit (saveEducation)="saveEducation($event)" [education]="education"
-                            (selectEducation)="selectEducation()"
-                            [typeEducation]="typeEducation" (delete)="onDeleteEducation()"
-                            *ngIf="education_page == RESIDENCY_EDIT"></dso-education-edit>
+        <dso-education-edit
+          (saveEducation)="saveEducation($event)"
+          [education]="education"
+          (selectEducation)="selectEducation()"
+          [typeEducation]="typeEducation"
+          (delete)="onDeleteEducation()"
+          (cancel)="onCancelEducation()"
+          *ngIf="education_page == RESIDENCY_EDIT"
+         ></dso-education-edit>
       </div>
     </div>
   </div>
