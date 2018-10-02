@@ -1260,7 +1260,7 @@ a {
   background-image: url("../images/bg-1.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  min-height: 640px;
+  height: 100vh;
   position: relative;
   font-size: 16px;
 }
@@ -1279,7 +1279,7 @@ a {
 
 .login-content {
   width: 100%;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   padding-bottom: 20px;
   background: linear-gradient(to top, #394555, transparent 100%) !important;
