@@ -35,7 +35,10 @@ export class EditExperienceComponent implements OnInit {
   endDate: Date;
 
   constructor(public experienceService: EditProfileService,
-              public alertService: AlertService) {
+              public alertService: AlertService) {}
+
+  ngOnInit() {
+    this.isCurrentWork = false;
     if (isNullOrUndefined(this.experienceService.S_experienceEdit)) {
       this.title = 'Add Experience';
       this.experienceService.S_experience = {};
@@ -43,20 +46,12 @@ export class EditExperienceComponent implements OnInit {
       this.title = 'Edit Experience';
       this.experienceService.S_experience = this.experienceService.S_experienceEdit;
       this.startDate = new Date(this.experienceService.S_experienceEdit.start_time);
-      this.endDate = new Date(this.experienceService.S_experienceEdit.end_time);
+      if (this.experienceService.S_experienceEdit.end_time) {
+        this.endDate = new Date(this.experienceService.S_experienceEdit.end_time);
+      } else {
+        this.isCurrentWork = true;
+      }
     }
-    this.isCurrentWork = false;
-  }
-
-  ngOnInit() {
-    if (isNullOrUndefined(this.experienceService.S_experienceEdit)) {
-      this.title = 'Add Experience';
-      this.experienceService.S_experience = {};
-    } else {
-      this.title = 'Edit Experience';
-      this.experienceService.S_experience = this.experienceService.S_experienceEdit;
-    }
-    this.isCurrentWork = false;
   }
 
   chosenStartDate(date: Date, datepicker: MatDatepicker<Date>) {
@@ -85,14 +80,23 @@ export class EditExperienceComponent implements OnInit {
       return;
     }
 
-    if (!this.startDate || !this.endDate) {
+    if (!this.startDate) {
       this.alertService.errorAlert('Working time can\'t be blank.');
       return;
     }
 
-    if (this.startDate > this.endDate) {
+    if (!this.endDate && !this.isCurrentWork) {
+      this.alertService.errorAlert('Working time can\'t be blank.');
+      return;
+    }
+
+    if (!this.isCurrentWork && this.startDate > this.endDate) {
       this.alertService.errorAlert('Start date must before end date');
       return;
+    }
+
+    if (this.isCurrentWork) {
+      this.endDate = undefined;
     }
 
     this.experienceService.S_experience.practice_name = 'default';
@@ -105,6 +109,9 @@ export class EditExperienceComponent implements OnInit {
     } else {
       this.addExperience.emit(this.experienceService.S_experience);
     }
+    this.experienceService.S_experience = {};
+    this.experienceService.S_experienceEdit = undefined;
+    this.experienceService.S_editIndex = -1;
     this.closeModal.emit();
   }
 
@@ -121,6 +128,7 @@ export class EditExperienceComponent implements OnInit {
   close() {
     this.experienceService.S_experience = {};
     this.experienceService.S_experienceEdit = undefined;
+    this.experienceService.S_editIndex = -1;
     this.closeModal.emit();
   }
 }
