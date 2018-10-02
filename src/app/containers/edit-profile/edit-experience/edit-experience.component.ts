@@ -39,7 +39,6 @@ export class EditExperienceComponent implements OnInit {
     if (isNullOrUndefined(this.experienceService.S_experienceEdit)) {
       this.title = 'Add Experience';
       this.experienceService.S_experience = {};
-      this.endDate = new Date();
     } else {
       this.title = 'Edit Experience';
       this.experienceService.S_experience = this.experienceService.S_experienceEdit;
@@ -61,12 +60,12 @@ export class EditExperienceComponent implements OnInit {
   }
 
   chosenStartDate(date: Date, datepicker: MatDatepicker<Date>) {
-    this.startDate = new Date(date.getFullYear(), date.getMonth(), 28);
+    this.startDate = new Date(date.getFullYear(), date.getMonth());
     datepicker.close();
   }
 
   chosenEndDate(date: Date, datepicker: MatDatepicker<Date>) {
-    this.endDate = new Date(date.getFullYear(), date.getMonth(), 28);
+    this.endDate = new Date(date.getFullYear(), date.getMonth());
     datepicker.close();
   }
 
@@ -113,6 +112,10 @@ export class EditExperienceComponent implements OnInit {
 
   toggleCurrentWork() {
     this.isCurrentWork = !this.isCurrentWork;
+
+    if (this.isCurrentWork) {
+      this.endDate = new Date();
+    }
   }
 
   close() {
