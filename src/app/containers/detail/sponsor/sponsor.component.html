@@ -1,6 +1,6 @@
 <div class="inner-content topic-date" fxLayoutAlign="row">
-    <span *ngIf="post.categories?.length > 0" class="topic" fxFlex="50">{{post.categories | multipleCategories}}</span>
-    <span *ngIf="post" class="date" fxFlex="50">{{dateFormat(post.date)}}</span>
+    <span *ngIf="post.categories?.length > 0" class="topic" fxFlex="75">{{post.categories | multipleCategories}}</span>
+    <span *ngIf="post" class="date" fxFlex="25">{{dateFormat(post.date)}}</span>
 </div>
 <div class="inner-thumbnail" fxLayout="column">
     <img *ngIf="post.thumbnail; else elseBlock"class="inner-thumbnail" src="{{post.thumbnail}}">
