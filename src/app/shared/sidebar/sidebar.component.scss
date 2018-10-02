@@ -1,5 +1,5 @@
 .sidebar {
-  width: 285px;
+  width: 280px;
 }
 
 #specialyName {
@@ -23,11 +23,26 @@ mat-nav-list {
   height: 50px;
 }
 
-#header-item {
+.header-item {
   height: 150px;
+  padding-left: 18px;
+  padding-top: 18px;
   
-  #header-avatar {
-    width: 110px;
-    height: 110px;
+  .header-avatar {
+    img {
+      width: 110px;
+      height: 110px;
+    }
+  }
+
+  .header-info {
+    padding-top: 10px
+  }
+
+  .divider {
+    width: 100%;
+    height: 1px;
+    background-color: #dddddd;
+    margin-top: 18px;
   }
 }

@@ -1,11 +1,17 @@
 <div class="sidebar">
   <mat-nav-list class="my-list">
-    <mat-list-item id="header-item">
-      <img id="header-avatar" mat-list-avatar [src]="userPhoto? (baseUrl + '/photoDownload?' + userPhoto) : '../assets/images/profile/icon_user_profile.png'"/>
-      <h4 *ngIf="userName" mat-line>{{userName}}</h4>
-      <p id="specialyName" *ngIf="this.userspecialtyName" mat-line>{{this.userspecialtyName}}</p>
-      <mat-divider [inset]="true"></mat-divider>
-    </mat-list-item>
+    <div class="header-item" fxLayout="column">
+      <div fxLayout="row">
+        <div class="header-avatar" fxFlex="45">
+          <img [src]="userPhoto? (baseUrl + '/photoDownload?' + userPhoto) : '../assets/images/profile/icon_user_profile.png'"/>
+        </div>
+        <div class="header-info" fxFlex="55" fxLayout="column">
+          <h4 *ngIf="userName">{{userName}}</h4>
+          <p id="specialyName" *ngIf="this.userspecialtyName">{{this.userspecialtyName}}</p>
+        </div>
+      </div>
+      <div class="divider"></div>
+    </div>
     <mat-list-item *ngFor="let link of links" (click)="onClick(link)">
       <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
       <a matLine>{{link.label}}</a>
