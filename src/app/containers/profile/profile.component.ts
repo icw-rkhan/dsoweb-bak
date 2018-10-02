@@ -52,7 +52,7 @@ export class ProfileComponent implements OnInit {
     ['educations', 'experiences', 'profileResidency'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
         item.start_time = moment(item.start_time).format();
-        item.end_date = moment(item.end_time).format();
+        item.end_time = moment(item.end_time).format();
       });
     });
   }

@@ -159,8 +159,8 @@ export class EditProfileComponent implements OnInit {
   parseData() {
     ['experiences'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
-        item.start_time = moment(item.start_time);
-        item.end_time = moment(item.end_time);
+        item.start_time = moment(item.start_time).format();
+        item.end_time = moment(item.end_time).format();
       });
     });
 
@@ -289,7 +289,6 @@ export class EditProfileComponent implements OnInit {
         parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
       }
 
-      console.log(this.userProfile);
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
           this.fetchProfile(this.userInfo.user_name);
