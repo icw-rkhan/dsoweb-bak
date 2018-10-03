@@ -88,7 +88,7 @@ export class ResetPasswordComponent implements OnInit {
           )
         } else {
           this.sharingService.showLoading̣̣(false);
-          //this.apiError.checkError(data.code, this.form.value, 'login');
+          this.apiError.checkError(data.code, this.form.value, 'reset_password');
         }
       }
     )

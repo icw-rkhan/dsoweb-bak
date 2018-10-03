@@ -21,6 +21,7 @@ export const ERRORS: any = {
     1067: 'Password format error',
   },
   reset_password: {
-
+    1018: 'Invalid email token',
+    1001: 'Your password should be at least 8-16 characters in length with at least one uppercase letter and one number.'
   }
 };
