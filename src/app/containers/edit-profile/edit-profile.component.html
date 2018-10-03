@@ -77,14 +77,13 @@
 
     <section *ngIf="is_student" class="profile_Residency">
       <div class="profile_title small f300">Experience</div>
-      <span class="addNew-icon" (click)="ExperienceModal.show(); isEditExperience = true"></span>
+      <span class="addNew-icon"></span>
       <div *ngIf="userProfile?.experiences.length; else noExperience">
         <div *ngFor="let item of userProfile?.experiences; let i = index"
-             (click)="EditExperienceMode(item, i); ExperienceModal.show(); isEditExperience = true"
              class="profile__content bt">
           <div class="profile__icon exp_owner"></div>
           <div class="profile__content_info">
-            <span class="arrow-right"></span>
+            <span class="arrow-right" (click)="EditExperienceMode(item, i); ExperienceModal.show(); isEditExperience = true"></span>
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
               <div class="profile-job">{{ item?.practice_DSO?.name }}</div>
