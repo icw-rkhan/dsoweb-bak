@@ -359,6 +359,7 @@ export class EditProfileComponent implements OnInit {
 
   // upload file
   selectFile(file) {
+    console.log(file);
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile === this.RESUME_FILE) {
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
@@ -410,7 +411,6 @@ export class EditProfileComponent implements OnInit {
   }
   // finish to edit
   finishToEdit(e) {
-    console.log(e);
     this.isUploadFile = false;
   }
   selectEducation() {
