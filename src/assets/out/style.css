@@ -193,6 +193,7 @@ span.icon-bar {
   width: 100%;
   background-color: #fff;
   padding: 10px 15px;
+  padding-right: 0px;
   border-bottom: 1px solid #e9edf1;
   z-index: 1;
 }
@@ -575,7 +576,6 @@ span.icon-back {
   width: 15px;
   position: fixed;
   right: 0;
-  background-color: #e9edf1;
   top: 102px;
   bottom: 0;
   display: flex;
