@@ -52,6 +52,10 @@ export class EditProfileComponent implements OnInit {
   isUploadFileSlide: boolean;
   resumeFile: any;
   certificate: string;
+  croppedImageFile: any;
+  fileName: string;
+  imageChangedEvent: any;
+  croppedImage: any;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
@@ -353,6 +357,7 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
+  // upload file
   selectFile(file) {
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile === this.RESUME_FILE) {
@@ -374,36 +379,29 @@ export class EditProfileComponent implements OnInit {
         this.alertService.errorAlert('Upload Failed');
       });
     } else {
-      this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
-        this.sharingService.showLoading̣̣(false);
-        this.isUploadFile = false;
-        if (res['code'] === 0) {
-          this.userProfile.photo_album = {
-            photo_name: res['resultMap']['photoName']
-          };
-
-          if (this.userProfile.phone) {
-            this.userProfile.phone = parseNumber(`Phone: ${this.userProfile.phone}`, 'US') ?
-            parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
-          }
-
-          this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
-            console.log(data);
-            if (!data.code) {
-              this.fetchProfile(this.userInfo.user_name);
-            }
-          });
-
-          this.alertService.successAlert('Uploaded successfully');
-        } else {
-          this.alertService.errorAlert('Upload Failed');
-        }
-      }, (err) => {
-        this.sharingService.showLoading̣̣(false);
-        this.isUploadFile = false;
-        this.alertService.errorAlert('Upload Failed');
-      });
+      this.sharingService.showLoading̣̣(false);
+      this.imageChangedEvent = file;
+      this.fileName = file.srcElement.files[0].name;
     }
+  }
+  imageCropped(image: string) {
+    this.croppedImage = image;
+  }
+  imageCroppedFile(file: any) {
+    // upload avatar
+    this.profileService.uploadAvatar(new File([file], this.fileName)).subscribe((res) => {
+      if (res['code'] === 0) {
+        this.userProfile.photo_album = {
+          photo_name: res['resultMap']['photoName']
+        };
+      }
+    });
+  }
+  imageLoaded() {
+      // show cropper
+  }
+  loadImageFailed() {
+      // show message
   }
 
   selectEducation() {

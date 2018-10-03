@@ -12,12 +12,19 @@
     <section class="profile-heading profile-header">
       <div class="profile-img">
         <div class="profile_title">Profile Photo</div>
-        <div class="avatar_profile">
-          <img
-            [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/icon_user_profile.png'">
+        <div *ngIf="croppedImage; else elseBlock" class="avatar_profile">
+          <img [src]="croppedImage">
           <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
             class="edit-icon icons"></span></a>
         </div>
+        <ng-template #elseBlock>
+          <div class="avatar_profile">
+            <img [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) :
+              '../assets/images/profile/icon_user_profile.png'">
+            <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
+              class="edit-icon icons"></span></a>
+          </div>
+        </ng-template>
       </div>
     </section>
 
@@ -77,10 +84,9 @@
 
     <section *ngIf="is_student" class="profile_Residency">
       <div class="profile_title small f300">Experience</div>
-      <span class="addNew-icon"></span>
+      <span class="addNew-icon" (click)="ExperienceModal.show(); isEditExperience = true"></span>
       <div *ngIf="userProfile?.experiences.length; else noExperience">
-        <div *ngFor="let item of userProfile?.experiences; let i = index"
-             class="profile__content bt">
+        <div *ngFor="let item of userProfile?.experiences; let i = index" class="profile__content bt">
           <div class="profile__icon exp_owner"></div>
           <div class="profile__content_info">
             <span class="arrow-right" (click)="EditExperienceMode(item, i); ExperienceModal.show(); isEditExperience = true"></span>
@@ -208,6 +214,19 @@
         <input type="file" *ngIf="typeFile == PHOTO_FILE" (input)="selectFile($event)" accept="image/*"
                class="upload-hidden">
         <span class="type-upload">Browse</span>
+      </div>
+      <div>
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1"
+          [resizeToWidth]="115"
+          [format]="imageFormat"
+          (imageCroppedBase64)="imageCropped($event)"
+          (imageCroppedFile)="imageCroppedFile($event)"
+          (imageLoaded)="imageLoaded()"
+          (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
       </div>
     </div>
   </div>
