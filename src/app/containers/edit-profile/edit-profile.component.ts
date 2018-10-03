@@ -381,7 +381,9 @@ export class EditProfileComponent implements OnInit {
     } else {
       this.sharingService.showLoading̣̣(false);
       this.imageChangedEvent = file;
-      this.fileName = file.srcElement.files[0].name;
+      if (file.srcElement && file.srcElement.files[0]) {
+        this.fileName = file.srcElement.files[0].name;
+      }
     }
   }
   removeResumeFile() {
@@ -407,7 +409,8 @@ export class EditProfileComponent implements OnInit {
       // show message
   }
   // finish to edit
-  finishToEdit() {
+  finishToEdit(e) {
+    console.log(e);
     this.isUploadFile = false;
   }
   selectEducation() {
