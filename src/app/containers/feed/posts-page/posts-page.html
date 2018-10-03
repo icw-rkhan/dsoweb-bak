@@ -1,7 +1,11 @@
 <div class="search-results">
-  <dso-feed-grid [posts]="posts" [sponsorId]="sponsorId"
-                 (addBookmark)="addBookmark($event)"
-                 (removeBookmark)="removeBookmark($event)"
-                 (loadMore)="loadMore($event)">
+  <dso-feed-grid
+    [posts]="posts"
+    [sponsorId]="sponsorId"
+    [loading]="isFetching"
+    (addBookmark)="addBookmark($event)"
+    (removeBookmark)="removeBookmark($event)"
+    (loadMore)="loadMore($event)"
+  >
   </dso-feed-grid>
 </div>
