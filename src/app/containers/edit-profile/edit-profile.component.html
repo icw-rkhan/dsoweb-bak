@@ -215,7 +215,7 @@
                class="upload-hidden">
         <span class="type-upload">Browse</span>
       </div>
-      <div (click)="finishToEdit()">
+      <div *ngIf="typeFile == PHOTO_FILE" (click)="finishToEdit()">
         <image-cropper
           [imageChangedEvent]="imageChangedEvent"
           [maintainAspectRatio]="true"
