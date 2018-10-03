@@ -215,7 +215,7 @@
                class="upload-hidden">
         <span class="type-upload">Browse</span>
       </div>
-      <div>
+      <div (click)="finishToEdit()">
         <image-cropper
           [imageChangedEvent]="imageChangedEvent"
           [maintainAspectRatio]="true"

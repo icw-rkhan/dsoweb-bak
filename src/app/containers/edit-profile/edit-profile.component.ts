@@ -403,7 +403,10 @@ export class EditProfileComponent implements OnInit {
   loadImageFailed() {
       // show message
   }
-
+  // finish to edit
+  finishToEdit() {
+    this.isUploadFile = false;
+  }
   selectEducation() {
     this.education_page = this.RESIDENCY_AT;
   }
