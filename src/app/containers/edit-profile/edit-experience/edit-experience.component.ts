@@ -26,8 +26,10 @@ export class EditExperienceComponent implements OnInit {
   @Output() closeModal: EventEmitter<null> = new EventEmitter(null);
   @Output() addExperience: EventEmitter<any> = new EventEmitter(null);
   @Output() editExperience: EventEmitter<any> = new EventEmitter(null);
+  @Output() deleteExperience: EventEmitter<any> = new EventEmitter(null);
 
   isCurrentWork: boolean;
+  isDelete: boolean;
 
   title = '';
 
@@ -38,6 +40,7 @@ export class EditExperienceComponent implements OnInit {
               public alertService: AlertService) {}
 
   ngOnInit() {
+    this.isDelete = false;
     this.isCurrentWork = false;
     if (isNullOrUndefined(this.experienceService.S_experienceEdit)) {
       this.title = 'Add Experience';
@@ -123,6 +126,11 @@ export class EditExperienceComponent implements OnInit {
     if (this.isCurrentWork) {
       this.endDate = new Date();
     }
+  }
+
+  _deleteExperience() {
+    this.isDelete = false;
+    this.deleteExperience.emit();
   }
 
   close() {

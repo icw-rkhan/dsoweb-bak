@@ -69,7 +69,7 @@
           </div>
         </div>
       </div>
-      <div class="cancel-row"><a href="javascript:void(0)" (click)="close()">Cancel</a></div>
+      <div class="cancel-row"><a href="javascript:void(0)" (click)="isDelete = true">Delete</a></div>
     </div>
   </section>
 </div>
@@ -108,6 +108,19 @@
       <div class="modal-body">
         <app-practice-dso (closePracticeDSO)="PracticeDSOModal.hide()"
         ></app-practice-dso>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isDelete" class="modal-overlay upload-file">
+  <div class="save-modal">
+    <div class="save-container">
+      <div class="save-alert">Delete Experience</div>
+      <p>Are you sure you want to delete this experience?</p>
+      <div class="alert-action">
+        <a (click)="isDelete = false" class="dont-allow cursor">Cancel</a>
+        <a (click)="_deleteExperience()" class="allow cursor">Yes</a>
       </div>
     </div>
   </div>
