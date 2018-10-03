@@ -173,7 +173,7 @@
         <div class="d-flex">
           <input (focus)="isPracticeAddress = true; AddressModal.show();" type="text" name=""
                  class="input-mb"
-                 value="{{ userProfile?.practiceAddress?.address1 }}" contenteditable="false">
+                 value="{{getPracticeAddress()}}" />
           <span class="arrow-right-input" (click)="isPracticeAddress = true; AddressModal.show();"></span>
         </div>
         <div class="personal-underline"></div>
@@ -279,10 +279,12 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <app-practice-address [userPracticeAddress]="userProfile.practiceAddress"
-                              (closeModal)="closeAddressModal()"
-                              (setPracticeAddress)="setPracticeAddress($event)"
-                              *ngIf="isPracticeAddress"></app-practice-address>
+        <app-practice-address
+          [address]="userProfile.practiceAddress"
+          (closeModal)="closeAddressModal()"
+          (setPracticeAddress)="setPracticeAddress($event)"
+          *ngIf="isPracticeAddress">
+        </app-practice-address>
       </div>
     </div>
   </div>

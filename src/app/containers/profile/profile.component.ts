@@ -35,6 +35,16 @@ export class ProfileComponent implements OnInit {
     this.fetchProfile(this.userInfo.user_name);
   }
 
+  getPracticeAddress() {
+    const address = this.userProfile.practiceAddress || {};
+    const address1 = address.address1 || '';
+    const address2 = address.address2 || '';
+    const zipCode = address.zipCode || '';
+    const city = address.city || '';
+    const states = address.states || '';
+    return `${address1} ${address2} ${zipCode}, ${city}, ${states}`;
+  }
+
   fetchProfile(email: string) {
     this.profileService.findOneByEmail({ email: email }).subscribe(
       (data: any) => {

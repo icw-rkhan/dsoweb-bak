@@ -8,6 +8,7 @@ import { formatNumber, parseNumber } from 'libphonenumber-js';
 import { AuthService, ProfileService } from '../../services/index';
 import { Residency } from '../../models/residency.model';
 import { Education } from '../../models/education.model';
+import { Address } from '../../models/address.model';
 
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
@@ -156,8 +157,6 @@ export class EditProfileComponent implements OnInit {
         this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
-        console.log('~~~~~~~~~~~~~~~~~~~ display profile ~~~~~~~~~~~~~~~~~~');
-        console.log(this.userProfile);
       }
     );
   }
@@ -187,9 +186,18 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  setPracticeAddress(address: any) {
+  setPracticeAddress(address: Address) {
     this.userProfile.practiceAddress = address;
-    this.editProfileService.S_practiceAddress = address;
+  }
+
+  getPracticeAddress() {
+    const address = this.userProfile.practiceAddress || {};
+    const address1 = address.address1 || '';
+    const address2 = address.address2 || '';
+    const zipCode = address.zipCode || '';
+    const city = address.city || '';
+    const states = address.states || '';
+    return `${address1} ${address2} ${zipCode}, ${city}, ${states}`;
   }
 
   closeAddressModal() {
@@ -322,9 +330,6 @@ export class EditProfileComponent implements OnInit {
           }
         });
       });
-
-      console.log('~~~~~~~~~~~~~~~~~~~ save profile ~~~~~~~~~~~~~~~~~~');
-      console.log(this.userProfile);
 
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {

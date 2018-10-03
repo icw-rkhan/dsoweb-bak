@@ -20,13 +20,20 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   posts: Post[];
   sponsorId: number;
+  isFetching: boolean;
 
   private postSub: Subscription;
   private paramsSub: Subscription;
   private typeId: number;
 
-  constructor(private postService: PostService, private progress: NgProgress, private route: ActivatedRoute,
-              private authService: AuthService, private bookmarkService: BookmarkService, private snackBar: MatSnackBar) {
+  constructor(
+    private postService: PostService,
+    private progress: NgProgress,
+    private route: ActivatedRoute,
+    private authService: AuthService,
+    private bookmarkService: BookmarkService,
+    private snackBar: MatSnackBar) {
+      this.isFetching = true;
   }
 
   ngOnInit(): void {
@@ -70,6 +77,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   private fetchPosts(page: number) {
     this.progress.start();
+    this.isFetching = true;
 
     // Services
     const email = this.authService.getUserInfo().user_name;
@@ -111,8 +119,10 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         ...posts
       ];
       this.progress.complete();
+      this.isFetching = false;
     }, err => {
       this.progress.complete();
+      this.isFetching = false;
     });
   }
 
