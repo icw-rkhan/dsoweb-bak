@@ -384,6 +384,9 @@ export class EditProfileComponent implements OnInit {
       this.fileName = file.srcElement.files[0].name;
     }
   }
+  removeResumeFile() {
+    this.resumeFile = null;
+  }
   imageCropped(image: string) {
     this.croppedImage = image;
   }
