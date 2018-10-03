@@ -84,6 +84,7 @@
              class="profile__content bt">
           <div class="profile__icon exp_owner"></div>
           <div class="profile__content_info">
+            <span class="arrow-right"></span>
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
               <div class="profile-job">{{ item?.practice_DSO?.name }}</div>
@@ -279,6 +280,7 @@
                              (closeModal)="ExperienceModal.hide(); isEditExperience = false;"
                              (addExperience)="addExperience($event)"
                              (editExperience)="editExperience($event)"
+                             (deleteExperience)="ExperienceModal.hide(); deleteExperience($event)"
         ></app-edit-experience>
       </div>
     </div>

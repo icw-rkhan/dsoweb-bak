@@ -219,6 +219,19 @@ export class EditProfileComponent implements OnInit {
     this.isEditExperience = false;
   }
 
+  deleteExperience(ex) {
+    if (this.editProfileService.S_editIndex >= 0) {
+      if (this.userProfile.experiences[this.editProfileService.S_editIndex]) {
+        (<any[]>this.userProfile.experiences).splice(this.editProfileService.S_editIndex, 1);
+      }
+    }
+    console.log(this.userProfile.experiences, this.editProfileService.S_editIndex);
+    this.editProfileService.S_editIndex = -1;
+    this.editProfileService.S_experience = {};
+    this.editProfileService.S_experienceEdit = undefined;
+    this.isEditExperience = false;
+  }
+
   EditExperienceMode(item, index) {
     this.editProfileService.S_experienceEdit = item;
     this.editProfileService.S_editIndex = index;
