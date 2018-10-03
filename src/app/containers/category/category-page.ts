@@ -22,14 +22,17 @@ export class CategoryPageComponent implements OnInit {
   categories$: Category[];
   posts: Post[];
   sponsorId: number;
+  isFetching: boolean;
 
   private postSub: Subscription;
   private paramsSub: Subscription;
   private typeId: number;
 
-  constructor(private categoryService: CategoryService, private postService: PostService,
-              private progress: NgProgress, private bookmarkService: BookmarkService,
-              private snackBar: MatSnackBar, private authService: AuthService) {
+  constructor(
+    private categoryService: CategoryService, private postService: PostService,
+    private progress: NgProgress, private bookmarkService: BookmarkService,
+    private snackBar: MatSnackBar, private authService: AuthService) {
+      this.isFetching = true;
   }
 
   ngOnInit(): void {
@@ -97,6 +100,7 @@ export class CategoryPageComponent implements OnInit {
 
   private fetchPosts(page: number) {
     this.progress.start();
+    this.isFetching = true;
 
     // Services
     const email = this.authService.getUserInfo().user_name;
@@ -137,8 +141,10 @@ export class CategoryPageComponent implements OnInit {
         ...posts
       ];
       this.progress.complete();
+      this.isFetching = false;
     }, err => {
       this.progress.complete();
+      this.isFetching = false;
     });
   }
 
