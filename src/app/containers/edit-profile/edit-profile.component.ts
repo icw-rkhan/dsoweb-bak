@@ -152,6 +152,8 @@ export class EditProfileComponent implements OnInit {
         this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
+        console.log('~~~~~~~~~~~~~~~~~~~ display profile ~~~~~~~~~~~~~~~~~~');
+        console.log(this.userProfile);
       }
     );
   }
@@ -289,6 +291,9 @@ export class EditProfileComponent implements OnInit {
         parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
       }
 
+      console.log('~~~~~~~~~~~~~~~~~~~ save profile ~~~~~~~~~~~~~~~~~~');
+      console.log(this.userProfile);
+
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
           this.fetchProfile(this.userInfo.user_name);
@@ -300,10 +305,10 @@ export class EditProfileComponent implements OnInit {
         }
         this.sharingService.showLoading̣̣(false);
       },
-        error2 => {
-          this.alertService.errorAlert('Something went wrong');
-          this.sharingService.showLoading̣̣(false);
-        });
+      error2 => {
+        this.alertService.errorAlert('Something went wrong');
+        this.sharingService.showLoading̣̣(false);
+      });
     }
   }
 
@@ -348,6 +353,19 @@ export class EditProfileComponent implements OnInit {
           this.userProfile.photo_album = {
             photo_name: res['resultMap']['photoName']
           };
+
+          if (this.userProfile.phone) {
+            this.userProfile.phone = parseNumber(`Phone: ${this.userProfile.phone}`, 'US') ?
+            parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
+          }
+
+          this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
+            console.log(data);
+            if (!data.code) {
+              this.fetchProfile(this.userInfo.user_name);
+            }
+          });
+
           this.alertService.successAlert('Uploaded successfully');
         } else {
           this.alertService.errorAlert('Upload Failed');
