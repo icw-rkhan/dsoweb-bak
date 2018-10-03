@@ -97,7 +97,7 @@
         <div class="profile__icon practice-icon"></div>
         <div class="profile__content_info">
           <span class="pre_email_addr"><strong>Practice Address</strong></span>
-          <span class="addr-link cl4a">{{userProfile?.practiceAddress?.address1}}</span>
+          <span class="addr-link cl4a">{{getPracticeAddress()}}</span>
         </div>
       </div>
       <div *ngIf="userProfile?.phone" class="profile__content bt">

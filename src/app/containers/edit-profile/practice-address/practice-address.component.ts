@@ -3,6 +3,7 @@ import {isNullOrUndefined} from 'util';
 import {AlertService} from '../../../services/alert.service';
 import {EditProfileService} from '../edit-profile.service';
 import {ProfileService} from '../../../services';
+import { Address } from '../../../models/address.model';
 
 @Component({
   selector: 'app-practice-address',
@@ -10,38 +11,27 @@ import {ProfileService} from '../../../services';
   styleUrls: ['./practice-address.component.scss']
 })
 export class PracticeAddressComponent implements OnInit {
-  @Input('userPracticeAddress') userPracticeAddress: any;
+  @Input() address: Address;
   @Output() closeModal: EventEmitter<null> = new EventEmitter(null);
   @Output() setPracticeAddress: EventEmitter<any> = new EventEmitter(null);
-
-  PAddress: any;
 
   isEditState: boolean;
   listState: any[];
 
   state: any;
 
-  constructor(private alertService: AlertService,
-              private profileService: ProfileService,
-              private editProfileService: EditProfileService) {
-    this.isEditState = false;
-    console.log('init', this.editProfileService.S_practiceAddress);
-    if (isNullOrUndefined(this.editProfileService.S_practiceAddress)) {
-      this.PAddress = {
-        address1: '',
-        address2: '',
-        city: '',
-        zipCode: '',
-        states: ''
-      };
-    } else {
-      this.state = this.editProfileService.S_practiceAddress.states;
-      this.PAddress = this.editProfileService.S_practiceAddress;
-    }
+  constructor(
+    private alertService: AlertService,
+    private profileService: ProfileService,
+    private editProfileService: EditProfileService) {
+    
   }
 
   ngOnInit() {
     this.getListStates();
+    if (isNullOrUndefined(this.address)) {
+      this.address = new Address();
+    }
   }
 
   getListStates() {
@@ -51,37 +41,37 @@ export class PracticeAddressComponent implements OnInit {
   }
 
   setState(s) {
-    this.PAddress.states = s.state;
+    this.address.states = s.state;
     this.state = s.state;
   }
 
   save() {
-    if (this.PAddress.address1 === '') {
+    if (this.address.address1 === '') {
       this.alertService.errorAlert('Address can\'t be blank');
       return;
     }
 
-    if (isNaN(this.PAddress.zipCode)) {
+    if (isNaN(parseInt(this.address.zipCode))) {
       this.alertService.errorAlert('Zipcode format is wrong');
       return;
     }
 
-    if (this.PAddress.zipCode === '') {
+    if (this.address.zipCode === '') {
       this.alertService.errorAlert('Zipcode can\'t be blank');
       return;
     }
 
-    if (this.PAddress.city === '') {
+    if (this.address.city === '') {
       this.alertService.errorAlert('City can\'t be blank');
       return;
     }
 
-    if (this.PAddress.states === '') {
+    if (this.address.states === '') {
       this.alertService.errorAlert('States can\'t be blank');
       return;
     }
-
-    this.setPracticeAddress.emit(this.PAddress);
+    
+    this.setPracticeAddress.emit(new Address().deserialize(this.address));
     this.closeModal.emit();
   }
 
