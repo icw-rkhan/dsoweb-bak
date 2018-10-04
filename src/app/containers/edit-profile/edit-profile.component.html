@@ -215,7 +215,7 @@
                class="upload-hidden">
         <span class="type-upload">Browse</span>
       </div>
-      <div *ngIf="typeFile == PHOTO_FILE"  class="edit-image" (click)="finishToEdit($event)">
+      <div *ngIf="typeFile == PHOTO_FILE"  class="edit-image">
         <image-cropper
           [imageChangedEvent]="imageChangedEvent"
           [maintainAspectRatio]="true"
@@ -253,8 +253,7 @@
 
         <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (deleteResidency)="deleteResidency()"
                             (cancelResidency)="cancelResidency()" (updateResidency)="updateResidency($event)" 
-                            (selectResidency)="selectResidency()"
-                            [residency]="residency"></dso-residency-edit>
+                            (selectResidency)="selectResidency()" [residency]="residency"></dso-residency-edit>
       </div>
     </div>
   </div>
