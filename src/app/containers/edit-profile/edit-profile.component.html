@@ -252,7 +252,8 @@
                 (addResidency)="addResidency($event)"></dso-residency-add>
 
         <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (deleteResidency)="deleteResidency()"
-                            (cancelResidency)="cancelResidency()" (updateResidency)="updateResidency($event)"
+                            (cancelResidency)="cancelResidency()" (updateResidency)="updateResidency($event)" 
+                            (selectResidency)="selectResidency()"
                             [residency]="residency"></dso-residency-edit>
       </div>
     </div>

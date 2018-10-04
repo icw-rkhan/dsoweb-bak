@@ -13,9 +13,7 @@ export class ResidencyAddComponent implements OnInit {
   @Output() cancelResidency: EventEmitter<null> = new EventEmitter(null);
   year: number;
   isError = false;
-  constructor() {
-    
-  }
+  constructor() {}
 
   ngOnInit() {
     if (this.residency) {

@@ -12,7 +12,7 @@
     <div class="personal-container mh-vh">
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Residency at</label>
-        <div class="input-mb flex-input">{{residency.name}}</div>
+        <div class="input-mb flex-input" (click)="selectRedency()" *ngIf="residency">{{residency.name}}</div>
         <span class="arrow-right"></span>
       </div>
       <div class="personal-group practice-group">

@@ -11,6 +11,7 @@ export class ResidencyEditComponent implements OnInit {
   @Output() updateResidency: EventEmitter<Residency> = new EventEmitter(null);
   @Output() cancelResidency: EventEmitter<null> = new EventEmitter(null);
   @Output() deleteResidency: EventEmitter<null> = new EventEmitter(null);
+  @Output() selectResidency: EventEmitter<null> = new EventEmitter(null);
   isDelete = false;
   isError = false;
   constructor() { }
@@ -27,6 +28,10 @@ export class ResidencyEditComponent implements OnInit {
     if (this.residency) {
       this.residency.year = parseInt(e.target.value) || null;
     }
+  }
+
+  selectRedency() {
+    this.selectResidency.emit();
   }
 
   _updateResidency() {
