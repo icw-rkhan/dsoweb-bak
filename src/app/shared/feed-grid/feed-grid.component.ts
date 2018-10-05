@@ -13,7 +13,7 @@ export class FeedGridComponent {
   @Input() noFoundMessage: string;
   @Input() sponsorId: number;
   @Input() posts: Post[];
-  @Input() loading: boolean = false;
+  @Input() loading: boolean;
 
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();

@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { NgxInfiniteScrollerModule } from 'ngx-infinite-scroller';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
@@ -71,7 +71,7 @@ export const MODULES = [
   FormsModule,
   FlexLayoutModule,
   ReactiveFormsModule,
-  NgxInfiniteScrollerModule,
+  InfiniteScrollModule,
   // Angular material modules
   MatToolbarModule,
   MatNativeDateModule,
