@@ -59,6 +59,7 @@ export class FeedCardComponent {
     }
     e.stopPropagation();
   }
+
   // post sponsor article by postId
   onPostSponsor(type) {
     let sponsorId: number;
@@ -71,10 +72,18 @@ export class FeedCardComponent {
     }
     this.router.navigate([`/posts/sponsor/${sponsorId}`]);
   }
-  // remove *
-  resetCategoryName(category: string) {
-    return category.substring(category.indexOf('*') + 1);
+
+  // filter categories
+  filterCategories(categories) {
+    if (categories && categories.length > 1) {
+      return categories[1].name;
+    } else if (categories.length === 1) {
+      return categories[0].name;
+    }
+
+    return '';
   }
+
   // check gsk tag
   isGsk(tags): boolean {
     if (tags && tags.includes(197)) {
@@ -82,6 +91,7 @@ export class FeedCardComponent {
     }
     return false;
   }
+
   // check align tag
   isAlign(tags): boolean {
     if (tags && tags.includes(260)) {
@@ -89,6 +99,7 @@ export class FeedCardComponent {
     }
     return false;
   }
+
   // check nobel tag
   isNobel(tags): boolean {
     if (tags && tags.includes(259)) {

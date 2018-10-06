@@ -81,7 +81,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
     // Services
     const email = this.authService.getUserInfo().user_name;
-    
     let postService = this.postService.posts({
       page,
       per_page: 5

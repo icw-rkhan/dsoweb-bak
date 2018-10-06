@@ -1,6 +1,6 @@
 <mat-card>
   <div class="header">
-    <h3 class="mat-h3">{{resetCategoryName(post.categories | multipleCategories)}}</h3>
+    <h3 class="mat-h3">{{filterCategories(post?.categories)}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>

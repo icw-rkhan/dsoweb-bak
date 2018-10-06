@@ -23,6 +23,8 @@ export class CategoryPageComponent implements OnInit {
   posts: Post[];
   sponsorId: number;
   isFetching: boolean;
+  categoryId: number;
+  page: number;
 
   private postSub: Subscription;
   private paramsSub: Subscription;
@@ -33,6 +35,7 @@ export class CategoryPageComponent implements OnInit {
     private progress: NgProgress, private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar, private authService: AuthService) {
       this.isFetching = true;
+      this.page = 1;
   }
 
   ngOnInit(): void {
@@ -51,13 +54,21 @@ export class CategoryPageComponent implements OnInit {
   }
 
   selectCategory(event: MatSelectChange) {
+    this.page = 1;
+    this.posts = [];
+    this.categoryId = event.value;
+    this.fetchPost();
+  }
+
+  fetchPost() {
     this.progress.start();
+    this.isFetching = true;
 
     const email = this.authService.getUserInfo().user_name;
     const postsSubs = forkJoin(
       this.postService.fetchByCategory({
-        categoryId: event.value,
-        page: 1,
+        categoryId: this.categoryId,
+        page: this.page,
         per_page: 5
       }),
       this.bookmarkService.getAllByEmail(email)
@@ -70,9 +81,21 @@ export class CategoryPageComponent implements OnInit {
         });
       }))
     ).subscribe(posts => {
+      if (this.posts) {
+        this.posts = [
+          ...this.posts,
+          ...posts
+        ];
+      } else {
+        this.posts = posts;
+      }
+
+      this.isFetching = false;
       this.progress.complete();
-      this.posts = posts;
       postsSubs.unsubscribe();
+    }, err => {
+      this.isFetching = false;
+      this.progress.complete();
     });
   }
 
@@ -94,58 +117,8 @@ export class CategoryPageComponent implements OnInit {
     });
   }
 
-  loadMore(page: number) {
-    this.fetchPosts(page);
+  loadMore() {
+    this.page ++;
+    this.fetchPost();
   }
-
-  private fetchPosts(page: number) {
-    this.progress.start();
-    this.isFetching = true;
-
-    // Services
-    const email = this.authService.getUserInfo().user_name;
-    let postService = this.postService.posts({
-      page,
-      per_page: 5
-    });
-
-    if (!_.isUndefined(this.sponsorId)) {
-      postService = this.postService.fetchBySponsorId({
-        categoryId: this.typeId,
-        sponsorId: this.sponsorId,
-        page,
-        per_page: 5
-      });
-    } else if (!_.isUndefined(this.typeId)) {
-      postService = this.postService.fetchByCategory({
-        categoryId: this.typeId,
-        page,
-        per_page: 5
-      });
-    }
-    // Join bookmarks and post
-    this.postSub = forkJoin(
-      postService,
-      this.bookmarkService.getAllByEmail(email)
-    ).pipe(
-      map(items => items[0].map(p => {
-        const bookmark = items[1].find(b => +b.postId === p.id);
-        return Object.assign({}, p, {
-          bookmarked: !_.isUndefined(bookmark),
-          bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
-        });
-      }))
-    ).subscribe(posts => {
-      this.posts = [
-        ...this.posts,
-        ...posts
-      ];
-      this.progress.complete();
-      this.isFetching = false;
-    }, err => {
-      this.progress.complete();
-      this.isFetching = false;
-    });
-  }
-
 }
