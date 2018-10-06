@@ -1,6 +1,13 @@
 <dso-main-container>
   <div class="header-pic">
-    <img src={{headerImageUrl}}>
+    <img *ngIf="!isGeneral" src={{headerImageUrl}}>
+    <slideshow *ngIf="isGeneral" 
+      [imageUrls]="slideUrls" 
+      [autoPlay]="true"
+      [height] = "height"
+      [minHeight] = "'200px'"
+      [stopAutoPlayOnSlide]="false">
+    </slideshow>
   </div>
   <nav mat-tab-nav-bar>
     <a mat-tab-link #rla="routerLinkActive" *ngFor="let link of navLinks" [routerLink]="link.route" routerLinkActive

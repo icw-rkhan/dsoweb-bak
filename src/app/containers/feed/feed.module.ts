@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { SlideshowModule } from 'ng-simple-slideshow';
 
 import { SharedModule } from '../../shared';
 import { FeedRoutingModule } from './feed.routing';
@@ -16,6 +17,7 @@ export const COMPONENTS = [
     CommonModule,
     SharedModule,
     FeedRoutingModule,
+    SlideshowModule,
   ],
   declarations: [
     ...COMPONENTS,

@@ -26,45 +26,62 @@ export class CommonComponent implements OnInit, OnDestroy {
   comments: Comment[];
   paramsSub: Subscription;
 
-  rateList = [{status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}, {status: 'inactive'}];
-  constructor(private route: ActivatedRoute, private router: Router, private postService: PostService,
-    private authService: AuthService, private progress: NgProgress, private commentService: CommentService,
-    private bookmarkService: BookmarkService, private snackBar: MatSnackBar) {
+  rateList = [
+    {status: 'inactive'},
+    {status: 'inactive'},
+    {status: 'inactive'},
+    {status: 'inactive'},
+    {status: 'inactive'}
+  ];
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private postService: PostService,
+    private authService: AuthService,
+    private progress: NgProgress,
+    private commentService: CommentService,
+    private bookmarkService: BookmarkService,
+    private snackBar: MatSnackBar) {
+
     this.review_count = 0;
     this.rate = 0;
     this.post = new Post();
   }
+
   // gets the postId from article page and gets the postInfo and the commentInfo with postId from server
   ngOnInit(): void {
     this.paramsSub = this.route.params.subscribe(params => {
       this.progress.start();
       this.postId = params['id'];
+
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
 
-        if (this.post.categories && this.post.categories.length > 0) {
-          this.post.categories[0].name = this.post.categories[0].name.substring(this.post.categories[0].name.indexOf('*') + 1);
-        }
-
         const commentSub = this.commentService.comments(this.postId).subscribe(c => {
           this.comments = c;
+
           commentSub.unsubscribe();
         });
+
         postSub.unsubscribe();
         this.progress.complete();
       });
     });
   }
+
   // custome the style of the content
   reLayout(tagName): void {
     const paretTag = document.getElementById('contents');
     const tag = paretTag.getElementsByTagName(tagName);
     if (tag && tag.length > 0) {
       let i = 0;
+
       for (i = 0; i < tag.length; i++) {
         if (tagName === 'video') {
           tag[i].style.backgroundColor = 'black';
         }
+
         tag[i].style.width = '100%';
         tag[i].style.height = 'auto';
       }
@@ -74,18 +91,28 @@ export class CommonComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.paramsSub.unsubscribe();
   }
-  // remove *
-  resetCategoryName(category: string) {
-    return category.substring(category.indexOf('*') + 1);
+
+  // filter categories
+  filterCategories(categories) {
+    if (categories && categories.length > 1) {
+      return categories[1].name;
+    } else if (categories && categories.length === 1) {
+      return categories[0].name;
+    }
+
+    return '';
   }
+
   // post the page to review all comments with postId
   onViewAll(postId): void {
     this.router.navigate([`/reviews/view/${postId}`]);
   }
+
   // post the page to add reivew with postId
   onAddReview(postId, title, date): void {
     this.router.navigate([`/reviews/add/${postId}/${title}/${date}`]);
   }
+
   // add bookmark
   onAddBookmark(): void {
     this.post.bookmarked = true;
@@ -100,9 +127,11 @@ export class CommonComponent implements OnInit, OnDestroy {
       this.snackBar.open('Bookmark added', 'OK', {
         duration: 2000,
       });
+
       bookmarkSub.unsubscribe();
     });
   }
+
   // remove bookmark
   onRemoveBookmark(): void {
     this.post.bookmarked = false;
@@ -111,9 +140,11 @@ export class CommonComponent implements OnInit, OnDestroy {
       this.snackBar.open('Bookmark removed', 'OK', {
         duration: 2000,
       });
+
       bookmarkSub.unsubscribe();
     });
   }
+
   // get averave rating of the comments by postId
   getRating(comments, type): any {
     if (!comments) {
@@ -140,11 +171,13 @@ export class CommonComponent implements OnInit, OnDestroy {
 
     return avgRating.toFixed(1);
   }
+
   // change the format of the data
   dateFormat(date): any {
     if (date) {
       return formatDate(date, 'MMM d, y', 'en-US');
     }
+
     return '';
   }
 }

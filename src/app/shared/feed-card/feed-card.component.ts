@@ -77,7 +77,7 @@ export class FeedCardComponent {
   filterCategories(categories) {
     if (categories && categories.length > 1) {
       return categories[1].name;
-    } else if (categories.length === 1) {
+    } else if (categories && categories.length === 1) {
       return categories[0].name;
     }
 
