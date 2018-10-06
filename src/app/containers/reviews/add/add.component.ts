@@ -15,6 +15,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./add.component.scss']
 })
 export class AddComponent implements OnInit, OnDestroy {
+
   rate: number;
   postId: number;
   comment: string;
@@ -31,23 +32,31 @@ export class AddComponent implements OnInit, OnDestroy {
 
   rateList = [{state: false}, {state: false}, {state: false}, {state: false}, {state: false}];
 
-  constructor(public breakpointObserver: BreakpointObserver, private progress: NgProgress,
-    private commentService: CommentService, private authService: AuthService,
-    private profileService: ProfileService, private _location: Location, private route: ActivatedRoute) {
-      // init variables
-      this.rate = 0;
-      this.comment = '';
-      this.condition = false;
-      this.baseUrl = environment.profileApiUrl;
-    }
+  constructor(
+    public breakpointObserver: BreakpointObserver,
+    private profileService: ProfileService,
+    private commentService: CommentService,
+    private authService: AuthService,
+    private route: ActivatedRoute,
+    private progress: NgProgress,
+    private _location: Location ) {
+
+    // init variables
+    this.rate = 0;
+    this.comment = '';
+    this.condition = false;
+    this.baseUrl = environment.profileApiUrl;
+  }
 
   ngOnInit() {
+
     // responsive layout
     this.breakpointObserver.observe([
       Breakpoints.HandsetLandscape
     ]).subscribe(result => {
       if (result.matches) {
         document.getElementById('contents').style.height = '36.5vh';
+
       } else {
         document.getElementById('contents').style.height = 'calc(100vh - 400px)';
       }
@@ -55,21 +64,25 @@ export class AddComponent implements OnInit, OnDestroy {
 
     this.paramSub = this.route.params.subscribe(params => {
       this.progress.start();
+
       // gets post's id, title, created date from the params of the route and view them
       this.postId = params['id'];
       this.postTitle = params['title'];
       this.postDate = params['date'];
+
       // gets userInfo from user's email
       const email = this.authService.getUserInfo().user_name;
       const profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
         (data: any) => {
           const res = data.resultMap.data;
+
           // sets userInfo
           this.userId = res.id;
           this.userInfo = {
             url: res.photo_url,
             name: res.full_name
           };
+
           profileSub.unsubscribe();
           this.progress.complete();
         });
@@ -79,10 +92,12 @@ export class AddComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.paramSub.unsubscribe();
   }
+
   // make a rating point
   eventRating(i) {
     this.rate = i + 1;
   }
+
   // save the comment and redirect to previous url
   saveComment() {
     this.body = {
@@ -91,7 +106,6 @@ export class AddComponent implements OnInit, OnDestroy {
       'comment': this.comment,
       'rating': this.rate
     };
-    console.log(this.body);
 
     const commentSub = this.commentService.setComment(this.body).subscribe(
       (data: any) => {
@@ -99,6 +113,7 @@ export class AddComponent implements OnInit, OnDestroy {
         this._location.back();
     });
   }
+
   // change the format of the data
   dateFormat(date) {
     if (date) {
