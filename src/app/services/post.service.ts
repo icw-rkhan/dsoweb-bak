@@ -37,6 +37,10 @@ export class PostService {
     return result;
   }
 
+  relativePost(url): Observable<String> {
+    return this.http.get<String>(url);
+  }
+
   fetchByCategory(args: PostArgs): Observable<Post[]> {
     let url = `${environment.cmsApiUrl}/posts?_embed&categories=${args.categoryId}`;
     if (args.page) {

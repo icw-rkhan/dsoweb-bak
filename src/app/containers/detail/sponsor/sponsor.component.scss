@@ -174,3 +174,8 @@ p {
 div {
     background-color: #fff;
 }
+
+#relative_contents {
+    width: 100%;
+    height: calc(100vh - 230px);
+}

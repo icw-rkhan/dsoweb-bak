@@ -1,4 +1,5 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Pipe, PipeTransform } from '@angular/core';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
@@ -18,13 +19,18 @@ import { Post } from '../../../models/post.model';
   templateUrl: './sponsor.component.html',
   styleUrls: ['./sponsor.component.scss']
 })
-export class SponsorComponent implements OnInit, OnDestroy {
+@Pipe({ name: 'safe'})
+export class SponsorComponent implements OnInit, OnDestroy, PipeTransform {
   post: Post;
   rate: number;
   postId: number;
-  paramsSub: Subscription;
-  review_count: number;
   comments: Comment[];
+  review_count: number;
+  relativePostUrl: SafeResourceUrl;
+  isRelationPage: boolean;
+
+  paramsSub: Subscription;
+
   rateList = [
     {status: 'inactive'},
     {status: 'inactive'},
@@ -34,17 +40,19 @@ export class SponsorComponent implements OnInit, OnDestroy {
   ];
 
   constructor(
-    private route: ActivatedRoute,
     private router: Router,
+    private progress: NgProgress,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar,
+    private sanitizer: DomSanitizer,
     private postService: PostService,
     private authService: AuthService,
-    private progress: NgProgress,
     private commentService: CommentService,
-    private bookmarkService: BookmarkService,
-    private snackBar: MatSnackBar) {
+    private bookmarkService: BookmarkService) {
 
-    this.review_count = 0;
     this.rate = 0;
+    this.review_count = 0;
+    this.isRelationPage = false;
     this.post = new Post();
   }
 
@@ -68,6 +76,14 @@ export class SponsorComponent implements OnInit, OnDestroy {
     });
   }
 
+  transform(url) {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  ngOnDestroy(): void {
+    this.paramsSub.unsubscribe();
+  }
+
   // custome the style of the content
   reLayout(tagName): void {
     const paretTag = document.getElementById('contents');
@@ -78,16 +94,25 @@ export class SponsorComponent implements OnInit, OnDestroy {
       for (i = 0; i < tag.length; i++) {
         if (tagName === 'video') {
           tag[i].style.backgroundColor = 'black';
+        } else if (tagName === 'a') {
+          const url = tag[i].getAttribute('href');
+
+          if (url && url.includes('wp.dsodentist.com')) {
+            tag[i].style.color = '#879aa8';
+            // if the href of the 'a' tag contains 'wp.dsodentist.com', remove the href
+            tag[i].removeAttribute('href');
+
+            tag[i].addEventListener('click', () => {
+              this.relativePostUrl = this.transform(url);
+              this.isRelationPage = true;
+            });
+          }
         }
 
         tag[i].style.width = '100%';
         tag[i].style.height = 'auto';
       }
     }
-  }
-
-  ngOnDestroy(): void {
-    this.paramsSub.unsubscribe();
   }
 
   // filter categories
