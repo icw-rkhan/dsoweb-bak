@@ -172,8 +172,8 @@
         <label class="profile_title mb0">Practice address</label>
         <div class="d-flex personal-info__address">
           <div class="personal-info__address-info" (click)="isPracticeAddress = true; AddressModal.show();">
-            <span *ngIf="userProfile?.practiceAddress?.address1">{{userProfile.practiceAddress.address1}} (Address 1)</span>
-            <span *ngIf="userProfile?.practiceAddress?.address2">{{userProfile.practiceAddress.address2}} (Address 2)</span>
+            <span *ngIf="userProfile?.practiceAddress?.address1">{{userProfile.practiceAddress.address1}}</span>
+            <span *ngIf="userProfile?.practiceAddress?.address2">{{userProfile.practiceAddress.address2}}</span>
             <span *ngIf="userProfile?.practiceAddress">{{userProfile.practiceAddress.city}}, {{userProfile.practiceAddress.states}} {{userProfile.practiceAddress.zipCode}}</span>
           </div>
           <span class="arrow-right-input" (click)="isPracticeAddress = true; AddressModal.show();"></span>
