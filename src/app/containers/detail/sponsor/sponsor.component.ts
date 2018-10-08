@@ -1,5 +1,4 @@
-import { Component, OnInit, OnDestroy, Pipe, PipeTransform } from '@angular/core';
-import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material';
@@ -19,15 +18,12 @@ import { Post } from '../../../models/post.model';
   templateUrl: './sponsor.component.html',
   styleUrls: ['./sponsor.component.scss']
 })
-@Pipe({ name: 'safe'})
-export class SponsorComponent implements OnInit, OnDestroy, PipeTransform {
+export class SponsorComponent implements OnInit, OnDestroy {
   post: Post;
   rate: number;
   postId: number;
   comments: Comment[];
   review_count: number;
-  relativePostUrl: SafeResourceUrl;
-  isRelationPage: boolean;
 
   paramsSub: Subscription;
 
@@ -44,7 +40,6 @@ export class SponsorComponent implements OnInit, OnDestroy, PipeTransform {
     private progress: NgProgress,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private sanitizer: DomSanitizer,
     private postService: PostService,
     private authService: AuthService,
     private commentService: CommentService,
@@ -52,7 +47,6 @@ export class SponsorComponent implements OnInit, OnDestroy, PipeTransform {
 
     this.rate = 0;
     this.review_count = 0;
-    this.isRelationPage = false;
     this.post = new Post();
   }
 
@@ -76,10 +70,6 @@ export class SponsorComponent implements OnInit, OnDestroy, PipeTransform {
     });
   }
 
-  transform(url) {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
-  }
-
   ngOnDestroy(): void {
     this.paramsSub.unsubscribe();
   }
@@ -95,16 +85,18 @@ export class SponsorComponent implements OnInit, OnDestroy, PipeTransform {
         if (tagName === 'video') {
           tag[i].style.backgroundColor = 'black';
         } else if (tagName === 'a') {
-          const url = tag[i].getAttribute('href');
+          let url = tag[i].getAttribute('href');
 
           if (url && url.includes('wp.dsodentist.com')) {
             tag[i].style.color = '#879aa8';
             // if the href of the 'a' tag contains 'wp.dsodentist.com', remove the href
             tag[i].removeAttribute('href');
 
+            url  = url.replace('http://wp.dsodentist.com/', '');
+            url = `/detail/sponsor/relative/${this.postId}/${url}`;
+            console.log(url);
             tag[i].addEventListener('click', () => {
-              this.relativePostUrl = this.transform(url);
-              this.isRelationPage = true;
+              this.router.navigate([url]);
             });
           }
         }

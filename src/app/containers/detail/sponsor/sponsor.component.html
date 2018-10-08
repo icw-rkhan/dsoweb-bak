@@ -1,8 +1,8 @@
 <div class="header">
     <h3 class="mat-h3">{{filterCategories(post?.categories)}}</h3>
-    <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
+    <span class="mat-body-1">{{post?.date | date: 'mediumDate'}}</span>
 </div>
-<div *ngIf="!isRelationPage" class="inner-thumbnail" fxLayout="column">
+<div class="inner-thumbnail" fxLayout="column">
     <img *ngIf="post.thumbnail; else elseBlock"class="inner-thumbnail" src="{{post.thumbnail}}">
     <ng-template #elseBlock>
         <img src="../../../assets/images/sponsor/align-header.png" *ngIf="isAlign(post.tags)"/>
@@ -16,7 +16,7 @@
     <img *ngIf="isNobel(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png"
         (click)="onPostSponsor('nobel')">
 </div>
-<div *ngIf="!isRelationPage" class="inner-content" fxLayout="row">
+<div class="inner-content" fxLayout="row">
     <div fxFlex="80" class="title">
         <span>{{post.title}}</span>
     </div>
@@ -42,11 +42,8 @@
         </mat-menu>
     </div>
 </div>
-<div *ngIf="!isRelationPage" id="contents" class="inner-content"
+<div id="contents" class="inner-content"
     [innerHtml]="post?.content">{{reLayout('video')}}{{reLayout('img')}}{{reLayout('a')}}</div>
-<div *ngIf="relativePostUrl">
-    <iframe id="relative_contents" [src]="relativePostUrl"></iframe>
-</div>
 <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
     <span *ngIf="isGsk(post.tags)" class="label-sponsor">Want more content from GSK?</span>
     <span *ngIf="isAlign(post.tags)" class="label-sponsor">Want more content from Align?</span>
@@ -58,7 +55,7 @@
     <button mat-button *ngIf="isNobel(post.tags)"class="sponsorBtn nobelBtn"
         (click)="onPostSponsor('nobel')">Access Nobel Biocare Resources</button>
 </div>
-<div *ngIf="!isRelationPage" class="review" fxLayout="column" fxLayoutAlign="center center"
+<div class="review" fxLayout="column" fxLayoutAlign="center center"
     (click)="onAddReview(post.id, post.title, post.date)">
     <div class="review-question">
         <span>Finished the content?</span>
@@ -70,7 +67,7 @@
         <img *ngFor="let rate of rateList" src="assets/images/review/star-inactive.png" class="rate-star">
     </div>
 </div>
-<div *ngIf="!isRelationPage" fxLayout="row" class="inner-content rate">
+<div fxLayout="row" class="inner-content rate">
     <div fxFlex="50" fxLayout="column" fxLayoutAlign="center start">
         <div class="review-count">
             <span *ngIf="comments && comments.length; else zeReviews">{{comments.length}} Reviews</span>
@@ -93,10 +90,10 @@
         <button mat-button class="viewBtn" (click)="onViewAll(post.id)">View all</button>
     </div>
 </div>
-<div *ngIf="!isRelationPage" fxLayout ="column">
+<div fxLayout ="column">
     <dso-review-card [comment]="comment" *ngFor="let comment of comments | slice:0:3"></dso-review-card>
 </div>
-<div *ngIf="!isRelationPage" class="inner-content" fxLayout="row">
+<div class="inner-content" fxLayout="row">
     <div fxFlex="100" fxLayoutAlign="end top">
         <button mat-icon-button class="btn-ctrl bookmarkBtn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
