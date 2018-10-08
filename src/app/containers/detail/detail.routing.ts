@@ -21,7 +21,7 @@ export const ROUTES: Routes = [
           component: SponsorComponent,
         },
         {
-          path: 'sponsor/relative/:id/:y/:m/:d/:title',
+          path: 'sponsor/:id/:y/:m/:d/:title',
           component: RelativeComponent,
         }
       ]

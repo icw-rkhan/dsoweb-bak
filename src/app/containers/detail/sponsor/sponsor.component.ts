@@ -93,7 +93,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
             tag[i].removeAttribute('href');
 
             url  = url.replace('http://wp.dsodentist.com/', '');
-            url = `/detail/sponsor/relative/${this.postId}/${url}`;
+            url = `/detail/sponsor/${this.postId}/${url}`;
             console.log(url);
             tag[i].addEventListener('click', () => {
               this.router.navigate([url]);
