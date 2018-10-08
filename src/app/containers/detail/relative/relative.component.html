@@ -1,6 +1,6 @@
 <div class="header">
-    <h3 class="mat-h3">{{filterCategories(post?.categories)}}</h3>
-    <span class="mat-body-1">{{post?.date | date: 'mediumDate'}}</span>
+    <h3 class="mat-h3">{{filterCategories(post.categories)}}</h3>
+    <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
 </div>
 <div *ngIf="relativePostUrl">
     <iframe id="relative_contents" [src]="relativePostUrl"></iframe>

@@ -27,7 +27,7 @@ export class RelativeComponent implements OnInit, OnDestroy, PipeTransform {
         private route: ActivatedRoute,
         private sanitizer: DomSanitizer,
         private postService: PostService) {
-
+        this.post = new Post();
     }
 
     ngOnInit() {
