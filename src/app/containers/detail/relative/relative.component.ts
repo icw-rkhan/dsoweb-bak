@@ -35,7 +35,7 @@ export class RelativeComponent implements OnInit, OnDestroy, PipeTransform {
             this.progress.start();
             this.postId = params['id'];
 
-            const url = `http://wp.dsodentist.com/${params['y']}/${params['m']}/${params['d']}/${params['title']}`;
+            const url = `https://wp.dsodentist.com/${params['y']}/${params['m']}/${params['d']}/${params['title']}`;
 
             this.relativePostUrl = this.transform(url);
 
