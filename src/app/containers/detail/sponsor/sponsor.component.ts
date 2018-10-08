@@ -92,7 +92,14 @@ export class SponsorComponent implements OnInit, OnDestroy {
             // if the href of the 'a' tag contains 'wp.dsodentist.com', remove the href
             tag[i].removeAttribute('href');
 
-            url  = url.replace('http://wp.dsodentist.com/', '');
+            let header_url;
+            if (url.includes('http://')) {
+              header_url = 'http://';
+            } else if (url.includes('https://')) {
+              header_url = 'https://';
+            }
+
+            url  = url.replace(`${header_url}wp.dsodentist.com/`, '');
             url = `/detail/sponsor/${this.postId}/${url}`;
             console.log(url);
             tag[i].addEventListener('click', () => {
