@@ -73,6 +73,14 @@ export class FeedCardComponent {
     this.router.navigate([`/posts/sponsor/${sponsorId}`]);
   }
 
+  // fetch an author/speaker's name
+  fetchAuthorName() {
+    if (this.post) {
+      const authorName = this.post.excerpt.match(/By.*/g);
+      console.log(authorName);
+    }
+  }
+
   // filter categories
   filterCategories(categories) {
     if (categories && categories.length > 1) {

@@ -31,7 +31,23 @@
         </mat-menu>
     </div>
 </div>
-<div id="contents" class="inner-content" [innerHtml]="post.content">{{reLayout('video')}}{{reLayout('img')}}</div>
+<div id="tLoad" [innerHtml]="post.content" hidden></div>
+<div class="author">
+    <div id="container">
+        <p id="author-name">
+            {{fetchAuthorInfo()}}
+            {{authorName}}
+        </p>
+        <p id="author-info">
+            {{authorInfo}}
+        </p>
+    </div>
+</div>
+<div id="contents" class="inner-content" [innerHtml]="post.content">
+    {{reLayout('video')}}
+    {{reLayout('img')}}
+    {{removeAuthorInfo()}}
+</div>
 <div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
     <div class="review-question">
         <span>Finished the content?</span>

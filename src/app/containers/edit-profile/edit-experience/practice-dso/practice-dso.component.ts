@@ -16,7 +16,6 @@ export class PracticeDSOComponent implements OnInit {
 
   constructor(public experienceService: EditProfileService) {
     this.experienceService.S_practiceDSO.subscribe(p => {
-      console.log('con' ,p);
       this.practiceDSO = p;
       this.filterList = this.practiceDSO;
     });
@@ -33,7 +32,8 @@ export class PracticeDSOComponent implements OnInit {
   }
 
   changeInput(key) {
-    this.filterList = this.experienceService.S_practiceDSO.getValue().filter((role: any) => role.name.toLocaleLowerCase().includes(key.toLocaleLowerCase()));
+    this.filterList = this.experienceService.S_practiceDSO.getValue().
+    filter((role: any) => role.name.toLocaleLowerCase().includes(key.toLocaleLowerCase()));
   }
 
   close() {

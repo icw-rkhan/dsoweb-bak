@@ -42,8 +42,23 @@
         </mat-menu>
     </div>
 </div>
-<div id="contents" class="inner-content"
-    [innerHtml]="post?.content">{{reLayout('video')}}{{reLayout('img')}}{{reLayout('a')}}</div>
+<div id="tLoad" [innerHtml]="post.content" hidden></div>
+<div class="author">
+    <div id="container">
+        <p id="author-name">
+            {{fetchAuthorInfo()}}
+            {{authorName}}
+        </p>
+        <p id="author-info">
+            {{authorInfo}}
+        </p>
+    </div>
+</div>
+<div id="contents" class="inner-content" [innerHtml]="post.content">
+    {{reLayout('video')}}
+    {{reLayout('img')}}
+    {{removeAuthorInfo()}}
+</div>
 <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
     <span *ngIf="isGsk(post.tags)" class="label-sponsor">Want more content from GSK?</span>
     <span *ngIf="isAlign(post.tags)" class="label-sponsor">Want more content from Align?</span>

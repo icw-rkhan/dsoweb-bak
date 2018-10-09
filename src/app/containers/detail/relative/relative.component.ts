@@ -42,8 +42,8 @@ export class RelativeComponent implements OnInit, OnDestroy, PipeTransform {
             const postSub = this.postService.fetchById(this.postId).subscribe(p => {
               this.post = p;
 
-              postSub.unsubscribe();
               this.progress.complete();
+              postSub.unsubscribe();
             });
         });
     }

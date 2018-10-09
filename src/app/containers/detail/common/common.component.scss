@@ -128,6 +128,24 @@ p {
     }
 }
 
+.author {
+    width: 100%;
+    padding-left: 18px;
+
+    #author-name {
+        color: #4a4a4a;
+        font-family: "SFUI";
+        font-size: 13px;
+        font-weight: 600;
+    }
+
+    #author-info {
+        color: #9b9b9b;
+        font-size: 13px;
+        font-weight: 400;
+    } 
+}
+
 .btn-pn {
     color: #879aa8;
     font-size: 13px;
@@ -160,4 +178,7 @@ p {
 
 div {
     background-color: #fff;
+}
+
+#tLoad {
 }
