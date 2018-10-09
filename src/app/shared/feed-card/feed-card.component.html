@@ -43,8 +43,8 @@
         </div>
       </div>
       <div class="inner-content" (click)="onViewDetail()" style="overflow: hidden">
-        <div id="contents" class="mat-body-1" [class.excerpt-content]="!isViewMore" [innerHtml]="post.excerpt">
-          {{fetchAuthorName()}}
+        <div id="contents{{no}}" class="mat-body-1" [class.excerpt-content]="!isViewMore" [innerHtml]="post.excerpt">
+          {{fetchAuthorInfo()}}
         </div>
         <a id="more-text-btn">... more</a>
       </div>

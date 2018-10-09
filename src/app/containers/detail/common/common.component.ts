@@ -105,8 +105,10 @@ export class CommonComponent implements OnInit, OnDestroy {
       let authorTag;
       if (videoTag && videoTag.length > 0 && !tag[0].innerHTML.includes('(')) {
         authorTag = tag[1].innerHTML;
-      } else {
+      } else if (tag[0].innerHTML.includes('(')) {
         authorTag = tag[0].innerHTML;
+      } else {
+        return;
       }
 
       if (authorTag.includes('strong')) {
@@ -149,11 +151,15 @@ export class CommonComponent implements OnInit, OnDestroy {
 
     if (tag && tag.length > 0) {
       if (videoTag && videoTag.length > 0 &&
-        !tag[0].innerHTML.includes('(') &&
-         tag[1].innerHTML.includes('(')) {
+        !tag[0].innerHTML.includes('(') && tag[1].innerHTML.includes('(')) {
+
         tag[1].innerHTML = '';
+        tag[1].style.margin = '0';
+
       } else if (tag[0].innerHTML.includes('(')) {
+
         tag[0].innerHTML = '';
+        tag[0].style.margin = '0';
       }
     }
   }

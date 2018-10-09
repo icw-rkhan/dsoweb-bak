@@ -5,8 +5,8 @@
     [infiniteScrollThrottle]="50"
     (scrolled)="onLoadMore()"
     [scrollWindow]="false">
-      <dso-feed-card [post]="post" (addBookmark)="onAddBookmark($event)"
-                     (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts"></dso-feed-card>
+      <dso-feed-card [post]="post" [no]="i" (addBookmark)="onAddBookmark($event)"
+                     (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts ; let i = index"></dso-feed-card>
     </div>
   </div>
   <div class="no-content" *ngIf="!loading && (posts === null || posts === undefined || posts?.length === 0)">
