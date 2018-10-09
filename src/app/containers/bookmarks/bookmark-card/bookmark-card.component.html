@@ -5,7 +5,7 @@
     </div>
     <div class="information" (click)="onPostBookmark(post.id, post.tags)">
       <h4 class="mat-h4">
-        {{post.categories | multipleCategories}}
+        {{filterCategories(post?.categories)}}
       </h4>
       <div class="mat-body-2" [innerHTML]="post.title">
       </div>
