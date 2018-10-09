@@ -77,58 +77,6 @@ export class SponsorComponent implements OnInit, OnDestroy {
     this.paramsSub.unsubscribe();
   }
 
-  // fetch an author/speaker's name
-  fetchAuthorInfo() {
-    const paretTag = document.getElementById('tLoad');
-    const tag = paretTag.getElementsByTagName('p');
-
-    if (tag && tag.length > 0) {
-      let i = 0;
-      let authorTag;
-      for (i = 0; i < tag.length; i++) {
-        authorTag = tag[i].innerHTML;
-        if (authorTag.includes('(')) {
-          break;
-        }
-      }
-
-      if (authorTag.includes('strong')) {
-        authorTag = authorTag.replace('<strong>', '');
-        authorTag = authorTag.replace('</strong>', '');
-      }
-
-      const authorArr = authorTag.split('<br>');
-      let authorName = authorArr.length > 0 ? authorArr[0] : null;
-      let authorInfo = authorArr.length > 1 ? authorArr[1] : null;
-
-      if (authorName.includes('(') && authorName.includes(')')) {
-        if (authorName.includes('By')) {
-          authorName = authorName.replace('By', '');
-        }
-
-        authorName = authorName.replace('(', '');
-        authorName = authorName.replace(')', '');
-
-        this.authorName = authorName;
-
-        document.getElementById('container').style.height = '58px';
-        document.getElementById('container').style.borderTop = '1px solid #e9edf1';
-        document.getElementById('container').style.borderBottom = '1px solid #e9edf1';
-        document.getElementById('container').style.padding = '12px 10px';
-      }
-
-      if (authorInfo && authorInfo.includes('[') && authorInfo.includes(']')) {
-
-        authorInfo = authorInfo.replace('[', '');
-        authorInfo = authorInfo.replace(']', '');
-
-        this.authorInfo = authorInfo;
-
-        document.getElementById('author-info').style.marginTop = '8px';
-      }
-    }
-  }
-
   // custome the style of the content
   reLayout(tagName): void {
     const paretTag = document.getElementById('contents');
@@ -169,6 +117,52 @@ export class SponsorComponent implements OnInit, OnDestroy {
     }
   }
 
+  // fetch an author/speaker's name
+  fetchAuthorInfo() {
+    const parentTag = document.getElementById('tLoad');
+    const tag = parentTag.getElementsByTagName('p');
+    const videoTag = parentTag.getElementsByTagName('video');
+
+    if (tag && tag.length > 0) {
+      let authorTag;
+      if (videoTag && videoTag.length > 0 && !tag[0].innerHTML.includes('(')) {
+        authorTag = tag[1].innerHTML;
+      } else {
+        authorTag = tag[0].innerHTML;
+      }
+
+      if (authorTag.includes('strong')) {
+        authorTag = authorTag.replace('<strong>', '');
+        authorTag = authorTag.replace('</strong>', '');
+      }
+
+      const authorArr = authorTag.split('<br>');
+      let authorName = authorArr.length > 0 ? authorArr[0] : null;
+      let authorInfo = authorArr.length > 1 ? authorArr[1] : null;
+
+      if (authorName.includes('(') && authorName.includes(')')) {
+        if (authorName.includes('By')) {
+          authorName = authorName.replace('By', '');
+        }
+
+        authorName = authorName.replace('(', '');
+        authorName = authorName.replace(')', '');
+
+        this.authorName = authorName;
+
+        this.activeAuthorLayout();
+      }
+
+      if (authorInfo && authorInfo.includes('[') && authorInfo.includes(']')) {
+
+        authorInfo = authorInfo.replace('[', '');
+        authorInfo = authorInfo.replace(']', '');
+
+        this.authorInfo = authorInfo;
+      }
+    }
+  }
+
   // remove author's info
   removeAuthorInfo() {
     const paretTag = document.getElementById('contents');
@@ -184,6 +178,15 @@ export class SponsorComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  activeAuthorLayout() {
+    document.getElementById('container').style.height = '58px';
+    document.getElementById('container').style.borderTop = '1px solid #e9edf1';
+    document.getElementById('container').style.borderBottom = '1px solid #e9edf1';
+    document.getElementById('container').style.padding = '12px 10px';
+
+    document.getElementById('author-info').style.marginTop = '8px';
   }
 
   // filter categories

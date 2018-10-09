@@ -97,17 +97,16 @@ export class CommonComponent implements OnInit, OnDestroy {
 
   // fetch an author/speaker's name
   fetchAuthorInfo() {
-    const paretTag = document.getElementById('tLoad');
-    const tag = paretTag.getElementsByTagName('p');
+    const parentTag = document.getElementById('tLoad');
+    const tag = parentTag.getElementsByTagName('p');
+    const videoTag = parentTag.getElementsByTagName('video');
 
     if (tag && tag.length > 0) {
-      let i = 0;
       let authorTag;
-      for (i = 0; i < 2; i++) {
-        authorTag = tag[i].innerHTML;
-        if (authorTag.includes('(')) {
-          break;
-        }
+      if (videoTag && videoTag.length > 0 && !tag[0].innerHTML.includes('(')) {
+        authorTag = tag[1].innerHTML;
+      } else {
+        authorTag = tag[0].innerHTML;
       }
 
       if (authorTag.includes('strong')) {
@@ -129,10 +128,7 @@ export class CommonComponent implements OnInit, OnDestroy {
 
         this.authorName = authorName;
 
-        document.getElementById('container').style.height = '58px';
-        document.getElementById('container').style.borderTop = '1px solid #e9edf1';
-        document.getElementById('container').style.borderBottom = '1px solid #e9edf1';
-        document.getElementById('container').style.padding = '12px 10px';
+        this.activeAuthorLayout();
       }
 
       if (authorInfo && authorInfo.includes('[') && authorInfo.includes(']')) {
@@ -141,8 +137,6 @@ export class CommonComponent implements OnInit, OnDestroy {
         authorInfo = authorInfo.replace(']', '');
 
         this.authorInfo = authorInfo;
-
-        document.getElementById('author-info').style.marginTop = '8px';
       }
     }
   }
@@ -162,6 +156,15 @@ export class CommonComponent implements OnInit, OnDestroy {
         }
       }
     }
+  }
+
+  activeAuthorLayout() {
+    document.getElementById('container').style.height = '58px';
+    document.getElementById('container').style.borderTop = '1px solid #e9edf1';
+    document.getElementById('container').style.borderBottom = '1px solid #e9edf1';
+    document.getElementById('container').style.padding = '12px 10px';
+
+    document.getElementById('author-info').style.marginTop = '8px';
   }
 
   // filter categories
