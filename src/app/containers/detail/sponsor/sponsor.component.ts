@@ -165,17 +165,17 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   // remove author's info
   removeAuthorInfo() {
-    const paretTag = document.getElementById('contents');
-    const tag = paretTag.getElementsByTagName('p');
+    const parentTag = document.getElementById('contents');
+    const tag = parentTag.getElementsByTagName('p');
+    const videoTag = parentTag.getElementsByTagName('video');
+
     if (tag && tag.length > 0) {
-      let i = 0;
-      let authorTag;
-      for (i = 0; i < tag.length; i++) {
-        authorTag = tag[i].innerHTML;
-        if (authorTag.includes('(')) {
-          tag[i].innerHTML = '';
-          break;
-        }
+      if (videoTag && videoTag.length > 0 &&
+        !tag[0].innerHTML.includes('(') &&
+         tag[1].innerHTML.includes('(')) {
+        tag[1].innerHTML = '';
+      } else if (tag[0].innerHTML.includes('(')) {
+        tag[0].innerHTML = '';
       }
     }
   }
