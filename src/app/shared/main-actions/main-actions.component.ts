@@ -13,6 +13,7 @@ export class MainActionsComponent implements OnInit {
   navFooterLinks: NavLinkModel[] = [];
 
   private currentUrl: string;
+  public showNavBar = false;
 
   constructor(private router: Router) {
     this.currentUrl = router.url;
@@ -63,6 +64,14 @@ export class MainActionsComponent implements OnInit {
       return this.currentUrl === '/bookmarks';
     }
     return false;
+  }
+
+  onSwipeUp(event) {
+    this.showNavBar = true;
+  }
+
+  onSwipeDown(event) {
+    this.showNavBar = false;
   }
 
 }

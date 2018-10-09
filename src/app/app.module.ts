@@ -21,6 +21,15 @@ import { EditProfileModule } from './containers/edit-profile/edit-profile.module
 import { AuthGuard } from './services/auth/auth-guard';
 import { environment } from '../environments/environment';
 
+import * as Hammer from 'hammerjs';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
+
+export class HammerConfig extends HammerGestureConfig {
+  overrides = <any>{
+    'swipe': { direction: Hammer.DIRECTION_ALL }
+  };
+}
+
 
 @NgModule({
   declarations: [
@@ -54,7 +63,11 @@ import { environment } from '../environments/environment';
     // Inject apiKey and, optionally, authorize to integrate with LinkedIN official API
     {provide: 'apiKey', useValue: environment.linkedinClientId},
     {provide: 'authorize', useValue: 'true'}, // OPTIONAL by default: false
-    {provide: 'isServer', useValue: 'true'}  // OPTIONAL by default: false
+    {provide: 'isServer', useValue: 'true'},  // OPTIONAL by default: false
+    {
+      provide: HAMMER_GESTURE_CONFIG,
+      useClass: HammerConfig
+    }
   ],
   exports: [MatDatepickerModule],
   bootstrap: [
