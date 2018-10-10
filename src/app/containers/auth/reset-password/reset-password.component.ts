@@ -14,6 +14,7 @@ export class ResetPasswordComponent implements OnInit {
 
   form: FormGroup;
   email: string;
+  isShowRequirement: boolean;
 
   constructor(private router: Router,
               private route: ActivatedRoute,
@@ -22,6 +23,7 @@ export class ResetPasswordComponent implements OnInit {
               private apiError: ApiErrorService,
               private sharingService: SharingService) {
     this.sharingService.showLoading̣̣(true);
+    this.isShowRequirement = false;
   }
 
   ngOnInit() {
