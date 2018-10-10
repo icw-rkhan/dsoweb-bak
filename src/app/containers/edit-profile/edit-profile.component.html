@@ -14,15 +14,17 @@
         <div class="profile_title">Profile Photo</div>
         <div *ngIf="croppedImage; else elseBlock" class="avatar_profile">
           <img [src]="croppedImage">
-          <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
-            class="edit-icon icons"></span></a>
+          <span class="edit-icon icons"></span>
+          <input type="file" (change)="selectFile($event)" accept="image/*"
+              class="upload-hidden" (click)="typeFile = PHOTO_FILE">
         </div>
         <ng-template #elseBlock>
           <div class="avatar_profile">
             <img [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) :
               '../assets/images/profile/icon_user_profile.png'">
-            <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
-              class="edit-icon icons"></span></a>
+            <span class="edit-icon icons"></span>
+            <input type="file" (change)="selectFile($event)" accept="image/*"
+              class="upload-hidden" (click)="typeFile = PHOTO_FILE">
           </div>
         </ng-template>
       </div>
@@ -213,9 +215,7 @@
       <div class="upload-browse">
         <input type="file" *ngIf="typeFile == RESUME_FILE" accept=".xls,.xlsx,.doc,.docx" (change)="selectFile($event)"
                class="upload-hidden">
-        <input type="file" *ngIf="typeFile == PHOTO_FILE" (change)="selectFile($event)" accept="image/*"
-               class="upload-hidden">
-        <span class="type-upload">Browse</span>
+        <span *ngIf="typeFile == PHOTO_FILE" class="type-upload">Browse</span>
       </div>
       <div *ngIf="typeFile == PHOTO_FILE"  class="edit-image">
         <image-cropper

@@ -364,7 +364,6 @@ export class EditProfileComponent implements OnInit {
 
   // upload file
   selectFile(file) {
-    console.log(file);
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile === this.RESUME_FILE) {
       this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
@@ -385,6 +384,7 @@ export class EditProfileComponent implements OnInit {
         this.alertService.errorAlert('Upload Failed');
       });
     } else {
+      this.isUploadFile = true;
       this.sharingService.showLoading̣̣(false);
       this.imageChangedEvent = file;
       if (file.srcElement && file.srcElement.files[0]) {
