@@ -10,11 +10,13 @@ import {SharingService} from '../../../services/sharing.service';
 
 @Component({
   selector: 'dso-register',
-  templateUrl: './register.component.html'
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
 
   isShowPassword: boolean;
+  isShowRequirement: boolean;
   is_student: number;
   is_linkedin: number;
   form: FormGroup;
@@ -28,6 +30,7 @@ export class RegisterComponent implements OnInit {
               private sharingService: SharingService) {
     this.sharingService.showLoading̣̣(true);
     this.isShowPassword = false;
+    this.isShowRequirement = false;
     this.isScroll = false;
   }
 
