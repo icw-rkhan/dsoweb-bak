@@ -16,7 +16,7 @@
           <img [src]="croppedImage">
           <span class="edit-icon icons"></span>
           <input type="file" (change)="selectFile($event)" accept="image/*"
-              class="upload-hidden" (click)="typeFile = PHOTO_FILE">
+              class="upload-hidden" (click)="typeFile = PHOTO_FILE; isUploadFileSlide = true">
         </div>
         <ng-template #elseBlock>
           <div class="avatar_profile">
@@ -24,7 +24,7 @@
               '../assets/images/profile/icon_user_profile.png'">
             <span class="edit-icon icons"></span>
             <input type="file" (change)="selectFile($event)" accept="image/*"
-              class="upload-hidden" (click)="typeFile = PHOTO_FILE">
+              class="upload-hidden" (click)="typeFile = PHOTO_FILE; isUploadFileSlide = true">
           </div>
         </ng-template>
       </div>
@@ -212,10 +212,10 @@
   <div class="modal-container" [@slideUpDown]="isUploadFileSlide ? 'up': 'down'">
     <div class="upload-content">
       <div class="profile_title small f300 mb10">Upload {{typeFile == RESUME_FILE ? 'Resume': 'Photo'}}</div>
-      <div class="upload-browse">
-        <input type="file" *ngIf="typeFile == RESUME_FILE" accept=".xls,.xlsx,.doc,.docx,.pdf" (change)="selectFile($event)"
+      <div *ngIf="typeFile == RESUME_FILE" class="upload-browse">
+        <input type="file" accept=".xls,.xlsx,.doc,.docx" (change)="selectFile($event)"
                class="upload-hidden">
-        <span *ngIf="typeFile == PHOTO_FILE" class="type-upload">Browse</span>
+        <span class="type-upload">Browse</span>
       </div>
       <div *ngIf="typeFile == PHOTO_FILE"  class="edit-image">
         <image-cropper
