@@ -148,7 +148,7 @@ span.icon-bar {
 	color: $color_3;
 	display: block;
 	margin-bottom: 5px;
-	font-size: 12px;
+	font-size: 13px;
 	font-weight: 400;
 }
 .profile__content {
@@ -281,6 +281,8 @@ span.not_residency {
 	font-weight: 400;
 	font-family: $font_family_3;
 	line-height: 14px;
+	color: #4A4A4A;
+	margin-top: 4px;
 }
 .date-job {
 	font-size: 12px;

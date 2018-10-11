@@ -233,7 +233,7 @@
       <div class="upload-browse">
         <input type="file" *ngIf="typeFile == RESUME_FILE" accept=".xls,.xlsx,.doc,.docx,.pdf" (change)="selectFile($event)"
                class="upload-hidden">
-        <span *ngIf="typeFile == PHOTO_FILE" class="type-upload">Browse</span>
+        <span class="type-upload">Browse</span>
       </div>
       <div *ngIf="typeFile == PHOTO_FILE"  class="edit-image">
         <image-cropper
