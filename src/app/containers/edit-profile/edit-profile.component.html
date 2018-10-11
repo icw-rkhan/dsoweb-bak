@@ -194,9 +194,9 @@
         <div class="personal-group">
           <label class="profile_title mb0">Preferred email address</label>
           <div class="d-flex">
-            <input type="email" name="email" class="input-mb" required email="true" [(ngModel)]="userProfile.email"
-                   #email="ngModel">
-            <i class="fa fa-pencil personal-edit-icon"></i>
+            <input type="email" name="email" class="input-mb" email="true" [ngModel]="userProfile.email"
+                   #email="ngModel" readonly>
+            <!-- <i class="fa fa-pencil personal-edit-icon"></i> -->
           </div>
           <div class="personal-underline"></div>
           <div [hidden]="!email.hasError('required') || email.pristine" class="validation-message">
