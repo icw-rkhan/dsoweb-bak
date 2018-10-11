@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { forkJoin } from 'rxjs';
@@ -99,8 +99,14 @@ export class ProfileService {
     const url = `${environment.profileApiUrl}/resumeUpload`;
     let form = new FormData();
     form.append('file', f);
-    const headers = this.customHeader();
-    return this.http.post(url, form, { headers: headers });
+    return this.http.request(new HttpRequest(
+      'POST',
+      url,
+      form, 
+      {
+        reportProgress: true
+      }
+    ));
   }
 
   uploadAvatar(f) {

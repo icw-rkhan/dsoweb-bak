@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
+import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
@@ -51,6 +52,7 @@ export class EditProfileComponent implements OnInit {
   isPracticeAddress: boolean;
   isUploadFile: boolean;
   isUploadFileSlide: boolean;
+  isResumeUploading: boolean;
   resumeFile: any;
   certificate: string;
   croppedImageFile: any;
@@ -91,6 +93,7 @@ export class EditProfileComponent implements OnInit {
     this.isPracticeAddress = false;
     this.isUploadFile = false;
     this.isUploadFileSlide = false;
+    this.isResumeUploading = false;
     // this.certificate = 'Certificate, Advanced Periodontology';
     this.certificate = '';
     this.baseUrl = environment.profileApiUrl;
@@ -364,26 +367,32 @@ export class EditProfileComponent implements OnInit {
 
   // upload file
   selectFile(file) {
-    this.sharingService.showLoading̣̣(true);
     if (this.typeFile === this.RESUME_FILE) {
-      this.profileService.uploadResume(file.srcElement.files[0]).subscribe((res) => {
-        this.sharingService.showLoading̣̣(false);
-        this.isUploadFile = false;
-        if (res['code'] === 0) {
-          this.userProfile.document_library = {
-            document_name: res['resultMap']['resumeName']
-          };
-          this.resumeFile = file.target.files[0];
-          this.alertService.successAlert('Uploaded successfully');
-        } else {
-          this.alertService.errorAlert('Upload Failed');
+      this.isResumeUploading = true;
+      this.isUploadFile = false;
+      this.resumeFile = file.target.files[0];
+      this.resumeFile.progress = 0;
+      this.profileService.uploadResume(file.srcElement.files[0]).subscribe(event => {
+        if (event['type'] === HttpEventType.UploadProgress) {
+          this.resumeFile.progress = Math.round(100 * event['loaded'] / event['total']);
+        } else if (event instanceof HttpResponse) {
+          this.isResumeUploading = false;
+          const res = event.body;
+          if (res['code'] === 0) {
+            this.userProfile.document_library = {
+              document_name: res['resultMap']['resumeName']
+            };
+            this.alertService.successAlert('Uploaded successfully');
+          } else {
+            this.alertService.errorAlert('Upload Failed');
+          }
         }
       }, (err) => {
-        this.sharingService.showLoading̣̣(false);
-        this.isUploadFile = false;
+        this.isResumeUploading = false;
         this.alertService.errorAlert('Upload Failed');
       });
     } else {
+      this.sharingService.showLoading̣̣(true);
       this.isUploadFile = true;
       this.sharingService.showLoading̣̣(false);
       this.imageChangedEvent = file;

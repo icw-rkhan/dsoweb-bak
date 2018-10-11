@@ -70,7 +70,7 @@
         </div>
       </div>
 
-      <div class="profile__content" *ngIf="this.resumeFile">
+      <div class="profile__content" *ngIf="this.resumeFile && !isResumeUploading">
         <div class="profile__icon upload-icon"></div>
         <div  class="uploaded_profile__content_info">
           <div class="uploaded_profile_info">
@@ -79,6 +79,24 @@
           </div>
           <div class="uploaded_remove" (click)="removeResumeFile()">
             <i class="fa fa-trash"></i>
+          </div>
+        </div>
+      </div>
+
+      <div class="profile__resume" *ngIf="isResumeUploading">
+        <div class="profile__icon upload-icon"></div>
+        <div class="profile__resume-content">
+          <div class="profile__resume-info">
+            <div class="uploaded_profile_subtitle">{{this.resumeFile?.name}}</div>
+            <div class="uploaded_uploading">
+              Uploading
+              <i class="fa fa-spinner fa-spin"></i>
+            </div>
+          </div>
+          <div class="profile__resume-upload">
+            <div class="resume_upload_wrapper">
+              <div class="resume_upload_progress" [ngStyle]="{'width': this.resumeFile?.progress + '%'}"></div>
+            </div>
           </div>
         </div>
       </div>
