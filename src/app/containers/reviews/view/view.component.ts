@@ -16,8 +16,11 @@ export class ViewComponent implements OnInit, OnDestroy {
   paramsSub: any;
   comments: Comment[];
 
-  constructor(public breakpointObserver: BreakpointObserver,
-    private commentService: CommentService, private progress: NgProgress, private route: ActivatedRoute) { }
+  constructor(
+    public breakpointObserver: BreakpointObserver,
+    private commentService: CommentService,
+    private progress: NgProgress,
+    private route: ActivatedRoute ) { }
 
   ngOnInit() {
     this.breakpointObserver.observe([
@@ -33,7 +36,7 @@ export class ViewComponent implements OnInit, OnDestroy {
 
       const commentSub = this.commentService.comments(this.postId).subscribe((data) => {
         this.comments = data;
-        console.log(this.comments);
+
         commentSub.unsubscribe();
         this.progress.complete();
       });

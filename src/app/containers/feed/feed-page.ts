@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 export class FeedPageComponent implements OnInit, OnDestroy {
 
   url: string;
+  isGeneral: boolean;
+  slideUrls: string[];
   headerImageUrl: string;
   navLinks: NavLinkModel[] = [];
 
@@ -20,12 +22,21 @@ export class FeedPageComponent implements OnInit, OnDestroy {
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.currentUrl = router.url;
+    this.slideUrls = [
+      'assets/images/slide/slide-1.jpg',
+      'assets/images/slide/slide-2.jpg',
+      'assets/images/slide/slide-3.jpg',
+      'assets/images/slide/slide-4.jpg',
+      'assets/images/slide/slide-5.jpg',
+    ];
 
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.url = event.url;
         if (event.url.includes('/posts/sponsor')) {
+          this.isGeneral = false;
           const sponsorId = event.url.split('/')[3];
+
           if (sponsorId === '197') {
             this.headerImageUrl = 'assets/images/sponsor/gsk-header.png';
           } else if (sponsorId === '259') {
@@ -34,6 +45,7 @@ export class FeedPageComponent implements OnInit, OnDestroy {
             this.headerImageUrl = 'assets/images/sponsor/align-header.png';
           }
         } else if (event.url.includes('/posts')) {
+          this.isGeneral = true;
           this.headerImageUrl = 'assets/images/header-pic.png';
         }
       }

@@ -1,6 +1,8 @@
 import {NgModule} from '@angular/core';
 
 import { SharedModule } from '../../shared';
+import { ImageCropperModule } from 'ngx-image-cropper';
+
 import { EditProfileComponent } from './edit-profile.component';
 import { ResidencySearchComponent } from './residency-search/residency-search.component';
 import { EditProfileRoutingModule } from './edit-profile.routing';
@@ -24,7 +26,8 @@ import { StatesComponent } from './practice-address/states/states.component';
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     EditProfileRoutingModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    ImageCropperModule
   ],
   exports: [
     MatDatepickerModule

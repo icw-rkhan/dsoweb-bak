@@ -2,6 +2,7 @@ import { Author } from './author.model';
 import { Serializable } from './serializable.model';
 import { Category } from './category.model';
 import * as _ from 'lodash';
+import { filter } from 'rxjs/internal/operators';
 
 export class Post implements Serializable<Post> {
 
@@ -13,16 +14,35 @@ export class Post implements Serializable<Post> {
   thumbnail: string;
   link: string;
   date: Date;
+  categoryId: number;
   categories: Category[];
   format: string;
   bookmarked: boolean;
   bookmarkId: string;
   tags: number[];
 
+  setCategoryId(category) {
+    this.categoryId = category;
+  }
+
+  // check the category is general
+  isGeneralCategory(categoryId) {
+    const generalCategires = ['28', '29', '30', '31', '194', '195', '196'];
+
+    if (generalCategires.includes(categoryId)) {
+      return true;
+    }
+    return false;
+  }
+
   deserialize(data: any): Post {
     let thumbnailObj = data['_embedded'] && data['_embedded']['wp\:featuredmedia'] ? data['_embedded']['wp\:featuredmedia'] : {};
     const categoryObj = data['_embedded'] ? data['_embedded']['wp\:term'] : {};
     const authorObj = data['_embedded'] ? data['_embedded'].author[0] : {};
+
+    thumbnailObj = thumbnailObj && thumbnailObj[0] ? (thumbnailObj[0].media_details &&
+      thumbnailObj[0].media_details.sizes && thumbnailObj[0].media_details.sizes.full ?
+      thumbnailObj[0].media_details.sizes.full.source_url : undefined) : undefined;
 
     // find category object
     const categories = [];
@@ -32,15 +52,15 @@ export class Post implements Serializable<Post> {
         categories.push(new Category().deserialize(c))
       );
 
-    const category = [];
-    if (categories.length > 1) {
-      category.push(categories[1]);
+    // filter categories
+    let filterCategories = [];
+
+    if (this.categoryId && !this.isGeneralCategory(this.categoryId)) {
+      _.flatMap(categories).filter(item => item['id'] === this.categoryId)
+      .forEach(c => filterCategories.push(c));
     } else {
-      category.push(categories[0]);
+      filterCategories = categories;
     }
-    thumbnailObj = thumbnailObj && thumbnailObj[0] ? (thumbnailObj[0].media_details &&
-      thumbnailObj[0].media_details.sizes && thumbnailObj[0].media_details.sizes.full ?
-      thumbnailObj[0].media_details.sizes.full.source_url : undefined) : undefined;
 
     // Remove link-more
     const cleanTextExcerpt = data.excerpt.rendered.replace(/<p[^>]* class=\"link-more\">(.*?)<\/p>/g, '');
@@ -55,7 +75,7 @@ export class Post implements Serializable<Post> {
       author: new Author().deserialize(authorObj),
       thumbnail: thumbnailObj,
       link: data.link,
-      categories: category,
+      categories: filterCategories,
       tags: data.tags,
     });
   }

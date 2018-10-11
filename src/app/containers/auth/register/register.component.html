@@ -37,7 +37,15 @@
             </div>
           </div>
         </form>
-        <p id="form-warning" class="form-warning">Password Requirements</p>
+        <p id="form-warning" class="form-warning" (click)="isShowRequirement = !isShowRequirement">Password Requirements</p>
+        <div class="form-helper" *ngIf="isShowRequirement">
+          <div class="content">
+            Your password should be at least 8-16 characters in length with at least one uppercase letter and one number
+          </div>
+          <div class="close" (click)="isShowRequirement = false">
+            <img src="assets/images/error-icon.png">
+          </div>
+        </div>
         <div class="signupActions">
           <p id="form-content" class="form-content">
             By creating an account, you agree to DSODentist’s

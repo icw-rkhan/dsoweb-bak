@@ -1,8 +1,11 @@
-<nav class="footer" mat-tab-nav-bar>
-  <a mat-tab-link *ngFor="let link of navFooterLinks" [routerLink]="link.route" [class.active]="isActive(link)">
-    <div class="tab">
-      <mat-icon>{{link.icon}}</mat-icon>
-      <span>{{link.label}}</span>
-    </div>
-  </a>
-</nav>
+<div class="footer-wrapper" (swipeup)="onSwipeUp($event)" (swipedown)="onSwipeDown($event)">
+  <mat-icon *ngIf="!showNavBar" class="show-nav-bar">keyboard_arrow_up</mat-icon>
+  <nav class="footer" [ngClass]="{'hidden': !showNavBar}" mat-tab-nav-bar>
+    <a mat-tab-link *ngFor="let link of navFooterLinks" [routerLink]="link.route" [class.active]="isActive(link)">
+      <div class="tab">
+        <mat-icon>{{link.icon}}</mat-icon>
+        <span>{{link.label}}</span>
+      </div>
+    </a>
+  </nav>
+</div>

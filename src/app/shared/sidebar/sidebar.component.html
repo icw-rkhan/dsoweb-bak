@@ -13,8 +13,8 @@
       <div class="divider"></div>
     </div>
     <mat-list-item *ngFor="let link of links" (click)="onClick(link)">
-      <mat-icon mat-list-icon>{{link.icon}}</mat-icon>
-      <a matLine>{{link.label}}</a>
+      <mat-icon mat-list-icon class="side-icon">{{link.icon}}</mat-icon>
+      <a matLine class="side-btn">{{link.label}}</a>
       <mat-divider [inset]="true"></mat-divider>
     </mat-list-item>
   </mat-nav-list>

@@ -120,7 +120,7 @@ span.icon-bar {
   font-weight: 600;
   line-height: 22px;
   text-transform: uppercase;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
 }
 
 .profile_content {
@@ -165,7 +165,7 @@ span.icon-bar {
   font-size: 17px;
   font-weight: 600;
   margin-bottom: 10px;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
   letter-spacing: -0.18px;
 }
 
@@ -185,7 +185,7 @@ span.icon-bar {
   display: block;
   font-weight: 600;
   font-size: 14px;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
 }
 
 .profile_Residency {
@@ -286,7 +286,7 @@ span.not_residency {
   font-size: 14px;
   margin-bottom: 3px;
   line-height: 16px;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
 }
 
 .addr-link {
@@ -297,7 +297,7 @@ span.not_residency {
 .profile_subtitle {
   width: 95%;
   color: #4a4a4a;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
   font-size: 14px;
   font-weight: 600;
   line-height: 16px;
@@ -306,14 +306,14 @@ span.not_residency {
 .profile-job {
   font-size: 12px;
   font-weight: 400;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
   line-height: 14px;
 }
 
 .date-job {
   font-size: 12px;
   font-weight: 400;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
   line-height: 14px;
   color: #9b9b9b;
 }
@@ -443,7 +443,7 @@ span.icon-back {
   border: 0;
   font-size: 15px;
   font-weight: 400;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
   outline: none;
 }
 
@@ -494,7 +494,7 @@ span.icon-back {
 }
 
 .exp_owner {
-  background-image: url(../images/profile/logo_exp_1.png);
+  background-image: url(../images/profile/icon_experience.png);
   background-repeat: no-repeat;
   background-position: center;
   background-color: #f0f0f0;
@@ -543,7 +543,7 @@ span.icon-back {
   padding: 0 10px 0 35px;
   font-size: 15px;
   font-weight: 400;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
 }
 
 .icon-search {
@@ -575,7 +575,6 @@ span.icon-back {
   width: 15px;
   position: fixed;
   right: 0;
-  background-color: #e9edf1;
   top: 102px;
   bottom: 0;
   display: flex;
@@ -706,7 +705,7 @@ span.icon-back {
   font-size: 13px;
   font-weight: 600;
   color: #4a4a4a;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
 }
 
 .mb10 {
@@ -735,7 +734,7 @@ span.icon-back {
 .alert-txt h5 {
   font-size: 17px;
   font-weight: 500;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
   color: #030303;
   line-height: 20px;
 }
@@ -882,7 +881,7 @@ span.icon-back {
 
 strong {
   font-weight: bold;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
 }
 
 /* http://meyerweb.com/eric/tools/css/reset/
@@ -936,26 +935,26 @@ h2 {
 }
 
 @font-face {
-  font-family: "SF UI Text";
+  font-family: "SFUI";
   src: url("../fonts/SF-Regular/SFProDisplay-Regular.eot"); /* IE9 Compat Modes */
   src: url("../fonts/SF-Regular/SFProDisplay-Regular.woff2") format("woff2"), url("../fonts/SF-Regular/SFProDisplay-Regular.woff") format("woff"), url("../fonts/SF-Regular/SFProDisplay-Regular.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "SF UI Text";
+  font-family: "SFUI";
   src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.eot"); /* IE9 Compat Modes */
   src: url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff2") format("woff2"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.woff") format("woff"), url("../fonts/SF-Semibold/SFProDisplay-Semibold.ttf") format("truetype");
 }
 
 @font-face {
-  font-family: "SF UI Text";
+  font-family: "SFUI";
   src: url("../fonts/SF-Bold/SFProDisplay-Bold.eot"); /* IE9 Compat Modes */
   src: url("../fonts/SF-Bold/SFProDisplay-Bold.woff2") format("woff2"), url("../fonts/SF-Bold/SFProDisplay-Bold.woff") format("woff"), url("../fonts/SF-Bold/SFProDisplay-Bold.ttf") format("truetype");
 }
 
 body {
   margin: auto;
-  font-family: 'SF UI Text', sans-serif;
+  font-family: 'SFUI', sans-serif;
 }
 
 a {
@@ -1010,7 +1009,7 @@ a {
 
 .btn {
   border: none;
-  font-family: 'SF UI Text';
+  font-family: 'SFUI';
   font-size: 15px;
   cursor: pointer;
   display: inline-block;
@@ -1139,8 +1138,10 @@ a {
 }
 
 .form-title {
-  font-size: 43px;
-  line-height: 59px;
+  font-size: 37px;
+  font-weight: 800;
+  font-family: 'SFUI';
+  line-height: 44px;
   margin-bottom: 10px;
 }
 
@@ -1291,9 +1292,18 @@ a {
 
 .login-title {
   font-size: 43px;
-  line-height: 59px;
-  letter-spacing: -2px;
+  font-weight: 800;
+  font-family: 'SFUI';
+  line-height: 53px;
 }
+
+.login-title2 {
+  font-size: 37px;
+  font-weight: 800;
+  font-family: 'SFUI';
+  line-height: 53px;
+}
+
 
 .login-subTitle {
   font-size: 19px;

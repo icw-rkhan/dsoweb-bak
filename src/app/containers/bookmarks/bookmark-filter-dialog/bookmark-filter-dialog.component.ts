@@ -12,7 +12,7 @@ import { FilterDialogStatus } from '../../../enums/filter-dialog-status';
 })
 export class BookmarkFilterDialogComponent implements OnInit {
 
-  categories: Observable<Category[]>;
+  categories: Category[];
   contentTypes: any;
   categoryId: number;
 
@@ -20,7 +20,19 @@ export class BookmarkFilterDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categories = this.categoryService.categories;
+    this.categoryService.categories.subscribe(date => {
+      const categoryList = [];
+      let i = 0;
+      for (i = 0; i < date.length; i++) {
+        const categoryItem = date[i];
+        if (!categoryItem.name.includes('*')) {
+          categoryList.push(categoryItem);
+        }
+      }
+
+      this.categories = categoryList;
+    });
+
     this.contentTypes = [];
     this.contentTypes.push({
       id: 0,

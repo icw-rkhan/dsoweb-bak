@@ -32,7 +32,8 @@ export class PracticeTypeComponent implements OnInit {
   }
 
   changeInput(key) {
-    this.filterList = this.experienceService.S_practiceTypes.getValue().filter((speciality: any) => speciality.name.toLocaleLowerCase().includes(key.toLocaleLowerCase()));
+    this.filterList = this.experienceService.S_practiceTypes.getValue().filter((speciality: any) =>
+    speciality.name.toLocaleLowerCase().includes(key.toLocaleLowerCase()));
   }
 
   close() {

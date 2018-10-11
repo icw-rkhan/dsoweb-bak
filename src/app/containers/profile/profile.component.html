@@ -22,8 +22,13 @@
           <div class="profile__content_info">
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
-              <div class="profile-job">{{ item?.practice_Type?.name }}</div>
-              <div class="date-job">{{ item?.start_time | date: 'MMM yyyy':'+0000' }} - {{ item?.end_time | date: 'MMM yyyy':'+0000' }}</div>
+              <div class="profile-job">{{ item?.practice_DSO?.name }}</div>
+              <div class="date-job">
+                  <span>{{ item?.start_time | date:"MMM yyyy":'+0000'}}</span>
+                  <span> - </span>
+                  <span *ngIf="item.end_time">{{ item?.end_time | date:"MMM yyyy":'+0000'}}</span>
+                  <span *ngIf="!item.end_time">Present</span>
+                </div>
             </div>
           </div>
         </div>
@@ -92,7 +97,13 @@
         <div class="profile__icon practice-icon"></div>
         <div class="profile__content_info">
           <span class="pre_email_addr"><strong>Practice Address</strong></span>
-          <span class="addr-link cl4a">{{userProfile?.practiceAddress?.address1}}</span>
+          <span class="addr-link cl4a">
+            <div class="personal-info__address-info">
+              <div *ngIf="userProfile?.practiceAddress.address1 !== ''">{{userProfile.practiceAddress.address1}}</div>
+              <div *ngIf="userProfile?.practiceAddress.address2 !== ''">{{userProfile.practiceAddress.address2}}</div>
+              <div *ngIf="userProfile?.practiceAddress">{{userProfile.practiceAddress.city}}, {{userProfile.practiceAddress.states}} {{userProfile.practiceAddress.zipCode}}</div>
+            </div>
+          </span>
         </div>
       </div>
       <div *ngIf="userProfile?.phone" class="profile__content bt">

@@ -8,6 +8,7 @@ import { formatNumber, parseNumber } from 'libphonenumber-js';
 import { AuthService, ProfileService } from '../../services/index';
 import { Residency } from '../../models/residency.model';
 import { Education } from '../../models/education.model';
+import { Address } from '../../models/address.model';
 
 import {NgForm} from '@angular/forms';
 import {SharingService} from '../../services/sharing.service';
@@ -52,6 +53,10 @@ export class EditProfileComponent implements OnInit {
   isUploadFileSlide: boolean;
   resumeFile: any;
   certificate: string;
+  croppedImageFile: any;
+  fileName: string;
+  imageChangedEvent: any;
+  croppedImage: any;
 
   RESIDENCY_AT = 1;
   RESIDENCY_ADD = 2;
@@ -160,7 +165,14 @@ export class EditProfileComponent implements OnInit {
     ['experiences'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
         item.start_time = moment(item.start_time).format();
-        item.end_time = moment(item.end_time).format();
+        const endTime = moment(item.end_time).format().toString();
+        const currentDate = new Date();
+        if (endTime.includes(currentDate.getFullYear().toString()) &&
+         endTime.includes((currentDate.getMonth() + 1).toString())) {
+          item.end_time = null;
+        } else {
+          item.end_time = moment(item.end_time).format();
+        }
       });
     });
 
@@ -174,9 +186,18 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  setPracticeAddress(address: any) {
+  setPracticeAddress(address: Address) {
     this.userProfile.practiceAddress = address;
-    this.editProfileService.S_practiceAddress = address;
+  }
+
+  getPracticeAddress() {
+    const address = this.userProfile.practiceAddress || {};
+    const address1 = address.address1 || '';
+    const address2 = address.address2 || '';
+    const zipCode = address.zipCode || '';
+    const city = address.city || '';
+    const states = address.states || '';
+    return `${address1} ${address2} ${zipCode}, ${city}, ${states}`;
   }
 
   closeAddressModal() {
@@ -205,6 +226,19 @@ export class EditProfileComponent implements OnInit {
 
   editExperience(ex) {
     this.userProfile.experiences[this.editProfileService.S_editIndex] = ex;
+    this.editProfileService.S_experience = {};
+    this.editProfileService.S_experienceEdit = undefined;
+    this.isEditExperience = false;
+  }
+
+  deleteExperience(ex) {
+    if (this.editProfileService.S_editIndex >= 0) {
+      if (this.userProfile.experiences[this.editProfileService.S_editIndex]) {
+        (<any[]>this.userProfile.experiences).splice(this.editProfileService.S_editIndex, 1);
+      }
+    }
+    console.log(this.userProfile.experiences, this.editProfileService.S_editIndex);
+    this.editProfileService.S_editIndex = -1;
     this.editProfileService.S_experience = {};
     this.editProfileService.S_experienceEdit = undefined;
     this.isEditExperience = false;
@@ -261,7 +295,7 @@ export class EditProfileComponent implements OnInit {
     const dt = {
       id: this.userProfile.profileResidency[i].residency_school.id,
       name: this.userProfile.profileResidency[i].residency_school.name,
-      year: this.userProfile.profileResidency[i].end_time.split('-')[0]
+      year: moment(this.userProfile.profileResidency[i].end_time).utcOffset(0).year()
     };
     this.residency = new Residency().deserialize(dt);
     this.editResidencyModel.show();
@@ -289,6 +323,14 @@ export class EditProfileComponent implements OnInit {
         parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
       }
 
+      ['experiences'].map((key: any) => {
+        this.userProfile[key].map((item: any) => {
+          if (item.end_time == null) {
+            item.end_time = new Date();
+          }
+        });
+      });
+
       this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
         if (!data.code) {
           this.fetchProfile(this.userInfo.user_name);
@@ -300,10 +342,10 @@ export class EditProfileComponent implements OnInit {
         }
         this.sharingService.showLoading̣̣(false);
       },
-        error2 => {
-          this.alertService.errorAlert('Something went wrong');
-          this.sharingService.showLoading̣̣(false);
-        });
+      error2 => {
+        this.alertService.errorAlert('Something went wrong');
+        this.sharingService.showLoading̣̣(false);
+      });
     }
   }
 
@@ -320,6 +362,7 @@ export class EditProfileComponent implements OnInit {
     }
   }
 
+  // upload file
   selectFile(file) {
     this.sharingService.showLoading̣̣(true);
     if (this.typeFile === this.RESUME_FILE) {
@@ -341,25 +384,40 @@ export class EditProfileComponent implements OnInit {
         this.alertService.errorAlert('Upload Failed');
       });
     } else {
-      this.profileService.uploadAvatar(file.srcElement.files[0]).subscribe((res) => {
-        this.sharingService.showLoading̣̣(false);
-        this.isUploadFile = false;
-        if (res['code'] === 0) {
-          this.userProfile.photo_album = {
-            photo_name: res['resultMap']['photoName']
-          };
-          this.alertService.successAlert('Uploaded successfully');
-        } else {
-          this.alertService.errorAlert('Upload Failed');
-        }
-      }, (err) => {
-        this.sharingService.showLoading̣̣(false);
-        this.isUploadFile = false;
-        this.alertService.errorAlert('Upload Failed');
-      });
+      this.isUploadFile = true;
+      this.sharingService.showLoading̣̣(false);
+      this.imageChangedEvent = file;
+      if (file.srcElement && file.srcElement.files[0]) {
+        this.fileName = file.srcElement.files[0].name;
+      }
     }
   }
-
+  removeResumeFile() {
+    this.resumeFile = null;
+  }
+  imageCropped(image: string) {
+    this.croppedImage = image;
+  }
+  imageCroppedFile(file: any) {
+    // upload avatar
+    this.profileService.uploadAvatar(new File([file], this.fileName)).subscribe((res) => {
+      if (res['code'] === 0) {
+        this.userProfile.photo_album = {
+          photo_name: res['resultMap']['photoName']
+        };
+      }
+    });
+  }
+  imageLoaded() {
+      // show cropper
+  }
+  loadImageFailed() {
+      // show message
+  }
+  // finish to edit
+  finishToEdit(e) {
+    this.isUploadFile = false;
+  }
   selectEducation() {
     this.education_page = this.RESIDENCY_AT;
   }
@@ -375,10 +433,10 @@ export class EditProfileComponent implements OnInit {
       id: this.userProfile.educations[i].types === 1 &&
         this.userProfile.educations[i]['dental_school'] ?
         this.userProfile.educations[i]['dental_school']['id'] : this.userProfile.educations[i].id,
-      name: this.userProfile.educations[i].types === 1 &&
+      name: this.userProfile.educations[i].types === '1' &&
        this.userProfile.educations[i]['dental_school'] ? this.userProfile.educations[i]['dental_school']['name'] :
        this.userProfile.educations[i].school_name,
-      year: this.userProfile.educations[i].end_time.split('-')[0],
+      year: moment(this.userProfile.educations[i].end_time).utcOffset(0).year(),
       types: this.userProfile.educations[i].types
     };
     this.education = new Education().deserialize(dt);
@@ -394,6 +452,11 @@ export class EditProfileComponent implements OnInit {
         this.education = null;
       }
     }
+    this.educationModel.hide();
+  }
+
+  onCancelEducation() {
+    this.education = null;
     this.educationModel.hide();
   }
 

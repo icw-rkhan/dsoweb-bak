@@ -1,9 +1,10 @@
 import { RouterModule, Routes } from '@angular/router';
 import { NgModule } from '@angular/core';
 import { DetailComponent } from './detail.component';
+import {AuthGuard} from '../../services/auth/auth-guard';
 import { CommonComponent } from './common/common.component';
 import { SponsorComponent } from './sponsor/sponsor.component';
-import {AuthGuard} from '../../services/auth/auth-guard';
+import { RelativeComponent } from './relative/relative.component';
 
 export const ROUTES: Routes = [
     {
@@ -18,11 +19,15 @@ export const ROUTES: Routes = [
         {
           path: 'sponsor/:id',
           component: SponsorComponent,
+        },
+        {
+          path: 'sponsor/:id/:y/:m/:d/:title',
+          component: RelativeComponent,
         }
       ]
     },
   ];
-  
+
   @NgModule({
     imports: [
       RouterModule.forChild(ROUTES)

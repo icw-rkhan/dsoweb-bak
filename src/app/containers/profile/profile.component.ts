@@ -8,7 +8,8 @@ import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'dso-profile',
-  templateUrl: './profile.component.html'
+  templateUrl: './profile.component.html',
+  styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
 
@@ -35,6 +36,16 @@ export class ProfileComponent implements OnInit {
     this.fetchProfile(this.userInfo.user_name);
   }
 
+  getPracticeAddress() {
+    const address = this.userProfile.practiceAddress || {};
+    const address1 = address.address1 || '';
+    const address2 = address.address2 || '';
+    const zipCode = address.zipCode || '';
+    const city = address.city || '';
+    const states = address.states || '';
+    return `${address1} ${address2} ${zipCode}, ${city}, ${states}`;
+  }
+
   fetchProfile(email: string) {
     this.profileService.findOneByEmail({ email: email }).subscribe(
       (data: any) => {
@@ -52,7 +63,14 @@ export class ProfileComponent implements OnInit {
     ['educations', 'experiences', 'profileResidency'].map((key: any) => {
       this.userProfile[key].map((item: any) => {
         item.start_time = moment(item.start_time).format();
-        item.end_time = moment(item.end_time).format();
+        const endTime = moment(item.end_time).format().toString();
+        const currentDate = new Date();
+        if (key === 'experiences' && endTime.includes(currentDate.getFullYear().toString()) &&
+         endTime.includes((currentDate.getMonth() + 1).toString())) {
+          item.end_time = null;
+        } else {
+          item.end_time = moment(item.end_time).format();
+        }
       });
     });
   }

@@ -1,11 +1,15 @@
 <div class="feed-grid-container">
   <div class="posts" *ngIf="posts?.length > 0">
-    <div id="article-contents" ngxInfiniteScroller strategy="scrollingToBottom" (onScrollDown)="onLoadMore()">
-      <dso-feed-card [post]="post" (addBookmark)="onAddBookmark($event)"
-                     (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts"></dso-feed-card>
+    <div id="article-contents" infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onLoadMore()"
+    [scrollWindow]="false">
+      <dso-feed-card [post]="post" [no]="i" (addBookmark)="onAddBookmark($event)"
+                     (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts ; let i = index"></dso-feed-card>
     </div>
   </div>
-  <div class="no-content" *ngIf="posts === null || posts === undefined || posts?.length === 0">
+  <div class="no-content" *ngIf="!loading && (posts === null || posts === undefined || posts?.length === 0)">
     <img src="assets/images/no-search.png">
     <h3 class="mat-h3 no-find-message">{{noFoundMessage}}</h3>
   </div>

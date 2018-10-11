@@ -26,8 +26,10 @@ export class EditExperienceComponent implements OnInit {
   @Output() closeModal: EventEmitter<null> = new EventEmitter(null);
   @Output() addExperience: EventEmitter<any> = new EventEmitter(null);
   @Output() editExperience: EventEmitter<any> = new EventEmitter(null);
+  @Output() deleteExperience: EventEmitter<any> = new EventEmitter(null);
 
   isCurrentWork: boolean;
+  isDelete: boolean;
 
   title = '';
 
@@ -35,38 +37,33 @@ export class EditExperienceComponent implements OnInit {
   endDate: Date;
 
   constructor(public experienceService: EditProfileService,
-              public alertService: AlertService) {
+              public alertService: AlertService) {}
+
+  ngOnInit() {
+    this.isDelete = false;
+    this.isCurrentWork = false;
     if (isNullOrUndefined(this.experienceService.S_experienceEdit)) {
       this.title = 'Add Experience';
       this.experienceService.S_experience = {};
-      this.endDate = new Date();
     } else {
       this.title = 'Edit Experience';
       this.experienceService.S_experience = this.experienceService.S_experienceEdit;
       this.startDate = new Date(this.experienceService.S_experienceEdit.start_time);
-      this.endDate = new Date(this.experienceService.S_experienceEdit.end_time);
+      if (this.experienceService.S_experienceEdit.end_time) {
+        this.endDate = new Date(this.experienceService.S_experienceEdit.end_time);
+      } else {
+        this.isCurrentWork = true;
+      }
     }
-    this.isCurrentWork = false;
-  }
-
-  ngOnInit() {
-    if (isNullOrUndefined(this.experienceService.S_experienceEdit)) {
-      this.title = 'Add Experience';
-      this.experienceService.S_experience = {};
-    } else {
-      this.title = 'Edit Experience';
-      this.experienceService.S_experience = this.experienceService.S_experienceEdit;
-    }
-    this.isCurrentWork = false;
   }
 
   chosenStartDate(date: Date, datepicker: MatDatepicker<Date>) {
-    this.startDate = new Date(date.getFullYear(), date.getMonth(), 28);
+    this.startDate = new Date(date.getFullYear(), date.getMonth());
     datepicker.close();
   }
 
   chosenEndDate(date: Date, datepicker: MatDatepicker<Date>) {
-    this.endDate = new Date(date.getFullYear(), date.getMonth(), 28);
+    this.endDate = new Date(date.getFullYear(), date.getMonth());
     datepicker.close();
   }
 
@@ -86,14 +83,23 @@ export class EditExperienceComponent implements OnInit {
       return;
     }
 
-    if (!this.startDate || !this.endDate) {
+    if (!this.startDate) {
       this.alertService.errorAlert('Working time can\'t be blank.');
       return;
     }
 
-    if (this.startDate > this.endDate) {
+    if (!this.endDate && !this.isCurrentWork) {
+      this.alertService.errorAlert('Working time can\'t be blank.');
+      return;
+    }
+
+    if (!this.isCurrentWork && this.startDate > this.endDate) {
       this.alertService.errorAlert('Start date must before end date');
       return;
+    }
+
+    if (this.isCurrentWork) {
+      this.endDate = undefined;
     }
 
     this.experienceService.S_experience.practice_name = 'default';
@@ -106,6 +112,9 @@ export class EditExperienceComponent implements OnInit {
     } else {
       this.addExperience.emit(this.experienceService.S_experience);
     }
+    this.experienceService.S_experience = {};
+    this.experienceService.S_experienceEdit = undefined;
+    this.experienceService.S_editIndex = -1;
     this.closeModal.emit();
   }
 
@@ -113,11 +122,21 @@ export class EditExperienceComponent implements OnInit {
 
   toggleCurrentWork() {
     this.isCurrentWork = !this.isCurrentWork;
+
+    if (this.isCurrentWork) {
+      this.endDate = new Date();
+    }
+  }
+
+  _deleteExperience() {
+    this.isDelete = false;
+    this.deleteExperience.emit();
   }
 
   close() {
     this.experienceService.S_experience = {};
     this.experienceService.S_experienceEdit = undefined;
+    this.experienceService.S_editIndex = -1;
     this.closeModal.emit();
   }
 }

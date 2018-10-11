@@ -1,7 +1,7 @@
 <header class="header-profile">
   <nav class="navbar bg-grey">
     <a href="javascript:void(0)" (click)="close()" class="back-link"><span class="icon-bar icon-back"></span></a>
-    <div class="navbar-title-heading">Edit Experience</div>
+    <div class="navbar-title-heading">{{title}}</div>
     <div class="navbar-edit-profile">
       <a href="javascript:void(0)" (click)="save()" class="">Save</a>
     </div>
@@ -56,7 +56,7 @@
           </div>
           <div class="col s6">
             <label class="profile_title mb0">To</label>
-            <mat-form-field>
+            <mat-form-field *ngIf="!isCurrentWork">
               <input matInput [matDatepicker]="to"
                      [ngModel]="endDate" name="endDate1" #endDate1="ngModel">
               <mat-datepicker-toggle matSuffix [for]="to"></mat-datepicker-toggle>
@@ -65,10 +65,11 @@
                               (monthSelected)="chosenEndDate($event, to)"
                               panelClass="example-month-picker"></mat-datepicker>
             </mat-form-field>
+            <span *ngIf="isCurrentWork" class="profile_date--present">Present</span>
           </div>
         </div>
       </div>
-      <div class="cancel-row"><a href="javascript:void(0)" (click)="close()">Cancel</a></div>
+      <div class="cancel-row"><a href="javascript:void(0)" (click)="isDelete = true">Delete Experience</a></div>
     </div>
   </section>
 </div>
@@ -107,6 +108,19 @@
       <div class="modal-body">
         <app-practice-dso (closePracticeDSO)="PracticeDSOModal.hide()"
         ></app-practice-dso>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isDelete" class="modal-overlay upload-file">
+  <div class="save-modal">
+    <div class="save-container">
+      <div class="save-alert">Delete Experience</div>
+      <p>Are you sure you want to delete this experience?</p>
+      <div class="alert-action">
+        <a (click)="isDelete = false" class="dont-allow cursor">Cancel</a>
+        <a (click)="_deleteExperience()" class="allow cursor">Yes</a>
       </div>
     </div>
   </div>

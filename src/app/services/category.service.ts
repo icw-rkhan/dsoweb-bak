@@ -18,7 +18,7 @@ export class CategoryService {
   }
 
   private fetchCategories() {
-    const url = `${environment.cmsApiUrl}/categories`;
+    const url = `${environment.cmsApiUrl}/categories?per_page=100`;
     return this.http.get(url).pipe(
       map((response: any[]) =>
         response.map(category => new Category().deserialize(category))

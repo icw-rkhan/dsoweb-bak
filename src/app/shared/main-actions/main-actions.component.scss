@@ -1,11 +1,26 @@
 @import "../../../variables";
 
-.footer {
+.footer-wrapper {
   position: fixed;
   bottom: 0;
-  background: white;
+  background-color: transparent;
   width: 100%;
-  border-top: 1px solid rgba(0, 0, 0, .12);
+  height: 62px;
+  .show-nav-bar {
+    color: grey;
+    font-size: 45px;
+    margin: 28px auto 0;
+    display: block;
+  }
+  .footer {
+    background: white;
+    border-top: 1px solid rgba(0, 0, 0, .12);
+    transform: translateY(0);
+    transition: transform .2s;
+    &.hidden {
+      transform: translateY(62px);
+    }
+  }
 }
 
 ::ng-deep mat-sidenav-content {

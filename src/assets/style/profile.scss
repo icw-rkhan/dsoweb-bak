@@ -460,7 +460,7 @@ span.icon-back {
   //right: 0;
 }
 .exp_owner {
-	background-image: url(../images/profile/logo_exp_1.png);
+	background-image: url(../images/profile/icon_experience.png);
 	background-repeat: no-repeat;
 	background-position: center;
 	background-color: $background_color_11;
@@ -530,7 +530,6 @@ span.icon-back {
 	width: 15px;
 	position: fixed;
 	right: 0;
-	background-color: $background_color_13;
 	top: 102px;
 	bottom: 0;
 	display: flex;
@@ -842,5 +841,5 @@ span.icon-back {
 }
 strong {
   font-weight: bold;
-  font-family: "SF UI Text";
+  font-family: "SFUI";
 }

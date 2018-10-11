@@ -3,7 +3,7 @@
 .feed-grid-container {
   display: flex;
   flex-direction: column;
-  padding-bottom: 60px;
+  // padding-bottom: 60px;
 }
 
 .posts {
@@ -13,11 +13,12 @@
 
 .no-content {
   display: flex;
+  height: calc(100vh - 200px);
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 100px 0;
   flex: 1;
+  overflow: auto;
 }
 
 h3 {
@@ -40,7 +41,7 @@ h3 {
   color: #4a4a4a;
   width: 186px;
   font-size: 15px;
-  font-family: 'SF UI Text';
+  font-family: 'SFUI';
   font-weight: 400;
   text-align: center;
   margin-top: 100px;

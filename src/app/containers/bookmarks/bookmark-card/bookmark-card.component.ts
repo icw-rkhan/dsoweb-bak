@@ -17,6 +17,17 @@ export class BookmarkCardComponent {
 
   }
 
+  // filter categories
+  filterCategories(categories) {
+    if (categories && categories.length > 1) {
+      return categories[1].name;
+    } else if (categories && categories.length === 1) {
+      return categories[0].name;
+    }
+
+    return '';
+  }
+
   onRemove() {
     this.remove.emit(this.post);
   }

@@ -1,6 +1,7 @@
 .login {
   background-image: url('../images/bg-1.png');
-  background-size: 100% 100%;
+  background-size: cover;
+  background-position: center center;
   background-repeat: no-repeat;
   height: 100vh;
   position: relative;
@@ -18,8 +19,12 @@
 
   &-title {
     font-size: 43px;
-    line-height: 59px;
-    letter-spacing: -2px;
+    line-height: 53px;
+  }
+
+  &-title2 {
+    font-size: 37px;
+    line-height: 53px;
   }
 
   &-subTitle {
@@ -29,7 +34,7 @@
 
   &-detail {
     font-size: 15px;
-    line-height: 25px;
+    line-height: 20px;
     margin-bottom: 25px;
   }
 

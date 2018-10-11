@@ -9,6 +9,7 @@ import { DetailRoutingModule } from './detail.routing';
 import { DetailComponent } from './detail.component';
 import { CommonComponent } from './common/common.component';
 import { SponsorComponent } from './sponsor/sponsor.component';
+import { RelativeComponent } from './relative/relative.component';
 
 @NgModule({
     imports: [
@@ -22,6 +23,7 @@ import { SponsorComponent } from './sponsor/sponsor.component';
         DetailComponent,
         CommonComponent,
         SponsorComponent,
+        RelativeComponent
     ],
 })
 

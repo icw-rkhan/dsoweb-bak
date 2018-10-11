@@ -1,0 +1,66 @@
+.header {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+    background-color: #FAFBFD;
+  
+    .mat-h3 {
+      text-transform: uppercase;
+      flex: 1;
+      margin-bottom: 0;
+      letter-spacing: 0.9px;
+      font-size: 0.8em;
+      font-weight: 500;
+    }
+  
+    .date {
+      color: #D8D8D8;
+    }
+  
+    .mat-body-1 {
+      align-self: center;
+      font-size: 12px;
+      letter-spacing: 0.8px;
+      font-weight: 300;
+      color: #9b9b9b;
+    }
+}
+
+.inner-content.sponsor {
+  border-top: 1px solid #efefef;
+  border-bottom: 1px solid #efefef;
+  padding: 29px 18px;
+
+  .label-sponsor {
+      color: #9b9b9b;
+      font-size: 13px;
+      font-weight: 400
+  }
+
+  .sponsorBtn {
+      color: #ffffff;
+      width: 100%;
+      height: 40px;
+      font-size: 14px;
+      font-weight: 400;
+      margin: 18px;
+      margin-bottom: 0px;
+  }
+
+  .gskBtn {
+      background-color: #6FC9D3;
+  }
+
+  .alignBtn {
+      background-color: #42ABE7;
+  }
+
+  .nobelBtn {
+      background-color: #CA0A13;
+  }
+}
+
+#relative_contents {
+    width: 100%;
+    height: calc(100vh - 230px);
+}

@@ -43,6 +43,13 @@ export class AuthService {
     );
   }
 
+  resetPassword(body: any): Observable<any> {
+    const url = `${environment.profileApiUrl}/userAccount/resetPassWord`;
+    return this.http.post(url, body).pipe(
+      map(this.extractData)
+    );
+  }
+
   sendEmail(body: any) {
     const url = `${environment.profileApiUrl}/emailToken/sendEmail`;
     const formData: FormData = new FormData();

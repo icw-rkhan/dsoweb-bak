@@ -9,7 +9,13 @@
         </mat-select>
       </mat-form-field>
     </div>
-    <dso-feed-grid [posts]="posts" (removeBookmark)="removeBookmark($event)"
-        (addBookmark)="addBookmark($event)" [noFoundMessage]="'Search by category'" (loadMore)="loadMore($event)"></dso-feed-grid>
+    <dso-feed-grid
+      [posts]="posts"
+      [noFoundMessage]="'No content found matching selected category'"
+      [loading] = "isFetching"
+      (removeBookmark)="removeBookmark($event)"
+      (addBookmark)="addBookmark($event)"
+      (loadMore)="loadMore()"
+     ></dso-feed-grid>
   </div>
 </dso-main-container>

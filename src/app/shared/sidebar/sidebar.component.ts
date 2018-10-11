@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { NavLinkModel } from '../../models/nav-link.model';
 import { AuthService, ProfileService } from '../../services';
@@ -10,6 +10,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./sidebar.component.scss']
 })
 export class SidebarComponent {
+  @Output() toggleMenu = new EventEmitter();
   userName: string;
   userspecialtyName: string;
   userPhoto: string;
@@ -58,7 +59,7 @@ export class SidebarComponent {
   }
 
   onClick(link: NavLinkModel) {
-    console.log(link);
+    this.toggleMenu.emit();
     if (link.label === 'Logout') {
       this.authService.logOut();
       this.router.navigate(['/']);

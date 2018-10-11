@@ -12,12 +12,21 @@
     <section class="profile-heading profile-header">
       <div class="profile-img">
         <div class="profile_title">Profile Photo</div>
-        <div class="avatar_profile">
-          <img
-            [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) : '../assets/images/profile/icon_user_profile.png'">
-          <a (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = PHOTO_FILE" class="edit_profile cursor"><span
-            class="edit-icon icons"></span></a>
+        <div *ngIf="croppedImage; else elseBlock" class="avatar_profile">
+          <img [src]="croppedImage">
+          <span class="edit-icon icons"></span>
+          <input type="file" (change)="selectFile($event)" accept="image/*"
+              class="upload-hidden" (click)="typeFile = PHOTO_FILE; isUploadFileSlide = true">
         </div>
+        <ng-template #elseBlock>
+          <div class="avatar_profile">
+            <img [src]="userProfile.photo_url ? (baseUrl + '/photoDownload?' + userProfile.photo_url) :
+              '../assets/images/profile/icon_user_profile.png'">
+            <span class="edit-icon icons"></span>
+            <input type="file" (change)="selectFile($event)" accept="image/*"
+              class="upload-hidden" (click)="typeFile = PHOTO_FILE; isUploadFileSlide = true">
+          </div>
+        </ng-template>
       </div>
     </section>
 
@@ -68,7 +77,7 @@
             <div class="uploaded_profile_subtitle">{{this.resumeFile?.name}}</div>
             <div class="profile-job">{{this.resumeFile?.size / (1024*1024) | number:'.1'}} Mb</div>
           </div>
-          <div class="uploaded_remove">
+          <div class="uploaded_remove" (click)="removeResumeFile()">
             <i class="fa fa-trash"></i>
           </div>
         </div>
@@ -79,15 +88,18 @@
       <div class="profile_title small f300">Experience</div>
       <span class="addNew-icon" (click)="ExperienceModal.show(); isEditExperience = true"></span>
       <div *ngIf="userProfile?.experiences.length; else noExperience">
-        <div *ngFor="let item of userProfile?.experiences; let i = index"
-             (click)="EditExperienceMode(item, i); ExperienceModal.show(); isEditExperience = true"
-             class="profile__content bt">
+        <div *ngFor="let item of userProfile?.experiences; let i = index" class="profile__content bt">
           <div class="profile__icon exp_owner"></div>
           <div class="profile__content_info">
+            <span class="arrow-right" (click)="EditExperienceMode(item, i); ExperienceModal.show(); isEditExperience = true"></span>
             <div class="profile_info">
               <div class="profile_subtitle">{{ item?.practice_Role?.name }}</div>
-              <div class="profile-job">{{ item?.practice_Type?.name }}</div>
-              <div class="date-job">{{ item?.start_time | date:"MMM yyyy":'+0000'}} - {{ item?.end_time | date:"MMM yyyy":'+0000'}}
+              <div class="profile-job">{{ item?.practice_DSO?.name }}</div>
+              <div class="date-job">
+                <span>{{ item?.start_time | date:"MMM yyyy":'+0000'}}</span>
+                <span> - </span>
+                <span *ngIf="item.end_time">{{ item?.end_time | date:"MMM yyyy":'+0000'}}</span>
+                <span *ngIf="!item.end_time">Present</span>
               </div>
             </div>
           </div>
@@ -160,10 +172,12 @@
       <div class="profile_title small f300 mb15 mt10">Contact Info</div>
       <div class="personal-group" *ngIf="is_student">
         <label class="profile_title mb0">Practice address</label>
-        <div class="d-flex">
-          <input (focus)="isPracticeAddress = true; AddressModal.show();" type="text" name=""
-                 class="input-mb"
-                 value="{{ userProfile?.practiceAddress?.address1 }}" contenteditable="false">
+        <div class="d-flex personal-info__address">
+          <div class="personal-info__address-info" (click)="isPracticeAddress = true; AddressModal.show();">
+            <span *ngIf="userProfile?.practiceAddress?.address1">{{userProfile.practiceAddress.address1}}</span>
+            <span *ngIf="userProfile?.practiceAddress?.address2">{{userProfile.practiceAddress.address2}}</span>
+            <span *ngIf="userProfile?.practiceAddress">{{userProfile.practiceAddress.city}}, {{userProfile.practiceAddress.states}} {{userProfile.practiceAddress.zipCode}}</span>
+          </div>
           <span class="arrow-right-input" (click)="isPracticeAddress = true; AddressModal.show();"></span>
         </div>
         <div class="personal-underline"></div>
@@ -198,12 +212,23 @@
   <div class="modal-container" [@slideUpDown]="isUploadFileSlide ? 'up': 'down'">
     <div class="upload-content">
       <div class="profile_title small f300 mb10">Upload {{typeFile == RESUME_FILE ? 'Resume': 'Photo'}}</div>
-      <div class="upload-browse">
-        <input type="file" *ngIf="typeFile == RESUME_FILE" accept=".xls,.xlsx,.doc,.docx" (input)="selectFile($event)"
-               class="upload-hidden">
-        <input type="file" *ngIf="typeFile == PHOTO_FILE" (input)="selectFile($event)" accept="image/*"
+      <div *ngIf="typeFile == RESUME_FILE" class="upload-browse">
+        <input type="file" accept=".xls,.xlsx,.doc,.docx" (change)="selectFile($event)"
                class="upload-hidden">
         <span class="type-upload">Browse</span>
+      </div>
+      <div *ngIf="typeFile == PHOTO_FILE"  class="edit-image">
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1"
+          [resizeToWidth]="115"
+          [format]="imageFormat"
+          (imageCroppedBase64)="imageCropped($event)"
+          (imageCroppedFile)="imageCroppedFile($event)"
+          (imageLoaded)="imageLoaded()"
+          (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
       </div>
     </div>
   </div>
@@ -229,8 +254,8 @@
                 (addResidency)="addResidency($event)"></dso-residency-add>
 
         <dso-residency-edit *ngIf="residency_page == RESIDENCY_EDIT" (deleteResidency)="deleteResidency()"
-                            (cancelResidency)="cancelResidency()" (updateResidency)="updateResidency($event)"
-                            [residency]="residency"></dso-residency-edit>
+                            (cancelResidency)="cancelResidency()" (updateResidency)="updateResidency($event)" 
+                            (selectResidency)="selectResidency()" [residency]="residency"></dso-residency-edit>
       </div>
     </div>
   </div>
@@ -256,10 +281,12 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
-        <app-practice-address [userPracticeAddress]="userProfile.practiceAddress"
-                              (closeModal)="closeAddressModal()"
-                              (setPracticeAddress)="setPracticeAddress($event)"
-                              *ngIf="isPracticeAddress"></app-practice-address>
+        <app-practice-address
+          [address]="userProfile.practiceAddress"
+          (closeModal)="closeAddressModal()"
+          (setPracticeAddress)="setPracticeAddress($event)"
+          *ngIf="isPracticeAddress">
+        </app-practice-address>
       </div>
     </div>
   </div>
@@ -275,6 +302,7 @@
                              (closeModal)="ExperienceModal.hide(); isEditExperience = false;"
                              (addExperience)="addExperience($event)"
                              (editExperience)="editExperience($event)"
+                             (deleteExperience)="ExperienceModal.hide(); deleteExperience($event)"
         ></app-edit-experience>
       </div>
     </div>
@@ -291,10 +319,15 @@
                               [education]="education"
                               [listSchool]="metadata.dentalSchool"
                               *ngIf="education_page == RESIDENCY_AT"></dso-education-search>
-        <dso-education-edit (saveEducation)="saveEducation($event)" [education]="education"
-                            (selectEducation)="selectEducation()"
-                            [typeEducation]="typeEducation" (delete)="onDeleteEducation()"
-                            *ngIf="education_page == RESIDENCY_EDIT"></dso-education-edit>
+        <dso-education-edit
+          (saveEducation)="saveEducation($event)"
+          [education]="education"
+          (selectEducation)="selectEducation()"
+          [typeEducation]="typeEducation"
+          (delete)="onDeleteEducation()"
+          (cancel)="onCancelEducation()"
+          *ngIf="education_page == RESIDENCY_EDIT"
+         ></dso-education-edit>
       </div>
     </div>
   </div>
