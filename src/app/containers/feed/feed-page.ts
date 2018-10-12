@@ -13,6 +13,7 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   url: string;
   isGeneral: boolean;
   slideUrls: string[];
+  slideHeight: string;
   headerImageUrl: string;
   navLinks: NavLinkModel[] = [];
 
@@ -53,6 +54,8 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.slideHeight = `${Math.round(document.body.clientWidth * 0.56)}px`;
+
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
