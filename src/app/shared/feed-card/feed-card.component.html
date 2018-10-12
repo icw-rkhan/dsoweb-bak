@@ -21,19 +21,27 @@
       <div class="content-title">
         <h2 class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></h2>
         <div class="actions">
-          <button mat-icon-button class="btn-ctrl" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+          <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
-          </button>
-          <button mat-icon-button class="btn-ctrl" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+          </a>
+          <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
-          </button>
-          <button mat-icon-button class="btn-ctrl" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+          </a>
+          <a class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
             <mat-icon aria-label="Options">more_vert</mat-icon>
-          </button>
+          </a>
           <mat-menu #menu="matMenu" xPosition="before">
-            <p><a mat-menu-item url="{{post.link}}" shareButton="facebook">to facebook</a></p>
-            <p><a mat-menu-item url="{{post.link}}" shareButton="twitter">to twitter</a></p>
-            <p><a mat-menu-item url="{{post.link}}" shareButton="linkedin">to linkedin</a></p>
+            <div class="share-content">
+              <a class="bookmark-btn" url="{{post.link}}" shareButton="facebook">
+                <img class="share-btn" src="assets/images/icon-facebook.png">
+              </a>
+              <a class="bookmark-btn" url="{{post.link}}" shareButton="twitter">
+                <img class="share-btn" src="assets/images/icon-twitter.png">
+              </a>
+              <a class="menu-btn" url="{{post.link}}" shareButton="linkedin">
+                <img class="share-btn" src="assets/images/icon-linkediin.png">
+              </a>
+            </div>
           </mat-menu>
         </div>
       </div>

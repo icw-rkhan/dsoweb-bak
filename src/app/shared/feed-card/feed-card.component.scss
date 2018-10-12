@@ -65,13 +65,28 @@ mat-card {
 }
 
 .actions {
-  button {
+  .menu-btn {
+    color: lightslategrey;
+    margin-left: 5px;
+  }
+
+  .bookmark-btn {
     color: lightslategrey;
   }
 
-  button:first-child {
-    margin-right: 5px;
+  .mat-icon {
+    margin-top: 4px;
   }
+}
+
+.share-btn {
+  width: 35px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.share-content {
+  padding-left: 10px;
 }
 
 .inner-content {
@@ -101,10 +116,6 @@ mat-card {
       height: auto;
     }
   }
-}
-
-.btn-ctrl {
-  width: 28px;
 }
 
 .excerpt-content {

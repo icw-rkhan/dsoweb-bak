@@ -20,25 +20,28 @@
     <div fxFlex="80" class="title">
         <span>{{post.title}}</span>
     </div>
-    <div fxFlex="20" fxLayoutAlign="end top">
-        <button mat-icon-button class="btn-ctrl bookmarkBtn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
-                <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
-        </button>
-        <button mat-icon-button class="btn-ctrl bookmarkBtn" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+    <div class="actions" fxFlex="20" fxLayoutAlign="end top">
+        <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+            <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
+        </a>
+        <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
-        </button>
-        <button mat-icon-button class="btn-ctrl moreBtn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+        </a>
+        <a class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
             <mat-icon aria-label="Options">more_vert</mat-icon>
-        </button>
+        </a>
         <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
-        </mat-menu>
-        <mat-menu #submenu="matMenu">
-            <ng-template matMenuContent>
-                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="facebook">to facebook</a></p>
-                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="twitter">to twitter</a></p>
-                <p><a mat-menu-item url="{{post.thumbnail}}" shareButton="linkedin">to linkedin</a></p>
-            </ng-template>
+            <div class="share-content">
+                <a url="{{post.link}}" shareButton="facebook">
+                    <img class="share-btn" src="assets/images/icon-facebook.png">
+                </a>
+                <a url="{{post.link}}" shareButton="twitter">
+                    <img class="share-btn" src="assets/images/icon-twitter.png">
+                </a>
+                <a url="{{post.link}}" shareButton="linkedin">
+                    <img class="share-btn" src="assets/images/icon-linkediin.png">
+                </a>
+            </div>
         </mat-menu>
     </div>
 </div>
@@ -111,25 +114,28 @@
     <dso-review-card [comment]="comment" *ngFor="let comment of comments | slice:0:3"></dso-review-card>
 </div>
 <div class="inner-content" fxLayout="row">
-    <div fxFlex="100" fxLayoutAlign="end top">
-        <button mat-icon-button class="btn-ctrl bookmarkBtn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
-                <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
-        </button>
-        <button mat-icon-button class="btn-ctrl bookmarkBtn" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+    <div class="actions" fxFlex="100" fxLayoutAlign="end top">
+        <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+            <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
+        </a>
+        <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
-        </button>
-        <button mat-icon-button class="btn-ctrl moreBtn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+        </a>
+        <a class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
             <mat-icon aria-label="Options">more_vert</mat-icon>
-        </button>
+        </a>
         <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
-        </mat-menu>
-        <mat-menu #submenu="matMenu">
-            <ng-template matMenuContent>
-                <p><a mat-menu-item url="{{post.link}}" shareButton="facebook">to facebook</a></p>
-                <p><a mat-menu-item url="{{post.link}}" shareButton="twitter">to twitter</a></p>
-                <p><a mat-menu-item url="{{post.link}}" shareButton="linkedin">to linkedin</a></p>
-            </ng-template>
+            <div class="share-content">
+                <a url="{{post.link}}" shareButton="facebook">
+                    <img class="share-btn" src="assets/images/icon-facebook.png">
+                </a>
+                <a url="{{post.link}}" shareButton="twitter">
+                    <img class="share-btn" src="assets/images/icon-twitter.png">
+                </a>
+                <a url="{{post.link}}" shareButton="linkedin">
+                    <img class="share-btn" src="assets/images/icon-linkediin.png">
+                </a>
+            </div>
         </mat-menu>
     </div>
 </div>

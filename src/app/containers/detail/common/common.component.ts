@@ -1,7 +1,7 @@
-import {Component, OnInit, OnDestroy } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { formatDate } from '@angular/common';
 import { Subscription } from 'rxjs';
 
@@ -35,6 +35,8 @@ export class CommonComponent implements OnInit, OnDestroy {
     {status: 'inactive'},
     {status: 'inactive'}
   ];
+
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   constructor(
     private route: ActivatedRoute,
@@ -74,6 +76,11 @@ export class CommonComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.paramsSub.unsubscribe();
+  }
+
+  @HostListener('window:scroll', [])
+  onWindowScroll() {
+    this.trigger.closeMenu();
   }
 
   // custome the style of the content
