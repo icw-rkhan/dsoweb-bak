@@ -1,6 +1,7 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { NavLinkModel } from '../../models/nav-link.model';
+import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
+
+import { NavLinkModel } from '../../models/nav-link.model';
 import { Params } from '@angular/router/src/shared';
 import { Subscription } from 'rxjs';
 
@@ -19,7 +20,6 @@ export class FeedPageComponent implements OnInit, OnDestroy {
 
   private currentUrl: string;
   private routerSubs: Subscription;
-  private paramsSub: Subscription;
 
   constructor(private router: Router, private route: ActivatedRoute) {
     this.currentUrl = router.url;
@@ -54,7 +54,7 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.slideHeight = `${Math.round(document.body.clientWidth * 0.56)}px`;
+    this.slideHeight = `${Math.round(document.body.clientWidth * 0.55)}px`;
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -82,6 +82,11 @@ export class FeedPageComponent implements OnInit, OnDestroy {
         });
       }
     });
+  }
+
+  @HostListener('window:resize', ['$event'])
+  onresize(event) {
+    this.slideHeight = `${Math.round(document.body.clientWidth * 0.55)}px`;
   }
 
   ngOnDestroy(): void {
