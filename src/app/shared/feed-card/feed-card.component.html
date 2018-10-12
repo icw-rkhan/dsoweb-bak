@@ -31,14 +31,9 @@
             <mat-icon aria-label="Options">more_vert</mat-icon>
           </button>
           <mat-menu #menu="matMenu" xPosition="before">
-            <button mat-menu-item [matMenuTriggerFor]="submenu">Share</button>
-          </mat-menu>
-          <mat-menu #submenu="matMenu">
-              <ng-template matMenuContent>
-                  <p><a mat-menu-item url="{{post.link}}" shareButton="facebook">to facebook</a></p>
-                  <p><a mat-menu-item url="{{post.link}}" shareButton="twitter">to twitter</a></p>
-                  <p><a mat-menu-item url="{{post.link}}" shareButton="linkedin">to linkedin</a></p>
-              </ng-template>
+            <p><a mat-menu-item url="{{post.link}}" shareButton="facebook">to facebook</a></p>
+            <p><a mat-menu-item url="{{post.link}}" shareButton="twitter">to twitter</a></p>
+            <p><a mat-menu-item url="{{post.link}}" shareButton="linkedin">to linkedin</a></p>
           </mat-menu>
         </div>
       </div>
