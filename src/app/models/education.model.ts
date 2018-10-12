@@ -4,7 +4,8 @@ export class Education implements Serializable<Education> {
     id?: number;
     name: string;
     year: number;
-    types: number;//1 for US school, 0 for non US school
+    alias: string;
+    types: number; // 1 for US school, 0 for non US school
 
     deserialize(data: any): Education {
         if (data.id) {
@@ -12,12 +13,14 @@ export class Education implements Serializable<Education> {
                 id: data.id,
                 name: data.name,
                 year: data.year || null,
+                alias: data.alias || null,
                 types: data.types
             });
         }
         return <Education>Object.assign({}, {
             name: data.name,
             year: data.year || null,
+            alias: data.alias || null,
             types: data.types
         });
     }

@@ -4,8 +4,9 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { forkJoin } from 'rxjs';
 
+import { DentalSchool } from '../models/dental-school.model';
+
 import { environment } from '../../environments/environment';
-import {post} from 'selenium-webdriver/http';
 
 @Injectable({
   providedIn: 'root'
@@ -103,10 +104,24 @@ export class ProfileService {
 
   uploadAvatar(f) {
     const url = `${environment.profileApiUrl}/photoUpload`;
+
     const form = new FormData();
     form.append('file', f);
+
     const headers = this.customHeader();
     return this.http.post(url, form, { headers: headers });
+  }
+
+  dentalSchoolByAlias(alias) {
+    const url = `${environment.profileApiUrl}/dentalSchool/getAllSchoolByAlias`;
+
+    const form = new FormData();
+    form.append('alias', alias);
+
+    const headers = this.customHeader();
+    return this.http.post(url, form, { headers: headers}).pipe(
+      map((response: any) => response.resultMap.data.map(post => new DentalSchool().deserialize(post)))
+    );
   }
 
   private extractData(res: Response) {
