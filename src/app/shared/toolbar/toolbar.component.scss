@@ -14,6 +14,11 @@ div {
   flex-direction: row;
   flex: 1;
   letter-spacing: 1px;
+
+  .topic-image {
+    height: 30px;
+    width: auto;
+  }
 }
 
 button {

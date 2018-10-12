@@ -2,7 +2,10 @@
     <button mat-icon-button (click)="onClickEvent()" class="btn-menu">
       <mat-icon>{{btnTitle}}</mat-icon>
     </button>
-    <h3 id="topic-title" class="mt-h3 topic-title">{{title}}</h3>
+    <h3 class="mt-h3 topic-title">
+      {{title?title:''}}
+      <img *ngIf="!title" class="topic-image" src="assets/images/logo2.png">
+    </h3>
     <div *ngIf="url == '/profile'" class="navbar-edit-profile">
       <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
     </div>

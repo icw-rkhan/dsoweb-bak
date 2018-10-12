@@ -33,16 +33,17 @@ export class ProfileService {
 
   getMetaData(specialty): Observable<any> {
     const headers: any = this.customHeader();
+    console.log(headers);
+
     const url1 = `${environment.profileApiUrl}/residencySpecialty/findAllSpecialty`;
     const url2 = `${environment.profileApiUrl}/dentalSchool/getAll`;
     const url3 = `${environment.profileApiUrl}/experience/findAllPracticeRole`;
     const url4 = `${environment.profileApiUrl}/experience/findAllPracticeType`;
-    // const url5 = `${environment.profileApiUrl}/experience/findAllPracticeDSO`;
     const url5 = `${environment.profileApiUrl}/experience/findAllPracticeDSO`;
     const url6 = `${environment.profileApiUrl}/residencySpecialty/findAllResidency`;
-    const url7 = `${environment.profileApiUrl}/residencySpecialty/getResidencyBySpecialty`;
+
     const formData = this.parseFormData({ name: '' });
-    // const formData6 = this.parseFormData({ zip: '' });
+
     return forkJoin(
       this.http.post(url1, {}, { headers: headers }).pipe(
         map(this.extractData)
@@ -62,15 +63,6 @@ export class ProfileService {
       this.http.post(url6, formData, { headers: headers }).pipe(
         map(this.extractData)
       ),
-      // this.http.post(url7, { specialtyId: specialty }, { headers: headers }).pipe(
-      //   map(this.extractData)
-      // ),
-      // this.http.post(url5, formData, { headers: headers }).pipe(
-      //   map(this.extractData)
-      // ),
-      // this.http.post(url6, formData6, { headers: headers }).pipe(
-      //   map(this.extractData)
-      // )
     );
   }
 
@@ -97,12 +89,12 @@ export class ProfileService {
 
   uploadResume(f) {
     const url = `${environment.profileApiUrl}/resumeUpload`;
-    let form = new FormData();
+    const form = new FormData();
     form.append('file', f);
     return this.http.request(new HttpRequest(
       'POST',
       url,
-      form, 
+      form,
       {
         reportProgress: true
       }
@@ -111,7 +103,7 @@ export class ProfileService {
 
   uploadAvatar(f) {
     const url = `${environment.profileApiUrl}/photoUpload`;
-    let form = new FormData();
+    const form = new FormData();
     form.append('file', f);
     const headers = this.customHeader();
     return this.http.post(url, form, { headers: headers });
