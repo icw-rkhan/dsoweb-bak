@@ -1,6 +1,6 @@
 <mat-card>
   <mat-card-content class="bookmark-card">
-    <div class="image" (click)="onPostBookmark(post.id, post.tags)">
+    <div *ngIf="post.thumbnail" class="image" (click)="onPostBookmark(post.id, post.tags)">
       <img class="bookmark-image" [src]="post.thumbnail">
     </div>
     <div class="information" (click)="onPostBookmark(post.id, post.tags)">
