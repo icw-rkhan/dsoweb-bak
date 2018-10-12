@@ -25,7 +25,7 @@ export class ToolbarComponent {
           this.btnTitle = 'menu';
 
         } else if (event.url.includes('/posts')) {
-            this.title = null;
+            this.title = 'DSODENTIST';
             this.btnTitle = 'menu';
 
         } else if (event.url.includes('/reviews/add')) {
@@ -61,7 +61,7 @@ export class ToolbarComponent {
           this.btnTitle = 'menu';
 
         } else {
-          this.title = null;
+          this.title = 'DSODENTIST';
           this.btnTitle = 'menu';
         }
       }
