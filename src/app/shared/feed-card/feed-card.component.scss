@@ -12,7 +12,7 @@ mat-card {
   display: flex;
   flex-direction: row;
   padding: 10px 20px;
-  background-color: #FAFBFD;
+  background-color: #cececf;
 
   .mat-h3 {
     text-transform: uppercase;
@@ -39,7 +39,7 @@ mat-card {
 
 .content {
   display: block;
-  padding: 10px 20px;
+  padding: 28px 20px 10px;
 }
 
 .image {
@@ -61,6 +61,8 @@ mat-card {
     flex: 1;
     color: #354051;
     cursor: pointer;
+    font-size: 20px;
+    line-height: 24px;
   }
 }
 
