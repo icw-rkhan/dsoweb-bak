@@ -44,11 +44,19 @@ mat-card {
 
 .image {
   text-align: center;
+  position: relative;
 
   img {
     width: 100%;
     height: auto;
     margin-bottom: -10px;
+  }
+
+  .type-icon {
+    width: 40px;
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
   }
 }
 
