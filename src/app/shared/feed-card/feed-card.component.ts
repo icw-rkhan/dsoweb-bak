@@ -50,6 +50,10 @@ export class FeedCardComponent {
     return tags.includes(sponsorId);
   }
 
+  onCheckCategoryType(categories, catId: number) {
+    return categories.filter(category => category.id === catId).length > 0;
+  }
+
   onViewMore(e) {
     this.isViewMore = !this.isViewMore;
 

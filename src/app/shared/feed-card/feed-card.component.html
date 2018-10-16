@@ -6,6 +6,12 @@
   <mat-card-content>
     <div class="image" *ngIf="post.thumbnail; else elseBlock" (click)="onViewDetail()">
       <img [src]="post.thumbnail"/>
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.categories, 28)" src="/assets/images/Article@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.categories, 194)" src="/assets/images/Interview@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.categories, 30)" src="/assets/images/Podcast@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.categories, 31)" src="/assets/images/TechGuide@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.categories, 29)" src="/assets/images/Video@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.categories, 196)" src="/assets/images/TipSheet@2x.png" />
     </div>
     <ng-template #elseBlock>
       <div class="image sponsor" (click)="onViewDetail()">
