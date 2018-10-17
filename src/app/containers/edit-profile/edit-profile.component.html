@@ -75,7 +75,7 @@
         <div  class="uploaded_profile__content_info">
           <div class="uploaded_profile_info">
             <div class="uploaded_profile_subtitle">{{this.resumeFile?.name}}</div>
-            <div class="profile-job">{{this.resumeFile?.size / (1024*1024) | number:'.1'}} Mb</div>
+            <div class="profile-job" *ngIf="this.resumeFile.size">{{this.resumeFile?.size / (1024*1024) | number:'.1'}} Mb</div>
           </div>
           <div class="uploaded_remove" (click)="removeResumeFile()">
             <i class="fa fa-trash"></i>
