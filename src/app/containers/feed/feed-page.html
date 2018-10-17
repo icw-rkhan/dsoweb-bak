@@ -9,10 +9,18 @@
     </slideshow>
   </div>
   <nav mat-tab-nav-bar>
-    <a mat-tab-link #rla="routerLinkActive" *ngFor="let link of navLinks" [routerLink]="link.route" routerLinkActive
+    <div *ngFor="let link of navLinks" >
+      <a *ngIf="link.route" mat-tab-link #rla="routerLinkActive" [routerLink]="link.route" routerLinkActive
        [class.active]="isActive(link)">
-      {{link.label}}
-    </a>
+       {{link.label}}
+      </a>
+      <mat-menu #submenu="matMenu" yPosition="below" [overlapTrigger]="false">
+        <a mat-menu-item *ngFor="let subLink of link.subMenu" [routerLink]="subLink.route" routerLinkActive>{{subLink.label}}</a>
+      </mat-menu>
+      <a mat-tab-link [matMenuTriggerFor]="submenu" *ngIf="link.subMenu">
+        {{link.label}}
+      </a>
+    </div>
   </nav>
   <router-outlet></router-outlet>
 </dso-main-container>

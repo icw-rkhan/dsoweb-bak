@@ -118,20 +118,29 @@ export class FeedPageComponent implements OnInit, OnDestroy {
         route: `/posts/sponsor/${sponsorId}/30`,
       });
       navLinks.push({
+        label: 'SPONSORED',
+        subMenu: [
+          {
+            label: 'Align Technology',
+            route: `/posts/sponsor/260`
+          },
+          {
+            label: 'GlaxoSmithKline',
+            route: `/posts/sponsor/197`
+          },
+          {
+            label: 'Nobel Biocare',
+            route: `/posts/sponsor/259`
+          }
+        ],
+      });
+      navLinks.push({
         label: 'TECH GUIDES',
         route: `/posts/sponsor/${sponsorId}/31`,
       });
       navLinks.push({
-        label: 'ANIMATIONS',
-        route: `/posts/sponsor/${sponsorId}/195`,
-      });
-      navLinks.push({
         label: 'INTERVIEWS',
         route: `/posts/sponsor/${sponsorId}/194`,
-      });
-      navLinks.push({
-        label: 'TIP SHEETS',
-        route: `/posts/sponsor/${sponsorId}/196`,
       });
     } else {
       navLinks.push({
@@ -151,20 +160,29 @@ export class FeedPageComponent implements OnInit, OnDestroy {
         route: '/posts/type/30',
       });
       navLinks.push({
+        label: 'SPONSORED',
+        subMenu: [
+          {
+            label: 'Align Technology',
+            route: `/posts/sponsor/260`
+          },
+          {
+            label: 'GlaxoSmithKline',
+            route: `/posts/sponsor/197`
+          },
+          {
+            label: 'Nobel Biocare',
+            route: `/posts/sponsor/259`
+          }
+        ],
+      });
+      navLinks.push({
         label: 'TECH GUIDES',
         route: '/posts/type/31',
       });
       navLinks.push({
-        label: 'ANIMATIONS',
-        route: '/posts/type/195',
-      });
-      navLinks.push({
         label: 'INTERVIEWS',
         route: '/posts/type/194',
-      });
-      navLinks.push({
-        label: 'TIP SHEETS',
-        route: '/posts/type/196',
       });
     }
     return navLinks;
