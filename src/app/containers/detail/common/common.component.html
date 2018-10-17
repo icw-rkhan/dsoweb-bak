@@ -35,8 +35,11 @@
     </div>
 </div>
 <div id="tLoad" [innerHtml]="post.content" hidden></div>
-<div class="author">
-    <div id="container">
+<div id="container" class="author" fxLayout="row" fxLayoutAlign="start center">
+    <div class="author-avatar">
+        <img src="assets/images/logo-icon.png">
+    </div>
+    <div fxLayout="column" fxLayoutAlign="start start">
         <p id="author-name">
             {{fetchAuthorInfo()}}
             {{authorName}}

@@ -194,12 +194,15 @@ export class SponsorComponent implements OnInit, OnDestroy {
   }
 
   activeAuthorLayout() {
-    document.getElementById('container').style.height = '58px';
+    document.getElementById('container').style.minHeight = '58px';
     document.getElementById('container').style.borderTop = '1px solid #e9edf1';
     document.getElementById('container').style.borderBottom = '1px solid #e9edf1';
-    document.getElementById('container').style.padding = '12px 10px';
+    document.getElementById('container').style.marginLeft = '19px';
+    document.getElementById('container').style.padding = '12px 0px';
 
-    document.getElementById('author-info').style.marginTop = '8px';
+    if (this.authorInfo) {
+      document.getElementById('author-info').style.marginTop = '5px';
+    }
   }
 
   // filter categories
