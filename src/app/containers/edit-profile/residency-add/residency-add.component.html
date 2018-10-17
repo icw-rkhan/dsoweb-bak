@@ -18,7 +18,7 @@
       </div> 
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Year of Completion</label>
-        <input type="number" name="" class="input-mb" (keydown)="keyDown($event)" (input)="changeYear($event)" [value]="year">
+        <input type="text" name="" class="input-mb" (keydown)="keyDown($event)" (input)="changeYear($event)" [value]="year">
         <span *ngIf="isError" class="text-danger">Please enter valid year (1950-now)</span>
         <span class="edit-practice"></span>
       </div> 

@@ -16,7 +16,7 @@ export class ResidencyAddComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
-    if (this.residency) {
+    if (this.residency && this.residency.year) {
       this.year = this.residency.year;
     } else {
       this.year = null;
