@@ -160,6 +160,10 @@ export class EditProfileComponent implements OnInit {
         this.speciality = this.userProfile.specialty ? this.userProfile.specialty : {};
         this.userProfile['is_student'] = this.is_student;
         this.parseData();
+        if (this.userProfile.document_library) {
+          this.resumeFile = {};
+          this.resumeFile.name = this.userProfile.document_library.document_name || '';
+        }
       }
     );
   }
@@ -240,7 +244,6 @@ export class EditProfileComponent implements OnInit {
         (<any[]>this.userProfile.experiences).splice(this.editProfileService.S_editIndex, 1);
       }
     }
-    console.log(this.userProfile.experiences, this.editProfileService.S_editIndex);
     this.editProfileService.S_editIndex = -1;
     this.editProfileService.S_experience = {};
     this.editProfileService.S_experienceEdit = undefined;
@@ -403,6 +406,7 @@ export class EditProfileComponent implements OnInit {
   }
   removeResumeFile() {
     this.resumeFile = null;
+    this.userProfile.document_library = null;
   }
   imageCropped(image: string) {
     this.croppedImage = image;
