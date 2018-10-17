@@ -16,6 +16,13 @@ nav {
   }
 }
 
+.mat-menu-item {
+  font-size: 14px;
+  font-weight: 400;
+  opacity: .6;
+  color: rgba(0,0,0,.87);
+}
+
 .mat-tab-label-active {
   background-color: #f7f7f7;
 }
