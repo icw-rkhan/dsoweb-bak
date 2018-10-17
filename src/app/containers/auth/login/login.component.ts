@@ -87,15 +87,24 @@ export class LoginComponent implements OnInit {
   submit() {
     this.sharingService.showLoading̣̣(true);
     this.form.value.username = this.form.value.username.toLowerCase();
-    this.authService.login(this.form.value).subscribe(
+    const subLogin = this.authService.login(this.form.value).subscribe(
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
+          subLogin.unsubscribe();
+
           this.router.navigate(['/posts']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'login');
+
+          subLogin.unsubscribe();
         }
+      },
+      err => {
+
+        this.sharingService.showLoading̣̣(false);
+        subLogin.unsubscribe();
       }
     );
   }

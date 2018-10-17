@@ -63,6 +63,11 @@ export class CommonComponent implements OnInit, OnDestroy {
         this.comments = c;
 
         commentSub.unsubscribe();
+      },
+      err => {
+
+        this.progress.complete();
+        commentSub.unsubscribe();
       });
 
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
@@ -70,7 +75,16 @@ export class CommonComponent implements OnInit, OnDestroy {
 
         this.progress.complete();
         postSub.unsubscribe();
+      },
+      err => {
+
+        this.progress.complete();
+        postSub.unsubscribe();
       });
+    },
+    err => {
+
+      this.progress.complete();
     });
   }
 

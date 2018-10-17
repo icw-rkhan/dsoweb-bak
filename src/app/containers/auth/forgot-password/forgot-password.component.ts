@@ -47,7 +47,7 @@ export class ForgotPasswordComponent implements OnInit {
 
   sendEmail() {
     this.sharingService.showLoading̣̣(true);
-    this.authService.sendEmail(this.form.value).subscribe(
+    const subEmail = this.authService.sendEmail(this.form.value).subscribe(
       (data: any) => {
         if (!data.code) {
           this.alertService.successAlert('Your new password is on its way to your email address.')
@@ -59,7 +59,14 @@ export class ForgotPasswordComponent implements OnInit {
         } else if (data.code === 1003) {
           this.isError = true;
         }
+
         this.sharingService.showLoading̣̣(false);
+        subEmail.unsubscribe();
+      },
+      err => {
+
+        this.sharingService.showLoading̣̣(false);
+        subEmail.unsubscribe();
       }
     );
   }

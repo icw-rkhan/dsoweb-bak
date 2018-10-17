@@ -91,11 +91,15 @@ export class CategoryPageComponent implements OnInit {
       }
 
       this.isFetching = false;
+
       this.progress.complete();
       postsSubs.unsubscribe();
     }, err => {
+
       this.isFetching = false;
+
       this.progress.complete();
+      postsSubs.unsubscribe();
     });
   }
 

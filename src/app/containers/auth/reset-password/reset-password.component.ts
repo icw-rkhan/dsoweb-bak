@@ -73,7 +73,7 @@ export class ResetPasswordComponent implements OnInit {
 
   onResetPwd() {
     this.sharingService.showLoading̣̣(true);
-    this.authService.resetPassword({username: this.email, ...this.form.value}).subscribe(
+    const subResetPwd = this.authService.resetPassword({username: this.email, ...this.form.value}).subscribe(
       (data: any) => {
         if (!data.code) {
           this.authService.login({
@@ -82,17 +82,25 @@ export class ResetPasswordComponent implements OnInit {
           }).subscribe(
             (loginResponse: any) => {
               this.sharingService.showLoading̣̣(false);
+              subResetPwd.unsubscribe();
+
               if (!data.code) {
                 this.authService.loginSuccess(loginResponse);
                 this.router.navigate(['/posts']);
               }
+            },
+            err => {
+
+              this.sharingService.showLoading̣̣(false);
+              subResetPwd.unsubscribe();
             }
-          )
+          );
         } else {
           this.sharingService.showLoading̣̣(false);
+          subResetPwd.unsubscribe();
           this.apiError.checkError(data.code, this.form.value, 'reset_password');
         }
       }
-    )
+    );
   }
 }

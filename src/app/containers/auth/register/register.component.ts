@@ -84,15 +84,22 @@ export class RegisterComponent implements OnInit {
   submit() {
     this.sharingService.showLoading̣̣(true);
     this.form.value.username = this.form.value.username.toLowerCase();
-    this.authService.register(this.form.value).subscribe(
+    const subRegister = this.authService.register(this.form.value).subscribe(
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
+
+          subRegister.unsubscribe();
           this.router.navigate(['/posts']);
         } else {
           this.apiError.checkError(data.code, this.form.value, 'register');
         }
+      },
+      err => {
+
+        this.sharingService.showLoading̣̣(false);
+        subRegister.unsubscribe();
       }
     );
   }

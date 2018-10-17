@@ -42,6 +42,7 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
       } else {
         this.fetchBookmarks(result);
       }
+
       dialogSub.unsubscribe();
     });
   }
@@ -83,10 +84,16 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
             if (bookmarks.length === ++bookmarksLength) {
               this.posts = posts;
             }
+
+            this.progress.complete();
+            innerSub.unsubscribe();
+          },
+          err => {
+
+            this.progress.complete();
             innerSub.unsubscribe();
           });
       });
-      this.progress.complete();
     });
   }
 

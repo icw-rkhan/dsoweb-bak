@@ -20,7 +20,7 @@ export class BookmarkFilterDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.categoryService.categories.subscribe(date => {
+    const subCategory = this.categoryService.categories.subscribe(date => {
       const categoryList = [];
       let i = 0;
       for (i = 0; i < date.length; i++) {
@@ -31,6 +31,11 @@ export class BookmarkFilterDialogComponent implements OnInit {
       }
 
       this.categories = categoryList;
+
+      subCategory.unsubscribe();
+    },
+    err => {
+      subCategory.unsubscribe();
     });
 
     this.contentTypes = [];
