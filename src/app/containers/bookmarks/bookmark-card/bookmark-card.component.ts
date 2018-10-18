@@ -1,6 +1,7 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from '../../../models/post.model';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'dso-bookmark-card',
@@ -33,7 +34,9 @@ export class BookmarkCardComponent {
   }
   // post a bookmark by url
   onPostBookmark(postId, tags) {
-    if (tags.includes(197) || tags.includes(260) || tags.includes(259)) {
+    if (tags.includes(environment.SPONSOR_GSK) ||
+        tags.includes(environment.SPONSOR_ALIGN) ||
+        tags.includes(environment.SPONSOR_NOBEL)) {
       this.router.navigate([`/detail/sponsor/${postId}`]);
     } else {
       this.router.navigate([`/detail/${postId}`]);

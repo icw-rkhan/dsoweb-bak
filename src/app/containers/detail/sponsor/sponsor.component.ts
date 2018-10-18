@@ -12,6 +12,7 @@ import { AuthService } from '../../../services';
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
+import { environment } from '../../../../environments/environment'
 
 @Component({
   selector: 'dso-detail-sponsor',
@@ -257,14 +258,14 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   // post sponsor article by postId
   onPostSponsor(type) {
-    let sponsorId: number;
+    let sponsorId;
 
     if (type === 'gsk') {
-      sponsorId = 197;
+      sponsorId = environment.SPONSOR_GSK;
     } else if (type === 'align') {
-      sponsorId = 260;
+      sponsorId = environment.SPONSOR_ALIGN;
     } else if (type === 'nobel') {
-      sponsorId = 259;
+      sponsorId = environment.SPONSOR_NOBEL;
     }
 
     this.router.navigate([`/posts/sponsor/${sponsorId}`]);
@@ -307,7 +308,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   // check gsk tag
   isGsk(tags): boolean {
-    if (tags && tags.includes(197)) {
+    if (tags && tags.includes(environment.SPONSOR_GSK)) {
       return true;
     }
     return false;
@@ -315,7 +316,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   // check align tag
   isAlign(tags): boolean {
-    if (tags && tags.includes(260)) {
+    if (tags && tags.includes(environment.SPONSOR_ALIGN)) {
       return true;
     }
     return false;
@@ -323,7 +324,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   // check nobel tag
   isNobel(tags): boolean {
-    if (tags && tags.includes(259)) {
+    if (tags && tags.includes(environment.SPONSOR_NOBEL)) {
       return true;
     }
     return false;

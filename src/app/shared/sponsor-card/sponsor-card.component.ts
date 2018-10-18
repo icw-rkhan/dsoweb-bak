@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
 import { AuthService } from '../../services';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'dso-sponsor-card',
@@ -37,7 +38,9 @@ export class SponsorCardComponent {
   }
 
   onViewDetail() {
-    if (this.post.tags.includes(197) || this.post.tags.includes(260) || this.post.tags.includes(259)) {
+    if (this.post.tags.includes(parseInt(environment.SPONSOR_ALIGN)) ||
+        this.post.tags.includes(parseInt(environment.SPONSOR_GSK)) ||
+        this.post.tags.includes(parseInt(environment.SPONSOR_NOBEL))) {
       this.router.navigate([`/detail/sponsor/${this.post.id}`]);
     } else {
       this.router.navigate([`/detail/${this.post.id}`]);
