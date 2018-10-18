@@ -17,10 +17,10 @@
         (click)="onPostSponsor('nobel')">
 </div>
 <div class="inner-content" fxLayout="row">
-    <div fxFlex="80" class="title">
+    <div fxFlex="85" class="title">
         <span>{{post.title}}</span>
     </div>
-    <div class="actions" fxFlex="20" fxLayoutAlign="end top">
+    <div class="actions" fxFlex="15" fxLayoutAlign="end top">
         <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </a>
