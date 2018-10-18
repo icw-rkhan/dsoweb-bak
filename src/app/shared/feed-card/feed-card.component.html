@@ -25,7 +25,7 @@
     <img *ngIf="isNobel(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png" (click)="onPostSponsor('nobel')">
     <div class="content">
       <div class="content-title">
-        <h2 class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></h2>
+        <span class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></span>
         <div class="actions">
           <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
             <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>

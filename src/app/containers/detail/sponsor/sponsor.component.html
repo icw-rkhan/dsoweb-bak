@@ -47,12 +47,12 @@
 </div>
 <div id="tLoad" [innerHtml]="post.content" hidden></div>
 <div id="container" class="author" fxLayout="row" fxLayoutAlign="start center">
-    <div class="author-avatar">
+    {{fetchAuthorInfo()}}
+    <div id="author-avatar">
         <img src="assets/images/logo-icon.png">
     </div>
-    <div fxLayout="column" fxLayoutAlign="start start">
+    <div class="author-area" fxLayout="column" fxLayoutAlign="start start">
         <p id="author-name">
-            {{fetchAuthorInfo()}}
             {{authorName}}
         </p>
         <p id="author-info">
@@ -65,6 +65,7 @@
     {{reLayout('audio')}}
     {{reLayout('img')}}
     {{reLayout('a')}}
+    {{reLayout('figcaption')}}
     {{removeAuthorInfo()}}
 </div>
 <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">

@@ -68,8 +68,9 @@ mat-card {
   .mat-h2 {
     flex: 1;
     color: #354051;
-    cursor: pointer;
+    font-family: 'SFUI';
     font-size: 20px;
+    font-weight: 700;
     line-height: 24px;
   }
 }
@@ -85,7 +86,7 @@ mat-card {
   }
 
   .mat-icon {
-    margin-top: 4px;
+    margin-top: 1px;
   }
 }
 

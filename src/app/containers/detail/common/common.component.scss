@@ -58,7 +58,8 @@
   }
 
 .title {
-    color: #000000;
+    color: #354051;
+    font-family: 'SFUI';
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
@@ -132,12 +133,11 @@ p {
     width: 100%;
     padding-left: 18px;
 
-    .author-avatar {
+    #author-avatar {
         width: 32px;
         height: 32px;
         border-radius: 50%;
         background-color: #f5f5f5;
-        margin-right: 10px;
         padding: 5px;
 
         img {
@@ -146,18 +146,22 @@ p {
         }
     }
 
-    #author-name {
-        color: #4a4a4a;
-        font-family: "SFUI";
-        font-size: 13px;
-        font-weight: 600;
-    }
+    .author-area {
+        margin-left: 10px;
 
-    #author-info {
-        color: #9b9b9b;
-        font-size: 13px;
-        font-weight: 400;
-    } 
+        #author-name {
+            color: #4a4a4a;
+            font-family: "SFUI";
+            font-size: 13px;
+            font-weight: 600;
+        }
+    
+        #author-info {
+            color: #9b9b9b;
+            font-size: 13px;
+            font-weight: 400;
+        } 
+    }
 }
 
 .btn-pn {
@@ -189,7 +193,7 @@ p {
     }
   
     .mat-icon {
-      margin-top: 4px;
+      margin-top: 8px;
     }
 }
   
@@ -205,7 +209,4 @@ p {
 
 div {
     background-color: #fff;
-}
-
-#tLoad {
 }

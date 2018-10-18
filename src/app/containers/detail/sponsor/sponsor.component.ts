@@ -64,10 +64,20 @@ export class SponsorComponent implements OnInit, OnDestroy {
         this.comments = c;
 
         commentSub.unsubscribe();
+      },
+      err => {
+
+        this.progress.complete();
+        commentSub.unsubscribe();
       });
 
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
+
+        this.progress.complete();
+        postSub.unsubscribe();
+      },
+      err => {
 
         this.progress.complete();
         postSub.unsubscribe();
@@ -93,8 +103,13 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
       for (i = 0; i < tag.length; i++) {
         if (tagName === 'video') {
+
           tag[i].style.backgroundColor = 'black';
+        }  else if (tagName === 'figcaption') {
+
+          tag[i].innerHTML = this.changeFont(tag[i]);
         } else if (tagName === 'a') {
+
           let url = tag[i].getAttribute('href');
 
           if (url && url.includes('wp.dsodentist.com')) {
@@ -122,6 +137,42 @@ export class SponsorComponent implements OnInit, OnDestroy {
         tag[i].style.height = 'auto';
       }
     }
+  }
+
+  // change the font if tagName is figcaption
+  changeFont(tag) {
+    // font family
+    let text = tag.innerHTML;
+    const textArray = text.split('.');
+    if (!text.includes('font-weight') &&
+      textArray.length > 0 && textArray[0].includes('Figure')) {
+
+      text = text.replace(textArray[0], `<span style="font-weight:700">${textArray[0]}</span>`);
+    }
+
+    // font style
+    tag.style.fontStyle = 'italic';
+
+    // font size
+    const fontSize = parseInt(window.getComputedStyle(tag).fontSize, 10);
+    switch (fontSize) {
+      case 16:
+        tag.style.fontSize = '15px';
+        break;
+      case 15:
+        tag.style.fontSize = '14px';
+        break;
+      case 14:
+        tag.style.fontSize = '13px';
+        break;
+      case 12:
+        tag.style.fontSize = '11px';
+        break;
+      default:
+        break;
+    }
+
+    return text;
   }
 
   // fetch an author/speaker's name
@@ -199,6 +250,10 @@ export class SponsorComponent implements OnInit, OnDestroy {
     document.getElementById('container').style.borderBottom = '1px solid #e9edf1';
     document.getElementById('container').style.marginLeft = '19px';
     document.getElementById('container').style.padding = '12px 0px';
+
+    if (!this.authorName.includes('DSOD Staff')) {
+      document.getElementById('author-avatar').style.display = 'none';
+    }
 
     if (this.authorInfo) {
       document.getElementById('author-info').style.marginTop = '5px';
