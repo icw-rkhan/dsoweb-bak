@@ -4,6 +4,7 @@ import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 import { NavLinkModel } from '../../models/nav-link.model';
 import { Params } from '@angular/router/src/shared';
 import { Subscription } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
   templateUrl: './feed-page.html',
@@ -38,11 +39,11 @@ export class FeedPageComponent implements OnInit, OnDestroy {
           this.isGeneral = false;
           const sponsorId = event.url.split('/')[3];
 
-          if (sponsorId === '197') {
+          if (sponsorId === environment.SPONSOR_GSK) {
             this.headerImageUrl = 'assets/images/sponsor/gsk-header.png';
-          } else if (sponsorId === '259') {
+          } else if (sponsorId === environment.SPONSOR_NOBEL) {
             this.headerImageUrl = 'assets/images/sponsor/nobel-header.png';
-          } else if (sponsorId === '260') {
+          } else if (sponsorId === environment.SPONSOR_ALIGN) {
             this.headerImageUrl = 'assets/images/sponsor/align-header.png';
           }
         } else if (event.url.includes('/posts')) {
@@ -122,15 +123,15 @@ export class FeedPageComponent implements OnInit, OnDestroy {
         subMenu: [
           {
             label: 'Align Technology',
-            route: `/posts/sponsor/260`
+            route: `/posts/sponsor/${environment.SPONSOR_ALIGN}`
           },
           {
             label: 'GlaxoSmithKline',
-            route: `/posts/sponsor/197`
+            route: `/posts/sponsor/${environment.SPONSOR_GSK}`
           },
           {
             label: 'Nobel Biocare',
-            route: `/posts/sponsor/259`
+            route: `/posts/sponsor/${environment.SPONSOR_NOBEL}`
           }
         ],
       });
@@ -164,15 +165,15 @@ export class FeedPageComponent implements OnInit, OnDestroy {
         subMenu: [
           {
             label: 'Align Technology',
-            route: `/posts/sponsor/260`
+            route: `/posts/sponsor/${environment.SPONSOR_ALIGN}`
           },
           {
             label: 'GlaxoSmithKline',
-            route: `/posts/sponsor/197`
+            route: `/posts/sponsor/${environment.SPONSOR_GSK}`
           },
           {
             label: 'Nobel Biocare',
-            route: `/posts/sponsor/259`
+            route: `/posts/sponsor/${environment.SPONSOR_NOBEL}`
           }
         ],
       });
