@@ -130,7 +130,7 @@ p {
 }
 
 .author {
-    width: 100%;
+    width: calc(100% - 18px);
     padding-left: 18px;
 
     #author-avatar {
