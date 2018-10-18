@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { BreakpointObserver } from '@angular/cdk/layout';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -23,13 +23,6 @@ export class ViewComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute ) { }
 
   ngOnInit() {
-    this.breakpointObserver.observe([
-      Breakpoints.HandsetLandscape
-    ]).subscribe(result => {
-      if (result.matches) {
-      }
-    });
-
     this.paramsSub = this.route.params.subscribe(params => {
       this.progress.start();
       this.postId = params['id'];
@@ -39,6 +32,11 @@ export class ViewComponent implements OnInit, OnDestroy {
 
         commentSub.unsubscribe();
         this.progress.complete();
+      },
+      err => {
+
+        this.progress.complete();
+        commentSub.unsubscribe();
       });
     });
   }

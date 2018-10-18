@@ -85,6 +85,11 @@ export class AddComponent implements OnInit, OnDestroy {
 
           profileSub.unsubscribe();
           this.progress.complete();
+        },
+        err => {
+
+          this.progress.complete();
+          profileSub.unsubscribe();
         });
       });
   }

@@ -115,7 +115,7 @@ export class EditProfileComponent implements OnInit {
 
   getMetaData() {
     const specialty = this.userProfile.specialty ? this.userProfile.specialty.id || null : null;
-    this.profileService.getMetaData(specialty).subscribe(
+    const subProfile = this.profileService.getMetaData(specialty).subscribe(
       (data: any) => {
         if (data[0]) {
           this.metadata.residency = data[0].resultMap.data;
@@ -139,15 +139,14 @@ export class EditProfileComponent implements OnInit {
         if (data[5]) {
           this.metadata.listResidency = data[5].resultMap.data;
         }
-        // if (data[6]) {
-        //   this.metadata.listResidency = data[5].resultMap.data;
-        // }
+
+        subProfile.unsubscribe();
       }
     );
   }
 
   fetchProfile(email: string) {
-    this.profileService.findOneByEmail({email: email}).subscribe(
+    const subService = this.profileService.findOneByEmail({email: email}).subscribe(
       (data: any) => {
         this.sharingService.showLoading̣̣(false);
         this.userProfile = data.resultMap.data;
@@ -164,6 +163,13 @@ export class EditProfileComponent implements OnInit {
           this.resumeFile = {};
           this.resumeFile.name = this.userProfile.document_library.document_name || '';
         }
+
+        subService.unsubscribe();
+      },
+      err => {
+
+        this.sharingService.showLoading̣̣(false);
+        subService.unsubscribe();
       }
     );
   }

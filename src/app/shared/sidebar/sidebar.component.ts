@@ -80,6 +80,9 @@ export class SidebarComponent {
         this.userspecialtyName = res.specialty ? res.specialty.name : '';
         this.userPhoto = res.photo_url;
         profileSub.unsubscribe();
+      },
+      err => {
+        profileSub.unsubscribe();
       });
   }
 }

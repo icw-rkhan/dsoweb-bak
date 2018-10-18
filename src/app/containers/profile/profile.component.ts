@@ -55,6 +55,9 @@ export class ProfileComponent implements OnInit {
           this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
         }
         this.parseData();
+      },
+      err => {
+        this.sharingService.showLoading̣̣(false);
       }
     );
   }

@@ -44,6 +44,11 @@ export class RelativeComponent implements OnInit, OnDestroy, PipeTransform {
 
               this.progress.complete();
               postSub.unsubscribe();
+            },
+            err => {
+
+              this.progress.complete();
+              postSub.unsubscribe();
             });
         });
     }

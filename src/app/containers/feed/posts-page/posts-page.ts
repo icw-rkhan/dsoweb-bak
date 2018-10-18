@@ -120,6 +120,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       this.progress.complete();
       this.isFetching = false;
     }, err => {
+
       this.progress.complete();
       this.isFetching = false;
     });

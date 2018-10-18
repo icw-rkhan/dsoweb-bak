@@ -23,6 +23,9 @@ export class SearchPageComponent implements OnInit {
     this.postService.search(this.term).subscribe(posts => {
       this.posts = posts;
       this.progress.complete();
+    },
+    err => {
+      this.progress.complete();
     });
   }
 }
