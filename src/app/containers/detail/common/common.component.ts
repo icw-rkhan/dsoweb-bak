@@ -97,6 +97,15 @@ export class CommonComponent implements OnInit, OnDestroy {
     this.trigger.closeMenu();
   }
 
+  // change the layout of a post
+  changeLayoutOfPost() {
+    this.reLayout('img');
+    this.reLayout('video');
+    this.reLayout('audio');
+    this.reLayout('table');
+    this.reLayout('figcaption');
+  }
+
   // custome the style of the content
   reLayout(tagName): void {
     const paretTag = document.getElementById('contents');
@@ -105,16 +114,40 @@ export class CommonComponent implements OnInit, OnDestroy {
 
       let i = 0;
       for (i = 0; i < tag.length; i++) {
-        if (tagName === 'video') {
-
-          tag[i].style.backgroundColor = 'black';
-        } else if (tagName === 'figcaption') {
-
-          tag[i].innerHTML = this.changeFont(tag[i]);
+        switch (tagName) {
+          case 'video':
+            tag[i].style.backgroundColor = 'black';
+            break;
+          case 'figcaption':
+            tag[i].innerHTML = this.changeFont(tag[i]);
+            break;
+          case 'table':
+            this.changeTableFormat(tag[i]);
+            break;
+          default:
+            break;
         }
 
         tag[i].style.width = '100%';
         tag[i].style.height = 'auto';
+      }
+    }
+  }
+
+  // modify the format of a table
+  changeTableFormat(tag) {
+    tag.removeAttribute('width');
+
+    const trTag = tag.getElementsByTagName('tr');
+    let index = 0;
+    for (index = 0; index < trTag.length; index++) {
+      const tdTagArr = trTag[index].getElementsByTagName('td');
+      if (tdTagArr && tdTagArr.length === 2) {
+        tdTagArr[0].removeAttribute('width');
+        tdTagArr[1].removeAttribute('width');
+
+        tdTagArr[0].style.width = '5%';
+        tdTagArr[1].style.width = '95%';
       }
     }
   }
@@ -168,6 +201,8 @@ export class CommonComponent implements OnInit, OnDestroy {
       } else if (tag[0].innerHTML.includes('(')) {
         authorTag = tag[0].innerHTML;
       } else {
+        document.getElementById('author-avatar').style.display = 'none';
+
         return;
       }
 

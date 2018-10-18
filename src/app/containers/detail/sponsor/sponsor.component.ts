@@ -12,7 +12,7 @@ import { AuthService } from '../../../services';
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
-import { environment } from '../../../../environments/environment'
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'dso-detail-sponsor',
@@ -95,6 +95,16 @@ export class SponsorComponent implements OnInit, OnDestroy {
     this.trigger.closeMenu();
   }
 
+  // change the layout of a post
+  changeLayoutOfPost() {
+    this.reLayout('a');
+    this.reLayout('img');
+    this.reLayout('video');
+    this.reLayout('audio');
+    this.reLayout('table');
+    this.reLayout('figcaption');
+  }
+
   // custome the style of the content
   reLayout(tagName): void {
     const paretTag = document.getElementById('contents');
@@ -103,39 +113,63 @@ export class SponsorComponent implements OnInit, OnDestroy {
       let i = 0;
 
       for (i = 0; i < tag.length; i++) {
-        if (tagName === 'video') {
+        switch (tagName) {
+          case 'video':
+            tag[i].style.backgroundColor = 'black';
+            break;
+          case 'figcaption':
+            tag[i].innerHTML = this.changeFont(tag[i]);
+            break;
+          case 'table':
+            this.changeTableFormat(tag[i]);
+            break;
+          case 'a':
+            let url = tag[i].getAttribute('href');
 
-          tag[i].style.backgroundColor = 'black';
-        }  else if (tagName === 'figcaption') {
+            if (url && url.includes('wp.dsodentist.com')) {
+              tag[i].style.color = '#879aa8';
+              // if the href of the 'a' tag contains 'wp.dsodentist.com', remove the href
+              tag[i].removeAttribute('href');
 
-          tag[i].innerHTML = this.changeFont(tag[i]);
-        } else if (tagName === 'a') {
+              let header_url;
+              if (url.includes('http://')) {
+                header_url = 'http://';
+              } else if (url.includes('https://')) {
+                header_url = 'https://';
+              }
 
-          let url = tag[i].getAttribute('href');
+              url  = url.replace(`${header_url}wp.dsodentist.com/`, '');
+              url = `/detail/sponsor/${this.postId}/${url}`;
 
-          if (url && url.includes('wp.dsodentist.com')) {
-            tag[i].style.color = '#879aa8';
-            // if the href of the 'a' tag contains 'wp.dsodentist.com', remove the href
-            tag[i].removeAttribute('href');
-
-            let header_url;
-            if (url.includes('http://')) {
-              header_url = 'http://';
-            } else if (url.includes('https://')) {
-              header_url = 'https://';
+              tag[i].addEventListener('click', () => {
+                this.router.navigate([url]);
+              });
             }
-
-            url  = url.replace(`${header_url}wp.dsodentist.com/`, '');
-            url = `/detail/sponsor/${this.postId}/${url}`;
-
-            tag[i].addEventListener('click', () => {
-              this.router.navigate([url]);
-            });
-          }
+            break;
+          default:
+            break;
         }
 
         tag[i].style.width = '100%';
         tag[i].style.height = 'auto';
+      }
+    }
+  }
+
+  // modify the format of a table
+  changeTableFormat(tag) {
+    tag.removeAttribute('width');
+
+    const trTag = tag.getElementsByTagName('tr');
+    let index = 0;
+    for (index = 0; index < trTag.length; index++) {
+      const tdTagArr = trTag[index].getElementsByTagName('td');
+      if (tdTagArr && tdTagArr.length === 2) {
+        tdTagArr[0].removeAttribute('width');
+        tdTagArr[1].removeAttribute('width');
+
+        tdTagArr[0].style.width = '5%';
+        tdTagArr[1].style.width = '95%';
       }
     }
   }
