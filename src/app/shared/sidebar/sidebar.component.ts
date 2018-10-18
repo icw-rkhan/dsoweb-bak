@@ -22,7 +22,7 @@ export class SidebarComponent {
     this.getUserInfo();
     this.baseUrl = environment.profileApiUrl;
     this.links.push({
-      label: 'General Content',
+      label: 'Browse Content',
       icon: 'folder_open',
       route: '/posts'
     });
