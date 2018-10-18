@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, Input } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -15,15 +15,19 @@ export class ToolbarComponent {
   btnTitle: string;
   url: string;
 
-  constructor(private router: Router, private _location: Location) {
+  constructor(
+    private router: Router,
+    private _location: Location,
+    private _cdr: ChangeDetectorRef
+  ) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.url = event.url;
 
         if (event.url.includes('/posts/sponsor')) {
           this.title = 'SPONSORED CONTENT';
-          this.btnTitle = 'menu';
-
+          this.btnTitle = 'keyboard_backspace';
+          
         } else if (event.url.includes('/posts')) {
             this.title = 'DSODENTIST';
             this.btnTitle = 'menu';
@@ -64,6 +68,7 @@ export class ToolbarComponent {
           this.title = 'DSODENTIST';
           this.btnTitle = 'menu';
         }
+        this._cdr.detectChanges();
       }
     });
   }
