@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   isInitializedEmittedValue: boolean;
 
   constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
               private fb: FormBuilder,
               private authService: AuthService,
               private apiError: ApiErrorService,
@@ -42,25 +43,16 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.is_student = +localStorage.getItem('is_student');
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      const code = params['code'];  // login with linkedin
+      if (code && code !== '') {
+        this.getAccessToken(code);
+      }
+    });
     this.initForm();
+    this.is_student = +localStorage.getItem('is_student');
     setTimeout(() => {
       this.sharingService.showLoading̣̣(false);
-    });
-
-    this.isUserAuthenticated = this.linkedInService.isUserAuthenticated$;
-    this.isInitialized = this.linkedInService.isInitialized$;
-
-    this.linkedInService.isUserAuthenticated$.subscribe({
-      next: (state) => {
-        this.isUserAuthenticatedEmittedValue = true;
-      }
-    });
-
-    this.linkedInService.isInitialized$.subscribe({
-      next: (state) => {
-        this.isInitializedEmittedValue = true;
-      }
     });
   }
 
@@ -110,24 +102,27 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginLinkedIn() {
-    this.linkedInService.login().subscribe({
-      next: (state) => {
-        if (state) {
-          // this.router.navigate(['/posts']);
-          const anonymousToken = this.linkedInService.getSdkIN().ENV.auth.anonymous_token;
-          this.getAccessToken(anonymousToken);
-        } else {
-          this.dialog.open(AlertDialogComponent, {
-            width: '300px',
-            height: '200px',
-            data: {
-              title: 'Error',
-              body: 'Login error with LinkedIn'
-            }
-          });
-        }
-      }
-    });
+    const redirectUri = document.location.href;
+    const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${environment.linkedinClientId}&redirect_uri=${redirectUri}`
+    window.location.href = url;
+    // this.linkedInService.login().subscribe({
+    //   next: (state) => {
+    //     if (state) {
+    //       // this.router.navigate(['/posts']);
+    //       const anonymousToken = this.linkedInService.getSdkIN().ENV.auth.anonymous_token;
+    //       this.getAccessToken(anonymousToken);
+    //     } else {
+    //       this.dialog.open(AlertDialogComponent, {
+    //         width: '300px',
+    //         height: '200px',
+    //         data: {
+    //           title: 'Error',
+    //           body: 'Login error with LinkedIn'
+    //         }
+    //       });
+    //     }
+    //   }
+    // });
   }
 
   logoutLinkedIn() {
@@ -146,16 +141,17 @@ export class LoginComponent implements OnInit {
     const headers = new HttpHeaders()
       .set('Content-Type', 'application/x-www-form-urlencoded');
 
-    return this.http.post(url, {
-      grant_type: 'authorization_code',
-      code: authorizationToken,
-      redirect_uri: 'http://localhost:4200/',
-      client_id: environment.linkedinClientId,
-      client_secret: environment.linkedingClientSecret
-    }, {
-      headers
+    return this.http.get(url, {
+      headers,
+      params: {
+        grant_type: 'authorization_code',
+        code: authorizationToken,
+        redirect_uri: document.location.origin,
+        client_id: environment.linkedinClientId,
+        client_secret: environment.linkedingClientSecret
+      }
     }).subscribe(result => {
-      console.log(`Access Token: ${authorizationToken}`);
+      console.log(result);
     });
   }
 
