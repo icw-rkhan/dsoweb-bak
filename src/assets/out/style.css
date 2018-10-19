@@ -911,6 +911,7 @@ ol, ul {
 }
 
 #contents ul, #contents ol {
+  margin-left: 10px;
   padding-left: 10px;
 }
 
