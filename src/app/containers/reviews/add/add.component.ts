@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Location } from '@angular/common';
+import { Location, formatDate } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { NgProgress } from '@ngx-progressbar/core';
-import { formatDate } from '@angular/common';
 
 import { AuthService, ProfileService } from '../../../services/index';
 import { CommentService } from '../../../services/comment.service';
@@ -18,19 +18,28 @@ export class AddComponent implements OnInit, OnDestroy {
 
   rate: number;
   postId: number;
-  comment: string;
+
   userId: string;
-  postTitle: string;
-  postDate: string;
+  comment: string;
   baseUrl: string;
+  postDate: string;
+  postTitle: string;
+
   condition: boolean;
+
   res: any;
   body: any;
   userInfo: any;
-  articleInfo: any;
   paramSub: any;
+  articleInfo: any;
 
-  rateList = [{state: false}, {state: false}, {state: false}, {state: false}, {state: false}];
+  rateList = [
+    {state: false},
+    {state: false},
+    {state: false},
+    {state: false},
+    {state: false}
+  ];
 
   constructor(
     public breakpointObserver: BreakpointObserver,
@@ -87,7 +96,6 @@ export class AddComponent implements OnInit, OnDestroy {
           this.progress.complete();
         },
         err => {
-
           this.progress.complete();
           profileSub.unsubscribe();
         });

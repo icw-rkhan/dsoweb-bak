@@ -17,9 +17,7 @@ export class ToolbarComponent {
 
   constructor(
     private router: Router,
-    private _location: Location,
-    private _cdr: ChangeDetectorRef
-  ) {
+    private _location: Location) {
     router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.url = event.url;
@@ -27,7 +25,7 @@ export class ToolbarComponent {
         if (event.url.includes('/posts/sponsor')) {
           this.title = 'SPONSORED CONTENT';
           this.btnTitle = 'keyboard_backspace';
-          
+
         } else if (event.url.includes('/posts')) {
             this.title = 'DSODENTIST';
             this.btnTitle = 'menu';
@@ -68,7 +66,6 @@ export class ToolbarComponent {
           this.title = 'DSODENTIST';
           this.btnTitle = 'menu';
         }
-        this._cdr.detectChanges();
       }
     });
   }

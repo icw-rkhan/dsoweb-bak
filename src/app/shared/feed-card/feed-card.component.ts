@@ -40,9 +40,9 @@ export class FeedCardComponent {
   }
 
   onViewDetail() {
-    if (this.post.tags.includes(parseInt(environment.SPONSOR_GSK)) ||
-        this.post.tags.includes(parseInt(environment.SPONSOR_ALIGN)) ||
-        this.post.tags.includes(parseInt(environment.SPONSOR_NOBEL))) {
+    if (this.post.tags.includes(parseInt(environment.SPONSOR_GSK, 10)) ||
+        this.post.tags.includes(parseInt(environment.SPONSOR_ALIGN, 10)) ||
+        this.post.tags.includes(parseInt(environment.SPONSOR_NOBEL, 10))) {
       this.router.navigate([`/detail/sponsor/${this.post.id}`]);
     } else {
       this.router.navigate([`/detail/${this.post.id}`]);
@@ -147,7 +147,7 @@ export class FeedCardComponent {
 
   // check gsk tag
   isGsk(tags): boolean {
-    if (tags && tags.includes(parseInt(environment.SPONSOR_GSK))) {
+    if (tags && tags.includes(parseInt(environment.SPONSOR_GSK, 10))) {
       return true;
     }
     return false;
@@ -155,7 +155,7 @@ export class FeedCardComponent {
 
   // check align tag
   isAlign(tags): boolean {
-    if (tags && tags.includes(parseInt(environment.SPONSOR_ALIGN))) {
+    if (tags && tags.includes(parseInt(environment.SPONSOR_ALIGN, 10))) {
       return true;
     }
     return false;
@@ -163,7 +163,7 @@ export class FeedCardComponent {
 
   // check nobel tag
   isNobel(tags): boolean {
-    if (tags && tags.includes(parseInt(environment.SPONSOR_NOBEL))) {
+    if (tags && tags.includes(parseInt(environment.SPONSOR_NOBEL, 10))) {
       return true;
     }
     return false;

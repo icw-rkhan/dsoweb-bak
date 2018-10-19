@@ -44,9 +44,10 @@
             </mat-menu>
         </div>
     </div>
-    <div id="tLoad" [innerHtml]="post.content" hidden></div>
-    <div id="container" class="author" fxLayout="row" fxLayoutAlign="start center">
+    <div id="tLoad" [innerHtml]="post.content" hidden>
         {{fetchAuthorInfo()}}
+    </div>
+    <div class="author" [class.author-container]="isAuthorVisible" fxLayout="row" fxLayoutAlign="start center">
         <div id="author-avatar">
             <img src="assets/images/logo-icon.png">
         </div>

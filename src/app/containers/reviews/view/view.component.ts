@@ -12,15 +12,17 @@ import { Comment } from '../../../models/comment.model';
   styleUrls: ['./view.component.scss']
 })
 export class ViewComponent implements OnInit, OnDestroy {
+
   postId: number;
   paramsSub: any;
+
   comments: Comment[];
 
   constructor(
     public breakpointObserver: BreakpointObserver,
     private commentService: CommentService,
-    private progress: NgProgress,
-    private route: ActivatedRoute ) { }
+    private route: ActivatedRoute,
+    private progress: NgProgress) { }
 
   ngOnInit() {
     this.paramsSub = this.route.params.subscribe(params => {
@@ -34,7 +36,6 @@ export class ViewComponent implements OnInit, OnDestroy {
         this.progress.complete();
       },
       err => {
-
         this.progress.complete();
         commentSub.unsubscribe();
       });

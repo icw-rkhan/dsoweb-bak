@@ -910,6 +910,18 @@ ol, ul {
   list-style: none;
 }
 
+#contents ul, #contents ol {
+  padding-left: 10px;
+}
+
+.author-container {
+  min-height: 58px;
+  border-top: 1px solid #e9edf1;
+  border-bottom: 1px solid #e9edf1;
+  margin-left: 19px;
+  padding : 12px 0px;
+}
+
 blockquote, q {
   quotes: none;
 }

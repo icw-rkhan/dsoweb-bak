@@ -1,17 +1,19 @@
-import { Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
-import { NgProgress } from '@ngx-progressbar/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgProgress } from '@ngx-progressbar/core';
 import { formatDate } from '@angular/common';
 import { Subscription } from 'rxjs';
 
-import { PostService } from '../../../services/post.service';
-import { CommentService } from '../../../services/comment.service';
 import { BookmarkService } from '../../../services/bookmark.service';
+import { CommentService } from '../../../services/comment.service';
+import { PostService } from '../../../services/post.service';
 import { AuthService } from '../../../services';
+
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
+
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -20,13 +22,16 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./sponsor.component.scss']
 })
 export class SponsorComponent implements OnInit, OnDestroy {
+
   post: Post;
   rate: number;
   postId: number;
   authorName: string;
   authorInfo: string;
-  comments: Comment[];
   review_count: number;
+  isAuthorVisible: boolean;
+
+  comments: Comment[];
 
   paramsSub: Subscription;
 
@@ -52,6 +57,8 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
     this.rate = 0;
     this.review_count = 0;
+    this.isAuthorVisible = false;
+
     this.post = new Post();
   }
 
@@ -114,6 +121,10 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
       for (i = 0; i < tag.length; i++) {
         switch (tagName) {
+          case 'h2':
+            tag[i].style.fontSize = '18px';
+            tag[i].style.fontWeight = '600';
+            break;
           case 'video':
             tag[i].style.backgroundColor = 'black';
             break;
@@ -134,6 +145,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
               let header_url;
               if (url.includes('http://')) {
                 header_url = 'http://';
+
               } else if (url.includes('https://')) {
                 header_url = 'https://';
               }
@@ -161,9 +173,11 @@ export class SponsorComponent implements OnInit, OnDestroy {
     tag.removeAttribute('width');
 
     const trTag = tag.getElementsByTagName('tr');
+
     let index = 0;
     for (index = 0; index < trTag.length; index++) {
       const tdTagArr = trTag[index].getElementsByTagName('td');
+
       if (tdTagArr && tdTagArr.length === 2) {
         tdTagArr[0].removeAttribute('width');
         tdTagArr[1].removeAttribute('width');
@@ -178,10 +192,10 @@ export class SponsorComponent implements OnInit, OnDestroy {
   changeFont(tag) {
     // font family
     let text = tag.innerHTML;
+
     const textArray = text.split('.');
     if (!text.includes('font-weight') &&
       textArray.length > 0 && textArray[0].includes('Figure')) {
-
       text = text.replace(textArray[0], `<span style="font-weight:700">${textArray[0]}</span>`);
     }
 
@@ -213,6 +227,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
   // fetch an author/speaker's name
   fetchAuthorInfo() {
     const parentTag = document.getElementById('tLoad');
+
     const tag = parentTag.getElementsByTagName('p');
     const videoTag = parentTag.getElementsByTagName('video');
 
@@ -272,7 +287,6 @@ export class SponsorComponent implements OnInit, OnDestroy {
         tag[1].style.margin = '0';
 
       } else if (tag[0].innerHTML.includes('(')) {
-
         tag[0].innerHTML = '';
         tag[0].style.margin = '0';
       }
@@ -280,13 +294,9 @@ export class SponsorComponent implements OnInit, OnDestroy {
   }
 
   activeAuthorLayout() {
-    document.getElementById('container').style.minHeight = '58px';
-    document.getElementById('container').style.borderTop = '1px solid #e9edf1';
-    document.getElementById('container').style.borderBottom = '1px solid #e9edf1';
-    document.getElementById('container').style.marginLeft = '19px';
-    document.getElementById('container').style.padding = '12px 0px';
+    this.isAuthorVisible = true;
 
-    if (!this.authorName.includes('DSOD Staff')) {
+    if (!this.authorName.includes('DSODentist')) {
       document.getElementById('author-avatar').style.display = 'none';
     }
 
@@ -299,6 +309,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
   filterCategories(categories) {
     if (categories && categories.length > 1) {
       return categories[1].name;
+
     } else if (categories && categories.length === 1) {
       return categories[0].name;
     }
