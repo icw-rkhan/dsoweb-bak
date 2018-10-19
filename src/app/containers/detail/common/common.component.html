@@ -7,10 +7,8 @@
         <img class="inner-thumbnail" src="{{post.thumbnail}}">
     </div>
     <div class="inner-content" fxLayout="row">
-        <div fxFlex="85" class="title">
-            <span>{{post.title}}</span>
-        </div>
-        <div class="actions" fxFlex="15" fxLayout="row" fxLayoutAlign="end start">
+        <span class="title">{{post.title}}</span>
+        <div class="actions" fxLayout="row" fxLayoutAlign="end start">
             <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
             </a>
