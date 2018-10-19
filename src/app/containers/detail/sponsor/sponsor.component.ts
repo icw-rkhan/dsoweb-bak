@@ -283,7 +283,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
       if (authorName.includes('(') && authorName.includes(')')) {
         if (authorName.includes('By')) {
-          authorName = authorName.replace(/By/g, '');
+          authorName = authorName.replace('By', '');
         }
 
         authorName = authorName.replace('(', '');
