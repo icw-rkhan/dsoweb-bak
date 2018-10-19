@@ -80,6 +80,9 @@ export class CommonComponent implements OnInit, OnDestroy {
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
 
+        // change Pre tag to Div tag
+        this.post.content = this.changePreToDiv(this.post.content);
+
         this.progress.complete();
         postSub.unsubscribe();
       },
@@ -104,10 +107,21 @@ export class CommonComponent implements OnInit, OnDestroy {
     this.trigger.closeMenu();
   }
 
+  // change Pre tag to Div tag
+  changePreToDiv(html) {
+    html = html.toString();
+
+    html = html.replace('<pre>', '<div><p>“</p><p>');
+    html = html.replace('</pre>', '</p></div>');
+
+    return html;
+  }
+
   // change the layout of a post
   changeLayoutOfPost() {
     this.reLayout('h2');
     this.reLayout('img');
+    this.reLayout('div');
     this.reLayout('video');
     this.reLayout('audio');
     this.reLayout('table');
@@ -127,6 +141,9 @@ export class CommonComponent implements OnInit, OnDestroy {
             tag[i].style.fontSize = '18px';
             tag[i].style.fontWeight = '600';
             break;
+          case 'div':
+            this.changeFormatOfCallOut(tag[i]);
+            break;
           case 'video':
             tag[i].style.backgroundColor = 'black';
             break;
@@ -144,6 +161,11 @@ export class CommonComponent implements OnInit, OnDestroy {
         tag[i].style.height = 'auto';
       }
     }
+  }
+
+  // modify the format of callout
+  changeFormatOfCallOut(tag) {
+
   }
 
   // modify the format of a table
@@ -233,7 +255,7 @@ export class CommonComponent implements OnInit, OnDestroy {
 
       if (authorName.includes('(') && authorName.includes(')')) {
         if (authorName.includes('By')) {
-          authorName = authorName.replace('By', '');
+          authorName = authorName.replace(/By/g, '');
         }
 
         authorName = authorName.replace('(', '');
@@ -280,6 +302,8 @@ export class CommonComponent implements OnInit, OnDestroy {
 
     if (!this.authorName.includes('DSODentist')) {
       document.getElementById('author-avatar').style.display = 'none';
+    } else {
+      this.authorName = '';
     }
 
     if (this.authorInfo) {

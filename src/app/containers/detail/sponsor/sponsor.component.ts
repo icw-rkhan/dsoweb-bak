@@ -252,7 +252,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
       if (authorName.includes('(') && authorName.includes(')')) {
         if (authorName.includes('By')) {
-          authorName = authorName.replace('By', '');
+          authorName = authorName.replace(/By/g, '');
         }
 
         authorName = authorName.replace('(', '');
@@ -298,6 +298,8 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
     if (!this.authorName.includes('DSODentist')) {
       document.getElementById('author-avatar').style.display = 'none';
+    } else {
+      this.authorName = '';
     }
 
     if (this.authorInfo) {
