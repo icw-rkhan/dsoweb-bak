@@ -914,6 +914,18 @@ ol, ul {
   padding-left: 10px;
 }
 
+.callout {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.callout.symbol {
+  float: left;
+  width: 30px;
+  font-size: 28px;
+  font-family: 'Adobe Caslon Pro bold'
+}
+
 .author-container {
   min-height: 58px;
   border-top: 1px solid #e9edf1;

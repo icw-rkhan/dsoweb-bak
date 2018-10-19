@@ -165,7 +165,15 @@ export class CommonComponent implements OnInit, OnDestroy {
 
   // modify the format of callout
   changeFormatOfCallOut(tag) {
+    const pTagArr = tag.getElementsByTagName('p');
+    if (pTagArr && pTagArr.length === 2) {
+      pTagArr[0].classList.add('callout');
+      pTagArr[0].classList.add('symbol');
 
+      pTagArr[1].classList.add('callout');
+
+      pTagArr[0].style.height = pTagArr[1].offsetHeight + 'px';
+    }
   }
 
   // modify the format of a table

@@ -82,6 +82,9 @@ export class SponsorComponent implements OnInit, OnDestroy {
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
 
+        // change Pre tag to Div tag
+        this.post.content = this.changePreToDiv(this.post.content);
+
         this.progress.complete();
         postSub.unsubscribe();
       },
@@ -102,10 +105,21 @@ export class SponsorComponent implements OnInit, OnDestroy {
     this.trigger.closeMenu();
   }
 
+  // change Pre tag to Div tag
+  changePreToDiv(html) {
+    html = html.toString();
+
+    html = html.replace('<pre>', '<div><p>“</p><p>');
+    html = html.replace('</pre>', '</p></div>');
+
+    return html;
+  }
+
   // change the layout of a post
   changeLayoutOfPost() {
     this.reLayout('a');
     this.reLayout('img');
+    this.reLayout('div');
     this.reLayout('video');
     this.reLayout('audio');
     this.reLayout('table');
@@ -124,6 +138,9 @@ export class SponsorComponent implements OnInit, OnDestroy {
           case 'h2':
             tag[i].style.fontSize = '18px';
             tag[i].style.fontWeight = '600';
+            break;
+          case 'div':
+            this.changeFormatOfCallOut(tag[i]);
             break;
           case 'video':
             tag[i].style.backgroundColor = 'black';
@@ -165,6 +182,19 @@ export class SponsorComponent implements OnInit, OnDestroy {
         tag[i].style.width = '100%';
         tag[i].style.height = 'auto';
       }
+    }
+  }
+
+  // modify the format of callout
+  changeFormatOfCallOut(tag) {
+    const pTagArr = tag.getElementsByTagName('p');
+    if (pTagArr && pTagArr.length === 2) {
+      pTagArr[0].classList.add('callout');
+      pTagArr[0].classList.add('symbol');
+
+      pTagArr[1].classList.add('callout');
+
+      pTagArr[0].style.height = pTagArr[1].offsetHeight + 'px';
     }
   }
 
