@@ -914,16 +914,29 @@ ol, ul {
   padding-left: 10px;
 }
 
+#contents ol {
+  list-style-type: decimal;
+}
+
+#contents ul {
+  list-style-type: disc;
+}
+
 .callout {
-  font-size: 18px;
-  font-weight: 600;
+  font-size: 22px;
+  font-weight: 700;
 }
 
 .callout.symbol {
   float: left;
   width: 30px;
-  font-size: 28px;
+  font-size: 40px;
   font-family: 'Adobe Caslon Pro bold'
+}
+
+.callout.text {
+  font-family: 'SFUI';
+  padding-right: 30px;
 }
 
 .author-container {

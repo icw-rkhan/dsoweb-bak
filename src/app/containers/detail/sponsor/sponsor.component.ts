@@ -193,6 +193,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
       pTagArr[0].classList.add('symbol');
 
       pTagArr[1].classList.add('callout');
+      pTagArr[1].classList.add('text');
 
       pTagArr[0].style.height = pTagArr[1].offsetHeight + 'px';
     }
