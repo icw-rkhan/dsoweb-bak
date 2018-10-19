@@ -3,9 +3,7 @@ import { HttpClient, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { forkJoin } from 'rxjs';
-
 import { DentalSchool } from '../models/dental-school.model';
-
 import { environment } from '../../environments/environment';
 
 @Injectable({
