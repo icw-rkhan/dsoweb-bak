@@ -109,8 +109,8 @@ export class SponsorComponent implements OnInit, OnDestroy {
   changePreToDiv(html) {
     html = html.toString();
 
-    html = html.replace('<pre>', '<div><p>“</p><p>');
-    html = html.replace('</pre>', '</p></div>');
+    html = html.replace(/<pre>/g, '<div><p>“</p><p>');
+    html = html.replace(/<\/pre>/g, '</p></div>');
 
     return html;
   }
