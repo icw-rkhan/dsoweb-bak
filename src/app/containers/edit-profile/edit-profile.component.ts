@@ -87,7 +87,7 @@ export class EditProfileComponent implements OnInit {
               private sharingService: SharingService,
               private alertService: AlertService,
               private editProfileService: EditProfileService) {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.isEditSpeciality = false;
     this.isEditExperience = false;
     this.isPracticeAddress = false;
@@ -148,7 +148,7 @@ export class EditProfileComponent implements OnInit {
   fetchProfile(email: string) {
     const subService = this.profileService.findOneByEmail({email: email}).subscribe(
       (data: any) => {
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         this.userProfile = data.resultMap.data;
         if (this.userProfile && this.userProfile.phone) {
           this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
@@ -168,7 +168,7 @@ export class EditProfileComponent implements OnInit {
       },
       err => {
 
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         subService.unsubscribe();
       }
     );
@@ -326,7 +326,7 @@ export class EditProfileComponent implements OnInit {
 
   onSave(form: NgForm) {
     if (form.valid) {
-      this.sharingService.showLoading̣̣(true);
+      this.sharingService.showLoading(true);
 
       (this.userProfile.is_linkedin !== 1) ? this.userProfile.is_linkedin = 0 : this.userProfile.is_linkedin = 1;
 
@@ -352,11 +352,11 @@ export class EditProfileComponent implements OnInit {
         } else {
           this.alertService.errorAlert(data.msg);
         }
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
       },
       error2 => {
         this.alertService.errorAlert('Something went wrong');
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
       });
     }
   }
@@ -401,9 +401,9 @@ export class EditProfileComponent implements OnInit {
         this.alertService.errorAlert('Upload Failed');
       });
     } else {
-      this.sharingService.showLoading̣̣(true);
+      this.sharingService.showLoading(true);
       this.isUploadFile = true;
-      this.sharingService.showLoading̣̣(false);
+      this.sharingService.showLoading(false);
       this.imageChangedEvent = file;
       if (file.srcElement && file.srcElement.files[0]) {
         this.fileName = file.srcElement.files[0].name;

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -22,7 +22,7 @@ export class AuthService {
   }
 
   public getToken(): string {
-    return localStorage.getItem('token');
+    return localStorage.getItem('token') ? localStorage.getItem('token') : '';
   }
 
   login(body: any): Observable<any> {
@@ -50,6 +50,16 @@ export class AuthService {
     );
   }
 
+  requestAccessToken(body: any): Observable<any> {
+    const url = `${environment.profileApiUrl}/linkedInLoginOther`;
+    const headers = new HttpHeaders()
+       .set('Content-Type', 'application/x-www-form-urlencoded');
+    const request = `code=${body.code}&redirectUrl=${body.redirectUrl}`;
+    return this.http.post(url, request, { headers }).pipe(
+      map(this.extractData)
+    );
+  }
+
   sendEmail(body: any) {
     const url = `${environment.profileApiUrl}/emailToken/sendEmail`;
     const formData: FormData = new FormData();
@@ -65,6 +75,10 @@ export class AuthService {
     this.storeUserInformation(data.resultMap);
   }
 
+  linkedInLoginSuccess(data: any) {
+    this.storeLinkedInInformation(data.resultMap);
+  }
+
   getUserInfo() {
     const token = localStorage.getItem('token');
     const userInfo = this.jwtHelper.decodeToken(token);
@@ -72,8 +86,14 @@ export class AuthService {
   }
 
   storeUserInformation(data: any) {
-    if (data) {
+    if (data && data.accesstoken) {
       localStorage.setItem('token', data.accesstoken);
+    }
+  }
+
+  storeLinkedInInformation(data: any) {
+    if (data && data.tokenValue) {
+      localStorage.setItem('token', data.tokenValue);
     }
   }
 
@@ -93,7 +113,7 @@ export class AuthService {
       return true;
     }
     const date = this.jwtHelper.getTokenExpirationDate(token);
-    if (date === undefined) {
+    if (!date) {
       return false;
     }
     return !(date.valueOf() > new Date().valueOf());

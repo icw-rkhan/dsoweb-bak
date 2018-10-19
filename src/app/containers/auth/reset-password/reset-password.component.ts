@@ -22,7 +22,7 @@ export class ResetPasswordComponent implements OnInit {
               private authService: AuthService,
               private apiError: ApiErrorService,
               private sharingService: SharingService) {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.isShowRequirement = false;
   }
 
@@ -34,7 +34,7 @@ export class ResetPasswordComponent implements OnInit {
     }
     this.email = queryParams.email;
     setTimeout(() => {
-      this.sharingService.showLoading̣̣(false);
+      this.sharingService.showLoading(false);
     });
   }
 
@@ -72,7 +72,7 @@ export class ResetPasswordComponent implements OnInit {
   }
 
   onResetPwd() {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     const subResetPwd = this.authService.resetPassword({username: this.email, ...this.form.value}).subscribe(
       (data: any) => {
         if (!data.code) {
@@ -81,7 +81,7 @@ export class ResetPasswordComponent implements OnInit {
             password: this.form.value.password,
           }).subscribe(
             (loginResponse: any) => {
-              this.sharingService.showLoading̣̣(false);
+              this.sharingService.showLoading(false);
               subResetPwd.unsubscribe();
 
               if (!data.code) {
@@ -91,12 +91,12 @@ export class ResetPasswordComponent implements OnInit {
             },
             err => {
 
-              this.sharingService.showLoading̣̣(false);
+              this.sharingService.showLoading(false);
               subResetPwd.unsubscribe();
             }
           );
         } else {
-          this.sharingService.showLoading̣̣(false);
+          this.sharingService.showLoading(false);
           subResetPwd.unsubscribe();
           this.apiError.checkError(data.code, this.form.value, 'reset_password');
         }

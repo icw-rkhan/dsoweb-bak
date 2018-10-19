@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
               private dialog: MatDialog,
               private apiError: ApiErrorService,
               private sharingService: SharingService) {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.isShowPassword = false;
     this.isShowRequirement = false;
     this.isScroll = false;
@@ -36,10 +36,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
     this.is_student = +localStorage.getItem('is_student');
-    console.log('after');
     this.initForm();
     setTimeout(() => {
-      this.sharingService.showLoading̣̣(false);
+      this.sharingService.showLoading(false);
     });
   }
   showDialog(type: string) {
@@ -82,11 +81,11 @@ export class RegisterComponent implements OnInit {
   }
 
   submit() {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.form.value.username = this.form.value.username.toLowerCase();
     const subRegister = this.authService.register(this.form.value).subscribe(
       (data: any) => {
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
 
@@ -98,7 +97,7 @@ export class RegisterComponent implements OnInit {
       },
       err => {
 
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         subRegister.unsubscribe();
       }
     );

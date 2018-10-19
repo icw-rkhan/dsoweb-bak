@@ -37,7 +37,6 @@ export class EducationEditComponent implements OnInit, OnChanges {
     if (changes.education) {
       this.type = 1;
       if (this.typeEducation === 1 && changes.education.currentValue) {//edit
-        console.log(changes.education.currentValue);
         if (changes.education.currentValue.year != null) {
           this.year = changes.education.currentValue.year;
         }
