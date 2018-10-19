@@ -102,6 +102,12 @@ export class ProfileService {
     ));
   }
 
+  deleteDocumentLibraryByEmail(email) {
+    const url = `${environment.profileApiUrl}/documentLibrary/deleteDocumentLibraryByEmail`;
+    const headers = this.customHeader();
+    return this.http.post(url, { email }, { headers: headers });
+  }
+
   uploadAvatar(f) {
     const url = `${environment.profileApiUrl}/photoUpload`;
 
