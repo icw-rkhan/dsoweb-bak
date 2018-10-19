@@ -75,7 +75,6 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
       bookmarks.forEach(bookmark => {
         const innerSub = this.postService.fetchById(+bookmark.postId)
           .subscribe(p => {
-            console.log(categoryId);
             // Check if we are filtering by category
             if (categoryId === undefined || p.categories.find(c => c.id === categoryId) !== undefined) {
               p.bookmarkId = bookmark.id;

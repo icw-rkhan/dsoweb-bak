@@ -6,7 +6,7 @@ export const environment = {
   production: false,
   cmsApiUrl: 'https://wp.dsodentist.com/wp-json/wp/v2',
   profileApiUrl: 'https://devupapi1.dsodentist.com/profile/profileservice/v1',
-  linkedinClientId: '78k2yzhi7fd5k8',
+  linkedinClientId: '77xn8gu9wv8bfj',
   linkedingClientSecret: 'SEwGEC8wA7KFuX2i',
   SPONSOR_GSK: '197',
   SPONSOR_ALIGN: '260',

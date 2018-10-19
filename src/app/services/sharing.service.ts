@@ -11,7 +11,7 @@ export class SharingService {
     this.isLoading = new BehaviorSubject<boolean>(false);
   }
 
-  showLoading̣̣(status: boolean): void {
+  showLoading(status: boolean): void {
     this.isLoading.next(status);
   }
 }

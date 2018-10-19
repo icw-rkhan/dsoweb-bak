@@ -37,23 +37,25 @@ export class LoginComponent implements OnInit {
               private linkedInService: LinkedInService,
               private dialog: MatDialog,
               private http: HttpClient) {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.isShowPassword = false;
     this.checkIsStudent = false;
   }
 
   ngOnInit() {
+    this.sharingService.showLoading(true);
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const code = params['code'];  // login with linkedin
       if (code && code !== '') {
         this.getAccessToken(code);
+      } else {
+        setTimeout(() => {
+          this.sharingService.showLoading(false);
+        });
       }
     });
     this.initForm();
     this.is_student = +localStorage.getItem('is_student');
-    setTimeout(() => {
-      this.sharingService.showLoading̣̣(false);
-    });
   }
 
   get username() {
@@ -77,11 +79,11 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.form.value.username = this.form.value.username.toLowerCase();
     const subLogin = this.authService.login(this.form.value).subscribe(
       (data: any) => {
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
           subLogin.unsubscribe();
@@ -95,64 +97,33 @@ export class LoginComponent implements OnInit {
       },
       err => {
 
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         subLogin.unsubscribe();
       }
     );
   }
 
   onLoginLinkedIn() {
-    const redirectUri = document.location.href;
-    const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${environment.linkedinClientId}&redirect_uri=${redirectUri}`
+    const redirectUri = `${document.location.origin}/auth/login`;
+    const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${environment.linkedinClientId}&redirect_uri=${redirectUri}&state=1234567`
     window.location.href = url;
-    // this.linkedInService.login().subscribe({
-    //   next: (state) => {
-    //     if (state) {
-    //       // this.router.navigate(['/posts']);
-    //       const anonymousToken = this.linkedInService.getSdkIN().ENV.auth.anonymous_token;
-    //       this.getAccessToken(anonymousToken);
-    //     } else {
-    //       this.dialog.open(AlertDialogComponent, {
-    //         width: '300px',
-    //         height: '200px',
-    //         data: {
-    //           title: 'Error',
-    //           body: 'Login error with LinkedIn'
-    //         }
-    //       });
-    //     }
-    //   }
-    // });
   }
 
-  logoutLinkedIn() {
-    this.linkedInService.logout().subscribe({
-      next: () => {
-        console.log('Logout emitted.');
-      },
-      complete: () => {
-        console.log('Logout completed.');
-      }
-    });
-  }
+  private getAccessToken(code: string) {
+    const linkedinLogin = this.authService.requestAccessToken({code: code, redirectUrl: `${document.location.origin}/auth/login`})
+      .subscribe((data: any) => {
+        this.sharingService.showLoading(false);
+        if (!data.code) {
+          this.authService.linkedInLoginSuccess(data);
+          linkedinLogin.unsubscribe();
 
-  private getAccessToken(authorizationToken: string) {
-    const url = `https://www.linkedin.com/oauth/v2/accessToken`;
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/x-www-form-urlencoded');
+          this.router.navigate(['/posts']);
+        } else {
+          // this.apiError.checkError(data.code, this.form.value, 'login');
 
-    return this.http.get(url, {
-      headers,
-      params: {
-        grant_type: 'authorization_code',
-        code: authorizationToken,
-        redirect_uri: document.location.origin,
-        client_id: environment.linkedinClientId,
-        client_secret: environment.linkedingClientSecret
-      }
-    }).subscribe(result => {
-      console.log(result);
-    });
+          linkedinLogin.unsubscribe();
+        }
+      });
   }
 
   signUp() {

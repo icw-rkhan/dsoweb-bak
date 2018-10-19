@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
     // this.certificate = 'Certificate, Advanced Periodontology';
     this.certificate = '';
     this.userInfo = this.authService.getUserInfo();
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.baseUrl = environment.profileApiUrl;
   }
 
@@ -49,7 +49,7 @@ export class ProfileComponent implements OnInit {
   fetchProfile(email: string) {
     this.profileService.findOneByEmail({ email: email }).subscribe(
       (data: any) => {
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         this.userProfile = data.resultMap.data;
         if (this.userProfile && this.userProfile.phone) {
           this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
@@ -57,7 +57,7 @@ export class ProfileComponent implements OnInit {
         this.parseData();
       },
       err => {
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
       }
     );
   }
