@@ -21,14 +21,14 @@ export class ForgotPasswordComponent implements OnInit {
               private router: Router,
               private alertService: AlertService,
               private sharingService: SharingService) {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.isError = false;
   }
 
   ngOnInit() {
     this.initForm();
     setTimeout(() => {
-      this.sharingService.showLoading̣̣(false);
+      this.sharingService.showLoading(false);
     });
   }
 
@@ -46,7 +46,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   sendEmail() {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     const subEmail = this.authService.sendEmail(this.form.value).subscribe(
       (data: any) => {
         if (!data.code) {
@@ -60,12 +60,12 @@ export class ForgotPasswordComponent implements OnInit {
           this.isError = true;
         }
 
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         subEmail.unsubscribe();
       },
       err => {
 
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         subEmail.unsubscribe();
       }
     );

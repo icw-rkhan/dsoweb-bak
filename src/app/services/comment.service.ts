@@ -33,8 +33,6 @@ export class CommentService {
       .append('Authorization', `Bearer ${this.auth.getToken()}`)
       .append('Content-Type', 'application/json');
 
-      console.log(headers);
-
     return this.http.post(url, body, {headers});
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Params, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
 
@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
   isInitializedEmittedValue: boolean;
 
   constructor(private router: Router,
+              private activatedRoute: ActivatedRoute,
               private fb: FormBuilder,
               private authService: AuthService,
               private apiError: ApiErrorService,
@@ -36,32 +37,25 @@ export class LoginComponent implements OnInit {
               private linkedInService: LinkedInService,
               private dialog: MatDialog,
               private http: HttpClient) {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.isShowPassword = false;
     this.checkIsStudent = false;
   }
 
   ngOnInit() {
-    this.is_student = +localStorage.getItem('is_student');
+    this.sharingService.showLoading(true);
+    this.activatedRoute.queryParams.subscribe((params: Params) => {
+      const code = params['code'];  // login with linkedin
+      if (code && code !== '') {
+        this.getAccessToken(code);
+      } else {
+        setTimeout(() => {
+          this.sharingService.showLoading(false);
+        });
+      }
+    });
     this.initForm();
-    setTimeout(() => {
-      this.sharingService.showLoading̣̣(false);
-    });
-
-    this.isUserAuthenticated = this.linkedInService.isUserAuthenticated$;
-    this.isInitialized = this.linkedInService.isInitialized$;
-
-    this.linkedInService.isUserAuthenticated$.subscribe({
-      next: (state) => {
-        this.isUserAuthenticatedEmittedValue = true;
-      }
-    });
-
-    this.linkedInService.isInitialized$.subscribe({
-      next: (state) => {
-        this.isInitializedEmittedValue = true;
-      }
-    });
+    this.is_student = +localStorage.getItem('is_student');
   }
 
   get username() {
@@ -85,11 +79,11 @@ export class LoginComponent implements OnInit {
   }
 
   submit() {
-    this.sharingService.showLoading̣̣(true);
+    this.sharingService.showLoading(true);
     this.form.value.username = this.form.value.username.toLowerCase();
     const subLogin = this.authService.login(this.form.value).subscribe(
       (data: any) => {
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         if (!data.code) {
           this.authService.loginSuccess(data);
           subLogin.unsubscribe();
@@ -103,60 +97,33 @@ export class LoginComponent implements OnInit {
       },
       err => {
 
-        this.sharingService.showLoading̣̣(false);
+        this.sharingService.showLoading(false);
         subLogin.unsubscribe();
       }
     );
   }
 
   onLoginLinkedIn() {
-    this.linkedInService.login().subscribe({
-      next: (state) => {
-        if (state) {
-          // this.router.navigate(['/posts']);
-          const anonymousToken = this.linkedInService.getSdkIN().ENV.auth.anonymous_token;
-          this.getAccessToken(anonymousToken);
+    const redirectUri = `${document.location.origin}/auth/login`;
+    const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=${environment.linkedinClientId}&redirect_uri=${redirectUri}&state=1234567`
+    window.location.href = url;
+  }
+
+  private getAccessToken(code: string) {
+    const linkedinLogin = this.authService.requestAccessToken({code: code, redirectUrl: `${document.location.origin}/auth/login`})
+      .subscribe((data: any) => {
+        this.sharingService.showLoading(false);
+        if (!data.code) {
+          this.authService.linkedInLoginSuccess(data);
+          linkedinLogin.unsubscribe();
+
+          this.router.navigate(['/posts']);
         } else {
-          this.dialog.open(AlertDialogComponent, {
-            width: '300px',
-            height: '200px',
-            data: {
-              title: 'Error',
-              body: 'Login error with LinkedIn'
-            }
-          });
+          // this.apiError.checkError(data.code, this.form.value, 'login');
+
+          linkedinLogin.unsubscribe();
         }
-      }
-    });
-  }
-
-  logoutLinkedIn() {
-    this.linkedInService.logout().subscribe({
-      next: () => {
-        console.log('Logout emitted.');
-      },
-      complete: () => {
-        console.log('Logout completed.');
-      }
-    });
-  }
-
-  private getAccessToken(authorizationToken: string) {
-    const url = `https://www.linkedin.com/oauth/v2/accessToken`;
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/x-www-form-urlencoded');
-
-    return this.http.post(url, {
-      grant_type: 'authorization_code',
-      code: authorizationToken,
-      redirect_uri: 'http://localhost:4200/',
-      client_id: environment.linkedinClientId,
-      client_secret: environment.linkedingClientSecret
-    }, {
-      headers
-    }).subscribe(result => {
-      console.log(`Access Token: ${authorizationToken}`);
-    });
+      });
   }
 
   signUp() {

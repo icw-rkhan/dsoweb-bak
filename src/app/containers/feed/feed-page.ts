@@ -100,7 +100,6 @@ export class FeedPageComponent implements OnInit, OnDestroy {
 
   private renderTabs(sponsorId: number) {
     const navLinks: NavLinkModel[] = [];
-    console.log(`sponsorId: ${sponsorId}`);
     if (sponsorId) {
       navLinks.push({
         label: 'LATEST',

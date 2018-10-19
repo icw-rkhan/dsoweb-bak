@@ -19,7 +19,6 @@ export class StatesComponent implements OnInit {
 
   ngOnInit() {
     this.states = this.listStates;
-    console.log(this.listStates);
   }
 
   changeInput(e) {
