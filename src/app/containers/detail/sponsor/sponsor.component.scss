@@ -158,10 +158,23 @@ p {
         width: auto;
         height: 32px;
         padding: 5px;
+        display: table;
+
+        span {
+            display: table-cell;
+            color: #4a4a4a;
+            font-family: "SFUI";
+            font-size: 18px;
+            font-weight: 600;  
+            vertical-align: middle; 
+        }
 
         img {
+            display: table-cell;
             width: auto;
             height: 22px;
+            margin-left: 10px;
+            vertical-align: middle;
         }
     }
 
