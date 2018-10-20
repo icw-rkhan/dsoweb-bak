@@ -18,6 +18,7 @@ export class ProfileComponent implements OnInit {
   userProfile: any;
   baseUrl: String;
   certificate: string;
+  resumeFile: any;
 
   constructor(
     private authService: AuthService,
@@ -55,6 +56,11 @@ export class ProfileComponent implements OnInit {
           this.userProfile.phone = formatNumber({country: 'US', phone: this.userProfile.phone}, 'National');
         }
         this.parseData();
+        if (this.userProfile.document_library) {
+          this.resumeFile = {};
+          this.resumeFile.name = this.userProfile.document_library.document_name || '';
+          this.userProfile.document_library = null;
+        }
       },
       err => {
         this.sharingService.showLoading(false);

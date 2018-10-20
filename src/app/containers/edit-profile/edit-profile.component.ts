@@ -162,6 +162,7 @@ export class EditProfileComponent implements OnInit {
         if (this.userProfile.document_library) {
           this.resumeFile = {};
           this.resumeFile.name = this.userProfile.document_library.document_name || '';
+          this.userProfile.document_library = null;
         }
 
         subService.unsubscribe();

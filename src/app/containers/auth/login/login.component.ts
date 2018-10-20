@@ -5,12 +5,8 @@ import { CustomValidators } from 'ngx-custom-validators';
 
 import { SharingService } from '../../../services/sharing.service';
 import { ApiErrorService, AuthService } from '../../../services';
-import { LinkedInService } from 'angular-linkedin-sdk';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
-import { AlertDialogComponent } from '../../../shared/dialogs/alert-dialog/alert-dialog.component';
-import { MatDialog } from '@angular/material';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -28,15 +24,14 @@ export class LoginComponent implements OnInit {
   isUserAuthenticatedEmittedValue: boolean;
   isInitializedEmittedValue: boolean;
 
-  constructor(private router: Router,
-              private activatedRoute: ActivatedRoute,
-              private fb: FormBuilder,
-              private authService: AuthService,
-              private apiError: ApiErrorService,
-              private sharingService: SharingService,
-              private linkedInService: LinkedInService,
-              private dialog: MatDialog,
-              private http: HttpClient) {
+  constructor(
+    private router: Router,
+    private activatedRoute: ActivatedRoute,
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private apiError: ApiErrorService,
+    private sharingService: SharingService
+  ) {
     this.sharingService.showLoading(true);
     this.isShowPassword = false;
     this.checkIsStudent = false;
