@@ -3,3 +3,19 @@
     margin-bottom: 5px;
   }
 }
+
+.profile_resume {
+  background-color: #fff;
+  padding: 10px 15px;
+  border-bottom: 1px solid #e9edf1;
+  .profile_resume__wrapper {
+    width: 100%;
+    padding: 20px 15px;
+    display: flex;
+    flex-direction: row;
+    border: 1px solid #e3e3e3;
+    justify-content: space-between;
+    box-shadow: 0px 1px 2px rgba(0,0,0,.12);
+    color: #4A4A4A;
+  }
+}
