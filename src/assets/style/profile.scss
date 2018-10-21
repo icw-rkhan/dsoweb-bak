@@ -181,7 +181,8 @@ span.icon-bar {
 }
 
 .uploaded_profile__content_info {
-  display: flex;
+	display: flex;
+	align-items: center;
   margin-left: 10px;
   padding: 0px 15px;
   width: calc(100% - 60px);
@@ -197,6 +198,13 @@ span.icon-bar {
   justify-content: center;
   padding-right: 5px;
   line-height: normal;
+}
+
+.uploaded_profile_preview {
+	color: #007AB9;
+	font-size: 12px;
+	cursor: pointer;
+	padding-right: 10px;
 }
 
 .uploaded_remove {

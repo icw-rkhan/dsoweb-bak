@@ -5,7 +5,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { MatDatepickerModule } from '@angular/material';
-import { LinkedInSdkModule } from 'angular-linkedin-sdk';
 
 import { SharedModule } from './shared';
 import { AppComponent } from './app.component';
@@ -45,7 +44,6 @@ export class HammerConfig extends HammerGestureConfig {
       meteor: false,
       color: '#354051'
     }),
-    LinkedInSdkModule,
     // Module import
     SharedModule,
     ReviewsModule,

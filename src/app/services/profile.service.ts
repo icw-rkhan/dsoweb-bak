@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators';
+import { map, tap } from 'rxjs/internal/operators';
 import { forkJoin } from 'rxjs';
 import { DentalSchool } from '../models/dental-school.model';
 import { environment } from '../../environments/environment';
@@ -96,6 +96,13 @@ export class ProfileService {
         reportProgress: true
       }
     ));
+  }
+
+  getResume(partialUrl) {
+    const url = `${environment.profileApiUrl}/resumeDownload?${partialUrl}`;
+    const headers = new HttpHeaders()
+       .set('Content-Type', 'application/octet-stream');
+    return this.http.get(url, { headers, responseType: 'text' });
   }
 
   deleteDocumentLibraryByEmail(email) {

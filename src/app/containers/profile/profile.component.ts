@@ -71,16 +71,20 @@ export class ProfileComponent implements OnInit {
   }
 
   removeResumeFile() {
-    this.profileService.deleteDocumentLibraryByEmail(this.userInfo.user_name).subscribe(
-      (res: any) => {
-        if (res['code'] === 0) {
-          this.alertService.successAlert('Resume removed successfully');
-          this.resumeFile = null;
-        } else {
-          this.alertService.errorAlert('Remove failed');
+    this.alertService.confirmAlert('Are you sure?', 'Do you really want to remove resume?')
+      .then((res: any) => {
+        if (res.value) {
+          this.profileService.deleteDocumentLibraryByEmail(this.userInfo.user_name).subscribe((res: any) => {
+            if (res['code'] === 0) {
+              this.resumeFile = null;
+              this.userProfile.document_library = null;
+              this.alertService.successAlert('Resume delete successfully');
+            } else {
+              this.alertService.errorAlert('Delete failed');
+            }
+          });
         }
-      }
-    )
+      }); 
   }
 
   parseData() {
