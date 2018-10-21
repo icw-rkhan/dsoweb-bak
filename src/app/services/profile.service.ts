@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
 import { forkJoin } from 'rxjs';
@@ -100,8 +100,10 @@ export class ProfileService {
 
   deleteDocumentLibraryByEmail(email) {
     const url = `${environment.profileApiUrl}/documentLibrary/deleteDocumentLibraryByEmail`;
-    const headers = this.customHeader();
-    return this.http.post(url, { email }, { headers: headers });
+    const headers = new HttpHeaders()
+       .set('Content-Type', 'application/x-www-form-urlencoded');
+    const request = `email=${email}`;
+    return this.http.post(url, request, { headers });
   }
 
   uploadAvatar(f) {
