@@ -162,6 +162,7 @@ export class EditProfileComponent implements OnInit {
         if (this.userProfile.document_library) {
           this.resumeFile = {};
           this.resumeFile.name = this.userProfile.document_library.document_name || '';
+          this.userProfile.document_library = null;
         }
 
         subService.unsubscribe();
@@ -411,8 +412,39 @@ export class EditProfileComponent implements OnInit {
     }
   }
   removeResumeFile() {
-    this.resumeFile = null;
-    this.userProfile.document_library = null;
+    this.alertService.confirmAlert('Are you sure?', 'Do you really want to remove resume?')
+      .then((res: any) => {
+        if (res.value) {
+          this.profileService.deleteDocumentLibraryByEmail(this.userInfo.user_name).subscribe((res: any) => {
+            if (res['code'] === 0) {
+              this.resumeFile = null;
+              this.userProfile.document_library = null;
+              this.alertService.successAlert('Resume delete successfully');
+            } else {
+              this.alertService.errorAlert('Delete failed');
+            }
+          });
+        }
+      });    
+  }
+  previewResume() {
+    const fileType = this.resumeFile.name.split('.').pop();
+    const reader = new FileReader();
+    this.profileService.getResume(this.userProfile.resume_url).subscribe((res: any) => {
+      const blob = new Blob([res], {type: "octet/stream"}),
+            url = window.URL.createObjectURL(blob);
+      if (fileType && fileType.toString().toUpperCase() === 'PDF') {
+
+      } else {
+        const downloadLink = document.createElement("a");
+        downloadLink.href = url;
+        downloadLink.download = this.resumeFile.name;
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      }
+    });
   }
   imageCropped(image: string) {
     this.croppedImage = image;

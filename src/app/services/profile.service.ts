@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpRequest, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/internal/operators';
+import { map, tap } from 'rxjs/internal/operators';
 import { forkJoin } from 'rxjs';
 import { DentalSchool } from '../models/dental-school.model';
 import { environment } from '../../environments/environment';
@@ -98,10 +98,19 @@ export class ProfileService {
     ));
   }
 
+  getResume(partialUrl) {
+    const url = `${environment.profileApiUrl}/resumeDownload?${partialUrl}`;
+    const headers = new HttpHeaders()
+       .set('Content-Type', 'application/octet-stream');
+    return this.http.get(url, { headers, responseType: 'text' });
+  }
+
   deleteDocumentLibraryByEmail(email) {
     const url = `${environment.profileApiUrl}/documentLibrary/deleteDocumentLibraryByEmail`;
-    const headers = this.customHeader();
-    return this.http.post(url, { email }, { headers: headers });
+    const headers = new HttpHeaders()
+       .set('Content-Type', 'application/x-www-form-urlencoded');
+    const request = `email=${email}`;
+    return this.http.post(url, request, { headers });
   }
 
   uploadAvatar(f) {
