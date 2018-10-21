@@ -3,6 +3,7 @@ import { formatNumber, parseNumber } from 'libphonenumber-js';
 import * as moment from 'moment';
 
 import { AuthService, ProfileService } from '../../services/index';
+import {AlertService} from '../../services/alert.service';
 import {SharingService} from '../../services/sharing.service';
 import { environment } from '../../../environments/environment';
 
@@ -23,7 +24,8 @@ export class ProfileComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private profileService: ProfileService,
-    private sharingService: SharingService
+    private sharingService: SharingService,
+    private alertService: AlertService
   ) {
     // this.certificate = 'Certificate, Advanced Periodontology';
     this.certificate = '';
@@ -66,6 +68,19 @@ export class ProfileComponent implements OnInit {
         this.sharingService.showLoading(false);
       }
     );
+  }
+
+  removeResumeFile() {
+    this.profileService.deleteDocumentLibraryByEmail(this.userInfo.user_name).subscribe(
+      (res: any) => {
+        if (res['code'] === 0) {
+          this.alertService.successAlert('Resume removed successfully');
+          this.resumeFile = null;
+        } else {
+          this.alertService.errorAlert('Remove failed');
+        }
+      }
+    )
   }
 
   parseData() {

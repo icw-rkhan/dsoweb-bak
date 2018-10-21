@@ -412,8 +412,15 @@ export class EditProfileComponent implements OnInit {
     }
   }
   removeResumeFile() {
-    this.resumeFile = null;
-    this.userProfile.document_library = null;
+    this.profileService.deleteDocumentLibraryByEmail(this.userInfo.user_name).subscribe((res: any) => {
+      if (res['code'] === 0) {
+        this.resumeFile = null;
+        this.userProfile.document_library = null;
+        this.alertService.successAlert('Resume delete successfully');
+      } else {
+        this.alertService.errorAlert('Delete failed');
+      }      
+    })
   }
   imageCropped(image: string) {
     this.croppedImage = image;
