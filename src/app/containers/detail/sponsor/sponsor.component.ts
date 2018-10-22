@@ -118,6 +118,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
   // change the layout of a post
   changeLayoutOfPost() {
     this.reLayout('a');
+    this.reLayout('h2');
     this.reLayout('img');
     this.reLayout('div');
     this.reLayout('video');
