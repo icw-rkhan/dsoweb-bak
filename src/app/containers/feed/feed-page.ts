@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener, QueryList, ElementRef, ViewChildren, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 
 import { NavLinkModel } from '../../models/nav-link.model';
@@ -10,7 +10,8 @@ import { environment } from '../../../environments/environment';
   templateUrl: './feed-page.html',
   styleUrls: ['./feed-page.scss'],
 })
-export class FeedPageComponent implements OnInit, OnDestroy {
+export class FeedPageComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChildren('menuItems', {read: ElementRef}) menuItems: QueryList<ElementRef>;
 
   url: string;
   isGeneral: boolean;
@@ -54,12 +55,26 @@ export class FeedPageComponent implements OnInit, OnDestroy {
     });
   }
 
+  scrollToActive(): void {
+    this.menuItems.forEach(item => {
+      const itemUrl = item.nativeElement.getAttribute('url');
+      if (itemUrl === this.currentUrl) {
+        const parent = item.nativeElement.parentElement;
+        parent.scrollLeft = item.nativeElement.offsetLeft;
+      }
+    });
+  }
+
+  ngAfterViewInit(): void {
+    this.scrollToActive();
+  }
+
   ngOnInit(): void {
     this.slideHeight = `${Math.round(document.body.clientWidth * 0.55)}px`;
-
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
+        this.scrollToActive();
       }
     });
 
