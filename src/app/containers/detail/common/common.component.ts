@@ -138,6 +138,7 @@ export class CommonComponent implements OnInit, OnDestroy {
       for (i = 0; i < tag.length; i++) {
         switch (tagName) {
           case 'h2':
+            tag[i].style.fontFamily = 'SFUI';
             tag[i].style.fontSize = '18px';
             tag[i].style.fontWeight = '600';
             break;
