@@ -1,15 +1,15 @@
 <dso-main-container>
   <div class="header-pic">
     <img *ngIf="!isGeneral" src={{headerImageUrl}}>
-    <slideshow *ngIf="isGeneral" 
-      [imageUrls]="slideUrls" 
+    <slideshow *ngIf="isGeneral"
+      [imageUrls]="slideUrls"
       [autoPlay]="true"
       [minHeight] = "slideHeight"
       [stopAutoPlayOnSlide]="false">
     </slideshow>
   </div>
-  <nav mat-tab-nav-bar>
-    <div *ngFor="let link of navLinks" >
+  <nav  mat-tab-nav-bar>
+    <div *ngFor="let link of navLinks" #menuItems [attr.url]="link.route" >
       <a *ngIf="link.route" mat-tab-link #rla="routerLinkActive" [routerLink]="link.route" routerLinkActive
        [class.active]="isActive(link)">
        {{link.label}}
