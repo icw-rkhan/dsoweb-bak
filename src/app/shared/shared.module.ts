@@ -33,6 +33,7 @@ import { CustomFormsModule } from 'ngx-custom-validators';
 import { ShareModule } from '@ngx-share/core';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
+import { PdfViewerModule } from 'ng2-pdf-viewer';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -46,6 +47,7 @@ import { MainContainerComponent } from './main-container/main-container.componen
 import { SponsorCardComponent } from './sponsor-card/sponsor-card.component';
 import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
 import { ReviewComponent } from './review-card/review-card.component';
+import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 
 const PIPES = [
   TruncatePipe,
@@ -58,6 +60,7 @@ export const COMPONENTS = [
   AlertDialogComponent,
   FeedCardComponent,
   ReviewComponent,
+  PdfViewerComponent,
   SponsorCardComponent,
   MainActionsComponent,
   FeedGridComponent,
@@ -100,6 +103,7 @@ export const MODULES = [
   CustomFormsModule,
   NgxMasonryModule,
   NgProgressHttpModule,
+  PdfViewerModule,
 ];
 
 @NgModule({

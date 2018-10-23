@@ -53,6 +53,8 @@ export class EditProfileComponent implements OnInit {
   isUploadFile: boolean;
   isUploadFileSlide: boolean;
   isResumeUploading: boolean;
+  isResumePreview: boolean;
+  resumePreviewUrl: string;
   resumeFile: any;
   certificate: string;
   croppedImageFile: any;
@@ -94,6 +96,8 @@ export class EditProfileComponent implements OnInit {
     this.isUploadFile = false;
     this.isUploadFileSlide = false;
     this.isResumeUploading = false;
+    this.isResumePreview = false;
+    this.resumePreviewUrl = '';
     // this.certificate = 'Certificate, Advanced Periodontology';
     this.certificate = '';
     this.baseUrl = environment.profileApiUrl;
@@ -429,13 +433,16 @@ export class EditProfileComponent implements OnInit {
   }
   previewResume() {
     const fileType = this.resumeFile.name.split('.').pop();
-    const reader = new FileReader();
     this.profileService.getResume(this.userProfile.resume_url).subscribe((res: any) => {
-      const blob = new Blob([res], {type: "octet/stream"}),
-            url = window.URL.createObjectURL(blob);
+      
       if (fileType && fileType.toString().toUpperCase() === 'PDF') {
-
+        const blob = new Blob([res], {type: "application/pdf"}),
+            url = window.URL.createObjectURL(blob);
+        this.resumePreviewUrl = url;
+        this.isResumePreview = true;
       } else {
+        const blob = new Blob([res], {type: "octet/stream"}),
+            url = window.URL.createObjectURL(blob);
         const downloadLink = document.createElement("a");
         downloadLink.href = url;
         downloadLink.download = this.resumeFile.name;
