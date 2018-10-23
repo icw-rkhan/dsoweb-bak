@@ -20,6 +20,8 @@ export class ProfileComponent implements OnInit {
   baseUrl: String;
   certificate: string;
   resumeFile: any;
+  isResumePreview: boolean;
+  resumePreviewUrl: string;
 
   constructor(
     private authService: AuthService,
@@ -32,6 +34,8 @@ export class ProfileComponent implements OnInit {
     this.userInfo = this.authService.getUserInfo();
     this.sharingService.showLoading(true);
     this.baseUrl = environment.profileApiUrl;
+    this.isResumePreview = false;
+    this.resumePreviewUrl = '';
   }
 
   ngOnInit() {
@@ -85,6 +89,29 @@ export class ProfileComponent implements OnInit {
           });
         }
       }); 
+  }
+
+  previewResume() {
+    const fileType = this.resumeFile.name.split('.').pop();
+    this.profileService.getResume(this.userProfile.resume_url).subscribe((res: any) => {
+      
+      if (fileType && fileType.toString().toUpperCase() === 'PDF') {
+        const blob = new Blob([res], {type: "application/pdf"}),
+            url = window.URL.createObjectURL(blob);
+        this.resumePreviewUrl = url;
+        this.isResumePreview = true;
+      } else {
+        const blob = new Blob([res], {type: "octet/stream"}),
+            url = window.URL.createObjectURL(blob);
+        const downloadLink = document.createElement("a");
+        downloadLink.href = url;
+        downloadLink.download = this.resumeFile.name;
+
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      }
+    });
   }
 
   parseData() {
