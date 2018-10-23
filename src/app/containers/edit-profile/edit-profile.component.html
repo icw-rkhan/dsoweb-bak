@@ -229,6 +229,8 @@
   </div>
 </form>
 
+<dso-pdf-viewer *ngIf="isResumePreview" [src]="resumePreviewUrl" (close)="isResumePreview = false"></dso-pdf-viewer>
+
 <div *ngIf="isUploadFile" class="modal-overlay upload-file" (click)="closeUploadResume($event)">
   <div class="modal-container" [@slideUpDown]="isUploadFileSlide ? 'up': 'down'">
     <div class="upload-content">

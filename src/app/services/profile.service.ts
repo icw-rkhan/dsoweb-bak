@@ -100,9 +100,9 @@ export class ProfileService {
 
   getResume(partialUrl) {
     const url = `${environment.profileApiUrl}/resumeDownload?${partialUrl}`;
-    const headers = new HttpHeaders()
-       .set('Content-Type', 'application/octet-stream');
-    return this.http.get(url, { headers, responseType: 'text' });
+    // const headers = new HttpHeaders()
+    //    .set('Content-Type', 'application/octet-stream');
+    return this.http.get(url, { responseType: 'blob' });
   }
 
   deleteDocumentLibraryByEmail(email) {
