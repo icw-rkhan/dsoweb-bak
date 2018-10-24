@@ -12,9 +12,9 @@
       </div>
       <div class="divider"></div>
     </div>
-    <mat-list-item *ngFor="let link of links" (click)="onClick(link)">
-      <mat-icon mat-list-icon class="side-icon">{{link.icon}}</mat-icon>
-      <a matLine class="side-btn">{{link.label}}</a>
+    <mat-list-item *ngFor="let link of links;let i = index" (click)="onClick(link)">
+      <mat-icon mat-list-icon class="side-icon" [style.background-image]="getIcons(i)"></mat-icon>
+      <a matLine class="side-btn" [style.color]="link.state=='active'?'#000000':'#879aa8'">{{link.label}}</a>
       <mat-divider [inset]="true"></mat-divider>
     </mat-list-item>
   </mat-nav-list>

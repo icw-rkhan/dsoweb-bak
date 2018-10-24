@@ -5,4 +5,5 @@ export interface NavLinkModel {
   route?: string;
   categoryId?: number;
   subMenu?: any[];
+  state?: string;
 }

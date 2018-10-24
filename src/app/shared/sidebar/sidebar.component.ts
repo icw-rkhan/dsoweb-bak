@@ -1,7 +1,11 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { NavLinkModel } from '../../models/nav-link.model';
+
 import { AuthService, ProfileService } from '../../services';
+import { NavLinksService } from '../../services/links.service';
+
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -18,47 +22,23 @@ export class SidebarComponent {
 
   links: NavLinkModel[] = [];
 
-  constructor(private router: Router, private authService: AuthService, private profileService: ProfileService) {
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private profileService: ProfileService,
+    private navLinksService: NavLinksService) {
+
     this.getUserInfo();
     this.baseUrl = environment.profileApiUrl;
-    this.links.push({
-      label: 'Browse Content',
-      icon: 'folder_open',
-      route: '/posts'
-    });
-    this.links.push({
-      label: 'Education',
-      icon: 'account_balance',
-      route: '#'
-    });
-    this.links.push({
-      label: 'Careers',
-      icon: 'notifications_active',
-      route: '#'
-    });
-    this.links.push({
-      label: 'Events',
-      icon: 'calendar_today',
-      route: '#'
-    });
-    this.links.push({
-      label: 'Unite',
-      icon: 'bookmarks',
-      route: '#'
-    });
-    this.links.push({
-      label: 'My Profile',
-      icon: 'account_box',
-      route: '/profile'
-    });
-    this.links.push({
-      label: 'Logout',
-      icon: 'exit_to_app',
-      route: ''
-    });
+    this.links = this.navLinksService.getNavLinks();
   }
 
   onClick(link: NavLinkModel) {
+    this.navLinksService.initNavLinks();
+    this.navLinksService.setNavLink(link);
+
+    this.links = this.navLinksService.getNavLinks();
+
     this.toggleMenu.emit();
     if (link.label === 'Logout') {
       this.authService.logOut();
@@ -84,5 +64,9 @@ export class SidebarComponent {
       err => {
         profileSub.unsubscribe();
       });
+  }
+
+  getIcons(index) {
+    return `url(assets/images/hamburger/${this.links[index].icon}_${this.links[index].state}.png)`;
   }
 }
