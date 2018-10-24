@@ -23,7 +23,8 @@
         <div class="input-mb flex-input cursor" (click)="_selectEducation()" *ngIf="type == 1">{{education ? education.name : ''}}</div>
         <input type="text" *ngIf="type == 0" class="input-mb" [(ngModel)]="school_name">
         <span *ngIf="isErrorName" class="text-danger">Please enter a Dental School</span>
-        <span class="edit-practice"></span>
+        <span *ngIf="type != 1" class="edit-practice"></span>
+        <span *ngIf="type == 1" class="arrow-right"></span>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Year of Graduation</label>
