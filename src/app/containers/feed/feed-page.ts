@@ -56,13 +56,20 @@ export class FeedPageComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   scrollToActive(): void {
-    this.menuItems.forEach(item => {
-      const itemUrl = item.nativeElement.getAttribute('url');
-      if (itemUrl === this.currentUrl) {
+    for (const item of this.menuItems.toArray()) {
+      const i = item.nativeElement.getAttribute('index');
+      const navItem: NavLinkModel = this.navLinks[i] || {label: ''};
+      let itemUrl = [navItem.route];
+      if (navItem.subMenu) {
+        itemUrl = [...itemUrl, ...navItem.subMenu];
+      }
+      if (itemUrl.indexOf(this.currentUrl) > -1) {
         const parent = item.nativeElement.parentElement;
         parent.scrollLeft = item.nativeElement.offsetLeft;
+
+        return;
       }
-    });
+    }
   }
 
   ngAfterViewInit(): void {
@@ -74,7 +81,7 @@ export class FeedPageComponent implements OnInit, OnDestroy, AfterViewInit {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
-        this.scrollToActive();
+        setTimeout(() => this.scrollToActive());
       }
     });
 
