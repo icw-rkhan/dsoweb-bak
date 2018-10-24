@@ -432,9 +432,10 @@ export class EditProfileComponent implements OnInit {
       });    
   }
   previewResume() {
+    this.sharingService.showLoading(true);
     const fileType = this.resumeFile.name.split('.').pop();
     this.profileService.getResume(this.userProfile.resume_url).subscribe((res: any) => {
-      
+      this.sharingService.showLoading(false);
       if (fileType && fileType.toString().toUpperCase() === 'PDF') {
         const blob = new Blob([res], {type: "application/pdf"}),
             url = window.URL.createObjectURL(blob);
