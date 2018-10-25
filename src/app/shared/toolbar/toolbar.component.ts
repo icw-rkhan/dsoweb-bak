@@ -17,6 +17,7 @@ export class ToolbarComponent {
 
   constructor(
     private router: Router,
+    private cdr: ChangeDetectorRef,
     private _location: Location) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
@@ -66,6 +67,8 @@ export class ToolbarComponent {
           this.title = 'DSODENTIST';
           this.btnTitle = 'menu';
         }
+
+        this.cdr.detectChanges();
       }
     });
   }
