@@ -1,6 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
+import { DomSanitizer } from '@angular/platform-browser';
 import { NgProgress } from '@ngx-progressbar/core';
 import { formatDate } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -53,7 +54,9 @@ export class CommonComponent implements OnInit, OnDestroy {
     private postService: PostService,
     private authService: AuthService,
     private commentService: CommentService,
-    private bookmarkService: BookmarkService) {
+    private bookmarkService: BookmarkService,
+    private sanitizer: DomSanitizer
+    ) {
 
     this.rate = 0;
     this.review_count = 0;
@@ -325,6 +328,10 @@ export class CommonComponent implements OnInit, OnDestroy {
       return false;
     }
     return false;
+  }
+
+  sanitizeHTML(html) {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   onClickReference() {
