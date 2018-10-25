@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, HostListener, QueryList, ElementRef, ViewChildren, AfterViewInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, HostListener, QueryList, ElementRef, ViewChildren, AfterViewInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
 
 import { NavLinkModel } from '../../models/nav-link.model';
@@ -12,6 +12,7 @@ import { environment } from '../../../environments/environment';
 })
 export class FeedPageComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChildren('menuItems', {read: ElementRef}) menuItems: QueryList<ElementRef>;
+  @ViewChild('menu', {read: ElementRef}) menu: ElementRef;
 
   url: string;
   isGeneral: boolean;
@@ -72,8 +73,25 @@ export class FeedPageComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
+  onMenueScrolled () {
+    const scrollContainer = this.menu.nativeElement.firstElementChild;
+    scrollContainer.addEventListener('scroll', () => {
+      const first = this.menuItems.first;
+      const last = this.menuItems.last;
+      const lastOffset = last.nativeElement.offsetLeft + last.nativeElement.clientWidth;
+
+      const scrollLeft = scrollContainer.scrollLeft;
+      if (first.nativeElement.offsetLeft > scrollLeft) {
+        scrollContainer.scrollLeft = scrollLeft + first.nativeElement.offsetLeft;
+      } else if (lastOffset < scrollLeft) {
+        scrollContainer.scrollLeft = scrollLeft - lastOffset;
+      }
+    })
+  }
+
   ngAfterViewInit(): void {
-    this.scrollToActive();
+    this.onMenueScrolled();
+    setTimeout(() => this.scrollToActive());
   }
 
   ngOnInit(): void {
