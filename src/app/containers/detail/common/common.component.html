@@ -49,9 +49,10 @@
             </p>
         </div>
     </div>
-    <div id="contents" class="inner-content" [innerHtml]="post.content">
+    <div id="contents" #postContent class="inner-content" [innerHtml]="sanitizeHTML(post.content)">
         {{changeLayoutOfPost()}}
         {{removeAuthorInfo()}}
+        <a *ngIf="hasReference()" (click)="onClickReference()">{{showReferenceState}}</a>
     </div>
     <div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
         <div class="review-question">
