@@ -60,12 +60,16 @@
 
     <section class="profile_Education">
       <div class="profile_title small f300">Upload resume or import data</div>
-      <div class="profile__content" *ngIf="!this.resumeFile" (click)="isUploadFile = true; isUploadFileSlide = true; typeFile = RESUME_FILE">
+      <div class="profile__content" *ngIf="!this.resumeFile">
         <div class="profile__icon upload-icon"></div>
         <div *ngIf="!this.resumeFile" class="profile__content_info">
           <div class="profile_info">
             <div class="profile_subtitle">Upload Resume</div>
-            <div class="profile-job">Your professional information will be imported automatically.</div>
+            <div class="profile-job">
+              Your professional information will be imported automatically.
+              <input type="file" accept=".xls,.xlsx,.doc,.docx, .pdf" (change)="typeFile = RESUME_FILE; selectFile($event)"
+              class="upload-hidden">
+            </div>
           </div>
         </div>
       </div>

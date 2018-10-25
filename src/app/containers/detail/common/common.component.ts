@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -28,6 +28,7 @@ export class CommonComponent implements OnInit, OnDestroy {
   authorInfo: string;
   review_count: number;
   isAuthorVisible: boolean;
+  showReferenceState: string;
 
   comments: Comment[];
 
@@ -42,6 +43,7 @@ export class CommonComponent implements OnInit, OnDestroy {
   ];
 
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  @ViewChild('postContent') postContent: ElementRef;
 
   constructor(
     private router: Router,
@@ -126,6 +128,7 @@ export class CommonComponent implements OnInit, OnDestroy {
     this.reLayout('audio');
     this.reLayout('table');
     this.reLayout('figcaption');
+    this.reLayout('ol');
   }
 
   // custome the style of the content
@@ -152,6 +155,9 @@ export class CommonComponent implements OnInit, OnDestroy {
             break;
           case 'table':
             this.changeTableFormat(tag[i]);
+            break;
+          case 'ol':
+            tag[i].classList.add('show-more');
             break;
           default:
             break;
@@ -302,6 +308,33 @@ export class CommonComponent implements OnInit, OnDestroy {
         tag[0].innerHTML = '';
         tag[0].style.margin = '0';
       }
+    }
+  }
+
+  hasReference() {
+    const reference = this.postContent.nativeElement.querySelector('ol');
+    if (reference) {
+      if (reference.children.length > 5) {
+        if (reference.classList.contains('show-more')) {
+          this.showReferenceState = 'Show more';
+        } else if (reference.classList.contains('show-less')) {
+          this.showReferenceState = 'Show less';
+        }
+        return true;
+      }
+      return false;
+    }
+    return false;
+  }
+
+  onClickReference() {
+    const reference = this.postContent.nativeElement.querySelector('ol');
+    if (reference.classList.contains('show-more')) {
+      reference.classList.remove('show-more').add('show-less');
+      this.showReferenceState = 'Show less';
+    } else if (reference.classList.contains('show-less')) {
+      reference.classList.remove('show-less').add('show-more');
+      this.showReferenceState = 'Show more';
     }
   }
 
