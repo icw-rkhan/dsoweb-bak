@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -29,6 +29,7 @@ export class CommonComponent implements OnInit, OnDestroy {
   authorInfo: string;
   review_count: number;
   isAuthorVisible: boolean;
+  showReference: boolean;
   showReferenceState: string;
 
   comments: Comment[];
@@ -55,12 +56,15 @@ export class CommonComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private commentService: CommentService,
     private bookmarkService: BookmarkService,
-    private sanitizer: DomSanitizer
+    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef
     ) {
 
     this.rate = 0;
     this.review_count = 0;
     this.isAuthorVisible = false;
+    this.showReferenceState = 'Show more';
+    this.showReference = false;
 
     this.post = new Post();
   }
@@ -87,8 +91,12 @@ export class CommonComponent implements OnInit, OnDestroy {
 
         // change Pre tag to Div tag
         this.post.content = this.changePreToDiv(this.post.content);
-
+        this.postContent.nativeElement.innerHTML = this.sanitizeHTML(this.post.content);
         this.progress.complete();
+        setTimeout(() => {
+          this.changeLayoutOfPost();
+          this.removeAuthorInfo();
+        }, 0);
         postSub.unsubscribe();
       },
       err => {
@@ -136,7 +144,7 @@ export class CommonComponent implements OnInit, OnDestroy {
 
   // custome the style of the content
   reLayout(tagName): void {
-    const paretTag = document.getElementById('contents');
+    const paretTag = this.postContent.nativeElement;
     const tag = paretTag.getElementsByTagName(tagName);
     if (tag && tag.length > 0) {
 
@@ -162,6 +170,15 @@ export class CommonComponent implements OnInit, OnDestroy {
             break;
           case 'ol':
             tag[i].classList.add('show-more');
+            if (tag[i].children.length > 5) {
+              setTimeout(() => {
+                this.showReference = true;
+              });
+            } else {
+              setTimeout(() => {
+                this.showReference = false;
+              });
+            }
             break;
           default:
             break;
@@ -315,34 +332,20 @@ export class CommonComponent implements OnInit, OnDestroy {
     }
   }
 
-  hasReference() {
-    const reference = this.postContent.nativeElement.querySelector('ol');
-    if (reference) {
-      if (reference.children.length > 5) {
-        if (reference.classList.contains('show-more')) {
-          this.showReferenceState = 'Show more';
-        } else if (reference.classList.contains('show-less')) {
-          this.showReferenceState = 'Show less';
-        }
-        return true;
-      }
-      return false;
-    }
-    return false;
-  }
-
   sanitizeHTML(html) {
     return this.sanitizer.bypassSecurityTrustHtml(html);
   }
 
   onClickReference() {
-    const reference = this.postContent.nativeElement.querySelector('ol');
+    const reference = this.postContent.nativeElement.getElementsByTagName('ol')[0];
     if (reference.classList.contains('show-more')) {
-      reference.classList.remove('show-more').add('show-less');
       this.showReferenceState = 'Show less';
-    } else if (reference.classList.contains('show-less')) {
-      reference.classList.remove('show-less').add('show-more');
+      reference.classList.remove('show-more');
+      reference.classList.add('show-less');
+    } else {
       this.showReferenceState = 'Show more';
+      reference.classList.remove('show-less');
+      reference.classList.add('show-more');
     }
   }
 
