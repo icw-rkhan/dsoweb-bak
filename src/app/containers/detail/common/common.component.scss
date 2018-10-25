@@ -225,3 +225,8 @@ p {
 div {
     background-color: #fff;
 }
+
+:host ::ng-deep iframe {
+    max-width: 100%;
+    height: auto;
+}
