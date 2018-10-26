@@ -120,6 +120,11 @@ export class CommonComponent implements OnInit, OnDestroy {
     this.trigger.closeMenu();
   }
 
+  @HostListener('window:resize', [])
+  onresize() {
+    this.reLayout('div');
+  }
+
   // change Pre tag to Div tag
   changePreToDiv(html) {
     html = html.toString();
