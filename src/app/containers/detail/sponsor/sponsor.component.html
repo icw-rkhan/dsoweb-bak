@@ -61,8 +61,6 @@
         </div>
     </div>
     <div id="contents" class="inner-content" [innerHtml]="post.content">
-        {{changeLayoutOfPost()}}
-        {{removeAuthorInfo()}}
     </div>
     <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
         <span *ngIf="isGsk(post.tags)" class="label-sponsor">Want more content from GSK?</span>

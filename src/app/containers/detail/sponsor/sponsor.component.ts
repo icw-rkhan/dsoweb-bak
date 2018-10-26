@@ -85,6 +85,12 @@ export class SponsorComponent implements OnInit, OnDestroy {
         // change Pre tag to Div tag
         this.post.content = this.changePreToDiv(this.post.content);
 
+        setTimeout(() => {
+          this.changeLayoutOfPost();
+          this.fetchAuthorInfo();
+          this.removeAuthorInfo();
+        }, 0);
+
         this.progress.complete();
         postSub.unsubscribe();
       },

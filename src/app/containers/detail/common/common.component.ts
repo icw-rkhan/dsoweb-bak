@@ -1,4 +1,4 @@
-import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef, ChangeDetectorRef } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer } from '@angular/platform-browser';
@@ -18,7 +18,8 @@ import { Post } from '../../../models/post.model';
 @Component({
   selector: 'dso-detail-common',
   templateUrl: './common.component.html',
-  styleUrls: ['./common.component.scss']
+  styleUrls: ['./common.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonComponent implements OnInit, OnDestroy {
 
@@ -52,13 +53,12 @@ export class CommonComponent implements OnInit, OnDestroy {
     private progress: NgProgress,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef,
     private postService: PostService,
     private authService: AuthService,
     private commentService: CommentService,
     private bookmarkService: BookmarkService,
-    private sanitizer: DomSanitizer,
-    private cdr: ChangeDetectorRef
-    ) {
+    private sanitizer: DomSanitizer) {
 
     this.rate = 0;
     this.review_count = 0;
@@ -95,7 +95,10 @@ export class CommonComponent implements OnInit, OnDestroy {
         this.progress.complete();
         setTimeout(() => {
           this.changeLayoutOfPost();
+          this.fetchAuthorInfo();
           this.removeAuthorInfo();
+
+          this.cdr.markForCheck();
         }, 0);
         postSub.unsubscribe();
       },
@@ -127,6 +130,7 @@ export class CommonComponent implements OnInit, OnDestroy {
 
   // change Pre tag to Div tag
   changePreToDiv(html) {
+    console.log('~~~~~~~ changed ~~~~~~~~');
     html = html.toString();
 
     html = html.replace(/<pre>/g, '<div><p>“</p><p>');
