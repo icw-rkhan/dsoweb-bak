@@ -114,7 +114,7 @@ export class FeedCardComponent {
 
         if (tag.length > 1) {
           const temp = tag[1].innerHTML;
-          tag[1].innerHTML = `<span style="font-size:15px;font-weight:700">${authorName}</span> - ${temp}`;
+          tag[1].innerHTML = `<span style="color:#616161;font-size:15px;font-weight:700;line-height:35px">${authorName}</span><br>${temp}`;
         }
       }
     }

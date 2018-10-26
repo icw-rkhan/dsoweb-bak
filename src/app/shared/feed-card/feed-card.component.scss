@@ -63,7 +63,6 @@ mat-card {
 .content-title {
   display: flex;
   flex-direction: row;
-  padding-bottom: 10px;
 
   .mat-h2 {
     flex: 1;
@@ -72,6 +71,7 @@ mat-card {
     font-size: 20px;
     font-weight: 700;
     line-height: 24px;
+    margin-bottom: 0px;
   }
 }
 
@@ -130,7 +130,7 @@ mat-card {
 }
 
 .excerpt-content {
-  height: 77px;
+  height: 118px;
   overflow: hidden;
 }
 
