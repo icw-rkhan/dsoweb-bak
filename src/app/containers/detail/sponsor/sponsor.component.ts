@@ -87,7 +87,6 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
           this.changeLayoutOfPost();
-          this.fetchAuthorInfo();
           this.removeAuthorInfo();
         }, 0);
 
