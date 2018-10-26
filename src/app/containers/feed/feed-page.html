@@ -8,32 +8,8 @@
       [stopAutoPlayOnSlide]="false">
     </slideshow>
   </div>
-  <nav  mat-tab-nav-bar #menu>
-    <div *ngFor="let link of navLinks; let i = index" [attr.index]="i" >
-      <a *ngIf="link.route" mat-tab-link #rla="routerLinkActive" [routerLink]="link.route" routerLinkActive
-       [class.active]="isActive(link)">
-       {{link.label}}
-      </a>
-      <mat-menu #submenu="matMenu" yPosition="below" [overlapTrigger]="false">
-        <a mat-menu-item [class.active]="isActive(subLink)" *ngFor="let subLink of link.subMenu" [routerLink]="subLink.route" routerLinkActive>{{subLink.label}}</a>
-      </mat-menu>
-      <a mat-tab-link [matMenuTriggerFor]="submenu" *ngIf="link.subMenu">
-        {{link.label}}
-      </a>
-    </div>
-    <div *ngFor="let link of navLinks; let i = index" #menuItems [attr.index]="i" >
-      <a *ngIf="link.route" mat-tab-link #rla="routerLinkActive" [routerLink]="link.route" routerLinkActive
-       [class.active]="isActive(link)">
-       {{link.label}}
-      </a>
-      <mat-menu #submenu="matMenu" yPosition="below" [overlapTrigger]="false">
-        <a mat-menu-item [class.active]="isActive(subLink)" *ngFor="let subLink of link.subMenu" [routerLink]="subLink.route" routerLinkActive>{{subLink.label}}</a>
-      </mat-menu>
-      <a mat-tab-link [matMenuTriggerFor]="submenu" *ngIf="link.subMenu">
-        {{link.label}}
-      </a>
-    </div>
-    <div *ngFor="let link of navLinks; let i = index" [attr.index]="i" >
+  <nav mat-tab-nav-bar>
+    <div *ngFor="let link of navLinks" >
       <a *ngIf="link.route" mat-tab-link #rla="routerLinkActive" [routerLink]="link.route" routerLinkActive
        [class.active]="isActive(link)">
        {{link.label}}
