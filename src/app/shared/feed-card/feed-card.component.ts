@@ -113,8 +113,8 @@ export class FeedCardComponent {
         this.removeAuthorInfo();
 
         if (tag.length > 1) {
-          const temp = tag[1].innerHTML;
-          tag[1].innerHTML = `<span style="color:#616161;font-size:15px;font-weight:700;line-height:35px">${authorName}</span><br>${temp}`;
+          tag[0].innerHTML = `<span style="color:#616161;font-size:15px;font-weight:700;line-height:35px">${authorName}</span>`;
+          tag[1].classList.add('first-big');
         }
       }
     }

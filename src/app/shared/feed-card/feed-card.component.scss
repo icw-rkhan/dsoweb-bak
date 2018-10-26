@@ -134,6 +134,13 @@ mat-card {
   overflow: hidden;
 }
 
+p.first::first-letter {
+  font-size: 40px;
+  color: #626262;
+  float: left;
+  margin: 10px 6px 2px 0;
+}
+
 #more-text-btn {
   color: #879aa8;
   position: absolute;
