@@ -9,6 +9,14 @@ body {
   margin: 0;
 }
 
+p.first-big::first-letter {
+  font-size: 40px;
+  color: #626262;
+  float: left;
+  margin: 10px 6px 2px 0;
+}
+
+
 *, *:focus, *:active, *:hover {
   outline: none;
 }
