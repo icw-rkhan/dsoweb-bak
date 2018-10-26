@@ -18,7 +18,7 @@ export class ToolbarComponent {
   constructor(
     private router: Router,
     private _location: Location) {
-    router.events.subscribe((event: Event) => {
+    this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.url = event.url;
 
