@@ -1,7 +1,7 @@
-import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef, AfterViewChecked } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer } from '@angular/platform-browser';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { NgProgress } from '@ngx-progressbar/core';
 import { formatDate } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -20,9 +20,11 @@ import { Post } from '../../../models/post.model';
   templateUrl: './common.component.html',
   styleUrls: ['./common.component.scss']
 })
-export class CommonComponent implements OnInit, OnDestroy {
+export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   post: Post;
+  postSafeContent: SafeHtml;
+  postRendered: boolean;
   rate: number;
   postId: number;
   authorName: string;
@@ -63,6 +65,8 @@ export class CommonComponent implements OnInit, OnDestroy {
     this.isAuthorVisible = false;
     this.showReferenceState = 'Show more';
     this.showReference = false;
+    this.postRendered = false;
+    this.postSafeContent = '';
 
     this.post = new Post();
   }
@@ -89,13 +93,7 @@ export class CommonComponent implements OnInit, OnDestroy {
 
         // change Pre tag to Div tag
         this.post.content = this.changePreToDiv(this.post.content);
-        this.postContent.nativeElement.innerHTML = this.sanitizeHTML(this.post.content);
-
-        setTimeout(() => {
-          this.changeLayoutOfPost();
-          this.removeAuthorInfo();
-        }, 0);
-
+        this.postSafeContent = this.sanitizeHTML(this.post.content);
         this.progress.complete();
         postSub.unsubscribe();
       },
@@ -109,6 +107,18 @@ export class CommonComponent implements OnInit, OnDestroy {
 
       this.progress.complete();
     });
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.postContent.nativeElement.innerHTML !== '' && !this.postRendered) {
+      console.log('hey');
+      this.postRendered = true;
+      
+      setTimeout(() => {
+        this.changeLayoutOfPost();
+        this.removeAuthorInfo();
+      }, 0);
+    }
   }
 
   ngOnDestroy(): void {
@@ -127,7 +137,6 @@ export class CommonComponent implements OnInit, OnDestroy {
 
   // change Pre tag to Div tag
   changePreToDiv(html) {
-    console.log('~~~~~~~ changed ~~~~~~~~');
     html = html.toString();
 
     html = html.replace(/<pre>/g, '<div><p>“</p><p>');
@@ -175,15 +184,18 @@ export class CommonComponent implements OnInit, OnDestroy {
             this.changeTableFormat(tag[i]);
             break;
           case 'ol':
-            tag[i].classList.add('show-more');
-            if (tag[i].children.length > 5) {
-              setTimeout(() => {
-                this.showReference = true;
-              });
-            } else {
-              setTimeout(() => {
-                this.showReference = false;
-              });
+            const prevElement = tag[i].previousElementSibling;
+            if (prevElement.tagName === 'H2' && prevElement.innerHTML.indexOf('References') > -1) {
+              if (tag[i].children.length > 5) {
+                tag[i].classList.add('show-more');
+                setTimeout(() => {
+                  this.showReference = true;
+                });
+              } else {
+                setTimeout(() => {
+                  this.showReference = false;
+                });
+              }
             }
             break;
           default:
