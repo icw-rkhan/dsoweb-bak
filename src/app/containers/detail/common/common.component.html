@@ -49,9 +49,9 @@
             </p>
         </div>
     </div>
-    <div id="contents" #postContent class="inner-content">
+    <div id="contents" #postContent class="inner-content" [innerHTML]="postSafeContent">
     </div>
-    <a *ngIf="showReference" (click)="onClickReference()" class="show-more-btn">{{showReferenceState}}</a>
+    <a *ngIf="showReference" (click)="onClickReference()" [ngClass]="{'show-more-btn': showReferenceState === 'Show more', 'show-less-btn': showReferenceState === 'Show less'}">{{showReferenceState}}</a>
     <div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
         <div class="review-question">
             <span>Finished the content?</span>
