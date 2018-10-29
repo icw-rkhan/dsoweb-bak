@@ -16,8 +16,9 @@ export class BookmarkService {
   }
 
   getAllByEmail(email: string): Observable<Bookmark[]> {
-    const url = `${environment.profileApiUrl}/bookmark/getAllByEmail`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.auth.getToken()}`);
+    const url = `${environment.cmsAPIUrl}/bookmark/findAllByEmail`;
+
+    const headers = this.getHeaders();
 
     return this.http.post(url, null, {
       headers,
@@ -30,20 +31,31 @@ export class BookmarkService {
   }
 
   saveBookmark(bookmark: Bookmark) {
-    const url = `${environment.profileApiUrl}/bookmark/save`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.auth.getToken()}`);
+    const url = `${environment.cmsAPIUrl}/bookmark/save`;
+
+    const headers = this.getHeaders();
 
     return this.http.post(url, bookmark, {headers});
   }
 
   deleteOneById(id: string) {
-    const url = `${environment.profileApiUrl}/bookmark/deleteOneById`;
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${this.auth.getToken()}`);
+    const url = `${environment.cmsAPIUrl}/bookmark/deleteOneById`;
 
-    return this.http.post(url, null, {
-      headers,
-      params: {id}
-    });
+    const headers = this.getHeaders();
+
+    const param = {
+      'id': id
+    };
+
+    return this.http.post(url, null, {headers, params: param});
+  }
+
+  getHeaders(): HttpHeaders {
+    const headers = new HttpHeaders()
+      .append('Authorization', `Bearer ${this.auth.getToken()}`)
+      .append('Content-Type', 'application/json');
+
+    return headers;
   }
 
 }

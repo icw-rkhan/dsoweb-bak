@@ -113,7 +113,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     if (this.postContent.nativeElement.innerHTML !== '' && !this.postRendered) {
       console.log('hey');
       this.postRendered = true;
-      
+
       setTimeout(() => {
         this.changeLayoutOfPost();
         this.removeAuthorInfo();
@@ -382,18 +382,6 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     }
   }
 
-  // filter categories
-  filterCategories(categories) {
-    if (categories && categories.length > 1) {
-      return categories[1].name;
-
-    } else if (categories && categories.length === 1) {
-      return categories[0].name;
-    }
-
-    return '';
-  }
-
   // post the page to review all comments with postId
   onViewAll(postId): void {
     this.router.navigate([`/reviews/view/${postId}`]);
@@ -406,7 +394,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // add bookmark
   onAddBookmark(): void {
-    this.post.bookmarked = true;
+    this.post.isBookmark = true;
     const email = this.authService.getUserInfo().user_name;
 
     const bookmarkSub = this.bookmarkService.saveBookmark(<Bookmark>{
@@ -425,7 +413,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // remove bookmark
   onRemoveBookmark(): void {
-    this.post.bookmarked = false;
+    this.post.isBookmark = false;
 
     const bookmarkSub = this.bookmarkService.deleteOneById(this.post.bookmarkId).subscribe(x => {
       this.snackBar.open('Bookmark removed', 'OK', {

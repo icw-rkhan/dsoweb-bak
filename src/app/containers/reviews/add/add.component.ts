@@ -19,7 +19,7 @@ export class AddComponent implements OnInit, OnDestroy {
   rate: number;
   postId: number;
 
-  userId: string;
+  userEmail: string;
   comment: string;
   baseUrl: string;
   postDate: string;
@@ -86,7 +86,7 @@ export class AddComponent implements OnInit, OnDestroy {
           const res = data.resultMap.data;
 
           // sets userInfo
-          this.userId = res.id;
+          this.userEmail = email;
           this.userInfo = {
             url: res.photo_url,
             name: res.full_name
@@ -114,10 +114,10 @@ export class AddComponent implements OnInit, OnDestroy {
   // save the comment and redirect to previous url
   saveComment() {
     this.body = {
-      'userId': this.userId,
-      'postId': this.postId,
-      'comment': this.comment,
-      'rating': this.rate
+      'email': this.userEmail,
+      'contentId': this.postId,
+      'commentText': this.comment,
+      'commentRating': this.rate
     };
 
     const commentSub = this.commentService.setComment(this.body).subscribe(

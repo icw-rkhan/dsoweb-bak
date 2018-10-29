@@ -350,18 +350,6 @@ export class SponsorComponent implements OnInit, OnDestroy {
     }
   }
 
-  // filter categories
-  filterCategories(categories) {
-    if (categories && categories.length > 1) {
-      return categories[1].name;
-
-    } else if (categories && categories.length === 1) {
-      return categories[0].name;
-    }
-
-    return '';
-  }
-
   // post the page to review all comments with postId
   onViewAll(postId): void {
     this.router.navigate([`/reviews/view/${postId}`]);
@@ -374,7 +362,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   // add bookmark
   onAddBookmark(): void {
-    this.post.bookmarked = true;
+    this.post.isBookmark = true;
     const email = this.authService.getUserInfo().user_name;
 
     const bookmarkSub = this.bookmarkService.saveBookmark(<Bookmark>{
@@ -393,7 +381,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   // remove bookmark
   onRemoveBookmark(): void {
-    this.post.bookmarked = false;
+    this.post.isBookmark = false;
 
     const bookmarkSub = this.bookmarkService.deleteOneById(this.post.bookmarkId).subscribe(x => {
       this.snackBar.open('Bookmark removed', 'OK', {
@@ -455,26 +443,26 @@ export class SponsorComponent implements OnInit, OnDestroy {
   }
 
   // check gsk tag
-  isGsk(tags): boolean {
-    if (tags && tags.includes(environment.SPONSOR_GSK)) {
-      return true;
+  isGsk(sponsorId): boolean {
+    if (sponsorId === environment.SPONSOR_GSK) {
+    return true;
     }
     return false;
   }
 
   // check align tag
-  isAlign(tags): boolean {
-    if (tags && tags.includes(environment.SPONSOR_ALIGN)) {
+  isAlign(sponsorId): boolean {
+      if (sponsorId === environment.SPONSOR_ALIGN) {
       return true;
-    }
-    return false;
+      }
+      return false;
   }
 
   // check nobel tag
-  isNobel(tags): boolean {
-    if (tags && tags.includes(environment.SPONSOR_NOBEL)) {
+  isNobel(sponsorId): boolean {
+      if (sponsorId === environment.SPONSOR_NOBEL) {
       return true;
-    }
-    return false;
+      }
+      return false;
   }
 }

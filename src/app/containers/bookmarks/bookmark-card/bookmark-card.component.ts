@@ -18,25 +18,14 @@ export class BookmarkCardComponent {
 
   }
 
-  // filter categories
-  filterCategories(categories) {
-    if (categories && categories.length > 1) {
-      return categories[1].name;
-    } else if (categories && categories.length === 1) {
-      return categories[0].name;
-    }
-
-    return '';
-  }
-
   onRemove() {
     this.remove.emit(this.post);
   }
   // post a bookmark by url
-  onPostBookmark(postId, tags) {
-    if (tags.includes(environment.SPONSOR_GSK) ||
-        tags.includes(environment.SPONSOR_ALIGN) ||
-        tags.includes(environment.SPONSOR_NOBEL)) {
+  onPostBookmark(postId, sponsorId) {
+    if (sponsorId === environment.SPONSOR_GSK ||
+        sponsorId === environment.SPONSOR_ALIGN ||
+        sponsorId === environment.SPONSOR_NOBEL) {
       this.router.navigate([`/detail/sponsor/${postId}`]);
     } else {
       this.router.navigate([`/detail/${postId}`]);

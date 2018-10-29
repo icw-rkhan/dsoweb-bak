@@ -55,7 +55,7 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
     this.progress.start();
     this.bookmarkService.deleteOneById(post.bookmarkId).subscribe(() => {
       this.progress.complete();
-      this.posts = this.posts.filter(b => b.id !== +post.id);
+      this.posts = this.posts.filter(b => b.id !== post.id);
       this.snackBar.open('Bookmark removed', 'OK', {
         duration: 2000,
       });
@@ -76,7 +76,7 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
         const innerSub = this.postService.fetchById(+bookmark.postId)
           .subscribe(p => {
             // Check if we are filtering by category
-            if (categoryId === undefined || p.categories.find(c => c.id === categoryId) !== undefined) {
+            if (categoryId === undefined || p.categoryId === categoryId) {
               p.bookmarkId = bookmark.id;
               posts.push(p);
             }

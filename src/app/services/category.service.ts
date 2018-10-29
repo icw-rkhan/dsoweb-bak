@@ -1,8 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, shareReplay } from 'rxjs/internal/operators';
-import { Category } from '../models/category.model';
 import { Observable } from 'rxjs';
+
+import { AuthService } from './auth/auth.service';
+
+import { Category } from '../models/category.model';
+
 import { environment } from '../../environments/environment';
 
 const CACHE_SIZE = 1;
@@ -12,13 +16,16 @@ const CACHE_SIZE = 1;
 })
 export class CategoryService {
 
-  private _categories$: Observable<Category[]>;
+  private categories$: Observable<Category[]>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private authService: AuthService) {
   }
 
   private fetchCategories() {
-    const url = `${environment.cmsApiUrl}/categories?per_page=100`;
+    const url = `${environment.cmsAPIUrl}/category/findAllCategory`;
+
     return this.http.get(url).pipe(
       map((response: any[]) =>
         response.map(category => new Category().deserialize(category))
@@ -27,12 +34,21 @@ export class CategoryService {
   }
 
   get categories(): Observable<Category[]> {
-    if (!this._categories$) {
-      this._categories$ = this.fetchCategories().pipe(
+    if (!this.categories$) {
+      this.categories$ = this.fetchCategories().pipe(
         shareReplay(CACHE_SIZE)
       );
     }
-    return this._categories$;
+
+    return this.categories$;
+  }
+
+  getHeaders(): HttpHeaders {
+    const headers = new HttpHeaders()
+      .append('Authorization', `Bearer ${this.authService.getToken()}`)
+      .append('Content-Type', 'application/json');
+
+    return headers;
   }
 
 }

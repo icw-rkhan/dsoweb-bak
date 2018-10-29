@@ -66,7 +66,7 @@ export class CategoryPageComponent implements OnInit {
 
     const email = this.authService.getUserInfo().user_name;
     const postsSubs = forkJoin(
-      this.postService.fetchByCategory({
+      this.postService.fetchByCategoryId({
         categoryId: this.categoryId,
         page: this.page,
         per_page: 5
@@ -74,7 +74,7 @@ export class CategoryPageComponent implements OnInit {
       this.bookmarkService.getAllByEmail(email)
     ).pipe(
       map(items => items[0].map(p => {
-        const bookmark = items[1].find(b => +b.postId === p.id);
+        const bookmark = items[1].find(b => b.postId === p.id);
         return Object.assign({}, p, {
           bookmarked: !_.isUndefined(bookmark),
           bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined

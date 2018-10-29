@@ -24,7 +24,7 @@ export class FeedCardComponent {
   }
 
   onAddBookmark() {
-    this.post.bookmarked = true;
+    this.post.isBookmark = true;
     const email = this.authService.getUserInfo().user_name;
     this.addBookmark.emit(<Bookmark>{
       email: email,
@@ -35,22 +35,18 @@ export class FeedCardComponent {
   }
 
   onRemoveBookmark() {
-    this.post.bookmarked = false;
+    this.post.isBookmark = false;
     this.removeBookmark.emit(this.post.bookmarkId);
   }
 
   onViewDetail() {
-    if (this.post.tags.includes(parseInt(environment.SPONSOR_GSK, 10)) ||
-        this.post.tags.includes(parseInt(environment.SPONSOR_ALIGN, 10)) ||
-        this.post.tags.includes(parseInt(environment.SPONSOR_NOBEL, 10))) {
+    if (this.post.sponsorId === environment.SPONSOR_ALIGN ||
+      this.post.sponsorId === environment.SPONSOR_GSK ||
+      this.post.sponsorId === environment.SPONSOR_NOBEL) {
       this.router.navigate([`/detail/sponsor/${this.post.id}`]);
     } else {
       this.router.navigate([`/detail/${this.post.id}`]);
     }
-  }
-
-  onCheckSponsorType(tags, sponsorId: number) {
-    return tags.includes(sponsorId);
   }
 
   onCheckCategoryType(categories, catId: number) {
@@ -134,38 +130,27 @@ export class FeedCardComponent {
     }
   }
 
-  // filter categories
-  filterCategories(categories) {
-    if (categories && categories.length > 1) {
-      return categories[1].name;
-    } else if (categories && categories.length === 1) {
-      return categories[0].name;
-    }
-
-    return '';
-  }
-
   // check gsk tag
-  isGsk(tags): boolean {
-    if (tags && tags.includes(parseInt(environment.SPONSOR_GSK, 10))) {
-      return true;
+  isGsk(sponsorId): boolean {
+    if (sponsorId === environment.SPONSOR_GSK) {
+    return true;
     }
     return false;
   }
 
   // check align tag
-  isAlign(tags): boolean {
-    if (tags && tags.includes(parseInt(environment.SPONSOR_ALIGN, 10))) {
+  isAlign(sponsorId): boolean {
+      if (sponsorId === environment.SPONSOR_ALIGN) {
       return true;
-    }
-    return false;
+      }
+      return false;
   }
 
   // check nobel tag
-  isNobel(tags): boolean {
-    if (tags && tags.includes(parseInt(environment.SPONSOR_NOBEL, 10))) {
+  isNobel(sponsorId): boolean {
+      if (sponsorId === environment.SPONSOR_NOBEL) {
       return true;
-    }
-    return false;
+      }
+      return false;
   }
 }

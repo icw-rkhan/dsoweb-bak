@@ -1,20 +1,20 @@
 <section>
     <div class="header">
-        <h3 class="mat-h3">{{filterCategories(post?.categories)}}</h3>
+        <h3 class="mat-h3">{{post.categoryName}}</h3>
         <span class="mat-body-1">{{post?.date | date: 'mediumDate'}}</span>
     </div>
     <div class="inner-thumbnail" fxLayout="column">
         <img *ngIf="post.thumbnail; else elseBlock"class="inner-thumbnail" src="{{post.thumbnail}}">
         <ng-template #elseBlock>
-            <img src="../../../assets/images/sponsor/align-header.png" *ngIf="isAlign(post.tags)"/>
-            <img src="../../../assets/images/sponsor/gsk-header.png" *ngIf="isGsk(post.tags)"/>
-            <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="isNobel(post.tags)"/>
+            <img src="../../../assets/images/sponsor/align-header.png" *ngIf="isAlign(post.sponsorId)"/>
+            <img src="../../../assets/images/sponsor/gsk-header.png" *ngIf="isGsk(post.sponsorId)"/>
+            <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="isNobel(post.sponsorId)"/>
         </ng-template>
-        <img *ngIf="isGsk(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png"
+        <img *ngIf="isGsk(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png"
             (click)="onPostSponsor('gsk')">
-        <img *ngIf="isAlign(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png"
+        <img *ngIf="isAlign(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png"
             (click)="onPostSponsor('align')">
-        <img *ngIf="isNobel(post.tags)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png"
+        <img *ngIf="isNobel(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png"
             (click)="onPostSponsor('nobel')">
     </div>
     <div class="inner-content" fxLayout="row">
@@ -63,14 +63,14 @@
     <div id="contents" class="inner-content" [innerHtml]="post.content">
     </div>
     <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
-        <span *ngIf="isGsk(post.tags)" class="label-sponsor">Want more content from GSK?</span>
-        <span *ngIf="isAlign(post.tags)" class="label-sponsor">Want more content from Align?</span>
-        <span *ngIf="isNobel(post.tags)" class="label-sponsor">Want more content from Nobel?</span>
-        <button mat-button *ngIf="isGsk(post.tags)"class="sponsorBtn gskBtn"
+        <span *ngIf="isGsk(post.sponsorId)" class="label-sponsor">Want more content from GSK?</span>
+        <span *ngIf="isAlign(post.sponsorId)" class="label-sponsor">Want more content from Align?</span>
+        <span *ngIf="isNobel(post.sponsorId)" class="label-sponsor">Want more content from Nobel?</span>
+        <button mat-button *ngIf="isGsk(post.sponsorId)"class="sponsorBtn gskBtn"
             (click)="onPostSponsor('gsk')">Access GSK Science</button>
-        <button mat-button *ngIf="isAlign(post.tags)"class="sponsorBtn alignBtn"
+        <button mat-button *ngIf="isAlign(post.sponsorId)"class="sponsorBtn alignBtn"
             (click)="onPostSponsor('align')">Access Align Resources</button>
-        <button mat-button *ngIf="isNobel(post.tags)"class="sponsorBtn nobelBtn"
+        <button mat-button *ngIf="isNobel(post.sponsorId)"class="sponsorBtn nobelBtn"
             (click)="onPostSponsor('nobel')">Access Nobel Biocare Resources</button>
     </div>
     <div class="review" fxLayout="column" fxLayoutAlign="center center"

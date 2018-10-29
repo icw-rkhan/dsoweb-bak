@@ -62,17 +62,6 @@ export class RelativeComponent implements OnInit, OnDestroy, PipeTransform {
         return this.sanitizer.bypassSecurityTrustResourceUrl(url);
     }
 
-    // filter categories
-    filterCategories(categories) {
-        if (categories && categories.length > 1) {
-        return categories[1].name;
-        } else if (categories && categories.length === 1) {
-        return categories[0].name;
-        }
-
-        return '';
-    }
-
     // post sponsor article by postId
     onPostSponsor(type) {
         let sponsorId;
@@ -89,24 +78,24 @@ export class RelativeComponent implements OnInit, OnDestroy, PipeTransform {
     }
 
     // check gsk tag
-    isGsk(tags): boolean {
-        if (tags && tags.includes(environment.SPONSOR_GSK)) {
+    isGsk(sponsorId): boolean {
+        if (sponsorId === environment.SPONSOR_GSK) {
         return true;
         }
         return false;
     }
 
     // check align tag
-    isAlign(tags): boolean {
-        if (tags && tags.includes(environment.SPONSOR_ALIGN)) {
+    isAlign(sponsorId): boolean {
+        if (sponsorId === environment.SPONSOR_ALIGN) {
         return true;
         }
         return false;
     }
 
     // check nobel tag
-    isNobel(tags): boolean {
-        if (tags && tags.includes(environment.SPONSOR_NOBEL)) {
+    isNobel(sponsorId): boolean {
+        if (sponsorId === environment.SPONSOR_NOBEL) {
         return true;
         }
         return false;

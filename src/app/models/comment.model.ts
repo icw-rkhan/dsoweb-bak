@@ -1,4 +1,7 @@
 import { Serializable } from './serializable.model';
+
+import { ProfileService } from '../services/profile.service';
+
 import * as _ from 'lodash';
 
 export class Comment implements Serializable<Comment> {
@@ -8,18 +11,38 @@ export class Comment implements Serializable<Comment> {
   comment: string;
   rating: number;
   userName: string;
-  userUrl: string;
-  creationDt: Date;
+  userUrl?: string;
+
+  constructor(private profileService: ProfileService) {
+
+  }
+
+  getUserInfo(email) {
+    let res: any;
+    const profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
+      (data: any) => {
+        res = data.resultMap.data;
+
+        this.userId = res.id;
+        this.userName = res.full_name;
+        this.userUrl = res.photo_url;
+
+        profileSub.unsubscribe();
+      });
+
+    return true;
+  }
 
   deserialize(data: any): Comment {
+    this.getUserInfo(data.email);
+
     return <Comment>Object.assign({}, {
-      userId: data.userId.rendered,
-      postId: data.postId.rendered,
-      comment: data.comment.rendered,
-      rating: data.rating.rendered,
-      userName: data.userName.rendered,
-      userUrl: data.userUrl.rendered,
-      creationDt: new Date(data.creationDt),
+      userId: this.userId ? this.userId : '',
+      postId: data.comment_id,
+      comment: data.comment_text,
+      rating: data.comment_rating,
+      userName: this.userName ? this.userName : '',
+      userUrl: this.userUrl ? this.userUrl : ''
     });
   }
 

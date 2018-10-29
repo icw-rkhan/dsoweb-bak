@@ -22,7 +22,7 @@ export class SponsorCardComponent {
   }
 
   onAddBookmark() {
-    this.post.bookmarked = true;
+    this.post.isBookmark = true;
     const email = this.authService.getUserInfo().user_name;
     this.addBookmark.emit(<Bookmark>{
       email: email,
@@ -33,14 +33,14 @@ export class SponsorCardComponent {
   }
 
   onRemoveBookmark() {
-    this.post.bookmarked = false;
+    this.post.isBookmark = false;
     this.removeBookmark.emit(this.post.bookmarkId);
   }
 
   onViewDetail() {
-    if (this.post.tags.includes(parseInt(environment.SPONSOR_ALIGN)) ||
-        this.post.tags.includes(parseInt(environment.SPONSOR_GSK)) ||
-        this.post.tags.includes(parseInt(environment.SPONSOR_NOBEL))) {
+    if (this.post.sponsorId === environment.SPONSOR_ALIGN ||
+        this.post.sponsorId === environment.SPONSOR_GSK ||
+        this.post.sponsorId === environment.SPONSOR_NOBEL) {
       this.router.navigate([`/detail/sponsor/${this.post.id}`]);
     } else {
       this.router.navigate([`/detail/${this.post.id}`]);

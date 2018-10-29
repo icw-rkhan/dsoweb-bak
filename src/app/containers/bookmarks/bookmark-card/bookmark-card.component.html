@@ -1,11 +1,11 @@
 <mat-card>
   <mat-card-content class="bookmark-card">
-    <div *ngIf="post.thumbnail" class="image" (click)="onPostBookmark(post.id, post.tags)">
+    <div *ngIf="post.thumbnail" class="image" (click)="onPostBookmark(post.id, post.sponsorId)">
       <img class="bookmark-image" [src]="post.thumbnail">
     </div>
-    <div class="information" (click)="onPostBookmark(post.id, post.tags)">
+    <div class="information" (click)="onPostBookmark(post.id, post.sponsorId)">
       <h4 class="mat-h4">
-        {{filterCategories(post?.categories)}}
+        {{post.categoryName}}
       </h4>
       <div class="mat-body-2" [innerHTML]="post.title">
       </div>

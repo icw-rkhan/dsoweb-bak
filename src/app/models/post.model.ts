@@ -1,82 +1,66 @@
-import { Author } from './author.model';
+import { formatDate } from '@angular/common';
+
 import { Serializable } from './serializable.model';
-import { Category } from './category.model';
-import * as _ from 'lodash';
-import { filter } from 'rxjs/internal/operators';
 
 export class Post implements Serializable<Post> {
 
-  id: number;
+  id: string;
+  email: string;
   title: string;
   content: string;
-  excerpt: string;
-  author: Author;
-  thumbnail: string;
-  link: string;
-  date: Date;
+  authorId: string;
+  contentTypeId: string;
+  sponsorId: string;
+  authorName: string;
+  contentTypeName: string;
   categoryId: number;
-  categories: Category[];
-  format: string;
-  bookmarked: boolean;
+  categoryName: string;
+  sponsorName: string;
+  featureMediaId: string;
+  photos: string;
+  videos: string;
+  podcasts: string;
   bookmarkId: string;
-  tags: number[];
+  isBookmark: boolean;
+  countOfComment: number;
+  comment: string;
+  date: string;
+  readNumber: number;
 
-  setCategoryId(category) {
-    this.categoryId = category;
-  }
-
-  // check the category is general
-  isGeneralCategory(categoryId) {
-    const generalCategires = ['28', '29', '30', '31', '194', '195', '196'];
-
-    if (generalCategires.includes(categoryId)) {
-      return true;
+  // change the format of the data
+  dateFormat(date): any {
+    if (date) {
+      return formatDate(date, 'MMM d, y', 'en-US');
     }
-    return false;
+
+    return '';
   }
 
   deserialize(data: any): Post {
-    let thumbnailObj = data['_embedded'] && data['_embedded']['wp\:featuredmedia'] ? data['_embedded']['wp\:featuredmedia'] : {};
-    const categoryObj = data['_embedded'] ? data['_embedded']['wp\:term'] : {};
-    const authorObj = data['_embedded'] ? data['_embedded'].author[0] : {};
-
-    thumbnailObj = thumbnailObj && thumbnailObj[0] ? (thumbnailObj[0].media_details &&
-      thumbnailObj[0].media_details.sizes && thumbnailObj[0].media_details.sizes.full ?
-      thumbnailObj[0].media_details.sizes.full.source_url : undefined) : undefined;
-
-    // find category object
-    const categories = [];
-    _.flatMap(categoryObj)
-      .filter(item => item['taxonomy'] === 'category')
-      .forEach(c =>
-        categories.push(new Category().deserialize(c))
-      );
-
-    // filter categories
-    let filterCategories = [];
-
-    if (this.categoryId && !this.isGeneralCategory(this.categoryId)) {
-      _.flatMap(categories).filter(item => item['id'] === this.categoryId)
-      .forEach(c => filterCategories.push(c));
-    } else {
-      filterCategories = categories;
-    }
-
-    // Remove link-more
-    const cleanTextExcerpt = data.excerpt.rendered.replace(/<p[^>]* class=\"link-more\">(.*?)<\/p>/g, '');
 
     return <Post>Object.assign({}, {
       id: data.id,
-      title: unescape(escape(data.title.rendered)),
-      content: data.content.rendered,
-      excerpt: cleanTextExcerpt,
-      format: data.format,
-      date: new Date(data.date_gmt),
-      author: new Author().deserialize(authorObj),
-      thumbnail: thumbnailObj,
-      link: data.link,
-      categories: filterCategories,
-      tags: data.tags,
+      email: data.email,
+      title: data.title,
+      content: data.content,
+      authorId: data.authorId,
+      contentTypeId: data.contentTypeId,
+      categoryId: data.categoryId,
+      categoryName: data.categoryName,
+      sponsorId: data.sponsorId,
+      sponsorName: data.sponsorName,
+      authorName: data.authorName,
+      contentTypeName: data.contentTypeName,
+      featureMediaId: data.featureMediaId,
+      photos: data.photos,
+      videos: data.videos,
+      podcasts: data.podcasts,
+      bookmarkId: data.bookmarkId,
+      isBookmark: data.isBookmark,
+      countOfComment: data.countOfComment,
+      comment: data.comment,
+      date: this.dateFormat(new Date(data.publishDate)),
+      readNumber: data.readNumber
     });
   }
 

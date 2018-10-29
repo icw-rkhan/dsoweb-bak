@@ -1,18 +1,18 @@
 <div class="header">
-    <h3 class="mat-h3">{{filterCategories(post.categories)}}</h3>
+    <h3 class="mat-h3">{{post.categoryName}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
 </div>
 <div *ngIf="relativePostUrl">
     <iframe id="relative_contents" [src]="relativePostUrl"></iframe>
 </div>
 <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
-    <span *ngIf="isGsk(post.tags)" class="label-sponsor">Want more content from GSK?</span>
-    <span *ngIf="isAlign(post.tags)" class="label-sponsor">Want more content from Align?</span>
-    <span *ngIf="isNobel(post.tags)" class="label-sponsor">Want more content from Nobel?</span>
-    <button mat-button *ngIf="isGsk(post.tags)"class="sponsorBtn gskBtn"
+    <span *ngIf="isGsk(post.sponsorId)" class="label-sponsor">Want more content from GSK?</span>
+    <span *ngIf="isAlign(post.sponsorId)" class="label-sponsor">Want more content from Align?</span>
+    <span *ngIf="isNobel(post.sponsorId)" class="label-sponsor">Want more content from Nobel?</span>
+    <button mat-button *ngIf="isGsk(post.sponsorId)"class="sponsorBtn gskBtn"
         (click)="onPostSponsor('gsk')">Access GSK Science</button>
-    <button mat-button *ngIf="isAlign(post.tags)"class="sponsorBtn alignBtn"
+    <button mat-button *ngIf="isAlign(post.sponsorId)"class="sponsorBtn alignBtn"
         (click)="onPostSponsor('align')">Access Align Resources</button>
-    <button mat-button *ngIf="isNobel(post.tags)"class="sponsorBtn nobelBtn"
+    <button mat-button *ngIf="isNobel(post.sponsorId)"class="sponsorBtn nobelBtn"
         (click)="onPostSponsor('nobel')">Access Nobel Biocare Resources</button>
 </div>

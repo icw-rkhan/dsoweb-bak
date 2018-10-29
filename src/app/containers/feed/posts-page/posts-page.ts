@@ -94,7 +94,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         per_page: 5
       });
     } else if (!_.isUndefined(this.typeId)) {
-      postService = this.postService.fetchByCategory({
+      postService = this.postService.fetchByContentTypeId({
         categoryId: this.typeId,
         page,
         per_page: 5
@@ -106,7 +106,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       this.bookmarkService.getAllByEmail(email)
     ).pipe(
       map(items => items[0].map(p => {
-        const bookmark = items[1].find(b => +b.postId === p.id);
+        const bookmark = items[1].find(b => b.postId === p.id);
         return Object.assign({}, p, {
           bookmarked: !_.isUndefined(bookmark),
           bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
