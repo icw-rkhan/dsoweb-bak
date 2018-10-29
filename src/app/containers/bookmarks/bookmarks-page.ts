@@ -73,7 +73,7 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
       let bookmarksLength = 0;
       // Iterate bookmarks to find its post information
       bookmarks.forEach(bookmark => {
-        const innerSub = this.postService.fetchById(+bookmark.postId)
+        const innerSub = this.postService.fetchById(bookmark.postId)
           .subscribe(p => {
             // Check if we are filtering by category
             if (categoryId === undefined || p.categoryId === categoryId) {
@@ -88,11 +88,17 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
             innerSub.unsubscribe();
           },
           err => {
-
             this.progress.complete();
             innerSub.unsubscribe();
           });
       });
+
+      this.progress.complete();
+      this.bookmarkSub.unsubscribe();
+    },
+    err => {
+      this.progress.complete();
+      this.bookmarkSub.unsubscribe();
     });
   }
 

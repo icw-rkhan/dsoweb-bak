@@ -21,8 +21,4 @@ export class ReviewComponent {
   constructor() {
     this.baseUrl = environment.profileApiUrl;
   }
-
-  dateFormat(date) {
-    return formatDate(date.split(' ')[0], 'd MMM, y', 'en-US');
-  }
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
 
@@ -19,15 +19,12 @@ export class CommentService {
     private profileService: ProfileService) {
   }
 
-  comments(postId: number): Observable<Comment[]> {
+  comments(postId: string): Observable<Comment[]> {
     const url = `${environment.cmsAPIUrl}/comment/findAllByContent`;
 
     const headers = this.getHeaders();
 
-    const param = new HttpParams();
-    param.append('contentId', postId.toString());
-
-    return this.http.post(url, {headers, params: param}).pipe(
+    return this.http.post(url, null, {headers, params: {'contentId': postId}}).pipe(
       map((response: any) => response.resultMap.data.map(comment => new Comment(this.profileService).deserialize(comment)))
     );
   }

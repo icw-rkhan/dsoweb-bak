@@ -17,7 +17,7 @@ import { environment } from '../../../../environments/environment';
 export class RelativeComponent implements OnInit, OnDestroy, PipeTransform {
 
     post: Post;
-    postId: number;
+    postId: string;
     relativePostUrl: SafeResourceUrl;
 
     paramsSub: Subscription;
@@ -47,7 +47,6 @@ export class RelativeComponent implements OnInit, OnDestroy, PipeTransform {
               postSub.unsubscribe();
             },
             err => {
-
               this.progress.complete();
               postSub.unsubscribe();
             });

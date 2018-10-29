@@ -13,10 +13,10 @@
       </div>
       <h2 class="title mat-h3" (click)="onViewDetail()">{{post.title}}</h2>
       <div class="actions">
-        <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+        <button mat-icon-button (click)="onAddBookmark()" *ngIf="!post.isBookmark">
           <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
         </button>
-        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+        <button mat-icon-button (click)="onRemoveBookmark()" *ngIf="post.isBookmark">
           <mat-icon aria-label="Bookmark">bookmark</mat-icon>
         </button>
         <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">

@@ -1,3 +1,5 @@
+import { formatDate } from '@angular/common';
+
 import { Serializable } from './serializable.model';
 
 import { ProfileService } from '../services/profile.service';
@@ -12,6 +14,7 @@ export class Comment implements Serializable<Comment> {
   rating: number;
   userName: string;
   userUrl?: string;
+  creationDt: string;
 
   constructor(private profileService: ProfileService) {
 
@@ -33,6 +36,15 @@ export class Comment implements Serializable<Comment> {
     return true;
   }
 
+  // change the format of the data
+  dateFormat(date): any {
+    if (date) {
+      return formatDate(date, 'd MMM, y', 'en-US');
+    }
+
+    return '';
+  }
+
   deserialize(data: any): Comment {
     this.getUserInfo(data.email);
 
@@ -42,7 +54,8 @@ export class Comment implements Serializable<Comment> {
       comment: data.comment_text,
       rating: data.comment_rating,
       userName: this.userName ? this.userName : '',
-      userUrl: this.userUrl ? this.userUrl : ''
+      userUrl: this.userUrl ? this.userUrl : '',
+      creationDt: this.dateFormat(new Date(data.create_time)),
     });
   }
 

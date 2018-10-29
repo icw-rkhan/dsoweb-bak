@@ -26,9 +26,11 @@ export class CategoryService {
   private fetchCategories() {
     const url = `${environment.cmsAPIUrl}/category/findAllCategory`;
 
-    return this.http.get(url).pipe(
-      map((response: any[]) =>
-        response.map(category => new Category().deserialize(category))
+    const headers = this.getHeaders();
+
+    return this.http.post(url, null, {headers}).pipe(
+      map((response: any) =>
+        response.resultMap.data.map(category => new Category().deserialize(category))
       )
     );
   }

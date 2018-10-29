@@ -55,6 +55,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   addBookmark(value: Bookmark) {
     const bookmarkSub = this.bookmarkService.saveBookmark(value).subscribe(x => {
+      console.log(x);
       this.snackBar.open('Bookmark added', 'OK', {
         duration: 1000,
       });
@@ -87,15 +88,17 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     });
 
     if (!_.isUndefined(this.sponsorId)) {
+      console.log('~~~~~~~ sponsor ~~~~~~~~~');
       postService = this.postService.fetchBySponsorId({
-        categoryId: this.typeId,
+        type: this.typeId,
         sponsorId: this.sponsorId,
         page,
         per_page: 5
       });
     } else if (!_.isUndefined(this.typeId)) {
+      console.log('~~~~~~~ content type ~~~~~~~~~');
       postService = this.postService.fetchByContentTypeId({
-        categoryId: this.typeId,
+        type: this.typeId,
         page,
         per_page: 5
       });
@@ -108,7 +111,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       map(items => items[0].map(p => {
         const bookmark = items[1].find(b => b.postId === p.id);
         return Object.assign({}, p, {
-          bookmarked: !_.isUndefined(bookmark),
+          isBookmark: !_.isUndefined(bookmark),
           bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
         });
       }))
@@ -120,7 +123,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       this.progress.complete();
       this.isFetching = false;
     }, err => {
-
       this.progress.complete();
       this.isFetching = false;
     });

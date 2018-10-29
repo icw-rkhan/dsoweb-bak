@@ -172,7 +172,6 @@ export class EditProfileComponent implements OnInit {
         subService.unsubscribe();
       },
       err => {
-
         this.sharingService.showLoading(false);
         subService.unsubscribe();
       }

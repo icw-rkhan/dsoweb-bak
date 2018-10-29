@@ -20,10 +20,10 @@
     <div class="inner-content" fxLayout="row">
         <span class="title">{{post.title}}</span>
         <div class="actions" fxLayoutAlign="end top">
-            <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+            <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.isBookmark">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
             </a>
-            <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+            <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="post.isBookmark">
                 <mat-icon aria-label="Bookmark">bookmark</mat-icon>
             </a>
             <a class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
@@ -113,10 +113,10 @@
     </div>
     <div class="inner-content" fxLayout="row">
         <div class="actions" fxFlex="100" fxLayoutAlign="end top">
-            <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+            <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.isBookmark">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
             </a>
-            <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+            <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="post.isBookmark">
                 <mat-icon aria-label="Bookmark">bookmark</mat-icon>
             </a>
             <a class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">

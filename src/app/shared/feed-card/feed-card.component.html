@@ -27,10 +27,10 @@
       <div class="content-title">
         <span class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></span>
         <div class="actions">
-          <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.bookmarked">
+          <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.isBookmark">
             <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
           </a>
-          <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="post.bookmarked">
+          <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="post.isBookmark">
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
           </a>
           <a class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
@@ -52,7 +52,7 @@
         </div>
       </div>
       <div class="inner-content" (click)="onViewDetail()" style="overflow: hidden">
-        <div id="contents{{no}}" class="mat-body-1" [class.excerpt-content]="!isViewMore" [innerHtml]="post.excerpt">
+        <div id="contents{{no}}" class="mat-body-1" [class.excerpt-content]="!isViewMore" [innerHtml]="post.content">
           {{fetchAuthorInfo()}}
         </div>
         <a id="more-text-btn">... more</a>

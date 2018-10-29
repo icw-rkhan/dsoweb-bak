@@ -91,7 +91,6 @@ export class LoginComponent implements OnInit {
         }
       },
       err => {
-
         this.sharingService.showLoading(false);
         subLogin.unsubscribe();
       }

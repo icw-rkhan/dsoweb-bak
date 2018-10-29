@@ -76,7 +76,7 @@ export class CategoryPageComponent implements OnInit {
       map(items => items[0].map(p => {
         const bookmark = items[1].find(b => b.postId === p.id);
         return Object.assign({}, p, {
-          bookmarked: !_.isUndefined(bookmark),
+          isBookmark: !_.isUndefined(bookmark),
           bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
         });
       }))
@@ -95,7 +95,6 @@ export class CategoryPageComponent implements OnInit {
       this.progress.complete();
       postsSubs.unsubscribe();
     }, err => {
-
       this.isFetching = false;
 
       this.progress.complete();

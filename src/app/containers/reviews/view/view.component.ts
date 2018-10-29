@@ -13,7 +13,7 @@ import { Comment } from '../../../models/comment.model';
 })
 export class ViewComponent implements OnInit, OnDestroy {
 
-  postId: number;
+  postId: string;
   paramsSub: any;
 
   comments: Comment[];

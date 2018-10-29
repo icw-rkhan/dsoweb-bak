@@ -96,7 +96,6 @@ export class RegisterComponent implements OnInit {
         }
       },
       err => {
-
         this.sharingService.showLoading(false);
         subRegister.unsubscribe();
       }

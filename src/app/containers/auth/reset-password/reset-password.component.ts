@@ -90,7 +90,6 @@ export class ResetPasswordComponent implements OnInit {
               }
             },
             err => {
-
               this.sharingService.showLoading(false);
               subResetPwd.unsubscribe();
             }

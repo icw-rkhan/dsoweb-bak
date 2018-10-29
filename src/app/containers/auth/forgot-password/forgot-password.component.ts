@@ -64,7 +64,6 @@ export class ForgotPasswordComponent implements OnInit {
         subEmail.unsubscribe();
       },
       err => {
-
         this.sharingService.showLoading(false);
         subEmail.unsubscribe();
       }

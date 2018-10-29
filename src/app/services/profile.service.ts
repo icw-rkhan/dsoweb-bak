@@ -18,6 +18,9 @@ export class ProfileService {
   findOneByEmail(body: any): Observable<any> {
     const url = `${environment.profileApiUrl}/userProfile/findOneByEmail`;
     const headers: any = this.customHeader();
+
+    console.log(headers);
+
     const formData = this.parseFormData(body);
     return this.http.post(url, formData, { headers: headers }).pipe(
       map(this.extractData)

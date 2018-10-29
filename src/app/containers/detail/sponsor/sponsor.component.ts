@@ -25,7 +25,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   post: Post;
   rate: number;
-  postId: number;
+  postId: string;
   authorName: string;
   authorInfo: string;
   review_count: number;
@@ -74,7 +74,6 @@ export class SponsorComponent implements OnInit, OnDestroy {
         commentSub.unsubscribe();
       },
       err => {
-
         this.progress.complete();
         commentSub.unsubscribe();
       });
@@ -94,7 +93,6 @@ export class SponsorComponent implements OnInit, OnDestroy {
         postSub.unsubscribe();
       },
       err => {
-
         this.progress.complete();
         postSub.unsubscribe();
       });

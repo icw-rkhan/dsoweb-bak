@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders,
-   HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/internal/operators';
 import { forkJoin, Observable } from 'rxjs';
 import * as _ from 'lodash';
@@ -52,11 +51,8 @@ export class PostService {
     return this.posts(args);
   }
 
-  fetchById(id: number): Observable<Post> {
+  fetchById(id: string): Observable<Post> {
     const url = `${environment.cmsAPIUrl}/content/findOneContents`;
-
-    const param = new HttpParams();
-    param.append('id', id.toString());
 
     // set auth token
     const headers = this.getHeaders();
@@ -64,15 +60,15 @@ export class PostService {
     const email = this.authService.getUserInfo().user_name;
 
     return forkJoin(
-      this.http.post(url, null, {headers, params: param}).pipe(
-        map((response: any) => new Post().deserialize(response))
+      this.http.post(url, null, {headers, params: {'id': id}}).pipe(
+        map((response: any) => new Post().deserialize(response.resultMap.data))
       ),
       this.bookmarkService.getAllByEmail(email)
     ).pipe(
       map(join => {
         const post = join[0];
         const bookmarks = join[1];
-        // Check if post has bookmarked
+        // Check if post has isBookmark
         const bookmark = bookmarks.find(b => b.postId === post.id);
         // Add bookmarks attributes
         return Object.assign({}, post, {
@@ -84,9 +80,15 @@ export class PostService {
   }
 
   search(term: string): Observable<Post[]> {
-    const url = `${environment.cmsAPIUrl}/posts?_embed&search=${term}&order=desc`;
-    return this.http.get(url).pipe(
-      map((response: any[]) => response.map(post => new Post().deserialize(post)))
+    const url = `${environment.cmsAPIUrl}/content/findAllBySearch`;
+
+    // set auth token
+    const headers = this.getHeaders();
+
+    console.log(term);
+
+    return this.http.post(url, null, {headers, params: {'searchValue': term}}).pipe(
+      map((response: any) => response.resultMap.data.map(post => new Post().deserialize(post)))
     );
   }
 

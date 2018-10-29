@@ -26,7 +26,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
   postSafeContent: SafeHtml;
   postRendered: boolean;
   rate: number;
-  postId: number;
+  postId: string;
   authorName: string;
   authorInfo: string;
   review_count: number;
@@ -80,16 +80,19 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
       const commentSub = this.commentService.comments(this.postId).subscribe(c => {
         this.comments = c;
 
+        console.log(c);
+
         commentSub.unsubscribe();
       },
       err => {
-
         this.progress.complete();
         commentSub.unsubscribe();
       });
 
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
+
+        console.log(this.post);
 
         // change Pre tag to Div tag
         this.post.content = this.changePreToDiv(this.post.content);
@@ -98,13 +101,11 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
         postSub.unsubscribe();
       },
       err => {
-
         this.progress.complete();
         postSub.unsubscribe();
       });
     },
     err => {
-
       this.progress.complete();
     });
   }
