@@ -130,6 +130,7 @@ section {
 
 
 .author {
+    margin-left: 19px;
     width: calc(100% - 19px);
 
     #author-avatar {
@@ -241,9 +242,19 @@ div {
 }
 
 :host ::ng-deep {
+    h2 {
+        font-family: "SFUI";
+        font-size: 18px;
+        font-weight: 600;
+    }
+
     iframe {
         max-width: 100%;
-        height: auto;
+    }
+
+    video {
+        background-color: black;
+        max-width: 100%;
     }
 
     figure {
@@ -251,11 +262,9 @@ div {
         height: auto;
     }
 
-    p {
-        img {
-            max-width: 100%;
-            height: auto;
-        }
+    img {
+        max-width: 100%;
+        height: auto;
     }
 
     .show-more {

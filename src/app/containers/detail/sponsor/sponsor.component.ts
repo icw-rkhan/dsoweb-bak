@@ -1,4 +1,5 @@
-import {Component, OnInit, OnDestroy, ViewChild, HostListener } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef, AfterViewChecked } from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -21,15 +22,20 @@ import { environment } from '../../../../environments/environment';
   templateUrl: './sponsor.component.html',
   styleUrls: ['./sponsor.component.scss']
 })
-export class SponsorComponent implements OnInit, OnDestroy {
+export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   post: Post;
+  postSafeContent: SafeHtml;
+  postRendered: boolean;
   rate: number;
   postId: string;
   authorName: string;
   authorInfo: string;
   review_count: number;
   isAuthorVisible: boolean;
+  isIncludesAuthorInfo: boolean;
+  showReference: boolean;
+  showReferenceState: string;
 
   comments: Comment[];
 
@@ -44,6 +50,8 @@ export class SponsorComponent implements OnInit, OnDestroy {
   ];
 
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
+  @ViewChild('postContent') postContent: ElementRef;
+  @ViewChild('authorContent') authorContent: ElementRef;
 
   constructor(
     private router: Router,
@@ -53,11 +61,17 @@ export class SponsorComponent implements OnInit, OnDestroy {
     private postService: PostService,
     private authService: AuthService,
     private commentService: CommentService,
-    private bookmarkService: BookmarkService) {
+    private bookmarkService: BookmarkService,
+    private sanitizer: DomSanitizer) {
 
     this.rate = 0;
     this.review_count = 0;
     this.isAuthorVisible = false;
+    this.showReferenceState = 'Show more';
+    this.showReference = false;
+    this.postRendered = false;
+    this.isIncludesAuthorInfo = false;
+    this.postSafeContent = '';
 
     this.post = new Post();
   }
@@ -81,13 +95,10 @@ export class SponsorComponent implements OnInit, OnDestroy {
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
 
-        // change Pre tag to Div tag
-        this.post.content = this.changePreToDiv(this.post.content);
+        this.setDropcap();
 
-        setTimeout(() => {
-          this.changeLayoutOfPost();
-          this.removeAuthorInfo();
-        }, 0);
+        // change Pre tag to Div tag
+        this.postSafeContent = this.sanitizeHTML(this.changePreToDiv(p.content));
 
         this.progress.complete();
         postSub.unsubscribe();
@@ -97,6 +108,34 @@ export class SponsorComponent implements OnInit, OnDestroy {
         postSub.unsubscribe();
       });
     });
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.postContent.nativeElement.innerHTML !== '' && !this.postRendered) {
+      this.postRendered = true;
+
+      setTimeout(() => {
+       this.changeLayoutOfPost();
+       this.fetchAuthorInfo();
+       this.removeAuthorInfo();
+      }, 0);
+    }
+  }
+
+  setDropcap(): void {
+    const regex = /(<p[^>]*>.*?<\/p>)/gs;
+    const paragraphs = this.post.content.match(regex);
+
+    if (paragraphs && paragraphs.length > 0) {
+      this.isIncludesAuthorInfo = true;
+
+      this.post.content = this.post.content.replace(/<p[^>]*>(\w)/,  '<p class="first-big">$1');
+      this.post.content = this.post.content.replace(/<p[^>]*><span[^>]*>(\w)/,  '<p class="first-big"><span>$1');
+    } else {
+      this.isIncludesAuthorInfo = false;
+
+      this.post.content = `<p class="first-big">${this.post.content}</p>`;
+    }
   }
 
   ngOnDestroy(): void {
@@ -125,12 +164,8 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   // change the layout of a post
   changeLayoutOfPost() {
-    this.reLayout('a');
-    this.reLayout('h2');
-    this.reLayout('img');
+    // this.reLayout('a');
     this.reLayout('div');
-    this.reLayout('video');
-    this.reLayout('audio');
     this.reLayout('table');
     this.reLayout('figcaption');
   }
@@ -144,22 +179,29 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
       for (i = 0; i < tag.length; i++) {
         switch (tagName) {
-          case 'h2':
-            tag[i].style.fontFamily = 'SFUI';
-            tag[i].style.fontSize = '18px';
-            tag[i].style.fontWeight = '600';
-            break;
           case 'div':
             this.changeFormatOfCallOut(tag[i]);
-            break;
-          case 'video':
-            tag[i].style.backgroundColor = 'black';
             break;
           case 'figcaption':
             tag[i].innerHTML = this.changeFont(tag[i]);
             break;
           case 'table':
             this.changeTableFormat(tag[i]);
+            break;
+          case 'ol':
+            const prevElement = tag[i].previousElementSibling;
+            if (prevElement && prevElement.tagName === 'H2' && prevElement.innerHTML.indexOf('References') > -1) {
+              if (tag[i].children.length > 5) {
+                tag[i].classList.add('show-more');
+                setTimeout(() => {
+                  this.showReference = true;
+                });
+              } else {
+                setTimeout(() => {
+                  this.showReference = false;
+                });
+              }
+            }
             break;
           case 'a':
             let url = tag[i].getAttribute('href');
@@ -267,31 +309,29 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
   // fetch an author/speaker's name
   fetchAuthorInfo() {
-    const parentTag = document.getElementById('tLoad');
+    const regex = /(<p[^>]*>.*?<\/p>)/gs;
+    const paragraphs = this.post.content.match(regex);
 
-    const tag = parentTag.getElementsByTagName('p');
-    const videoTag = parentTag.getElementsByTagName('video');
-
-    if (tag && tag.length > 0) {
-      // wordpress contents
+    if (this.isIncludesAuthorInfo && paragraphs && paragraphs.length > 0) {
       let authorTag;
-      if (videoTag && videoTag.length > 0 && !tag[0].innerHTML.includes('(')) {
-        authorTag = tag[1].innerHTML;
-      } else if (tag[0].innerHTML.includes('(')) {
-        authorTag = tag[0].innerHTML;
+      if (this.post.content.indexOf('<video') > -1 && paragraphs[0].indexOf('(') === -1) {
+        authorTag = paragraphs[1];
+      } else if (paragraphs[0].indexOf('(') > -1) {
+        authorTag = paragraphs[0];
       } else {
-        return;
+        this.authorContent.nativeElement.style.display = 'none';
       }
 
       if (authorTag.includes('strong')) {
         authorTag = authorTag.replace('<strong>', '');
         authorTag = authorTag.replace('</strong>', '');
       }
+      authorTag = authorTag.replace('<p>', '');
+      authorTag = authorTag.replace('</p>', '');
 
-      const authorArr = authorTag.split('<br>');
+      const authorArr = authorTag.split('<br />');
       let authorName = authorArr.length > 0 ? authorArr[0] : null;
       let authorInfo = authorArr.length > 1 ? authorArr[1] : null;
-
       if (authorName.includes('(') && authorName.includes(')')) {
         if (authorName.includes('By')) {
           authorName = authorName.replace('By', '');
@@ -314,12 +354,11 @@ export class SponsorComponent implements OnInit, OnDestroy {
       }
     } else if (this.post) {
       // new API
-      let contentHtml = `<p class="first-big">${parentTag.innerHTML}</p>`;
-      const authorTag = `<p><span style="color:#616161;font-size:15px;font-weight:700;line-height:35px">
-      ${this.post.authorName}<br>...</span></p>`;
-      contentHtml = authorTag + contentHtml;
-      parentTag.innerHTML = contentHtml;
-  }
+      this.authorName = this.post.authorName;
+      // this.authorInfo = this.post.authorInfo;
+
+      this.activeAuthorLayout();
+    }
   }
 
   // remove author's info
@@ -328,7 +367,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
     const tag = parentTag.getElementsByTagName('p');
     const videoTag = parentTag.getElementsByTagName('video');
 
-    if (tag && tag.length > 0) {
+    if (this.isIncludesAuthorInfo && tag && tag.length > 0) {
       if (videoTag && videoTag.length > 0 &&
         !tag[0].innerHTML.includes('(') && tag[1].innerHTML.includes('(')) {
 
@@ -342,17 +381,37 @@ export class SponsorComponent implements OnInit, OnDestroy {
     }
   }
 
-  activeAuthorLayout() {
-    this.isAuthorVisible = true;
+  sanitizeHTML(html) {
+    return this.sanitizer.bypassSecurityTrustHtml(html);
+  }
 
-    if (!this.authorName.includes('DSODentist')) {
-      document.getElementById('author-avatar').style.display = 'none';
+  onClickReference() {
+    const reference = this.postContent.nativeElement.getElementsByTagName('ol')[0];
+    if (reference.classList.contains('show-more')) {
+      this.showReferenceState = 'Show less';
+      reference.classList.remove('show-more');
+      reference.classList.add('show-less');
     } else {
-      this.authorName = '';
+      this.showReferenceState = 'Show more';
+      reference.classList.remove('show-less');
+      reference.classList.add('show-more');
     }
+  }
 
-    if (this.authorInfo) {
-      document.getElementById('author-info').style.marginTop = '5px';
+
+  activeAuthorLayout() {
+    if (this.authorName) {
+      this.isAuthorVisible = true;
+
+      // if (!this.authorName.includes('DSODentist')) {
+      //   this.authorContent.nativeElement.style.display = 'none';
+      // } else {
+      //   this.authorName = '';
+      // }
+
+      if (this.authorInfo) {
+        this.authorContent.nativeElement.style.marginTop = '5px';
+      }
     }
   }
 

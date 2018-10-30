@@ -30,6 +30,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
   authorName: string;
   authorInfo: string;
   review_count: number;
+  isIncludesAuthorInfo: boolean;
   isAuthorVisible: boolean;
   showReference: boolean;
   showReferenceState: string;
@@ -48,6 +49,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   @ViewChild('postContent') postContent: ElementRef;
+  @ViewChild('authorContent') authorContent: ElementRef;
 
   constructor(
     private router: Router,
@@ -66,6 +68,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.showReferenceState = 'Show more';
     this.showReference = false;
     this.postRendered = false;
+    this.isIncludesAuthorInfo = false;
     this.postSafeContent = '';
 
     this.post = new Post();
@@ -80,8 +83,6 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
       const commentSub = this.commentService.comments(this.postId).subscribe(c => {
         this.comments = c;
 
-        console.log(c);
-
         commentSub.unsubscribe();
       },
       err => {
@@ -92,11 +93,11 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
 
-        console.log(this.post);
+        this.setDropcap();
 
         // change Pre tag to Div tag
-        this.post.content = this.changePreToDiv(this.post.content);
-        this.postSafeContent = this.sanitizeHTML(this.post.content);
+        this.postSafeContent = this.sanitizeHTML(this.changePreToDiv(p.content));
+
         this.progress.complete();
         postSub.unsubscribe();
       },
@@ -110,14 +111,30 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     });
   }
 
+  setDropcap(): void {
+    const regex = /(<p[^>]*>.*?<\/p>)/gs;
+    const paragraphs = this.post.content.match(regex);
+
+    if (paragraphs && paragraphs.length > 0) {
+      this.isIncludesAuthorInfo = true;
+
+      this.post.content = this.post.content.replace(/<p[^>]*>(\w)/,  '<p class="first-big">$1');
+      this.post.content = this.post.content.replace(/<p[^>]*><span[^>]*>(\w)/,  '<p class="first-big"><span>$1');
+    } else {
+      this.isIncludesAuthorInfo = false;
+
+      this.post.content = `<p class="first-big">${this.post.content}</p>`;
+    }
+  }
+
   ngAfterViewChecked(): void {
     if (this.postContent.nativeElement.innerHTML !== '' && !this.postRendered) {
-      console.log('hey');
       this.postRendered = true;
 
       setTimeout(() => {
-        this.changeLayoutOfPost();
-        this.removeAuthorInfo();
+       this.changeLayoutOfPost();
+       this.fetchAuthorInfo();
+       this.removeAuthorInfo();
       }, 0);
     }
   }
@@ -148,11 +165,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // change the layout of a post
   changeLayoutOfPost() {
-    this.reLayout('h2');
-    this.reLayout('img');
     this.reLayout('div');
-    this.reLayout('video');
-    this.reLayout('audio');
     this.reLayout('table');
     this.reLayout('figcaption');
     this.reLayout('ol');
@@ -167,16 +180,8 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
       let i = 0;
       for (i = 0; i < tag.length; i++) {
         switch (tagName) {
-          case 'h2':
-            tag[i].style.fontFamily = 'SFUI';
-            tag[i].style.fontSize = '18px';
-            tag[i].style.fontWeight = '600';
-            break;
           case 'div':
             this.changeFormatOfCallOut(tag[i]);
-            break;
-          case 'video':
-            tag[i].style.backgroundColor = 'black';
             break;
           case 'figcaption':
             tag[i].innerHTML = this.changeFont(tag[i]);
@@ -186,7 +191,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
             break;
           case 'ol':
             const prevElement = tag[i].previousElementSibling;
-            if (prevElement.tagName === 'H2' && prevElement.innerHTML.indexOf('References') > -1) {
+            if (prevElement && prevElement.tagName === 'H2' && prevElement.innerHTML.indexOf('References') > -1) {
               if (tag[i].children.length > 5) {
                 tag[i].classList.add('show-more');
                 setTimeout(() => {
@@ -281,34 +286,29 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // fetch an author/speaker's name
   fetchAuthorInfo() {
-    const parentTag = document.getElementById('tLoad');
-    const tag = parentTag.getElementsByTagName('p');
-    const videoTag = parentTag.getElementsByTagName('video');
+    const regex = /(<p[^>]*>.*?<\/p>)/gs;
+    const paragraphs = this.post.content.match(regex);
 
-    if (tag && tag.length > 0) {
-      // wordpres contents
+    if (this.isIncludesAuthorInfo && paragraphs && paragraphs.length > 0) {
       let authorTag;
-      if (videoTag && videoTag.length > 0 && !tag[0].innerHTML.includes('(')) {
-        authorTag = tag[1].innerHTML;
-
-      } else if (tag[0].innerHTML.includes('(')) {
-        authorTag = tag[0].innerHTML;
-
+      if (this.post.content.indexOf('<video') > -1 && paragraphs[0].indexOf('(') === -1) {
+        authorTag = paragraphs[1];
+      } else if (paragraphs[0].indexOf('(') > -1) {
+        authorTag = paragraphs[0];
       } else {
-        document.getElementById('author-avatar').style.display = 'none';
-
-        return;
+        this.authorContent.nativeElement.style.display = 'none';
       }
 
       if (authorTag.includes('strong')) {
         authorTag = authorTag.replace('<strong>', '');
         authorTag = authorTag.replace('</strong>', '');
       }
+      authorTag = authorTag.replace('<p>', '');
+      authorTag = authorTag.replace('</p>', '');
 
-      const authorArr = authorTag.split('<br>');
+      const authorArr = authorTag.split('<br />');
       let authorName = authorArr.length > 0 ? authorArr[0] : null;
       let authorInfo = authorArr.length > 1 ? authorArr[1] : null;
-
       if (authorName.includes('(') && authorName.includes(')')) {
         if (authorName.includes('By')) {
           authorName = authorName.replace('By', '');
@@ -330,22 +330,21 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
         this.authorInfo = authorInfo;
       }
     } else if (this.post) {
-        // new API
-        let contentHtml = `<p class="first-big">${parentTag.innerHTML}</p>`;
-        const authorTag = `<p><span style="color:#616161;font-size:15px;font-weight:700;line-height:35px">
-        ${this.post.authorName}<br>...</span></p>`;
-        contentHtml = authorTag + contentHtml;
-        parentTag.innerHTML = contentHtml;
+      // new API
+      this.authorName = this.post.authorName;
+      // this.authorInfo = this.post.authorInfo;
+
+      this.activeAuthorLayout();
     }
   }
 
   // remove author's info
   removeAuthorInfo() {
-    const parentTag = document.getElementById('contents');
+    const parentTag = this.postContent.nativeElement;
     const tag = parentTag.getElementsByTagName('p');
     const videoTag = parentTag.getElementsByTagName('video');
 
-    if (tag && tag.length > 0) {
+    if (this.isIncludesAuthorInfo && tag && tag.length > 0) {
       if (videoTag && videoTag.length > 0 &&
         !tag[0].innerHTML.includes('(') && tag[1].innerHTML.includes('(')) {
 
@@ -378,16 +377,18 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // set format of an author field
   activeAuthorLayout() {
-    this.isAuthorVisible = true;
+    if (this.authorName) {
+      this.isAuthorVisible = true;
 
-    if (!this.authorName.includes('DSODentist')) {
-      document.getElementById('author-avatar').style.display = 'none';
-    } else {
-      this.authorName = '';
-    }
+      // if (!this.authorName.includes('DSODentist')) {
+      //   this.authorContent.nativeElement.style.display = 'none';
+      // } else {
+      //   this.authorName = '';
+      // }
 
-    if (this.authorInfo) {
-      document.getElementById('author-info').style.marginTop = '5px';
+      if (this.authorInfo) {
+        this.authorContent.nativeElement.style.marginTop = '5px';
+      }
     }
   }
 

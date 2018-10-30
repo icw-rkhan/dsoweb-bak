@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
@@ -49,8 +49,8 @@ export class FeedCardComponent {
     }
   }
 
-  onCheckCategoryType(categories, catId: number) {
-    return categories.filter(category => category.id === catId).length > 0;
+  onCheckCategoryType(contentTypeId, catId: string) {
+    return contentTypeId === catId ? true : false;
   }
 
   onViewMore(e) {
@@ -117,8 +117,16 @@ export class FeedCardComponent {
     } else if (this.post) {
       // new API
       let contentHtml = `<p class="first-big">${parentTag.innerHTML}</p>`;
-      const authorTag = `<p><span style="color:#616161;font-size:15px;font-weight:700;line-height:35px">${this.post.authorName}</span></p>`;
-      contentHtml = authorTag + contentHtml;
+
+      if (this.post.authorName) {
+        const authorTag = `<p style="margin: 0px"><span style="color:#616161;font-size:15px;font-weight:700;
+                          line-height:35px">${this.post.authorName}</span></p>`;
+
+        contentHtml = authorTag + contentHtml;
+      } else {
+        contentHtml = contentHtml.replace('<p class="first-big">', '<p class="first-big" style="margin-top:16px">');
+      }
+
       parentTag.innerHTML = contentHtml;
     }
   }

@@ -6,12 +6,12 @@
   <mat-card-content>
     <div class="image" *ngIf="post.thumbnail; else elseBlock" (click)="onViewDetail()">
       <img [src]="post.thumbnail"/>
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, 28)" src="/assets/images/Article@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, 194)" src="/assets/images/Interview@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, 30)" src="/assets/images/Podcast@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, 31)" src="/assets/images/TechGuide@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, 29)" src="/assets/images/Video@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, 196)" src="/assets/images/TipSheet@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" src="/assets/images/Article@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '194')" src="/assets/images/Interview@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '30')" src="/assets/images/Podcast@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '31')" src="/assets/images/TechGuide@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '29')" src="/assets/images/Video@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '196')" src="/assets/images/TipSheet@2x.png" />
     </div>
     <ng-template #elseBlock>
       <div class="image sponsor" (click)="onViewDetail()">
@@ -20,9 +20,9 @@
         <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="isNobel(post.sponsorId)"/>
       </div>
     </ng-template>
-    <img *ngIf="isGsk(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.png" (click)="onPostSponsor('gsk')">
-    <img *ngIf="isAlign(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/align-banner.png" (click)="onPostSponsor('align')">
-    <img *ngIf="isNobel(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.png" (click)="onPostSponsor('nobel')">
+    <img *ngIf="isGsk(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.jpg" (click)="onPostSponsor('gsk')">
+    <img *ngIf="isAlign(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/align-banner.jpg" (click)="onPostSponsor('align')">
+    <img *ngIf="isNobel(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.jpg" (click)="onPostSponsor('nobel')">
     <div class="content">
       <div class="content-title">
         <span class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></span>
