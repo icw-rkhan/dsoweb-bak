@@ -33,8 +33,12 @@ export class PostService {
       'sponserId': args.sponsorId ? args.sponsorId : null
     };
 
+    console.log(body);
+
     // set auth token
     const headers = this.getHeaders();
+
+    console.log(headers);
 
     const result = this.http.post(url, body, {headers}).pipe(
       map((response: any) => response.resultMap.data.map(post => new Post().deserialize(post)))

@@ -83,6 +83,7 @@ export class FeedCardComponent {
     const tag = parentTag.getElementsByTagName('p');
 
     if (tag && tag.length > 0) {
+      // wordpress contents
       let authorTag;
       if (tag[0].innerHTML.includes('(')) {
         authorTag = tag[0].innerHTML;
@@ -113,6 +114,12 @@ export class FeedCardComponent {
           tag[1].classList.add('first-big');
         }
       }
+    } else if (this.post) {
+      // new API
+      let contentHtml = `<p class="first-big">${parentTag.innerHTML}</p>`;
+      const authorTag = `<p><span style="color:#616161;font-size:15px;font-weight:700;line-height:35px">${this.post.authorName}</span></p>`;
+      contentHtml = authorTag + contentHtml;
+      parentTag.innerHTML = contentHtml;
     }
   }
 

@@ -286,6 +286,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     const videoTag = parentTag.getElementsByTagName('video');
 
     if (tag && tag.length > 0) {
+      // wordpres contents
       let authorTag;
       if (videoTag && videoTag.length > 0 && !tag[0].innerHTML.includes('(')) {
         authorTag = tag[1].innerHTML;
@@ -328,6 +329,13 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
         this.authorInfo = authorInfo;
       }
+    } else if (this.post) {
+        // new API
+        let contentHtml = `<p class="first-big">${parentTag.innerHTML}</p>`;
+        const authorTag = `<p><span style="color:#616161;font-size:15px;font-weight:700;line-height:35px">
+        ${this.post.authorName}<br>...</span></p>`;
+        contentHtml = authorTag + contentHtml;
+        parentTag.innerHTML = contentHtml;
     }
   }
 
