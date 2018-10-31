@@ -20,16 +20,15 @@ export class BookmarkService {
 
     const headers = this.getHeaders();
 
-    const result =  this.http.post(url, null, {
-      headers,
-      params: {'email': email}
+    console.log(headers);
+
+    const result =  this.http.post(url, {'email': email}, {
+      headers
     }).pipe(
       map((response: any) =>
         response.resultMap.bookmarkList.map(post => new Bookmark().deserialize(post))
       ),
     );
-
-    console.log(result);
 
     return result;
   }
@@ -38,8 +37,6 @@ export class BookmarkService {
     const url = `${environment.cmsAPIUrl}/bookmark/save`;
 
     const headers = this.getHeaders();
-
-    console.log(bookmark);
 
     return this.http.post(url, bookmark, {headers});
   }

@@ -30,15 +30,11 @@ export class PostService {
       'skip': args.page,
       'categoryId': args.categoryId ? args.categoryId : null,
       'contentTypeId': args.type ? args.type : null,
-      'sponserId': args.sponsorId ? args.sponsorId : null
+      'sponsorId': args.sponsorId ? args.sponsorId : null
     };
-
-    console.log(body);
 
     // set auth token
     const headers = this.getHeaders();
-
-    console.log(headers);
 
     const result = this.http.post(url, body, {headers}).pipe(
       map((response: any) => response.resultMap.data.map(post => new Post().deserialize(post)))
@@ -84,14 +80,12 @@ export class PostService {
   }
 
   search(term: string): Observable<Post[]> {
-    const url = `${environment.cmsAPIUrl}/content/findAllBySearch`;
+    const url = `${environment.cmsAPIUrl}/content/findAllByValue`;
 
     // set auth token
     const headers = this.getHeaders();
 
-    console.log(term);
-
-    return this.http.post(url, null, {headers, params: {'searchValue': term}}).pipe(
+    return this.http.post(url, {'searchValue': term}, {headers}).pipe(
       map((response: any) => response.resultMap.data.map(post => new Post().deserialize(post)))
     );
   }

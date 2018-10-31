@@ -55,7 +55,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   addBookmark(value: Bookmark) {
     const bookmarkSub = this.bookmarkService.saveBookmark(value).subscribe(x => {
-      console.log(x);
       this.snackBar.open('Bookmark added', 'OK', {
         duration: 1000,
       });
@@ -88,7 +87,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     });
 
     if (!_.isUndefined(this.sponsorId)) {
-      console.log('~~~~~~~ sponsor ~~~~~~~~~');
       postService = this.postService.fetchBySponsorId({
         type: this.typeId,
         sponsorId: this.sponsorId,
@@ -96,13 +94,13 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         per_page: 5
       });
     } else if (!_.isUndefined(this.typeId)) {
-      console.log('~~~~~~~ content type ~~~~~~~~~');
       postService = this.postService.fetchByContentTypeId({
         type: this.typeId,
         page,
         per_page: 5
       });
     }
+
     // Join bookmarks and post
     this.postSub = forkJoin(
       postService,
