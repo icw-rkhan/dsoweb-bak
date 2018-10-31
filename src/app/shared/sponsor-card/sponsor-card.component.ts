@@ -1,8 +1,13 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component,
+  EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
+
 import { AuthService } from '../../services';
+import { BookmarkService } from '../../services/bookmark.service';
+
 import { environment } from '../../../environments/environment';
 
 @Component({
@@ -13,28 +18,50 @@ import { environment } from '../../../environments/environment';
 })
 export class SponsorCardComponent {
 
+  userEmail: string;
+
   @Input() post: Post;
 
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
 
-  constructor(private authService: AuthService, private router: Router) {
+  constructor(
+    private bookmarkService: BookmarkService,
+    private authService: AuthService,
+    private router: Router) {
   }
 
   onAddBookmark() {
     this.post.isBookmark = true;
-    const email = this.authService.getUserInfo().user_name;
+
+    this.userEmail = this.authService.getUserInfo().user_name;
+
     this.addBookmark.emit(<Bookmark>{
-      email: email,
+      email: this.userEmail,
       title: this.post.title,
       postId: this.post.id.toString(),
+      categoryId: this.post.categoryId.toString(),
+      contentTypeId: this.post.contentTypeId,
       url: 'http://www.dsodentist.com',
     });
   }
 
   onRemoveBookmark() {
     this.post.isBookmark = false;
-    this.removeBookmark.emit(this.post.bookmarkId);
+
+    if (!this.post.bookmarkId) {
+      const subBookmark = this.bookmarkService.getAllByEmail(this.userEmail).subscribe(b => {
+        b.map(item => {
+          if (item.postId === this.post.id) {
+            this.removeBookmark.emit(item.id);
+          }
+        });
+
+        subBookmark.unsubscribe();
+      });
+    } else {
+      this.removeBookmark.emit(this.post.bookmarkId);
+    }
   }
 
   onViewDetail() {

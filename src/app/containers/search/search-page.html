@@ -9,6 +9,11 @@
       </mat-form-field>
       <button mat-button color="primary">Search</button>
     </form>
-    <dso-feed-grid [posts]="posts" [noFoundMessage]="'Search by category name, author, or content type'"></dso-feed-grid>
+    <dso-feed-grid 
+      [posts]="posts" 
+      (addBookmark)="addBookmark($event)"
+      (removeBookmark)="removeBookmark($event)"
+      [noFoundMessage]="'Search by category name, author, or content type'">
+  </dso-feed-grid>
   </div>
 </dso-main-container>

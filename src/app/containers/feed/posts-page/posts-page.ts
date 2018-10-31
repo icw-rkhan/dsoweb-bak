@@ -19,6 +19,7 @@ import { Bookmark } from '../../../models/bookmark.model';
 export class PostsPageComponent implements OnInit, OnDestroy {
 
   posts: Post[];
+  pageNum: number;
   sponsorId: number;
   isFetching: boolean;
 
@@ -34,6 +35,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar) {
       this.isFetching = true;
+      this.pageNum = 1;
   }
 
   ngOnInit(): void {
@@ -44,7 +46,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       this.typeId = params['id'];
       this.sponsorId = params['sponsorId'];
 
-      this.fetchPosts(1);
+      this.fetchPosts();
     });
   }
 
@@ -72,17 +74,18 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   }
 
   loadMore(page: number) {
-    this.fetchPosts(page);
+    this.pageNum = page;
+    this.fetchPosts();
   }
 
-  private fetchPosts(page: number) {
+  private fetchPosts() {
     this.progress.start();
     this.isFetching = true;
 
     // Services
     const email = this.authService.getUserInfo().user_name;
     let postService = this.postService.posts({
-      page,
+      page: this.pageNum,
       per_page: 5
     });
 
@@ -90,13 +93,13 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       postService = this.postService.fetchBySponsorId({
         type: this.typeId,
         sponsorId: this.sponsorId,
-        page,
+        page: this.pageNum,
         per_page: 5
       });
     } else if (!_.isUndefined(this.typeId)) {
       postService = this.postService.fetchByContentTypeId({
         type: this.typeId,
-        page,
+        page: this.pageNum,
         per_page: 5
       });
     }

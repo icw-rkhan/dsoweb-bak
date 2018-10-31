@@ -23,17 +23,18 @@ import { Post } from '../../../models/post.model';
 export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   post: Post;
-  postSafeContent: SafeHtml;
-  postRendered: boolean;
   rate: number;
   postId: string;
+  userEmail: string;
   authorName: string;
   authorInfo: string;
   review_count: number;
-  isIncludesAuthorInfo: boolean;
-  isAuthorVisible: boolean;
+  postRendered: boolean;
   showReference: boolean;
+  isAuthorVisible: boolean;
+  postSafeContent: SafeHtml;
   showReferenceState: string;
+  isIncludesAuthorInfo: boolean;
 
   comments: Comment[];
 
@@ -405,12 +406,15 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
   // add bookmark
   onAddBookmark(): void {
     this.post.isBookmark = true;
-    const email = this.authService.getUserInfo().user_name;
+
+    this.userEmail = this.authService.getUserInfo().user_name;
 
     const bookmarkSub = this.bookmarkService.saveBookmark(<Bookmark>{
-      email: email,
+      email: this.userEmail,
       title: this.post.title,
       postId: this.post.id.toString(),
+      categoryId: this.post.categoryId.toString(),
+      contentTypeId: this.post.contentTypeId,
       url: 'http://www.dsodentist.com',
     }).subscribe(x => {
       this.snackBar.open('Bookmark added', 'OK', {
@@ -425,7 +429,23 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
   onRemoveBookmark(): void {
     this.post.isBookmark = false;
 
-    const bookmarkSub = this.bookmarkService.deleteOneById(this.post.bookmarkId).subscribe(x => {
+    if (!this.post.bookmarkId) {
+      const subBookmark = this.bookmarkService.getAllByEmail(this.userEmail).subscribe(b => {
+        b.map(item => {
+          if (item.postId === this.post.id) {
+            this.removeBookmark(item.id);
+          }
+        });
+
+        subBookmark.unsubscribe();
+      });
+    } else {
+      this.removeBookmark(this.post.bookmarkId);
+    }
+  }
+
+  removeBookmark(id) {
+    const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe(x => {
       this.snackBar.open('Bookmark removed', 'OK', {
         duration: 2000,
       });

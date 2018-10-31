@@ -38,6 +38,8 @@ export class BookmarkService {
 
     const headers = this.getHeaders();
 
+    console.log(bookmark);
+
     return this.http.post(url, bookmark, {headers});
   }
 

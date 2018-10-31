@@ -9,6 +9,8 @@ export class Bookmark implements Serializable<Bookmark> {
   title: string;
   email: string;
   postId: string;
+  categoryId: string;
+  contentTypeId: string;
   user_id?: string;
   create_time?: string;
 
@@ -27,7 +29,9 @@ export class Bookmark implements Serializable<Bookmark> {
       email: data.email,
       id: data._id,
       title: data.title,
-      postId: data.post_id
+      postId: data.postId,
+      categoryId: data.categoryId,
+      contentTypeId: data.contentTypeId
     });
   }
 }
