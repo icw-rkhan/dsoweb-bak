@@ -16,6 +16,7 @@ import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
 
 import { environment } from '../../../../environments/environment';
+import { AuthorService } from '../../../services/author.service';
 
 @Component({
   selector: 'dso-detail-sponsor',
@@ -61,6 +62,7 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
     private snackBar: MatSnackBar,
     private postService: PostService,
     private authService: AuthService,
+    private authorService: AuthorService,
     private commentService: CommentService,
     private bookmarkService: BookmarkService,
     private sanitizer: DomSanitizer) {
@@ -355,10 +357,14 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
       }
     } else if (this.post) {
       // new API
-      this.authorName = this.post.authorName;
-      // this.authorInfo = this.post.authorInfo;
+      const subAuthor = this.authorService.getAuthorInfoById(this.post.authorId).subscribe(author => {
+        this.authorName = author.name;
+        this.authorInfo = author.details;
 
-      this.activeAuthorLayout();
+        this.activeAuthorLayout();
+
+        subAuthor.unsubscribe();
+      });
     }
   }
 

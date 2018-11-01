@@ -12,11 +12,12 @@ export class Post implements Serializable<Post> {
   contentTypeId: string;
   sponsorId: string;
   authorName: string;
+  authorDetails: string;
   contentTypeName: string;
   categoryId: number;
   categoryName: string;
   sponsorName: string;
-  featureMediaId: string;
+  featuredMediaId: string;
   photos: string;
   videos: string;
   podcasts: string;
@@ -25,7 +26,10 @@ export class Post implements Serializable<Post> {
   countOfComment: number;
   comment: string;
   date: string;
+  thumbnail?: string;
   readNumber: number;
+
+  constructor() {}
 
   // change the format of the data
   dateFormat(date): any {
@@ -50,8 +54,9 @@ export class Post implements Serializable<Post> {
       sponsorId: data.sponsorId,
       sponsorName: data.sponsorName,
       authorName: data.authorName,
+      authorDetails: data.authorDetails,
       contentTypeName: data.contentTypeName,
-      featureMediaId: data.featureMediaId,
+      featuredMediaId: data.featuredMediaId,
       photos: data.photos,
       videos: data.videos,
       podcasts: data.podcasts,

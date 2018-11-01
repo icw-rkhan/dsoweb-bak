@@ -14,6 +14,8 @@ import { AuthService } from '../../../services';
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
+import { AuthorService } from '../../../services/author.service';
+import { DownloadService } from '../../../services/download.service';
 
 @Component({
   selector: 'dso-detail-common',
@@ -57,11 +59,13 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     private progress: NgProgress,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
+    private sanitizer: DomSanitizer,
     private postService: PostService,
     private authService: AuthService,
+    private authorService: AuthorService,
     private commentService: CommentService,
     private bookmarkService: BookmarkService,
-    private sanitizer: DomSanitizer) {
+    private downloadService: DownloadService) {
 
     this.rate = 0;
     this.review_count = 0;
@@ -332,10 +336,14 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
       }
     } else if (this.post) {
       // new API
-      this.authorName = this.post.authorName;
-      // this.authorInfo = this.post.authorInfo;
+      const subAuthor = this.authorService.getAuthorInfoById(this.post.authorId).subscribe(author => {
+        this.authorName = author.name;
+        this.authorInfo = author.details;
 
-      this.activeAuthorLayout();
+        this.activeAuthorLayout();
+
+        subAuthor.unsubscribe();
+      });
     }
   }
 

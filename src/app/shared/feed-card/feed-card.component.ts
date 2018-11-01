@@ -9,6 +9,7 @@ import { AuthService } from '../../services';
 import { BookmarkService } from '../../services/bookmark.service';
 
 import { environment } from '../../../environments/environment';
+import { AuthorService } from '../../services/author.service';
 
 @Component({
   selector: 'dso-feed-card',
@@ -29,6 +30,7 @@ export class FeedCardComponent {
 
   constructor(
     private bookmarkService: BookmarkService,
+    private authorService: AuthorService,
     private authService: AuthService,
     private router: Router) {
     this.isViewMore = false;
@@ -145,18 +147,25 @@ export class FeedCardComponent {
       }
     } else if (this.post) {
       // new API
-      let contentHtml = `<p class="first-big">${parentTag.innerHTML}</p>`;
+      const subAuthor = this.authorService.getAuthorInfoById(this.post.authorId).subscribe(author => {
+        this.post.authorName = author.name;
+        this.post.authorDetails = author.details;
 
-      if (this.post.authorName) {
-        const authorTag = `<p style="margin: 0px"><span style="color:#616161;font-size:15px;font-weight:700;
-                          line-height:35px">${this.post.authorName}</span></p>`;
+        let contentHtml = `<p class="first-big">${parentTag.innerHTML}</p>`;
 
-        contentHtml = authorTag + contentHtml;
-      } else {
-        contentHtml = contentHtml.replace('<p class="first-big">', '<p class="first-big" style="margin-top:16px">');
-      }
+        if (this.post.authorName) {
+          const authorTag = `<p style="margin: 0px"><span style="color:#616161;font-size:15px;font-weight:700;
+                            line-height:35px">${this.post.authorName}</span></p>`;
 
-      parentTag.innerHTML = contentHtml;
+          contentHtml = authorTag + contentHtml;
+        } else {
+          contentHtml = contentHtml.replace('<p class="first-big">', '<p class="first-big" style="margin-top:16px">');
+        }
+
+        parentTag.innerHTML = contentHtml;
+
+        subAuthor.unsubscribe();
+      });
     }
   }
 
