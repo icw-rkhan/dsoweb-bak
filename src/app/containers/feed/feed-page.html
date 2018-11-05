@@ -8,7 +8,7 @@
       [stopAutoPlayOnSlide]="false">
     </slideshow>
   </div>
-  <nav mat-tab-nav-bar>
+  <nav mat-tab-nav-bar #tabBar>
     <div *ngFor="let link of navLinks" >
       <a *ngIf="link.route" mat-tab-link #rla="routerLinkActive" [routerLink]="link.route" routerLinkActive
        [class.active]="isActive(link)">

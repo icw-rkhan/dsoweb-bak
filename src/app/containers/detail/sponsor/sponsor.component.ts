@@ -98,10 +98,12 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
 
-        this.setDropcap();
+        if (this.post.content) {
+          this.setDropcap();
 
-        // change Pre tag to Div tag
+          // change Pre tag to Div tag
         this.postSafeContent = this.sanitizeHTML(this.changePreToDiv(p.content));
+        }
 
         this.progress.complete();
         postSub.unsubscribe();

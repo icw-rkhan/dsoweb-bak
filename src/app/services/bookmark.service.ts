@@ -20,8 +20,6 @@ export class BookmarkService {
 
     const headers = this.getHeaders();
 
-    console.log(headers);
-
     const result =  this.http.post(url, {'email': email}, {
       headers
     }).pipe(

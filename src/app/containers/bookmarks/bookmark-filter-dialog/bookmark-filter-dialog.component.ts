@@ -32,7 +32,9 @@ export class BookmarkFilterDialogComponent implements OnInit {
 
       this.categories = categoryList;
 
-      subCategory.unsubscribe();
+      if (subCategory) {
+        subCategory.unsubscribe();
+      }
     },
     err => {
       subCategory.unsubscribe();

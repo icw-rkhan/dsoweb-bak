@@ -24,7 +24,8 @@
             </div>
           </div>
           <div class="form-group withActionRight">
-            <input [type]="isShowPassword ? 'text' : 'password'" formControlName="password" class="form-control" placeholder="Password" />
+            <input [type]="isShowPassword ? 'text' : 'password'" formControlName="password" class="form-control"
+               placeholder="Password" />
             <a (click)="isShowPassword = !isShowPassword" class="action">{{isShowPassword ? 'Hide' : 'Show'}}</a>
             <div *ngIf="password.invalid && (password.dirty || password.touched)">
               <div class="invalid-input" *ngIf="password.errors.required">The password can't be blank.</div>
