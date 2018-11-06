@@ -117,7 +117,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         });
       }))
     ).subscribe(posts => {
-      console.log(posts);
       this.posts = [
         ...this.posts,
         ...posts

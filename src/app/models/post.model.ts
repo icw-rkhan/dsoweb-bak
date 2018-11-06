@@ -2,6 +2,8 @@ import { formatDate } from '@angular/common';
 
 import { Serializable } from './serializable.model';
 
+import { environment } from '../../environments/environment';
+
 export class Post implements Serializable<Post> {
 
   id: string;
@@ -40,6 +42,12 @@ export class Post implements Serializable<Post> {
     return '';
   }
 
+  makeThumbnailUrlById(featuredMediaId) {
+    const url = `${environment.cmsAPIUrl}/file/downloadFileByObjectId?objectId=${featuredMediaId}`;
+
+    return url;
+  }
+
   deserialize(data: any): Post {
 
     return <Post>Object.assign({}, {
@@ -64,6 +72,7 @@ export class Post implements Serializable<Post> {
       isBookmark: data.isBookmark,
       countOfComment: data.countOfComment,
       comment: data.comment,
+      thumbnail: this.makeThumbnailUrlById(data.featuredMediaId),
       date: this.dateFormat(new Date(data.publishDate)),
       readNumber: data.readNumber
     });
