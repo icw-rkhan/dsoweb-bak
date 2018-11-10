@@ -48,6 +48,8 @@ import { SponsorCardComponent } from './sponsor-card/sponsor-card.component';
 import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
 import { ReviewComponent } from './review-card/review-card.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
+import { UniteCardComponent } from './unite-card/unite-card.component';
+import { ArticleCardComponent } from './article-card/article-card.component';
 
 const PIPES = [
   TruncatePipe,
@@ -65,7 +67,8 @@ export const COMPONENTS = [
   MainActionsComponent,
   FeedGridComponent,
   TermPolicyDialogComponent,
-  MainContainerComponent
+  MainContainerComponent,
+  UniteCardComponent
 ];
 
 export const MODULES = [
@@ -113,7 +116,8 @@ export const MODULES = [
   ],
   declarations: [
     ...PIPES,
-    ...COMPONENTS
+    ...COMPONENTS,
+    ArticleCardComponent,
   ],
   exports: [
     ...PIPES,

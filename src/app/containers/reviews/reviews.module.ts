@@ -7,7 +7,6 @@ import { ReviewsRoutingModule } from './reviews.routing';
 import { ReviewsComponent } from './reviews.component';
 import { AddComponent } from './add/add.component';
 import { ViewComponent } from './view/view.component';
- 
 
 @NgModule({
     imports: [

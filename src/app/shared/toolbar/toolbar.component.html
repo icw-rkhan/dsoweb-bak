@@ -1,16 +1,50 @@
-<div>
-    <button mat-icon-button (click)="onClickEvent()" class="btn-menu">
-      <mat-icon>{{btnTitle}}</mat-icon>
-    </button>
-    <h3 class="mt-h3 topic-title">
-      <img *ngIf="title == 'DSODENTIST'; else elseBlock" class="topic-image" src="assets/images/logo2.png">
-      <ng-template #elseBlock>
-        {{title}}
-      </ng-template>
-    </h3>
-    <div *ngIf="url == '/profile'" class="navbar-edit-profile">
-      <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
-    </div>
+<div [class.hide]="!visible" [class.show]="visible">
+  <button mat-icon-button (click)="onClickEvent()" class="btn-menu">
+    <mat-icon>{{btnTitle}}</mat-icon>
+  </button>
+  <h3 class="mt-h3 topic-title">
+    <img *ngIf="title == 'DSODENTIST'; else elseBlock" class="topic-image" src="assets/images/logo2.png">
+    <ng-template #elseBlock>
+      {{title}}
+    </ng-template>
+  </h3>
+  <div *ngIf="url == '/profile'" class="navbar-edit-profile">
+    <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
+  </div>
+  <div *ngIf="url.includes('/unite/detail') || url.includes('/unite/bookmark')" class="navbar-edit-profile">
+    <a mat-icon-button (click)="onShowOptionModal('menu')"><img src="assets/images/unite/menu.png"></a>
+    <a mat-icon-button (click)="onShowOptionModal('more')"><img src="assets/images/unite/more-options.png"></a>
+  </div>
+  <div *ngIf="!url.includes('/unite/bookmark') && !url.includes('/unite/detail') &&
+            url.includes('/unite')" class="navbar-edit-profile">
+    <a mat-icon-button (click)="onShowOptionModal('main')"><img src="assets/images/unite/multi-windows.png"></a>
+  </div>
+</div>
+
+<div class="unite-modal" [class.hide]="!isShowingOptionsModal" [class.show-modal]="isShowingOptionsModal">
+    <mat-list *ngIf="modalType === 'main'">
+      <mat-list-item *ngFor="let link of uniteMainLinks" (click)="onOptionEvent(link.route)">
+        <span>{{link.label}}</span>
+        <img [src]="link.icon">
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-list *ngIf="modalType === 'menu'">
+      <mat-list-item *ngFor="let link of uniteMenuLinks" (click)="onOptionEvent(link.route)">
+        <span>{{link.label}}</span>
+        <img [src]="link.icon">
+        <mat-divider></mat-divider>
+      </mat-list-item>
+    </mat-list>
+
+    <mat-list *ngIf="modalType === 'more'">
+        <mat-list-item *ngFor="let link of uniteMoreLinks" (click)="onOptionEvent(link.route)">
+          <span>{{link.label}}</span>
+          <img [src]="link.icon">
+          <mat-divider></mat-divider>
+        </mat-list-item>
+      </mat-list>
   </div>
 
 

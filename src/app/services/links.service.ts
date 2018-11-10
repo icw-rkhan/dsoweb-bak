@@ -7,8 +7,16 @@ import { NavLinkModel } from '../models/nav-link.model';
   })
 export class NavLinksService {
   links: NavLinkModel[] = [];
+  uniteMainLinks: NavLinkModel[] = [];
+  uniteMoreLinks: NavLinkModel[] = [];
 
   constructor() {
+    this.makeGeneralLinks();
+    this.makeUniteMainLinks();
+    this.makeUniteFeaturesLinks();
+  }
+
+  makeGeneralLinks() {
     this.links.push({
       label: 'Browse Content',
       icon: 'general',
@@ -36,7 +44,7 @@ export class NavLinksService {
     this.links.push({
       label: 'UNITE',
       icon: 'unite',
-      route: '#',
+      route: '/unite',
       state: 'inactive'
     });
     this.links.push({
@@ -50,6 +58,66 @@ export class NavLinksService {
       icon: 'logout',
       route: '',
       state: 'inactive'
+    });
+  }
+
+  makeUniteMainLinks() {
+    this.uniteMainLinks.push({
+      label: 'All Issues',
+      icon: 'assets/images/unite/arrow-right.png',
+      route: '/unite/all',
+      state: 'active'
+    });
+
+    this.uniteMainLinks.push({
+      label: 'Downloaded',
+      icon: 'assets/images/unite/arrow-right.png',
+      route: '/unite/type/downloaded',
+      state: 'active'
+    });
+
+    this.uniteMainLinks.push({
+      label: 'Go to Bookmarks',
+      icon: 'assets/images/unite/arrow-right.png',
+      route: '/unite/bookmark',
+      state: 'active'
+    });
+  }
+
+  makeUniteFeaturesLinks() {
+    this.uniteMoreLinks.push({
+      label: 'Bookmark',
+      icon: 'assets/images/unite/bookmark.png',
+      route: '/unite/bookmark',
+      state: 'active'
+    });
+
+    this.uniteMoreLinks.push({
+      label: 'Search',
+      icon: 'assets/images/unite/search.png',
+      route: '/unite/search',
+      state: 'active'
+    });
+
+    this.uniteMoreLinks.push({
+      label: 'Share',
+      icon: 'assets/images/unite/share.png',
+      route: '/unite/bookmark',
+      state: 'active'
+    });
+
+    this.uniteMoreLinks.push({
+      label: 'Thumbnails',
+      icon: 'assets/images/unite/thumbnail.png',
+      route: '/unite/thumbnails',
+      state: 'active'
+    });
+
+    this.uniteMoreLinks.push({
+      label: 'Go to Bookmarks',
+      icon: 'assets/images/unite/arrow-right.png',
+      route: '/unite/bookmark',
+      state: 'active'
     });
   }
 

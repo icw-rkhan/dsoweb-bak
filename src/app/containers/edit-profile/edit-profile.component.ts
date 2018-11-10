@@ -418,8 +418,8 @@ export class EditProfileComponent implements OnInit {
     this.alertService.confirmAlert('Are you sure?', 'Do you really want to remove resume?')
       .then((res: any) => {
         if (res.value) {
-          this.profileService.deleteDocumentLibraryByEmail(this.userInfo.user_name).subscribe((res: any) => {
-            if (res['code'] === 0) {
+          this.profileService.deleteDocumentLibraryByEmail(this.userInfo.user_name).subscribe((response: any) => {
+            if (response['code'] === 0) {
               this.resumeFile = null;
               this.userProfile.document_library = null;
               this.alertService.successAlert('Resume delete successfully');
@@ -428,7 +428,7 @@ export class EditProfileComponent implements OnInit {
             }
           });
         }
-      });    
+      });
   }
   previewResume() {
     this.sharingService.showLoading(true);
@@ -436,14 +436,14 @@ export class EditProfileComponent implements OnInit {
     this.profileService.getResume(this.userProfile.resume_url).subscribe((res: any) => {
       this.sharingService.showLoading(false);
       if (fileType && fileType.toString().toUpperCase() === 'PDF') {
-        const blob = new Blob([res], {type: "application/pdf"}),
+        const blob = new Blob([res], {type: 'application/pdf'}),
             url = window.URL.createObjectURL(blob);
         this.resumePreviewUrl = url;
         this.isResumePreview = true;
       } else {
-        const blob = new Blob([res], {type: "octet/stream"}),
+        const blob = new Blob([res], {type: 'octet/stream'}),
             url = window.URL.createObjectURL(blob);
-        const downloadLink = document.createElement("a");
+        const downloadLink = document.createElement('a');
         downloadLink.href = url;
         downloadLink.download = this.resumeFile.name;
 

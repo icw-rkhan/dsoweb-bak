@@ -1,0 +1,14 @@
+<mat-card class="unite-card">
+  <img [src]="unite.thumbnail">
+  <mat-card-content fxLayout="column" fxLayoutAlign="center center">
+    <div class="unite-card-info" fxLayout="column" fxLayoutAlign="center center">
+      <p class="magazine-date">{{unite.date}}</p>
+      <p class="magazine-issue">{{unite.details}}</p>
+      <p class="download-status">56mb</p>
+    </div>
+    <div class="unite-card-options">
+      <button class="unite-options status" mat-stroked-button>Downloading ...</button>
+      <button class="unite-options cancel" mat-stroked-button (click)="onCancelDownload()">Cancel</button>
+    </div>
+  </mat-card-content>
+</mat-card>

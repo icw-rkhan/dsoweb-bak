@@ -1,0 +1,17 @@
+
+<mat-card class="unite-card">
+  <img [src]="unite.thumbnail">
+  <mat-card-content fxLayout="row">
+    <div class="unite-card-info">
+      <p class="magazine-date">{{unite.date}}</p>
+      <p class="magazine-issue">{{unite.details}}</p>
+    </div>
+    <div class="unite-card-options">
+      <button *ngIf="!unite.isDownload" class="unite-options download" mat-stroked-button
+            (click)="onDownloadIssue(unite.id)">Download</button>
+      <button *ngIf="unite.isDownload" class="unite-options read" mat-stroked-button
+            (click)="onViewIssue(unite.id)">Read</button>
+    </div>
+  </mat-card-content>
+</mat-card>
+  

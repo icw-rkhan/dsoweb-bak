@@ -1,0 +1,49 @@
+.unite-view {
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    overflow: hidden;
+
+    .view-container {
+        width: 100%;
+        height: auto;
+        margin-bottom: 53px;
+        overflow: auto;
+    
+        div {
+            margin-right: 10px;
+
+            img {
+                width: 100vw;
+                height: auto;
+            }
+        }
+    }
+
+    .unite-arrow {
+        width: 14px;
+        height: 14px;
+        border: 2px solid #ffffff;
+        border-width: 0 3px 3px 0;
+    }
+
+    .unite-arrow.unite-right {
+        transform: rotate(-45deg);
+    }
+
+    .unite-arrow.unite-left {
+        transform: rotate(135deg);
+    }
+
+    .footer-label {
+        color: #ffffff;
+        font-family: 'SFUI';
+        font-size: 15px;
+        font-weight: 500;
+        margin: 0px 12px;
+    }
+}
+
+
+
+
