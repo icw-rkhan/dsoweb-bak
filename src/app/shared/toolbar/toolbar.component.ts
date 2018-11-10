@@ -97,7 +97,7 @@ export class ToolbarComponent {
 
           this.isShowingOptionsModal = false;
 
-          this.cdr.detectChanges();
+          this.cdr.markForCheck();
         }
       });
   }
