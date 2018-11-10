@@ -1,4 +1,5 @@
-import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef, AfterViewChecked } from '@angular/core';
+import {Component, OnInit, OnDestroy, ViewChild, HostListener,
+               ElementRef, AfterViewChecked } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
@@ -10,12 +11,11 @@ import { BookmarkService } from '../../../services/bookmark.service';
 import { CommentService } from '../../../services/comment.service';
 import { PostService } from '../../../services/post.service';
 import { AuthService } from '../../../services';
+import { AuthorService } from '../../../services/author.service';
 
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
-import { AuthorService } from '../../../services/author.service';
-import { DownloadService } from '../../../services/download.service';
 
 @Component({
   selector: 'dso-detail-common',
@@ -64,8 +64,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     private authService: AuthService,
     private authorService: AuthorService,
     private commentService: CommentService,
-    private bookmarkService: BookmarkService,
-    private downloadService: DownloadService) {
+    private bookmarkService: BookmarkService) {
 
     this.rate = 0;
     this.review_count = 0;

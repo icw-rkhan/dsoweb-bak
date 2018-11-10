@@ -2,8 +2,6 @@ import { formatDate } from '@angular/common';
 
 import { Serializable } from './serializable.model';
 
-import { ProfileService } from '../services/profile.service';
-
 import * as _ from 'lodash';
 
 export class Comment implements Serializable<Comment> {
@@ -16,26 +14,6 @@ export class Comment implements Serializable<Comment> {
   userUrl?: string;
   creationDt: string;
 
-  constructor(private profileService: ProfileService) {
-
-  }
-
-  getUserInfo(email) {
-    let res: any;
-    const profileSub = this.profileService.findOneByEmail({ email: email }).subscribe(
-      (data: any) => {
-        res = data.resultMap.data;
-
-        this.userId = res.id;
-        this.userName = res.full_name;
-        this.userUrl = res.photo_url;
-
-        profileSub.unsubscribe();
-      });
-
-    return true;
-  }
-
   // change the format of the data
   dateFormat(date): any {
     if (date) {
@@ -46,10 +24,9 @@ export class Comment implements Serializable<Comment> {
   }
 
   deserialize(data: any): Comment {
-    this.getUserInfo(data.email);
 
     return <Comment>Object.assign({}, {
-      userId: this.userId ? this.userId : '',
+      userId: data.email,
       postId: data.comment_id,
       comment: data.comment_text,
       rating: data.comment_rating,
