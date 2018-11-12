@@ -1,0 +1,91 @@
+.article-card {
+    width: 70vw;
+    margin-right: 25px;
+
+    .article-info {
+        margin-bottom: 24px;
+    
+        .article-date {
+            color: #4a4a4a;
+            font-family: 'SFUI';
+            font-size: 17px;
+            font-weight: 600;
+            margin-top: 28px;
+        }
+        
+        .article-details {
+            color: #9b9b9b;
+            font-size: 15px;
+            font-weight: 400;
+            line-height: 20px;
+        }
+    }
+    
+    .article-container {
+        border: 2px solid #879aa8;
+    
+        .article-thumbnail {
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    
+        .article-content {
+            padding: 15px 10px;
+            
+            .article-category {
+                color: #78aed0;
+                font-size: 14px;
+                font-weight: 500;
+                margin-bottom: 7px;
+            }
+    
+            .article-title {
+                color: #4a4a4a;
+                font-size: 17px;
+                font-weight: 600;
+                line-height: 20px;
+            }
+            
+            .article-author {
+                color: #c8c8c8;
+                font-size: 14px;
+                font-weight: 500;
+                margin: 7px 0px 25px;
+            }
+            
+            .article-excerpt {
+                color: #000000;
+                font-size: 14px;
+                font-style: italic;
+            }   
+        }
+    }
+    
+    .article-footer {
+        margin: 20px 0px 25px;
+    
+        .article-title {
+            width: 80%;
+            color: #4a4a4a;
+            font-family: 'SFUI';
+            font-size: 17px;
+            font-weight: 600;
+            text-align: center;
+            line-height: 20px;
+        }
+    
+        .article-control {
+            margin-top: 19px;
+
+            .mat-stroked-button {
+                border-color: #c8c8c8;
+                color: #4a4a4a;
+                font-family: 'SFUI';
+                font-size: 13px;
+                font-weight: 600;
+            }
+        }
+    }
+}

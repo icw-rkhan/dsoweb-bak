@@ -68,7 +68,8 @@ export const COMPONENTS = [
   FeedGridComponent,
   TermPolicyDialogComponent,
   MainContainerComponent,
-  UniteCardComponent
+  UniteCardComponent,
+  ArticleCardComponent
 ];
 
 export const MODULES = [
@@ -117,7 +118,6 @@ export const MODULES = [
   declarations: [
     ...PIPES,
     ...COMPONENTS,
-    ArticleCardComponent,
   ],
   exports: [
     ...PIPES,

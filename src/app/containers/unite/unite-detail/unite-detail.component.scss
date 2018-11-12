@@ -1,6 +1,56 @@
-.post-avatar {
+.article-thumbnail {
     img {
         width: 100%;
         height: auto;
     }
+}
+
+.article-content {
+    padding: 15px 10px;
+    
+    .article-category {
+        color: #017ab9;
+        font-size: 14px;
+        margin-bottom: 7px;
+    }
+
+    .article-title {
+        color: #4a4a4a;
+        font-size: 17px;
+        font-weight: 600;
+    }
+    
+    .article-author {
+        color: #9b9b9b;
+        font-size: 14px;
+        margin: 7px 0px 25px;
+    }
+    
+    .article-excerpt {
+        color: #000000;
+        font-size: 14px;
+        font-style: italic;
+    }
+
+    .article-detail {
+        margin-top: 25px;
+        font-size: 14px;
+        line-height: 20px;
+    }
+
+    .article-detail::first-letter {
+        font-size: 40px;
+        font-weight: 600;
+        color: #017ab9;
+        float: left;
+        margin: 10px 6px 2px 0;
+    }
+}
+
+.mat-stroked-button {
+    border-color: #c8c8c8;
+    color: #4a4a4a;
+    font-family: 'SFUI';
+    font-size: 13px;
+    font-weight: 600;
 }

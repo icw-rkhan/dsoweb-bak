@@ -7,16 +7,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UniteDetailComponent implements OnInit {
 
-  post: any;
+  article: any;
 
   constructor() {
-    this.post = {
+    this.article = {
       thumbnail: 'assets/images/unite/unite-avatar.png',
-      category: 'A Balancing Act',
+      categoryName: 'A Balancing Act',
       title: 'Your Professional Career and Personal Life',
       authorName: 'by Steven Michaels',
       excerpt: '"Achieving a work-life balance is entirely within your reach through the DSOsupported practice."',
-      content: 'Many dentists, particularly in private parctice, have adapted to a 10- to 12- hour work day...'
+      content: 'Many dentists, particularly in private parctice, have adapted to a 10- to 12- hour work day.' +
+       'Working more than 40 hours a week can take a tool on relationships and health over time 1; and as the number off hours increase...'
     };
   }
 
