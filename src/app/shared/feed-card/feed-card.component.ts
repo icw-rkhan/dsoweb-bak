@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, Component,
-  EventEmitter, Input, Output} from '@angular/core';
+        EventEmitter, Input, Output, OnInit, ChangeDetectorRef} from '@angular/core';
+import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { Post } from '../../models/post.model';
@@ -9,7 +10,6 @@ import { AuthService } from '../../services';
 import { BookmarkService } from '../../services/bookmark.service';
 
 import { environment } from '../../../environments/environment';
-import { AuthorService } from '../../services/author.service';
 
 @Component({
   selector: 'dso-feed-card',
@@ -17,10 +17,12 @@ import { AuthorService } from '../../services/author.service';
   styleUrls: ['./feed-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FeedCardComponent {
+export class FeedCardComponent implements OnInit {
 
-  public isViewMore: boolean;
+  isViewMore: boolean;
   userEmail: string;
+
+  postSafeContent: SafeHtml;
 
   @Input() post: Post;
   @Input() no: number;
@@ -30,11 +32,16 @@ export class FeedCardComponent {
 
   constructor(
     private bookmarkService: BookmarkService,
-    private authorService: AuthorService,
     private authService: AuthService,
+    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef,
     private router: Router) {
     this.isViewMore = false;
     this.userEmail = '';
+  }
+
+  ngOnInit() {
+    this.fetchAuthorInfo();
   }
 
   onAddBookmark() {
@@ -110,77 +117,20 @@ export class FeedCardComponent {
 
   // fetch an author/speaker's name
   fetchAuthorInfo() {
-    const parentTag = document.getElementById(`contents${this.no}`);
-    const tag = parentTag.getElementsByTagName('p');
+    const excerpt = this.post.excerpt.replace(/(<p[^>]*>\(.*?\).*?<\/p>)/gs, '');
 
-    if (tag && tag.length > 0) {
-      // wordpress contents
-      let authorTag;
-      if (tag[0].innerHTML.includes('(')) {
-        authorTag = tag[0].innerHTML;
-      } else {
-        return;
-      }
+    let updatedContent = `<div class="first-big">${excerpt}</div>`;
 
-      if (authorTag.includes('strong')) {
-        authorTag = authorTag.replace('<strong>', '');
-        authorTag = authorTag.replace('</strong>', '');
-      }
+    if (this.post.authorName) {
+      const authorTag = `<p style="margin: 0px"><span style="color:#616161;font-size:15px;font-weight:700;
+                        line-height:35px">${this.post.authorName}</span></p>`;
 
-      const authorArr = authorTag.split('<br>');
-      let authorName = authorArr.length > 0 ? authorArr[0] : null;
-
-      if (authorName.includes('(') && authorName.includes(')')) {
-        if (authorName.includes('By')) {
-          authorName = authorName.replace('By', '');
-        }
-
-        authorName = authorName.replace('(', '');
-        authorName = authorName.replace(')', '');
-
-        this.removeAuthorInfo();
-
-        if (tag.length > 1) {
-          tag[0].innerHTML = `<span style="color:#616161;font-size:15px;font-weight:700;line-height:35px">${authorName}</span>`;
-          tag[1].classList.add('first-big');
-        }
-      }
-    } else if (this.post) {
-      // new API
-      const subAuthor = this.authorService.getAuthorInfoById(this.post.authorId).subscribe(author => {
-        this.post.authorName = author.name;
-        this.post.authorDetails = author.details;
-
-        let contentHtml = `<p class="first-big">${parentTag.innerHTML}</p>`;
-
-        if (this.post.authorName) {
-          const authorTag = `<p style="margin: 0px"><span style="color:#616161;font-size:15px;font-weight:700;
-                            line-height:35px">${this.post.authorName}</span></p>`;
-
-          contentHtml = authorTag + contentHtml;
-        } else {
-          contentHtml = contentHtml.replace('<p class="first-big">', '<p class="first-big" style="margin-top:16px">');
-        }
-
-        parentTag.innerHTML = contentHtml;
-
-        subAuthor.unsubscribe();
-      });
+      updatedContent = authorTag + updatedContent;
+    } else {
+      updatedContent = updatedContent.replace('<p class="first-big">', '<p class="first-big" style="margin-top:16px">');
     }
-  }
 
-  // remove author's info
-  removeAuthorInfo() {
-    const parentTag = document.getElementById(`contents${this.no}`);
-    const tag = parentTag.getElementsByTagName('p');
-
-    if (tag && tag.length > 0) {
-      if (tag[0].innerHTML.includes('(') && tag.length > 1) {
-
-        tag[0].innerHTML = '';
-        tag[0].style.margin = '0';
-      }
-    }
+    this.postSafeContent = this.sanitizer.bypassSecurityTrustHtml(updatedContent);
   }
 
   // check gsk tag

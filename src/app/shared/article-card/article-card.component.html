@@ -1,9 +1,9 @@
-<div class="article-card" (click)="onUniteDetail(article.id)">
+<div class="article-card">
     <div class="article-info" fxLayout="column" fxLayoutAlign="center center">
         <p class="article-date">{{article.date}}</p>
         <p class="article-details">{{article.details}}</p>
     </div>
-    <div class="article-container">
+    <div class="article-container" (click)="onUniteDetail(article.id)">
         <p class="article-thumbnail">
             <img [src]="article.thumbnail">
         </p>

@@ -10,7 +10,6 @@ import { BookmarkService } from './bookmark.service';
 import { AuthService } from './auth/auth.service';
 
 import { environment } from '../../environments/environment';
-import { AuthorService } from './author.service';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,6 @@ export class PostService {
   constructor(
     private http: HttpClient,
     private authService: AuthService,
-    private authorService: AuthorService,
     private bookmarkService: BookmarkService) {
   }
 
@@ -37,6 +35,8 @@ export class PostService {
 
     // set auth token
     const headers = this.getHeaders();
+
+    console.log(headers);
 
     return this.http.post(url, body, {headers}).pipe(
       map((response: any) => response.resultMap.data.map(post => new Post().deserialize(post)))

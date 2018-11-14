@@ -20,32 +20,22 @@ export class Post implements Serializable<Post> {
   categoryName: string;
   sponsorName: string;
   featuredMediaId: string;
-  photos: string;
-  videos: string;
-  podcasts: string;
   bookmarkId: string;
   isBookmark: boolean;
-  countOfComment: number;
-  comment: string;
   date: string;
+  excerpt: string;
   thumbnail?: string;
-  readNumber: number;
 
   constructor() {}
 
   // change the format of the data
-  dateFormat(date): any {
+  dateFormat(date: string): any {
     if (date) {
+      date = date.replace(/-/g, '/');
       return formatDate(date, 'MMM d, y', 'en-US');
     }
 
     return '';
-  }
-
-  makeThumbnailUrlById(featuredMediaId) {
-    const url = `${environment.cmsAPIUrl}/file/downloadFileByObjectId?objectId=${featuredMediaId}`;
-
-    return url;
   }
 
   deserialize(data: any): Post {
@@ -61,20 +51,15 @@ export class Post implements Serializable<Post> {
       categoryName: data.categoryName,
       sponsorId: data.sponsorId,
       sponsorName: data.sponsorName,
-      authorName: data.authorName,
-      authorDetails: data.authorDetails,
+      authorName: data.author.fullName,
+      authorDetails: data.author.authorDetails,
       contentTypeName: data.contentTypeName,
       featuredMediaId: data.featuredMediaId,
-      photos: data.photos,
-      videos: data.videos,
-      podcasts: data.podcasts,
       bookmarkId: data.bookmarkId,
       isBookmark: data.isBookmark,
-      countOfComment: data.countOfComment,
-      comment: data.comment,
-      thumbnail: this.makeThumbnailUrlById(data.featuredMediaId),
-      date: this.dateFormat(new Date(data.publishDate)),
-      readNumber: data.readNumber
+      excerpt: data.excerpt,
+      thumbnail: data.featuredMedia.code.thumbnailUrl,
+      date: this.dateFormat(data.publishDate)
     });
   }
 

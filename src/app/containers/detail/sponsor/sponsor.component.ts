@@ -37,7 +37,6 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
   isAuthorVisible: boolean;
   postSafeContent: SafeHtml;
   showReferenceState: string;
-  isIncludesAuthorInfo: boolean;
 
   comments: Comment[];
 
@@ -73,7 +72,6 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.showReferenceState = 'Show more';
     this.showReference = false;
     this.postRendered = false;
-    this.isIncludesAuthorInfo = false;
     this.postSafeContent = '';
 
     this.post = new Post();
@@ -122,25 +120,21 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
       setTimeout(() => {
        this.changeLayoutOfPost();
        this.fetchAuthorInfo();
-       this.removeAuthorInfo();
       }, 0);
     }
   }
 
   setDropcap(): void {
-    const regex = /(<p[^>]*>.*?<\/p>)/gs;
-    const paragraphs = this.post.content.match(regex);
+    const matches = this.post.content.match(/(<p[^>]*>.*?<\/p>)/g);
+    const first = matches[0];
 
-    if (paragraphs && paragraphs.length > 0) {
-      this.isIncludesAuthorInfo = true;
-
-      this.post.content = this.post.content.replace(/<p[^>]*>(\w)/,  '<p class="first-big">$1');
-      this.post.content = this.post.content.replace(/<p[^>]*><span[^>]*>(\w)/,  '<p class="first-big"><span>$1');
-    } else {
-      this.isIncludesAuthorInfo = false;
-
-      this.post.content = `<p class="first-big">${this.post.content}</p>`;
+    let content = this.post.content;
+    if (first === '<p>&nbsp;</p>' || first.includes('(By By')) {
+      content = content.replace(first, '');
     }
+
+    content = content.replace(/(<p[^>]*>((?!iframe)(?!&nbsp).)*<\/p>)/, '<div class="first-big">$1</div>');
+    this.post.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
   }
 
   ngOnDestroy(): void {
@@ -314,80 +308,10 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // fetch an author/speaker's name
   fetchAuthorInfo() {
-    const regex = /(<p[^>]*>.*?<\/p>)/gs;
-    const paragraphs = this.post.content.match(regex);
+    this.authorName = this.post.authorName;
+    this.authorInfo = this.post.authorDetails;
 
-    if (this.isIncludesAuthorInfo && paragraphs && paragraphs.length > 0) {
-      let authorTag;
-      if (this.post.content.indexOf('<video') > -1 && paragraphs[0].indexOf('(') === -1) {
-        authorTag = paragraphs[1];
-      } else if (paragraphs[0].indexOf('(') > -1) {
-        authorTag = paragraphs[0];
-      } else {
-        this.authorContent.nativeElement.style.display = 'none';
-      }
-
-      if (authorTag.includes('strong')) {
-        authorTag = authorTag.replace('<strong>', '');
-        authorTag = authorTag.replace('</strong>', '');
-      }
-      authorTag = authorTag.replace('<p>', '');
-      authorTag = authorTag.replace('</p>', '');
-
-      const authorArr = authorTag.split('<br />');
-      let authorName = authorArr.length > 0 ? authorArr[0] : null;
-      let authorInfo = authorArr.length > 1 ? authorArr[1] : null;
-      if (authorName.includes('(') && authorName.includes(')')) {
-        if (authorName.includes('By')) {
-          authorName = authorName.replace('By', '');
-        }
-
-        authorName = authorName.replace('(', '');
-        authorName = authorName.replace(')', '');
-
-        this.authorName = authorName;
-
-        this.activeAuthorLayout();
-      }
-
-      if (authorInfo && authorInfo.includes('[') && authorInfo.includes(']')) {
-
-        authorInfo = authorInfo.replace('[', '');
-        authorInfo = authorInfo.replace(']', '');
-
-        this.authorInfo = authorInfo;
-      }
-    } else if (this.post) {
-      // new API
-      const subAuthor = this.authorService.getAuthorInfoById(this.post.authorId).subscribe(author => {
-        this.authorName = author.name;
-        this.authorInfo = author.details;
-
-        this.activeAuthorLayout();
-
-        subAuthor.unsubscribe();
-      });
-    }
-  }
-
-  // remove author's info
-  removeAuthorInfo() {
-    const parentTag = document.getElementById('contents');
-    const tag = parentTag.getElementsByTagName('p');
-    const videoTag = parentTag.getElementsByTagName('video');
-
-    if (this.isIncludesAuthorInfo && tag && tag.length > 0) {
-      if (videoTag && videoTag.length > 0 &&
-        !tag[0].innerHTML.includes('(') && tag[1].innerHTML.includes('(')) {
-
-        tag[1].innerHTML = '';
-        tag[1].style.margin = '0';
-
-      } else if (tag[0].innerHTML.includes('(')) {
-        tag[0].innerHTML = '';
-        tag[0].style.margin = '0';
-      }
-    }
+    this.activeAuthorLayout();
   }
 
   sanitizeHTML(html) {
@@ -446,10 +370,16 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
       categoryId: this.post.categoryId.toString(),
       contentTypeId: this.post.contentTypeId,
       url: 'http://www.dsodentist.com',
-    }).subscribe(x => {
-      this.snackBar.open('Bookmark added', 'OK', {
-        duration: 2000,
-      });
+    }).subscribe((x: any) => {
+      if (x.code === 0) {
+        this.snackBar.open('Bookmark added', 'OK', {
+          duration: 2000,
+        });
+      } else {
+        this.snackBar.open('Bookmark failed', 'OK', {
+          duration: 2000,
+        });
+      }
 
       bookmarkSub.unsubscribe();
     });
@@ -475,10 +405,16 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   removeBookmark(id) {
-    const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe(x => {
-      this.snackBar.open('Bookmark removed', 'OK', {
-        duration: 2000,
-      });
+    const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
+      if (x.code === 0) {
+        this.snackBar.open('Bookmark removed', 'OK', {
+          duration: 2000,
+        });
+      } else {
+        this.snackBar.open('Bookmark failed', 'OK', {
+          duration: 2000,
+        });
+      }
 
       bookmarkSub.unsubscribe();
     });

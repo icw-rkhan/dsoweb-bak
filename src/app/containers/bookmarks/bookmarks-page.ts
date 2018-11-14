@@ -53,12 +53,19 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
 
   remove(post: Post): void {
     this.progress.start();
-    this.bookmarkService.deleteOneById(post.bookmarkId).subscribe(() => {
+    this.bookmarkService.deleteOneById(post.bookmarkId).subscribe((x: any) => {
       this.progress.complete();
-      this.posts = this.posts.filter(b => b.id !== post.id);
-      this.snackBar.open('Bookmark removed', 'OK', {
-        duration: 2000,
-      });
+
+      if (x.code === 0) {
+        this.posts = this.posts.filter(b => b.id !== post.id);
+        this.snackBar.open('Bookmark removed', 'OK', {
+          duration: 2000,
+        });
+      } else {
+        this.snackBar.open('Bookmark failed', 'OK', {
+          duration: 2000,
+        });
+      }
     });
   }
 

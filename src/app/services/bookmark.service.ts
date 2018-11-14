@@ -20,13 +20,10 @@ export class BookmarkService {
 
     const headers = this.getHeaders();
 
-    const result =  this.http.post(url, {'email': email}, {
-      headers
-    }).pipe(
+    const result =  this.http.post(url, {'email': email}, {headers}).pipe(
       map((response: any) =>
         response.resultMap.bookmarkList.map(post => new Bookmark().deserialize(post))
-      ),
-    );
+      ));
 
     return result;
   }
@@ -36,8 +33,6 @@ export class BookmarkService {
 
     const headers = this.getHeaders();
 
-    console.log(bookmark);
-
     return this.http.post(url, bookmark, {headers});
   }
 
@@ -46,11 +41,7 @@ export class BookmarkService {
 
     const headers = this.getHeaders();
 
-    const param = {
-      'id': id
-    };
-
-    return this.http.post(url, null, {headers, params: param});
+    return this.http.post(url, null, {headers, params: {'id': id}});
   }
 
   getHeaders(): HttpHeaders {

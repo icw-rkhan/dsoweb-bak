@@ -99,12 +99,13 @@ export class NavLinksService {
       state: 'active'
     });
 
+    /*
     this.uniteMoreLinks.push({
       label: 'Share',
       icon: 'assets/images/unite/share.png',
       route: '/unite/bookmark',
       state: 'active'
-    });
+    });*/
 
     this.uniteMoreLinks.push({
       label: 'Thumbnails',
