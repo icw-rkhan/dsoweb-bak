@@ -1,0 +1,14 @@
+.unite-thumbnail-container {
+    width: 100vw;
+    min-height: calc(100vh - 45px);
+    background-color: #efefef;
+    overflow: auto;
+}
+
+dso-article-card:first-child {
+    padding-left: 15vw;
+}
+
+dso-article-card:last-child {
+    padding-right: calc(15vw - 25px);
+}

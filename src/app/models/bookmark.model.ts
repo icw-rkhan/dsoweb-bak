@@ -13,6 +13,7 @@ export class Bookmark implements Serializable<Bookmark> {
   contentTypeId: string;
   user_id?: string;
   create_time?: string;
+  status: string;
 
   // change the format of the data
   dateFormat(date): any {

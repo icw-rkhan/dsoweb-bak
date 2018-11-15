@@ -11,12 +11,11 @@
   <div *ngIf="url == '/profile'" class="navbar-edit-profile">
     <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
   </div>
-  <div *ngIf="url.includes('/unite/detail') || url.includes('/unite/bookmark')" class="navbar-edit-profile">
+  <div *ngIf="isViewMoreOptions" class="navbar-edit-profile">
     <a mat-icon-button (click)="onShowOptionModal('menu')"><img src="assets/images/unite/menu.png"></a>
     <a mat-icon-button (click)="onShowOptionModal('more')"><img src="assets/images/unite/more-options.png"></a>
   </div>
-  <div *ngIf="!url.includes('/unite/bookmark') && !url.includes('/unite/detail') &&
-            url.includes('/unite')" class="navbar-edit-profile">
+  <div *ngIf="isViewMainOptions" class="navbar-edit-profile">
     <a mat-icon-button (click)="onShowOptionModal('main')"><img src="assets/images/unite/multi-windows.png"></a>
   </div>
 </div>

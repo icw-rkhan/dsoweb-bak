@@ -16,7 +16,7 @@ import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
 
 import { environment } from '../../../../environments/environment';
-import { AuthorService } from '../../../services/author.service';
+import { SharingService } from '../../../services/sharing.service';
 
 @Component({
   selector: 'dso-detail-sponsor',
@@ -28,7 +28,6 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
   post: Post;
   rate: number;
   postId: string;
-  userEmail: string;
   authorName: string;
   authorInfo: string;
   review_count: number;
@@ -61,7 +60,7 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
     private snackBar: MatSnackBar,
     private postService: PostService,
     private authService: AuthService,
-    private authorService: AuthorService,
+    private sharingService: SharingService,
     private commentService: CommentService,
     private bookmarkService: BookmarkService,
     private sanitizer: DomSanitizer) {
@@ -82,6 +81,9 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.paramsSub = this.route.params.subscribe(params => {
       this.progress.start();
       this.postId = params['id'];
+
+      // add ADS code to the specifi post
+      this.addADSCodeTo(this.postId);
 
       const commentSub = this.commentService.comments(this.postId).subscribe(c => {
         this.comments = c;
@@ -111,6 +113,23 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
         postSub.unsubscribe();
       });
     });
+  }
+
+  addADSCodeTo(id: string) {
+    if (id === environment.ADS_POST_ID) {
+      const script1 = document.createElement('script');
+      script1.setAttribute('class', 'ads_script');
+      script1.setAttribute('async', '');
+      script1.setAttribute('src', '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
+
+      const script2 = document.createElement('script');
+      script2.setAttribute('class', 'ads_script');
+      script2.innerHTML = '(adsbygoogle = window.adsbygoogle || []) .push (' +
+        '{ google_ad_client: "ca-pub-5793099538711899", enable_page_level_ads: true });';
+
+      document.head.appendChild(script1);
+      document.head.appendChild(script2);
+    }
   }
 
   ngAfterViewChecked(): void {
@@ -360,11 +379,10 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // add bookmark
   onAddBookmark(): void {
-    this.post.isBookmark = true;
-    this.userEmail = this.authService.getUserInfo().user_name;
+    const userEmail = this.authService.getUserInfo().user_name;
 
     const bookmarkSub = this.bookmarkService.saveBookmark(<Bookmark>{
-      email: this.userEmail,
+      email: userEmail,
       title: this.post.title,
       postId: this.post.id.toString(),
       categoryId: this.post.categoryId.toString(),
@@ -372,14 +390,20 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
       url: 'http://www.dsodentist.com',
     }).subscribe((x: any) => {
       if (x.code === 0) {
+        this.sharingService.changeStatusOfBookmark(true);
+
         this.snackBar.open('Bookmark added', 'OK', {
           duration: 2000,
         });
       } else {
+        this.sharingService.changeStatusOfBookmark(false);
+
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });
       }
+
+      this.post.isBookmark = this.sharingService.isBookmark;
 
       bookmarkSub.unsubscribe();
     });
@@ -387,10 +411,10 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // remove bookmark
   onRemoveBookmark(): void {
-    this.post.isBookmark = false;
-
     if (!this.post.bookmarkId) {
-      const subBookmark = this.bookmarkService.getAllByEmail(this.userEmail).subscribe(b => {
+      const userEmail = this.authService.getUserInfo().user_name;
+
+      const subBookmark = this.bookmarkService.getAllByEmail(userEmail).subscribe(b => {
         b.map(item => {
           if (item.postId === this.post.id) {
             this.removeBookmark(item.id);
@@ -407,14 +431,20 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
   removeBookmark(id) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
       if (x.code === 0) {
+        this.sharingService.changeStatusOfBookmark(false);
+
         this.snackBar.open('Bookmark removed', 'OK', {
           duration: 2000,
         });
       } else {
+        this.sharingService.changeStatusOfBookmark(true);
+
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });
       }
+
+      this.post.isBookmark = this.sharingService.isBookmark;
 
       bookmarkSub.unsubscribe();
     });

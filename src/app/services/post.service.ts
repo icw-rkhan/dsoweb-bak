@@ -51,6 +51,10 @@ export class PostService {
     return this.posts(args);
   }
 
+  fetchBySponsorId(args: PostArgs): Observable<Post[]> {
+    return this.posts(args);
+  }
+
   fetchById(id: string): Observable<Post> {
     const url = `${environment.cmsAPIUrl}/content/findOneContents`;
 
@@ -88,10 +92,6 @@ export class PostService {
     return this.http.post(url, {'searchValue': term}, {headers}).pipe(
       map((response: any) => response.resultMap.data.map(post => new Post().deserialize(post)))
     );
-  }
-
-  fetchBySponsorId(args: PostArgs): Observable<Post[]> {
-    return this.posts(args);
   }
 
   getHeaders(): HttpHeaders {

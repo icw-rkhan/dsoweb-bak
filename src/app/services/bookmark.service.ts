@@ -20,10 +20,14 @@ export class BookmarkService {
 
     const headers = this.getHeaders();
 
-    const result =  this.http.post(url, {'email': email}, {headers}).pipe(
-      map((response: any) =>
-        response.resultMap.bookmarkList.map(post => new Bookmark().deserialize(post))
-      ));
+    console.log(email);
+
+    const result =  this.http.post(url, {'email': email, 'status': 1}, {headers}).pipe(
+      map((response: any) => {
+        console.log(response);
+        return response.resultMap.bookmarkList.map(post => new Bookmark().deserialize(post));
+      }
+    ));
 
     return result;
   }

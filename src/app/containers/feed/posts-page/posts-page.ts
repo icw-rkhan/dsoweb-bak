@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { forkJoin, Subscription } from 'rxjs';
+import { forkJoin, Subscription, Observable } from 'rxjs';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/internal/operators';
@@ -11,6 +11,7 @@ import { Post } from '../../../models/post.model';
 import { AuthService } from '../../../services';
 import { BookmarkService } from '../../../services/bookmark.service';
 import { Bookmark } from '../../../models/bookmark.model';
+import { SharingService } from '../../../services/sharing.service';
 
 @Component({
   templateUrl: './posts-page.html',
@@ -28,14 +29,15 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   private typeId: number;
 
   constructor(
-    private postService: PostService,
     private progress: NgProgress,
     private route: ActivatedRoute,
     private authService: AuthService,
+    private postService: PostService,
+    private sharingService: SharingService,
     private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar) {
       this.isFetching = true;
-      this.pageNum = 1;
+      this.pageNum = 0;
   }
 
   ngOnInit(): void {
@@ -58,10 +60,14 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   addBookmark(value: Bookmark) {
     const bookmarkSub = this.bookmarkService.saveBookmark(value).subscribe((x: any) => {
       if (x.code === 0) {
+        this.sharingService.changeStatusOfBookmark(true);
+
         this.snackBar.open('Bookmark added', 'OK', {
           duration: 2000,
         });
       } else {
+        this.sharingService.changeStatusOfBookmark(false);
+
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });
@@ -73,10 +79,14 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   removeBookmark(id: string) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
       if (x.code === 0) {
+        this.sharingService.changeStatusOfBookmark(false);
+
         this.snackBar.open('Bookmark removed', 'OK', {
           duration: 2000,
         });
       } else {
+        this.sharingService.changeStatusOfBookmark(true);
+
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });
@@ -96,23 +106,25 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
     // Services
     const email = this.authService.getUserInfo().user_name;
-    let postService = this.postService.posts({
-      page: this.pageNum,
-      per_page: 5
-    });
 
-    if (!_.isUndefined(this.sponsorId)) {
+    let postService: Observable<Post[]>;
+    if (this.sponsorId) {
       postService = this.postService.fetchBySponsorId({
         type: this.typeId,
         sponsorId: this.sponsorId,
         page: this.pageNum,
-        per_page: 5
+        per_page: 3
       });
-    } else if (!_.isUndefined(this.typeId)) {
+    } else if (this.typeId) {
       postService = this.postService.fetchByContentTypeId({
         type: this.typeId,
         page: this.pageNum,
-        per_page: 5
+        per_page: 3
+      });
+    } else {
+      postService = this.postService.posts({
+        page: this.pageNum,
+        per_page: 3
       });
     }
 
@@ -123,6 +135,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     ).pipe(
       map(items => items[0].map(p => {
         const bookmark = items[1].find(b => b.postId === p.id);
+
         return Object.assign({}, p, {
           isBookmark: !_.isUndefined(bookmark),
           bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined

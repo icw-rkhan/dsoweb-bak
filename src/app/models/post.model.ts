@@ -29,9 +29,8 @@ export class Post implements Serializable<Post> {
   constructor() {}
 
   // change the format of the data
-  dateFormat(date: string): any {
+  dateFormat(date: Date): any {
     if (date) {
-      date = date.replace(/-/g, '/');
       return formatDate(date, 'MMM d, y', 'en-US');
     }
 
@@ -39,7 +38,6 @@ export class Post implements Serializable<Post> {
   }
 
   deserialize(data: any): Post {
-
     return <Post>Object.assign({}, {
       id: data.id,
       email: data.email,
@@ -59,7 +57,7 @@ export class Post implements Serializable<Post> {
       isBookmark: data.isBookmark,
       excerpt: data.excerpt,
       thumbnail: data.featuredMedia.code.thumbnailUrl,
-      date: this.dateFormat(data.publishDate)
+      date: this.dateFormat(new Date(data.publishDate))
     });
   }
 

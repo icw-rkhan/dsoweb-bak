@@ -23,6 +23,8 @@ export class ToolbarComponent {
 
   visible: boolean;
   isClickOptionsBtn: boolean;
+  isViewMoreOptions: boolean;
+  isViewMainOptions: boolean;
   isShowingOptionsModal: boolean;
 
   uniteMainLinks: NavLinkModel[];
@@ -37,6 +39,8 @@ export class ToolbarComponent {
       this.visible = true;
       this.isClickOptionsBtn = false;
       this.isShowingOptionsModal = false;
+      this.isViewMoreOptions = false;
+      this.isViewMainOptions = true;
 
       this.uniteMainLinks = this.linksService.uniteMainLinks;
       this.uniteMoreLinks = this.linksService.uniteMoreLinks;
@@ -81,6 +85,9 @@ export class ToolbarComponent {
           } else if (event.url.includes('/unite/bookmark')) {
             this.title = 'BOOKMARKS';
             this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/unite/thumbnails')) {
+            this.title = 'THUMBNAILS';
+            this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/unite/type/downloaded')) {
             this.title = 'DOWNLOADED';
             this.btnTitle = 'menu';
@@ -97,9 +104,41 @@ export class ToolbarComponent {
 
           this.isShowingOptionsModal = false;
 
+          this.viewMainOptions(event.url);
+          this.viewMoreOptions(event.url);
+
+          // remove the ADS code
+          this.removeADSCode();
+
           this.cdr.markForCheck();
         }
       });
+  }
+
+  viewMoreOptions(url: string) {
+    if (url.includes('/unite/detail') || url.includes('/unite/bookmark') || url.includes('/unite/thumbnails')) {
+      this.isViewMoreOptions = true;
+    } else {
+      this.isViewMoreOptions = false;
+    }
+  }
+
+  viewMainOptions(url: string) {
+    if (!url.includes('/unite/bookmark') && !url.includes('/unite/detail') &&
+                  url.includes('/unite') && !url.includes('/unite/thumbnails')) {
+      this.isViewMainOptions = true;
+    } else {
+      this.isViewMainOptions = false;
+    }
+  }
+
+  removeADSCode() {
+    const old_childs = document.getElementsByClassName('ads_script');
+
+    if (old_childs.length > 1) {
+      document.head.removeChild(old_childs[0]);
+      document.head.removeChild(old_childs[0]);
+    }
   }
 
   onClickEvent() {

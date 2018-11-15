@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component,
-        EventEmitter, Input, Output, OnInit, ChangeDetectorRef} from '@angular/core';
+        EventEmitter, Input, Output, OnInit} from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
@@ -10,6 +10,7 @@ import { AuthService } from '../../services';
 import { BookmarkService } from '../../services/bookmark.service';
 
 import { environment } from '../../../environments/environment';
+import { SharingService } from '../../services/sharing.service';
 
 @Component({
   selector: 'dso-feed-card',
@@ -20,7 +21,6 @@ import { environment } from '../../../environments/environment';
 export class FeedCardComponent implements OnInit {
 
   isViewMore: boolean;
-  userEmail: string;
 
   postSafeContent: SafeHtml;
 
@@ -32,12 +32,11 @@ export class FeedCardComponent implements OnInit {
 
   constructor(
     private bookmarkService: BookmarkService,
+    private sharingService: SharingService,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
-    private cdr: ChangeDetectorRef,
     private router: Router) {
     this.isViewMore = false;
-    this.userEmail = '';
   }
 
   ngOnInit() {
@@ -45,25 +44,28 @@ export class FeedCardComponent implements OnInit {
   }
 
   onAddBookmark() {
-    this.post.isBookmark = true;
-
-    this.userEmail = this.authService.getUserInfo().user_name;
+    const userEmail = this.authService.getUserInfo().user_name;
 
     this.addBookmark.emit(<Bookmark>{
-      email: this.userEmail,
+      email: userEmail,
       title: this.post.title,
       postId: this.post.id.toString(),
       categoryId: this.post.categoryId.toString(),
       contentTypeId: this.post.contentTypeId,
       url: 'http://www.dsodentist.com',
+      status: '1'
     });
+
+    setTimeout(() => {
+      this.post.isBookmark = this.sharingService.isBookmark;
+    }, 500);
   }
 
   onRemoveBookmark() {
-    this.post.isBookmark = false;
+    const userEmail = this.authService.getUserInfo().user_name;
 
     if (!this.post.bookmarkId) {
-      const subBookmark = this.bookmarkService.getAllByEmail(this.userEmail).subscribe(b => {
+      const subBookmark = this.bookmarkService.getAllByEmail(userEmail).subscribe(b => {
         b.map(item => {
           if (item.postId === this.post.id) {
             this.removeBookmark.emit(item.id);
@@ -75,6 +77,10 @@ export class FeedCardComponent implements OnInit {
     } else {
       this.removeBookmark.emit(this.post.bookmarkId);
     }
+
+    setTimeout(() => {
+      this.post.isBookmark = this.sharingService.isBookmark;
+    }, 500);
   }
 
   onViewDetail() {
