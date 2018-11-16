@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Post } from '../../../models/post.model';
@@ -11,12 +11,11 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
   templateUrl: './unite-detail.component.html',
   styleUrls: ['./unite-detail.component.scss']
 })
-export class UniteDetailComponent implements OnInit {
+export class UniteDetailComponent implements OnInit, AfterViewChecked {
 
   article: Post;
+  postRendered: boolean;
   showReference: boolean;
-  showReferenceState: string;
-
   postSafeContent: SafeHtml;
 
   @ViewChild('postContent') postContent: ElementRef;
@@ -26,6 +25,8 @@ export class UniteDetailComponent implements OnInit {
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private uniteService: UniteService) {
+      this.postRendered = false;
+
       this.progress.start();
 
       this.route.params.subscribe(params => {
@@ -54,6 +55,21 @@ export class UniteDetailComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  ngAfterViewChecked(): void {
+    if (this.postContent && this.postContent.nativeElement.innerHTML !== '' && !this.postRendered) {
+      this.postRendered = true;
+
+      setTimeout(() => {
+       this.changeLayoutOfPost();
+      }, 0);
+    }
+  }
+
+  @HostListener('window:resize', [])
+  onresize() {
+    this.reLayout('div');
   }
 
   sanitizeHTML(html) {
@@ -203,18 +219,4 @@ export class UniteDetailComponent implements OnInit {
 
     return text;
   }
-
-  onClickReference() {
-    const reference = this.postContent.nativeElement.getElementsByTagName('ol')[0];
-    if (reference.classList.contains('show-more')) {
-      this.showReferenceState = 'Show less';
-      reference.classList.remove('show-more');
-      reference.classList.add('show-less');
-    } else {
-      this.showReferenceState = 'Show more';
-      reference.classList.remove('show-less');
-      reference.classList.add('show-more');
-    }
-  }
-
 }

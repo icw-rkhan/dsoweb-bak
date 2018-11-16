@@ -180,6 +180,11 @@ export class ToolbarComponent {
   }
 
   @HostListener('window:press', [])
+  onWindowPressEvent() {
+    this.isShowingOptionsModal = false;
+  }
+
+  @HostListener('window:scroll', [])
   onWindowScrollEvent() {
     this.isShowingOptionsModal = false;
   }
