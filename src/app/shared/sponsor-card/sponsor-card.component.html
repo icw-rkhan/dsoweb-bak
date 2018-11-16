@@ -1,8 +1,11 @@
 <mat-card>
   <div class="header">
-    <img class="icon-type" src="assets/images/TipSheet@2x.png" *ngIf="post.format === 'image'">
-    <img class="icon-type" src="assets/images/Video@2x.png" *ngIf="post.format === 'video'">
-    <img class="icon-type" src="assets/images/Article@2x.png" *ngIf="post.format === 'standard'">
+    <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" src="/assets/images/Article@2x.png" />
+    <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '194')" src="/assets/images/Interview@2x.png" />
+    <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '30')" src="/assets/images/Podcast@2x.png" />
+    <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '31')" src="/assets/images/TechGuide@2x.png" />
+    <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '29')" src="/assets/images/Video@2x.png" />
+    <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '196')" src="/assets/images/TipSheet@2x.png" />
     <h3 class="mat-h3">{{post.categoryName}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>

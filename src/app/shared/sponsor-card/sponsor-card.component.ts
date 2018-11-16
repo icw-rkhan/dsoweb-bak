@@ -64,6 +64,10 @@ export class SponsorCardComponent {
     }
   }
 
+  onCheckCategoryType(contentTypeId, catId: string) {
+    return contentTypeId === catId ? true : false;
+  }
+
   onViewDetail() {
     if (this.post.sponsorId === environment.SPONSOR_ALIGN ||
         this.post.sponsorId === environment.SPONSOR_GSK ||
