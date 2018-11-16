@@ -10,7 +10,7 @@ export class ArticleCardComponent implements OnInit {
 
   submitTitle: string;
 
-  @Input() isBookmark: string;
+  @Input() isBookmark: boolean;
   @Input() article: any;
 
   constructor(private router: Router) {
