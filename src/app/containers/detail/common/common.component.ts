@@ -369,20 +369,18 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
       url: 'http://www.dsodentist.com',
     }).subscribe((x: any) => {
       if (x.code === 0) {
-        this.sharingService.changeStatusOfBookmark(true);
+        this.post.isBookmark = true;
 
         this.snackBar.open('Bookmark added', 'OK', {
           duration: 2000,
         });
       } else {
-        this.sharingService.changeStatusOfBookmark(false);
+        this.post.isBookmark = false;
 
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });
       }
-
-      this.post.isBookmark = this.sharingService.isBookmark;
 
       bookmarkSub.unsubscribe();
     });
@@ -410,20 +408,20 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
   removeBookmark(id) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
       if (x.code === 0) {
-        this.sharingService.changeStatusOfBookmark(false);
+        this.post.isBookmark = false;
 
         this.snackBar.open('Bookmark removed', 'OK', {
           duration: 2000,
         });
       } else {
-        this.sharingService.changeStatusOfBookmark(true);
+        this.post.isBookmark = true;
 
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });
       }
 
-      this.post.isBookmark = this.sharingService.isBookmark;
+      this.post.isBookmark = false;
 
       bookmarkSub.unsubscribe();
     });

@@ -56,9 +56,7 @@ export class FeedCardComponent implements OnInit {
       status: '1'
     });
 
-    setTimeout(() => {
-      this.post.isBookmark = this.sharingService.isBookmark;
-    }, 500);
+    this.post.isBookmark = true;
   }
 
   onRemoveBookmark() {
@@ -78,9 +76,7 @@ export class FeedCardComponent implements OnInit {
       this.removeBookmark.emit(this.post.bookmarkId);
     }
 
-    setTimeout(() => {
-      this.post.isBookmark = this.sharingService.isBookmark;
-    }, 500);
+    this.post.isBookmark = false;
   }
 
   onViewDetail() {

@@ -60,14 +60,10 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   addBookmark(value: Bookmark) {
     const bookmarkSub = this.bookmarkService.saveBookmark(value).subscribe((x: any) => {
       if (x.code === 0) {
-        this.sharingService.changeStatusOfBookmark(true);
-
         this.snackBar.open('Bookmark added', 'OK', {
           duration: 2000,
         });
       } else {
-        this.sharingService.changeStatusOfBookmark(false);
-
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });
@@ -79,14 +75,10 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   removeBookmark(id: string) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
       if (x.code === 0) {
-        this.sharingService.changeStatusOfBookmark(false);
-
         this.snackBar.open('Bookmark removed', 'OK', {
           duration: 2000,
         });
       } else {
-        this.sharingService.changeStatusOfBookmark(true);
-
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });
@@ -138,7 +130,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
         return Object.assign({}, p, {
           isBookmark: !_.isUndefined(bookmark),
-          bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
+          bookmarkId: !_.isUndefined(bookmark) ? bookmark.postId : undefined
         });
       }))
     ).subscribe(posts => {

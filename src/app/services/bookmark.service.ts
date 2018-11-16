@@ -12,15 +12,15 @@ import { Bookmark } from '../models/bookmark.model';
 })
 export class BookmarkService {
 
-  constructor(private http: HttpClient, private auth: AuthService) {
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService) {
   }
 
   getAllByEmail(email: string): Observable<Bookmark[]> {
     const url = `${environment.cmsAPIUrl}/bookmark/findAllByEmail`;
 
     const headers = this.getHeaders();
-
-    console.log(email);
 
     const result =  this.http.post(url, {'email': email, 'status': 1}, {headers}).pipe(
       map((response: any) => {
@@ -45,7 +45,9 @@ export class BookmarkService {
 
     const headers = this.getHeaders();
 
-    return this.http.post(url, null, {headers, params: {'id': id}});
+    const userEmail = this.auth.getUserInfo().user_name;
+
+    return this.http.post(url, {email: userEmail, contentId: id}, {headers});
   }
 
   getHeaders(): HttpHeaders {
