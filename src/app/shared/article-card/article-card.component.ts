@@ -8,9 +8,13 @@ import { Router } from '@angular/router';
 })
 export class ArticleCardComponent implements OnInit {
 
+  submitTitle: string;
+
+  @Input() isBookmark: string;
   @Input() article: any;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
 
   ngOnInit() {
   }

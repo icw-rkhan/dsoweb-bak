@@ -1,8 +1,4 @@
 <div class="article-card">
-    <div class="article-info" fxLayout="column" fxLayoutAlign="center center">
-        <p class="article-date">{{article.date}}</p>
-        <p class="article-details">{{article.details}}</p>
-    </div>
     <div class="article-container" (click)="onUniteDetail(article.id)">
         <p class="article-thumbnail">
             <img [src]="article.thumbnail">
@@ -11,13 +7,14 @@
             <p class="article-category">{{article.categoryName}}</p>
             <p class="article-title">{{article.title}}</p>
             <p class="article-author">{{article.authorName}}</p>
-            <div class="article-excerpt">{{article.excerpt}}</div>
+            <div class="article-excerpt" [innerHtml]="article.excerpt"></div>
         </div>
     </div>
     <div class="article-footer" fxLayout="column" fxLayoutAlign="center center">
         <div class="article-title">{{article.title}}</div>
         <div class="article-control">
-            <button mat-stroked-button>Remove from bookmarks</button>
+            <button *ngIf="isBookmark === true" mat-stroked-button>Remove from bookmarks</button>
+            <button *ngIf="isBookmark !== true" mat-stroked-button>Archive</button>
         </div>
     </div>
 </div>

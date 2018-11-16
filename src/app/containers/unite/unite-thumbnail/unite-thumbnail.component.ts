@@ -1,4 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+import { UniteService } from '../../../services/unite.service';
+import { Post } from '../../../models/post.model';
+import { NgProgress } from '@ngx-progressbar/core';
+import { Unite } from '../../../models/unite.model';
 
 @Component({
   selector: 'dso-unite-thumbnail',
@@ -7,26 +13,48 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UniteThumbnailComponent implements OnInit {
 
-  articles: any[] = [];
+  issue: Unite;
+  articles: Post[];
 
-  constructor() {
-    const article = {
-      id: '1',
-      date: 'June/July 2018',
-      details: 'Vol 2 Issue 5',
-      thumbnail: 'assets/images/unite/unite-avatar.png',
-      categoryName: 'A Balancing Act',
-      title: 'Your Professional Career and Personal Life',
-      authorName: 'by Steven Michaels',
-      excerpt: '"Achieving a work-life balance is entirely within your reach through the DSOsupported..."'
-    };
+  constructor(
+    private progress: NgProgress,
+    private route: ActivatedRoute,
+    private uniteService: UniteService) {
+      this.progress.start();
 
-    this.articles.push(article);
-    this.articles.push(article);
-    this.articles.push(article);
-    this.articles.push(article);
-    this.articles.push(article);
-   }
+      this.route.params.subscribe(params => {
+        const id = params['id'];
+
+        const body = {
+          'skip': 0,
+          'limit': 0
+        };
+
+        const issueSub = this.uniteService.findAll(body).subscribe(unites => {
+          const temp = [];
+
+          unites.map(unite => {
+            if (unite.id === id) {
+              temp.push(unite);
+            }
+          });
+
+          this.issue = temp[0];
+          issueSub.unsubscribe();
+        });
+
+        const uniteSub = this.uniteService.findOneById(id).subscribe(posts => {
+          this.articles = posts;
+
+          this.progress.complete();
+          uniteSub.unsubscribe();
+        },
+        err => {
+          this.progress.complete();
+          uniteSub.unsubscribe();
+        });
+      });
+  }
 
   ngOnInit() {
   }

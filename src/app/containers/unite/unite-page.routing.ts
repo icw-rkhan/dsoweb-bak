@@ -56,7 +56,7 @@ export const ROUTES: Routes = [
                 component: UniteShareComponent
             },
             {
-                path: 'thumbnails',
+                path: 'thumbnails/:id',
                 component: UniteThumbnailComponent
             }
         ]

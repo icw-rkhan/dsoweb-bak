@@ -34,11 +34,14 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
         const id = params['id'];
 
         const uniteSub = this.uniteService.findOneById(issueId).subscribe(posts => {
-          this.article = posts.map(post => {
+          const articles = [];
+          posts.map(post => {
             if (post.id === id) {
-              return post;
+              articles.push(post);
             }
-          })[0];
+          });
+
+          this.article = articles[0];
 
           if (this.article.content) {
             this.setDropcap();

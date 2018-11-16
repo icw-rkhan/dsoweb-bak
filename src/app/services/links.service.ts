@@ -63,20 +63,6 @@ export class NavLinksService {
 
   makeUniteMainLinks() {
     this.uniteMainLinks.push({
-      label: 'All Issues',
-      icon: 'assets/images/unite/arrow-right.png',
-      route: '/unite/all',
-      state: 'active'
-    });
-
-    this.uniteMainLinks.push({
-      label: 'Downloaded',
-      icon: 'assets/images/unite/arrow-right.png',
-      route: '/unite/type/downloaded',
-      state: 'active'
-    });
-
-    this.uniteMainLinks.push({
       label: 'Go to Bookmarks',
       icon: 'assets/images/unite/arrow-right.png',
       route: '/unite/bookmark',

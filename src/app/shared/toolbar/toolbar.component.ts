@@ -1,11 +1,9 @@
 import { Component, EventEmitter, Output, ChangeDetectorRef, HostListener } from '@angular/core';
-import { Router, Event, NavigationEnd } from '@angular/router';
+import { Router, Event, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
 
 import { NavLinkModel } from '../../models/nav-link.model';
 import { NavLinksService } from '../../services/links.service';
-import { esLocale } from 'ngx-bootstrap';
 
 @Component({
   selector: 'dso-toolbar',
@@ -34,6 +32,7 @@ export class ToolbarComponent {
   constructor(
     private router: Router,
     private _location: Location,
+    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private linksService: NavLinksService) {
       this.visible = true;
@@ -162,7 +161,14 @@ export class ToolbarComponent {
   }
 
   onOptionEvent(url) {
-    this.router.navigate([url]);
+    if (url === '/unite/thumbnails') {
+      const id = this.url.split('/')[3];
+      url = `${url}/${id}`;
+
+      this.router.navigate([url]);
+    } else {
+      this.router.navigate([url]);
+    }
   }
 
   @HostListener('window:click', [])

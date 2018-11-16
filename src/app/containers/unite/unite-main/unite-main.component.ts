@@ -28,35 +28,11 @@ export class UniteMainComponent implements OnInit {
           'limit': 5
         };
 
-        if (event instanceof NavigationEnd) {
-          if (event.url === '/unite/type/downloaded') {
-            const uniteSub = this.uniteService.findAll(body).subscribe(unites => {
-              this.unites = unites.map(unite => {
-                if (unite.isDownload) {
-                  return unite;
-                }
-              });
-              this.progress.complete();
-              uniteSub.unsubscribe();
-            });
-          } else if (event.url === '/unite/all') {
-            const uniteSub = this.uniteService.findAll(body).subscribe(unites => {
-              this.unites = unites;
-              this.progress.complete();
-              uniteSub.unsubscribe();
-            });
-          } else if (event.url === '/unite') {
-            const uniteSub = this.uniteService.findAll(body).subscribe(unites => {
-              this.unites = unites.map(unite => {
-                if (!unite.isDownload) {
-                  return unite;
-                }
-              });
-              this.progress.complete();
-              uniteSub.unsubscribe();
-            });
-          }
-        }
+        const uniteSub = this.uniteService.findAll(body).subscribe(unites => {
+          this.unites = unites;
+          this.progress.complete();
+          uniteSub.unsubscribe();
+        });
       });
   }
 
