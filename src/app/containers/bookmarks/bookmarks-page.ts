@@ -84,7 +84,7 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
           .subscribe(p => {
             // Check if we are filtering by category
             if (categoryId === undefined || p.categoryId === categoryId) {
-              p.bookmarkId = bookmark.id;
+              p.bookmarkId = bookmark.postId;
               posts.push(p);
             }
             if (bookmarks.length === ++bookmarksLength) {

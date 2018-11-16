@@ -60,7 +60,6 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
     private snackBar: MatSnackBar,
     private postService: PostService,
     private authService: AuthService,
-    private sharingService: SharingService,
     private commentService: CommentService,
     private bookmarkService: BookmarkService,
     private sanitizer: DomSanitizer) {
@@ -415,7 +414,7 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
       const subBookmark = this.bookmarkService.getAllByEmail(userEmail).subscribe(b => {
         b.map(item => {
           if (item.postId === this.post.id) {
-            this.removeBookmark(item.id);
+            this.removeBookmark(item.postId);
           }
         });
 

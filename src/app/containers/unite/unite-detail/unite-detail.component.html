@@ -1,12 +1,10 @@
-<div>
+<div *ngIf="article">
   <p class="article-thumbnail">
       <img [src]="article.thumbnail">
   </p>
   <div class="article-content">
-      <p class="article-category">{{article.categoryName}}</p>
       <p class="article-title">{{article.title}}</p>
-      <p class="article-author">{{article.authorName}}</p>
-      <div class="article-excerpt">{{article.excerpt}}</div>
-      <div class="article-detail">{{article.content}}</div>
+      <p class="article-author">By {{article.authorName}}</p>
+      <div class="article-detail" [innerHtml]="postSafeContent"></div>
   </div>
 </div>

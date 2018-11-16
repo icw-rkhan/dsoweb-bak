@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Unite } from '../../../models/unite.model';
 import { UniteService } from '../../../services/unite.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Post } from '../../../models/post.model';
 
 @Component({
   selector: 'dso-unite-view',
@@ -12,7 +12,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class UniteViewComponent implements OnInit {
 
-  unites: Unite[];
+  id: string;
+  posts: Post[];
 
   constructor(
     private router: Router,
@@ -23,17 +24,16 @@ export class UniteViewComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const id = params['id'];
+      this.id = params['id'];
 
-      const tUnites = this.uniteService.makeTestDate().filter(item => item.isDownload === true);
-
-      const index = tUnites.indexOf(tUnites.find(item => item.id === id));
-      this.unites = this.arrayMove(tUnites, index, 0);
+      this.uniteService.findOneById(this.id).subscribe(posts => {
+        this.posts = posts;
+      });
     });
   }
 
   onDetailUnite(id: string) {
-    this.router.navigate([`/unite/detail/${id}`]);
+    this.router.navigate([`/unite/detail/${this.id}/${id}`]);
   }
 
   onBackPage() {

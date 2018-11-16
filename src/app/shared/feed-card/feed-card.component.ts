@@ -66,7 +66,7 @@ export class FeedCardComponent implements OnInit {
       const subBookmark = this.bookmarkService.getAllByEmail(userEmail).subscribe(b => {
         b.map(item => {
           if (item.postId === this.post.id) {
-            this.removeBookmark.emit(item.id);
+            this.removeBookmark.emit(item.postId);
           }
         });
 

@@ -24,7 +24,6 @@ export class BookmarkService {
 
     const result =  this.http.post(url, {'email': email, 'status': 1}, {headers}).pipe(
       map((response: any) => {
-        console.log(response);
         return response.resultMap.bookmarkList.map(post => new Bookmark().deserialize(post));
       }
     ));
@@ -41,13 +40,15 @@ export class BookmarkService {
   }
 
   deleteOneById(id: string) {
-    const url = `${environment.cmsAPIUrl}/bookmark/deleteOneById`;
+    const url = `${environment.cmsAPIUrl}/bookmark/deleteOneByEmailAndContentId`;
 
     const headers = this.getHeaders();
 
     const userEmail = this.auth.getUserInfo().user_name;
 
-    return this.http.post(url, {email: userEmail, contentId: id}, {headers});
+    console.log(id);
+
+    return this.http.post(url, null, {headers, params: {email: userEmail, contentId: id}});
   }
 
   getHeaders(): HttpHeaders {

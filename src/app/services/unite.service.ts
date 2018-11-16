@@ -1,60 +1,50 @@
-import {Injectable} from '@angular/core';
-import {BehaviorSubject} from 'rxjs';
+import { Injectable } from '@angular/core';
+import { map } from 'rxjs/internal/operators';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+
+import { AuthService } from './auth/auth.service';
+
 import { Unite } from '../models/unite.model';
+import { Post } from '../models/post.model';
+
+import { environment } from '../../environments/environment';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UniteService {
 
-    unites: Unite[];
+    constructor(
+        private http: HttpClient,
+        private authService: AuthService) {
 
-    constructor() {
-        this.unites = [];
     }
 
-    makeTestDate() {
-        this.unites = [];
+    findAll(body: any): Observable<Unite[]> {
+        const url = `${environment.cmsAPIUrl}/magazine/findAll`;
+        const headers = this.getHeaders();
 
-        const unite = new Unite();
-        unite.id = '1';
-        unite.thumbnail = 'assets/images/unite/cover-page.png';
-        unite.date = 'August/September 2018';
-        unite.details = 'Vol 1 Issue 1';
-        unite.isDownload = false;
-
-        const unite2 = new Unite();
-        unite2.id = '2';
-        unite2.thumbnail = 'assets/images/unite/cover-page.png';
-        unite2.date = 'Jun/July 2018';
-        unite2.details = 'Vol 1 Issue 1';
-        unite2.isDownload = true;
-
-        const unite3 = new Unite();
-        unite3.id = '3';
-        unite3.thumbnail = 'assets/images/unite/cover-page.png';
-        unite3.date = 'April/May 2018';
-        unite3.details = 'Vol 1 Issue 1';
-        unite3.isDownload = false;
-
-        const unite4 = new Unite();
-        unite4.id = '4';
-        unite4.thumbnail = 'assets/images/unite/cover-page.png';
-        unite4.date = 'Jun/July 2018';
-        unite4.details = 'Vol 1 Issue 1';
-        unite4.isDownload = true;
-
-        this.unites.push(unite);
-        this.unites.push(unite2);
-        this.unites.push(unite3);
-        this.unites.push(unite4);
-
-        return this.unites;
+        return this.http.post(url, body, {headers}).pipe(map((response: any) =>
+        response.resultMap.data.map(unite => new Unite().deserialize(unite))));
     }
 
-    getUniteById(id: string) {
-        this.makeTestDate();
+    findOneById(id: string): Observable<Post[]> {
+        const url = `${environment.cmsAPIUrl}/magazine/findOneById`;
+        const headers = this.getHeaders();
+        const param = {
+            'id': id
+        };
 
-        return this.unites.find(item => item.id === id);
+        return this.http.post(url, null, {headers, params: param}).pipe(map((response: any) =>
+        response.resultMap.data.contents.map(post => new Post().deserialize(post))));
     }
+
+    getHeaders(): HttpHeaders {
+        const headers = new HttpHeaders()
+          .append('Authorization', `Bearer ${this.authService.getToken()}`)
+          .append('Content-Type', 'application/json');
+
+        return headers;
+      }
 }

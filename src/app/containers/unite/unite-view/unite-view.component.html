@@ -1,7 +1,11 @@
 <div class="unite-view" fxLayout="column" fxLayoutAlign="center center" (click)="onBackPage()">
     <div class="view-container" fxLayout="row" fxLayoutAlign="start center">
-        <div *ngFor="let unite of unites" (click)="onDetailUnite(unite.id)">
-        <img [src]="unite.thumbnail"></div>
+        <div>
+            <img src="assets/images/unite/cover-page.png">
+        </div>
+        <div *ngFor="let post of posts" (click)="onDetailUnite(post.id)">
+            <img [src]="post.thumbnail">
+        </div>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center">
         <div class="unite-arrow unite-left"></div>

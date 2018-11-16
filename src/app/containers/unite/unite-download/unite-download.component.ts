@@ -3,6 +3,7 @@ import { Unite } from '../../../models/unite.model';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { UniteService } from '../../../services/unite.service';
+import { NgProgress } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'dso-unite-download',
@@ -15,16 +16,37 @@ export class UniteDownloadComponent implements OnInit {
 
   constructor(
     private location: Location,
+    private progress: NgProgress,
     private route: ActivatedRoute,
-    private uniteService: UniteService) { }
+    private uniteService: UniteService) {
+      this.progress.start();
 
-  ngOnInit() {
-    this.route.params.subscribe(params => {
-      const id = params['id'];
+      this.route.params.subscribe(params => {
+        const id = params['id'];
 
-      this.unite = this.uniteService.getUniteById(id);
-    });
-  }
+        const body = {
+          'skip': 0,
+          'limit': 0
+        };
+
+        const uniteSub = this.uniteService.findAll(body).subscribe(unites => {
+          this.unite = unites.filter(u => {
+            if (u.id === id) {
+              return u;
+            }
+          })[0];
+
+          this.progress.complete();
+          uniteSub.unsubscribe();
+        },
+        err => {
+          this.progress.complete();
+          uniteSub.unsubscribe();
+        });
+      });
+    }
+
+  ngOnInit() {}
 
   onCancelDownload() {
     this.location.back();
