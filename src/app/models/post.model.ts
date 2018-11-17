@@ -30,8 +30,10 @@ export class Post implements Serializable<Post> {
   constructor() {}
 
   // change the format of the data
-  dateFormat(date: Date): any {
+  dateFormat(date: string): any {
     if (date) {
+      date = date.replace(/-/g, '/');
+
       return formatDate(date, 'MMM d, y', 'en-US');
     }
 
@@ -58,7 +60,7 @@ export class Post implements Serializable<Post> {
       isBookmark: data.isBookmark,
       excerpt: data.excerpt,
       thumbnail: data.featuredMedia.code.thumbnailUrl,
-      date: this.dateFormat(new Date(data.publishDate)),
+      date: this.dateFormat(data.publishDate),
       link: 'https://www.dsodentist.com'
     });
   }
