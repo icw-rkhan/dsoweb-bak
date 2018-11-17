@@ -1,10 +1,15 @@
 import { Component, OnInit, ViewChild, ElementRef, AfterViewChecked, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-
 import { Post } from '../../../models/post.model';
-import { UniteService } from '../../../services/unite.service';
 import { NgProgress } from '@ngx-progressbar/core';
+import { MatSnackBar } from '@angular/material';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+
+import { AuthService } from '../../../services';
+import { BookmarkService } from '../../../services/bookmark.service';
+
+import { Bookmark } from '../../../models/bookmark.model';
+import { PostService } from '../../../services/post.service';
 
 @Component({
   selector: 'dso-unite-detail',
@@ -22,26 +27,21 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
 
   constructor(
     private progress: NgProgress,
+    private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
-    private uniteService: UniteService) {
+    private authService: AuthService,
+    private postService: PostService,
+    private bookmarkService: BookmarkService) {
       this.postRendered = false;
 
       this.progress.start();
 
       this.route.params.subscribe(params => {
-        const issueId = params['issueId'];
         const id = params['id'];
 
-        const uniteSub = this.uniteService.findOneById(issueId).subscribe(posts => {
-          const articles = [];
-          posts.map(post => {
-            if (post.id === id) {
-              articles.push(post);
-            }
-          });
-
-          this.article = articles[0];
+        const uniteSub = this.postService.fetchById(id).subscribe(post => {
+          this.article = post;
 
           if (this.article.content) {
             this.setDropcap();
@@ -56,9 +56,7 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
       });
   }
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 
   ngAfterViewChecked(): void {
     if (this.postContent && this.postContent.nativeElement.innerHTML !== '' && !this.postRendered) {
@@ -68,6 +66,76 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
        this.changeLayoutOfPost();
       }, 0);
     }
+  }
+
+  // add bookmark
+  onAddBookmark(): void {
+    const userEmail = this.authService.getUserInfo().user_name;
+
+    const bookmarkSub = this.bookmarkService.saveBookmark(<Bookmark>{
+      email: userEmail,
+      title: this.article.title,
+      postId: this.article.id.toString(),
+      categoryId: this.article.categoryId.toString(),
+      contentTypeId: this.article.contentTypeId,
+      url: 'http://www.dsodentist.com',
+      status: '1'
+    }).subscribe((x: any) => {
+      if (x.code === 0) {
+        this.article.isBookmark = true;
+
+        this.snackBar.open('Bookmark added', 'OK', {
+          duration: 2000,
+        });
+      } else {
+        this.article.isBookmark = false;
+
+        this.snackBar.open('Bookmark failed', 'OK', {
+          duration: 2000,
+        });
+      }
+
+      bookmarkSub.unsubscribe();
+    });
+  }
+
+  // remove bookmark
+  onRemoveBookmark(): void {
+    if (!this.article.bookmarkId) {
+      const userEmail = this.authService.getUserInfo().user_name;
+
+      const subBookmark = this.bookmarkService.getAllByEmail(userEmail).subscribe(b => {
+        b.map(item => {
+          if (item.postId === this.article.id) {
+            this.removeBookmark(item.postId);
+          }
+        });
+
+        subBookmark.unsubscribe();
+      });
+    } else {
+      this.removeBookmark(this.article.bookmarkId);
+    }
+  }
+
+  removeBookmark(id) {
+    const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
+      if (x.code === 0) {
+        this.article.isBookmark = false;
+
+        this.snackBar.open('Bookmark removed', 'OK', {
+          duration: 2000,
+        });
+      } else {
+        this.article.isBookmark = true;
+
+        this.snackBar.open('Bookmark failed', 'OK', {
+          duration: 2000,
+        });
+      }
+
+      bookmarkSub.unsubscribe();
+    });
   }
 
   @HostListener('window:resize', [])

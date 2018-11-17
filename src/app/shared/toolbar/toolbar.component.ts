@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { NavLinkModel } from '../../models/nav-link.model';
 import { NavLinksService } from '../../services/links.service';
+import { SharingService } from '../../services/sharing.service';
 
 @Component({
   selector: 'dso-toolbar',
@@ -31,10 +32,10 @@ export class ToolbarComponent {
 
   constructor(
     private router: Router,
-    private _location: Location,
-    private route: ActivatedRoute,
+    private location: Location,
     private cdr: ChangeDetectorRef,
-    private linksService: NavLinksService) {
+    private linksService: NavLinksService,
+    private sharingService: SharingService) {
       this.visible = true;
       this.isClickOptionsBtn = false;
       this.isShowingOptionsModal = false;
@@ -42,7 +43,6 @@ export class ToolbarComponent {
       this.isViewMainOptions = true;
 
       this.uniteMainLinks = this.linksService.uniteMainLinks;
-      this.uniteMoreLinks = this.linksService.uniteMoreLinks;
 
       this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
@@ -84,7 +84,7 @@ export class ToolbarComponent {
           } else if (event.url.includes('/unite/bookmark')) {
             this.title = 'BOOKMARKS';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/unite/thumbnails')) {
+          } else if (event.url.includes('/unite/thumbnail')) {
             this.title = 'THUMBNAILS';
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/unite/type/downloaded')) {
@@ -103,6 +103,8 @@ export class ToolbarComponent {
 
           this.isShowingOptionsModal = false;
 
+          this.filterMoreOptions(event.url);
+
           this.viewMainOptions(event.url);
           this.viewMoreOptions(event.url);
 
@@ -114,8 +116,19 @@ export class ToolbarComponent {
       });
   }
 
+  filterMoreOptions(url) {
+    this.uniteMoreLinks = [];
+    const moreLinks = this.linksService.uniteMoreLinks;
+    moreLinks.map(link => {
+      if ((url.includes('/unite/thumbnail') && link.label !== 'Thumbnails') ||
+        ((!url.includes('/unite/thumbnail') && link.label !== 'Fullscreen'))) {
+        this.uniteMoreLinks.push(link);
+      }
+    });
+  }
+
   viewMoreOptions(url: string) {
-    if (url.includes('/unite/detail') || url.includes('/unite/bookmark') || url.includes('/unite/thumbnails')) {
+    if (url.includes('/unite/detail') || url.includes('/unite/bookmark') || url.includes('/unite/thumbnail')) {
       this.isViewMoreOptions = true;
     } else {
       this.isViewMoreOptions = false;
@@ -124,7 +137,7 @@ export class ToolbarComponent {
 
   viewMainOptions(url: string) {
     if (!url.includes('/unite/bookmark') && !url.includes('/unite/detail') &&
-                  url.includes('/unite') && !url.includes('/unite/thumbnails')) {
+                  url.includes('/unite') && !url.includes('/unite/thumbnail')) {
       this.isViewMainOptions = true;
     } else {
       this.isViewMainOptions = false;
@@ -144,7 +157,7 @@ export class ToolbarComponent {
     if (this.btnTitle === 'menu') {
       this.toggleMenu.emit();
     } else if (this.btnTitle === 'keyboard_backspace') {
-      this._location.back();
+      this.location.back();
     }
   }
 
@@ -161,7 +174,7 @@ export class ToolbarComponent {
   }
 
   onOptionEvent(url) {
-    if (url === '/unite/thumbnails') {
+    if (url === '/unite/thumbnail' || url === '/unite/view' || url === '/unite/bookmark') {
       const id = this.url.split('/')[3];
       url = `${url}/${id}`;
 

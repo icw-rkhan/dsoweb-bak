@@ -29,7 +29,8 @@ export class Unite {
             date: this.dateFormat(new Date(data.publishDate)),
             details: this.makeDetails(data.vol, data.issue),
             pdfId: data.pdfId,
-            author: data.createUser
+            author: data.createUser,
+            isDownload: true
         });
     }
 }

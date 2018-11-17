@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
+import { NgProgress } from '@ngx-progressbar/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { UniteService } from '../../../services/unite.service';
 import { Post } from '../../../models/post.model';
@@ -13,39 +14,42 @@ import { Post } from '../../../models/post.model';
 export class UniteViewComponent implements OnInit {
 
   id: string;
+  coverPage: Post;
   posts: Post[];
 
   constructor(
     private router: Router,
     private location: Location,
+    private progress: NgProgress,
     private route: ActivatedRoute,
     private uniteService: UniteService) {
+      this.coverPage = new Post();
+      this.coverPage.thumbnail = 'assets/images/unite/cover-page.png';
     }
 
   ngOnInit() {
+    this.progress.start();
     this.route.params.subscribe(params => {
       this.id = params['id'];
 
-      this.uniteService.findOneById(this.id).subscribe(posts => {
+      const uniteSub = this.uniteService.findOneById(this.id).subscribe(posts => {
         this.posts = posts;
+
+        this.progress.complete();
+        uniteSub.unsubscribe();
+      },
+      err => {
+        this.progress.complete();
+        uniteSub.unsubscribe();
       });
     });
   }
 
-  onDetailUnite(id: string) {
-    this.router.navigate([`/unite/detail/${this.id}/${id}`]);
+  onNormalScreen() {
+    this.router.navigate([`/unite/thumbnail/${this.id}`]);
   }
 
   onBackPage() {
     this.location.back();
   }
-
-  arrayMove(arr: any[], fromIndex: number, toIndex: number) {
-    const item = arr[fromIndex];
-    arr.splice(fromIndex, 1);
-    arr.splice(toIndex, 0, item);
-
-    return arr;
-  }
-
 }

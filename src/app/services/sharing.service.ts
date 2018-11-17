@@ -7,7 +7,6 @@ import {BehaviorSubject} from 'rxjs';
 export class SharingService {
 
   isLoading: BehaviorSubject<boolean>;
-
   constructor() {
     this.isLoading = new BehaviorSubject<boolean>(false);
   }

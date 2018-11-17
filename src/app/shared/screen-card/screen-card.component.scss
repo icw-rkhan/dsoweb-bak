@@ -1,0 +1,46 @@
+.article-container {
+    width: 100vw;
+    height: 70vh;
+    background-color: #ffffff;
+    overflow: hidden;
+
+    .article-thumbnail {
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    .article-content {
+        padding: 15px 10px;
+        
+        .article-category {
+            color: #78aed0;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 7px;
+        }
+
+        .article-title {
+            color: #4a4a4a;
+            font-size: 17px;
+            font-weight: 600;
+            line-height: 20px;
+        }
+        
+        .article-author {
+            color: #c8c8c8;
+            font-size: 14px;
+            font-weight: 500;
+            margin: 7px 0px 25px;
+        }
+        
+        .article-excerpt {
+            color: #000000;
+            font-size: 14px;
+            font-style: italic;
+            line-height: 20px;
+            overflow: hidden;
+        }   
+    }
+}

@@ -1,5 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
+
+import { Post } from '../../models/post.model';
+
+import { AuthService } from '../../services';
+import { BookmarkService } from '../../services/bookmark.service';
+
 
 @Component({
   selector: 'dso-article-card',
@@ -11,7 +18,10 @@ export class ArticleCardComponent implements OnInit {
   submitTitle: string;
 
   @Input() isBookmark: boolean;
-  @Input() article: any;
+  @Input() issueId: string;
+  @Input() article: Post;
+
+  @Output() removeBookmark = new EventEmitter<string>();
 
   constructor(private router: Router) {
   }
@@ -20,7 +30,12 @@ export class ArticleCardComponent implements OnInit {
   }
 
   onUniteDetail(id: string) {
-    this.router.navigate([`/unite/detail/${id}`]);
+    if (id) {
+      this.router.navigate([`/unite/detail/${this.issueId}/${id}`]);
+    }
   }
 
+  onRemoveBookmark(id: string) {
+    this.removeBookmark.emit(id);
+  }
 }

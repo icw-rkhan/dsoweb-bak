@@ -40,11 +40,11 @@ export const ROUTES: Routes = [
                 component: UniteViewComponent,
             },
             {
-                path: 'detail/:issueId/:id',
+                path: 'detail/:isseId/:id',
                 component: UniteDetailComponent
             },
             {
-                path: 'bookmark',
+                path: 'bookmark/:id',
                 component: UniteBookmarkComponent
             },
             {
@@ -56,7 +56,7 @@ export const ROUTES: Routes = [
                 component: UniteShareComponent
             },
             {
-                path: 'thumbnails/:id',
+                path: 'thumbnail/:id',
                 component: UniteThumbnailComponent
             }
         ]

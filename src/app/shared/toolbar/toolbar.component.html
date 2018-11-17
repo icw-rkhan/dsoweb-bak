@@ -15,9 +15,6 @@
     <a mat-icon-button (click)="onShowOptionModal('menu')"><img src="assets/images/unite/menu.png"></a>
     <a mat-icon-button (click)="onShowOptionModal('more')"><img src="assets/images/unite/more-options.png"></a>
   </div>
-  <div *ngIf="isViewMainOptions" class="navbar-edit-profile">
-    <a mat-icon-button (click)="onShowOptionModal('main')"><img src="assets/images/unite/multi-windows.png"></a>
-  </div>
 </div>
 
 <div class="unite-modal" [class.hide]="!isShowingOptionsModal" [class.show-modal]="isShowingOptionsModal">

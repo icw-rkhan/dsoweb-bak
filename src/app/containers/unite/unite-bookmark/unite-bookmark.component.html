@@ -1,3 +1,12 @@
-<div class="unite-bookmark-container" fxLayout="row" fxLayoutAlign="start center">
-  <dso-article-card [article]="article" *ngFor="let article of articles"></dso-article-card>
+
+<div *ngIf="issue" class="thumbnail">
+  <div *ngIf="issue" class="article-info" fxLayout="column" fxLayoutAlign="center center">
+      <p class="article-date">{{issue.date}}</p>
+      <p class="article-details">{{issue.details}}</p>
+  </div>
+  <div class="unite-thumbnail-container" fxLayout="row">
+    <dso-article-card [isBookmark]="true" [issueId]="issue.id"
+      [article]="post" (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts"></dso-article-card>
+  </div>
 </div>
+  

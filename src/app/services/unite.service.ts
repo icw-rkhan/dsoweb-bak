@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/internal/operators';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import * as _ from 'lodash';
 
+
+import { BookmarkService } from './bookmark.service';
 import { AuthService } from './auth/auth.service';
 
 import { Unite } from '../models/unite.model';
 import { Post } from '../models/post.model';
 
 import { environment } from '../../environments/environment';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +29,7 @@ export class UniteService {
         const headers = this.getHeaders();
 
         return this.http.post(url, body, {headers}).pipe(map((response: any) =>
-        response.resultMap.data.map(unite => new Unite().deserialize(unite))));
+            response.resultMap.data.map(unite => new Unite().deserialize(unite))));
     }
 
     findOneById(id: string): Observable<Post[]> {

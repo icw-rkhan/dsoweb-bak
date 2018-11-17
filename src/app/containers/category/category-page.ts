@@ -77,7 +77,7 @@ export class CategoryPageComponent implements OnInit {
         const bookmark = items[1].find(b => b.postId === p.id);
         return Object.assign({}, p, {
           isBookmark: !_.isUndefined(bookmark),
-          bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
+          bookmarkId: !_.isUndefined(bookmark) ? bookmark.postId : undefined
         });
       }))
     ).subscribe(posts => {

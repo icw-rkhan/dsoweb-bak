@@ -5,18 +5,12 @@
     overflow: hidden;
 
     .view-container {
-        width: 100%;
-        height: auto;
+        width: 100vw;
         margin-bottom: 53px;
-        overflow: auto;
-    
-        div {
-            margin-right: 10px;
+        overflow-x: auto;
 
-            img {
-                width: 100vw;
-                height: auto;
-            }
+        dso-screen-card:last-child {
+            margin-right: 0px;
         }
     }
 

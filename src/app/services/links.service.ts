@@ -71,13 +71,14 @@ export class NavLinksService {
   }
 
   makeUniteFeaturesLinks() {
+    /*
     this.uniteMoreLinks.push({
       label: 'Bookmark',
-      icon: 'assets/images/unite/bookmark.png',
-      route: '/unite/bookmark',
+      icon: 'assets/images/unite/bookmark_inactive.png',
+      route: '_bookmark',
       state: 'active'
     });
-
+    */
     this.uniteMoreLinks.push({
       label: 'Search',
       icon: 'assets/images/unite/search.png',
@@ -96,7 +97,14 @@ export class NavLinksService {
     this.uniteMoreLinks.push({
       label: 'Thumbnails',
       icon: 'assets/images/unite/thumbnail.png',
-      route: '/unite/thumbnails',
+      route: '/unite/thumbnail',
+      state: 'active'
+    });
+
+    this.uniteMoreLinks.push({
+      label: 'Fullscreen',
+      icon: 'assets/images/unite/full-screen.png',
+      route: '/unite/view',
       state: 'active'
     });
 

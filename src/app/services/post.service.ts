@@ -36,8 +36,6 @@ export class PostService {
     // set auth token
     const headers = this.getHeaders();
 
-    console.log(headers);
-
     return this.http.post(url, body, {headers}).pipe(
       map((response: any) => response.resultMap.data.map(post => new Post().deserialize(post)))
     );
@@ -77,7 +75,7 @@ export class PostService {
         // Add bookmarks attributes
         return Object.assign({}, post, {
           isBookmark: !_.isUndefined(bookmark),
-          bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
+          bookmarkId: !_.isUndefined(bookmark) ? bookmark.postId : undefined
         });
       })
     );

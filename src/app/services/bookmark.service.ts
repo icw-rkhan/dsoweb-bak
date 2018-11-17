@@ -46,8 +46,6 @@ export class BookmarkService {
 
     const userEmail = this.auth.getUserInfo().user_name;
 
-    console.log(id);
-
     return this.http.post(url, null, {headers, params: {email: userEmail, contentId: id}});
   }
 

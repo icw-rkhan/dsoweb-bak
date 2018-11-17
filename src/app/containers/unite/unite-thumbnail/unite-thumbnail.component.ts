@@ -14,6 +14,7 @@ import { Unite } from '../../../models/unite.model';
 export class UniteThumbnailComponent implements OnInit {
 
   issue: Unite;
+  coverPage: Post;
   articles: Post[];
 
   constructor(
@@ -57,6 +58,9 @@ export class UniteThumbnailComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.coverPage = new Post();
+    this.coverPage.thumbnail = 'assets/images/unite/cover-page.png';
+    this.coverPage.title = 'Issue Cover';
   }
 
 }

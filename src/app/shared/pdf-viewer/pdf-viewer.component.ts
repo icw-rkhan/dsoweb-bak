@@ -14,7 +14,6 @@ export class PdfViewerComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.src);
   }
 
   onClickEvent() {

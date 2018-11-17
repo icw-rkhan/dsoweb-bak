@@ -3,7 +3,15 @@
       <img [src]="article.thumbnail">
   </p>
   <div class="article-content">
-      <p class="article-title">{{article.title}}</p>
+      <p class="article-title" fxLayout="row">
+        <span>{{article.title}}</span>
+        <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!article.isBookmark">
+            <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
+        </a>
+        <a class="bookmark-btn" (click)="onRemoveBookmark()" *ngIf="article.isBookmark">
+            <mat-icon aria-label="Bookmark">bookmark</mat-icon>
+        </a>
+      </p>
       <p class="article-author">By {{article.authorName}}</p>
       <div #postContent class="article-detail" [innerHtml]="postSafeContent"></div>
   </div>

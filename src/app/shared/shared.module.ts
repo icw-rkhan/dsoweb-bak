@@ -50,6 +50,7 @@ import { ReviewComponent } from './review-card/review-card.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { UniteCardComponent } from './unite-card/unite-card.component';
 import { ArticleCardComponent } from './article-card/article-card.component';
+import { ScreenCardComponent } from './screen-card/screen-card.component';
 
 const PIPES = [
   TruncatePipe,
@@ -69,7 +70,8 @@ export const COMPONENTS = [
   TermPolicyDialogComponent,
   MainContainerComponent,
   UniteCardComponent,
-  ArticleCardComponent
+  ArticleCardComponent,
+  ScreenCardComponent
 ];
 
 export const MODULES = [

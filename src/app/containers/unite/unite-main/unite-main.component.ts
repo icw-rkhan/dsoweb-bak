@@ -25,7 +25,7 @@ export class UniteMainComponent implements OnInit {
       this.router.events.subscribe((event: Event) => {
         const body = {
           'skip': this.page,
-          'limit': 5
+          'limit': 0
         };
 
         const uniteSub = this.uniteService.findAll(body).subscribe(unites => {

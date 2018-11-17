@@ -1,11 +1,7 @@
 <div class="unite-view" fxLayout="column" fxLayoutAlign="center center" (click)="onBackPage()">
     <div class="view-container" fxLayout="row" fxLayoutAlign="start center">
-        <div>
-            <img src="assets/images/unite/cover-page.png">
-        </div>
-        <div *ngFor="let post of posts" (click)="onDetailUnite(post.id)">
-            <img [src]="post.thumbnail">
-        </div>
+        <dso-screen-card [article]="coverPage"></dso-screen-card>
+        <dso-screen-card [article]="post" [issueId]="id" *ngFor="let post of posts"></dso-screen-card>
     </div>
     <div fxLayout="row" fxLayoutAlign="center center">
         <div class="unite-arrow unite-left"></div>

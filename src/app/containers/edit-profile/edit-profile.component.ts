@@ -366,7 +366,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   onChange(e) {
-    console.log(e);
   }
 
   closeUploadResume(e) {

@@ -387,6 +387,7 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
       categoryId: this.post.categoryId.toString(),
       contentTypeId: this.post.contentTypeId,
       url: 'http://www.dsodentist.com',
+      status: '1'
     }).subscribe((x: any) => {
       if (x.code === 0) {
         this.post.isBookmark = true;
