@@ -1,12 +1,16 @@
 
 <div *ngIf="issue" class="thumbnail">
-  <div *ngIf="issue" class="article-info" fxLayout="column" fxLayoutAlign="center center">
+  <div *ngIf="issue && posts?.length !== 0" class="article-info" fxLayout="column" fxLayoutAlign="center center">
       <p class="article-date">{{issue.date}}</p>
       <p class="article-details">{{issue.details}}</p>
   </div>
   <div class="unite-thumbnail-container" fxLayout="row">
     <dso-article-card [isBookmark]="true" [issueId]="issue.id"
       [article]="post" (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts"></dso-article-card>
+  </div>
+  <div class="no-content" *ngIf="posts === undefined || posts?.length === 0">
+    <img src="assets/images/no-bookmarks.png">
+    <h3 class="mat-h3">No bookmarks added yet</h3>
   </div>
 </div>
   

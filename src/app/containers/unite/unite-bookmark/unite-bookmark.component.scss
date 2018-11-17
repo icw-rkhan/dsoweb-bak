@@ -34,4 +34,18 @@
             line-height: 20px;
         }
     }
+
+    .no-content {
+        display: flex;
+        height: calc(100vh - 200px);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        flex: 1;
+        overflow: auto;
+    }
+      
+    h3 {
+        margin-top: 120px;
+    }
 }
