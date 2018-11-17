@@ -1,3 +1,5 @@
+@import "../../../../responsive";
+
 .article-thumbnail {
     img {
         width: 100%;
@@ -59,3 +61,77 @@
     font-size: 13px;
     font-weight: 600;
 }
+
+:host ::ng-deep {
+    h2 {
+        font-family: "SFUI";
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    iframe {
+        max-width: 100%;
+    }
+
+    video {
+        background-color: black;
+        max-width: 100%;
+    }
+
+    figure {
+        max-width: 100%;
+        height: auto;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    .show-more {
+        max-height: 400px;
+        overflow: hidden;
+        position: relative;
+        &:after {
+            content: '';
+            display: block;
+            z-index: 999;
+            position: absolute;
+            bottom: -20px;
+            width: 100%;
+            height: 60px;
+            background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+            background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+        }
+    }
+
+    .show-less {
+        max-height: 9000px;
+    }
+
+    ol {
+        font-size: 13px;
+        padding-left: 25px !important;
+        margin-left: 0 !important;
+        margin-bottom: 40px !important;
+    }
+}
+
+.callout {
+    font-size: 22px;
+    font-weight: 700;
+  }
+  
+  .callout.symbol {
+    float: left;
+    width: 30px;
+    font-size: 40px;
+    font-family: 'Adobe Caslon Pro bold'
+  }
+  
+  .callout.text {
+    font-family: 'SFUI';
+    padding-right: 30px;
+  }
