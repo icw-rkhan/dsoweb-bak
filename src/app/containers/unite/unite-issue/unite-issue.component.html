@@ -1,0 +1,19 @@
+<div>
+  <div class="article-title">
+    {{date}}
+  </div>
+  <mat-divider></mat-divider>
+  <div class="article-title">
+    IN THIS ISSUE
+  </div>
+  <mat-divider></mat-divider>
+  <div *ngFor="let category of categories" class="article-item">
+    <div class="article-category">
+      {{category}}
+    </div>
+    <div class="article-title" *ngFor="let post of posts">
+      <div *ngIf="post.categoryName === category">{{post.title}}</div>
+    </div>
+    <mat-divider></mat-divider>
+  </div>
+</div>

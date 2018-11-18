@@ -1,3 +1,19 @@
-<p>
-  unite-search works!
-</p>
+<div>
+  <div class="search-input">
+    <form name="searchForm" (ngSubmit)="searchForm.form.valid && onSearch()" #searchForm="ngForm" class="search-form"
+      novalidate>
+      <mat-form-field appearance="outline">
+        <input matInput name="term" [(ngModel)]="term" placeholder="Search...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </form>
+  </div>
+  <mat-divider></mat-divider>
+  <div *ngIf="posts" class="search-count">
+    {{posts.length}} RESULTS FOUND
+  </div>
+  <div *ngFor="let post of posts" (click)="onUniteDetail(post.id)">
+    <div class="post-title">{{post.title}}</div>
+    <mat-divider></mat-divider>
+  </div>
+</div>

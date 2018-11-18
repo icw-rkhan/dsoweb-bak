@@ -9,9 +9,9 @@ import { UniteBookmarkComponent } from './unite-bookmark/unite-bookmark.componen
 import { ModalModule } from 'ngx-bootstrap';
 import { UniteViewComponent } from './unite-view/unite-view.component';
 import { UniteDetailComponent } from './unite-detail/unite-detail.component';
-import { UniteSearchComponent } from './unite-search/unite-search.component';
-import { UniteShareComponent } from './unite-share/unite-share.component';
 import { UniteThumbnailComponent } from './unite-thumbnail/unite-thumbnail.component';
+import { UniteSearchComponent } from './unite-search/unite-search.component';
+import { UniteIssueComponent } from './unite-issue/unite-issue.component';
 
 @NgModule({
     imports: [
@@ -26,9 +26,9 @@ import { UniteThumbnailComponent } from './unite-thumbnail/unite-thumbnail.compo
         UniteBookmarkComponent,
         UniteViewComponent,
         UniteDetailComponent,
+        UniteThumbnailComponent,
         UniteSearchComponent,
-        UniteShareComponent,
-        UniteThumbnailComponent
+        UniteIssueComponent,
     ]
 })
 export class UnitePageModule {}

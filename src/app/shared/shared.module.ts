@@ -123,8 +123,8 @@ export const MODULES = [
   ],
   exports: [
     ...PIPES,
-    ...COMPONENTS,
     ...MODULES,
+    ...COMPONENTS,
   ],
   entryComponents: [
     AlertDialogComponent,

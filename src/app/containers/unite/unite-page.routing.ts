@@ -9,9 +9,9 @@ import { UniteMainComponent } from './unite-main/unite-main.component';
 import { UnitePageComponent } from './unite-page';
 import { UniteViewComponent } from './unite-view/unite-view.component';
 import { UniteDetailComponent } from './unite-detail/unite-detail.component';
-import { UniteSearchComponent } from './unite-search/unite-search.component';
-import { UniteShareComponent } from './unite-share/unite-share.component';
 import { UniteThumbnailComponent } from './unite-thumbnail/unite-thumbnail.component';
+import { UniteSearchComponent } from './unite-search/unite-search.component';
+import { UniteIssueComponent } from './unite-issue/unite-issue.component';
 
 export const ROUTES: Routes = [
     {
@@ -40,20 +40,20 @@ export const ROUTES: Routes = [
                 component: UniteViewComponent,
             },
             {
-                path: 'detail/:isseId/:id',
+                path: 'issue/:id',
+                component: UniteIssueComponent,
+            },
+            {
+                path: 'search/:id',
+                component: UniteSearchComponent
+            },
+            {
+                path: 'detail/:issueId/:id',
                 component: UniteDetailComponent
             },
             {
                 path: 'bookmark/:id',
                 component: UniteBookmarkComponent
-            },
-            {
-                path: 'search',
-                component: UniteSearchComponent
-            },
-            {
-                path: 'share',
-                component: UniteShareComponent
             },
             {
                 path: 'thumbnail/:id',

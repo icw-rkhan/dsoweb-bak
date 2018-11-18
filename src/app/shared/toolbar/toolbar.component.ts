@@ -34,13 +34,12 @@ export class ToolbarComponent {
     private router: Router,
     private location: Location,
     private cdr: ChangeDetectorRef,
-    private linksService: NavLinksService,
-    private sharingService: SharingService) {
+    private linksService: NavLinksService) {
       this.visible = true;
-      this.isClickOptionsBtn = false;
-      this.isShowingOptionsModal = false;
-      this.isViewMoreOptions = false;
       this.isViewMainOptions = true;
+      this.isClickOptionsBtn = false;
+      this.isViewMoreOptions = false;
+      this.isShowingOptionsModal = false;
 
       this.uniteMainLinks = this.linksService.uniteMainLinks;
 
@@ -73,6 +72,9 @@ export class ToolbarComponent {
           } else if (event.url.includes('/category')) {
             this.title = 'CATEGORY';
             this.btnTitle = 'menu';
+          } else if (event.url.includes('/unite/search')) {
+            this.title = 'SEARCH';
+            this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/search')) {
             this.title = 'SEARCH';
             this.btnTitle = 'menu';
@@ -128,7 +130,8 @@ export class ToolbarComponent {
   }
 
   viewMoreOptions(url: string) {
-    if (url.includes('/unite/detail') || url.includes('/unite/bookmark') || url.includes('/unite/thumbnail')) {
+    if (url.includes('/unite/detail') || url.includes('/unite/bookmark') ||
+       url.includes('/unite/thumbnail')) {
       this.isViewMoreOptions = true;
     } else {
       this.isViewMoreOptions = false;
@@ -174,18 +177,20 @@ export class ToolbarComponent {
   }
 
   onOptionEvent(url) {
-    if (url === '/unite/thumbnail' || url === '/unite/view' || url === '/unite/bookmark') {
-      const id = this.url.split('/')[3];
-      url = `${url}/${id}`;
+    const id = this.url.split('/')[3];
+    url = `${url}/${id}`;
 
-      this.router.navigate([url]);
-    } else {
-      this.router.navigate([url]);
-    }
+    this.router.navigate([url]);
+  }
+
+  onIssue() {
+    const id = this.url.split('/')[3];
+    this.router.navigate([`/unite/issue/${id}`]);
   }
 
   @HostListener('window:click', [])
   onWindowEvent() {
+
     if (this.isShowingOptionsModal && !this.isClickOptionsBtn) {
       this.isShowingOptionsModal = false;
     } else {

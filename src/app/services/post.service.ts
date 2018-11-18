@@ -81,13 +81,13 @@ export class PostService {
     );
   }
 
-  search(term: string): Observable<Post[]> {
+  search(body: any): Observable<Post[]> {
     const url = `${environment.cmsAPIUrl}/content/findAllByValue`;
 
     // set auth token
     const headers = this.getHeaders();
 
-    return this.http.post(url, {'searchValue': term}, {headers}).pipe(
+    return this.http.post(url, body, {headers}).pipe(
       map((response: any) => response.resultMap.data.map(post => new Post().deserialize(post)))
     );
   }

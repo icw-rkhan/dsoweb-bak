@@ -29,7 +29,15 @@ export class SearchPageComponent implements OnInit {
 
   onSearch() {
     this.progress.start();
-    this.postService.search(this.term).subscribe(posts => {
+
+    const body = {
+      'searchValue': this.term,
+      'united': false,
+      'skip': 0,
+      'limit': 10
+    };
+
+    this.postService.search(body).subscribe(posts => {
       this.posts = posts;
       this.progress.complete();
     },
