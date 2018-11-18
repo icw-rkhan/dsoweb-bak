@@ -44,11 +44,10 @@ export class UniteIssueComponent implements OnInit {
       const uniteSub = this.uniteService.findOneById(this.issueId).subscribe(posts => {
         this.posts = posts;
         this.posts.map(post => {
-          console.log(post);
-          this.categories.push(post.categoryName);
+          if (post.categoryName && !this.categories.find(x => x === post.categoryName)) {
+            this.categories.push(post.categoryName);
+          }
         });
-
-        console.log(this.categories);
 
         uniteSub.unsubscribe();
       });
