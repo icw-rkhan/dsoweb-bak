@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'dso-main-container',
@@ -10,8 +11,16 @@ export class MainContainerComponent {
 
   @Input() displayMainActions: boolean;
 
-  constructor() {
-    this.displayMainActions = true;
+  constructor(private router: Router) {
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        if (event.url.includes('/unite')) {
+          this.displayMainActions = false;
+        } else {
+          this.displayMainActions = true;
+        }
+      }
+    });
   }
 
 }
