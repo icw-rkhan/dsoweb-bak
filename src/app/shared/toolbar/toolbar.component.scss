@@ -71,7 +71,12 @@ button {
   right: 0px;
   position: absolute;
 
+  .mat-menu-content:not(:empty) {
+    padding: 0px;
+  }
+
   .mat-menu-item {
+    border-bottom: 1px solid #eeeeee;
     text-decoration: none;
   }
 
