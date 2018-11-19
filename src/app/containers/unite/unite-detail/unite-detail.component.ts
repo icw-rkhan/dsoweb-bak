@@ -22,6 +22,7 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
   postRendered: boolean;
   showReference: boolean;
   postSafeContent: SafeHtml;
+  showReferenceState: string;
 
   @ViewChild('postContent') postContent: ElementRef;
 
@@ -34,6 +35,7 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
     private postService: PostService,
     private bookmarkService: BookmarkService) {
       this.postRendered = false;
+      this.showReferenceState = 'Show more';
 
       this.progress.start();
 
@@ -289,5 +291,18 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
     }
 
     return text;
+  }
+
+  onClickReference() {
+    const reference = this.postContent.nativeElement.getElementsByTagName('ol')[0];
+    if (reference.classList.contains('show-more')) {
+      this.showReferenceState = 'Show less';
+      reference.classList.remove('show-more');
+      reference.classList.add('show-less');
+    } else {
+      this.showReferenceState = 'Show more';
+      reference.classList.remove('show-less');
+      reference.classList.add('show-more');
+    }
   }
 }

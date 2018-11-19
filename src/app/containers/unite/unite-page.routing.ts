@@ -48,6 +48,10 @@ export const ROUTES: Routes = [
                 component: UniteSearchComponent
             },
             {
+                path: 'detail/:id',
+                component: UniteDetailComponent
+            },
+            {
                 path: 'detail/:issueId/:id',
                 component: UniteDetailComponent
             },

@@ -310,10 +310,18 @@ div {
         max-height: 2000px;
     }
 
-    ol {
+    ol, ul {
         font-size: 13px;
         padding-left: 25px !important;
         margin-left: 0 !important;
         margin-bottom: 40px !important;
+    }
+
+    ol {
+        list-style-type: decimal 
+    }
+
+    ul {
+        list-style-type: inherit
     }
 }

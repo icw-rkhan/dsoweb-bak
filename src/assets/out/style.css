@@ -937,7 +937,7 @@ ol, ul {
 
 .callout.text {
   font-family: 'SFUI';
-  padding-right: 30px;
+  padding: 0px 30px;
 }
 
 .author-container {

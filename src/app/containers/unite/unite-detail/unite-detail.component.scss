@@ -115,11 +115,19 @@
         max-height: 9000px;
     }
 
-    ol {
+    ol, ul {
         font-size: 13px;
         padding-left: 25px !important;
         margin-left: 0 !important;
         margin-bottom: 40px !important;
+    }
+
+    ol {
+        list-style-type: decimal 
+    }
+
+    ul {
+        list-style-type: inherit
     }
 
     .callout {
@@ -136,6 +144,6 @@
     
     .callout.text {
         font-family: 'SFUI';
-        padding-right: 30px;
+        padding: 0px 30px;
     }
 }
