@@ -1,12 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MatSnackBar } from '@angular/material';
 import { Router } from '@angular/router';
 
-import { Post } from '../../models/post.model';
-
-import { AuthService } from '../../services';
-import { BookmarkService } from '../../services/bookmark.service';
-
+import { Post } from '../../../models/post.model';
 
 @Component({
   selector: 'dso-article-card',

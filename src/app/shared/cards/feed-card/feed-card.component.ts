@@ -3,14 +3,14 @@ import { ChangeDetectionStrategy, Component,
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
-import { Post } from '../../models/post.model';
-import { Bookmark } from '../../models/bookmark.model';
+import { Post } from '../../../models/post.model';
+import { Bookmark } from '../../../models/bookmark.model';
 
-import { AuthService } from '../../services';
-import { BookmarkService } from '../../services/bookmark.service';
+import { AuthService } from '../../../services';
+import { BookmarkService } from '../../../services/bookmark.service';
 
-import { environment } from '../../../environments/environment';
-import { SharingService } from '../../services/sharing.service';
+import { environment } from '../../../../environments/environment';
+import { SharingService } from '../../../services/sharing.service';
 
 @Component({
   selector: 'dso-feed-card',

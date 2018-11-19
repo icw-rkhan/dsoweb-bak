@@ -1,9 +1,8 @@
-import { Component, Input, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { formatDate } from '@angular/common';
+import { Component, Input, OnInit } from '@angular/core';
 
-import { environment } from '../../../environments/environment';
-import { Comment } from '../../models/comment.model';
-import { ProfileService } from '../../services';
+import { environment } from '../../../../environments/environment';
+import { Comment } from '../../../models/comment.model';
+import { ProfileService } from '../../../services';
 
 @Component({
   selector: 'dso-review-card',

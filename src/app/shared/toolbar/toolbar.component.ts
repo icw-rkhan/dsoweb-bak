@@ -21,10 +21,7 @@ export class ToolbarComponent {
   modalType: string;
 
   visible: boolean;
-  isClickOptionsBtn: boolean;
-  isViewMoreOptions: boolean;
-  isViewMainOptions: boolean;
-  isShowingOptionsModal: boolean;
+  visibleUniteMoreMenu: boolean;
 
   uniteMainLinks: NavLinkModel[];
   uniteMoreLinks: NavLinkModel[];
@@ -36,10 +33,7 @@ export class ToolbarComponent {
     private cdr: ChangeDetectorRef,
     private linksService: NavLinksService) {
       this.visible = true;
-      this.isViewMainOptions = true;
-      this.isClickOptionsBtn = false;
-      this.isViewMoreOptions = false;
-      this.isShowingOptionsModal = false;
+      this.visibleUniteMoreMenu = false;
 
       this.uniteMainLinks = this.linksService.uniteMainLinks;
 
@@ -103,15 +97,17 @@ export class ToolbarComponent {
             this.btnTitle = 'menu';
           }
 
-          this.isShowingOptionsModal = false;
-
-          this.filterMoreOptions(event.url);
-
-          this.viewMainOptions(event.url);
-          this.viewMoreOptions(event.url);
+          if (event.url.includes('/unite/')) {
+            this.visibleUniteMoreMenu = true;
+          } else {
+            this.visibleUniteMoreMenu = false;
+          }
 
           // remove the ADS code
           this.removeADSCode();
+
+          // if thumbnail page, hide the thumbnail option and show the full-screen option
+          this.filterMoreOptions(event.url);
 
           this.cdr.markForCheck();
         }
@@ -129,22 +125,11 @@ export class ToolbarComponent {
     });
   }
 
-  viewMoreOptions(url: string) {
-    if (url.includes('/unite/detail') || url.includes('/unite/bookmark') ||
-       url.includes('/unite/thumbnail')) {
-      this.isViewMoreOptions = true;
-    } else {
-      this.isViewMoreOptions = false;
-    }
-  }
+  onOptionEvent(url: string) {
+    const id = this.url.split('/')[3];
+    url = `${url}/${id}`;
 
-  viewMainOptions(url: string) {
-    if (!url.includes('/unite/bookmark') && !url.includes('/unite/detail') &&
-                  url.includes('/unite') && !url.includes('/unite/thumbnail')) {
-      this.isViewMainOptions = true;
-    } else {
-      this.isViewMainOptions = false;
-    }
+    this.router.navigate([url]);
   }
 
   removeADSCode() {
@@ -162,54 +147,5 @@ export class ToolbarComponent {
     } else if (this.btnTitle === 'keyboard_backspace') {
       this.location.back();
     }
-  }
-
-  onShowOptionModal(type: string) {
-    if (this.modalType === type) {
-      this.isShowingOptionsModal = !this.isShowingOptionsModal;
-    } else {
-      this.isShowingOptionsModal = true;
-    }
-
-    this.modalType = type;
-
-    this.isClickOptionsBtn = true;
-  }
-
-  onOptionEvent(url) {
-    const id = this.url.split('/')[3];
-    url = `${url}/${id}`;
-
-    this.router.navigate([url]);
-  }
-
-  onIssue() {
-    const id = this.url.split('/')[3];
-    this.router.navigate([`/unite/issue/${id}`]);
-  }
-
-  @HostListener('window:click', [])
-  onWindowEvent() {
-
-    if (this.isShowingOptionsModal && !this.isClickOptionsBtn) {
-      this.isShowingOptionsModal = false;
-    } else {
-      this.isClickOptionsBtn = false;
-    }
-  }
-
-  @HostListener('window:resize', [])
-  onWindowResizeEvent() {
-    this.isShowingOptionsModal = false;
-  }
-
-  @HostListener('window:press', [])
-  onWindowPressEvent() {
-    this.isShowingOptionsModal = false;
-  }
-
-  @HostListener('window:scroll', [])
-  onWindowScrollEvent() {
-    this.isShowingOptionsModal = false;
   }
 }

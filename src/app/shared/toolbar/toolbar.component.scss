@@ -57,43 +57,27 @@ button {
   font-weight: 600;
 }
 
-.unite-modal {
-  width: 187px;
-  height: auto;
-  background-color: #ffffff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, .5);
-  position: absolute;
-  top: 42;
-  right: 0;
-  z-index: 10;
-
-  .mat-list {
-    width: 100%;
-    
-    .mat-list-item {
-      font-size: 15px;
-      font-weight: 400;
-
-      span {
-        flex: 1 1 auto;
-      }
-
-      img {
-        width: auto;
-        height: auto;
-      }
-    }
-  }
-}
-
 .show {
   display: inline-flex;
 }
 
-.show-modal {
-  display: block;
-}
-
 .hide {
   display: none;
+}
+
+::ng-deep .more-menu {
+  width: 180px;
+  top: 42px;
+  right: 0px;
+  position: absolute;
+
+  .mat-menu-item {
+    text-decoration: none;
+  }
+
+  span {
+    font-size: 15px;
+    font-weight: 400;
+    flex: 1 1 auto;
+  }
 }

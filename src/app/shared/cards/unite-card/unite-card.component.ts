@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Unite } from '../../models/unite.model';
 import { Router } from '@angular/router';
+
+import { Unite } from '../../../models/unite.model';
 
 @Component({
   selector: 'dso-unite-card',

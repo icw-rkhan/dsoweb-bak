@@ -39,18 +39,18 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { TruncatePipe } from '../pipes/truncate.pipe';
-import { FeedCardComponent } from './feed-card/feed-card.component';
+import { FeedCardComponent } from './cards/feed-card/feed-card.component';
 import { MainActionsComponent } from './main-actions/main-actions.component';
 import { FeedGridComponent } from './feed-grid/feed-grid.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 import { MainContainerComponent } from './main-container/main-container.component';
-import { SponsorCardComponent } from './sponsor-card/sponsor-card.component';
+import { SponsorCardComponent } from './cards/sponsor-card/sponsor-card.component';
 import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
-import { ReviewComponent } from './review-card/review-card.component';
+import { ReviewComponent } from './cards/review-card/review-card.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
-import { UniteCardComponent } from './unite-card/unite-card.component';
-import { ArticleCardComponent } from './article-card/article-card.component';
-import { ScreenCardComponent } from './screen-card/screen-card.component';
+import { UniteCardComponent } from './cards/unite-card/unite-card.component';
+import { ArticleCardComponent } from './cards/article-card/article-card.component';
+import { ScreenCardComponent } from './cards/screen-card/screen-card.component';
 
 const PIPES = [
   TruncatePipe,

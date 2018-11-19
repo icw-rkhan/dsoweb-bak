@@ -11,36 +11,22 @@
   <div *ngIf="url == '/profile'" class="navbar-edit-profile">
     <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
   </div>
-  <div *ngIf="isViewMoreOptions" class="navbar-edit-profile">
-    <a mat-icon-button (click)="onIssue()"><img src="assets/images/unite/menu.png"></a>
-    <a mat-icon-button (click)="onShowOptionModal('more')"><img src="assets/images/unite/more-options.png"></a>
+  <div *ngIf="visibleUniteMoreMenu" class="navbar-edit-profile">
+    <a mat-icon-button [matMenuTriggerFor]="issueMenu">
+      <img src="assets/images/unite/menu.png">
+    </a>
+    <mat-menu #issueMenu="matMenu">
+
+    </mat-menu>
+    <a mat-icon-button [matMenuTriggerFor]="moreMenu">
+      <img src="assets/images/unite/more-options.png">
+    </a>
+    <mat-menu #moreMenu="matMenu" class="more-menu">
+      <a mat-menu-item *ngFor="let link of uniteMoreLinks" (click)="onOptionEvent(link.route)" fxLayoutAlign="start center">
+        <span class="option-title">{{link.label}}</span>
+        <img [src]="link.icon">
+      </a>
+    </mat-menu>
   </div>
 </div>
-
-<div class="unite-modal" [class.hide]="!isShowingOptionsModal" [class.show-modal]="isShowingOptionsModal">
-  <mat-list *ngIf="modalType === 'main'">
-    <mat-list-item *ngFor="let link of uniteMainLinks" (click)="onOptionEvent(link.route)">
-      <span>{{link.label}}</span>
-      <img [src]="link.icon">
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-list>
-
-  <mat-list *ngIf="modalType === 'menu'">
-    <mat-list-item *ngFor="let link of uniteMenuLinks" (click)="onOptionEvent(link.route)">
-      <span>{{link.label}}</span>
-      <img [src]="link.icon">
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-list>
-
-  <mat-list *ngIf="modalType === 'more'">
-    <mat-list-item *ngFor="let link of uniteMoreLinks" (click)="onOptionEvent(link.route)">
-      <span>{{link.label}}</span>
-      <img [src]="link.icon">
-      <mat-divider></mat-divider>
-    </mat-list-item>
-  </mat-list>
-</div>
-
 

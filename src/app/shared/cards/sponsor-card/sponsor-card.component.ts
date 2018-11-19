@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component,
   EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Post } from '../../models/post.model';
-import { Bookmark } from '../../models/bookmark.model';
+import { Post } from '../../../models/post.model';
+import { Bookmark } from '../../../models/bookmark.model';
 
-import { AuthService } from '../../services';
-import { BookmarkService } from '../../services/bookmark.service';
+import { AuthService } from '../../../services';
+import { BookmarkService } from '../../../services/bookmark.service';
 
-import { environment } from '../../../environments/environment';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'dso-sponsor-card',
