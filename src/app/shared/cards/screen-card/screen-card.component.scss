@@ -6,10 +6,9 @@
 
     .article-container {
         width: 100vw;
-        height: 75vh;
         background-color: #ffffff;
-        overflow: hidden;
         margin-bottom: 53px;
+        overflow: hidden;
 
         .article-thumbnail {
             img {
@@ -77,4 +76,8 @@
             margin: 0px 12px;
         }
     }
+}
+
+.black-color {
+    background-color: #000000;
 }

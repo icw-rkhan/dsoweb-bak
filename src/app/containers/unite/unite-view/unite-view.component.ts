@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -10,11 +10,13 @@ import { Post } from '../../../models/post.model';
   templateUrl: './unite-view.component.html',
   styleUrls: ['./unite-view.component.scss']
 })
-export class UniteViewComponent implements OnInit {
+export class UniteViewComponent implements OnInit, AfterViewChecked {
 
   id: string;
   coverPage: Post;
   posts: Post[];
+
+  @ViewChild('viewContainer') viewContainer: ElementRef;
 
   constructor(
     private router: Router,
@@ -42,6 +44,26 @@ export class UniteViewComponent implements OnInit {
         uniteSub.unsubscribe();
       });
     });
+  }
+
+  ngAfterViewChecked() {
+    this.onRelayout();
+  }
+
+  @HostListener('window:resize', [])
+  onResizeEvent() {
+    this.onRelayout();
+  }
+
+  onRelayout() {
+    const parentTag = this.viewContainer.nativeElement;
+    const heightOfCover = parentTag.getElementsByClassName('article-thumbnail')[0].offsetHeight;
+    const articleTags = parentTag.getElementsByClassName('article-container');
+
+    let index;
+    for (index = 1; index < articleTags.length; index++) {
+      parentTag.getElementsByClassName('article-container')[index].style.height =  `${heightOfCover - 3}px`;
+    }
   }
 
   onNormalScreen() {

@@ -1,8 +1,8 @@
 <div class="article-item" (click)="onDetailUnite(article.id)">
     <div class="article-container">
-        <p class="article-thumbnail">
+        <div class="article-thumbnail" [class.black-color]="isCover">
             <img [src]="article.thumbnail">
-        </p>
+        </div>
         <div *ngIf="!isCover" class="article-content">
             <p class="article-title">{{article.title}}</p>
             <p class="article-author">{{article.authorName}}</p>
