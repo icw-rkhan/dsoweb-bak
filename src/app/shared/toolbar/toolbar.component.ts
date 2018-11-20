@@ -1,10 +1,9 @@
-import { Component, EventEmitter, Output, ChangeDetectorRef, HostListener } from '@angular/core';
-import { Router, Event, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Component, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { NavLinkModel } from '../../models/nav-link.model';
 import { NavLinksService } from '../../services/links.service';
-import { SharingService } from '../../services/sharing.service';
 
 @Component({
   selector: 'dso-toolbar',

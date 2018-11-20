@@ -9,7 +9,6 @@ import { AuthService } from '../../../services';
 import { BookmarkService } from '../../../services/bookmark.service';
 
 import { Bookmark } from '../../../models/bookmark.model';
-import { PostService } from '../../../services/post.service';
 import { UniteService } from '../../../services/unite.service';
 
 @Component({

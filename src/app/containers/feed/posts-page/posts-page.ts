@@ -33,11 +33,10 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private authService: AuthService,
     private postService: PostService,
-    private sharingService: SharingService,
     private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar) {
       this.isFetching = true;
-      this.pageNum = 0;
+      this.pageNum = 1;
   }
 
   ngOnInit(): void {
@@ -119,6 +118,10 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         per_page: 3
       });
     }
+
+    postService.subscribe(posts => {
+      console.log(posts);
+    });
 
     // Join bookmarks and post
     this.postSub = forkJoin(
