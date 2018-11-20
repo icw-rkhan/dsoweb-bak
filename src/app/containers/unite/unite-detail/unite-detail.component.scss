@@ -1,149 +1,157 @@
 @import "../../../../responsive";
 
-.article-thumbnail {
-    img {
-        width: 100%;
-        height: auto;
-    }
-}
+.article-container {
+    width: 100vw;
+    overflow: auto;
 
-.article-content {
-    padding: 15px 20px;
-    
-    .article-category {
-        color: #017ab9;
-        font-size: 14px;
-        margin-bottom: 7px;
-    }
+    .article-item {
 
-    .article-title {
-        color: #4a4a4a;
-        font-size: 20px;
-        font-weight: 600;
-
-        .bookmark-btn {
-            margin-top: 2px;
+        .article-thumbnail {
+            img {
+                width: 100vw;
+                height: auto;
+            }
         }
         
-        span {
+        .article-content {
+            padding: 15px 20px;
+            
+            .article-category {
+                color: #017ab9;
+                font-size: 14px;
+                margin-bottom: 7px;
+            }
+        
+            .article-title {
+                color: #4a4a4a;
+                font-size: 20px;
+                font-weight: 600;
+        
+                .bookmark-btn {
+                    margin-top: 2px;
+                }
+                
+                span {
+                    font-family: 'SFUI';
+                    line-height: 25px;
+                }
+            }
+            
+            .article-author {
+                color: #9b9b9b;
+                font-size: 14px;
+                margin: 7px 0px 25px;
+            }
+            
+            .article-excerpt {
+                color: #000000;
+                font-size: 14px;
+                font-style: italic;
+            }
+        
+            .article-detail {
+                margin-top: 25px;
+                font-size: 14px;
+                line-height: 20px
+            }
+        
+            .article-detail::first-letter {
+                font-size: 40px;
+                font-weight: 600;
+                color: #017ab9;
+                float: left;
+                margin: 10px 6px 2px 0;
+            }
+        }
+        
+        .mat-stroked-button {
+            border-color: #c8c8c8;
+            color: #4a4a4a;
             font-family: 'SFUI';
-            line-height: 25px;
+            font-size: 13px;
+            font-weight: 600;
         }
-    }
-    
-    .article-author {
-        color: #9b9b9b;
-        font-size: 14px;
-        margin: 7px 0px 25px;
-    }
-    
-    .article-excerpt {
-        color: #000000;
-        font-size: 14px;
-        font-style: italic;
-    }
-
-    .article-detail {
-        margin-top: 25px;
-        font-size: 14px;
-        line-height: 20px
-    }
-
-    .article-detail::first-letter {
-        font-size: 40px;
-        font-weight: 600;
-        color: #017ab9;
-        float: left;
-        margin: 10px 6px 2px 0;
-    }
-}
-
-.mat-stroked-button {
-    border-color: #c8c8c8;
-    color: #4a4a4a;
-    font-family: 'SFUI';
-    font-size: 13px;
-    font-weight: 600;
-}
-
-:host ::ng-deep {
-    h2 {
-        font-family: "SFUI";
-        font-size: 18px;
-        font-weight: 600;
-    }
-
-    iframe {
-        max-width: 100%;
-    }
-
-    video {
-        background-color: black;
-        max-width: 100%;
-    }
-
-    figure {
-        max-width: 100%;
-        height: auto;
-    }
-
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-
-    .show-more {
-        max-height: 400px;
-        overflow: hidden;
-        position: relative;
-        &:after {
-            content: '';
-            display: block;
-            z-index: 999;
-            position: absolute;
-            bottom: -20px;
-            width: 100%;
-            height: 60px;
-            background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
-            background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
-            background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-            filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+        
+        :host ::ng-deep {
+            h2 {
+                font-family: "SFUI";
+                font-size: 18px;
+                font-weight: 600;
+            }
+        
+            iframe {
+                max-width: 100%;
+            }
+        
+            video {
+                background-color: black;
+                max-width: 100%;
+            }
+        
+            figure {
+                max-width: 100%;
+                height: auto;
+            }
+        
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+        
+            .show-more {
+                max-height: 400px;
+                overflow: hidden;
+                position: relative;
+                &:after {
+                    content: '';
+                    display: block;
+                    z-index: 999;
+                    position: absolute;
+                    bottom: -20px;
+                    width: 100%;
+                    height: 60px;
+                    background: -moz-linear-gradient(top, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6-15 */
+                    background: -webkit-linear-gradient(top, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to bottom, rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+                    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 );
+                }
+            }
+        
+            .show-less {
+                max-height: 9000px;
+            }
+        
+            ol, ul {
+                font-size: 13px;
+                padding-left: 25px !important;
+                margin-left: 0 !important;
+                margin-bottom: 40px !important;
+            }
+        
+            ol {
+                list-style-type: decimal 
+            }
+        
+            ul {
+                list-style-type: inherit
+            }
+        
+            .callout {
+                font-size: 22px;
+                font-weight: 700;
+            }
+            
+            .callout.symbol {
+                float: left;
+                width: 30px;
+                font-size: 40px;
+                font-family: 'Adobe Caslon Pro bold'
+            }
+            
+            .callout.text {
+                font-family: 'SFUI';
+                padding: 0px 30px;
+            }
         }
-    }
-
-    .show-less {
-        max-height: 9000px;
-    }
-
-    ol, ul {
-        font-size: 13px;
-        padding-left: 25px !important;
-        margin-left: 0 !important;
-        margin-bottom: 40px !important;
-    }
-
-    ol {
-        list-style-type: decimal 
-    }
-
-    ul {
-        list-style-type: inherit
-    }
-
-    .callout {
-        font-size: 22px;
-        font-weight: 700;
-    }
-    
-    .callout.symbol {
-        float: left;
-        width: 30px;
-        font-size: 40px;
-        font-family: 'Adobe Caslon Pro bold'
-    }
-    
-    .callout.text {
-        font-family: 'SFUI';
-        padding: 0px 30px;
     }
 }

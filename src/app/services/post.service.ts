@@ -36,6 +36,8 @@ export class PostService {
     // set auth token
     const headers = this.getHeaders();
 
+    console.log(headers);
+
     return this.http.post(url, body, {headers}).pipe(
       map((response: any) => response.resultMap.data.map(post => new Post().deserialize(post)))
     );

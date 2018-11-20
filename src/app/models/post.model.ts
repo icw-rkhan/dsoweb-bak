@@ -45,7 +45,7 @@ export class Post implements Serializable<Post> {
       id: data.id,
       email: data.email,
       title: data.title,
-      content: data.content,
+      content: data.content ? data.content : '',
       authorId: data.authorId,
       contentTypeId: data.contentTypeId,
       categoryId: data.categoryId,
@@ -58,8 +58,8 @@ export class Post implements Serializable<Post> {
       featuredMediaId: data.featuredMediaId,
       bookmarkId: data.bookmarkId,
       isBookmark: data.isBookmark,
-      excerpt: data.excerpt,
-      thumbnail: data.featuredMedia.code.thumbnailUrl,
+      excerpt: data.excerpt ? data.excerpt : '',
+      thumbnail: data.featuredMedia ? data.featuredMedia.code.thumbnailUrl : '',
       date: this.dateFormat(data.publishDate),
       link: 'https://www.dsodentist.com'
     });

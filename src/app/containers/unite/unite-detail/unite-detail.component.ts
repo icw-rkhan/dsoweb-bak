@@ -10,6 +10,7 @@ import { BookmarkService } from '../../../services/bookmark.service';
 
 import { Bookmark } from '../../../models/bookmark.model';
 import { PostService } from '../../../services/post.service';
+import { UniteService } from '../../../services/unite.service';
 
 @Component({
   selector: 'dso-unite-detail',
@@ -19,6 +20,7 @@ import { PostService } from '../../../services/post.service';
 export class UniteDetailComponent implements OnInit, AfterViewChecked {
 
   article: Post;
+  articles: Post[];
   postRendered: boolean;
   showReference: boolean;
   postSafeContent: SafeHtml;
@@ -32,6 +34,7 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private sanitizer: DomSanitizer,
     private authService: AuthService,
+    private uniteService: UniteService,
     private postService: PostService,
     private bookmarkService: BookmarkService) {
       this.postRendered = false;
@@ -41,19 +44,23 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
 
       this.route.params.subscribe(params => {
         const id = params['id'];
+        const issueId = params['issueId'];
 
-        const uniteSub = this.postService.fetchById(id).subscribe(post => {
-          this.article = post;
+        const unitesSub = this.uniteService.findOneById(issueId).subscribe(posts => {
+          let index = 0;
+          posts.map(post => {
+            post = this.setDropcap(post);
+            post = this.changePreToDiv(post);
 
-          if (this.article.content) {
-            this.setDropcap();
+            if (post.id === id) {
+              index = posts.indexOf(post);
+            }
+          });
 
-            // change Pre tag to Div tag
-            this.postSafeContent = this.sanitizeHTML(this.changePreToDiv(this.article.content));
-          }
+          this.articles = this.arrayMove(posts, index, 0);
 
           this.progress.complete();
-          uniteSub.unsubscribe();
+          unitesSub.unsubscribe();
         });
       });
   }
@@ -71,26 +78,26 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
   }
 
   // add bookmark
-  onAddBookmark(): void {
+  onAddBookmark(article: Post): void {
     const userEmail = this.authService.getUserInfo().user_name;
 
     const bookmarkSub = this.bookmarkService.saveBookmark(<Bookmark>{
       email: userEmail,
-      title: this.article.title,
-      postId: this.article.id.toString(),
-      categoryId: this.article.categoryId.toString(),
-      contentTypeId: this.article.contentTypeId,
+      title: article.title,
+      postId: article.id.toString(),
+      categoryId: article.categoryId.toString(),
+      contentTypeId: article.contentTypeId,
       url: 'http://www.dsodentist.com',
       status: '1'
     }).subscribe((x: any) => {
       if (x.code === 0) {
-        this.article.isBookmark = true;
+        article.isBookmark = true;
 
         this.snackBar.open('Bookmark added', 'OK', {
           duration: 2000,
         });
       } else {
-        this.article.isBookmark = false;
+        article.isBookmark = false;
 
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
@@ -102,13 +109,13 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
   }
 
   // remove bookmark
-  onRemoveBookmark(): void {
-    if (!this.article.bookmarkId) {
+  onRemoveBookmark(article: Post): void {
+    if (!article.bookmarkId) {
       const userEmail = this.authService.getUserInfo().user_name;
 
       const subBookmark = this.bookmarkService.getAllByEmail(userEmail).subscribe(b => {
         b.map(item => {
-          if (item.postId === this.article.id) {
+          if (item.postId === article.id) {
             this.removeBookmark(item.postId);
           }
         });
@@ -116,7 +123,7 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
         subBookmark.unsubscribe();
       });
     } else {
-      this.removeBookmark(this.article.bookmarkId);
+      this.removeBookmark(article.bookmarkId);
     }
   }
 
@@ -150,26 +157,30 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
   }
 
     // change Pre tag to Div tag
-  changePreToDiv(html) {
-    html = html.toString();
+  changePreToDiv(article: Post) {
+    let content = article.content;
 
-    html = html.replace(/<pre>/g, '<div><p>“</p><p>');
-    html = html.replace(/<\/pre>/g, '</p></div>');
+    content = content.replace(/<pre>/g, '<div><p>“</p><p>');
+    content = content.replace(/<\/pre>/g, '</p></div>');
 
-    return html;
+    article.content = content;
+
+    return article;
   }
 
-  setDropcap(): void {
-    const matches = this.article.content.match(/(<p[^>]*>.*?<\/p>)/g);
+  setDropcap(article: Post): Post {
+    const matches = article.content.match(/(<p[^>]*>.*?<\/p>)/g);
     const first = matches[0];
 
-    let content = this.article.content;
+    let content = article.content;
     if (first === '<p>&nbsp;</p>' || first.includes('(By By')) {
       content = content.replace(first, '');
     }
 
     content = content.replace(/(<p[^>]*>((?!iframe)(?!&nbsp).)*<\/p>)/, '<div class="first-big">$1</div>');
-    this.article.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+    article.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+
+    return article;
   }
 
   // change the layout of a post
@@ -304,5 +315,13 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
       reference.classList.remove('show-less');
       reference.classList.add('show-more');
     }
+  }
+
+  arrayMove(arr, fromIndex, toIndex) {
+    const element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+
+    return arr;
   }
 }
