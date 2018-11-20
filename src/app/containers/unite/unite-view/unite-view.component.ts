@@ -1,4 +1,3 @@
-import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -19,7 +18,6 @@ export class UniteViewComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private location: Location,
     private progress: NgProgress,
     private route: ActivatedRoute,
     private uniteService: UniteService) {
@@ -48,9 +46,5 @@ export class UniteViewComponent implements OnInit {
 
   onNormalScreen() {
     this.router.navigate([`/unite/thumbnail/${this.id}`]);
-  }
-
-  onBackPage() {
-    this.location.back();
   }
 }

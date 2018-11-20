@@ -1,15 +1,17 @@
-<div class="article-container" (click)="onDetailUnite(article.id)" [class.margin-top]="isCover">
-    <p class="article-thumbnail">
-        <img [src]="article.thumbnail">
-    </p>
-    <div *ngIf="!isCover" class="article-content">
-        <p class="article-title">{{article.title}}</p>
-        <p class="article-author">{{article.authorName}}</p>
-        <div class="article-excerpt" [innerHtml]="article.excerpt"></div>
+<div class="article-item" (click)="onDetailUnite(article.id)">
+    <div class="article-container">
+        <p class="article-thumbnail">
+            <img [src]="article.thumbnail">
+        </p>
+        <div *ngIf="!isCover" class="article-content">
+            <p class="article-title">{{article.title}}</p>
+            <p class="article-author">{{article.authorName}}</p>
+            <div class="article-excerpt" [innerHtml]="article.excerpt"></div>
+        </div>
     </div>
-</div>
-<div *ngIf="isCover" fxLayout="row" fxLayoutAlign="center center" class="article-footer">
-    <div class="unite-arrow unite-left"></div>
-    <div class="footer-label">Swipe between articles</div>
-    <div class="unite-arrow unite-right"></div>
+    <div *ngIf="isCover" fxLayout="row" fxLayoutAlign="center center" class="article-footer">
+        <div class="unite-arrow unite-left"></div>
+        <div class="footer-label">Swipe between articles</div>
+        <div class="unite-arrow unite-right"></div>
+    </div>
 </div>

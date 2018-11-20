@@ -21,7 +21,6 @@ export class ToolbarComponent {
   btnTitle: string;
   modalType: string;
 
-  visible: boolean;
   visibleUniteMoreMenu: boolean;
 
   uniteMainLinks: NavLinkModel[];
@@ -33,14 +32,12 @@ export class ToolbarComponent {
     private location: Location,
     private cdr: ChangeDetectorRef,
     private linksService: NavLinksService) {
-      this.visible = true;
       this.visibleUniteMoreMenu = false;
 
       this.uniteMainLinks = this.linksService.uniteMainLinks;
 
       this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
-          this.visible = true;
           this.url = event.url;
 
           this.fetchIssueId(event.url);
@@ -78,8 +75,9 @@ export class ToolbarComponent {
           } else if (event.url.includes('/profile')) {
             this.title = 'PROFILE';
             this.btnTitle = 'menu';
-          } else if (event.url.includes('/unite/view')) {
-            this.visible = false;
+          }  else if (event.url.includes('/unite/view')) {
+            this.title = '';
+            this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/unite/bookmark')) {
             this.title = 'BOOKMARKS';
             this.btnTitle = 'keyboard_backspace';
