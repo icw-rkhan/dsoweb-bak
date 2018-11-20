@@ -19,7 +19,7 @@ export class UniteMainComponent implements OnInit {
     private router: Router,
     private progress: NgProgress,
     private uniteService: UniteService) {
-      this.page = 1;
+      this.page = 0;
 
       this.progress.start();
       this.router.events.subscribe((event: Event) => {

@@ -35,7 +35,7 @@ export class CategoryPageComponent implements OnInit {
     private progress: NgProgress, private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar, private authService: AuthService) {
       this.isFetching = true;
-      this.page = 1;
+      this.page = 0;
   }
 
   ngOnInit(): void {
@@ -54,7 +54,7 @@ export class CategoryPageComponent implements OnInit {
   }
 
   selectCategory(event: MatSelectChange) {
-    this.page = 1;
+    this.page = 0;
     this.posts = [];
     this.categoryId = event.value;
     this.fetchPost();

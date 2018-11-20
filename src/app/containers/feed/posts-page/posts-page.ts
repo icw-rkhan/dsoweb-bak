@@ -36,7 +36,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar) {
       this.isFetching = true;
-      this.pageNum = 1;
+      this.pageNum = 0;
   }
 
   ngOnInit(): void {
@@ -104,24 +104,20 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         type: this.typeId,
         sponsorId: this.sponsorId,
         page: this.pageNum,
-        per_page: 3
+        per_page: 5
       });
     } else if (this.typeId) {
       postService = this.postService.fetchByContentTypeId({
         type: this.typeId,
         page: this.pageNum,
-        per_page: 3
+        per_page: 5
       });
     } else {
       postService = this.postService.posts({
         page: this.pageNum,
-        per_page: 3
+        per_page: 5
       });
     }
-
-    postService.subscribe(posts => {
-      console.log(posts);
-    });
 
     // Join bookmarks and post
     this.postSub = forkJoin(

@@ -23,7 +23,7 @@ export class FeedGridComponent {
 
   constructor() {
     this.noFoundMessage = 'No items found';
-    this.page = 1;
+    this.page = 0;
   }
 
   onAddBookmark(item: Bookmark) {
