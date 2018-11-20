@@ -15,8 +15,9 @@ export class ToolbarComponent {
 
   @Output() toggleMenu = new EventEmitter();
 
-  issueId: string;
+  url: string;
   title: string;
+  issueId: string;
   btnTitle: string;
   modalType: string;
 
@@ -40,6 +41,7 @@ export class ToolbarComponent {
       this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
           this.visible = true;
+          this.url = event.url;
 
           this.fetchIssueId(event.url);
 
