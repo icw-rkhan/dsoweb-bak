@@ -1,9 +1,8 @@
 <div>
   <div class="search-input">
-    <form name="searchForm" (ngSubmit)="searchForm.form.valid && onSearch()" #searchForm="ngForm" class="search-form"
-      novalidate>
+    <form class="search-form" novalidate>
       <mat-form-field appearance="outline">
-        <input matInput name="term" [(ngModel)]="term" placeholder="Search...">
+        <input matInput name="term" [(ngModel)]="term" (ngModelChange)="searchTyping$.next($event)" placeholder="Search...">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </form>
