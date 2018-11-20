@@ -1,3 +1,18 @@
-<p>
-  search-menu works!
-</p>
+<div class="search-panel-container">
+  <div class="search-input">
+    <form class="search-form" novalidate>
+      <mat-form-field appearance="outline">
+        <input matInput name="term" [(ngModel)]="term" (ngModelChange)="searchTyping$.next($event)" placeholder="Search...">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </form>
+  </div>
+  <mat-divider></mat-divider>
+  <div *ngIf="posts" class="search-count">
+    {{posts.length}} RESULTS FOUND
+  </div>
+  <div *ngFor="let post of posts" (click)="onUniteDetail(post.id)">
+    <div class="post-title">{{post.title}}</div>
+    <mat-divider></mat-divider>
+  </div>
+</div>

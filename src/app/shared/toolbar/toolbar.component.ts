@@ -19,6 +19,7 @@ export class ToolbarComponent {
   issueId: string;
   btnTitle: string;
   modalType: string;
+  isSearch = false;
 
   visibleUniteMoreMenu: boolean;
 
@@ -136,8 +137,12 @@ export class ToolbarComponent {
   }
 
   onOptionEvent(url: string) {
+    if (url === '/unite/search') {
+      this.isSearch = true;
+      return;
+    }
+    this.isSearch = false;
     url = `${url}/${this.issueId}`;
-
     this.router.navigate([url]);
   }
 
@@ -156,5 +161,9 @@ export class ToolbarComponent {
     } else if (this.btnTitle === 'keyboard_backspace') {
       this.location.back();
     }
+  }
+
+  closeSearchPanel() {
+    this.isSearch = false;
   }
 }
