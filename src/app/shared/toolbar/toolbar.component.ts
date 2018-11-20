@@ -15,7 +15,7 @@ export class ToolbarComponent {
 
   @Output() toggleMenu = new EventEmitter();
 
-  url: string;
+  issueId: string;
   title: string;
   btnTitle: string;
   modalType: string;
@@ -40,7 +40,8 @@ export class ToolbarComponent {
       this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
           this.visible = true;
-          this.url = event.url;
+
+          this.fetchIssueId(event.url);
 
           if (event.url.includes('/posts/sponsor')) {
             this.title = 'SPONSORED CONTENT';
@@ -114,6 +115,16 @@ export class ToolbarComponent {
       });
   }
 
+  fetchIssueId(url: string) {
+    const arr = url.split('/');
+
+    if (arr.length > 3) {
+      this.issueId = arr[3];
+    } else {
+      this.issueId = '';
+    }
+  }
+
   filterMoreOptions(url) {
     this.uniteMoreLinks = [];
     const moreLinks = this.linksService.uniteMoreLinks;
@@ -126,8 +137,7 @@ export class ToolbarComponent {
   }
 
   onOptionEvent(url: string) {
-    const id = this.url.split('/')[3];
-    url = `${url}/${id}`;
+    url = `${url}/${this.issueId}`;
 
     this.router.navigate([url]);
   }

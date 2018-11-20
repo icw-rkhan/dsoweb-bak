@@ -11,7 +11,6 @@ import { UniteViewComponent } from './unite-view/unite-view.component';
 import { UniteDetailComponent } from './unite-detail/unite-detail.component';
 import { UniteThumbnailComponent } from './unite-thumbnail/unite-thumbnail.component';
 import { UniteSearchComponent } from './unite-search/unite-search.component';
-import { UniteIssueComponent } from './unite-issue/unite-issue.component';
 
 @NgModule({
     imports: [
@@ -27,8 +26,7 @@ import { UniteIssueComponent } from './unite-issue/unite-issue.component';
         UniteViewComponent,
         UniteDetailComponent,
         UniteThumbnailComponent,
-        UniteSearchComponent,
-        UniteIssueComponent,
+        UniteSearchComponent
     ]
 })
 export class UnitePageModule {}

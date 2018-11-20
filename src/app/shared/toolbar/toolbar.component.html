@@ -15,8 +15,8 @@
     <a mat-icon-button [matMenuTriggerFor]="issueMenu">
       <img src="assets/images/unite/menu.png">
     </a>
-    <mat-menu #issueMenu="matMenu">
-
+    <mat-menu #issueMenu="matMenu" class="issue-menu">
+      <dso-issue-menu [issueId]="issueId"></dso-issue-menu>
     </mat-menu>
     <a mat-icon-button [matMenuTriggerFor]="moreMenu">
       <img src="assets/images/unite/more-options.png">

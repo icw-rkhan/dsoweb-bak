@@ -51,6 +51,8 @@ import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { UniteCardComponent } from './cards/unite-card/unite-card.component';
 import { ArticleCardComponent } from './cards/article-card/article-card.component';
 import { ScreenCardComponent } from './cards/screen-card/screen-card.component';
+import { IssueMenuComponent } from './menus/issue-menu/issue-menu.component';
+import { SearchMenuComponent } from './menus/search-menu/search-menu.component';
 
 const PIPES = [
   TruncatePipe,
@@ -71,7 +73,9 @@ export const COMPONENTS = [
   MainContainerComponent,
   UniteCardComponent,
   ArticleCardComponent,
-  ScreenCardComponent
+  ScreenCardComponent,
+  IssueMenuComponent,
+  SearchMenuComponent,
 ];
 
 export const MODULES = [

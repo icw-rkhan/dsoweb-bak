@@ -35,7 +35,6 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
     private sanitizer: DomSanitizer,
     private authService: AuthService,
     private uniteService: UniteService,
-    private postService: PostService,
     private bookmarkService: BookmarkService) {
       this.postRendered = false;
       this.showReferenceState = 'Show more';
@@ -57,6 +56,7 @@ export class UniteDetailComponent implements OnInit, AfterViewChecked {
             }
           });
 
+          // move selected post to first place in array
           this.articles = this.arrayMove(posts, index, 0);
 
           this.progress.complete();

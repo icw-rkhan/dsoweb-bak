@@ -4,7 +4,6 @@
             <img [src]="article.thumbnail">
         </p>
         <div class="article-content">
-            <p class="article-category">{{article.categoryName}}</p>
             <p *ngIf="article.title !== 'Issue Cover'" class="article-title">{{article.title}}</p>
             <p class="article-author">{{article.authorName}}</p>
             <div class="article-excerpt" [innerHtml]="article.excerpt"></div>
