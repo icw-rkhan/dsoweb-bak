@@ -125,7 +125,7 @@ export class FeedCardComponent implements OnInit {
 
     if (this.post.authorName) {
       const authorTag = `<p style="margin: 0px"><span style="color:#616161;font-size:15px;font-weight:700;
-                        line-height:35px">${this.post.authorName}</span></p>`;
+                        line-height:35px">By ${this.post.authorName}</span></p>`;
 
       updatedContent = authorTag + updatedContent;
     } else {
