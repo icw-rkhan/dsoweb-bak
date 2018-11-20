@@ -6,6 +6,7 @@
     height: 70vh;
     background-color: #ffffff;
     overflow: hidden;
+    margin-bottom: 43px;
 
     .article-thumbnail {
         img {
@@ -46,4 +47,35 @@
             overflow: hidden;
         }   
     }
+}
+
+.article-footer {
+    margin-bottom: 15px;
+
+    .unite-arrow {
+        width: 14px;
+        height: 14px;
+        border: 2px solid #ffffff;
+        border-width: 0 3px 3px 0;
+    }
+    
+    .unite-arrow.unite-right {
+        transform: rotate(-45deg);
+    }
+    
+    .unite-arrow.unite-left {
+        transform: rotate(135deg);
+    }
+    
+    .footer-label {
+        color: #ffffff;
+        font-family: 'SFUI';
+        font-size: 15px;
+        font-weight: 500;
+        margin: 0px 12px;
+    }
+}
+
+.margin-top {
+    margin-top: 30px;
 }

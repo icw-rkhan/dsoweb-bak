@@ -6,35 +6,11 @@
 
     .view-container {
         width: 100vw;
-        margin-bottom: 53px;
         overflow-x: auto;
 
         dso-screen-card:last-child {
             margin-right: 0px;
         }
-    }
-
-    .unite-arrow {
-        width: 14px;
-        height: 14px;
-        border: 2px solid #ffffff;
-        border-width: 0 3px 3px 0;
-    }
-
-    .unite-arrow.unite-right {
-        transform: rotate(-45deg);
-    }
-
-    .unite-arrow.unite-left {
-        transform: rotate(135deg);
-    }
-
-    .footer-label {
-        color: #ffffff;
-        font-family: 'SFUI';
-        font-size: 15px;
-        font-weight: 500;
-        margin: 0px 12px;
     }
 }
 

@@ -24,6 +24,7 @@ export class UniteViewComponent implements OnInit {
     private route: ActivatedRoute,
     private uniteService: UniteService) {
       this.coverPage = new Post();
+      this.coverPage.title = 'cover';
       this.coverPage.thumbnail = 'assets/images/unite/cover-page.png';
     }
 
