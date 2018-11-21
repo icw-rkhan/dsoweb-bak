@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 
 import { Unite } from '../../../models/unite.model';
@@ -8,7 +8,8 @@ import { NgProgress } from '@ngx-progressbar/core';
 @Component({
   selector: 'dso-unite-main',
   templateUrl: './unite-main.component.html',
-  styleUrls: ['./unite-main.component.scss']
+  styleUrls: ['./unite-main.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UniteMainComponent implements OnInit {
 
@@ -18,6 +19,7 @@ export class UniteMainComponent implements OnInit {
   constructor(
     private router: Router,
     private progress: NgProgress,
+    private cdr: ChangeDetectorRef,
     private uniteService: UniteService) {
       this.page = 0;
 
@@ -30,6 +32,9 @@ export class UniteMainComponent implements OnInit {
 
         const uniteSub = this.uniteService.findAll(body).subscribe(unites => {
           this.unites = unites;
+
+          this.cdr.markForCheck();
+
           this.progress.complete();
           uniteSub.unsubscribe();
         });

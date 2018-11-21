@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/internal/operators';
@@ -16,7 +16,8 @@ import { MatSnackBar } from '@angular/material';
 @Component({
   selector: 'dso-unite-bookmark',
   templateUrl: './unite-bookmark.component.html',
-  styleUrls: ['./unite-bookmark.component.scss']
+  styleUrls: ['./unite-bookmark.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UniteBookmarkComponent implements OnInit {
 
@@ -29,6 +30,7 @@ export class UniteBookmarkComponent implements OnInit {
     private progress: NgProgress,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef,
     private authService: AuthService,
     private uniteService: UniteService,
     private bookmarkService: BookmarkService) {}
@@ -87,6 +89,8 @@ export class UniteBookmarkComponent implements OnInit {
         }
       });
 
+      this.cdr.detectChanges();
+
       this.progress.complete();
     },
     err => {
@@ -109,6 +113,8 @@ export class UniteBookmarkComponent implements OnInit {
         });
 
         this.posts = newPosts;
+
+        this.cdr.markForCheck();
       } else {
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,

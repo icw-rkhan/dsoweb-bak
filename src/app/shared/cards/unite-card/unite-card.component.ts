@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Unite } from '../../../models/unite.model';
@@ -6,7 +6,8 @@ import { Unite } from '../../../models/unite.model';
 @Component({
   selector: 'dso-unite-card',
   templateUrl: './unite-card.component.html',
-  styleUrls: ['./unite-card.component.scss']
+  styleUrls: ['./unite-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UniteCardComponent implements OnInit {
 

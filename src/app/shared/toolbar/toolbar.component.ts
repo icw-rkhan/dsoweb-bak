@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ChangeDetectorRef } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -8,7 +8,8 @@ import { NavLinksService } from '../../services/links.service';
 @Component({
   selector: 'dso-toolbar',
   templateUrl: './toolbar.component.html',
-  styleUrls: ['./toolbar.component.scss']
+  styleUrls: ['./toolbar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ToolbarComponent {
 

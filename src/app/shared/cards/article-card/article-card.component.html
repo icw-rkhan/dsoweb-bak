@@ -13,7 +13,6 @@
         <div class="article-title">{{article.title}}</div>
         <div class="article-control">
             <button *ngIf="isBookmark === true" mat-stroked-button (click)="onRemoveBookmark(article.id)">Remove from bookmarks</button>
-            <button *ngIf="isBookmark !== true" mat-stroked-button>Archive</button>
         </div>
     </div>
 </div>

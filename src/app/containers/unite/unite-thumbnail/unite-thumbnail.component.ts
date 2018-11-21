@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { UniteService } from '../../../services/unite.service';
@@ -9,7 +9,8 @@ import { Unite } from '../../../models/unite.model';
 @Component({
   selector: 'dso-unite-thumbnail',
   templateUrl: './unite-thumbnail.component.html',
-  styleUrls: ['./unite-thumbnail.component.scss']
+  styleUrls: ['./unite-thumbnail.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UniteThumbnailComponent implements OnInit {
 
@@ -20,47 +21,50 @@ export class UniteThumbnailComponent implements OnInit {
   constructor(
     private progress: NgProgress,
     private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
     private uniteService: UniteService) {
-      this.progress.start();
-
-      this.route.params.subscribe(params => {
-        const id = params['id'];
-
-        const body = {
-          'skip': 0,
-          'limit': 0
-        };
-
-        const issueSub = this.uniteService.findAll(body).subscribe(unites => {
-          const temp = [];
-
-          unites.map(unite => {
-            if (unite.id === id) {
-              temp.push(unite);
-            }
-          });
-
-          this.issue = temp[0];
-          issueSub.unsubscribe();
-        });
-
-        const uniteSub = this.uniteService.findOneById(id).subscribe(posts => {
-          this.articles = posts;
-
-          this.progress.complete();
-          uniteSub.unsubscribe();
-        },
-        err => {
-          this.progress.complete();
-          uniteSub.unsubscribe();
-        });
-      });
+      this.coverPage = new Post();
+      this.coverPage.thumbnail = 'assets/images/unite/cover-page.png';
+      this.coverPage.title = 'Issue Cover';
   }
 
   ngOnInit() {
-    this.coverPage = new Post();
-    this.coverPage.thumbnail = 'assets/images/unite/cover-page.png';
-    this.coverPage.title = 'Issue Cover';
+    this.progress.start();
+
+    this.route.params.subscribe(params => {
+      const id = params['id'];
+
+      const body = {
+        'skip': 0,
+        'limit': 0
+      };
+
+      const issueSub = this.uniteService.findAll(body).subscribe(unites => {
+        const temp = [];
+
+        unites.map(unite => {
+          if (unite.id === id) {
+            temp.push(unite);
+          }
+        });
+
+        this.issue = temp[0];
+        issueSub.unsubscribe();
+      });
+
+      const uniteSub = this.uniteService.findOneById(id).subscribe(posts => {
+        this.articles = posts;
+
+        this.cdr.detectChanges();
+
+        this.progress.complete();
+        uniteSub.unsubscribe();
+      },
+      err => {
+        this.progress.complete();
+        uniteSub.unsubscribe();
+      });
+    });
   }
 
 }

@@ -1,4 +1,5 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewChecked } from '@angular/core';
+import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewChecked,
+         ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -8,7 +9,8 @@ import { Post } from '../../../models/post.model';
 @Component({
   selector: 'dso-unite-view',
   templateUrl: './unite-view.component.html',
-  styleUrls: ['./unite-view.component.scss']
+  styleUrls: ['./unite-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UniteViewComponent implements OnInit, AfterViewChecked {
 
@@ -22,6 +24,7 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
     private router: Router,
     private progress: NgProgress,
     private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
     private uniteService: UniteService) {
       this.coverPage = new Post();
       this.coverPage.title = 'cover';
@@ -35,6 +38,8 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
 
       const uniteSub = this.uniteService.findOneById(this.id).subscribe(posts => {
         this.posts = posts;
+
+        this.cdr.markForCheck();
 
         this.progress.complete();
         uniteSub.unsubscribe();
@@ -64,6 +69,8 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
     for (index = 1; index < articleTags.length; index++) {
       parentTag.getElementsByClassName('article-container')[index].style.height =  `${heightOfCover - 3}px`;
     }
+
+    this.cdr.detectChanges();
   }
 
   onNormalScreen() {

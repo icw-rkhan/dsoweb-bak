@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component,
-  EventEmitter, Input, Output } from '@angular/core';
+        EventEmitter, Input, Output } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Post } from '../../../models/post.model';

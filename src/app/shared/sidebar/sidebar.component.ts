@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { NavLinkModel } from '../../models/nav-link.model';
@@ -11,10 +11,12 @@ import { environment } from '../../../environments/environment';
 @Component({
   selector: 'dso-sidebar',
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.scss']
+  styleUrls: ['./sidebar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent {
   @Output() toggleMenu = new EventEmitter();
+
   userName: string;
   userspecialtyName: string;
   userPhoto: string;
@@ -24,6 +26,7 @@ export class SidebarComponent {
 
   constructor(
     private router: Router,
+    private cdr: ChangeDetectorRef,
     private authService: AuthService,
     private profileService: ProfileService,
     private navLinksService: NavLinksService) {
@@ -59,6 +62,8 @@ export class SidebarComponent {
         this.userName = res.full_name;
         this.userspecialtyName = res.specialty ? res.specialty.name : '';
         this.userPhoto = res.photo_url;
+
+        this.cdr.detectChanges();
         profileSub.unsubscribe();
       },
       err => {

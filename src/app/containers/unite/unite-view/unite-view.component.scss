@@ -7,8 +7,11 @@
         width: 100vw;
         overflow-x: auto;
 
+        dso-screen-card {
+        }
+
         dso-screen-card:last-child {
-            margin-right: 0px;
+            margin-right: 0px
         }
     }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
@@ -11,7 +11,8 @@ import { Post } from '../../../models/post.model';
 @Component({
   selector: 'dso-unite-search',
   templateUrl: './unite-search.component.html',
-  styleUrls: ['./unite-search.component.scss']
+  styleUrls: ['./unite-search.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UniteSearchComponent implements OnInit, OnDestroy {
 
@@ -25,6 +26,7 @@ export class UniteSearchComponent implements OnInit, OnDestroy {
     private router: Router,
     private progress: NgProgress,
     private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
     private postService: PostService) { }
 
   ngOnInit() {
@@ -52,6 +54,9 @@ export class UniteSearchComponent implements OnInit, OnDestroy {
 
     this.postService.search(body).subscribe(posts => {
       this.posts = posts;
+
+      this.cdr.markForCheck();
+
       this.progress.complete();
     },
     err => {

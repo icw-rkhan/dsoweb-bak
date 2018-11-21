@@ -8,7 +8,6 @@ import { UniteMainComponent } from './unite-main/unite-main.component';
 import { UniteViewComponent } from './unite-view/unite-view.component';
 import { UniteDetailComponent } from './unite-detail/unite-detail.component';
 import { UniteSearchComponent } from './unite-search/unite-search.component';
-import { UniteDownloadComponent } from './unite-download/unite-download.component';
 import { UniteBookmarkComponent } from './unite-bookmark/unite-bookmark.component';
 import { UniteThumbnailComponent } from './unite-thumbnail/unite-thumbnail.component';
 
@@ -29,10 +28,6 @@ export const ROUTES: Routes = [
             {
                 path: 'type/downloaded',
                 component: UniteMainComponent,
-            },
-            {
-                path: 'download/:id',
-                component: UniteDownloadComponent,
             },
             {
                 path: 'view/:id',

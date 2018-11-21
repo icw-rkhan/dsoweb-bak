@@ -19,8 +19,7 @@ export class ProfileService {
     const url = `${environment.profileApiUrl}/userProfile/findOneByEmail`;
     const headers: any = this.customHeader();
 
-    const formData = this.parseFormData(body);
-    return this.http.post(url, formData, { headers: headers }).pipe(
+    return this.http.post(url, null, { headers: headers, params: body }).pipe(
       map(this.extractData)
     );
   }

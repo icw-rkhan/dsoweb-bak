@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Post } from '../../../models/post.model';
@@ -6,7 +6,8 @@ import { Post } from '../../../models/post.model';
 @Component({
   selector: 'dso-article-card',
   templateUrl: './article-card.component.html',
-  styleUrls: ['./article-card.component.scss']
+  styleUrls: ['./article-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ArticleCardComponent implements OnInit {
 

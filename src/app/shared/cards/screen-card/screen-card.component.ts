@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Post } from '../../../models/post.model';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'dso-screen-card',
   templateUrl: './screen-card.component.html',
-  styleUrls: ['./screen-card.component.scss']
+  styleUrls: ['./screen-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ScreenCardComponent implements OnInit {
 
