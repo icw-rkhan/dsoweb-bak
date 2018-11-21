@@ -11,7 +11,6 @@ import { Post } from '../../../models/post.model';
 import { AuthService } from '../../../services';
 import { BookmarkService } from '../../../services/bookmark.service';
 import { Bookmark } from '../../../models/bookmark.model';
-import { SharingService } from '../../../services/sharing.service';
 
 @Component({
   templateUrl: './posts-page.html',
@@ -23,6 +22,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   pageNum: number;
   sponsorId: number;
   isFetching: boolean;
+  isFeatured: boolean;
 
   private postSub: Subscription;
   private paramsSub: Subscription;
@@ -35,6 +35,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     private postService: PostService,
     private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar) {
+      this.isFeatured = false;
       this.isFetching = true;
       this.pageNum = 0;
   }
@@ -100,6 +101,8 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
     let postService: Observable<Post[]>;
     if (this.sponsorId) {
+      this.isFeatured = false;
+
       postService = this.postService.fetchBySponsorId({
         type: this.typeId,
         sponsorId: this.sponsorId,
@@ -107,12 +110,16 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         per_page: 5
       });
     } else if (this.typeId) {
+      this.isFeatured = false;
+
       postService = this.postService.fetchByContentTypeId({
         type: this.typeId,
         page: this.pageNum,
         per_page: 5
       });
     } else {
+      this.isFeatured = true;
+
       postService = this.postService.posts({
         page: this.pageNum,
         per_page: 5
@@ -133,10 +140,26 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         });
       }))
     ).subscribe(posts => {
-      this.posts = [
-        ...this.posts,
-        ...posts
-      ];
+      if (this.isFeatured) {
+        const featuredPosts = [];
+
+        posts.map(post => {
+          if (post.isFeatured) {
+            featuredPosts.push(post);
+          }
+        });
+
+        this.posts = [
+          ...this.posts,
+          ...featuredPosts
+        ];
+      } else {
+        this.posts = [
+          ...this.posts,
+          ...posts
+        ];
+      }
+
       this.progress.complete();
       this.isFetching = false;
     }, err => {

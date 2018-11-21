@@ -26,6 +26,7 @@ export class Post implements Serializable<Post> {
   excerpt: string;
   thumbnail?: string;
   link: string;
+  isFeatured: boolean;
 
   constructor() {}
 
@@ -61,7 +62,8 @@ export class Post implements Serializable<Post> {
       excerpt: data.excerpt ? data.excerpt : '',
       thumbnail: data.featuredMedia ? data.featuredMedia.code.thumbnailUrl : '',
       date: this.dateFormat(data.publishDate),
-      link: 'https://www.dsodentist.com'
+      link: 'https://www.dsodentist.com',
+      isFeatured: data.isFeatured
     });
   }
 
