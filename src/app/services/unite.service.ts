@@ -43,6 +43,19 @@ export class UniteService {
         response.resultMap.data.contents.map(post => new Post().deserialize(post))));
     }
 
+    search(id, value): Observable<Post[]> {
+      const url = `${environment.cmsAPIUrl}/magazine/findContentByMagazine`;
+      const param = {
+        'magazineId': id,
+        'searchValue': value
+      };
+      const headers = this.getHeaders();
+
+      return this.http.post(url, null, {headers, params: param}).pipe(map((response: any) =>
+        response.resultMap.data.contents.map(post => new Post().deserialize(post)))
+      );
+    }
+
     getHeaders(): HttpHeaders {
         const headers = new HttpHeaders()
           .append('Authorization', `Bearer ${this.authService.getToken()}`)

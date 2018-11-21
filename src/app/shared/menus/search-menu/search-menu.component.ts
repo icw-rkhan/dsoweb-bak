@@ -6,6 +6,7 @@ import { NgProgress } from '@ngx-progressbar/core';
 
 import { PostService } from '../../../services/post.service';
 import { Post } from '../../../models/post.model';
+import { UniteService } from 'src/app/services/unite.service';
 
 @Component({
   selector: 'dso-search-menu',
@@ -25,7 +26,7 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
     private router: Router,
     private progress: NgProgress,
     private route: ActivatedRoute,
-    private postService: PostService) { }
+    private uniteService: UniteService) { }
 
   ngOnInit() {
     this.searchTypingSub = this.searchTyping$.pipe(
@@ -38,15 +39,7 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
   onSearch(searchValue) {
     this.progress.start();
     this.posts = [];
-
-    const body = {
-      'searchValue': searchValue,
-      'united': true,
-      'skip': 0,
-      'limit': 10
-    };
-
-    this.postService.search(body).subscribe(posts => {
+    this.uniteService.search(this.issueId, searchValue).subscribe(posts => {
       this.posts = posts;
       this.progress.complete();
     },
