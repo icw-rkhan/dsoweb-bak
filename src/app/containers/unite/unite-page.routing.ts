@@ -7,7 +7,6 @@ import { UnitePageComponent } from './unite-page';
 import { UniteMainComponent } from './unite-main/unite-main.component';
 import { UniteViewComponent } from './unite-view/unite-view.component';
 import { UniteDetailComponent } from './unite-detail/unite-detail.component';
-import { UniteSearchComponent } from './unite-search/unite-search.component';
 import { UniteBookmarkComponent } from './unite-bookmark/unite-bookmark.component';
 import { UniteThumbnailComponent } from './unite-thumbnail/unite-thumbnail.component';
 
@@ -32,10 +31,6 @@ export const ROUTES: Routes = [
             {
                 path: 'view/:id',
                 component: UniteViewComponent,
-            },
-            {
-                path: 'search/:id',
-                component: UniteSearchComponent
             },
             {
                 path: 'detail/:id',

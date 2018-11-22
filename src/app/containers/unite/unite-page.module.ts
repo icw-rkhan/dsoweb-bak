@@ -10,7 +10,6 @@ import { ModalModule } from 'ngx-bootstrap';
 import { UniteViewComponent } from './unite-view/unite-view.component';
 import { UniteDetailComponent } from './unite-detail/unite-detail.component';
 import { UniteThumbnailComponent } from './unite-thumbnail/unite-thumbnail.component';
-import { UniteSearchComponent } from './unite-search/unite-search.component';
 import { DetailItemComponent } from './unite-detail/detail-item/detail-item.component';
 
 @NgModule({
@@ -26,8 +25,7 @@ import { DetailItemComponent } from './unite-detail/detail-item/detail-item.comp
         UniteViewComponent,
         DetailItemComponent,
         UniteDetailComponent,
-        UniteThumbnailComponent,
-        UniteSearchComponent
+        UniteThumbnailComponent
     ]
 })
 export class UnitePageModule {}
