@@ -290,4 +290,16 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
       reference.classList.add('show-more');
     }
   }
+
+  isNullThumbnail(url: string) {
+    if (url) {
+      if (url.includes('objectId=null')) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
 }

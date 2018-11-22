@@ -1,5 +1,5 @@
 <div class="article-item">
-    <p class="article-thumbnail">
+    <p *ngIf="!isNullThumbnail(article.thumbnail)" class="article-thumbnail">
         <img [src]="article.thumbnail">
     </p>
     <div class="article-content">

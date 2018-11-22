@@ -23,6 +23,18 @@ export class ScreenCardComponent implements OnInit {
     }
   }
 
+  isNullThumbnail(url: string) {
+    if (url) {
+      if (url.includes('objectId=null')) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
+
   onDetailUnite(id: string) {
     if (id) {
       this.router.navigate([`/unite/detail/${this.issueId}/${id}`]);

@@ -1,6 +1,6 @@
 <div class="article-item" (click)="onDetailUnite(article.id)">
     <div class="article-container">
-        <div class="article-thumbnail" [class.black-color]="isCover">
+        <div *ngIf="!isNullThumbnail(article.thumbnail)" class="article-thumbnail" [class.black-color]="isCover">
             <img [src]="article.thumbnail">
         </div>
         <div *ngIf="!isCover" class="article-content">
