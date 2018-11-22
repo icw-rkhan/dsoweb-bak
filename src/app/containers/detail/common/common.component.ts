@@ -28,6 +28,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
   post: Post;
   rate: number;
   postId: string;
+  authorAvatar: string;
   authorName: string;
   authorInfo: string;
   review_count: number;
@@ -305,6 +306,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // fetch an author/speaker's name
   fetchAuthorInfo() {
+    this.authorAvatar = this.post.authorPhotoUrl;
     this.authorName = this.post.authorName;
     this.authorInfo = this.post.authorDetails;
 

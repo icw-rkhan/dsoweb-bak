@@ -13,6 +13,7 @@ export class Post implements Serializable<Post> {
   authorId: string;
   contentTypeId: string;
   sponsorId: string;
+  authorPhotoUrl: string;
   authorName: string;
   authorDetails: string;
   contentTypeName: string;
@@ -53,6 +54,7 @@ export class Post implements Serializable<Post> {
       categoryName: data.categoryName,
       sponsorId: data.sponsorId,
       sponsorName: data.sponsorName,
+      authorPhotoUrl: data.author ? data.author.authorPhotoUrl : '',
       authorName: data.author ? data.author.fullName : '',
       authorDetails: data.author ? data.author.authorDetails : '',
       contentTypeName: data.contentTypeName,

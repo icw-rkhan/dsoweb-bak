@@ -21,7 +21,7 @@ seciton {
     border-top: 1px solid #efefef;
     border-bottom: 1px solid #efefef;
     padding: 29px 18px;
-  
+
     .label-sponsor {
         color: #9b9b9b;
         font-size: 13px;
@@ -56,7 +56,7 @@ seciton {
     flex-direction: row;
     padding: 10px 20px;
     background-color: #FAFBFD;
-  
+
     .mat-h3 {
       text-transform: uppercase;
       flex: 1;
@@ -65,11 +65,11 @@ seciton {
       font-size: 0.8em;
       font-weight: 500;
     }
-  
+
     .date {
       color: #D8D8D8;
     }
-  
+
     .mat-body-1 {
       align-self: center;
       font-size: 12px;
@@ -107,13 +107,13 @@ seciton {
         font-size: 13px;
         font-weight: 400px;
     }
-    
+
     .review-add {
         color: #4a4a4a;
         line-height: 15px;
         font-size: 13px;
         font-weight: 500;
-        margin-bottom: 10px; 
+        margin-bottom: 10px;
     }
 }
 
@@ -131,7 +131,7 @@ seciton {
     .mat-button {
         min-width: 50px;
     }
-    
+
     .viewBtn {
         color: #879aa8;
         font-size: 12px;
@@ -166,15 +166,16 @@ p {
             color: #4a4a4a;
             font-family: "SFUI";
             font-size: 18px;
-            font-weight: 600;  
-            vertical-align: middle; 
+            font-weight: 600;
+            padding-right: 10px;
+            vertical-align: middle;
         }
 
         img {
             display: table-cell;
             width: auto;
             height: 22px;
-            margin-left: 10px;
+            // margin-left: 10px;
             vertical-align: middle;
         }
     }
@@ -188,14 +189,14 @@ p {
             font-size: 13px;
             font-weight: 600;
         }
-    
+
         #author-info {
             color: #9b9b9b;
             font-size: 13px;
             font-weight: 400;
             margin-top: 5px;
-        } 
-    } 
+        }
+    }
 }
 
 .btn-pn {
@@ -217,16 +218,16 @@ p {
       color: lightslategrey;
       margin-left: 5px;
     }
-  
+
     .bookmark-btn {
       color: lightslategrey;
     }
-  
+
     .mat-icon {
       margin-top: 8px;
     }
 }
-  
+
 .share-btn {
     width: 35px;
     height: auto;
@@ -318,7 +319,7 @@ div {
     }
 
     ol {
-        list-style-type: decimal 
+        list-style-type: decimal
     }
 
     ul {

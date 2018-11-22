@@ -47,7 +47,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       // Params
       this.typeId = params['id'];
       this.sponsorId = params['sponsorId'];
-
       this.fetchPosts();
     });
   }
@@ -159,7 +158,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
           ...posts
         ];
       }
-
       this.progress.complete();
       this.isFetching = false;
     }, err => {

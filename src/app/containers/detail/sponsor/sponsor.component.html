@@ -45,17 +45,24 @@
         </div>
     </div>
     <div class="author" #authorContent [class.author-container]="isAuthorVisible" fxLayout="row" fxLayoutAlign="start center">
-        <div class="author-area" fxLayout="column" fxLayoutAlign="start start">
-            <div id="author-avatar" *ngIf="authorName && authorName.indexOf('DSODentist') > -1">
-                <span>By</span><img src="assets/images/logo-color.png">
-            </div>
-            <p id="author-name" *ngIf="authorName && authorName.indexOf('DSODentist') === -1">
-                {{authorName}}
-            </p>
-            <p id="author-info" *ngIf="authorName && authorName.indexOf('DSODentist') === -1">
-                {{authorInfo}}
-            </p>
+      <div class="author-area" fxLayout="column" fxLayoutAlign="start start" *ngIf="authorName && authorName.indexOf('DSODentist') > -1">
+        <div id="author-avatar">
+            <span>By</span><img src="assets/images/logo-color.png">
         </div>
+      </div>
+      <div class="author-area" fxLayout="row" fxLayoutAlign="start start" *ngIf="authorName && authorName.indexOf('DSODentist') === -1">
+        <div id="author-avatar" >
+          <span>By</span><img [src]="authorAvatar" *ngIf="authorAvatar">
+        </div>
+        <div>
+          <p id="author-name">
+            {{authorName}}
+          </p>
+          <p id="author-info">
+              {{authorInfo}}
+          </p>
+        </div>
+      </div>
     </div>
     <div id="contents" #postContent class="inner-content" [innerHtml]="postSafeContent">
     </div>
