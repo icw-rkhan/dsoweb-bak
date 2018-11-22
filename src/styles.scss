@@ -9,13 +9,17 @@ body {
   margin: 0;
 }
 
-div.first-big::first-letter {
-  font-size: 40px;
-  color: #626262;
-  float: left;
-  margin: 10px 6px 2px 0;
+div.first-big {
+  &:first-letter {
+    font-size: 45px;
+    color: #626262;
+    float: left;
+    margin: 10px 5px 2px 0;
+  }
+  p {
+    line-height: 20px;
+  }
 }
-
 
 *, *:focus, *:active, *:hover {
   outline: none;
