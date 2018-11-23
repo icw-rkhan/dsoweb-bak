@@ -80,7 +80,8 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
   }
 
   swipe(action) {
-    const step = window.screen.width;
+    const step = document.body.scrollWidth;
+
     const currentPos = this.viewContainer.nativeElement.scrollLeft;
     if (action === this.SWIPE_ACTION.RIGHT) {
       this.viewContainer.nativeElement.scrollTo(currentPos - step, 0);

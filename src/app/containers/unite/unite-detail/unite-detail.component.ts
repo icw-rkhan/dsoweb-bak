@@ -93,10 +93,9 @@ export class UniteDetailComponent implements OnInit {
   }
 
   swipe(action) {
-    const stepX = window.screen.width;
+    const stepX = document.body.scrollWidth;
 
     const currentPosX = this.viewContainer.nativeElement.scrollLeft;
-    const currentPosY = this.viewContainer.nativeElement.scrollTop;
     if (action === this.SWIPE_ACTION.RIGHT) {
       this.viewContainer.nativeElement.scrollTo(currentPosX - stepX, 0);
     } else if (action === this.SWIPE_ACTION.LEFT) {

@@ -130,7 +130,8 @@ export class UniteBookmarkComponent implements OnInit {
   }
 
   swipe(action) {
-    const step = window.screen.width * 0.7 + 25;
+    const step = document.body.scrollWidth * 0.7 + 25;
+
     const currentPos = this.viewContainer.nativeElement.scrollLeft;
     if (action === this.SWIPE_ACTION.RIGHT) {
       this.viewContainer.nativeElement.scrollTo(currentPos - step, 0);
