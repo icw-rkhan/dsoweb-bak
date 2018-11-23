@@ -11,7 +11,7 @@ body {
 }
 
 .logoBox {
-  padding-top: 50px;
+  padding-top: 10px;
 }
 
 .logoBox .logo {
@@ -1250,7 +1250,7 @@ a {
 .form-footer {
   font-size: 15px;
   text-align: center;
-  margin-top: 20px;
+  margin-top: 10px !important;
 }
 
 .form-group {
@@ -1299,7 +1299,7 @@ a {
   background-image: url("../images/bg-1.png");
   background-size: 100% 100%;
   background-repeat: no-repeat;
-  min-height: 640px;
+  /* min-height: 640px; */
   position: relative;
   font-size: 16px;
 }
@@ -1320,7 +1320,7 @@ a {
   width: 100%;
   position: absolute;
   bottom: 0;
-  padding-bottom: 20px;
+  /* padding-bottom: 20px; */
   background: linear-gradient(to top, #394555, transparent 100%) !important;
 }
 
@@ -1361,11 +1361,11 @@ a {
 }
 
 .login .loginActions {
-  margin-top: 90px;
+  margin-top: 20px;
 }
 
 .login .signupActions {
-  margin-top: 10px;
+  /* margin-top: 10px; */
 }
 
 .forgotPasswordBox {
