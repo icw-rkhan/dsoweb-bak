@@ -82,9 +82,6 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
       this.progress.start();
       this.postId = params['id'];
 
-      // add ADS code to the specifi post
-      this.addADSCodeTo(this.postId);
-
       const commentSub = this.commentService.comments(this.postId).subscribe(c => {
         this.comments = c;
 
@@ -116,23 +113,6 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     err => {
       this.progress.complete();
     });
-  }
-
-  addADSCodeTo(id: string) {
-    if (id === environment.ADS_POST_ID) {
-      const script1 = document.createElement('script');
-      script1.setAttribute('class', 'ads_script');
-      script1.setAttribute('async', '');
-      script1.setAttribute('src', '//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
-
-      const script2 = document.createElement('script');
-      script2.setAttribute('class', 'ads_script');
-      script2.innerHTML = '(adsbygoogle = window.adsbygoogle || []) .push (' +
-        '{ google_ad_client: "ca-pub-5793099538711899", enable_page_level_ads: true });';
-
-      document.head.appendChild(script1);
-      document.head.appendChild(script2);
-    }
   }
 
   setDropcap(): void {

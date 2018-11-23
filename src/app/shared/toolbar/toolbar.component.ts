@@ -105,9 +105,6 @@ export class ToolbarComponent {
             this.visibleUniteMoreMenu = false;
           }
 
-          // remove the ADS code
-          this.removeADSCode();
-
           // if thumbnail page, hide the thumbnail option and show the full-screen option
           this.filterMoreOptions(event.url);
 
