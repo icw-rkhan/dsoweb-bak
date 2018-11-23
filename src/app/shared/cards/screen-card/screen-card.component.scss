@@ -7,7 +7,6 @@
     .article-container {
         width: 100vw;
         background-color: #ffffff;
-        margin-bottom: 53px;
         overflow: hidden;
 
         .article-thumbnail {
@@ -51,7 +50,8 @@
     }
 
     .article-footer {
-
+        margin-top: 53px;
+        
         .unite-arrow {
             width: 14px;
             height: 14px;

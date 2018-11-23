@@ -69,7 +69,7 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
 
     let index;
     for (index = 1; index < articleTags.length; index++) {
-      parentTag.getElementsByClassName('article-container')[index].style.height =  `${heightOfCover - 3}px`;
+      parentTag.getElementsByClassName('article-container')[index].style.height =  `calc(100vh - 45px)`;
     }
 
     this.cdr.detectChanges();
