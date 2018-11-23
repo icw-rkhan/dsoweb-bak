@@ -27,7 +27,7 @@ export class PostService {
 
     const body = {
       'limit': args.per_page,
-      'skip': args.page,
+      'skip': args.page * args.per_page,
       'categoryId': args.categoryId ? args.categoryId : null,
       'contentTypeId': args.type ? args.type : null,
       'sponsorId': args.sponsorId ? args.sponsorId : null

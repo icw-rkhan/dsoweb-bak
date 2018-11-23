@@ -97,7 +97,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
     // Services
     const email = this.authService.getUserInfo().user_name;
-
     let postService: Observable<Post[]>;
     if (this.sponsorId) {
       this.isFeatured = false;
