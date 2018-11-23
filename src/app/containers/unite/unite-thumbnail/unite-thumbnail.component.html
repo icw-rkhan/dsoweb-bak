@@ -3,7 +3,8 @@
       <p class="article-date">{{issue.date}}</p>
       <p class="article-details">{{issue.details}}</p>
   </div>
-  <div class="unite-thumbnail-container" fxLayout="row">
+  <div #viewContainer class="unite-thumbnail-container" fxLayout="row"
+      (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
     <dso-article-card [isBookmark]="false" [article]="coverPage"></dso-article-card>
     <dso-article-card [isBookmark]="false" [issueId]="issue.id"
       [article]="article" *ngFor="let article of articles"></dso-article-card>

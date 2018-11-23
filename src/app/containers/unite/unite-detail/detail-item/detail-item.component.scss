@@ -1,9 +1,12 @@
 .article-item {
     width: 100vw;
+    height: calc(100vh - 45px);
+    overflow-y: auto;
+    scroll-behavior: smooth;
 
     .article-thumbnail {
         img {
-            width: 100vw;
+            width: 100%;
             height: auto;
         }
     }
@@ -48,9 +51,7 @@
         .article-detail {
             margin-top: 25px;
             font-size: 14px;
-            line-height: 20px
-
-            
+            line-height: 20px;
         }
     
         .article-detail::first-letter {
@@ -129,6 +130,10 @@
         padding-left: 25px !important;
         margin-left: 0 !important;
         margin-bottom: 40px !important;
+
+        li {
+            overflow-wrap: break-word;
+        }
     }
 
     ol {

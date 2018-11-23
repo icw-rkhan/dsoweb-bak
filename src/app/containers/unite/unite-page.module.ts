@@ -26,6 +26,6 @@ import { DetailItemComponent } from './unite-detail/detail-item/detail-item.comp
         DetailItemComponent,
         UniteDetailComponent,
         UniteThumbnailComponent
-    ]
+    ],
 })
 export class UnitePageModule {}

@@ -6,6 +6,7 @@
     .view-container {
         width: 100vw;
         overflow-x: auto;
+        scroll-behavior: smooth;
 
         dso-screen-card {
         }
@@ -15,7 +16,6 @@
         }
     }
 }
-
 
 
 

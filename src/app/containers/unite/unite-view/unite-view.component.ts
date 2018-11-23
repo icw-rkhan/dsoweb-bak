@@ -18,6 +18,8 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
   coverPage: Post;
   posts: Post[];
 
+  SWIPE_ACTION = {LEFT: 'swipeleft', RIGHT: 'swiperight'};
+
   @ViewChild('viewContainer') viewContainer: ElementRef;
 
   constructor(
@@ -75,5 +77,15 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
 
   onNormalScreen() {
     this.router.navigate([`/unite/thumbnail/${this.id}`]);
+  }
+
+  swipe(action) {
+    const step = window.screen.width;
+    const currentPos = this.viewContainer.nativeElement.scrollLeft;
+    if (action === this.SWIPE_ACTION.RIGHT) {
+      this.viewContainer.nativeElement.scrollTo(currentPos - step, 0);
+    } else {
+      this.viewContainer.nativeElement.scrollTo(currentPos + step, 0);
+    }
   }
 }

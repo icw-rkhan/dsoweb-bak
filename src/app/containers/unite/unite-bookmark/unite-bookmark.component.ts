@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/internal/operators';
@@ -25,6 +25,10 @@ export class UniteBookmarkComponent implements OnInit {
 
   issue: Unite;
   posts: Post[];
+
+  @ViewChild('viewContainer') viewContainer: ElementRef;
+
+  SWIPE_ACTION = {LEFT: 'swipeleft', RIGHT: 'swiperight'};
 
   constructor(
     private progress: NgProgress,
@@ -123,5 +127,15 @@ export class UniteBookmarkComponent implements OnInit {
 
       bookmarkSub.unsubscribe();
     });
+  }
+
+  swipe(action) {
+    const step = window.screen.width * 0.7 + 25;
+    const currentPos = this.viewContainer.nativeElement.scrollLeft;
+    if (action === this.SWIPE_ACTION.RIGHT) {
+      this.viewContainer.nativeElement.scrollTo(currentPos - step, 0);
+    } else {
+      this.viewContainer.nativeElement.scrollTo(currentPos + step, 0);
+    }
   }
 }

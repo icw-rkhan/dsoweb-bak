@@ -1,6 +1,6 @@
 <div class="article-card">
     <div class="article-container" (click)="onUniteDetail(article.id)">
-        <p class="article-thumbnail">
+        <p *ngIf="!isNullThumbnail(article.thumbnail)" class="article-thumbnail">
             <img [src]="article.thumbnail">
         </p>
         <div class="article-content">

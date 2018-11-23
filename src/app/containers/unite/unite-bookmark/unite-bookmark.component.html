@@ -1,10 +1,11 @@
 
-<div *ngIf="issue" class="thumbnail">
+<div *ngIf="issue" class="bookmark">
   <div *ngIf="issue && posts?.length !== 0" class="article-info" fxLayout="column" fxLayoutAlign="center center">
       <p class="article-date">{{issue.date}}</p>
       <p class="article-details">{{issue.details}}</p>
   </div>
-  <div class="unite-thumbnail-container" fxLayout="row">
+  <div #viewContainer class="unite-bookmark-container" fxLayout="row" 
+      (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
     <dso-article-card [isBookmark]="true" [issueId]="issue.id"
       [article]="post" (removeBookmark)="onRemoveBookmark($event)" *ngFor="let post of posts"></dso-article-card>
   </div>

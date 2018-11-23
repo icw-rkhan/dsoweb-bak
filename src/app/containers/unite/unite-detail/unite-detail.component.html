@@ -1,5 +1,4 @@
-<div class="article-list">
-    <div class="article-container" fxLayout="row">
-        <dso-detail-item [article]="article" [index]="i" *ngFor="let article of articles; index as i"></dso-detail-item>
-    </div>
+<div #viewContainer class="article-container" fxLayout="row" (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+    <dso-detail-item [article]="article" [index]="i" *ngFor="let article of articles; index as i"></dso-detail-item>
 </div>
+

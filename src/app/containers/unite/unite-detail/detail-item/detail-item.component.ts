@@ -1,4 +1,5 @@
-import { Component, OnInit, HostListener, AfterViewChecked, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, HostListener, AfterViewChecked, Input, ChangeDetectionStrategy,
+      ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 import { Post } from '../../../../models/post.model';
@@ -24,6 +25,10 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
   showReference: boolean;
   postSafeContent: SafeHtml;
   showReferenceState: string;
+
+  @ViewChild('viewContainer') viewContainer: ElementRef;
+
+  SWIPE_ACTION = {UP: 'swipeup', DOWN: 'swipedown'};
 
   constructor(
     private snackBar: MatSnackBar,
@@ -300,6 +305,17 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
       }
     } else {
       return true;
+    }
+  }
+
+  swipe(action) {
+    const stepY = window.screen.height - 80;
+
+    const currentPosY = this.viewContainer.nativeElement.scrollTop;
+    if (action === this.SWIPE_ACTION.UP) {
+      this.viewContainer.nativeElement.scrollTo(0, currentPosY + stepY);
+    } else {
+      this.viewContainer.nativeElement.scrollTo(0, currentPosY - stepY);
     }
   }
 }

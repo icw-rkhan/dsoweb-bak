@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy,
-        ChangeDetectorRef } from '@angular/core';
-import { forkJoin, Subscription, Observable } from 'rxjs';
+        ChangeDetectorRef, HostListener} from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 import { map } from 'rxjs/internal/operators';
@@ -22,6 +22,10 @@ export class UniteDetailComponent implements OnInit {
 
   article: Post;
   articles: Post[];
+
+  @ViewChild('viewContainer') viewContainer: ElementRef;
+
+  SWIPE_ACTION = {LEFT: 'swipeleft', RIGHT: 'swiperight'};
 
   @ViewChild('postContent') postContent: ElementRef;
 
@@ -70,9 +74,12 @@ export class UniteDetailComponent implements OnInit {
         this.articles = this.arrayMove(posts, index, 0);
 
         this.cdr.detectChanges();
+
         this.progress.complete();
+        postSub.unsubscribe();
       }, err => {
         this.progress.complete();
+        postSub.unsubscribe();
       });
     });
   }
@@ -83,5 +90,17 @@ export class UniteDetailComponent implements OnInit {
     arr.splice(toIndex, 0, element);
 
     return arr;
+  }
+
+  swipe(action) {
+    const stepX = window.screen.width;
+
+    const currentPosX = this.viewContainer.nativeElement.scrollLeft;
+    const currentPosY = this.viewContainer.nativeElement.scrollTop;
+    if (action === this.SWIPE_ACTION.RIGHT) {
+      this.viewContainer.nativeElement.scrollTo(currentPosX - stepX, 0);
+    } else if (action === this.SWIPE_ACTION.LEFT) {
+      this.viewContainer.nativeElement.scrollTo(currentPosX + stepX, 0);
+    }
   }
 }

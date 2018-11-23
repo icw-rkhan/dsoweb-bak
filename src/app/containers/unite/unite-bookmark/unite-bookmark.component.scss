@@ -1,11 +1,12 @@
-.thumbnail {
+.bookmark {
     height: calc(100vh - 45px);
     background-color: #efefef;
 
-    .unite-thumbnail-container {
+    .unite-bookmark-container {
         width: 100vw;
         background-color: #efefef;
         overflow: auto;
+        scroll-behavior: smooth;
     }
     
     dso-article-card:first-child {

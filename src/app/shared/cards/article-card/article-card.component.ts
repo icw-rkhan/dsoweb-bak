@@ -34,4 +34,16 @@ export class ArticleCardComponent implements OnInit {
   onRemoveBookmark(id: string) {
     this.removeBookmark.emit(id);
   }
+
+  isNullThumbnail(url: string) {
+    if (url) {
+      if (url.includes('objectId=null')) {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
+      return true;
+    }
+  }
 }
