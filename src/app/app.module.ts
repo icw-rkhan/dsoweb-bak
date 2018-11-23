@@ -5,6 +5,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { MatDatepickerModule } from '@angular/material';
+import { GoTopButtonModule } from 'ng2-go-top-button';
 
 import { SharedModule } from './shared';
 import { AppComponent } from './app.component';
@@ -58,6 +59,7 @@ export class HammerConfig extends HammerGestureConfig {
     UnitePageModule,
     AppRoutingModule,
     MatDatepickerModule,
+    GoTopButtonModule
   ],
   providers: [
     AuthGuard,

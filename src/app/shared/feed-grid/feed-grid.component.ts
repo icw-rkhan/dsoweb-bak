@@ -20,6 +20,7 @@ export class FeedGridComponent {
   @Output() loadMore = new EventEmitter();
 
   private page: number;
+  showGotoTopBtn = false;
 
   constructor() {
     this.noFoundMessage = 'No items found';
@@ -36,5 +37,22 @@ export class FeedGridComponent {
 
   onLoadMore() {
     this.loadMore.emit(++this.page);
+  }
+
+  onScroll(event) {
+    const scrollPosition = event.srcElement.scrollTop;
+    if (scrollPosition > 200) {
+      this.showGotoTopBtn = true;
+    } else {
+      this.showGotoTopBtn = false;
+    }
+  }
+
+  gotoTop() {
+    document.getElementById('article-contents').scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 }

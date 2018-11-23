@@ -55,3 +55,29 @@ body {
         }
     }
 }
+
+.btn-go-to-top {
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  line-height: 36px;
+  background: #ffffff;
+  color: #191919;
+  border-radius: 50%;
+  border: none;
+  display: none;
+  font-size: 20px;
+  transition: 0.2s all ease;
+  justify-content: center;
+  align-items: center;
+  // padding-bottom: 6px;
+  padding: 0;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 999;
+  -webkit-backface-visibility: hidden;
+  &.show {
+    display: block;
+  }
+}

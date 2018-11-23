@@ -53,7 +53,6 @@ import { ArticleCardComponent } from './cards/article-card/article-card.componen
 import { ScreenCardComponent } from './cards/screen-card/screen-card.component';
 import { IssueMenuComponent } from './menus/issue-menu/issue-menu.component';
 import { SearchMenuComponent } from './menus/search-menu/search-menu.component';
-
 const PIPES = [
   TruncatePipe,
   MultipleCategoriesPipe
@@ -75,7 +74,7 @@ export const COMPONENTS = [
   ArticleCardComponent,
   ScreenCardComponent,
   IssueMenuComponent,
-  SearchMenuComponent,
+  SearchMenuComponent
 ];
 
 export const MODULES = [
@@ -113,7 +112,7 @@ export const MODULES = [
   CustomFormsModule,
   NgxMasonryModule,
   NgProgressHttpModule,
-  PdfViewerModule,
+  PdfViewerModule
 ];
 
 @NgModule({

@@ -1,3 +1,7 @@
+.app-container {
+  height: 100vh;
+  overflow: auto;
+}
 .loading {
   position: fixed;
   display: flex;
@@ -30,6 +34,27 @@
   transform: translateZ(0);
   -webkit-animation: load8 1.1s infinite linear;
   animation: load8 1.1s infinite linear;
+}
+.scroll-top {
+  height: 40px;
+  width: 40px;
+  text-align: center;
+  line-height: 36px;
+  background: #ffffff;
+  color: #191919;
+  border-radius: 50%;
+  display: block;
+  font-size: 20px;
+  transition: 0.2s all ease;
+  /* border: 1px solid #000; */
+  /* display: flex !important; */
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 6px;
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  z-index: 999;
 }
 @-webkit-keyframes load8 {
   0% {

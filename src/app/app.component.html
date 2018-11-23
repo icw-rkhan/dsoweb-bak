@@ -3,5 +3,8 @@
     <div class="loader">Loading...</div>
   </div>
   <ng-progress></ng-progress>
+  <go-top-button [animate]="true" [speed]="50" [acceleration]="2" [scrollDistance]="100" [classNames]="'scroll-top'">
+    <i class="fa fa-arrow-up"></i>
+  </go-top-button>
   <router-outlet></router-outlet>
 </div>
