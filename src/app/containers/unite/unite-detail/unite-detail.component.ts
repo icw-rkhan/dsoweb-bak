@@ -93,13 +93,26 @@ export class UniteDetailComponent implements OnInit {
   }
 
   swipe(action) {
-    const stepX = document.body.scrollWidth;
+    const step = document.body.scrollWidth;
+    let index = 0;
 
-    const currentPosX = this.viewContainer.nativeElement.scrollLeft;
-    if (action === this.SWIPE_ACTION.RIGHT) {
-      this.viewContainer.nativeElement.scrollTo(currentPosX - stepX, 0);
-    } else if (action === this.SWIPE_ACTION.LEFT) {
-      this.viewContainer.nativeElement.scrollTo(currentPosX + stepX, 0);
-    }
+    const currentPos = this.viewContainer.nativeElement.scrollLeft;
+    const timer = setInterval(() => {
+      if (step - index < 10) {
+        index ++;
+      } else {
+        index = index + 10;
+      }
+
+      if (action === this.SWIPE_ACTION.RIGHT) {
+        this.viewContainer.nativeElement.scrollTo(currentPos - index, 0);
+      } else {
+        this.viewContainer.nativeElement.scrollTo(currentPos + index, 0);
+      }
+
+      if (index >= step) {
+        clearInterval(timer);
+      }
+    }, 0);
   }
 }

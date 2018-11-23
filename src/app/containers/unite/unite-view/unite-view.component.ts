@@ -1,7 +1,7 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewChecked,
          ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgProgress } from '@ngx-progressbar/core';
 
 import { UniteService } from '../../../services/unite.service';
 import { Post } from '../../../models/post.model';
@@ -81,12 +81,25 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
 
   swipe(action) {
     const step = document.body.scrollWidth;
+    let index = 0;
 
     const currentPos = this.viewContainer.nativeElement.scrollLeft;
-    if (action === this.SWIPE_ACTION.RIGHT) {
-      this.viewContainer.nativeElement.scrollTo(currentPos - step, 0);
-    } else {
-      this.viewContainer.nativeElement.scrollTo(currentPos + step, 0);
-    }
+    const timer = setInterval(() => {
+      if (step - index < 10) {
+        index ++;
+      } else {
+        index = index + 10;
+      }
+
+      if (action === this.SWIPE_ACTION.RIGHT) {
+        this.viewContainer.nativeElement.scrollTo(currentPos - index, 0);
+      } else {
+        this.viewContainer.nativeElement.scrollTo(currentPos + index, 0);
+      }
+
+      if (index >= step) {
+        clearInterval(timer);
+      }
+    }, 0);
   }
 }

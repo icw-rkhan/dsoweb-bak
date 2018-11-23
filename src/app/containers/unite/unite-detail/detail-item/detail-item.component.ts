@@ -309,13 +309,26 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
   }
 
   swipe(action) {
-    const stepY = window.screen.height - 80;
+    const stepY = window.screen.height * 0.7;
+    let index = 0;
 
     const currentPosY = this.viewContainer.nativeElement.scrollTop;
-    if (action === this.SWIPE_ACTION.UP) {
-      this.viewContainer.nativeElement.scrollTo(0, currentPosY + stepY);
-    } else {
-      this.viewContainer.nativeElement.scrollTo(0, currentPosY - stepY);
-    }
+    const timer = setInterval(() => {
+      if (stepY - index < 10) {
+        index ++;
+      } else {
+        index = index + 10;
+      }
+
+      if (action === this.SWIPE_ACTION.UP) {
+        this.viewContainer.nativeElement.scrollTo(0, currentPosY + index);
+      } else {
+        this.viewContainer.nativeElement.scrollTo(0, currentPosY - index);
+      }
+
+      if (index >= stepY) {
+        clearInterval(timer);
+      }
+    }, 0);
   }
 }
