@@ -43,14 +43,14 @@
   background: #ffffff;
   color: #191919;
   border-radius: 50%;
+  border: none;
   display: block;
   font-size: 20px;
   transition: 0.2s all ease;
-  /* border: 1px solid #000; */
-  /* display: flex !important; */
   justify-content: center;
   align-items: center;
-  padding-bottom: 6px;
+  // padding-bottom: 6px;
+  padding: 0;
   position: fixed;
   bottom: 15px;
   right: 15px;
