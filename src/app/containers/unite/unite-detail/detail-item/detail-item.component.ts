@@ -48,13 +48,7 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
   }
 
   ngAfterViewChecked(): void {
-    if (!this.postRendered) {
-      this.postRendered = true;
-
-      setTimeout(() => {
-       this.changeLayoutOfPost();
-      }, 0);
-    }
+    this.changeLayoutOfPost();
   }
 
   // add bookmark
@@ -174,7 +168,6 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
     const parentTag = document.getElementById(this.id);
     const tag = parentTag.getElementsByTagName(tagName);
     if (tag && tag.length > 0) {
-
       let i = 0;
       for (i = 0; i < tag.length; i++) {
         switch (tagName) {
