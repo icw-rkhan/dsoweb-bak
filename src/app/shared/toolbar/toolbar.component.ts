@@ -108,7 +108,7 @@ export class ToolbarComponent {
           // if thumbnail page, hide the thumbnail option and show the full-screen option
           this.filterMoreOptions(event.url);
 
-          this.cdr.markForCheck();
+          this.cdr.detectChanges();
         }
       });
   }

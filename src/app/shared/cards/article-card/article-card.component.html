@@ -1,9 +1,10 @@
 <div class="article-card">
     <div class="article-container" (click)="onUniteDetail(article.id)">
-        <p *ngIf="!isNullThumbnail(article.thumbnail)" class="article-thumbnail">
+        <div *ngIf="!isNullThumbnail(article.thumbnail)" class="article-thumbnail">
             <img [src]="article.thumbnail">
-        </p>
-        <div class="article-content">
+        </div>
+        <div *ngIf="isAD" [innerHtml]="article.content"></div>
+        <div *ngIf="!isAD" class="article-content">
             <p *ngIf="article.title !== 'Issue Cover'" class="article-title">{{article.title}}</p>
             <p class="article-author">{{article.authorName}}</p>
             <div class="article-excerpt" [innerHtml]="article.excerpt"></div>

@@ -21,6 +21,7 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
   @Input() index: number;
 
   id: string;
+  isAD: boolean;
   postRendered: boolean;
   showReference: boolean;
   postSafeContent: SafeHtml;
@@ -36,12 +37,22 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
     private sanitizer: DomSanitizer,
     private authService: AuthService,
     private bookmarkService: BookmarkService) {
+      this.isAD = false;
       this.postRendered = false;
 
       this.showReferenceState = 'Show more';
   }
 
   ngOnInit() {
+    const title = this.article.title;
+
+    if (title.length > 2 && title.substr(0, 2) === 'AD') {
+      this.isAD = true;
+      this.article.title = ' ';
+    } else {
+      this.isAD = false;
+    }
+
     this.id = `postContent${this.index}`;
     this.changePreToDiv();
     this.setDropcap();

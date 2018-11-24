@@ -3,7 +3,8 @@
         <div *ngIf="!isNullThumbnail(article.thumbnail)" class="article-thumbnail" [class.black-color]="isCover">
             <img [src]="article.thumbnail">
         </div>
-        <div *ngIf="!isCover" class="article-content">
+        <div *ngIf="isAD" [innerHtml]="article.content"></div>
+        <div *ngIf="!isCover&&!isAD" class="article-content">
             <p class="article-title">{{article.title}}</p>
             <p class="article-author">{{article.authorName}}</p>
             <div class="article-excerpt" [innerHtml]="article.excerpt"></div>

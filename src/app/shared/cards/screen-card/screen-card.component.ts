@@ -14,12 +14,22 @@ export class ScreenCardComponent implements OnInit {
   @Input() article: Post;
 
   isCover: boolean;
+  isAD: boolean;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+    this.isAD = false;
+    this.isCover = false;
+  }
 
   ngOnInit() {
-    if (this.article.title === 'cover') {
+    const title = this.article.title;
+
+    if (title === 'cover') {
       this.isCover = true;
+    } else if (title.length > 2 && title.substr(0, 2) === 'AD') {
+      this.isAD = true;
+    } else {
+      this.isAD = false;
     }
   }
 

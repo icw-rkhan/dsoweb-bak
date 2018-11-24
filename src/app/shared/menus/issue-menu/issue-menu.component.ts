@@ -39,10 +39,14 @@ export class IssueMenuComponent implements OnInit {
     });
 
     const uniteSub = this.uniteService.findOneById(this.issueId).subscribe(posts => {
-      this.posts = posts;
-      this.posts.map(post => {
+      this.posts = [];
+      posts.map(post => {
         if (post.categoryName && !this.categories.find(x => x === post.categoryName)) {
           this.categories.push(post.categoryName);
+        }
+
+        if (!post.title.includes('AD')) {
+          this.posts.push(post);
         }
       });
 

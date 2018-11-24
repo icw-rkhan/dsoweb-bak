@@ -11,6 +11,7 @@ import { Post } from '../../../models/post.model';
 })
 export class ArticleCardComponent implements OnInit {
 
+  isAD: boolean;
   submitTitle: string;
 
   @Input() isBookmark: boolean;
@@ -20,9 +21,17 @@ export class ArticleCardComponent implements OnInit {
   @Output() removeBookmark = new EventEmitter<string>();
 
   constructor(private router: Router) {
+    this.isAD = false;
   }
 
   ngOnInit() {
+    const title = this.article.title;
+
+    if (title.length > 2 && title.substr(0, 2) === 'AD') {
+      this.isAD = true;
+    } else {
+      this.isAD = false;
+    }
   }
 
   onUniteDetail(id: string) {

@@ -80,3 +80,10 @@
 .black-color {
     background-color: #000000;
 }
+
+:host ::ng-deep {
+    img {
+        width: 100%;
+        height: auto;
+    }
+}

@@ -12,7 +12,7 @@
                 <mat-icon aria-label="Bookmark">bookmark</mat-icon>
             </a>
         </p>
-        <p class="article-author">By {{article.authorName}}</p>
+        <p *ngIf="article.authorName && article.authorName !== ''" class="article-author">By {{article.authorName}}</p>
         <div [id]="id" class="article-detail" [innerHtml]="sanitizeHTML(article.content)"></div>
         <a *ngIf="showReference" (click)="onClickReference()" [ngClass]="{'show-more-btn': showReferenceState === 'Show more', 'show-less-btn': showReferenceState === 'Show less'}">{{showReferenceState}}</a>
     </div>
