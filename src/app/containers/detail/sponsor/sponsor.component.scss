@@ -188,6 +188,7 @@ p {
         }
 
         .round-avatar {
+            height: 40px;
             border-radius: 50%;
         }
     }
@@ -198,13 +199,13 @@ p {
         #author-name {
             color: #4a4a4a;
             font-family: "SFUI";
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 600;
         }
 
         #author-info {
             color: #9b9b9b;
-            font-size: 13px;
+            font-size: 16px;
             font-weight: 400;
             margin-top: 5px;
         }

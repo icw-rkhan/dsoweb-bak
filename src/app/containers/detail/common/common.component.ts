@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener,
-               ElementRef, AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+               ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -98,14 +98,13 @@ export class CommonComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.changeLayoutOfPost();
             this.fetchAuthorInfo();
-
-            this.cdr.markForCheck();
           }, 0);
         }
 
+        this.progress.complete();
+
         this.cdr.markForCheck();
 
-        this.progress.complete();
         postSub.unsubscribe();
       },
       err => {
