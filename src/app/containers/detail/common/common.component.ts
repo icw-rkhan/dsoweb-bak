@@ -1,8 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener,
-               ElementRef, AfterViewChecked } from '@angular/core';
+               ElementRef, AfterViewChecked, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { NgProgress } from '@ngx-progressbar/core';
 import { formatDate } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -15,27 +14,24 @@ import { AuthService } from '../../../services';
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
-import { environment } from '../../../../environments/environment';
-import { SharingService } from '../../../services/sharing.service';
 
 @Component({
   selector: 'dso-detail-common',
   templateUrl: './common.component.html',
-  styleUrls: ['./common.component.scss']
+  styleUrls: ['./common.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   post: Post;
   rate: number;
   postId: string;
-  authorAvatar: string;
   authorName: string;
   authorInfo: string;
+  authorAvatar: string;
   review_count: number;
-  postRendered: boolean;
   showReference: boolean;
   isAuthorVisible: boolean;
-  postSafeContent: SafeHtml;
   showReferenceState: string;
 
   comments: Comment[];
@@ -59,7 +55,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     private progress: NgProgress,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
-    private sanitizer: DomSanitizer,
+    private cdr: ChangeDetectorRef,
     private postService: PostService,
     private authService: AuthService,
     private commentService: CommentService,
@@ -70,8 +66,6 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.isAuthorVisible = false;
     this.showReferenceState = 'Show more';
     this.showReference = false;
-    this.postRendered = false;
-    this.postSafeContent = '';
 
     this.post = new Post();
   }
@@ -94,13 +88,13 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.post = p;
+        this.post.content = this.changePreToDiv(this.post.content);
 
         if (this.post.content) {
           this.setDropcap();
-
-          // change Pre tag to Div tag
-        this.postSafeContent = this.sanitizeHTML(this.changePreToDiv(p.content));
         }
+
+        this.cdr.markForCheck();
 
         this.progress.complete();
         postSub.unsubscribe();
@@ -129,12 +123,12 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngAfterViewChecked(): void {
-    if (this.postContent.nativeElement.innerHTML !== '' && !this.postRendered) {
-      this.postRendered = true;
-
+    if (this.postContent.nativeElement.innerHTML !== '') {
       setTimeout(() => {
-       this.changeLayoutOfPost();
-       this.fetchAuthorInfo();
+        this.changeLayoutOfPost();
+        this.fetchAuthorInfo();
+
+        this.cdr.markForCheck();
       }, 0);
     }
   }
@@ -293,10 +287,6 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.activeAuthorLayout();
   }
 
-  sanitizeHTML(html) {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
-  }
-
   onClickReference() {
     const reference = this.postContent.nativeElement.getElementsByTagName('ol')[0];
     if (reference.classList.contains('show-more')) {
@@ -364,6 +354,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
       }
 
+      this.cdr.markForCheck();
       bookmarkSub.unsubscribe();
     });
   }
@@ -403,6 +394,7 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
       }
 
+      this.cdr.markForCheck();
       bookmarkSub.unsubscribe();
     });
   }

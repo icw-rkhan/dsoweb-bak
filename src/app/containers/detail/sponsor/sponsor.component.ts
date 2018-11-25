@@ -1,5 +1,5 @@
-import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef, AfterViewChecked } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef, AfterViewChecked,
+      ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -16,27 +16,28 @@ import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
 
 import { environment } from '../../../../environments/environment';
-import { SharingService } from '../../../services/sharing.service';
 
 @Component({
   selector: 'dso-detail-sponsor',
   templateUrl: './sponsor.component.html',
-  styleUrls: ['./sponsor.component.scss']
+  styleUrls: ['./sponsor.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   post: Post;
   rate: number;
+  adId: string;
   postId: string;
-  authorAvatar: string;
   authorName: string;
   authorInfo: string;
+  authorAvatar: string;
   review_count: number;
-  postRendered: boolean;
   showReference: boolean;
   isAuthorVisible: boolean;
-  postSafeContent: SafeHtml;
   showReferenceState: string;
+
+  testHtml: string;
 
   comments: Comment[];
 
@@ -59,19 +60,17 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
     private progress: NgProgress,
     private route: ActivatedRoute,
     private snackBar: MatSnackBar,
+    private cdr: ChangeDetectorRef,
     private postService: PostService,
     private authService: AuthService,
     private commentService: CommentService,
-    private bookmarkService: BookmarkService,
-    private sanitizer: DomSanitizer) {
+    private bookmarkService: BookmarkService) {
 
     this.rate = 0;
     this.review_count = 0;
     this.isAuthorVisible = false;
     this.showReferenceState = 'Show more';
     this.showReference = false;
-    this.postRendered = false;
-    this.postSafeContent = '';
 
     this.post = new Post();
   }
@@ -93,14 +92,18 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
       });
 
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
-        this.post = p;
+        const temp = p;
+        temp.content = this.changePreToDiv(temp.content);
+        temp.content = this.setDropcap(temp.content);
+        temp.content = this.modifyADs(temp.content);
 
-        if (this.post.content) {
-          this.setDropcap();
+        this.post = temp;
 
-          // change Pre tag to Div tag
-        this.postSafeContent = this.sanitizeHTML(this.changePreToDiv(p.content));
-        }
+        const element = this.postContent.nativeElement;
+        const fragment = document.createRange().createContextualFragment(this.post.content);
+        element.appendChild(fragment);
+
+        this.cdr.markForCheck();
 
         this.progress.complete();
         postSub.unsubscribe();
@@ -113,27 +116,57 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
   }
 
   ngAfterViewChecked(): void {
-    if (this.postContent.nativeElement.innerHTML !== '' && !this.postRendered) {
-      this.postRendered = true;
-
+    if (this.postContent.nativeElement.innerHTML !== '') {
       setTimeout(() => {
-       this.changeLayoutOfPost();
-       this.fetchAuthorInfo();
+        this.changeLayoutOfPost();
+        this.fetchAuthorInfo();
+
+        this.cdr.markForCheck();
       }, 0);
     }
   }
 
-  setDropcap(): void {
-    const matches = this.post.content.match(/(<p[^>]*>.*?<\/p>)/g);
+  modifyADs(html: string) {
+    const matchId = html.match(/(id="placement.[^)]*._)/g);
+    if (matchId && matchId.length > 0) {
+      this.adId = matchId[0].replace('id="', '');
+      this.adId = `${this.adId}0`;
+    }
+
+    const matchAD = html.match(/<p>.*\n<script/g);
+    if (this.adId && matchAD && matchAD.length > 0) {
+      let t = matchAD[0];
+      t = t.replace('<p>', `<p id="${this.adId}">`);
+
+      html = html.replace(/<p>.*\n<script/, t);
+    } else {
+      const matchADh = html.match(/<h2>.*\n<script/g);
+      if (this.adId && matchADh && matchADh.length > 0) {
+        let t = matchADh[0];
+        t = t.replace('<h2>', `<h2 id="${this.adId}">`);
+
+        html = html.replace(/<h2>.*\n<script/, t);
+      }
+    }
+
+    html = html.replace(/(document.write[^)]*.);/g, '');
+
+    return html;
+  }
+
+  setDropcap(html: string) {
+    const matches = html.match(/(<p[^>]*>.*?<\/p>)/g);
     const first = matches[0];
 
-    let content = this.post.content;
+    let content = html;
     if (first === '<p>&nbsp;</p>' || first.includes('(By By')) {
       content = content.replace(first, '');
     }
 
     content = content.replace(/(<p[^>]*>((?!iframe)(?!&nbsp).)*<\/p>)/, '<div class="first-big">$1</div>');
-    this.post.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+    html = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+
+    return html;
   }
 
   ngOnDestroy(): void {
@@ -170,7 +203,7 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
 
   // custome the style of the content
   reLayout(tagName): void {
-    const paretTag = document.getElementById('contents');
+    const paretTag = this.postContent.nativeElement;
     const tag = paretTag.getElementsByTagName(tagName);
     if (tag && tag.length > 0) {
       let i = 0;
@@ -314,10 +347,6 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
     this.activeAuthorLayout();
   }
 
-  sanitizeHTML(html) {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
-  }
-
   onClickReference() {
     const reference = this.postContent.nativeElement.getElementsByTagName('ol')[0];
     if (reference.classList.contains('show-more')) {
@@ -330,7 +359,6 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
       reference.classList.add('show-more');
     }
   }
-
 
   activeAuthorLayout() {
     if (this.authorName) {
@@ -385,6 +413,7 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
       }
 
+      this.cdr.markForCheck();
       bookmarkSub.unsubscribe();
     });
   }
@@ -424,6 +453,7 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
         });
       }
 
+      this.cdr.markForCheck();
       bookmarkSub.unsubscribe();
     });
   }

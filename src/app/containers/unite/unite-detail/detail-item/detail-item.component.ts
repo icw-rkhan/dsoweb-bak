@@ -1,6 +1,5 @@
 import { Component, OnInit, HostListener, AfterViewChecked, Input, ChangeDetectionStrategy,
       ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
-import { SafeHtml, DomSanitizer } from '@angular/platform-browser';
 
 import { Post } from '../../../../models/post.model';
 import { Bookmark } from '../../../../models/bookmark.model';
@@ -24,7 +23,6 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
   isAD: boolean;
   postRendered: boolean;
   showReference: boolean;
-  postSafeContent: SafeHtml;
   showReferenceState: string;
 
   @ViewChild('viewContainer') viewContainer: ElementRef;
@@ -34,7 +32,6 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
   constructor(
     private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
-    private sanitizer: DomSanitizer,
     private authService: AuthService,
     private bookmarkService: BookmarkService) {
       this.isAD = false;
@@ -139,11 +136,7 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
     this.reLayout('div');
   }
 
-  sanitizeHTML(html) {
-    return this.sanitizer.bypassSecurityTrustHtml(html);
-  }
-
-    // change Pre tag to Div tag
+  // change Pre tag to Div tag
   changePreToDiv(): void {
     let content = this.article.content;
 

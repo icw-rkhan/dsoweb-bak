@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { forkJoin, Subscription, Observable } from 'rxjs';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
@@ -15,6 +15,7 @@ import { Bookmark } from '../../../models/bookmark.model';
 @Component({
   templateUrl: './posts-page.html',
   styleUrls: ['./posts-page.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class PostsPageComponent implements OnInit, OnDestroy {
 
@@ -31,6 +32,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   constructor(
     private progress: NgProgress,
     private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
     private authService: AuthService,
     private postService: PostService,
     private bookmarkService: BookmarkService,
@@ -157,6 +159,8 @@ export class PostsPageComponent implements OnInit, OnDestroy {
           ...posts
         ];
       }
+
+      this.cdr.markForCheck();
       this.progress.complete();
       this.isFetching = false;
     }, err => {

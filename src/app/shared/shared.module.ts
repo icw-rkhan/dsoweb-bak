@@ -38,14 +38,12 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
-import { TruncatePipe } from '../pipes/truncate.pipe';
 import { FeedCardComponent } from './cards/feed-card/feed-card.component';
 import { MainActionsComponent } from './main-actions/main-actions.component';
 import { FeedGridComponent } from './feed-grid/feed-grid.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { SponsorCardComponent } from './cards/sponsor-card/sponsor-card.component';
-import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
 import { ReviewComponent } from './cards/review-card/review-card.component';
 import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { UniteCardComponent } from './cards/unite-card/unite-card.component';
@@ -53,7 +51,12 @@ import { ArticleCardComponent } from './cards/article-card/article-card.componen
 import { ScreenCardComponent } from './cards/screen-card/screen-card.component';
 import { IssueMenuComponent } from './menus/issue-menu/issue-menu.component';
 import { SearchMenuComponent } from './menus/search-menu/search-menu.component';
+import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
+import { TruncatePipe } from '../pipes/truncate.pipe';
+import { SafePipe } from '../pipes/safe.pipe';
+
 const PIPES = [
+  SafePipe,
   TruncatePipe,
   MultipleCategoriesPipe
 ];
@@ -121,13 +124,13 @@ export const MODULES = [
     ShareModule.forRoot()
   ],
   declarations: [
-    ...PIPES,
     ...COMPONENTS,
+    ...PIPES,
   ],
   exports: [
-    ...PIPES,
     ...MODULES,
     ...COMPONENTS,
+    ...PIPES,
   ],
   entryComponents: [
     AlertDialogComponent,

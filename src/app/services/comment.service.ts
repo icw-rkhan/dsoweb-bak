@@ -24,8 +24,6 @@ export class CommentService {
 
     const headers = this.getHeaders();
 
-    console.log(postId);
-
     return this.http.post(url, {'contentId': postId}, {headers}).pipe(
       map((response: any) => response.resultMap.data.map(comment => new Comment().deserialize(comment)))
     );

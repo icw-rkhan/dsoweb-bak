@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { MatSnackBar } from '@angular/material';
+import { map } from 'rxjs/internal/operators';
+import { forkJoin } from 'rxjs';
+import * as _ from 'lodash';
 
+import { AuthService } from '../../services';
 import { PostService } from '../../services/post.service';
 import { BookmarkService } from '../../services/bookmark.service';
 
@@ -18,8 +22,9 @@ export class SearchPageComponent implements OnInit {
   term: string;
 
   constructor(
-    private postService: PostService,
     private progress: NgProgress,
+    private postService: PostService,
+    private authService: AuthService,
     private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar) {
   }
@@ -37,12 +42,28 @@ export class SearchPageComponent implements OnInit {
       'limit': 10
     };
 
-    this.postService.search(body).subscribe(posts => {
+    const postService = this.postService.search(body);
+
+    const email = this.authService.getUserInfo().user_name;
+
+    // Join bookmarks and post
+    const postSub = forkJoin(
+      postService,
+      this.bookmarkService.getAllByEmail(email)
+    ).pipe(
+      map(items => items[0].map(p => {
+        const bookmark = items[1].find(b => b.postId === p.id);
+
+        return Object.assign({}, p, {
+          isBookmark: !_.isUndefined(bookmark),
+          bookmarkId: !_.isUndefined(bookmark) ? bookmark.postId : undefined
+        });
+      }))
+    ).subscribe(posts => {
       this.posts = posts;
+
       this.progress.complete();
-    },
-    err => {
-      this.progress.complete();
+      postSub.unsubscribe();
     });
   }
 
