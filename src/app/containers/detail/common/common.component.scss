@@ -10,10 +10,6 @@ section {
     padding: 19px 19px;
     position: relative;
     display: block;
-
-    .inner-thumbnail {
-        margin-top: 20px;
-    }
 }
 
 .inner-content.gsk {
@@ -31,6 +27,14 @@ section {
 .inner-thumbnail {
     width: 100%;
     height: auto;
+    position: relative;
+
+    .type-icon {
+        width: 40px;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+    }
 }
 
 .header {

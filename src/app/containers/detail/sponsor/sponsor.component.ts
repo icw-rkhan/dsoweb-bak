@@ -529,4 +529,8 @@ export class SponsorComponent implements OnInit, OnDestroy {
       }
       return false;
   }
+
+  onCheckCategoryType(contentTypeId, catId: string) {
+    return contentTypeId === catId ? true : false;
+  }
 }

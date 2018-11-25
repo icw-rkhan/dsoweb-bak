@@ -432,4 +432,8 @@ export class CommonComponent implements OnInit, OnDestroy {
 
     return '';
   }
+
+  onCheckCategoryType(contentTypeId, catId: string) {
+    return contentTypeId === catId ? true : false;
+  }
 }

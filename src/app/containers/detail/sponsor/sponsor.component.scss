@@ -15,6 +15,14 @@ seciton {
 .inner-thumbnail {
     width: 100%;
     height: auto;
+    position: relative;
+
+    .type-icon {
+        width: 40px;
+        position: absolute;
+        bottom: 20px;
+        left: 20px;
+    }
 }
 
 .inner-content.sponsor {

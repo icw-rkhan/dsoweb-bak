@@ -4,7 +4,13 @@
         <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
     </div>
     <div class="inner-thumbnail" fxLayout="column">
-        <img class="inner-thumbnail" src="{{post.thumbnail}}">
+        <img src="{{post.thumbnail}}">
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" src="/assets/images/Article@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '194')" src="/assets/images/Interview@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '30')" src="/assets/images/Podcast@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '31')" src="/assets/images/TechGuide@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '29')" src="/assets/images/Video@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '196')" src="/assets/images/TipSheet@2x.png" />
     </div>
     <div class="inner-content" fxLayout="row">
         <span class="title">{{post.title}}</span>
