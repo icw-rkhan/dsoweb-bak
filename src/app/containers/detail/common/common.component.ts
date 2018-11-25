@@ -21,7 +21,7 @@ import { Post } from '../../../models/post.model';
   styleUrls: ['./common.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class CommonComponent implements OnInit, OnDestroy {
 
   post: Post;
   rate: number;
@@ -94,6 +94,15 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
           this.setDropcap();
         }
 
+        if (this.postContent.nativeElement.innerHTML !== '') {
+          setTimeout(() => {
+            this.changeLayoutOfPost();
+            this.fetchAuthorInfo();
+
+            this.cdr.markForCheck();
+          }, 0);
+        }
+
         this.cdr.markForCheck();
 
         this.progress.complete();
@@ -120,17 +129,6 @@ export class CommonComponent implements OnInit, AfterViewChecked, OnDestroy {
 
     content = content.replace(/(<p[^>]*>((?!iframe)(?!&nbsp).)*<\/p>)/, '<div class="first-big">$1</div>');
     this.post.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
-  }
-
-  ngAfterViewChecked(): void {
-    if (this.postContent.nativeElement.innerHTML !== '') {
-      setTimeout(() => {
-        this.changeLayoutOfPost();
-        this.fetchAuthorInfo();
-
-        this.cdr.markForCheck();
-      }, 0);
-    }
   }
 
   ngOnDestroy(): void {

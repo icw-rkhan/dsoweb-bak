@@ -23,7 +23,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./sponsor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
+export class SponsorComponent implements OnInit, OnDestroy {
 
   post: Post;
   rate: number;
@@ -103,6 +103,15 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
         const fragment = document.createRange().createContextualFragment(this.post.content);
         element.appendChild(fragment);
 
+        if (this.postContent.nativeElement.innerHTML !== '') {
+          setTimeout(() => {
+            this.changeLayoutOfPost();
+            this.fetchAuthorInfo();
+
+            this.cdr.markForCheck();
+          }, 0);
+        }
+
         this.cdr.markForCheck();
 
         this.progress.complete();
@@ -113,17 +122,6 @@ export class SponsorComponent implements OnInit, AfterViewChecked, OnDestroy {
         postSub.unsubscribe();
       });
     });
-  }
-
-  ngAfterViewChecked(): void {
-    if (this.postContent.nativeElement.innerHTML !== '') {
-      setTimeout(() => {
-        this.changeLayoutOfPost();
-        this.fetchAuthorInfo();
-
-        this.cdr.markForCheck();
-      }, 0);
-    }
   }
 
   modifyADs(html: string) {

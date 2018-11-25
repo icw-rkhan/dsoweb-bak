@@ -54,7 +54,7 @@ export class Post implements Serializable<Post> {
       categoryName: data.categoryName,
       sponsorId: data.sponsorId,
       sponsorName: data.sponsorName,
-      authorPhotoUrl: data.author ? data.author.authorPhotoUrl : '',
+      authorPhotoUrl: data.authorPhotoUrl ? data.authorPhotoUrl : '',
       authorName: data.author ? data.author.fullName : '',
       authorDetails: data.author ? data.author.authorDetails : '',
       contentTypeName: data.contentTypeName,

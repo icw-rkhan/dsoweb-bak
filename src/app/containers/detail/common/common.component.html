@@ -39,15 +39,15 @@
               <span>By</span><img src="assets/images/logo-color.png">
           </div>
         </div>
-        <div class="author-area" fxLayout="row" fxLayoutAlign="start start" *ngIf="authorName && authorName.indexOf('DSODentist') === -1">
+        <div class="author-area" fxLayout="row" fxLayoutAlign="start center" *ngIf="authorName && authorName.indexOf('DSODentist') === -1">
           <div id="author-avatar" >
-            <span>By</span><img [src]="authorAvatar" *ngIf="authorAvatar">
+            <span>By</span><img [src]="authorAvatar" *ngIf="authorAvatar" class="round-avatar">
           </div>
-          <div>
+          <div id="author-details" fxLayout="column" fxLayoutAlign="start top">
             <p id="author-name">
               {{authorName}}
             </p>
-            <p id="author-info">
+            <p *ngIf="authorInfo" id="author-info">
                 {{authorInfo}}
             </p>
           </div>
