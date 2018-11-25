@@ -51,6 +51,7 @@ import { ArticleCardComponent } from './cards/article-card/article-card.componen
 import { ScreenCardComponent } from './cards/screen-card/screen-card.component';
 import { IssueMenuComponent } from './menus/issue-menu/issue-menu.component';
 import { SearchMenuComponent } from './menus/search-menu/search-menu.component';
+import { DetailCardComponent } from './cards/detail-card/detail-card.component';
 import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafePipe } from '../pipes/safe.pipe';
@@ -77,7 +78,8 @@ export const COMPONENTS = [
   ArticleCardComponent,
   ScreenCardComponent,
   IssueMenuComponent,
-  SearchMenuComponent
+  SearchMenuComponent,
+  DetailCardComponent,
 ];
 
 export const MODULES = [

@@ -145,7 +145,7 @@ export class FeedPageComponent implements OnInit, OnDestroy {
     } else {
       navLinks.push({
         label: 'LATEST',
-        route: '/posts',
+        route: '/posts/type',
       });
       navLinks.push({
         label: 'VIDEOS',

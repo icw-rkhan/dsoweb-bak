@@ -1,20 +1,20 @@
 import { Component, OnInit, HostListener, AfterViewChecked, Input, ChangeDetectionStrategy,
-      ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+  ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
 
-import { Post } from '../../../../models/post.model';
-import { Bookmark } from '../../../../models/bookmark.model';
+import { Post } from '../../../models/post.model';
+import { Bookmark } from '../../../models/bookmark.model';
 
-import { AuthService } from '../../../../services';
-import { BookmarkService } from '../../../../services/bookmark.service';
+import { AuthService } from '../../../services';
+import { BookmarkService } from '../../../services/bookmark.service';
 import { MatSnackBar } from '@angular/material';
 
 @Component({
-  selector: 'dso-detail-item',
-  templateUrl: './detail-item.component.html',
-  styleUrls: ['./detail-item.component.scss'],
+  selector: 'dso-detail-card',
+  templateUrl: './detail-card.component.html',
+  styleUrls: ['./detail-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DetailItemComponent implements OnInit, AfterViewChecked {
+export class DetailCardComponent implements OnInit {
 
   @Input() article: Post;
   @Input() index: number;
@@ -51,12 +51,12 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
     }
 
     this.id = `postContent${this.index}`;
-    this.changePreToDiv();
-    this.setDropcap();
-  }
 
-  ngAfterViewChecked(): void {
-    this.changeLayoutOfPost();
+    setTimeout(() => {
+      this.changeLayoutOfPost();
+      this.changePreToDiv();
+      this.setDropcap();
+    }, 0);
   }
 
   // add bookmark
@@ -329,3 +329,4 @@ export class DetailItemComponent implements OnInit, AfterViewChecked {
     }, 0);
   }
 }
+

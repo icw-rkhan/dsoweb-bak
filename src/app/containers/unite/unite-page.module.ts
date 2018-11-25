@@ -10,7 +10,6 @@ import { ModalModule } from 'ngx-bootstrap';
 import { UniteViewComponent } from './unite-view/unite-view.component';
 import { UniteDetailComponent } from './unite-detail/unite-detail.component';
 import { UniteThumbnailComponent } from './unite-thumbnail/unite-thumbnail.component';
-import { DetailItemComponent } from './unite-detail/detail-item/detail-item.component';
 
 @NgModule({
     imports: [
@@ -23,7 +22,6 @@ import { DetailItemComponent } from './unite-detail/detail-item/detail-item.comp
         UniteMainComponent,
         UniteBookmarkComponent,
         UniteViewComponent,
-        DetailItemComponent,
         UniteDetailComponent,
         UniteThumbnailComponent
     ],
