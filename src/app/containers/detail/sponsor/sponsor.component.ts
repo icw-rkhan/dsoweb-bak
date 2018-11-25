@@ -92,6 +92,8 @@ export class SponsorComponent implements OnInit, OnDestroy {
       });
 
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
+        this.progress.complete();
+
         const temp = p;
         temp.content = this.changePreToDiv(temp.content);
         temp.content = this.setDropcap(temp.content);
@@ -107,12 +109,10 @@ export class SponsorComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.changeLayoutOfPost();
             this.fetchAuthorInfo();
+
+            this.cdr.markForCheck();
           }, 0);
         }
-
-        this.progress.complete();
-
-        this.cdr.markForCheck();
 
         postSub.unsubscribe();
       },
