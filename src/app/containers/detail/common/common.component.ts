@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener,
-               ElementRef, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+               ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -21,13 +21,14 @@ import { Post } from '../../../models/post.model';
   styleUrls: ['./common.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommonComponent implements OnInit, OnDestroy {
+export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   post: Post;
   rate: number;
   postId: string;
   authorName: string;
   authorInfo: string;
+  isRendered: boolean;
   authorAvatar: string;
   review_count: number;
   showReference: boolean;
@@ -62,6 +63,7 @@ export class CommonComponent implements OnInit, OnDestroy {
     private bookmarkService: BookmarkService) {
 
     this.rate = 0;
+    this.isRendered = false;
     this.review_count = 0;
     this.isAuthorVisible = false;
     this.showReferenceState = 'Show more';
@@ -92,17 +94,10 @@ export class CommonComponent implements OnInit, OnDestroy {
         this.post = p;
         this.post.content = this.changePreToDiv(this.post.content);
 
+        this.fetchAuthorInfo();
+
         if (this.post.content) {
           this.setDropcap();
-        }
-
-        if (this.postContent.nativeElement.innerHTML !== '') {
-          setTimeout(() => {
-            this.changeLayoutOfPost();
-            this.fetchAuthorInfo();
-
-            this.cdr.markForCheck();
-          }, 0);
         }
 
         postSub.unsubscribe();
@@ -115,6 +110,14 @@ export class CommonComponent implements OnInit, OnDestroy {
     err => {
       this.progress.complete();
     });
+  }
+
+  ngAfterContentChecked() {
+    if (this.postContent.nativeElement.innerHTML !== '' && !this.isRendered) {
+      this.changeLayoutOfPost();
+
+      this.cdr.markForCheck();
+    }
   }
 
   setDropcap(): void {
@@ -216,6 +219,8 @@ export class CommonComponent implements OnInit, OnDestroy {
       pTagArr[1].classList.add('text');
 
       pTagArr[0].style.height = pTagArr[1].offsetHeight + 'px';
+
+      this.isRendered = true;
     }
   }
 

@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef,
-      ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+      ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -23,7 +23,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./sponsor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SponsorComponent implements OnInit, OnDestroy {
+export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked {
 
   post: Post;
   rate: number;
@@ -31,6 +31,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
   postId: string;
   authorName: string;
   authorInfo: string;
+  isRendered: boolean;
   authorAvatar: string;
   review_count: number;
   showReference: boolean;
@@ -67,6 +68,7 @@ export class SponsorComponent implements OnInit, OnDestroy {
     private bookmarkService: BookmarkService) {
 
     this.rate = 0;
+    this.isRendered = false;
     this.review_count = 0;
     this.isAuthorVisible = false;
     this.showReferenceState = 'Show more';
@@ -101,18 +103,11 @@ export class SponsorComponent implements OnInit, OnDestroy {
 
         this.post = temp;
 
+        this.fetchAuthorInfo();
+
         const element = this.postContent.nativeElement;
         const fragment = document.createRange().createContextualFragment(this.post.content);
         element.appendChild(fragment);
-
-        if (this.postContent.nativeElement.innerHTML !== '') {
-          setTimeout(() => {
-            this.changeLayoutOfPost();
-            this.fetchAuthorInfo();
-
-            this.cdr.markForCheck();
-          }, 0);
-        }
 
         postSub.unsubscribe();
       },
@@ -121,6 +116,14 @@ export class SponsorComponent implements OnInit, OnDestroy {
         postSub.unsubscribe();
       });
     });
+  }
+
+  ngAfterContentChecked() {
+    if (this.postContent.nativeElement.innerHTML !== '' && !this.isRendered) {
+      this.changeLayoutOfPost();
+
+      this.cdr.markForCheck();
+    }
   }
 
   modifyADs(html: string) {
@@ -276,6 +279,8 @@ export class SponsorComponent implements OnInit, OnDestroy {
       pTagArr[1].classList.add('text');
 
       pTagArr[0].style.height = pTagArr[1].offsetHeight + 'px';
+
+      this.isRendered = true;
     }
   }
 

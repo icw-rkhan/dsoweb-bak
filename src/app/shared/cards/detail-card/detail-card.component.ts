@@ -1,5 +1,5 @@
-import { Component, OnInit, HostListener, AfterViewChecked, Input, ChangeDetectionStrategy,
-  ChangeDetectorRef, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, HostListener, Input, ChangeDetectionStrategy,
+  ChangeDetectorRef, ElementRef, ViewChild, AfterContentChecked } from '@angular/core';
 
 import { Post } from '../../../models/post.model';
 import { Bookmark } from '../../../models/bookmark.model';
@@ -14,13 +14,14 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./detail-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DetailCardComponent implements OnInit {
+export class DetailCardComponent implements OnInit, AfterContentChecked {
 
   @Input() article: Post;
   @Input() index: number;
 
   id: string;
   isAD: boolean;
+  isRendered: boolean;
   postRendered: boolean;
   showReference: boolean;
   showReferenceState: string;
@@ -35,6 +36,7 @@ export class DetailCardComponent implements OnInit {
     private authService: AuthService,
     private bookmarkService: BookmarkService) {
       this.isAD = false;
+      this.isRendered = false;
       this.postRendered = false;
 
       this.showReferenceState = 'Show more';
@@ -52,11 +54,18 @@ export class DetailCardComponent implements OnInit {
 
     this.id = `postContent${this.index}`;
 
-    setTimeout(() => {
-      this.changeLayoutOfPost();
+    if (this.article.content) {
       this.changePreToDiv();
       this.setDropcap();
-    }, 0);
+    }
+  }
+
+  ngAfterContentChecked() {
+    if (document.getElementById(this.id) && !this.isRendered) {
+      this.changeLayoutOfPost();
+
+      this.cdr.markForCheck();
+    }
   }
 
   // add bookmark
@@ -191,11 +200,11 @@ export class DetailCardComponent implements OnInit {
                 tag[i].classList.add('show-more');
                 setTimeout(() => {
                   this.showReference = true;
-                });
+                }, 0);
               } else {
                 setTimeout(() => {
                   this.showReference = false;
-                });
+                }, 0);
               }
             }
             break;
@@ -220,6 +229,8 @@ export class DetailCardComponent implements OnInit {
       pTagArr[1].classList.add('text');
 
       pTagArr[0].style.height = pTagArr[1].offsetHeight + 'px';
+
+      this.isRendered = true;
     }
   }
 
