@@ -30,11 +30,10 @@ export class UniteMainComponent implements OnInit {
         };
 
       const uniteSub = this.uniteService.findAll(body).subscribe(unites => {
+        this.progress.complete();
         this.unites = unites;
 
         this.cdr.markForCheck();
-
-        this.progress.complete();
         uniteSub.unsubscribe();
       });
   }

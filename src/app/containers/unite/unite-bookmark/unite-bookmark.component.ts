@@ -87,15 +87,15 @@ export class UniteBookmarkComponent implements OnInit {
         });
       }))
     ).subscribe(posts => {
+      this.progress.complete();
+
       posts.map(post => {
         if (post.isBookmark) {
           this.posts.push(post);
         }
       });
 
-      this.cdr.detectChanges();
-
-      this.progress.complete();
+      this.cdr.markForCheck();
     },
     err => {
       this.progress.complete();

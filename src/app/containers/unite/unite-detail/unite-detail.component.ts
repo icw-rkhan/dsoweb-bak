@@ -63,6 +63,8 @@ export class UniteDetailComponent implements OnInit {
           });
         }))
       ).subscribe(posts => {
+        this.progress.complete();
+
         let index = 0;
         posts.map(post => {
           if (post.id === id) {
@@ -73,9 +75,7 @@ export class UniteDetailComponent implements OnInit {
         // move selected post to first place in array
         this.articles = this.arrayMove(posts, index, 0);
 
-        this.cdr.detectChanges();
-
-        this.progress.complete();
+        this.cdr.markForCheck();
         postSub.unsubscribe();
       }, err => {
         this.progress.complete();

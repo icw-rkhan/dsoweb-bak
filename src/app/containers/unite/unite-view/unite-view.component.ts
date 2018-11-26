@@ -39,11 +39,11 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
       this.id = params['id'];
 
       const uniteSub = this.uniteService.findOneById(this.id).subscribe(posts => {
+        this.progress.complete();
+
         this.posts = posts;
 
         this.cdr.markForCheck();
-
-        this.progress.complete();
         uniteSub.unsubscribe();
       },
       err => {

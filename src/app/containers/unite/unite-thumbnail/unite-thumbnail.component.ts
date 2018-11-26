@@ -57,11 +57,11 @@ export class UniteThumbnailComponent implements OnInit {
       });
 
       const uniteSub = this.uniteService.findOneById(id).subscribe(posts => {
+        this.progress.complete();
+
         this.articles = posts;
 
         this.cdr.detectChanges();
-
-        this.progress.complete();
         uniteSub.unsubscribe();
       },
       err => {

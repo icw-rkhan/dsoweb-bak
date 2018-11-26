@@ -6,7 +6,7 @@
     margin-right: 25px;
 
     .article-container {
-        height: 55vh;
+        height: 50vh;
         border: 2px solid #879aa8;
         overflow: hidden;
     
@@ -18,7 +18,7 @@
         }
     
         .article-content {
-            padding: 15px 10px;
+            padding: 10px;
             
             .article-category {
                 color: #78aed0;
@@ -38,20 +38,20 @@
                 color: #c8c8c8;
                 font-size: 14px;
                 font-weight: 500;
-                margin: 7px 0px 25px;
+                margin: 5px 0px 10px;
             }
             
             .article-excerpt {
                 color: #000000;
                 font-size: 14px;
-                line-height: 20px;
+                line-height: 17px;
                 overflow: hidden;
             }   
         }
     }
     
     .article-footer {
-        margin: 20px 0px 60px;
+        margin: 15px 0px 60px;
     
         .article-title {
             width: 80%;
