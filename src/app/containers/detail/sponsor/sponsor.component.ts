@@ -29,6 +29,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
   rate: number;
   adId: string;
   postId: string;
+  isLoaded: boolean;
   authorName: string;
   authorInfo: string;
   isRendered: boolean;
@@ -68,6 +69,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
     private bookmarkService: BookmarkService) {
 
     this.rate = 0;
+    this.isLoaded = false;
     this.isRendered = false;
     this.review_count = 0;
     this.isAuthorVisible = false;
@@ -109,6 +111,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
         const fragment = document.createRange().createContextualFragment(this.post.content);
         element.appendChild(fragment);
 
+        this.isLoaded = true;
         postSub.unsubscribe();
       },
       err => {

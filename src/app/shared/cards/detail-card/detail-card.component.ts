@@ -21,6 +21,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
 
   id: string;
   isAD: boolean;
+  isLoaded: boolean;
   isRendered: boolean;
   postRendered: boolean;
   showReference: boolean;
@@ -36,6 +37,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
     private authService: AuthService,
     private bookmarkService: BookmarkService) {
       this.isAD = false;
+      this.isLoaded = false;
       this.isRendered = false;
       this.postRendered = false;
 
@@ -58,6 +60,8 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
       this.changePreToDiv();
       this.setDropcap();
     }
+
+    this.isLoaded = true;
   }
 
   ngAfterContentChecked() {

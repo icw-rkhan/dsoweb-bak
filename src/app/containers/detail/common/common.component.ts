@@ -26,6 +26,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
   post: Post;
   rate: number;
   postId: string;
+  isLoaded: boolean;
   authorName: string;
   authorInfo: string;
   isRendered: boolean;
@@ -63,6 +64,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
     private bookmarkService: BookmarkService) {
 
     this.rate = 0;
+    this.isLoaded = false;
     this.isRendered = false;
     this.review_count = 0;
     this.isAuthorVisible = false;
@@ -100,6 +102,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
           this.setDropcap();
         }
 
+        this.isLoaded = true;
         postSub.unsubscribe();
       },
       err => {
