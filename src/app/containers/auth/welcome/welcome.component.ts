@@ -1,6 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, HostListener, ViewChild, ElementRef} from '@angular/core';
 import {Router} from '@angular/router';
 import { AuthService } from '../../../services/auth/auth.service';
+import { container } from '@angular/core/src/render3/instructions';
 
 @Component({
   selector: 'dso-welcome',
@@ -11,6 +12,8 @@ export class WelcomeComponent implements OnInit {
   checkIsStudent: boolean;
   signup: boolean;
 
+  @ViewChild('container') container: ElementRef;
+
   constructor(
     private authService: AuthService,
     private router: Router) {
@@ -20,6 +23,8 @@ export class WelcomeComponent implements OnInit {
     if (this.authService.isAuthenticated()) {
       this.router.navigate(['/profile']);
     }
+
+    this.container.nativeElement.style.height = `${window.innerHeight}px`;
   }
 
   signUpOrLogin(signup: boolean = false) {
@@ -36,5 +41,10 @@ export class WelcomeComponent implements OnInit {
     localStorage.setItem('is_student', is_student);
     const url = this.signup ? ['/auth', 'register'] : ['/auth', 'login'];
     this.router.navigate(url);
+  }
+
+  @HostListener('window:resize', [])
+  onResize() {
+    this.container.nativeElement.style.height = `${window.innerHeight}px`;
   }
 }

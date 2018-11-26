@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild, ElementRef, HostListener} from '@angular/core';
 import {Router} from '@angular/router';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ngx-custom-validators';
@@ -22,6 +22,8 @@ export class RegisterComponent implements OnInit {
   form: FormGroup;
   isScroll: boolean;
 
+  @ViewChild('container')container: ElementRef;
+
   constructor(private router: Router,
               private authService: AuthService,
               private fb: FormBuilder,
@@ -35,12 +37,20 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.container.nativeElement.style.height = `${window.innerHeight}px`;
+
     this.is_student = +localStorage.getItem('is_student');
     this.initForm();
     setTimeout(() => {
       this.sharingService.showLoading(false);
     });
   }
+
+  @HostListener('window:resize', [])
+  onresize() {
+    this.container.nativeElement.style.height = `${window.innerHeight}px`;
+  }
+
   showDialog(type: string) {
     this.dialog.open(TermPolicyDialogComponent, {
       width: '600px',

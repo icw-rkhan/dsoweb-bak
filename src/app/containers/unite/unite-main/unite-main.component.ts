@@ -24,20 +24,18 @@ export class UniteMainComponent implements OnInit {
       this.page = 0;
 
       this.progress.start();
-      this.router.events.subscribe((event: Event) => {
         const body = {
           'skip': this.page,
           'limit': 0
         };
 
-        const uniteSub = this.uniteService.findAll(body).subscribe(unites => {
-          this.unites = unites;
+      const uniteSub = this.uniteService.findAll(body).subscribe(unites => {
+        this.unites = unites;
 
-          this.cdr.markForCheck();
+        this.cdr.markForCheck();
 
-          this.progress.complete();
-          uniteSub.unsubscribe();
-        });
+        this.progress.complete();
+        uniteSub.unsubscribe();
       });
   }
 
