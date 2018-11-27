@@ -45,7 +45,7 @@ export class IssueMenuComponent implements OnInit {
           this.categories.push(post.categoryName);
         }
 
-        if (!post.title.includes('AD')) {
+        if (post.title.length > 2 && post.title.substr(0, 2) !== 'AD') {
           this.posts.push(post);
         }
       });
