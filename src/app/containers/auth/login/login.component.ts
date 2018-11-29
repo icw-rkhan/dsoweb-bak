@@ -108,8 +108,8 @@ export class LoginComponent implements OnInit {
 
   onLoginLinkedIn() {
     const redirectUri = `${document.location.origin}/auth/login`;
-    const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=
-    ${environment.linkedinClientId}&redirect_uri=${redirectUri}&state=1234567`;
+    const url = `https://www.linkedin.com/oauth/v2/authorization?response_type=code&client_id=` +
+    `${environment.linkedinClientId}&redirect_uri=${redirectUri}&state=1234567`;
     window.location.href = url;
   }
 
