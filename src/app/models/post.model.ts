@@ -63,7 +63,7 @@ export class Post implements Serializable<Post> {
       isBookmark: data.isBookmark,
       excerpt: data.excerpt ? data.excerpt : '',
       thumbnail: data.featuredMedia ? data.featuredMedia.code.thumbnailUrl : '',
-      date: this.dateFormat(data.publishDate),
+      date: this.dateFormat(data.publishDate.toString()),
       link: 'https://www.dsodentist.com',
       isFeatured: data.isFeatured
     });

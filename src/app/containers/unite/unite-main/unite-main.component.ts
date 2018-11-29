@@ -1,5 +1,5 @@
-import { Component, OnInit, ViewChild, HostListener, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Router, Event, NavigationEnd } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Unite } from '../../../models/unite.model';
 import { UniteService } from '../../../services/unite.service';
