@@ -188,6 +188,7 @@ p {
         }
 
         .round-avatar {
+            width: 40px;
             height: 40px;
             border-radius: 50%;
         }
@@ -325,7 +326,6 @@ div {
     }
 
     ol, ul {
-        font-size: 13px;
         padding-left: 25px !important;
         margin-left: 0 !important;
         margin-bottom: 20px !important;

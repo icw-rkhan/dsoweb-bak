@@ -162,24 +162,25 @@ section {
         }
 
         .round-avatar {
+            width: 40px;
             height: 40px;
             border-radius: 50%;
         }
     }
 
     .author-area {
-        margin-left: 10px;
+        margin-left: 5px;
 
         #author-name {
             color: #4a4a4a;
             font-family: "SFUI";
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 600;
         }
 
         #author-info {
             color: #9b9b9b;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 400;
             margin-top: 5px;
         }
@@ -302,7 +303,6 @@ div {
     }
 
     ol, ul {
-        font-size: 13px;
         padding-left: 25px !important;
         margin-left: 0 !important;
         margin-bottom: 20px !important;
