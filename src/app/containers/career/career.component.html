@@ -7,6 +7,28 @@
     <div>
       <router-outlet></router-outlet>
     </div>
-    <dso-career-actions></dso-career-actions>
+    <div *ngIf="showMoreActionBar" class="more-container">
+      <div class="more-mask" fxLayoutAlign="end bottom">
+        <div class="more-actions" fxLayout="column">
+          <div class="more-item" fxLayout="row" fxLayoutAlign="end center" (click)="onGoTo('profile')">
+            <label>DSO Profiles</label>
+            <img src="assets/images/career/more-profile.png">
+          </div>
+          <div class="more-item" fxLayout="row" fxLayoutAlign="end center" (click)="onGoTo('review')">
+            <label>Reviews</label>
+            <img src="assets/images/career/more-review.png">
+          </div>
+          <div class="more-item" fxLayout="row" fxLayoutAlign="end center" (click)="onGoTo('notification')">
+            <label>Notifications</label>
+            <img src="assets/images/career/more-notification.png">
+          </div>
+          <div class="more-item" fxLayout="row" fxLayoutAlign="end center" (click)="onGoTo('oneself')">
+            <label>Me</label>
+            <img src="assets/images/career/more-me.png">
+          </div>
+        </div>
+      </div>
+    </div>
+    <dso-career-actions (moreEvent)="onShowMoreActionBar($event)"></dso-career-actions>
   </mat-sidenav-content>
 </mat-sidenav-container>

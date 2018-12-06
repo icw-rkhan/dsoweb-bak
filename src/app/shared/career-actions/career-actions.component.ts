@@ -1,5 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Router, Event, NavigationEnd } from '@angular/router';
 
 @Component({
   selector: 'dso-career-actions',
@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 export class CareerActionsComponent implements OnInit {
 
   links: any[];
+
+  @Output() moreEvent = new EventEmitter<number>();
 
   constructor(private router: Router) {
     this.links = [
@@ -40,21 +42,37 @@ export class CareerActionsComponent implements OnInit {
       {
         title: 'More',
         icon: 'more',
-        url: '/career',
+        url: '#more',
         status: 'inactive'
       }
     ];
+
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        const url = event.url;
+
+        if (url !== '/career' && url !== '/career/search' &&
+            url !== '/career/myjob' && url !== '/career/alert') {
+          this.clear();
+        }
+      }
+    });
   }
 
   ngOnInit() {
   }
 
   onGoTo(link: any) {
-    this.clear();
+    if (link.url !== '#more') {
+      this.clear();
+      link.status = 'active';
 
-    link.status = 'active';
+      this.router.navigate([link.url]);
 
-    this.router.navigate([link.url]);
+      this.moreEvent.emit(0);
+    } else {
+      this.moreEvent.emit(1);
+    }
   }
 
   clear() {
