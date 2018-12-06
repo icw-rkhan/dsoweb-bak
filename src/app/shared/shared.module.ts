@@ -51,6 +51,7 @@ import { ScreenCardComponent } from './cards/screen-card/screen-card.component';
 import { IssueMenuComponent } from './menus/issue-menu/issue-menu.component';
 import { SearchMenuComponent } from './menus/search-menu/search-menu.component';
 import { DetailCardComponent } from './cards/detail-card/detail-card.component';
+import { CareerActionsComponent } from './career-actions/career-actions.component';
 import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafePipe } from '../pipes/safe.pipe';
@@ -78,6 +79,7 @@ export const COMPONENTS = [
   IssueMenuComponent,
   SearchMenuComponent,
   DetailCardComponent,
+  CareerActionsComponent,
 ];
 
 export const MODULES = [

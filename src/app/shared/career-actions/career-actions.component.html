@@ -1,0 +1,9 @@
+<div class="career-actions" fxLayout="row" fxLayoutAlign="start center">
+  <a *ngFor="let link of links" fxLayout="column" fxLayoutAlign="center center" 
+                                      class="action-item">
+    <div class="action-avatar" (click)="onGoTo(link)">
+      <img [src]="'assets/images/career/' + link.icon + '_' + link.status + '.png'">
+    </div>
+    <label [class.active]="link.status === 'active'" class="action-title">{{link.title}}</label>
+  </a>
+</div>

@@ -91,6 +91,12 @@ export class ToolbarComponent {
           } else if (event.url.includes('/career/profile')) {
             this.title = 'DSO PROFILES';
             this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/career/myjob')) {
+            this.title = 'MY JOBS';
+            this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/career/alert')) {
+            this.title = 'JOB ALERTS';
+            this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career/oneself')) {
             this.title = 'ME';
             this.btnTitle = 'keyboard_backspace';
@@ -103,7 +109,7 @@ export class ToolbarComponent {
             this.title = 'SEARCH';
           } else if (event.url.includes('/profile')) {
             this.title = 'PROFILE';
-          } 
+          }
 
           if (event.url.includes('/unite/')) {
             this.visibleUniteMoreMenu = true;
