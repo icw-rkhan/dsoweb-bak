@@ -32,7 +32,7 @@ export class NavLinksService {
     this.links.push({
       label: 'Careers',
       icon: 'careers',
-      route: '#',
+      route: '/career',
       state: 'inactive'
     });
     this.links.push({

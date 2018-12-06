@@ -19,6 +19,8 @@ import { BookmarksPageModule } from './containers/bookmarks/bookmarks-page.modul
 import { ProfileModule } from './containers/profile/profile.module';
 import { EditProfileModule } from './containers/edit-profile/edit-profile.module';
 import { UnitePageModule } from './containers/unite/unite-page.module';
+import { CareerModule } from './containers/career/career.module';
+
 import { AuthGuard } from './services/auth/auth-guard';
 import { environment } from '../environments/environment';
 import { TokenInterceptor } from './services/auth/auth.interceptor';
@@ -31,7 +33,6 @@ export class HammerConfig extends HammerGestureConfig {
     'swipe': { direction: Hammer.DIRECTION_ALL}
   };
 }
-
 
 @NgModule({
   declarations: [
@@ -57,6 +58,7 @@ export class HammerConfig extends HammerGestureConfig {
     ProfileModule,
     EditProfileModule,
     UnitePageModule,
+    CareerModule,
     AppRoutingModule,
     MatDatepickerModule,
     GoTopButtonModule

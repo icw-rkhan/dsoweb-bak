@@ -11,7 +11,7 @@
     </div>
   </div>
   <div class="no-content" *ngIf="!loading && (posts === null || posts === undefined || posts?.length === 0)">
-    <img src="assets/images/no-search.png">
+    <img src="assets/images/icons/no-search.png">
     <h3 class="mat-h3 no-find-message">{{noFoundMessage}}</h3>
   </div>
   <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn}" (click)="gotoTop()">

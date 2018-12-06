@@ -6,12 +6,18 @@
   <mat-card-content>
     <div class="image" *ngIf="post.thumbnail; else elseBlock" (click)="onViewDetail()">
       <img [src]="post.thumbnail"/>
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" src="/assets/images/Article@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '194')" src="/assets/images/Interview@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '30')" src="/assets/images/Podcast@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '31')" src="/assets/images/TechGuide@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '29')" src="/assets/images/Video@2x.png" />
-      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '196')" src="/assets/images/TipSheet@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" 
+        src="/assets/images/icons/Article@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '194')" 
+        src="/assets/images/icons/Interview@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '30')" 
+        src="/assets/images/icons/Podcast@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '31')" 
+        src="/assets/images/icons/TechGuide@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '29')" 
+        src="/assets/images/icons/Video@2x.png" />
+      <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '196')" 
+        src="/assets/images/icons/TipSheet@2x.png" />
     </div>
     <ng-template #elseBlock>
       <div class="image sponsor" (click)="onViewDetail()">
@@ -26,7 +32,7 @@
     <div class="content">
       <div class="content-title">
         <span class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></span>
-        <div class="actions">
+        <div class="actions" fxLayout="row" fxLayoutAlign="end start">
           <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.isBookmark">
             <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
           </a>
@@ -34,18 +40,18 @@
             <mat-icon aria-label="Bookmark">bookmark</mat-icon>
           </a>
           <a class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-            <mat-icon aria-label="Options">more_vert</mat-icon>
+            <img src="assets/images/icons/share.png">
           </a>
           <mat-menu #menu="matMenu" xPosition="before">
             <div class="share-content">
               <a class="bookmark-btn" url="{{post.link}}" shareButton="facebook">
-                <img class="share-btn" src="assets/images/icon-facebook.png">
+                <img class="share-btn" src="assets/images/icons/icon-facebook.png">
               </a>
               <a class="bookmark-btn" url="{{post.link}}" shareButton="twitter">
-                <img class="share-btn" src="assets/images/icon-twitter.png">
+                <img class="share-btn" src="assets/images/icons/icon-twitter.png">
               </a>
               <a class="menu-btn" url="{{post.link}}" shareButton="linkedin">
-                <img class="share-btn" src="assets/images/icon-linkediin.png">
+                <img class="share-btn" src="assets/images/icons/icon-linkediin.png">
               </a>
             </div>
           </mat-menu>

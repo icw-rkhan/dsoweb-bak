@@ -15,7 +15,7 @@ body {
 }
 
 .logoBox .logo {
-  background: url("../images/logo.png") no-repeat;
+  background: url("../images/icons/logo.png") no-repeat;
   background-size: contain;
   width: 260px;
   height: 50px;
@@ -1113,7 +1113,7 @@ a {
   content: '';
   width: 40px;
   height: 40px;
-  background-image: url("../images/icon-linkedin.png");
+  background-image: url("../images/icons/icon-linkedin.png");
   background-position: center;
   background-repeat: no-repeat;
   position: absolute;
@@ -1142,7 +1142,7 @@ a {
 .main-nav-icon {
   width: 23px;
   height: 16px;
-  background-image: url("../images/nav-icon.png");
+  background-image: url("../images/icons/nav-icon.png");
   background-repeat: no-repeat;
 }
 
@@ -1154,7 +1154,7 @@ a {
 .main-nav-icon-back {
   width: 23px;
   height: 16px;
-  background-image: url("../images/icon-back.png");
+  background-image: url("../images/icons/icon-back.png");
   background-repeat: no-repeat;
 }
 
@@ -1206,7 +1206,7 @@ a {
   content: '';
   width: 20px;
   height: 20px;
-  background-image: url("../images/info-icon.png");
+  background-image: url("../images/icons/info-icon.png");
   background-repeat: no-repeat;
   background-position: center;
   position: absolute;

@@ -77,16 +77,19 @@ mat-card {
 
 .actions {
   .menu-btn {
-    color: lightslategrey;
-    margin-left: 5px;
+      margin-left: 5px;
+
+      img {
+        margin-top: 3px;
+      }
   }
 
   .bookmark-btn {
-    color: lightslategrey;
+      color: #879aa8;
   }
 
   .mat-icon {
-    margin-top: 1px;
+      margin-top: 1px;
   }
 }
 

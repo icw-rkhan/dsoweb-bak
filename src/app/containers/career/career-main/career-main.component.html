@@ -1,0 +1,15 @@
+<div>
+  <div class="heading">
+    <img src="assets/images/career/head.png">
+  </div>
+  <div>
+    <mat-grid-list cols="2" rowHeight="150px">
+      <mat-grid-tile *ngFor="let link of links">
+        <div class="tile-content" fxLayout="column" fxLayoutAlign="center center" (click)="onGoTo(link.url)">
+          <img [src]="'assets/images/career/' + link.icon + '.png'">
+          <p class="tile-title">{{link.title}}</p>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+</div>

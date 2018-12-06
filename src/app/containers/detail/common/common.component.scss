@@ -207,16 +207,19 @@ section {
 
 .actions {
     .menu-btn {
-      color: lightslategrey;
-      margin-left: 5px;
+        margin-left: 5px;
+
+        img {
+            margin-top: 10px;
+        }
     }
 
     .bookmark-btn {
-      color: lightslategrey;
+        color: #879aa8;
     }
 
     .mat-icon {
-      margin-top: 8px;
+        margin-top: 8px;
     }
 }
 

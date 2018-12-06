@@ -40,6 +40,8 @@ export class ToolbarComponent {
       this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
           this.url = event.url;
+          this.title = 'DSODENTIST';
+          this.btnTitle = 'menu';
 
           this.fetchIssueId(event.url);
 
@@ -48,7 +50,6 @@ export class ToolbarComponent {
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/posts')) {
               this.title = 'DSODENTIST';
-              this.btnTitle = 'menu';
           } else if (event.url.includes('/reviews/add')) {
               this.title = 'ADD A REVIEW';
               this.btnTitle = 'keyboard_backspace';
@@ -63,20 +64,12 @@ export class ToolbarComponent {
               this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/bookmarks')) {
             this.title = 'BOOKMARKS';
-            this.btnTitle = 'menu';
           } else if (event.url.includes('/category')) {
             this.title = 'CATEGORY';
-            this.btnTitle = 'menu';
           } else if (event.url.includes('/unite/search')) {
             this.title = 'SEARCH';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/search')) {
-            this.title = 'SEARCH';
-            this.btnTitle = 'menu';
-          } else if (event.url.includes('/profile')) {
-            this.title = 'PROFILE';
-            this.btnTitle = 'menu';
-          }  else if (event.url.includes('/unite/view')) {
+          } else if (event.url.includes('/unite/view')) {
             this.title = '';
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/unite/bookmark')) {
@@ -87,17 +80,30 @@ export class ToolbarComponent {
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/unite/type/downloaded')) {
             this.title = 'DOWNLOADED';
-            this.btnTitle = 'menu';
           } else if (event.url.includes('/unite/download')) {
             this.title = '';
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/unite')) {
             this.title = 'ALL ISSUES';
-            this.btnTitle = 'menu';
-          } else {
-            this.title = 'DSODENTIST';
-            this.btnTitle = 'menu';
-          }
+          } else if (event.url.includes('/career/review')) {
+            this.title = 'REVIEWS';
+            this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/career/profile')) {
+            this.title = 'DSO PROFILES';
+            this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/career/oneself')) {
+            this.title = 'ME';
+            this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/career/search')) {
+            this.title = 'JOBS';
+            this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/career')) {
+            this.title = 'CAREER';
+          } else if (event.url.includes('/search')) {
+            this.title = 'SEARCH';
+          } else if (event.url.includes('/profile')) {
+            this.title = 'PROFILE';
+          } 
 
           if (event.url.includes('/unite/')) {
             this.visibleUniteMoreMenu = true;

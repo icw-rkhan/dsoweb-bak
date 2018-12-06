@@ -1,0 +1,23 @@
+.sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 100vh;
+    height: 100%;
+  }
+  
+  .sidenav-content {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .main-actions {
+    z-index: 2;
+  }
+  
+  dso-toolbar {
+    height: 45px;
+  }
+  

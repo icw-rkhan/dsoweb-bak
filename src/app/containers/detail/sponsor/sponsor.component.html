@@ -5,12 +5,18 @@
     </div>
     <div class="inner-thumbnail" fxLayout="column">
         <img *ngIf="post.thumbnail; else elseBlock" src="{{post.thumbnail}}">
-        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" src="/assets/images/Article@2x.png" />
-        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '194')" src="/assets/images/Interview@2x.png" />
-        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '30')" src="/assets/images/Podcast@2x.png" />
-        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '31')" src="/assets/images/TechGuide@2x.png" />
-        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '29')" src="/assets/images/Video@2x.png" />
-        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '196')" src="/assets/images/TipSheet@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" 
+            src="/assets/images/icons/Article@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '194')" 
+            src="/assets/images/icons/Interview@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '30')" 
+            src="/assets/images/icons/Podcast@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '31')" 
+            src="/assets/images/icons/TechGuide@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '29')" 
+            src="/assets/images/icons/Video@2x.png" />
+        <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '196')" 
+            src="/assets/images/icons/TipSheet@2x.png" />
         <ng-template #elseBlock>
             <img src="../../../assets/images/sponsor/align-header.png" *ngIf="isAlign(post.sponsorId)"/>
             <img src="../../../assets/images/sponsor/gsk-header.png" *ngIf="isGsk(post.sponsorId)"/>
@@ -27,7 +33,7 @@
     </div>
     <div class="inner-content" fxLayout="row">
         <span class="title">{{post.title}}</span>
-        <div class="actions" fxLayoutAlign="end top">
+        <div class="actions" fxLayoutAlign="end start">
             <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.isBookmark">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
             </a>
@@ -35,18 +41,18 @@
                 <mat-icon aria-label="Bookmark">bookmark</mat-icon>
             </a>
             <a class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                <mat-icon aria-label="Options">more_vert</mat-icon>
+                <img src="assets/images/icons/share.png">
             </a>
             <mat-menu #menu="matMenu" xPosition="before">
                 <div class="share-content">
                     <a url="{{post.link}}" shareButton="facebook">
-                        <img class="share-btn" src="assets/images/icon-facebook.png">
+                        <img class="share-btn" src="assets/images/icons/icon-facebook.png">
                     </a>
                     <a url="{{post.link}}" shareButton="twitter">
-                        <img class="share-btn" src="assets/images/icon-twitter.png">
+                        <img class="share-btn" src="assets/images/icons/icon-twitter.png">
                     </a>
                     <a url="{{post.link}}" shareButton="linkedin">
-                        <img class="share-btn" src="assets/images/icon-linkediin.png">
+                        <img class="share-btn" src="assets/images/icons/icon-linkediin.png">
                     </a>
                 </div>
             </mat-menu>
@@ -55,7 +61,7 @@
     <div class="author" #authorContent [class.author-container]="isAuthorVisible" fxLayout="row" fxLayoutAlign="start center">
         <div class="author-area" fxLayout="column" fxLayoutAlign="start start" *ngIf="authorName && authorName.indexOf('DSODentist') > -1">
             <div id="author-avatar">
-                <span>By</span><img src="assets/images/logo-color.png">
+                <span>By</span><img src="assets/images/icons/logo-color.png">
             </div>
         </div>
         <div class="author-area" fxLayout="row" fxLayoutAlign="start center" *ngIf="authorName && authorName.indexOf('DSODentist') === -1">
@@ -80,7 +86,7 @@
         <span *ngIf="isAlign(post.sponsorId)" class="label-sponsor">Want more content from Align?</span>
         <span *ngIf="isNobel(post.sponsorId)" class="label-sponsor">Want more content from Nobel?</span>
         <button mat-button *ngIf="isGsk(post.sponsorId)"class="sponsorBtn gskBtn"
-            (click)="onPostSponsor('gsk')">Access GSK Science</button>
+            (click)="onPostSponsor('gsk')">Access GSK Resources</button>
         <button mat-button *ngIf="isAlign(post.sponsorId)"class="sponsorBtn alignBtn"
             (click)="onPostSponsor('align')">Access Align Resources</button>
         <button mat-button *ngIf="isNobel(post.sponsorId)"class="sponsorBtn nobelBtn"
@@ -133,18 +139,18 @@
                 <mat-icon aria-label="Bookmark">bookmark</mat-icon>
             </a>
             <a class="menu-btn" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-                <mat-icon aria-label="Options">more_vert</mat-icon>
+                <img src="assets/images/icons/share.png">
             </a>
             <mat-menu #menu="matMenu" xPosition="before">
                 <div class="share-content">
                     <a url="{{post.link}}" shareButton="facebook">
-                        <img class="share-btn" src="assets/images/icon-facebook.png">
+                        <img class="share-btn" src="assets/images/icons/icon-facebook.png">
                     </a>
                     <a url="{{post.link}}" shareButton="twitter">
-                        <img class="share-btn" src="assets/images/icon-twitter.png">
+                        <img class="share-btn" src="assets/images/icons/icon-twitter.png">
                     </a>
                     <a url="{{post.link}}" shareButton="linkedin">
-                        <img class="share-btn" src="assets/images/icon-linkediin.png">
+                        <img class="share-btn" src="assets/images/icons/icon-linkediin.png">
                     </a>
                 </div>
             </mat-menu>

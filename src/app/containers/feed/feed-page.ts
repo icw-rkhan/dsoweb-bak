@@ -48,7 +48,7 @@ export class FeedPageComponent implements OnInit, OnDestroy {
           }
         } else if (event.url.includes('/posts')) {
           this.isGeneral = true;
-          this.headerImageUrl = 'assets/images/header-pic.png';
+          this.headerImageUrl = 'assets/images/icons/header-pic.png';
         }
       }
     });
