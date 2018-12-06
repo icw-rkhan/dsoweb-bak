@@ -5,32 +5,24 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from './auth/auth.service';
 import { environment } from '../../environments/environment';
-import { Comment } from '../models/comment.model';
+import { CComment } from '../models/ccomment.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CommentService {
+export class CCommentService {
 
   constructor(private http: HttpClient, private auth: AuthService) {
   }
 
-  comments(postId: string): Observable<Comment[]> {
-    const url = `${environment.cmsAPIUrl}/comment/findAllByContent`;
+  reviews(): Observable<CComment[]> {
+    const url = `${environment.careerAPIUrl}/comment/findAllCompanyComment`;
 
     const headers = this.getHeaders();
 
-    return this.http.post(url, {'contentId': postId}, {headers}).pipe(
-      map((response: any) => response.resultMap.data.map(comment => new Comment().deserialize(comment)))
+    return this.http.post(url, null, {headers}).pipe(
+      map((response: any) => response.resultMap.map(comment => new CComment().deserialize(comment)))
     );
-  }
-
-  setComment(body: any) {
-    const url = `${environment.cmsAPIUrl}/comment/addComment`;
-
-    const headers = this.getHeaders();
-
-    return this.http.post(url, body, {headers});
   }
 
   getHeaders(): HttpHeaders {

@@ -32,7 +32,7 @@ export class ReviewComponent implements OnInit {
         this.comment.userUrl = user.photo_url;
       }
 
-      this.cdr.detectChanges();
+      this.cdr.markForCheck();
       profileSub.unsubscribe();
     });
   }

@@ -1,0 +1,42 @@
+mat-card {
+    padding: 16px;
+
+    .company-name {
+        color: #4a4a4a;
+        margin-bottom: 12px;
+        font-size: 13px;
+        font-family: 'SFUI';
+        font-weight: 600;
+    }
+
+    .review-rating {
+        color: #879aa8;
+        margin-left: 8px;
+        font-size: 11px;
+        font-family: 'SFUI';
+        font-weight: 700;
+    }
+
+    .review-count {
+        color: #879aa8;
+        margin-right: 32px;
+        font-size: 11px;
+        font-weight: 400;
+    }
+
+    .ratebar {
+        height: 20px;
+    
+        .rate-star {
+            margin-right: 2px;
+        }
+    }
+
+    .space {
+        flex: 1 1 auto;
+    }
+}
+
+.mat-card:not([class*="mat-elevation-z"]) {
+    box-shadow: 0 0px 0 #dddddd;
+}
