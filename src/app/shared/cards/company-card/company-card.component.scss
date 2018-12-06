@@ -1,12 +1,25 @@
 mat-card {
     padding: 16px;
 
+    .company-logo {
+        width: 51px;
+        height: 51px;
+        margin-right: 16px;
+    }
+
     .company-name {
         color: #4a4a4a;
-        margin-bottom: 12px;
+        margin-bottom: 5px;
         font-size: 13px;
         font-family: 'SFUI';
         font-weight: 600;
+    }
+
+    .company-location {
+        color: #9b9b9b;
+        margin-top: 5px;
+        font-size: 13px;
+        font-weight: 400;
     }
 
     .review-rating {
@@ -19,6 +32,7 @@ mat-card {
 
     .review-count {
         color: #879aa8;
+        margin-left: 8px;
         margin-right: 32px;
         font-size: 11px;
         font-weight: 400;

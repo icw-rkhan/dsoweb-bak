@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from './auth/auth.service';
 import { environment } from '../../environments/environment';
-import { CComment } from '../models/ccomment.model';
+import { Company } from '../models/company.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,13 +15,23 @@ export class CCommentService {
   constructor(private http: HttpClient, private auth: AuthService) {
   }
 
-  reviews(): Observable<CComment[]> {
+  comments(): Observable<Company[]> {
     const url = `${environment.careerAPIUrl}/comment/findAllCompanyComment`;
 
     const headers = this.getHeaders();
 
     return this.http.post(url, null, {headers}).pipe(
-      map((response: any) => response.resultMap.map(comment => new CComment().deserialize(comment)))
+      map((response: any) => response.resultMap.map(comment => new Company().deserialize(comment)))
+    );
+  }
+
+  companies(): Observable<Company[]> {
+    const url = `${environment.careerAPIUrl}/company/findAllCompanys`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, null, {headers}).pipe(
+      map((response: any) => response.resultMap.map(comment => new Company().deserialize(comment)))
     );
   }
 

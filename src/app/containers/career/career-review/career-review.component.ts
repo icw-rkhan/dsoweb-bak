@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { CComment } from '../../../models/ccomment.model';
+import { Company } from '../../../models/company.model';
 
 @Component({
   selector: 'dso-career-review',
@@ -8,21 +8,21 @@ import { CComment } from '../../../models/ccomment.model';
 })
 export class CareerReviewComponent implements OnInit {
 
-  comments: CComment[];
+  comments: Company[];
 
   constructor() {
     this.comments = [];
 
-    const comment = new CComment();
+    const comment = new Company();
     comment.companyId = '1';
     comment.companyName = 'THE BRONX - Dental Center';
     comment.rating = '4.1';
     comment.reviews = '789';
 
-    const comment2 = new CComment();
+    const comment2 = new Company();
     comment2.companyId = '2';
     comment2.companyName = 'Fresh Dent';
-    comment2.rating = '4.7';
+    comment2.rating = '5';
     comment2.reviews = '119';
 
     this.comments.push(comment);

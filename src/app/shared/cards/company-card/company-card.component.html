@@ -1,6 +1,9 @@
 <mat-card fxLayout="row" fxLayoutAlign="start center">
+    <div *ngIf="company.log" class="company-logo" fxLayoutAlign="center center">
+        <img [src]="company.log">
+    </div>
     <div class="space">
-        <div class="company-name">{{comment.companyName}}</div>
+        <div class="company-name">{{company.companyName}}</div>
         <div fxLayout="row" fxLayoutAlign="start center">
             <div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
                 <div *ngFor="let rate of rateList; index as i">
@@ -9,11 +12,12 @@
                     <img src="assets/images/review/view-star-inactive.png" class="rate-star">
                     </ng-template>
                 </div>
-                <div class="review-rating">{{comment.rating}}</div>
+                <div *ngIf="!company.log" class="review-rating">{{company.rating}}</div>
             </div>
-            <div class="space"></div>
-            <div class="review-count">{{comment.reviews}} Reviews</div>
+            <div *ngIf="!company.log" class="space"></div>
+            <div class="review-count">{{company.reviews}} Reviews</div>
         </div>
+        <div class="company-location">{{company.location}}</div>
     </div>
     <div>
         <img src="assets/images/profile/arrow-right.png">
