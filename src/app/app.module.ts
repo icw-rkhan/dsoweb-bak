@@ -7,7 +7,6 @@ import { NgProgressModule } from '@ngx-progressbar/core';
 import { MatDatepickerModule } from '@angular/material';
 import { GoTopButtonModule } from 'ng2-go-top-button';
 
-import { SharedModule } from './shared';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { ReviewsModule } from './containers/reviews/reviews.module';
@@ -48,7 +47,6 @@ export class HammerConfig extends HammerGestureConfig {
       color: '#354051'
     }),
     // Module import
-    SharedModule,
     ReviewsModule,
     FeedModule,
     DetailModule,

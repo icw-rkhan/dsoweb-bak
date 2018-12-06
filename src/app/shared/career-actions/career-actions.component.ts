@@ -9,11 +9,14 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 })
 export class CareerActionsComponent implements OnInit {
 
+  flag: boolean;
   links: any[];
 
   @Output() moreEvent = new EventEmitter<number>();
 
   constructor(private router: Router) {
+    this.flag = false;
+
     this.links = [
       {
         title: 'Explore',
@@ -63,14 +66,22 @@ export class CareerActionsComponent implements OnInit {
   }
 
   onGoTo(link: any) {
-    if (link.url !== '#more') {
-      this.clear();
-      link.status = 'active';
+    this.clear();
+    link.status = 'active';
 
+    if (link.url !== '#more') {
+      this.flag = false;
       this.router.navigate([link.url]);
 
       this.moreEvent.emit(0);
     } else {
+      this.flag = !this.flag;
+      if (this.flag) {
+        link.status = 'active';
+      } else {
+        link.status = 'inactive';
+      }
+
       this.moreEvent.emit(1);
     }
   }
