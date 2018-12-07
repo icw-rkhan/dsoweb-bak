@@ -5,33 +5,23 @@ import { Observable } from 'rxjs';
 
 import { AuthService } from './auth/auth.service';
 import { environment } from '../../environments/environment';
-import { Company } from '../models/company.model';
+import { Job } from '../models/job.model';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyService {
+export class JobService {
 
   constructor(private http: HttpClient, private auth: AuthService) {
   }
 
-  comments(): Observable<Company[]> {
-    const url = `${environment.careerAPIUrl}/comment/findAllCompanyComment`;
+  jobs(): Observable<Job[]> {
+    const url = `${environment.careerAPIUrl}/job/findAll`;
 
     const headers = this.getHeaders();
 
     return this.http.post(url, null, {headers}).pipe(
-      map((response: any) => response.resultMap.map(comment => new Company().deserialize(comment)))
-    );
-  }
-
-  companies(): Observable<Company[]> {
-    const url = `${environment.careerAPIUrl}/company/findAllCompanys`;
-
-    const headers = this.getHeaders();
-
-    return this.http.post(url, null, {headers}).pipe(
-      map((response: any) => response.resultMap.map(comment => new Company().deserialize(comment)))
+      map((response: any) => response.resultMap.map(job => new Job().deserialize(job)))
     );
   }
 

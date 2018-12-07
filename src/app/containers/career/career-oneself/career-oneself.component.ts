@@ -7,7 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CareerOneselfComponent implements OnInit {
 
-  constructor() { }
+  user: any;
+
+  constructor() {
+    this.user = {
+      name: 'Dr. Stephen Woods'
+    };
+  }
 
   ngOnInit() {
   }

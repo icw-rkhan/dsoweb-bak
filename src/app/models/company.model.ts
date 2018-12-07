@@ -1,5 +1,3 @@
-import { formatDate } from '@angular/common';
-
 import { Serializable } from './serializable.model';
 
 import * as _ from 'lodash';

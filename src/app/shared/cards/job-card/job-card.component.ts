@@ -1,13 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { Job } from '../../../models/job.model';
 
 @Component({
-  selector: 'app-job-card',
+  selector: 'dso-job-card',
   templateUrl: './job-card.component.html',
   styleUrls: ['./job-card.component.scss']
 })
 export class JobCardComponent implements OnInit {
 
-  constructor() { }
+  @Input()job: Job;
+
+  days: string;
+
+  constructor() {
+    this.days = '6d';
+  }
 
   ngOnInit() {
   }

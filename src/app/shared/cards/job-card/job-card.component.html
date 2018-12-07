@@ -1,3 +1,22 @@
-<p>
-  job-card works!
-</p>
+
+<mat-card fxLayout="row" fxLayoutAlign="start center">
+  <img *ngIf="job.isAttention" class="log-new" src="assets/images/career/new.png">
+  <div class="job-log">
+    <img [src]="job.log">
+  </div>
+  <div class="job-details" fxLayout="column" fxLayoutAlign="start top">
+    <p fxLayout="row" fxLayoutAlign="start center">
+      <label class="job-title" >{{job.jobTitle}}</label>
+      <span class="space"></span>
+      <label class="job-days">{{days}}</label>
+    </p>
+    <p class="company-name">Supported by {{job.companyName}}</p>
+    <p class="job-salary" fxLayout="row" fxLayoutAlign="start center">
+      <img src="assets/images/career/salary.png">
+      <label>{{job.salary}}</label>
+      <span class="space"></span>
+      <img src="assets/images/career/save.png">
+    </p>
+  </div>
+</mat-card>
+<mat-divider></mat-divider>
