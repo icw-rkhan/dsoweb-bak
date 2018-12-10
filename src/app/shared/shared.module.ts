@@ -55,11 +55,14 @@ import { CareerActionsComponent } from './career-actions/career-actions.componen
 import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafePipe } from '../pipes/safe.pipe';
+import { SavedPipe } from '../pipes/save.pipe';
 import { CompanyCardComponent } from './cards/company-card/company-card.component';
 import { JobCardComponent } from './cards/job-card/job-card.component';
+import { JobExtendCardComponent } from './cards/job-extend-card/job-extend-card.component';
 
 const PIPES = [
   SafePipe,
+  SavedPipe,
   TruncatePipe,
   MultipleCategoriesPipe
 ];
@@ -83,6 +86,7 @@ export const COMPONENTS = [
   IssueMenuComponent,
   SearchMenuComponent,
   DetailCardComponent,
+  JobExtendCardComponent,
   CareerActionsComponent,
 ];
 

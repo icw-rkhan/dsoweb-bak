@@ -2,16 +2,18 @@ import { Component, OnInit } from '@angular/core';
 import { Job } from '../../../models/job.model';
 
 @Component({
-  selector: 'dso-career-search',
-  templateUrl: './career-search.component.html',
-  styleUrls: ['./career-search.component.scss']
+  selector: 'dso-career-job-jobs',
+  templateUrl: './career-job.component.html',
+  styleUrls: ['./career-job.component.scss']
 })
-export class CareerSearchComponent implements OnInit {
+export class CareerJobComponent implements OnInit {
 
   jobs: Job[];
+  savedJobs: Job[];
 
   constructor() {
     this.jobs = [];
+    this.savedJobs = [];
 
     const job = new Job();
     job.jobTitle = 'Title of the job';
@@ -27,10 +29,10 @@ export class CareerSearchComponent implements OnInit {
     job2.salary = '$125k - $145k';
     job2.log = 'assets/images/career/log2.png';
     job2.isSaved = true;
-    job2.isAttention = true;
+    job2.isAttention = false;
 
     this.jobs.push(job);
-    this.jobs.push(job2);
+    this.savedJobs.push(job2);
   }
 
   ngOnInit() {

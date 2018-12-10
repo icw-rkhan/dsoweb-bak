@@ -13,6 +13,7 @@ export class Job implements Serializable<Job> {
     companyName: string;
     log: string;
     date: string;
+    isSaved: boolean;
     isAttention: boolean;
 
     // change the format of the data

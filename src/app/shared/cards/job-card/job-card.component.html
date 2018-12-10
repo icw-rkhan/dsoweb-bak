@@ -4,7 +4,7 @@
   <div class="job-log">
     <img [src]="job.log">
   </div>
-  <div class="job-details" fxLayout="column" fxLayoutAlign="start top">
+  <div class="job-details" fxLayout="column">
     <p fxLayout="row" fxLayoutAlign="start center">
       <label class="job-title" >{{job.jobTitle}}</label>
       <span class="space"></span>
@@ -15,7 +15,8 @@
       <img src="assets/images/career/salary.png">
       <label>{{job.salary}}</label>
       <span class="space"></span>
-      <img src="assets/images/career/save.png">
+      <img *ngIf="!job.isSaved" src="assets/images/career/save_inactive.png">
+      <img *ngIf="job.isSaved" src="assets/images/career/save_active.png">
     </p>
   </div>
 </mat-card>

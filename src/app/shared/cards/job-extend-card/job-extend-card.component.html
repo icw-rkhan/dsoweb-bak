@@ -1,0 +1,31 @@
+
+<mat-card>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <img *ngIf="job.isAttention" class="log-new" src="assets/images/career/new.png">
+    <div class="job-log">
+      <img [src]="job.log">
+    </div>
+    <div class="job-details">
+      <p fxLayout="row" fxLayoutAlign="start end">
+        <label class="job-title" >{{job.jobTitle}}</label>
+        <span class="space"></span>
+        <label class="job-days">{{days}}</label>
+      </p>
+      <p fxLayout="row" fxLayoutAlign="start start">
+        <span class="company-name">Supported by {{job.companyName}}</span>
+        <span class="space"></span>
+        <img *ngIf="!job.isSaved" src="assets/images/career/save_inactive.png">
+        <img *ngIf="job.isSaved" src="assets/images/career/save_active.png">
+      </p>
+    </div>
+  </div>
+  <div class="company-desc">{{companyDesc}}</div>
+  <div class="job-salary" fxLayout="row" fxLayoutAlign="start end">
+    <img src="assets/images/career/location.png">
+    <label>{{companyLocation}}</label>
+    <span class="space"></span>
+    <img src="assets/images/career/salary2.png">
+    <label>{{job.salary}}</label>
+  </div>
+</mat-card>
+<mat-divider></mat-divider>
