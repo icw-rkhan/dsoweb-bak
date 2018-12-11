@@ -59,9 +59,6 @@ export class ToolbarComponent {
           } else if (event.url.includes('/detail/sponsor')) {
               this.title = 'SPONSORED CONTENT';
               this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/detail')) {
-              this.title = '';
-              this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/bookmarks')) {
             this.title = 'BOOKMARKS';
           } else if (event.url.includes('/category')) {
@@ -100,7 +97,7 @@ export class ToolbarComponent {
           } else if (event.url.includes('/career/oneself')) {
             this.title = 'ME';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/career/search')) {
+          } else if (event.url.includes('/career/search') || event.url.includes('/career/detail')) {
             this.title = 'JOBS';
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career')) {
@@ -109,6 +106,9 @@ export class ToolbarComponent {
             this.title = 'SEARCH';
           } else if (event.url.includes('/profile')) {
             this.title = 'PROFILE';
+          } else if (event.url.includes('/detail')) {
+            this.title = '';
+            this.btnTitle = 'keyboard_backspace';
           }
 
           if (event.url.includes('/unite/')) {

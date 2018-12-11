@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Job } from '../../../models/job.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dso-job-extend-card',
@@ -14,7 +15,7 @@ export class JobExtendCardComponent implements OnInit {
   companyDesc: string;
   companyLocation: string;
 
-  constructor() {
+  constructor(private router: Router) {
     this.days = '6d';
     this.companyLocation = 'London';
     this.companyDesc = 'We are seeking general dentists who are interested in practing in an academic setting and offer perfect services';
@@ -23,4 +24,7 @@ export class JobExtendCardComponent implements OnInit {
   ngOnInit() {
   }
 
+  onJobDetail(id: string) {
+    this.router.navigate([`/career/detail/${id}`]);
+  }
 }

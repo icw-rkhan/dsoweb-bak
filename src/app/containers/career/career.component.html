@@ -18,10 +18,6 @@
             <label>Reviews</label>
             <img src="assets/images/career/more-review.png">
           </div>
-          <div class="more-item" fxLayout="row" fxLayoutAlign="end center" (click)="onGoTo('notification')">
-            <label>Notifications</label>
-            <img src="assets/images/career/more-notification.png">
-          </div>
           <div class="more-item" fxLayout="row" fxLayoutAlign="end center" (click)="onGoTo('oneself')">
             <label>Me</label>
             <img src="assets/images/career/more-me.png">
@@ -29,6 +25,6 @@
         </div>
       </div>
     </div>
-    <dso-career-actions (moreEvent)="onShowMoreActionBar($event)"></dso-career-actions>
+    <dso-career-actions *ngIf="showActionBar" (moreEvent)="onShowMoreActionBar($event)"></dso-career-actions>
   </mat-sidenav-content>
 </mat-sidenav-container>

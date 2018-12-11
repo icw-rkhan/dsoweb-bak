@@ -16,6 +16,7 @@ export class CareerJobComponent implements OnInit {
     this.savedJobs = [];
 
     const job = new Job();
+    job.jobId = '1';
     job.jobTitle = 'Title of the job';
     job.companyName = 'Heartland Dental';
     job.salary = '$100k - $150k';
@@ -24,6 +25,7 @@ export class CareerJobComponent implements OnInit {
     job.isAttention = false;
 
     const job2 = new Job();
+    job2.jobId = '2';
     job2.jobTitle = 'Title of the job';
     job2.companyName = 'Dental Services';
     job2.salary = '$125k - $145k';

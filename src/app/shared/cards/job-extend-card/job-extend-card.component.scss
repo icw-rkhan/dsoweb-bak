@@ -1,5 +1,8 @@
 mat-card {
+    border: 1px solid #f7f7f7;
     padding: 14px;
+    margin: 16px;
+    margin-top: 0px;
 
     .job-log {
         margin-right: 13px;
@@ -15,30 +18,36 @@ mat-card {
 
         .job-title {
             color: #1b1b1b;
-            font-size: 14px;
+            font-size: 16px;
             font-family: 'SFUI';
             font-weight: 600;
         }
     
         .job-days {
             color: #879aa8;
+            margin-bottom: 1px;
             font-size: 12px;
             font-weight: 400;
         }
     
         .company-name {
             color: #9b9b9b;
-            font-size: 11px;
+            font-size: 13px;
             font-weight: 400;
         }
 
         p:last-child {
-            margin-top: 8px;
+            margin-top: 14px;
+
+            img {
+                margin-top: 1px;
+            }
         }
     }
 
     .company-desc {
         color: #c8c8c9;
+        width: 90%;
         font-size: 13px;
         font-weight: 400;
         line-height: 17px;

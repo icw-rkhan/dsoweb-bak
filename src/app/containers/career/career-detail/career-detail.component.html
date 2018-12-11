@@ -1,0 +1,114 @@
+<div class="top-bar" fxLayout="row" fxLayoutAlign="center center">
+  <button mat-icon-button><img src="assets/images/career/arrow-bottom.png"></button>
+  <p>
+    <button mat-icon-button><img src="assets/images/career/save.png"></button>
+    <button mat-icon-button><img src="assets/images/career/share.png"></button>
+  </p>
+</div>
+<div class="main-bar" fxLayout="column" fxLayoutAlign="start start">
+  <img class="job-head" src="assets/images/career/head2.png">
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <img class="job-avatar" src="assets/images/career/log3.png">
+    <p>
+      <label class="job-title">{{job.jobTitle}}</label>
+      <label class="job-company">{{job.companyName}}</label>
+      <label class="job-salary">Est. Salary: <span>{{job.salary}}</span></label>
+    </p>
+  </div>
+  <div class="job-location">
+    <p fxLayout="row" fxLayout="start center">
+      <label class="company-location">{{company.location}}</label>
+      <span class="space"></span>
+      <img src="assets/images/career/location2.png">
+    </p>
+  </div>
+</div>
+<mat-tab-group mat-stretch-tabs>
+  <mat-tab label="DESCRIPTION">
+    <p class="job-type">Type: <span>Full Time</span></p>
+    <p>
+      <img src="assets/images/career/check2.png">
+      <span class="job-description">Earn competitive income</span>
+    </p>
+    <p>
+      <img src="assets/images/career/check2.png">
+      <span class="job-description">Enjoy clinical autonomy</span>
+    </p>
+    <p>
+      <button mat-raised-button>Apply Now</button>
+    </p>
+  </mat-tab>
+  <mat-tab label="COMPANY">
+    <div class="company-container">
+      <p>
+        <span>Website</span>
+        <span class="space"></span>
+        <span class="company-info" fxLayout="column" fxLayoutAlign="center end">
+          <label>http://</label>
+          <label>laquintadentist.com</label>
+        </span>
+      </p>
+      <p>
+        <span>Year of Foundation</span>
+        <span class="space"></span>
+        <span class="company-info">2013</span>
+      </p>
+      <p>
+        <span>No. of Employees</span>
+        <span class="space"></span>
+        <span class="company-info">30 - 35</span>
+      </p>
+      <p>
+        <span>Stage</span>
+        <span class="space"></span>
+        <span class="company-info">Revenue Growth</span>
+      </p>
+      <p>
+        <span>Contact Person</span>
+        <span class="space"></span>
+        <span class="company-info">John Doe</span>
+      </p>
+    </div>
+    <div class="company-detail">
+      <p class="detail-label">Details</p>
+      <p class="detail-contents">Associate Dentist - LaQuinta and its affiliated companies...</p>
+      <p>
+        <button mat-raised-button>Apply Now</button>
+      </p>
+    </div>
+  </mat-tab>
+  <mat-tab label="REVIEWS">
+    <div class="review-status">
+      <div fxLayout="row" fxLayoutAlign="start center">
+        <div class="review-rating">{{company.rating}}</div>
+        <div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
+          <div *ngFor="let rate of rateList; index as i">
+            <img *ngIf="rating>i;else inactive" src="assets/images/career/review-active.png" class="rate-star">
+            <ng-template #inactive>
+            <img src="assets/images/career/review-inactive.png" class="rate-star">
+            </ng-template>
+          </div>
+        </div>
+        <div class="review-count">{{company.reviews}} reviews</div>
+        <div class="space"></div>
+        <div>
+          <img src="assets/images/career/check2.png">
+        </div>
+      </div>
+      <div class="review-avatar" fxLayout="row" fxLayoutAlign="space-between center">
+        <img src="assets/images/career/progress-80.png">
+        <img src="assets/images/career/progress-95.png">
+        <img src="assets/images/career/review-avatar.png">
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+    <div>
+      <dso-review-extend-card></dso-review-extend-card>
+      <dso-review-extend-card></dso-review-extend-card>
+    </div>
+    <div class="detail-footer" fxLayout="column" fxLayoutAlign="center center">
+      <button mat-button>See more</button>
+      <button mat-raised-button>Write review</button>
+    </div>
+  </mat-tab>
+</mat-tab-group>

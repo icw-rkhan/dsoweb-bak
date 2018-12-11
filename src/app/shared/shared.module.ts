@@ -59,6 +59,7 @@ import { SavedPipe } from '../pipes/save.pipe';
 import { CompanyCardComponent } from './cards/company-card/company-card.component';
 import { JobCardComponent } from './cards/job-card/job-card.component';
 import { JobExtendCardComponent } from './cards/job-extend-card/job-extend-card.component';
+import { ReviewExtendCardComponent } from './cards/review-extend-card/review-extend-card.component';
 
 const PIPES = [
   SafePipe,
@@ -86,6 +87,7 @@ export const COMPONENTS = [
   IssueMenuComponent,
   SearchMenuComponent,
   DetailCardComponent,
+  ReviewExtendCardComponent,
   JobExtendCardComponent,
   CareerActionsComponent,
 ];

@@ -11,6 +11,7 @@ import { CareerProfilesComponent } from './career-profiles/career-profiles.compo
 import { CareerOneselfComponent } from './career-oneself/career-oneself.component';
 import { CareerAlertComponent } from './career-alert/career-alert.component';
 import { CareerJobComponent } from './career-job/career-job.component';
+import { CareerDetailComponent } from './career-detail/career-detail.component';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { CareerJobComponent } from './career-job/career-job.component';
     CareerProfilesComponent,
     CareerOneselfComponent,
     CareerAlertComponent,
-    CareerJobComponent]
+    CareerJobComponent,
+    CareerDetailComponent]
 })
 export class CareerModule { }

@@ -1,0 +1,213 @@
+div {
+    background-color: #ffffff;
+}
+
+.top-bar {
+    width: 100%;
+    height: 54px;
+    background-color: #879aa8;
+
+    p {
+        position: absolute;
+        right: 10px;
+    }
+}
+
+.main-bar {
+    .job-head {
+        width: 100%;
+        height: auto;
+    }
+
+    div {
+        padding: 16px;
+    }
+
+    .job-avatar {
+        margin-right: 12px;
+    }
+
+    .job-title {
+        color: #4a4a4a;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: 'SFUI';
+        line-height: 22px;
+    }
+
+    .job-company {
+        color: #879aa8;
+        font-size: 14px;
+        font-weight: 500px;
+        line-height: 22px;
+    }
+
+    .job-salary {
+        color: #4a4a4a;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 23px;
+
+        span {
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'SFUI';
+        }
+    }
+
+    .job-location {
+        width: 100%;
+        padding-top: 0px;
+
+        p   {
+            border-radius: 7px;
+            background: linear-gradient(to right, rgba(251, 252, 252, 1) 0%, rgba(235, 238, 239, 1) 100%);
+
+            .company-location {
+                color: #4a4a4a;
+                width: 40%;
+                margin: 7px 14px 0px;
+                font-size: 12px;
+                font-weight: 500;
+                line-height: 14px;
+            }
+
+            img {
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+.space {
+    flex: 1 1 auto;
+}
+
+mat-tab-group {
+    background-color: #ffffff;
+
+    ::ng-deep mat-tab-body {
+        padding: 20px;
+
+        p {
+            margin-bottom: 20px;
+
+            img {
+                margin-right: 6px;
+            }
+
+            button {
+                color: #ffffff;
+                width: 100%;
+                background-color: #879aa8;
+            }
+        }
+
+        .job-type {
+            color: #4a4a4a;
+            font-size: 13px;
+            font-weight: 400;
+
+            span {
+                font-weight: 600;
+                font-family: 'SFUI';
+            }
+        }
+
+        .job-description {
+            color: #4a4a4a;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        .company-container {
+            padding: 4px;
+
+            p {
+                display: flex;
+        
+                span {
+                    color: #4a4a4a;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+
+                .company-info {
+                    color: #879aa8;
+                }
+            }
+        }
+
+        .company-detail {
+            margin-top: 10px;
+
+            .detail-label {
+                color: #b3b9bd;
+                font-size: 14px;
+                font-weight: 400;
+            }
+    
+            .detail-contents {
+                color: #4a4a4a;
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 21px;
+            }
+        }
+
+        .review-status {
+            padding: 0px 12px;
+
+            .review-rating {
+                color: #9c9c9c;
+                font-size: 18px;
+                font-weight: 800;
+                font-family: 'SFUI';
+                margin-right: 12px;
+            }
+
+            .ratebar {
+                height: 24px;
+            
+                .rate-star {
+                    margin-right: 2px;
+                }
+            }
+
+            .review-count {
+                color: #9c9c9c;
+                font-size: 14px;
+                font-weight: 400;
+                margin-left: 15px;
+            }
+
+            .review-avatar {
+                margin: 25px 0px 65px;
+            }
+        }
+
+        .detail-footer {
+            button:first-child {
+                color: #879aa8;
+                font-size: 16px;
+                font-weight: 400;
+                margin-top: 28px;
+            }
+
+            button:last-child {
+                width: 100%;
+                border: 1px solid #dddddd;
+                margin: 29px 0px;
+            }
+        }
+    }
+
+    ::ng-deep .mat-tab-label:nth-child(2) {
+        border: 1px solid #d1d0d0;
+    }
+
+    ::ng-deep .mat-tab-label {
+        border-top: 1px solid #d1d0d0;
+        border-bottom: 0px;
+    }
+}

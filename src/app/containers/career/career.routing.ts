@@ -10,6 +10,7 @@ import { CareerReviewComponent } from './career-review/career-review.component';
 import { CareerProfilesComponent } from './career-profiles/career-profiles.component';
 import { CareerJobComponent } from './career-job/career-job.component';
 import { CareerAlertComponent } from './career-alert/career-alert.component';
+import { CareerDetailComponent } from './career-detail/career-detail.component';
 
 export const ROUTES: Routes = [
     {
@@ -44,6 +45,10 @@ export const ROUTES: Routes = [
             {
                 path: 'alert',
                 component: CareerAlertComponent
+            },
+            {
+                path: 'detail/:id',
+                component: CareerDetailComponent
             }
         ]
     },
