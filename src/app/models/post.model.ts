@@ -42,6 +42,10 @@ export class Post implements Serializable<Post> {
     return '';
   }
 
+  getThumbnailUrl(id: string) {
+    return `${environment.cmsAPIUrl}/file/downloadFileByObjectId?objectId=${id}`;
+  }
+
   deserialize(data: any): Post {
     return <Post>Object.assign({}, {
       id: data.id,
@@ -62,7 +66,7 @@ export class Post implements Serializable<Post> {
       bookmarkId: data.bookmarkId,
       isBookmark: data.isBookmark,
       excerpt: data.excerpt ? data.excerpt : '',
-      thumbnail: data.featuredMedia ? data.featuredMedia.code.thumbnailUrl : '',
+      thumbnail: data.featuredMedia ? this.getThumbnailUrl(data.featuredMedia.code.thumbnail) : '',
       date: this.dateFormat(data.publishDate.toString()),
       link: 'https://www.dsodentist.com',
       isFeatured: data.isFeatured
