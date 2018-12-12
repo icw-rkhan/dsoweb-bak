@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { AuthService } from './auth/auth.service';
 import { environment } from '../../environments/environment';
 import { Company } from '../models/company.model';
+import { Review } from '../models/review.model';
 
 @Injectable({
   providedIn: 'root'
@@ -25,12 +26,32 @@ export class CompanyService {
     );
   }
 
+  getCommentByCompanyId(id: string): Observable<Review> {
+    const url = `${environment.careerAPIUrl}/comment/findCommentByCompanyId`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, {'companyId': id}, {headers}).pipe(
+      map((response: any) => response.resultMap.map(comment => new Review().deserialize(comment)))
+    );
+  }
+
   companies(): Observable<Company[]> {
     const url = `${environment.careerAPIUrl}/company/findAllCompanys`;
 
     const headers = this.getHeaders();
 
     return this.http.post(url, null, {headers}).pipe(
+      map((response: any) => response.resultMap.map(comment => new Company().deserialize(comment)))
+    );
+  }
+
+  getCompanyById(id: string): Observable<Company> {
+    const url = `${environment.careerAPIUrl}/company/findOneById`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, {'companyId': id}, {headers}).pipe(
       map((response: any) => response.resultMap.map(comment => new Company().deserialize(comment)))
     );
   }

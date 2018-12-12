@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { NgProgress } from '@ngx-progressbar/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { Job } from '../../../models/job.model';
 import { Company } from '../../../models/company.model';
+import { JobService } from '../../../services/job.service';
 
 @Component({
   selector: 'dso-career-detail',
@@ -15,7 +19,15 @@ export class CareerDetailComponent implements OnInit {
 
   rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
 
-  constructor() {
+  constructor(
+    private progress: NgProgress,
+    private route: ActivatedRoute,
+    private jobService: JobService) {
+
+      this.route.params.subscribe(params => {
+        const id = params['id'];
+      });
+
     this.job = new Job();
     this.job.jobTitle = 'Associate Dentist - Rochester,';
     this.job.companyName = 'ADMI-Supported Practice';

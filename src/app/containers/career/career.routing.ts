@@ -39,7 +39,7 @@ export const ROUTES: Routes = [
                 component: CareerProfilesComponent
             },
             {
-                path: 'myjob',
+                path: 'my-job',
                 component: CareerJobComponent
             },
             {

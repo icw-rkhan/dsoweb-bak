@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgProgress } from '@ngx-progressbar/core';
+import { ActivatedRoute } from '@angular/router';
+
 import { Job } from '../../../models/job.model';
+import { JobService } from '../../../services/job.service';
 
 @Component({
   selector: 'dso-career-job-jobs',
@@ -11,7 +15,10 @@ export class CareerJobComponent implements OnInit {
   jobs: Job[];
   savedJobs: Job[];
 
-  constructor() {
+  constructor(
+    private progress: NgProgress,
+    private route: ActivatedRoute,
+    private jobService: JobService) {
     this.jobs = [];
     this.savedJobs = [];
 

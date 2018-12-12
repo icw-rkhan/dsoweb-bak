@@ -33,7 +33,7 @@ export class CareerActionsComponent implements OnInit {
       {
         title: 'My Jobs',
         icon: 'my-jobs',
-        url: '/career/myjob',
+        url: '/career/my-job',
         status: 'inactive'
       },
       {

@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgProgress } from '@ngx-progressbar/core';
+
 import { Job } from '../../../models/job.model';
+import { JobService } from '../../../services/job.service';
+import { CompanyService } from '../../../services/company.service';
 
 @Component({
   selector: 'dso-career-search',
@@ -10,7 +14,10 @@ export class CareerSearchComponent implements OnInit {
 
   jobs: Job[];
 
-  constructor() {
+  constructor(
+    private progress: NgProgress,
+    private jobService: JobService,
+    private companyService: CompanyService) {
     this.jobs = [];
 
     const job = new Job();

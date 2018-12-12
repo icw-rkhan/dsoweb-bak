@@ -413,6 +413,7 @@ export class EditProfileComponent implements OnInit {
       }
     }
   }
+
   removeResumeFile() {
     this.alertService.confirmAlert('Are you sure?', 'Do you really want to remove resume?')
       .then((res: any) => {
@@ -429,6 +430,7 @@ export class EditProfileComponent implements OnInit {
         }
       });
   }
+
   previewResume() {
     this.sharingService.showLoading(true);
     const fileType = this.resumeFile.name.split('.').pop();
@@ -452,9 +454,11 @@ export class EditProfileComponent implements OnInit {
       }
     });
   }
+
   imageCropped(image: string) {
     this.croppedImage = image;
   }
+
   imageCroppedFile(file: any) {
     // upload avatar
     this.profileService.uploadAvatar(new File([file], this.fileName)).subscribe((res) => {
@@ -465,16 +469,20 @@ export class EditProfileComponent implements OnInit {
       }
     });
   }
+
   imageLoaded() {
       // show cropper
   }
+
   loadImageFailed() {
       // show message
   }
+
   // finish to edit
   finishToEdit(e) {
     this.isUploadFile = false;
   }
+
   selectEducation() {
     this.education_page = this.RESIDENCY_AT;
   }

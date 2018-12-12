@@ -25,6 +25,26 @@ export class JobService {
     );
   }
 
+  getJobById(id: string): Observable<Job> {
+    const url = `${environment.careerAPIUrl}/job/findOneById`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, {'jobId': id}, {headers}).pipe(
+      map((response: any) => response.resultMap.map(job => new Job().deserialize(job)))
+    );
+  }
+
+  getJobsByCompanyId(id: string): Observable<Job[]> {
+    const url = `${environment.careerAPIUrl}/company/getAllJobsByCompanyId`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, {'companyId': id}, {headers}).pipe(
+      map((response: any) => response.resultMap.map(job => new Job().deserialize(job)))
+    );
+  }
+
   getHeaders(): HttpHeaders {
     const headers = new HttpHeaders()
       .append('Authorization', `Bearer ${this.auth.getToken()}`)
