@@ -24,7 +24,7 @@ export class JobExtendCardComponent implements OnInit {
   ngOnInit() {
   }
 
-  onJobDetail(id: string) {
-    this.router.navigate([`/career/detail/${id}`]);
+  onGoToDetail() {
+    this.router.navigate([`/career/detail/${this.job.jobId}`]);
   }
 }

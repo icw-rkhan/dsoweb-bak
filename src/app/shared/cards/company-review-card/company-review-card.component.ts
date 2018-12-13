@@ -22,7 +22,6 @@ export class CompanyReviewCardComponent implements OnInit {
   }
 
   onGoToCompanyDetail() {
-    this.router.navigate([`/career/detail/${this.company.id}`]);
   }
 
 }

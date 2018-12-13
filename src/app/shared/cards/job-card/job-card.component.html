@@ -1,5 +1,5 @@
 
-<mat-card fxLayout="row" fxLayoutAlign="start center">
+<mat-card fxLayout="row" fxLayoutAlign="start center" (click)="onGoToDetail()">
   <img *ngIf="job.isAttention" class="log-new" src="assets/images/career/new.png">
   <div class="job-log">
     <img [src]="job.log">
