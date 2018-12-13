@@ -48,8 +48,6 @@ export class ToolbarComponent {
           if (event.url.includes('/posts/sponsor')) {
             this.title = 'SPONSORED CONTENT';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/posts')) {
-              this.title = 'DSODENTIST';
           } else if (event.url.includes('/reviews/add')) {
               this.title = 'ADD A REVIEW';
               this.btnTitle = 'keyboard_backspace';
@@ -59,10 +57,6 @@ export class ToolbarComponent {
           } else if (event.url.includes('/detail/sponsor')) {
               this.title = 'SPONSORED CONTENT';
               this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/bookmarks')) {
-            this.title = 'BOOKMARKS';
-          } else if (event.url.includes('/category')) {
-            this.title = 'CATEGORY';
           } else if (event.url.includes('/unite/search')) {
             this.title = 'SEARCH';
             this.btnTitle = 'keyboard_backspace';
@@ -80,8 +74,6 @@ export class ToolbarComponent {
           } else if (event.url.includes('/unite/download')) {
             this.title = '';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/unite')) {
-            this.title = 'ALL ISSUES';
           } else if (event.url.includes('/career/review')) {
             this.title = 'REVIEWS';
             this.btnTitle = 'keyboard_backspace';
@@ -109,6 +101,14 @@ export class ToolbarComponent {
           } else if (event.url.includes('/detail')) {
             this.title = '';
             this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/unite')) {
+            this.title = 'ALL ISSUES';
+          } else if (event.url.includes('/posts')) {
+            this.title = 'DSODENTIST';
+          } else if (event.url.includes('/bookmarks')) {
+            this.title = 'BOOKMARKS';
+          } else if (event.url.includes('/category')) {
+            this.title = 'CATEGORY';
           }
 
           if (event.url.includes('/unite/')) {

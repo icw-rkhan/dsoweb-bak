@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef,
       ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 import { formatDate } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -29,6 +29,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
   rate: number;
   adId: string;
   postId: string;
+  sharedUrl: string;
   isLoaded: boolean;
   authorName: string;
   authorInfo: string;
@@ -77,6 +78,12 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
     this.showReference = false;
 
     this.post = new Post();
+
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        this.sharedUrl = event.url;
+      }
+    });
   }
 
   // gets the postId from article page and gets the postInfo and the commentInfo with postId from server
