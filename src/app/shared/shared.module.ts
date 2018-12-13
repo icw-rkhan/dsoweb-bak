@@ -56,7 +56,7 @@ import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafePipe } from '../pipes/safe.pipe';
 import { SavedPipe } from '../pipes/save.pipe';
-import { CompanyCardComponent } from './cards/company-card/company-card.component';
+import { CompanyReviewCardComponent } from './cards/company-review-card/company-review-card.component';
 import { JobCardComponent } from './cards/job-card/job-card.component';
 import { JobExtendCardComponent } from './cards/job-extend-card/job-extend-card.component';
 import { ReviewExtendCardComponent } from './cards/review-extend-card/review-extend-card.component';
@@ -74,7 +74,7 @@ export const COMPONENTS = [
   AlertDialogComponent,
   FeedCardComponent,
   ReviewComponent,
-  CompanyCardComponent,
+  CompanyReviewCardComponent,
   JobCardComponent,
   PdfViewerComponent,
   MainActionsComponent,

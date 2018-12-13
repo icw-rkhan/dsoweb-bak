@@ -1,0 +1,95 @@
+.reivew-container {
+    background-color: #ffffff;
+    overflow: auto;
+
+    .review-label {
+        height: 17px;
+        color: #879aa8;
+        font-size: 14px;
+        font-weight: 400;
+        margin-top: 10px;
+    }
+    
+    .ratebar {
+        margin-top: 6px;
+        text-align: center;
+    
+        div {
+            img {
+                margin-right: 3px;
+            }
+    
+            img:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .review-contents {
+        padding: 0px 24px 24px;
+
+        .review-options {
+            margin-top: 5px;
+            margin-left: -8px;
+
+            p {
+
+                label {
+                    color: #000000;
+                    font-size: 13px;
+                    font-weight: 500;
+                    font-family: 'SFUI'
+                }
+            }
+        }
+
+        .review-input {
+            margin-bottom: 10px;
+            
+            .review-title {
+                height: 17px;
+                color: #4a4a4a;
+                font-size: 14px;
+                font-weight: 400;
+                margin-bottom: 7px;
+            }
+    
+            input, textarea {
+                color: #4a4a4a;
+                width: 100%;
+                height: 40px;
+                border: 1px solid #f1f1f1;
+                border-radius: 4px;
+                background-color: #f1f1f1;
+                font-size: 13px;
+                font-weight: 500;
+                font-family: 'SFUI';
+                padding: 12px 16px;
+            }
+
+            textarea {
+                height: 74px;
+                resize: none;
+            }
+        }
+    }
+
+    .review-comment {
+        height: 13px;
+        color: #787878;
+        font-size: 12px;
+        font-weight: 400;
+        margin-top: 10px;
+        margin-bottom: 13px;
+    }
+
+    .review-footer {
+        margin-top: 13px;
+
+        button {
+            color: #ffffff;
+            width: 100%;
+            background-color: #879aa8;
+        }
+    }
+}

@@ -1,9 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NgProgress } from '@ngx-progressbar/core';
-
-import { Company } from '../../../models/company.model';
-import { JobService } from '../../../services/job.service';
-import { CompanyService } from '../../../services/company.service';
+import { Router, NavigationEnd, Event } from '@angular/router';
 
 @Component({
   selector: 'dso-career-review',
@@ -12,31 +8,43 @@ import { CompanyService } from '../../../services/company.service';
 })
 export class CareerReviewComponent implements OnInit {
 
-  comments: Company[];
+  showActionBar: boolean;
+  showMoreActionBar: boolean;
 
-  constructor(
-    private progress: NgProgress,
-    private jobService: JobService,
-    private companyService: CompanyService) {
-    this.comments = [];
+  constructor(private router: Router) {
+    this.showActionBar = true;
+    this.showMoreActionBar = false;
 
-    const comment = new Company();
-    comment.companyId = '1';
-    comment.companyName = 'THE BRONX - Dental Center';
-    comment.rating = '4.1';
-    comment.reviews = '789';
+    this.router.events.subscribe((event: Event) => {
+      if (event instanceof NavigationEnd) {
+        const url = event.url;
 
-    const comment2 = new Company();
-    comment2.companyId = '2';
-    comment2.companyName = 'Fresh Dent';
-    comment2.rating = '5';
-    comment2.reviews = '119';
-
-    this.comments.push(comment);
-    this.comments.push(comment2);
+        if (url.includes('/career/review/add')) {
+          this.showActionBar = false;
+        } else {
+          this.showActionBar = true;
+        }
+      }
+    });
   }
 
   ngOnInit() {
   }
 
+  clear() {
+    this.showMoreActionBar = false;
+  }
+
+  onShowMoreActionBar(flag: number) {
+    if (flag === 1) {
+      this.showMoreActionBar = !this.showMoreActionBar;
+    } else {
+      this.clear();
+    }
+  }
+
+  onGoTo(url: string) {
+    this.showMoreActionBar = false;
+    this.router.navigate([`/career/${url}`]);
+  }
 }

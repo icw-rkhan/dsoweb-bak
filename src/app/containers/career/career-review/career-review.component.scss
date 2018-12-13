@@ -1,0 +1,62 @@
+.sidenav-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    min-height: 100vh;
+    height: 100%;
+  }
+  
+  .sidenav-content {
+    display: flex;
+    background-color: #ffffff;
+    flex-direction: column;
+  }
+  
+  .main-actions {
+    z-index: 2;
+  }
+  
+  dso-toolbar {
+    height: 45px;
+  }
+
+  .more-container {
+    position: fixed;
+    top: 45px;
+    z-index: 5;
+
+    .more-mask {
+      width: 100vw;
+      height: calc(100vh - 94px);
+      background-color: rgba($color: #7c7c7c, $alpha: 0.95);
+      position: relative;
+
+      .more-actions {
+        width: 80%;
+        bottom: 0;
+        padding: 22px;
+        position: absolute;
+        z-index: 1;
+
+        .more-item {
+          height: 30px;
+          margin-top: 24px;
+
+          label {
+            color: #ffffff;
+            font-size: 13px;
+            font-weight: 500;
+          }
+
+          img {
+            margin-left: 16px;
+          }
+        }
+      }
+    }
+  }
+
+ 
+  

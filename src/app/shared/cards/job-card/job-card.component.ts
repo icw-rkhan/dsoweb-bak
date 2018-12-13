@@ -1,6 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Job } from '../../../models/job.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'dso-job-card',
@@ -13,14 +12,10 @@ export class JobCardComponent implements OnInit {
 
   days: string;
 
-  constructor(private router: Router) {
+  constructor() {
     this.days = '6d';
   }
 
   ngOnInit() {
-  }
-
-  onJobDetail(id: string) {
-    this.router.navigate([`/career/detail/${id}`]);
   }
 }

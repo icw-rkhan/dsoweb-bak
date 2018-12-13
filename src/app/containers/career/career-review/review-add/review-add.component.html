@@ -1,0 +1,73 @@
+<div class="reivew-container">
+  <div class="review-label" fxLayout="row" fxLayoutAlign="center center">Choose rating</div>
+  <div class="ratebar" fxLayout="row" fxLayoutAlign="center center">
+    <div *ngFor="let item of rateList; index as i">
+      <img *ngIf="i<rate;else inactive" class="active" src="assets/images/career/review-active.png" (click)="eventRating(i)">
+      <ng-template #inactive>
+        <img class="inactive" src="assets/images/career/review-inactive.png" (click)="eventRating(i)">
+      </ng-template>
+    </div>
+  </div>
+  <div class="review-contents">
+    <div class="review-options" fxLayout="row" fxLayoutAlign="space-between center">
+      <p fxLayout="row" fxLayoutAlign="start center">
+        <button mat-icon-button (click)="checkCE()">
+          <img *ngIf="isCheckedCE" src="assets/images/career/check_active.png">
+          <img *ngIf="!isCheckedCE" src="assets/images/career/check_inactive.png">
+        </button>
+        <label>Current Employee</label>
+      </p>
+      <p fxLayout="row" fxLayoutAlign="start center">
+        <button mat-icon-button (click)="checkFE()">
+          <img *ngIf="isCheckedFE" src="assets/images/career/check_active.png">
+          <img *ngIf="!isCheckedFE" src="assets/images/career/check_inactive.png">
+        </button>
+        <label>Former Employee</label>
+      </p>
+    </div>
+    <div class="review-input">
+      <p class="review-title">Review Title</p>
+      <p>
+        <input [(ngModel)]="title" autofocus>
+      </p>
+    </div>
+    <div class="review-input">
+      <p class="review-title">Pros</p>
+      <p>
+        <textarea [(ngModel)]="pros"></textarea>
+      </p>
+    </div>
+    <div class="review-input">
+      <p class="review-title">Cons</p>
+      <p>
+        <textarea [(ngModel)]="cons"></textarea>
+      </p>
+    </div>
+    <div class="review-input">
+      <p class="review-title">Advice to Management</p>
+      <p>
+        <input [(ngModel)]="advice">
+      </p>
+    </div>
+    <div class="review-options" fxLayout="row" fxLayoutAlign="space-between center">
+      <p fxLayout="row" fxLayoutAlign="start center">
+        <button mat-icon-button (click)="checkRC()">
+          <img *ngIf="isCheckedRC" src="assets/images/career/check_active.png">
+          <img *ngIf="!isCheckedRC" src="assets/images/career/check_inactive.png">
+        </button>
+        <label>Recommends</label>
+      </p>
+      <p fxLayout="row" fxLayoutAlign="start center">
+        <button mat-icon-button (click)="checkAC()">
+          <img *ngIf="isCheckedAC" src="assets/images/career/check_active.png">
+          <img *ngIf="!isCheckedAC" src="assets/images/career/check_inactive.png">
+        </button>
+        <label>Approve of CEO</label>
+      </p>
+    </div>
+    <div class="review-comment" fxLayout="row" fxLayoutAlign="center center">Your review is completely anonymous</div>
+    <div class="review-footer">
+        <button mat-raised-button (click)="onAddComment()">Submit</button>
+    </div>
+  </div>
+</div>

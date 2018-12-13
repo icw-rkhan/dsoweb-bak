@@ -86,6 +86,10 @@ div {
 mat-tab-group {
     background-color: #ffffff;
 
+    ::ng-deep .mat-tab-header-pagination {
+        display: none;
+    }
+
     ::ng-deep mat-tab-body {
         padding: 20px;
 

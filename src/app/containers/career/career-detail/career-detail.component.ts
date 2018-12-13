@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Job } from '../../../models/job.model';
 import { Company } from '../../../models/company.model';
@@ -20,6 +20,7 @@ export class CareerDetailComponent implements OnInit {
   rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
 
   constructor(
+    private router: Router,
     private progress: NgProgress,
     private route: ActivatedRoute,
     private jobService: JobService) {
@@ -34,6 +35,7 @@ export class CareerDetailComponent implements OnInit {
     this.job.salary = '$125-$145k';
 
     this.company = new Company();
+    this.company.companyId = '1';
     this.company.rating = '4.3';
     this.company.reviews = '374';
     this.company.location = '301-399 S Highland Ave Los Angeles, CA 90036';
@@ -43,4 +45,7 @@ export class CareerDetailComponent implements OnInit {
     this.rating = Math.round(parseInt(this.company.rating, 10));
   }
 
+  onGoToAddReview(id: string) {
+    this.router.navigate([`/career/review/add/${id}`]);
+  }
 }

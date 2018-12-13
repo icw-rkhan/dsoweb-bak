@@ -108,7 +108,7 @@
     </div>
     <div class="detail-footer" fxLayout="column" fxLayoutAlign="center center">
       <button mat-button>See more</button>
-      <button mat-raised-button>Write review</button>
+      <button mat-raised-button (click)="onGoToAddReview(company.companyId)">Write review</button>
     </div>
   </mat-tab>
 </mat-tab-group>

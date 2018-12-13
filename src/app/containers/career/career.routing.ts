@@ -6,7 +6,6 @@ import { CareerComponent } from './career.component';
 import { CareerMainComponent } from './career-main/career-main.component';
 import { CareerSearchComponent } from './career-search/career-search.component';
 import { CareerOneselfComponent } from './career-oneself/career-oneself.component';
-import { CareerReviewComponent } from './career-review/career-review.component';
 import { CareerProfilesComponent } from './career-profiles/career-profiles.component';
 import { CareerJobComponent } from './career-job/career-job.component';
 import { CareerAlertComponent } from './career-alert/career-alert.component';
@@ -29,10 +28,6 @@ export const ROUTES: Routes = [
             {
                 path: 'oneself',
                 component: CareerOneselfComponent,
-            },
-            {
-                path: 'review',
-                component: CareerReviewComponent,
             },
             {
                 path: 'profile',
