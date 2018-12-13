@@ -15,12 +15,12 @@ export class JobService {
   constructor(private http: HttpClient, private auth: AuthService) {
   }
 
-  jobs(): Observable<Job[]> {
+  jobs(body: any): Observable<Job[]> {
     const url = `${environment.careerAPIUrl}/job/findAll`;
 
     const headers = this.getHeaders();
 
-    return this.http.post(url, null, {headers}).pipe(
+    return this.http.post(url, body, {headers}).pipe(
       map((response: any) => response.resultMap.map(job => new Job().deserialize(job)))
     );
   }

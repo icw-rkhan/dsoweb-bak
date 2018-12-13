@@ -3,7 +3,7 @@
   <div fxLayout="row" fxLayoutAlign="start center">
     <img *ngIf="job.isAttention" class="log-new" src="assets/images/career/new.png">
     <div class="job-log">
-      <img [src]="job.log">
+      <img [src]="job.logoURL">
     </div>
     <div class="job-details">
       <p fxLayout="row" fxLayoutAlign="start end">
@@ -25,7 +25,7 @@
     <label>{{companyLocation}}</label>
     <span class="space"></span>
     <img src="assets/images/career/salary2.png">
-    <label>{{job.salary}}</label>
+    <label>{{job.salaryStartingValue}} - {{job.salaryEndValue}}</label>
   </div>
 </mat-card>
 <mat-divider></mat-divider>

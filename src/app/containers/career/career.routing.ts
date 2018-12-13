@@ -30,7 +30,7 @@ export const ROUTES: Routes = [
                 component: CareerOneselfComponent,
             },
             {
-                path: 'profile',
+                path: 'dso-profile',
                 component: CareerProfilesComponent
             },
             {

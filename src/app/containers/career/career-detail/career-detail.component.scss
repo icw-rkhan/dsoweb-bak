@@ -90,6 +90,13 @@ mat-tab-group {
         display: none;
     }
 
+    ::ng-deep .mat-tab-label-content {
+        color: #1b1b1b;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'SFUI';
+    }
+
     ::ng-deep mat-tab-body {
         padding: 20px;
 

@@ -15,7 +15,7 @@ export class CareerMainComponent implements OnInit {
       {title: 'Search', url: '/career/search', icon: 'search'},
       {title: 'Me', url: '/career/oneself', icon: 'me'},
       {title: 'Review', url: '/career/review', icon: 'review'},
-      {title: 'DSO Profiles', url: '/career/profile', icon: 'profiles'}
+      {title: 'DSO Profiles', url: '/career/dso-profile', icon: 'profiles'}
     ];
   }
 

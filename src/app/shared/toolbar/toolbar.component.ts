@@ -77,7 +77,7 @@ export class ToolbarComponent {
           } else if (event.url.includes('/career/review')) {
             this.title = 'REVIEWS';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/career/profile')) {
+          } else if (event.url.includes('/career/dso-profile')) {
             this.title = 'DSO PROFILES';
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career/myjob')) {

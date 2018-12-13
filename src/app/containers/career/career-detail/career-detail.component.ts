@@ -32,7 +32,8 @@ export class CareerDetailComponent implements OnInit {
     this.job = new Job();
     this.job.jobTitle = 'Associate Dentist - Rochester,';
     this.job.companyName = 'ADMI-Supported Practice';
-    this.job.salary = '$125-$145k';
+    this.job.salaryStartingValue = '$125';
+    this.job.salaryEndValue = '$145k';
 
     this.company = new Company();
     this.company.companyId = '1';
