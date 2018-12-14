@@ -55,7 +55,7 @@ export class CareerActionsComponent implements OnInit {
         const url = event.url;
 
         if (url !== '/career' && url !== '/career/search' &&
-            url !== '/career/myjob' && url !== '/career/alert') {
+            url !== '/career/my-job' && url !== '/career/alert') {
           this.clear();
         }
       }
