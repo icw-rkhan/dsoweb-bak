@@ -1,3 +1,43 @@
-<p>
-  review-view works!
-</p>
+<div class="company-name" (click)="clear()">{{name}}</div>
+<div class="ratebar" fxLayout="row" fxLayoutAlign="center center"  (click)="clear()">
+  <div *ngFor="let item of rateList; index as i">
+    <img *ngIf="i<rate;else inactive" class="active" src="assets/images/career/review-small-active.png">
+    <ng-template #inactive>
+      <img class="inactive" src="assets/images/career/review-small-inactive.png">
+    </ng-template>
+  </div>
+</div>
+<div class="company-reivews"  (click)="clear()">{{review.reviewNum}} Reviews</div>
+<div class="company-options" fxLayout="row" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <button mat-button (click)="onCheckSortOption()">
+      <p class="option-avatar"><img src="assets/images/career/sort.png"></p>
+      <p fxLayout="column" fxLayoutAlign="center start">
+        <label class="sort-label">SORT BY</label>
+        <label class="refine-label">{{activeSort.title}}</label>
+      </p>
+    </button>
+    <ul [class.hidden]="!isCheckedSort">
+      <li *ngFor="let item of sortType; index as i" (click)="onSort(i)" 
+        [class.active]="i===activedIndex" [class.default]="i!==activedIndex">{{item.title}}</li>
+    </ul>
+  </div>
+  <div class="spliter"></div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <button mat-button (click)="onCheckRefineOption()">
+      <p class="option-avatar"><img src="assets/images/career/refine.png"></p>
+      <p fxLayout="column" fxLayoutAlign="center start">
+        <label class="sort-label">REFINE</label>
+        <label class="refine-label">{{activeRefine.title}}</label>
+      </p>
+    </button>
+    <ul [class.hidden]="!isCheckedRefine">
+      <li *ngFor="let item of refineType; index as i" (click)="onRefine(i)"
+        [class.active]="i===activedIndex" [class.default]="i!==activedIndex">{{item.title}}</li>
+    </ul>
+  </div>
+</div>
+<div class="review-contents" (click)="clear()">
+  <dso-company-review-extend-card [review]="review" *ngFor="let review of reviews">
+  </dso-company-review-extend-card>
+</div>

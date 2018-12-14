@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
 
 import { CareerReviewRoutingModule } from './career-review.routing';
 import { ReviewAddComponent } from './review-add/review-add.component';
@@ -9,6 +10,7 @@ import { SharedModule } from '../../../shared';
 
 @NgModule({
   imports: [
+    RouterModule,
     SharedModule,
     CareerReviewRoutingModule
   ],

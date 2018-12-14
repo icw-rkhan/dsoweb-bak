@@ -60,6 +60,7 @@ import { CompanyReviewCardComponent } from './cards/company-review-card/company-
 import { JobCardComponent } from './cards/job-card/job-card.component';
 import { JobExtendCardComponent } from './cards/job-extend-card/job-extend-card.component';
 import { ReviewExtendCardComponent } from './cards/review-extend-card/review-extend-card.component';
+import { CompanyReviewExtendCardComponent } from './cards/company-review-extend-card/company-review-extend-card.component';
 
 const PIPES = [
   SafePipe,
@@ -75,6 +76,7 @@ export const COMPONENTS = [
   FeedCardComponent,
   ReviewComponent,
   CompanyReviewCardComponent,
+  CompanyReviewExtendCardComponent,
   JobCardComponent,
   PdfViewerComponent,
   MainActionsComponent,

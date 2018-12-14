@@ -13,7 +13,13 @@ export class CompanyReviewCardComponent implements OnInit {
   @Input() company: DSOCompany;
 
   rating: number;
-  rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
+  rateList = [
+    {state: 'inactive'},
+    {state: 'inactive'},
+    {state: 'inactive'},
+    {state: 'inactive'},
+    {state: 'inactive'}
+  ];
 
   constructor(private router: Router) {}
 
@@ -21,7 +27,8 @@ export class CompanyReviewCardComponent implements OnInit {
     this.rating = Math.round(parseInt(this.company.rating, 10));
   }
 
-  onGoToCompanyDetail() {
+  onGoToReviewList() {
+    this.router.navigate([`/career/review/view/${this.company.id}/${this.company.name}`]);
   }
 
 }

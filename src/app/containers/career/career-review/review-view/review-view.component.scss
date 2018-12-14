@@ -1,0 +1,114 @@
+.company-name {
+    color: #4a4a4a;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'SFUI';
+    margin-top: 10px;
+    text-align: center;
+}
+
+.ratebar {
+    margin-top: 10px;
+    text-align: center;
+
+    div {
+        img {
+            margin-right: 3px;
+        }
+
+        img:hover {
+            cursor: pointer;
+        }
+    }
+}
+
+.company-reivews {
+    color: #879aa8;
+    font-size: 11px;
+    font-weight: 400;
+    text-align: center;
+    margin-top: 6px;
+}
+
+.company-options {
+    border-top: 1px solid #f1f1f1;
+    border-bottom: 1px solid #f1f1f1;
+    margin-top: 10px;
+
+    div {
+        width: 50%;
+        height: 35px;
+        position: relative;;
+
+        ul {
+            width: 100%;
+            background-color: #ffffff;
+            border-radius: 2px;
+            box-shadow: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+            position: absolute;
+            top: 35px;
+            left: 0;
+            padding: 10px 0px 16px;
+            z-index: 10;
+
+            li {
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 27px;
+                text-align: center;
+            }
+        }
+
+        ::ng-deep .mat-button-wrapper {
+            display: flex;
+            box-sizing: border-box;
+            max-width: 100%;
+            place-content: center;
+            align-items: center;
+            height: 35px;
+
+            .option-avatar {
+                height: 26px;
+
+                img {
+                    margin-right: 5px;
+                }
+            }
+
+            .sort-label {
+                color: #4a4a4a;
+                font-size: 12px;
+                line-height: 13px;
+                letter-spacing: 0.5px;
+            }
+        
+            .refine-label {
+                color: #879aa8;
+                font-size: 11px;
+                line-height: 13px;
+            }
+        }
+    }
+
+    .spliter {
+        width: 1px;
+        background-color: #f1f1f1;
+        height: 20px;
+    }
+}
+
+.review-contents {
+    min-height: 60vh;
+}
+
+.hidden {
+    display: none;
+}
+
+.active {
+    color: #879aa8;
+}
+
+.default {
+    color: #b7b8b9;
+}

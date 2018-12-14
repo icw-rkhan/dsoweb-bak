@@ -1,0 +1,29 @@
+<mat-card>
+    <div class="review-title">"{{review.reviewTitle}}"</div>
+    <div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
+        <div *ngFor="let rate of rateList; index as i">
+            <img *ngIf="rating>i;else inactive" src="assets/images/review/view-star-active.png" class="rate-star">
+            <ng-template #inactive>
+            <img src="assets/images/review/view-star-inactive.png" class="rate-star">
+            </ng-template>
+        </div>
+    </div>
+    <div class="employee-info" fxLayout="row" fxLayoutAlign="space-between center">
+        <label>Current Employee - {{review.employeeIndicator}}</label>
+        <label>{{review.reviewDate}}</label>
+    </div>
+    <div class="review-text">{{review.reviewText}}</div>
+    <div class="review-footer" fxLayout="row" fxLayoutAlign="start center">
+        <a>see more</a>
+        <span class="space"></span>
+        <p fxLayout="row" fxLayoutAlign="end center">
+            <img *ngIf="review.isRecommend" src="assets/images/career/check.png">
+            <label>Recommends</label>
+        </p>
+        <p fxLayout="row" fxLayoutAlign="end center">
+            <img *ngIf="review.isApprove" src="assets/images/career/check.png">
+            <label>Approve of CEO</label>
+        </p>
+    </div>
+</mat-card>
+<mat-divider></mat-divider>

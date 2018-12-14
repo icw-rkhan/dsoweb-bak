@@ -22,7 +22,7 @@ export const ROUTES: Routes = [
               component: ReviewAddComponent,
           },
           {
-              path: 'view',
+              path: 'view/:id/:name',
               component: ReviewViewComponent,
           }
       ]
