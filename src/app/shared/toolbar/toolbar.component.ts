@@ -23,6 +23,7 @@ export class ToolbarComponent {
   isSearch = false;
 
   visibleUniteMoreMenu: boolean;
+  visibleCareerAddOption: boolean;
 
   uniteMainLinks: NavLinkModel[];
   uniteMoreLinks: NavLinkModel[];
@@ -34,6 +35,7 @@ export class ToolbarComponent {
     private cdr: ChangeDetectorRef,
     private linksService: NavLinksService) {
       this.visibleUniteMoreMenu = false;
+      this.visibleCareerAddOption = false;
 
       this.uniteMainLinks = this.linksService.uniteMainLinks;
 
@@ -117,6 +119,12 @@ export class ToolbarComponent {
             this.visibleUniteMoreMenu = false;
           }
 
+          if (event.url.includes('/career/review/view')) {
+            this.visibleCareerAddOption = true;
+          } else {
+            this.visibleCareerAddOption = false;
+          }
+
           // if thumbnail page, hide the thumbnail option and show the full-screen option
           this.filterMoreOptions(event.url);
 
@@ -175,5 +183,10 @@ export class ToolbarComponent {
 
   closeSearchPanel() {
     this.isSearch = false;
+  }
+
+  onGoToAddReview() {
+    const id = this.url.split('/')[4];
+    this.router.navigate([`/career/review/add/${id}`]);
   }
 }

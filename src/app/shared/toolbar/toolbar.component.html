@@ -11,6 +11,11 @@
   <div *ngIf="url == '/profile'" class="navbar-edit-profile">
     <a [routerLink]="['/edit-profile']" class="">Edit <i class="fa fa-pencil"></i></a>
   </div>
+  <div *ngIf="visibleCareerAddOption" class="navbar-edit-profile">
+    <button mat-icon-button class="add-review" (click)="onGoToAddReview()">
+      <img src="assets/images/career/add.png">
+    </button>
+  </div>
   <div *ngIf="visibleUniteMoreMenu" class="navbar-edit-profile">
     <a mat-icon-button [matMenuTriggerFor]="issueMenu">
       <img src="assets/images/unite/menu.png">
