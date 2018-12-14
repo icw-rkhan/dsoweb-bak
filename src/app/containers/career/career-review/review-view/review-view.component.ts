@@ -15,7 +15,8 @@ export class ReviewViewComponent implements OnInit {
   reviews: any[];
   activeSort: any;
   activeRefine: any;
-  activedIndex: number;
+  activedSortId: number;
+  activedRefineId: number;
   isCheckedSort: boolean;
   isCheckedRefine: boolean;
   review: DSOCompanyReview;
@@ -50,7 +51,8 @@ export class ReviewViewComponent implements OnInit {
   constructor(private route: ActivatedRoute) {
     this.reviews = [];
 
-    this.activedIndex = 0;
+    this.activedSortId = 0;
+    this.activedRefineId = 0;
     this.isCheckedSort = false;
     this.isCheckedRefine = false;
     this.activeSort = this.sortType[0];
@@ -97,13 +99,13 @@ export class ReviewViewComponent implements OnInit {
   onSort(index: number) {
     this.activeSort = this.sortType[index];
     this.isCheckedSort = false;
-    this.activedIndex = index;
+    this.activedSortId = index;
   }
 
   onRefine(index: number) {
     this.activeRefine = this.refineType[index];
     this.isCheckedRefine = false;
-    this.activedIndex = index;
+    this.activedRefineId = index;
   }
 
   onCheckSortOption() {

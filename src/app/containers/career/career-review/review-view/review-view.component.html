@@ -19,7 +19,7 @@
     </button>
     <ul [class.hidden]="!isCheckedSort">
       <li *ngFor="let item of sortType; index as i" (click)="onSort(i)" 
-        [class.active]="i===activedIndex" [class.default]="i!==activedIndex">{{item.title}}</li>
+        [class.active]="i===activedSortId" [class.default]="i!==activedSortId">{{item.title}}</li>
     </ul>
   </div>
   <div class="spliter"></div>
@@ -33,7 +33,7 @@
     </button>
     <ul [class.hidden]="!isCheckedRefine">
       <li *ngFor="let item of refineType; index as i" (click)="onRefine(i)"
-        [class.active]="i===activedIndex" [class.default]="i!==activedIndex">{{item.title}}</li>
+        [class.active]="i===activedRefineId" [class.default]="i!==activedRefineId">{{item.title}}</li>
     </ul>
   </div>
 </div>
