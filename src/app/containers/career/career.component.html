@@ -1,30 +1,5 @@
-<mat-sidenav-container class="sidenav-container">
-  <mat-sidenav #sidenav mode="push">
-    <dso-sidebar (toggleMenu)="sidenav.toggle()"></dso-sidebar>
-  </mat-sidenav>
-  <mat-sidenav-content class="sidenav-content">
-    <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
-    <div>
+<dso-career-container>
+  <div class="career-container">
       <router-outlet></router-outlet>
-    </div>
-    <div *ngIf="showMoreActionBar" class="more-container">
-      <div class="more-mask" fxLayoutAlign="end bottom">
-        <div class="more-actions" fxLayout="column">
-          <div class="more-item" fxLayout="row" fxLayoutAlign="end center" (click)="onGoTo('dso-profile')">
-            <label>DSO Profiles</label>
-            <img src="assets/images/career/more-profile.png">
-          </div>
-          <div class="more-item" fxLayout="row" fxLayoutAlign="end center" (click)="onGoTo('review')">
-            <label>Reviews</label>
-            <img src="assets/images/career/more-review.png">
-          </div>
-          <div class="more-item" fxLayout="row" fxLayoutAlign="end center" (click)="onGoTo('oneself')">
-            <label>Me</label>
-            <img src="assets/images/career/more-me.png">
-          </div>
-        </div>
-      </div>
-    </div>
-    <dso-career-actions *ngIf="showActionBar" (moreEvent)="onShowMoreActionBar($event)"></dso-career-actions>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </div>
+</dso-career-container>

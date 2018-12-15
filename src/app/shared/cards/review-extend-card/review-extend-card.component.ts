@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
   selector: 'dso-review-extend-card',
   templateUrl: './review-extend-card.component.html',
-  styleUrls: ['./review-extend-card.component.scss']
+  styleUrls: ['./review-extend-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewExtendCardComponent implements OnInit {
 

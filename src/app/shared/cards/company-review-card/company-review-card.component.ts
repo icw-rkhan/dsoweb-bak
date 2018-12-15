@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { DSOCompany } from '../../../models/dso-company.model';
@@ -6,7 +6,8 @@ import { DSOCompany } from '../../../models/dso-company.model';
 @Component({
   selector: 'dso-company-review-card',
   templateUrl: './company-review-card.component.html',
-  styleUrls: ['./company-review-card.component.scss']
+  styleUrls: ['./company-review-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CompanyReviewCardComponent implements OnInit {
 

@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'dso-career-main',
   templateUrl: './career-main.component.html',
-  styleUrls: ['./career-main.component.scss']
+  styleUrls: ['./career-main.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CareerMainComponent implements OnInit {
 

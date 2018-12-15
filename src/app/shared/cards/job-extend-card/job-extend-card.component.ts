@@ -1,11 +1,12 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Job } from '../../../models/job.model';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'dso-job-extend-card',
   templateUrl: './job-extend-card.component.html',
-  styleUrls: ['./job-extend-card.component.scss']
+  styleUrls: ['./job-extend-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JobExtendCardComponent implements OnInit {
 

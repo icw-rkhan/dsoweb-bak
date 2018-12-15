@@ -17,16 +17,6 @@ export class CompanyService {
   constructor(private http: HttpClient, private auth: AuthService) {
   }
 
-  comments(body: string): Observable<DSOCompany[]> {
-    const url = `${environment.careerAPIUrl}/comment/findAllCompanyComment`;
-
-    const headers = this.getHeaders();
-
-    return this.http.post(url, body, {headers}).pipe(
-      map((response: any) => response.resultMap.map(comment => new DSOCompany().deserialize(comment)))
-    );
-  }
-
   getCommentByCompanyId(id: string): Observable<DSOCompanyReview> {
     const url = `${environment.careerAPIUrl}/comment/findCommentByDSOId`;
 
@@ -49,16 +39,6 @@ export class CompanyService {
     const headers = this.getHeaders();
 
     return this.http.post(url, body, {headers});
-  }
-
-  companies(): Observable<DSOCompany[]> {
-    const url = `${environment.careerAPIUrl}/company/findAllCompanys`;
-
-    const headers = this.getHeaders();
-
-    return this.http.post(url, null, {headers}).pipe(
-      map((response: any) => response.resultMap.map(company => new DSOCompany().deserialize(company)))
-    );
   }
 
   dsoCompanies(body: any): Observable<DSOCompany[]> {

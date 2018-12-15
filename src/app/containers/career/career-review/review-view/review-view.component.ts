@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { DSOCompanyReview } from '../../../../models/dso-company-review.model';
 
 @Component({
   selector: 'dso-career-review-view',
   templateUrl: './review-view.component.html',
-  styleUrls: ['./review-view.component.scss']
+  styleUrls: ['./review-view.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewViewComponent implements OnInit {
 

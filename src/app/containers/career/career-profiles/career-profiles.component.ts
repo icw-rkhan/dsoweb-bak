@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 
 import { Company } from '../../../models/company.model';
@@ -9,7 +9,8 @@ import { DSOCompany } from '../../../models/dso-company.model';
 @Component({
   selector: 'dso-career-profiles',
   templateUrl: './career-profiles.component.html',
-  styleUrls: ['./career-profiles.component.scss']
+  styleUrls: ['./career-profiles.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CareerProfilesComponent implements OnInit {
 

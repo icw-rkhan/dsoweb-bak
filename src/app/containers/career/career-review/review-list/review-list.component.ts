@@ -1,17 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 
 import { DSOCompany } from '../../../../models/dso-company.model';
+import { NgProgress } from '@ngx-progressbar/core';
+import { CompanyService } from '../../../../services/company.service';
 
 @Component({
   selector: 'dso-career-review-list',
   templateUrl: './review-list.component.html',
-  styleUrls: ['./review-list.component.scss']
+  styleUrls: ['./review-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewListComponent implements OnInit {
 
   companies: DSOCompany[];
 
-  constructor() {
+  constructor(
+    private progress: NgProgress,
+    private cdr: ChangeDetectorRef,
+    private companyService: CompanyService) {
     this.companies = [];
 
     const company = new DSOCompany();
@@ -28,6 +34,8 @@ export class ReviewListComponent implements OnInit {
 
     this.companies.push(company);
     this.companies.push(company2);
+
+    this.cdr.markForCheck();
   }
 
   ngOnInit() {

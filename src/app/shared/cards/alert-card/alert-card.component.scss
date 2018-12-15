@@ -1,0 +1,43 @@
+mat-card {
+    padding: 0px;
+    padding-left: 35px;
+
+    div {
+        padding: 18px 0px;
+
+        .alert-name {
+            color: #1b1b1b;
+            font-size: 16px;
+            font-weight: 600;
+            font-family: 'SFUI';
+        }
+    
+        .alert-location {
+            color: #879aa8;
+            font-size: 13px;
+            font-weight: 400;
+            margin-top: 10px;
+        }
+    }
+
+    .alert-edit {
+        height: 76px;
+        margin-left: 20px;
+        padding: 0px;
+        padding-right: 10px;
+    }
+
+    .alert-remove {
+        width: 65px;
+        height: 76px;
+        background-color: #879aa8;
+    }
+}
+
+.mat-card:not([class*="mat-elevation-z"]) {
+    box-shadow: 0 0px 0 #dddddd;
+}
+
+.space {
+    flex: 1 1 auto;
+}

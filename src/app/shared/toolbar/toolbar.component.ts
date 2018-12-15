@@ -119,7 +119,7 @@ export class ToolbarComponent {
             this.visibleUniteMoreMenu = false;
           }
 
-          if (event.url.includes('/career/review/view')) {
+          if (event.url.includes('/career/review/view') || event.url.includes('/career/alert')) {
             this.visibleCareerAddOption = true;
           } else {
             this.visibleCareerAddOption = false;
@@ -186,7 +186,11 @@ export class ToolbarComponent {
   }
 
   onGoToAddReview() {
-    const id = this.url.split('/')[4];
-    this.router.navigate([`/career/review/add/${id}`]);
+    if (this.url.includes('/career/review/view')) {
+      const id = this.url.split('/')[4];
+      this.router.navigate([`/career/review/add/${id}`]);
+    } else {
+      this.router.navigate(['/career/alert/add']);
+    }
   }
 }

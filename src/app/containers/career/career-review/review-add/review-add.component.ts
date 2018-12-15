@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 
@@ -7,7 +7,8 @@ import { CompanyService } from '../../../../services/company.service';
 @Component({
   selector: 'dso-career-review-add',
   templateUrl: './review-add.component.html',
-  styleUrls: ['./review-add.component.scss']
+  styleUrls: ['./review-add.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ReviewAddComponent implements OnInit {
 

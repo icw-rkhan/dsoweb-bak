@@ -16,6 +16,7 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
 
   id: string;
   coverPage: Post;
+
   posts: Post[];
 
   SWIPE_ACTION = {LEFT: 'swipeleft', RIGHT: 'swiperight'};

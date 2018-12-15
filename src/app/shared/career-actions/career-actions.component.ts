@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -14,8 +14,11 @@ export class CareerActionsComponent implements OnInit {
 
   @Output() moreEvent = new EventEmitter<number>();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private cdr: ChangeDetectorRef) {
     this.flag = false;
+  }
+
+  ngOnInit() {
 
     this.links = [
       {
@@ -62,25 +65,27 @@ export class CareerActionsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-  }
-
-  onGoTo(link: any) {
+  onGoTo(i: number) {
     this.clear();
-    link.status = 'active';
+    this.links[i].status = 'active';
 
-    if (link.url !== '#more') {
+    if (this.links[i].url !== '#more') {
       this.flag = false;
-      this.router.navigate([link.url]);
+
+      this.cdr.markForCheck();
 
       this.moreEvent.emit(0);
+
+      this.router.navigate([this.links[i].url]);
     } else {
       this.flag = !this.flag;
       if (this.flag) {
-        link.status = 'active';
+        this.links[i].status = 'active';
       } else {
-        link.status = 'inactive';
+        this.links[i].status = 'inactive';
       }
+
+      this.cdr.markForCheck();
 
       this.moreEvent.emit(1);
     }

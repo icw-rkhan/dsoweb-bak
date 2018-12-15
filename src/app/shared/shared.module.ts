@@ -53,14 +53,17 @@ import { SearchMenuComponent } from './menus/search-menu/search-menu.component';
 import { DetailCardComponent } from './cards/detail-card/detail-card.component';
 import { CareerActionsComponent } from './career-actions/career-actions.component';
 import { MultipleCategoriesPipe } from '../pipes/multiple-categories.pipe';
-import { TruncatePipe } from '../pipes/truncate.pipe';
-import { SafePipe } from '../pipes/safe.pipe';
-import { SavedPipe } from '../pipes/save.pipe';
 import { CompanyReviewCardComponent } from './cards/company-review-card/company-review-card.component';
 import { JobCardComponent } from './cards/job-card/job-card.component';
 import { JobExtendCardComponent } from './cards/job-extend-card/job-extend-card.component';
 import { ReviewExtendCardComponent } from './cards/review-extend-card/review-extend-card.component';
 import { CompanyReviewExtendCardComponent } from './cards/company-review-extend-card/company-review-extend-card.component';
+import { AlertCardComponent } from './cards/alert-card/alert-card.component';
+import { CareerContainerComponent } from './career-container/career-container.component';
+
+import { TruncatePipe } from '../pipes/truncate.pipe';
+import { SafePipe } from '../pipes/safe.pipe';
+import { SavedPipe } from '../pipes/save.pipe';
 
 const PIPES = [
   SafePipe,
@@ -82,7 +85,6 @@ export const COMPONENTS = [
   MainActionsComponent,
   FeedGridComponent,
   TermPolicyDialogComponent,
-  MainContainerComponent,
   UniteCardComponent,
   ArticleCardComponent,
   ScreenCardComponent,
@@ -92,6 +94,9 @@ export const COMPONENTS = [
   ReviewExtendCardComponent,
   JobExtendCardComponent,
   CareerActionsComponent,
+  AlertCardComponent,
+  MainContainerComponent,
+  CareerContainerComponent,
 ];
 
 export const MODULES = [

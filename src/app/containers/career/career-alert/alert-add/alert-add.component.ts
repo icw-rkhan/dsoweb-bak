@@ -1,12 +1,12 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'dso-career-alert',
-  templateUrl: './career-alert.component.html',
-  styleUrls: ['./career-alert.component.scss'],
+  selector: 'dso-career-alert-add',
+  templateUrl: './alert-add.component.html',
+  styleUrls: ['./alert-add.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerAlertComponent implements OnInit {
+export class AlertAddComponent implements OnInit {
 
   constructor() { }
 

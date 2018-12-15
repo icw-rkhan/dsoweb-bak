@@ -1,0 +1,25 @@
+<mat-card fxLayout="row" fxLayoutAlign="start center" (swipeleft)="swipe($event.type)"
+  (swiperight)="swipe($event.type)">
+  <div fxLayout="column" fxLayoutAlign="center start">
+    <p class="alert-name">{{alert.keyword}}</p>
+    <p class="alert-location">{{alert.location}} | {{alert.distance}} miles</p>
+  </div>
+  <div class="space"></div>
+  <div fxLayout="column" fxLayoutAlign="center center">
+    <button mat-icon-button (click)="onCheckAlert()">
+      <img *ngIf="alert.status" src="assets/images/career/alert_active.png">
+      <img *ngIf="!alert.status" src="assets/images/career/alert_inactive.png">
+    </button>
+  </div>
+  <div fxLayout="column" fxLayoutAlign="start center" class="alert-edit">
+    <button mat-icon-button (click)="onCheckEdit()">
+      <img src="assets/images/career/edit.png">
+    </button>
+  </div>
+  <div *ngIf="showRemoveBtn" fxLayout="column" fxLayoutAlign="center center" class="alert-remove">
+    <button mat-icon-button (click)="onCheckRemove()">
+      <img src="assets/images/career/remove.png">
+    </button>
+  </div>
+</mat-card>
+<mat-divider></mat-divider>
