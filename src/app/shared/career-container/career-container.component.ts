@@ -20,7 +20,7 @@ export class CareerContainerComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         const url = event.url;
 
-        if (url.includes('/career/detail')) {
+        if (url.includes('/career/detail') || url.includes('/career/review/add')) {
           this.showActionBar = false;
         } else {
           this.showActionBar = true;

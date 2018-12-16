@@ -12,6 +12,7 @@ import { DSOCompany } from '../../../models/dso-company.model';
 export class CompanyReviewCardComponent implements OnInit {
 
   @Input() company: DSOCompany;
+  @Input() type: number;
 
   rating: number;
   rateList = [
@@ -22,10 +23,14 @@ export class CompanyReviewCardComponent implements OnInit {
     {state: 'inactive'}
   ];
 
-  constructor(private router: Router) {}
+  constructor(private router: Router) {
+    this.rating = 0;
+  }
 
   ngOnInit() {
-    this.rating = Math.round(parseInt(this.company.rating, 10));
+    if (this.company.rating) {
+      this.rating = Math.round(parseInt(this.company.rating, 10));
+    }
   }
 
   onGoToReviewList() {

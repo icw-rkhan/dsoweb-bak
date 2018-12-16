@@ -1,8 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 
-import { Company } from '../../../models/company.model';
-import { JobService } from '../../../services/job.service';
 import { CompanyService } from '../../../services/company.service';
 import { DSOCompany } from '../../../models/dso-company.model';
 
@@ -14,37 +12,62 @@ import { DSOCompany } from '../../../models/dso-company.model';
 })
 export class CareerProfilesComponent implements OnInit {
 
+  page: number;
+  showGotoTopBtn: boolean;
+
   companies: DSOCompany[];
 
   constructor(
     private progress: NgProgress,
-    private jobService: JobService,
+    private cdr: ChangeDetectorRef,
     private companyService: CompanyService) {
-    this.companies = [];
-
-    const company = new DSOCompany();
-    company.id = '1';
-    company.name = 'THE BRONX - Dental Center';
-    company.rating = '4.1';
-    company.reviews = '789';
-    company.city = 'Los Angeles';
-    company.state = 'CA';
-    company.logo = 'assets/images/career/log1.png';
-
-    const company2 = new DSOCompany();
-    company2.id = '2';
-    company2.name = 'Fresh Dent';
-    company2.rating = '5';
-    company2.reviews = '119';
-    company2.city = 'Los Angeles';
-    company2.state = 'CA';
-    company2.logo = 'assets/images/career/log2.png';
-
-    this.companies.push(company);
-    this.companies.push(company2);
+      this.page = 1;
   }
 
   ngOnInit() {
+    this.loadContents();
   }
 
+  loadContents() {
+    this.progress.start();
+
+    const body = {
+      'pageNumber': this.page,
+      'pageSize': 50
+    };
+
+    this.companyService.dsoCompanies(body).subscribe(companies => {
+      this.progress.complete();
+
+      this.companies = companies;
+
+      this.cdr.markForCheck();
+    },
+    err => {
+      this.progress.complete();
+    });
+  }
+
+  onLoadMore() {
+    ++this.page;
+
+    this.loadContents();
+  }
+
+  onScroll(event) {
+    const scrollPosition = event.srcElement.scrollTop;
+    if (scrollPosition > 200) {
+      this.showGotoTopBtn = true;
+    } else {
+      this.showGotoTopBtn = false;
+    }
+  }
+
+  gotoTop() {
+    document.getElementById('contents').scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+  }
 }

@@ -27,6 +27,8 @@ export class Post implements Serializable<Post> {
   excerpt: string;
   thumbnail?: string;
   link: string;
+  relativeTopics: any;
+  references: any;
   isFeatured: boolean;
 
   constructor() {}
@@ -69,7 +71,9 @@ export class Post implements Serializable<Post> {
       thumbnail: data.featuredMedia ? this.getThumbnailUrl(data.featuredMedia.code.thumbnail) : '',
       date: this.dateFormat(data.publishDate.toString()),
       link: 'https://www.dsodentist.com',
-      isFeatured: data.isFeatured
+      isFeatured: data.isFeatured,
+      relativeTopics: data.relativeTopicList,
+      references: data.references
     });
   }
 

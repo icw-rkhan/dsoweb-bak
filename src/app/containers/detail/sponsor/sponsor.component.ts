@@ -105,6 +105,8 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.progress.complete();
 
+        console.log(p);
+
         const temp = p;
         temp.content = this.changePreToDiv(temp.content);
         temp.content = this.setDropcap(temp.content);

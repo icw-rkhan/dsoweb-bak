@@ -47,7 +47,7 @@ export class CompanyService {
     const headers = this.getHeaders();
 
     return this.http.post(url, body, {headers}).pipe(
-      map((response: any) => response.resultMap.map(company => new DSOCompany().deserialize(company)))
+      map((response: any) => response.resultMap.data.map(company => new DSOCompany().deserialize(company)))
     );
   }
 

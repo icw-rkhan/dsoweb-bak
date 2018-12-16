@@ -21,7 +21,7 @@ export class JobService {
     const headers = this.getHeaders();
 
     return this.http.post(url, body, {headers}).pipe(
-      map((response: any) => response.resultMap.map(job => new Job().deserialize(job)))
+      map((response: any) => response.resultMap.data.map(job => new Job().deserialize(job)))
     );
   }
 

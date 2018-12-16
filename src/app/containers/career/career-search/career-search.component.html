@@ -1,5 +1,14 @@
-<div class="jobs-count">{{jobs.length}} Jobs</div>
-<mat-divider></mat-divider>
-<div>
+<div *ngIf="jobs.length !== 0" class="jobs-count">{{jobs.length}} Jobs</div>
+<mat-divider *ngIf="jobs.length !== 0"></mat-divider>
+<div id="contents" *ngIf="jobs.length !== 0" infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onLoadMore()"
+    [scrollWindow]="false"
+    (scroll)="onScroll($event)">
   <dso-job-card [job]="job" *ngFor="let job of jobs"></dso-job-card>
+</div>
+<div *ngIf="jobs.length == 0" class="no-content" fxLayout="column" fxLayoutAlign="center center">
+  <img src="assets/images/career/no_available_job.png">
+  <p class="no-message">No available jobs at the moment</p>
 </div>

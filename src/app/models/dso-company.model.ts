@@ -18,18 +18,18 @@ export class DSOCompany implements Serializable<DSOCompany> {
 
     deserialize(data: any): DSOCompany {
         return <DSOCompany>Object.assign({}, {
-            id: data.resultMap.id,
-            logo: data.resultMap.logo ? data.resultMap.logo : null,
-            name: data.resultMap.name,
-            city: data.resultMap.city ? data.resultMap.city : null,
-            state: data.resultMap.state ? data.resultMap.state : null,
-            media: data.resultMap.media ? data.resultMap.media : null,
-            rating: data.resultMap.rating ? data.resultMap.rating : null,
-            reviews: data.resultMap.reviews ? data.resultMap.reviews : null,
-            address1: data.resultMap.address1 ? data.resultMap.address1 : null,
-            address2: data.resultMap.address2 ? data.resultMap.address2 : null,
-            zip_code: data.resultMap.zip_code ? data.resultMap.zip_code : null,
-            description: data.resultMap.description ? data.resultMap.description : null
+            id: data.id,
+            logo: data.logo ? data.logo : null,
+            name: data.name,
+            city: data.city ? data.city : null,
+            state: data.state ? data.state : null,
+            media: data.media ? data.media : null,
+            rating: data.rating ? data.rating : null,
+            reviews: data.reviews ? data.reviews : '0',
+            address1: data.address1 ? data.address1 : null,
+            address2: data.address2 ? data.address2 : null,
+            zip_code: data.zip_code ? data.zip_code : null,
+            description: data.description ? data.description : null
         });
     }
 }

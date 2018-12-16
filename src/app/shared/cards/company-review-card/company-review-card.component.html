@@ -1,5 +1,5 @@
 <mat-card fxLayout="row" fxLayoutAlign="start center" (click)="onGoToReviewList()">
-    <div *ngIf="company.logo" class="company-logo" fxLayoutAlign="center center">
+    <div *ngIf="type == 1" class="company-logo" fxLayoutAlign="center center">
         <img [src]="company.logo">
     </div>
     <div class="space">
@@ -12,12 +12,12 @@
                     <img src="assets/images/career/review-small-inactive.png" class="rate-star">
                     </ng-template>
                 </div>
-                <div *ngIf="!company.logo" class="review-rating">{{company.rating}}</div>
+                <div *ngIf="type == 0" class="review-rating">{{company.rating}}</div>
             </div>
-            <div *ngIf="!company.logo" class="space"></div>
+            <div *ngIf="type == 0" class="space"></div>
             <div class="review-count">{{company.reviews}} Reviews</div>
         </div>
-        <div *ngIf="company.logo" class="company-location">{{company.city}}, {{company.state}}</div>
+        <div *ngIf="type == 1 && company.city" class="company-location">{{company.city}}, {{company.state}}</div>
     </div>
     <div>
         <img src="assets/images/profile/arrow-right.png">
