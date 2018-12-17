@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component,
-        EventEmitter, Input, Output, OnInit} from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+        EventEmitter, Input, Output, OnInit, Inject} from '@angular/core';
+import { DomSanitizer, SafeHtml, DOCUMENT } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 
 import { Post } from '../../../models/post.model';
@@ -10,7 +10,6 @@ import { AuthService } from '../../../services';
 import { BookmarkService } from '../../../services/bookmark.service';
 
 import { environment } from '../../../../environments/environment';
-import { SharingService } from '../../../services/sharing.service';
 
 @Component({
   selector: 'dso-feed-card',
@@ -20,6 +19,7 @@ import { SharingService } from '../../../services/sharing.service';
 })
 export class FeedCardComponent implements OnInit {
 
+  sharedUrl: string;
   isViewMore: boolean;
 
   postSafeContent: SafeHtml;
@@ -31,8 +31,8 @@ export class FeedCardComponent implements OnInit {
   @Output() removeBookmark = new EventEmitter<string>();
 
   constructor(
+    @Inject(DOCUMENT) private document: any,
     private bookmarkService: BookmarkService,
-    private sharingService: SharingService,
     private authService: AuthService,
     private sanitizer: DomSanitizer,
     private router: Router) {
@@ -41,6 +41,15 @@ export class FeedCardComponent implements OnInit {
 
   ngOnInit() {
     this.fetchAuthorInfo();
+
+    if (this.post) {
+      if (this.isAlign(this.post.sponsorId) || this.isGsk(this.post.sponsorId) ||
+        this.isNobel(this.post.sponsorId)) {
+          this.sharedUrl = `${this.document.location.origin}/detail/sponsor/${this.post.id}`;
+      } else {
+        this.sharedUrl = `${this.document.location.origin}/detail/${this.post.id}`;
+      }
+    }
   }
 
   onAddBookmark() {
