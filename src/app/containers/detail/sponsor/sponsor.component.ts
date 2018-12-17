@@ -1,7 +1,8 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef,
-      ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked, Inject } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
+import { DOCUMENT } from '@angular/platform-browser';
 import { NgProgress } from '@ngx-progressbar/core';
 import { formatDate } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -59,6 +60,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
   @ViewChild('authorContent') authorContent: ElementRef;
 
   constructor(
+    @Inject(DOCUMENT) private document: any,
     private router: Router,
     private progress: NgProgress,
     private route: ActivatedRoute,
@@ -284,7 +286,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
     if (post.relativeTopics) {
       let relates = '';
       post.relativeTopics.map(rel => {
-        relates = relates + `<p><a href="${environment.hostUrl}/detail/sponsor/${rel.id}">${rel.title}</a></p>`;
+        relates = relates + `<p><a href="${this.document.location.origin}/detail/sponsor/${rel.id}">${rel.title}</a></p>`;
       });
 
       if (relates !== '') {
