@@ -168,8 +168,11 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
       content = content.replace(first, '');
     }
 
-    content = content.replace(/(<p[^>]*>((?!iframe)(?!&nbsp).)*<\/p>)/, '<div class="first-big">$1</div>');
-    this.article.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+    this.article.content = content.replace(/(<p[^>]*>((?!iframe).)*<\/p>)/, '<div class="first-big">$1</div>');
+
+    if (!this.article.content.includes('<div class="first-big">')) {
+      this.article.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+    }
   }
 
   // change the layout of a post

@@ -144,8 +144,11 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
       content = content.replace(first, '');
     }
 
-    content = content.replace(/(<p[^>]*>((?!iframe).)*<\/p>)/, '<div class="first-big">$1</div>');
-    this.post.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+    this.post.content = content.replace(/(<p[^>]*>((?!iframe).)*<\/p>)/, '<div class="first-big">$1</div>');
+
+    if (!this.post.content.includes('<div class="first-big">')) {
+      this.post.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+    }
   }
 
   ngOnDestroy(): void {

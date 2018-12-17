@@ -176,8 +176,11 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
       content = content.replace(first, '');
     }
 
-    content = content.replace(/(<p[^>]*>((?!iframe).)*<\/p>)/, '<div class="first-big">$1</div>');
-    html = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+    html = content.replace(/(<p[^>]*>((?!iframe).)*<\/p>)/, '<div class="first-big">$1</div>');
+
+    if (!html.includes('<div class="first-big">')) {
+      html = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
+    }
 
     return html;
   }
