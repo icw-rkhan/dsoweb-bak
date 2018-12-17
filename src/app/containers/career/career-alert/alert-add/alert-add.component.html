@@ -1,3 +1,45 @@
-<p>
-  alert-add works!
-</p>
+<div class="alert-add">
+  <p>
+    <label>Job title or keyword (optional)</label>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Type here..." [(ngModel)]="keyword" autofocus>
+    </mat-form-field>
+  </p>
+  <p>
+    <label>Location</label>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Type here..." [(ngModel)]="location">
+      <mat-icon matSuffix>location_on</mat-icon>
+    </mat-form-field>
+  </p>
+  <p>
+    <label>Distance</label>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Type here..." [(ngModel)]="distance">
+      <mat-icon matSuffix>keyboard_arrow_right</mat-icon>
+      <mat-select value="5 miles" [(ngModel)]="distance">
+        <mat-option value="5 miles">within 5 miles</mat-option>
+        <mat-option value="10 miles">within 10 miles</mat-option>
+        <mat-option value="25 miles">within 25 miles</mat-option>
+        <mat-option value="50 miles">within 50 miles</mat-option>
+        <mat-option value="100 miles">within 100 miles</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+  <p>
+    <label>Frequency</label>
+    <mat-form-field appearance="outline">
+      <input matInput placeholder="Type here..." [(ngModel)]="frequency">
+      <mat-icon matSuffix>keyboard_arrow_right</mat-icon>
+      <mat-select value="Daily" [(ngModel)]="frequency">
+        <mat-option value="Daily">Daily</mat-option>
+        <mat-option value="Weekly">Weekly</mat-option>
+        <mat-option value="Bi-Weekly">Bi-Weekly</mat-option>
+        <mat-option value="Monthly">Monthly</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+  <p>
+    <button mat-raised-button>Save</button>
+  </p>
+</div>

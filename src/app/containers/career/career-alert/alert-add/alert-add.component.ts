@@ -8,9 +8,18 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class AlertAddComponent implements OnInit {
 
-  constructor() { }
+  keyword: string;
+  location: string;
+  distance: string;
+  frequency: string;
+
+  constructor() {
+    this.keyword = '';
+    this.location = '';
+    this.distance = '50 miles';
+    this.frequency = 'Weekly';
+  }
 
   ngOnInit() {
   }
-
 }

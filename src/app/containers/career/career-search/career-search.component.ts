@@ -1,9 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
+import { ActivatedRoute } from '@angular/router';
 
 import { Job } from '../../../models/job.model';
 import { JobService } from '../../../services/job.service';
-import { CompanyService } from '../../../services/company.service';
 
 @Component({
   selector: 'dso-career-search',
@@ -11,31 +11,47 @@ import { CompanyService } from '../../../services/company.service';
   styleUrls: ['./career-search.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerSearchComponent implements OnInit {
+export class CareerSearchComponent implements OnInit, OnDestroy {
 
+  term: string;
+  type: string;
   page: number;
+  distance: string;
+  location: string;
   showGotoTopBtn: boolean;
 
   jobs: Job[];
 
   constructor(
     private progress: NgProgress,
+    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private jobService: JobService) {
       this.page = 0;
       this.showGotoTopBtn = false;
 
-      this.jobs = [];
+      this.route.params.subscribe(params => {
+        this.type = params['type'];
+      });
   }
 
   ngOnInit() {
-    this.loadContents();
+    if (this.type !== 'criteria') {
+      this.onSearch();
+    }
   }
 
-  loadContents() {
+  ngOnDestroy() {
+    this.progress.complete();
+  }
+
+  onSearch() {
     this.progress.start();
 
     const body = {
+      'searchValue': this.term ? this.term : null,
+      'location': this.location ? this.location : null,
+      'distance': this.distance ? this.distance : null,
       'skip': this.page * 10,
       'limit': 10
     };
@@ -43,11 +59,21 @@ export class CareerSearchComponent implements OnInit {
     this.jobService.jobs(body).subscribe(jobs => {
       this.progress.complete();
 
-      this.jobs = jobs;
+      this.clear();
+
+      if (this.jobs) {
+        this.jobs = [
+          ...this.jobs,
+          ...jobs
+        ];
+      } else {
+        this.jobs = jobs;
+      }
 
       this.cdr.markForCheck();
     },
     err => {
+      console.log(err);
       this.progress.complete();
     });
   }
@@ -55,7 +81,7 @@ export class CareerSearchComponent implements OnInit {
   onLoadMore() {
     ++this.page;
 
-    this.loadContents();
+    this.onSearch();
   }
 
   onScroll(event) {
@@ -75,4 +101,10 @@ export class CareerSearchComponent implements OnInit {
     });
   }
 
+  clear() {
+    this.page = 0;
+    this.term = '';
+    this.location = '';
+    this.distance = '';
+  }
 }

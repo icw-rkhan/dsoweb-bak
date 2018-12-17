@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 
 import { CompanyService } from '../../../services/company.service';
@@ -10,7 +10,7 @@ import { DSOCompany } from '../../../models/dso-company.model';
   styleUrls: ['./career-profiles.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerProfilesComponent implements OnInit {
+export class CareerProfilesComponent implements OnInit, OnDestroy {
 
   page: number;
   showGotoTopBtn: boolean;
@@ -26,6 +26,10 @@ export class CareerProfilesComponent implements OnInit {
 
   ngOnInit() {
     this.loadContents();
+  }
+
+  ngOnDestroy() {
+    this.progress.complete();
   }
 
   loadContents() {

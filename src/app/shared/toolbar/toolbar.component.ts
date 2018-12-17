@@ -24,6 +24,7 @@ export class ToolbarComponent {
 
   visibleUniteMoreMenu: boolean;
   visibleCareerAddOption: boolean;
+  visibleCareerSearchOption: boolean;
 
   uniteMainLinks: NavLinkModel[];
   uniteMoreLinks: NavLinkModel[];
@@ -36,6 +37,7 @@ export class ToolbarComponent {
     private linksService: NavLinksService) {
       this.visibleUniteMoreMenu = false;
       this.visibleCareerAddOption = false;
+      this.visibleCareerSearchOption = true;
 
       this.uniteMainLinks = this.linksService.uniteMainLinks;
 
@@ -82,13 +84,13 @@ export class ToolbarComponent {
           } else if (event.url.includes('/career/dso-profile')) {
             this.title = 'DSO PROFILES';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/career/myjob')) {
+          } else if (event.url.includes('/career/my-job')) {
             this.title = 'MY JOBS';
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career/alert')) {
             this.title = 'JOB ALERTS';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/career/oneself')) {
+          } else if (event.url.includes('/career/me')) {
             this.title = 'ME';
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career/search') || event.url.includes('/career/detail')) {
@@ -123,6 +125,13 @@ export class ToolbarComponent {
             this.visibleCareerAddOption = true;
           } else {
             this.visibleCareerAddOption = false;
+          }
+
+          if (event.url.includes('/career') && !event.url.includes('/career/search/criteria')
+          && !this.visibleCareerAddOption) {
+            this.visibleCareerSearchOption = true;
+          } else {
+            this.visibleCareerSearchOption = false;
           }
 
           // if thumbnail page, hide the thumbnail option and show the full-screen option
@@ -164,15 +173,6 @@ export class ToolbarComponent {
     this.router.navigate([url]);
   }
 
-  removeADSCode() {
-    const old_childs = document.getElementsByClassName('ads_script');
-
-    if (old_childs.length > 1) {
-      document.head.removeChild(old_childs[0]);
-      document.head.removeChild(old_childs[0]);
-    }
-  }
-
   onClickEvent() {
     if (this.btnTitle === 'menu') {
       this.toggleMenu.emit();
@@ -192,5 +192,9 @@ export class ToolbarComponent {
     } else {
       this.router.navigate(['/career/alert/add']);
     }
+  }
+
+  onGoToSearchJobs() {
+    this.router.navigate(['/career/search/criteria']);
   }
 }

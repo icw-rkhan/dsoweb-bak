@@ -183,6 +183,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
   }
 
   ngOnDestroy(): void {
+    this.progress.complete();
     this.paramsSub.unsubscribe();
   }
 

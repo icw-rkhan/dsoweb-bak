@@ -1,6 +1,35 @@
-<div *ngIf="jobs.length !== 0" class="jobs-count">{{jobs.length}} Jobs</div>
-<mat-divider *ngIf="jobs.length !== 0"></mat-divider>
-<div id="contents" *ngIf="jobs.length !== 0" infiniteScroll
+<div *ngIf="type=='criteria' && !jobs" class="search-options">
+  <form name="searchForm" (ngSubmit)="searchForm.form.valid && onSearch()" #searchForm="ngForm" class="search-form"
+        novalidate>
+    <mat-form-field appearance="outline">
+      <mat-label>Search</mat-label>
+      <input matInput name="term" [(ngModel)]="term">
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+    <button mat-button color="primary">Search</button>
+  </form>
+  <p fxLayout="row" fxLayoutAlign="space-evenly center">
+    <mat-form-field class="form-field">
+      <input matInput type="text" placeholder="Location" [(ngModel)]="location">
+      <button mat-button *ngIf="location" matSuffix mat-icon-button aria-label="Clear" (click)="location=''">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field class="form-field">
+      <mat-label>Distance</mat-label>
+      <mat-select value="5" [(ngModel)]="distance">
+        <mat-option value="5">within 5 miles</mat-option>
+        <mat-option value="10">within 10 miles</mat-option>
+        <mat-option value="15">within 15 miles</mat-option>
+        <mat-option value="20">within 20 miles</mat-option>
+        <mat-option value="25">within 25 miles</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </p>
+</div>
+<div *ngIf="jobs && jobs.length !== 0" class="jobs-count">{{jobs.length}} Jobs</div>
+<mat-divider *ngIf="jobs && jobs.length !== 0"></mat-divider>
+<div id="contents" *ngIf="jobs && jobs.length !== 0" infiniteScroll
     [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="50"
     (scrolled)="onLoadMore()"
@@ -8,7 +37,9 @@
     (scroll)="onScroll($event)">
   <dso-job-card [job]="job" *ngFor="let job of jobs"></dso-job-card>
 </div>
-<div *ngIf="jobs.length == 0" class="no-content" fxLayout="column" fxLayoutAlign="center center">
-  <img src="assets/images/career/no_available_job.png">
-  <p class="no-message">No available jobs at the moment</p>
+<div *ngIf="jobs && jobs.length == 0" class="no-content" fxLayout="column" fxLayoutAlign="center center">
+  <img *ngIf="type!=='criteria'" src="assets/images/career/no_available_job.png">
+  <p *ngIf="type!=='criteria'" class="no-message">No available jobs at the moment</p>
+  <img *ngIf="type=='criteria'" src="assets/images/career/no_search_job.png">
+  <p *ngIf="type=='criteria'" class="no-message">No jobs found that match selected criteria</p>
 </div>

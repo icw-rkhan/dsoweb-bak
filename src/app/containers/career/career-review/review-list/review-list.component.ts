@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 
 import { DSOCompany } from '../../../../models/dso-company.model';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -10,7 +10,7 @@ import { CompanyService } from '../../../../services/company.service';
   styleUrls: ['./review-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReviewListComponent implements OnInit {
+export class ReviewListComponent implements OnInit, OnDestroy {
 
   page: number;
   showGotoTopBtn: boolean;
@@ -26,6 +26,10 @@ export class ReviewListComponent implements OnInit {
 
   ngOnInit() {
     this.loadContents();
+  }
+
+  ngOnDestroy() {
+    this.progress.complete();
   }
 
   loadContents() {

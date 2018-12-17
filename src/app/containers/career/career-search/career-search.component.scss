@@ -1,3 +1,35 @@
+
+.search-options {
+    .search-form {
+        padding: 10px 25px;
+        display: flex;
+        background-color: white;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+      
+        button {
+          margin-left: 10px;
+        }
+      
+        ::ng-deep mat-form-field {
+          flex: 1;
+          .mat-form-field-wrapper {
+            padding-bottom: 0 !important;
+            .mat-form-field-flex {
+              background-color: white;
+            }
+          }
+        }
+    }
+
+    .form-field {
+        width: 45vw;
+    }
+
+    p {
+        margin-top: 5px;
+    }
+}
+
 .jobs-count {
     padding: 16px;
     color: #4a4a4a;

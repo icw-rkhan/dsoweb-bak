@@ -64,6 +64,9 @@ export class SearchPageComponent implements OnInit {
 
       this.progress.complete();
       postSub.unsubscribe();
+    },
+    err => {
+      this.progress.complete();
     });
   }
 

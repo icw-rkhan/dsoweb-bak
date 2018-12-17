@@ -16,6 +16,11 @@
       <img src="assets/images/career/add.png">
     </button>
   </div>
+  <div *ngIf="visibleCareerSearchOption" class="navbar-edit-profile">
+    <button mat-icon-button class="add-review" (click)="onGoToSearchJobs()">
+      <img src="assets/images/career/search_white.png">
+    </button>
+  </div>
   <div *ngIf="visibleUniteMoreMenu" class="navbar-edit-profile">
     <a mat-icon-button [matMenuTriggerFor]="issueMenu">
       <img src="assets/images/unite/menu.png">

@@ -26,7 +26,11 @@ export const ROUTES: Routes = [
                 component: CareerSearchComponent,
             },
             {
-                path: 'oneself',
+                path: 'search/:type',
+                component: CareerSearchComponent,
+            },
+            {
+                path: 'me',
                 component: CareerOneselfComponent,
             },
             {
