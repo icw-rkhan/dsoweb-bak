@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener,
-               ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
+        ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -14,6 +14,8 @@ import { AuthService } from '../../../services';
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
+
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'dso-detail-common',
@@ -100,8 +102,11 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.progress.complete();
 
-        this.post = p;
-        this.post.content = this.changePreToDiv(this.post.content);
+        const temp = p;
+        temp.content = this.addRelativeAndReference(temp);
+        temp.content = this.changePreToDiv(temp.content);
+
+        this.post = temp;
 
         this.fetchAuthorInfo();
 
@@ -139,7 +144,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
       content = content.replace(first, '');
     }
 
-    content = content.replace(/(<p[^>]*>((?!iframe)(?!&nbsp).)*<\/p>)/, '<div class="first-big">$1</div>');
+    content = content.replace(/(<p[^>]*>((?!iframe).)*<\/p>)/, '<div class="first-big">$1</div>');
     this.post.content = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
   }
 
@@ -288,6 +293,41 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
     }
 
     return text;
+  }
+
+  addRelativeAndReference(post: any) {
+    let relativeContents = '';
+    if (post.relativeTopics) {
+      let relates = '';
+      post.relativeTopics.map(rel => {
+        relates = relates + `<p><a href="${environment.hostUrl}/detail/${rel.id}">${rel.title}</a></p>`;
+      });
+
+      if (relates !== '') {
+        relativeContents = `<p>&nbsp</p><h2>Related Resources</h2>${relates}`;
+      }
+    }
+
+    let referenceContents = '';
+    if (post.references) {
+      let references = '';
+      post.references.map((ref: string) => {
+        const tArray = ref.split('\n');
+
+        let sTemp = '';
+        tArray.map(st => {
+          sTemp = sTemp + `<p style="padding-left:10px">${st}</p>`;
+        });
+
+        references = references + sTemp;
+      });
+
+      if (references !== '') {
+        referenceContents = `<p>&nbsp</p><h2>References</h2><p>${references}</p>`;
+      }
+    }
+
+    return post.content + relativeContents + referenceContents;
   }
 
   // fetch an author/speaker's name

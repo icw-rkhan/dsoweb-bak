@@ -105,9 +105,8 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
       const postSub = this.postService.fetchById(this.postId).subscribe(p => {
         this.progress.complete();
 
-        console.log(p);
-
         const temp = p;
+        temp.content = this.addRelativeAndReference(temp);
         temp.content = this.changePreToDiv(temp.content);
         temp.content = this.setDropcap(temp.content);
         temp.content = this.modifyADs(temp.content);
@@ -175,7 +174,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
       content = content.replace(first, '');
     }
 
-    content = content.replace(/(<p[^>]*>((?!iframe)(?!&nbsp).)*<\/p>)/, '<div class="first-big">$1</div>');
+    content = content.replace(/(<p[^>]*>((?!iframe).)*<\/p>)/, '<div class="first-big">$1</div>');
     html = content.replace(/(<p[^>]*><span[^>]*>.*?<\/span><\/p>)/, '<div class="first-big">$1</div>');
 
     return html;
@@ -280,6 +279,41 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
     }
   }
 
+  addRelativeAndReference(post: any) {
+    let relativeContents = '';
+    if (post.relativeTopics) {
+      let relates = '';
+      post.relativeTopics.map(rel => {
+        relates = relates + `<p><a href="${environment.hostUrl}/detail/sponsor/${rel.id}">${rel.title}</a></p>`;
+      });
+
+      if (relates !== '') {
+        relativeContents = `<p>&nbsp</p><h2>Related Resources</h2>${relates}`;
+      }
+    }
+
+    let referenceContents = '';
+    if (post.references) {
+      let references = '';
+      post.references.map((ref: string) => {
+        const tArray = ref.split('\n');
+
+        let sTemp = '';
+        tArray.map(st => {
+          sTemp = sTemp + `<p style="padding-left:10px">${st}</p>`;
+        });
+
+        references = references + sTemp;
+      });
+
+      if (references !== '') {
+        referenceContents = `<p>&nbsp</p><h2>References</h2><p>${references}</p>`;
+      }
+    }
+
+    return post.content + relativeContents + referenceContents;
+  }
+
   // modify the format of callout
   changeFormatOfCallOut(tag) {
     const pTagArr = tag.getElementsByTagName('p');
@@ -377,12 +411,6 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
   activeAuthorLayout() {
     if (this.authorName) {
       this.isAuthorVisible = true;
-
-      // if (!this.authorName.includes('DSODentist')) {
-      //   this.authorContent.nativeElement.style.display = 'none';
-      // } else {
-      //   this.authorName = '';
-      // }
 
       if (this.authorInfo) {
         this.authorContent.nativeElement.style.marginTop = '5px';
