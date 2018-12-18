@@ -37,7 +37,7 @@ export class SearchPageComponent implements OnInit {
 
     const body = {
       'searchValue': this.term,
-      'united': false,
+      'unite': false,
       'skip': 0,
       'limit': 10
     };
