@@ -19,6 +19,10 @@ export const ROUTES: Routes = [
         {
           path: 'add',
           component: AlertAddComponent
+        },
+        {
+          path: 'add/:id',
+          component: AlertAddComponent
         }
       ]
   },

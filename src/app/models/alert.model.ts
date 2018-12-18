@@ -9,15 +9,17 @@ export class Alert implements Serializable<Alert> {
     keyword: string;
     location: string;
     distance: string;
+    frequency: number;
     status: boolean;
 
     deserialize(data: any): Alert {
         return <Alert>Object.assign({}, {
-            id: data.resultMap.id,
-            keyword: data.resultMap.keyword,
-            location: data.resultMap.location,
-            distance: data.resultMap.distance,
-            status: data.resultMap.status
+            id: data.id,
+            keyword: data.keyword,
+            location: data.location,
+            distance: data.distance,
+            frequency: data.frequency,
+            status: data.status
         });
     }
 }

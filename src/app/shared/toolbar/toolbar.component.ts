@@ -87,6 +87,9 @@ export class ToolbarComponent {
           } else if (event.url.includes('/career/my-job')) {
             this.title = 'MY JOBS';
             this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/career/alert/add')) {
+            this.title = 'CREATE JOB ALERT';
+            this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career/alert')) {
             this.title = 'JOB ALERTS';
             this.btnTitle = 'keyboard_backspace';
@@ -121,14 +124,14 @@ export class ToolbarComponent {
             this.visibleUniteMoreMenu = false;
           }
 
-          if (event.url.includes('/career/review/view') || event.url.includes('/career/alert')) {
+          if (event.url.includes('/career/review/view') && !event.url.includes('/career/alert/add')) {
             this.visibleCareerAddOption = true;
           } else {
             this.visibleCareerAddOption = false;
           }
 
           if (event.url.includes('/career') && !event.url.includes('/career/search/criteria')
-          && !this.visibleCareerAddOption) {
+          && !this.visibleCareerAddOption && !event.url.includes('/career/alert')) {
             this.visibleCareerSearchOption = true;
           } else {
             this.visibleCareerSearchOption = false;

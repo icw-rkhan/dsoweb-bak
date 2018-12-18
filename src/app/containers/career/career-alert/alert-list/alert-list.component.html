@@ -1,1 +1,17 @@
-<dso-alert-card [alert]="alert" *ngFor="let alert of alerts"></dso-alert-card>
+<div *ngIf="alerts">
+    <dso-alert-card [alert]="alert" (removeAlertEvent)="removeAlert($event)" 
+        (toggleAlertEvent)="toggleAlert($event)" *ngFor="let alert of alerts"></dso-alert-card>
+</div>
+<div *ngIf="alerts && alerts.length == 0" class="no-contents" fxLayout="column" fxLayoutAlign="center center">
+    <img src="assets/images/career/no_alert_job.png">
+    <p fxLayout="column" fxLayoutAlign="center center">
+        <label class="add-label">Add your first JOb Alert!</label>
+        <label>Receive a daily email with the best matched jobs from DSODS</label>
+    </p>
+    <p class="submit">
+        <button mat-raised-button fxLayout="row" fxLayoutAlign="center center" (click)="onGoToAddAert()">
+            <img src="assets/images/career/alert_add_button.png">
+            <span>Create Job Alert</span>
+        </button>
+    </p>
+</div>

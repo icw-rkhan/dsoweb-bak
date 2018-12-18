@@ -1,5 +1,7 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, Output, EventEmitter } from '@angular/core';
+
 import { Alert } from '../../../models/alert.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'dso-alert-card',
@@ -11,11 +13,14 @@ export class AlertCardComponent implements OnInit {
 
   @Input() alert: Alert;
 
+  @Output() toggleAlertEvent = new EventEmitter<string>();
+  @Output() removeAlertEvent = new EventEmitter<string>();
+
   showRemoveBtn: boolean;
 
   SWIPE_ACTION = {LEFT: 'swipeleft', RIGHT: 'swiperight'};
 
-  constructor() {
+  constructor(private router: Router) {
     this.showRemoveBtn = false;
   }
 
@@ -23,15 +28,15 @@ export class AlertCardComponent implements OnInit {
   }
 
   onCheckAlert() {
-    this.alert.status = !this.alert.status;
+    this.toggleAlertEvent.emit(this.alert.id);
   }
 
   onCheckEdit() {
-
+    this.router.navigate([`/career/alert/add/${this.alert.id}`]);
   }
 
   onCheckRemove() {
-
+    this.removeAlertEvent.emit(this.alert.id);
   }
 
   swipe(action) {

@@ -14,7 +14,7 @@ export class CareerActionsComponent implements OnInit {
 
   @Output() moreEvent = new EventEmitter<number>();
 
-  constructor(private router: Router, private cdr: ChangeDetectorRef) {
+  constructor(private router: Router) {
     this.flag = false;
   }
 
@@ -72,8 +72,6 @@ export class CareerActionsComponent implements OnInit {
     if (this.links[i].url !== '#more') {
       this.flag = false;
 
-      this.cdr.markForCheck();
-
       this.moreEvent.emit(0);
 
       this.router.navigate([this.links[i].url]);
@@ -84,8 +82,6 @@ export class CareerActionsComponent implements OnInit {
       } else {
         this.links[i].status = 'inactive';
       }
-
-      this.cdr.markForCheck();
 
       this.moreEvent.emit(1);
     }
