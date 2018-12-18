@@ -2,8 +2,8 @@
   <a *ngFor="let link of links; index as i" fxLayout="column" fxLayoutAlign="center center" 
                                       class="action-item">
     <div class="action-avatar" (click)="onGoTo(i)">
-      <img [src]="'assets/images/career/' + link.icon + '_' + link.status + '.png'">
+      <img [src]="'assets/images/career/' + link.icon + '_' + link.state + '.png'">
     </div>
-    <label [class.active]="link.status === 'active'" class="action-title">{{link.title}}</label>
+    <label [class.active]="link.state === 'active'" class="action-title">{{link.label}}</label>
   </a>
 </div>

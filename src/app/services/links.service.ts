@@ -7,12 +7,14 @@ import { NavLinkModel } from '../models/nav-link.model';
   })
 export class NavLinksService {
   links: NavLinkModel[] = [];
+  careerActionLinks: NavLinkModel[] = [];
   uniteMainLinks: NavLinkModel[] = [];
   uniteMoreLinks: NavLinkModel[] = [];
 
   constructor() {
     this.makeGeneralLinks();
     this.makeUniteMainLinks();
+    this.makeCareerActionLinks();
     this.makeUniteFeaturesLinks();
   }
 
@@ -71,28 +73,12 @@ export class NavLinksService {
   }
 
   makeUniteFeaturesLinks() {
-    /*
-    this.uniteMoreLinks.push({
-      label: 'Bookmark',
-      icon: 'assets/images/unite/bookmark_inactive.png',
-      route: '_bookmark',
-      state: 'active'
-    });
-    */
     this.uniteMoreLinks.push({
       label: 'Search',
       icon: 'assets/images/unite/search.png',
       route: '/unite/search',
       state: 'active'
     });
-
-    /*
-    this.uniteMoreLinks.push({
-      label: 'Share',
-      icon: 'assets/images/unite/share.png',
-      route: '/unite/bookmark',
-      state: 'active'
-    });*/
 
     this.uniteMoreLinks.push({
       label: 'Thumbnails',
@@ -113,6 +99,39 @@ export class NavLinksService {
       icon: 'assets/images/unite/arrow-right.png',
       route: '/unite/bookmark',
       state: 'active'
+    });
+  }
+
+  makeCareerActionLinks() {
+    this.careerActionLinks.push({
+      label: 'Explore',
+      icon: 'explore',
+      route: '/career',
+      state: 'active'
+    });
+    this.careerActionLinks.push({
+      label: 'Find Job',
+      icon: 'find',
+      route: '/career/search',
+      state: 'inactive'
+    });
+    this.careerActionLinks.push({
+      label: 'My Jobs',
+      icon: 'my-jobs',
+      route: '/career/my-job',
+      state: 'inactive'
+    });
+    this.careerActionLinks.push({
+      label: 'Alerts',
+      icon: 'alert',
+      route: '/career/alert',
+      state: 'inactive'
+    });
+    this.careerActionLinks.push({
+      label: 'More',
+      icon: 'more',
+      route: '#more',
+      state: 'inactive'
     });
   }
 

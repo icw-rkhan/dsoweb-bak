@@ -1,6 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 
+import { NavLinkModel } from '../../models/nav-link.model';
+import { NavLinksService } from '../../services/links.service';
+
 @Component({
   selector: 'dso-career-actions',
   templateUrl: './career-actions.component.html',
@@ -10,77 +13,48 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 export class CareerActionsComponent implements OnInit {
 
   flag: boolean;
-  links: any[];
+  links: NavLinkModel[];
 
   @Output() moreEvent = new EventEmitter<number>();
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private linkService: NavLinksService) {
     this.flag = false;
+
+    this.links = this.linkService.careerActionLinks;
   }
 
   ngOnInit() {
-
-    this.links = [
-      {
-        title: 'Explore',
-        icon: 'explore',
-        url: '/career',
-        status: 'active'
-      },
-      {
-        title: 'Find Job',
-        icon: 'find',
-        url: '/career/search',
-        status: 'inactive'
-      },
-      {
-        title: 'My Jobs',
-        icon: 'my-jobs',
-        url: '/career/my-job',
-        status: 'inactive'
-      },
-      {
-        title: 'Alerts',
-        icon: 'alert',
-        url: '/career/alert',
-        status: 'inactive'
-      },
-      {
-        title: 'More',
-        icon: 'more',
-        url: '#more',
-        status: 'inactive'
-      }
-    ];
-
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         const url = event.url;
 
-        if (url !== '/career' && url !== '/career/search' &&
-            url !== '/career/my-job' && url !== '/career/alert') {
-          this.clear();
-        }
+        this.clear();
+
+        this.links.map(link => {
+          if (link.route === url) {
+            link.state = 'active';
+          }
+        });
       }
     });
   }
 
   onGoTo(i: number) {
     this.clear();
-    this.links[i].status = 'active';
+    this.links[i].state = 'active';
 
-    if (this.links[i].url !== '#more') {
+    if (this.links[i].route !== '#more') {
       this.flag = false;
 
       this.moreEvent.emit(0);
 
-      this.router.navigate([this.links[i].url]);
+      this.router.navigate([this.links[i].route]);
     } else {
       this.flag = !this.flag;
       if (this.flag) {
-        this.links[i].status = 'active';
+        this.links[i].state = 'active';
       } else {
-        this.links[i].status = 'inactive';
+        this.links[i].state = 'inactive';
       }
 
       this.moreEvent.emit(1);
@@ -89,7 +63,7 @@ export class CareerActionsComponent implements OnInit {
 
   clear() {
     this.links.map(link => {
-      link.status = 'inactive';
+      link.state = 'inactive';
     });
   }
 }
