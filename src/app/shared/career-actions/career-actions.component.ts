@@ -17,13 +17,14 @@ export class CareerActionsComponent implements OnInit {
 
   @Output() moreEvent = new EventEmitter<number>();
 
-  constructor(private router: Router, private linkService: NavLinksService) {
+  constructor(
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private linkService: NavLinksService) {
     this.flag = false;
 
     this.links = this.linkService.careerActionLinks;
-  }
 
-  ngOnInit() {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         const url = event.url;
@@ -33,11 +34,15 @@ export class CareerActionsComponent implements OnInit {
         this.links.map(link => {
           if (link.route === url) {
             link.state = 'active';
+
+            this.cdr.markForCheck();
           }
         });
       }
     });
   }
+
+  ngOnInit() {}
 
   onGoTo(i: number) {
     this.clear();
