@@ -50,6 +50,10 @@
 .no-content {
     width: 100%;
     height: calc(100vh - 94px);
+    background-color: #ffffff;
+    position: absolute;
+    top: 45px;
+    z-index: 5;
 
     .no-message {
         color: #000000;
