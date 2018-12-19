@@ -8,7 +8,8 @@
   <p>
     <label>Location</label>
     <mat-form-field appearance="outline">
-      <input matInput placeholder="Type here..." [(ngModel)]="location">
+      <input #location matInput placeholder="Type here..."
+          autocorrect="off" autocapitalize="off" spellcheck="off">
       <mat-icon matSuffix>location_on</mat-icon>
     </mat-form-field>
   </p>

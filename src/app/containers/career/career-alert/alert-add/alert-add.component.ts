@@ -1,7 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,
+          ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
+import { MapsAPILoader } from '@agm/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
+import {} from 'googlemaps';
 
 import { JobAlertService } from '../../../../services/job-alert.service';
 
@@ -11,9 +14,9 @@ import { JobAlertService } from '../../../../services/job-alert.service';
   styleUrls: ['./alert-add.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AlertAddComponent implements OnInit {
+export class AlertAddComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('gmap') gmapElement: any;
+  @ViewChild('location') locationElementRef: ElementRef;
 
   id: string;
   keyword: string;
@@ -21,6 +24,10 @@ export class AlertAddComponent implements OnInit {
   distance: string;
   frequency: string;
   status: boolean;
+
+  public latitude: number;
+  public longitude: number;
+  public zoom: number;
 
   frequencyArr = [
     {
@@ -42,15 +49,22 @@ export class AlertAddComponent implements OnInit {
   ];
 
   constructor(
+    private ngZone: NgZone,
     private _location: Location,
     private progress: NgProgress,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
+    private mapsAPILoader: MapsAPILoader,
     private jobAlertService: JobAlertService) {
     this.keyword = '';
     this.location = '';
     this.distance = '50 miles';
     this.frequency = 'Weekly';
+
+    // set google maps defaults
+    this.zoom = 4;
+    this.latitude = 39.8282;
+    this.longitude = -98.5795;
 
     this.route.params.subscribe(params => {
       this.id = params['id'];
@@ -75,12 +89,40 @@ export class AlertAddComponent implements OnInit {
           }
         });
 
+        this.locationElementRef.nativeElement.value = this.location;
+
         this.cdr.markForCheck();
       },
       err => {
         this.progress.complete();
       });
     }
+  }
+
+  ngAfterViewInit() {
+    // load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      const autocomplete = new google.maps.places.Autocomplete(this.locationElementRef.nativeElement, {
+        types: ['address']
+      });
+      autocomplete.addListener('place_changed', () => {
+        this.ngZone.run(() => {
+          // get the place result
+          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          // verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+          // set latitude, longitude and zoom
+          this.location = place.name;
+          this.latitude = place.geometry.location.lat();
+          this.longitude = place.geometry.location.lng();
+          this.zoom = 12;
+        });
+      });
+    });
   }
 
   onSave() {
@@ -97,6 +139,9 @@ export class AlertAddComponent implements OnInit {
         'id': this.id,
         'keyword': this.keyword,
         'location': this.location,
+        'position': [
+          this.latitude, this.longitude
+        ],
         'frequency': freq,
         'status': this.status,
         'distance': parseInt(this.distance, 10)
@@ -114,6 +159,9 @@ export class AlertAddComponent implements OnInit {
       const body = {
         'keyword': this.keyword,
         'location': this.location,
+        'position': [
+          this.latitude, this.longitude
+        ],
         'frequency': freq,
         'status': true,
         'distance': parseInt(this.distance, 10)

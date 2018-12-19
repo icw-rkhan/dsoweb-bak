@@ -128,7 +128,7 @@ export class ToolbarComponent {
             this.visibleUniteMoreMenu = false;
           }
 
-          if (event.url.includes('/career/review/view') && !event.url.includes('/career/alert/add')) {
+          if (event.url.includes('/career/review/view') || event.url === '/career/alert') {
             this.visibleCareerAddOption = true;
           } else {
             this.visibleCareerAddOption = false;
