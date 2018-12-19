@@ -10,7 +10,8 @@
   </form>
   <p fxLayout="row" fxLayoutAlign="space-evenly center">
     <mat-form-field class="form-field">
-      <input matInput type="text" placeholder="Location" [(ngModel)]="location">
+      <input #location2 matInput type="text" placeholder="Location" 
+          autocorrect="off" autocapitalize="off" spellcheck="off">
       <button mat-button *ngIf="location" matSuffix mat-icon-button aria-label="Clear" (click)="location=''">
         <mat-icon>close</mat-icon>
       </button>
