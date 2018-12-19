@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { AgmCoreModule } from '@agm/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -45,6 +46,10 @@ export class HammerConfig extends HammerGestureConfig {
     NgProgressModule.forRoot({
       meteor: false,
       color: '#354051'
+    }),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCAtQY36wqgDiU7FM7XFQkORvc4A6taTro',
+      libraries: ['places']
     }),
     // Module import
     ReviewsModule,
