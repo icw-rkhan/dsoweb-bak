@@ -1,10 +1,10 @@
+/// <reference types="@types/googlemaps" />
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,
           ViewChild, ElementRef, NgZone, AfterViewInit } from '@angular/core';
 import { MapsAPILoader } from '@agm/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
-import {} from 'googlemaps';
 
 import { JobAlertService } from '../../../../services/job-alert.service';
 
