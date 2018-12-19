@@ -4,22 +4,24 @@ import { formatDate } from '@angular/common';
 import * as _ from 'lodash';
 
 export class Review implements Serializable<Review> {
+    id: string;
+    dsoId: string;
     reviewTitle: string;
     pros: string;
     cons: string;
-    recommend: string;
+    rating: number;
+    advice: string;
     isCurrentEmployee: boolean;
     isFormerEmployee: boolean;
     isRecommend: boolean;
     isApprove: boolean;
     reviewDate: string;
+    email: string;
 
     // change the format of the data
-    dateFormat(date: string): any {
+    dateFormat(date: Date): any {
         if (date) {
-        date = date.replace(/-/g, '/');
-
-        return formatDate(date, 'MMM d, y', 'en-US');
+        return formatDate(date, 'd MMM y', 'en-US');
         }
 
         return '';
@@ -27,15 +29,19 @@ export class Review implements Serializable<Review> {
 
     deserialize(data: any): Review {
         return <Review>Object.assign({}, {
-            reviewTitle: data.resultMap.reviewTitle ? data.resultMap.reviewTitle : null,
-            pros: data.resultMap.pros ? data.resultMap.pros : null,
-            cons: data.resultMap.cons ? data.resultMap.cons : null,
-            recommend: data.resultMap.recommend ? data.resultMap.recommend : null,
-            isCurrentEmployee: data.resultMap.isCurrentEmployee ? data.resultMap.isCurrentEmployee : false,
-            isFormerEmployee: data.resultMap.isFormerEmployee ? data.resultMap.isFormerEmployee : false,
-            isRecommend: data.resultMap.isRecommend ? data.resultMap.isRecommend : false,
-            isApprove: data.resultMap.isApprove ? data.resultMap.isApprove : false,
-            reviewDate: data.resultMap.reviewDate ? this.dateFormat(data.resultMap.reviewDate.toString()) : null,
+            id: data.id,
+            dsoId: data.dsoId,
+            reviewTitle: data.reviewTitle,
+            pros: data.pros,
+            cons: data.cons,
+            rating: data.rating,
+            advice: data.advice,
+            isCurrentEmployee: data.isCurrentEmployee,
+            isFormerEmployee: data.isFormerEmployee,
+            isRecommend: data.isRecommend,
+            isApprove: data.isApprove,
+            email: data.email,
+            reviewDate: this.dateFormat(new Date(data.reviewDate)),
         });
     }
 }

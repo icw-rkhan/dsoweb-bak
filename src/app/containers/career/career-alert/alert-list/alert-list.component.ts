@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
-import { Alert } from '../../../../models/alert.model';
 import { NgProgress } from '@ngx-progressbar/core';
-import { JobAlertService } from '../../../../services/job-alert.service';
 import { Router } from '@angular/router';
+
+import { Alert } from '../../../../models/alert.model';
+import { JobAlertService } from '../../../../services/job-alert.service';
 
 @Component({
   selector: 'dso-career-alert-list',

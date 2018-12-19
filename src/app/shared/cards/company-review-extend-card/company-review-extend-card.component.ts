@@ -1,4 +1,6 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Review } from '../../../models/reivew.model';
+import { Router, NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'dso-company-review-extend-card',
@@ -8,9 +10,11 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 })
 export class CompanyReviewExtendCardComponent implements OnInit {
 
-  @Input() review: any;
+  @Input() review: Review;
+  @Input() companyName: string;
 
-  rating: number;
+  employeeIndicator: string;
+
   rateList = [
     {state: 'inactive'},
     {state: 'inactive'},
@@ -19,10 +23,23 @@ export class CompanyReviewExtendCardComponent implements OnInit {
     {state: 'inactive'}
   ];
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
-    this.rating = Math.round(parseInt(this.review.rating, 10));
+    if (this.review.isCurrentEmployee) {
+      this.employeeIndicator = 'Current Employee';
+    }
+
+    if (this.review.isFormerEmployee) {
+      this.employeeIndicator = 'Former Employee';
+    }
   }
 
+  onGoToReviewDetail() {
+    const params: NavigationExtras = {
+      queryParams: this.review
+    };
+
+    this.router.navigate([`/career/review/detail/${this.companyName}`], params);
+  }
 }

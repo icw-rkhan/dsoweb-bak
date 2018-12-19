@@ -1,0 +1,37 @@
+
+<div class="review-title">"{{review.reviewTitle}}"</div>
+<div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
+    <div *ngFor="let rate of rateList; index as i">
+        <img *ngIf="review.rating>i;else inactive" src="assets/images/review/view-star-active.png" class="rate-star">
+        <ng-template #inactive>
+        <img src="assets/images/review/view-star-inactive.png" class="rate-star">
+        </ng-template>
+    </div>
+</div>
+<div class="employee-info" fxLayout="row" fxLayoutAlign="space-between center">
+    <label>Current Employee - {{employeeIndicator}}</label>
+    <label class="review-date">{{review.reviewDate}}</label>
+</div>
+<mat-divider></mat-divider>
+<div class="review-contents">
+    <p class="review-type">Pros</p>
+    <p class="review-text">{{review.pros}}</p>
+</div>
+<div class="review-contents">
+    <p class="review-type">Cons</p>
+    <p class="review-text">{{review.cons}}</p>
+</div>
+<div class="review-contents">
+    <p class="review-type">Advice</p>
+    <p class="review-text">{{review.advice}}</p>
+</div>
+<div class="review-footer" fxLayout="row" fxLayoutAlign="end center">
+    <p fxLayout="row" fxLayoutAlign="end center">
+        <img *ngIf="review.isRecommend == 'true'" src="assets/images/career/check.png">
+        <label>Recommends</label>
+    </p>
+    <p fxLayout="row" fxLayoutAlign="end center">
+        <img *ngIf="review.isApprove == 'true'" src="assets/images/career/check.png">
+        <label>Approve of CEO</label>
+    </p>
+</div>

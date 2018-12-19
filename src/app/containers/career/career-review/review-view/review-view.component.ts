@@ -1,6 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { DSOCompanyReview } from '../../../../models/dso-company-review.model';
+import { NgProgress } from '@ngx-progressbar/core';
+
+import { CompanyService } from '../../../../services/company.service';
+import { Review } from '../../../../models/reivew.model';
 
 @Component({
   selector: 'dso-career-review-view',
@@ -8,19 +11,19 @@ import { DSOCompanyReview } from '../../../../models/dso-company-review.model';
   styleUrls: ['./review-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReviewViewComponent implements OnInit {
+export class ReviewViewComponent implements OnInit, OnDestroy {
 
   id: string;
   name: string;
   rate: number;
-  reviews: any[];
   activeSort: any;
   activeRefine: any;
   activedSortId: number;
   activedRefineId: number;
   isCheckedSort: boolean;
   isCheckedRefine: boolean;
-  review: DSOCompanyReview;
+
+  reviews: Review[];
 
   rateList = [
     {state: false},
@@ -49,7 +52,11 @@ export class ReviewViewComponent implements OnInit {
     {'id': 1, 'title': '1 Stars', 'status': 0},
   ];
 
-  constructor(private route: ActivatedRoute) {
+  constructor(
+    private progress: NgProgress,
+    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private companyService: CompanyService) {
     this.reviews = [];
 
     this.activedSortId = 0;
@@ -59,8 +66,6 @@ export class ReviewViewComponent implements OnInit {
     this.activeSort = this.sortType[0];
     this.activeRefine = this.refineType[0];
 
-    this.review = new DSOCompanyReview();
-
     this.route.params.subscribe(params => {
       this.id = params['id'];
       this.name = params['name'];
@@ -68,45 +73,59 @@ export class ReviewViewComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.review.rating = '4.1';
-    this.review.reviewNum = '789';
+   this.onLoadContent();
+  }
 
-    const review = {
-      'reviewTitle': 'Super Cool',
-      'rating': 4,
-      'employeeIndicator': 'Anonymous Employee',
-      'reviewDate': '28 June 2018',
-      'reviewText': 'Lorem ipsum dolor sit amet, consectetur...',
-      'isRecommend': true,
-      'isApprove': true
+  ngOnDestroy() {
+    this.progress.complete();
+  }
+
+  onLoadContent() {
+    this.progress.start();
+
+    const body = {
+      'dsoId': this.id,
+      'sort': this.activeSort.id,
+      'start': this.activeRefine.id
     };
 
-    const review2 = {
-      'reviewTitle': 'Super Cool',
-      'rating': 5,
-      'employeeIndicator': 'Anonymous Employee',
-      'reviewDate': '28 June 2018',
-      'reviewText': 'Lorem ipsum dolor sit amet, consectetur...',
-      'isRecommend': true,
-      'isApprove': false
-    };
+    this.companyService.getCommentByCompanyId(body).subscribe(reviews => {
+      this.progress.complete();
 
-    this.reviews.push(review);
-    this.reviews.push(review2);
+      this.reviews = reviews;
 
-    this.rate = Math.round(parseInt(this.review.rating, 10));
+      this.calcRating();
+
+      this.cdr.markForCheck();
+    },
+    err => {
+      this.progress.complete();
+    });
+  }
+
+  calcRating() {
+    let totalRating = 0;
+    this.reviews.map(review => {
+      totalRating = totalRating + review.rating;
+    });
+
+    this.rate = totalRating / this.reviews.length;
   }
 
   onSort(index: number) {
     this.activeSort = this.sortType[index];
     this.isCheckedSort = false;
     this.activedSortId = index;
+
+    this.onLoadContent();
   }
 
   onRefine(index: number) {
     this.activeRefine = this.refineType[index];
     this.isCheckedRefine = false;
     this.activedRefineId = index;
+
+    this.onLoadContent();
   }
 
   onCheckSortOption() {

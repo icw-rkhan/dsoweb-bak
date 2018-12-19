@@ -1,8 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { JobAlertService } from '../../../../services/job-alert.service';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
+
+import { JobAlertService } from '../../../../services/job-alert.service';
 
 @Component({
   selector: 'dso-career-alert-add',
@@ -11,6 +12,8 @@ import { NgProgress } from '@ngx-progressbar/core';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AlertAddComponent implements OnInit {
+
+  @ViewChild('gmap') gmapElement: any;
 
   id: string;
   keyword: string;

@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { NgProgress } from '@ngx-progressbar/core';
 
 import { DSOCompany } from '../../../../models/dso-company.model';
-import { NgProgress } from '@ngx-progressbar/core';
 import { CompanyService } from '../../../../services/company.service';
 
 @Component({

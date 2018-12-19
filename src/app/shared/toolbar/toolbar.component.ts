@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
-import { Router, Event, NavigationEnd } from '@angular/router';
+import { Router, Event, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { NavLinkModel } from '../../models/nav-link.model';
@@ -78,6 +78,10 @@ export class ToolbarComponent {
           } else if (event.url.includes('/unite/download')) {
             this.title = '';
             this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/career/review/detail')) {
+            const subURL = event.url.split('?')[0];
+            this.title = subURL.split('/')[subURL.split('/').length - 1].replace(/%20/g, ' ');
+            this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career/review')) {
             this.title = 'REVIEWS';
             this.btnTitle = 'keyboard_backspace';
@@ -131,7 +135,8 @@ export class ToolbarComponent {
           }
 
           if (event.url.includes('/career') && !event.url.includes('/career/search/criteria')
-          && !this.visibleCareerAddOption && !event.url.includes('/career/alert')) {
+          && !this.visibleCareerAddOption && !event.url.includes('/career/alert') &&
+          !event.url.includes('/career/review/detail')) {
             this.visibleCareerSearchOption = true;
           } else {
             this.visibleCareerSearchOption = false;

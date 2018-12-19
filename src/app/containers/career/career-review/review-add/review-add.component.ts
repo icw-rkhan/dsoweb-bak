@@ -59,6 +59,7 @@ export class ReviewAddComponent implements OnInit {
       'reviewTitle': this.title,
       'pros': this.pros,
       'cons': this.cons,
+      'rating': this.rate,
       'advice': this.advice,
       'isCurrentEmployee': this.isCheckedCE,
       'isFormerEmployee': this.isCheckedFE,
@@ -80,10 +81,18 @@ export class ReviewAddComponent implements OnInit {
 
   checkFE() {
     this.isCheckedFE = !this.isCheckedFE;
+
+    if (this.isCheckedFE) {
+      this.isCheckedCE = false;
+    }
   }
 
   checkCE() {
     this.isCheckedCE = !this.isCheckedCE;
+
+    if (this.isCheckedCE) {
+      this.isCheckedFE = false;
+    }
   }
 
   checkRC() {

@@ -6,6 +6,7 @@ import { ReviewListComponent } from './review-list/review-list.component';
 import { ReviewViewComponent } from './review-view/review-view.component';
 import { CareerReviewComponent } from './career-review.component';
 import { SharedModule } from '../../../shared';
+import { ReviewDetailComponent } from './review-detail/review-detail.component';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { SharedModule } from '../../../shared';
     CareerReviewComponent,
     ReviewAddComponent,
     ReviewListComponent,
-    ReviewViewComponent
+    ReviewViewComponent,
+    ReviewDetailComponent
   ]
 })
 export class CareerReviewModule { }

@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from './auth/auth.service';
 import { DSOCompany } from '../models/dso-company.model';
 import { DSOCompanyReview } from '../models/dso-company-review.model';
+import { Review } from '../models/reivew.model';
 
 @Injectable({
   providedIn: 'root'
@@ -17,19 +18,13 @@ export class CompanyService {
   constructor(private http: HttpClient, private auth: AuthService) {
   }
 
-  getCommentByCompanyId(id: string): Observable<DSOCompanyReview> {
+  getCommentByCompanyId(body: any): Observable<Review[]> {
     const url = `${environment.careerAPIUrl}/comment/findCommentByDSOId`;
 
     const headers = this.getHeaders();
 
-    const body = {
-      'dsoId': id,
-      'sort': 5,
-      'start': 0
-    };
-
     return this.http.post(url, body, {headers}).pipe(
-      map((response: any) => response.resultMap.map(comment => new DSOCompanyReview().deserialize(comment)))
+      map((response: any) => response.resultMap.reviewPOs.map(comment => new Review().deserialize(comment)))
     );
   }
 

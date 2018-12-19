@@ -6,10 +6,12 @@ mat-card {
         font-size: 13px;
         font-weight: 600;
         font-family: 'SFUI';
+        padding-left: 3px;
     }
 
     .ratebar {
         margin-top: 5px;
+        padding-left: 3px;
 
         .rate-star {
             margin-right: 2px;
@@ -21,14 +23,26 @@ mat-card {
         font-size: 9px;
         font-weight: 400;
         margin-top: 5px;
+        padding-left: 3px;
     }
 
-    .review-text {
-        color: #9b9b9b;
-        font-size: 12px;
-        font-weight: 400;
-        line-height: 17px;
-        margin-top: 13px
+    .review-contents {
+        margin-top: 15px;
+
+        .review-type {
+            color: #4a4a4a;
+            font-size: 12px;
+            font-weight: 600;
+            font-family: 'SFUI';
+        }
+    
+        .review-text {
+            color: #9b9b9b;
+            font-size: 12px;
+            font-weight: 400;
+            line-height: 17px;
+            margin-top: 5px
+        }
     }
 
     .review-footer {
@@ -37,19 +51,12 @@ mat-card {
         font-weight: 400;
         margin-top: 7px;
 
-        a {
+        button {
             color: #879aa8;
-            font-size: 10px;
+            font-size: 13px;
             font-weight: 700;
             font-family: 'SFUI';
-        }
-
-        p {
-            width: 40%;
-
-            img {
-                margin-right: 3px;
-            }
+            margin-right: -17px;
         }
     }
 }
@@ -60,4 +67,8 @@ mat-card {
 
 .space {
     flex: 1 1 auto;
+}
+
+p {
+    overflow-wrap: break-word;
 }

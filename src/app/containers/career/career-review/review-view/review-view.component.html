@@ -7,7 +7,7 @@
     </ng-template>
   </div>
 </div>
-<div class="company-reivews"  (click)="clear()">{{review.reviewNum}} Reviews</div>
+<div class="company-reivews"  (click)="clear()">{{reviews ? reviews.length : 0}} Reviews</div>
 <div class="company-options" fxLayout="row" fxLayoutAlign="center center">
   <div fxLayout="column" fxLayoutAlign="center center">
     <button mat-button (click)="onCheckSortOption()">
@@ -38,6 +38,6 @@
   </div>
 </div>
 <div class="review-contents" (click)="clear()">
-  <dso-company-review-extend-card [review]="review" *ngFor="let review of reviews">
+  <dso-company-review-extend-card [review]="review" [companyName]="name" *ngFor="let review of reviews">
   </dso-company-review-extend-card>
 </div>
