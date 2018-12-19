@@ -150,4 +150,8 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
     this.location = '';
     this.distance = '';
   }
+
+  clearLocation() {
+    this.locationElementRef.nativeElement.value = '';
+  }
 }

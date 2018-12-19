@@ -22,11 +22,18 @@
 
   ::ng-deep mat-form-field {
     flex: 1;
+
     .mat-form-field-wrapper {
-      padding-bottom: 0 !important;
-      .mat-form-field-flex {
-        background-color: white;
+      margin: 0px;
+      padding: 0px;
+
+      .mat-form-field-infix {
+          padding: 0px 0px 10px;
       }
-    }
+
+      .mat-form-field-suffix {
+          top: 9px;
+      }
+  }
   }
 }

@@ -3,8 +3,7 @@
     <form name="searchForm" (ngSubmit)="searchForm.form.valid && onSearch()" #searchForm="ngForm" class="search-form"
           novalidate>
       <mat-form-field appearance="outline">
-        <mat-label>Search</mat-label>
-        <input matInput name="term" [(ngModel)]="term">
+        <input matInput name="term" [(ngModel)]="term" placeholder="Search">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
       <button mat-button color="primary">Search</button>

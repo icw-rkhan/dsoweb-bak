@@ -2,8 +2,7 @@
   <form name="searchForm" (ngSubmit)="searchForm.form.valid && onSearch()" #searchForm="ngForm" class="search-form"
         novalidate>
     <mat-form-field appearance="outline">
-      <mat-label>Search</mat-label>
-      <input matInput name="term" [(ngModel)]="term">
+      <input matInput name="term" [(ngModel)]="term" placeholder="Search">
       <mat-icon matSuffix>search</mat-icon>
     </mat-form-field>
     <button mat-button color="primary">Search</button>
@@ -12,7 +11,7 @@
     <mat-form-field class="form-field">
       <input #location2 matInput type="text" placeholder="Location" 
           autocorrect="off" autocapitalize="off" spellcheck="off">
-      <button mat-button *ngIf="location" matSuffix mat-icon-button aria-label="Clear" (click)="location=''">
+      <button mat-button *ngIf="location" matSuffix mat-icon-button aria-label="Clear" (click)="clearLocation()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>

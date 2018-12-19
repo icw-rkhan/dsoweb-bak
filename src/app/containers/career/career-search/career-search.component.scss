@@ -12,12 +12,19 @@
       
         ::ng-deep mat-form-field {
           flex: 1;
-          .mat-form-field-wrapper {
-            padding-bottom: 0 !important;
-            .mat-form-field-flex {
-              background-color: white;
+
+            .mat-form-field-wrapper {
+                margin: 0px;
+                padding: 0px;
+
+                .mat-form-field-infix {
+                    padding: 0px 0px 10px;
+                }
+
+                .mat-form-field-suffix {
+                    top: 9px;
+                }
             }
-          }
         }
     }
 
@@ -50,7 +57,6 @@
 .no-content {
     width: 100%;
     height: calc(100vh - 94px);
-    background-color: #ffffff;
     position: absolute;
     top: 45px;
     z-index: 5;
