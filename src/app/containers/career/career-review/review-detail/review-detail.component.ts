@@ -12,7 +12,7 @@ import { Review } from '../../../../models/reivew.model';
 })
 export class ReviewDetailComponent implements OnInit, OnDestroy {
 
-  review: Review;
+  review: any;
   employeeIndicator: string;
 
   rateList = [
