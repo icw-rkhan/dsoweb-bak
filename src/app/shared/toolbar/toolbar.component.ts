@@ -185,7 +185,11 @@ export class ToolbarComponent {
     if (this.btnTitle === 'menu') {
       this.toggleMenu.emit();
     } else if (this.btnTitle === 'keyboard_backspace') {
-      this.location.back();
+      if (this.url.includes('/unite/view') || this.url.includes('/unite/detail')) {
+        this.router.navigate(['/unite']);
+      } else {
+        this.location.back();
+      }
     }
   }
 
