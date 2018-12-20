@@ -305,6 +305,14 @@ div {
         height: auto;
     }
 
+    strong {
+        font-family: 'SFUI';
+    }
+
+    em {
+        font-style: italic;
+    }
+
     .show-more {
         max-height: 400px;
         overflow: hidden;
