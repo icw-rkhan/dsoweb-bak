@@ -10,6 +10,7 @@ export class Alert implements Serializable<Alert> {
     location: string;
     distance: string;
     frequency: number;
+    userId: string;
     status: boolean;
 
     deserialize(data: any): Alert {
@@ -19,6 +20,7 @@ export class Alert implements Serializable<Alert> {
             location: data.location,
             distance: data.distance,
             frequency: data.frequency,
+            userId: data.userId,
             status: data.status
         });
     }

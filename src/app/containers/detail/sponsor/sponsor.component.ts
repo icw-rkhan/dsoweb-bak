@@ -195,11 +195,6 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
     this.trigger.closeMenu();
   }
 
-  @HostListener('window:resize', [])
-  onresize() {
-    this.reLayout('div');
-  }
-
   // change Pre tag to Div tag
   changePreToDiv(html) {
     html = html.toString();

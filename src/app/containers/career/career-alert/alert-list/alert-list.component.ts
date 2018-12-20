@@ -61,6 +61,7 @@ export class AlertListComponent implements OnInit, OnDestroy {
           'keyword': alert.keyword,
           'location': alert.location,
           'distance': alert.distance,
+          'userId': alert.userId,
           'frequency': alert.frequency,
           'status': alert.status
         };

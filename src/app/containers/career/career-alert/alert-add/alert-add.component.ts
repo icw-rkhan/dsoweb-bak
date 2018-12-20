@@ -19,6 +19,7 @@ export class AlertAddComponent implements OnInit, AfterViewInit {
   @ViewChild('location') locationElementRef: ElementRef;
 
   id: string;
+  userId: string;
   keyword: string;
   location: string;
   distance: string;
@@ -32,19 +33,19 @@ export class AlertAddComponent implements OnInit, AfterViewInit {
   frequencyArr = [
     {
       'title': 'Daily',
-      'value': 0
-    },
-    {
-      'title': 'Weekly',
       'value': 1
     },
     {
-      'title': 'Bi-Weekly',
+      'title': 'Weekly',
       'value': 2
     },
     {
-      'title': 'Monthly',
+      'title': 'Bi-Weekly',
       'value': 3
+    },
+    {
+      'title': 'Monthly',
+      'value': 4
     }
   ];
 
@@ -82,6 +83,7 @@ export class AlertAddComponent implements OnInit, AfterViewInit {
         this.location = alert.location;
         this.distance = `${alert.distance} miles`;
         this.status = alert.status;
+        this.userId = alert.userId;
 
         this.frequencyArr.map(fre => {
           if (fre.value === alert.frequency) {
@@ -142,12 +144,14 @@ export class AlertAddComponent implements OnInit, AfterViewInit {
         'position': [
           this.latitude, this.longitude
         ],
+        'userId': this.userId,
         'frequency': freq,
         'status': this.status,
         'distance': parseInt(this.distance, 10)
       };
 
       this.jobAlertService.editAlert(body).subscribe((res: any) => {
+        console.log(res);
         if (res.code === 0) {
           this._location.back();
         }
