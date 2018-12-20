@@ -10,18 +10,18 @@ body {
 }
 
 div.first-big {
+  line-height: 25px;
+
   &:first-letter {
-    font-size: 45px;
+    font-size: 50px;
     color: #626262;
     float: left;
-    margin: 10px 5px 2px 0;
-  }
-  p {
-    line-height: 25px;
+    margin: 12px 5px 2px 0;
   }
 }
 
 *, *:focus, *:active, *:hover {
+  
   outline: none;
 }
 

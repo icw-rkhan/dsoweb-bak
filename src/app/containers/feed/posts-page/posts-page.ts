@@ -54,6 +54,7 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.progress.complete();
     this.postSub.unsubscribe();
     this.paramsSub.unsubscribe();
   }
