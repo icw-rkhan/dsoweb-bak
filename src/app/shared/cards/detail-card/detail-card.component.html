@@ -17,7 +17,7 @@
             </a>
         </div>
       </div>
-      <div *ngIf="article.authorName && article.authorName !== ''" class="article-author">By {{article.authorName}}</div>
+      <div *ngIf="article.authorName && article.authorName !== ''" class="article-author">by {{article.authorName}}</div>
       <div [id]="id" class="article-detail" [innerHtml]="article.content | safe:'html'"></div>
       <a *ngIf="showReference" (click)="onClickReference()" [ngClass]="{'show-more-btn': showReferenceState === 'Show more', 'show-less-btn': showReferenceState === 'Show less'}">{{showReferenceState}}</a>
   </div>

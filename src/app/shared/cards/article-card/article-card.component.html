@@ -7,7 +7,7 @@
         <div *ngIf="!isAD" class="article-content">
             <p *ngIf="article.title !== 'Issue Cover'" class="article-title2">{{article.title}}</p>
             <p *ngIf="article.title !== 'Issue Cover'" class="article-sub-title2">{{article.subTitle}}</p>
-            <p class="article-author">{{article.authorName}}</p>
+            <p *ngIf="article.authorName" class="article-author">by {{article.authorName}}</p>
             <div class="article-excerpt" [innerHtml]="article.excerpt"></div>
         </div>
     </div>
