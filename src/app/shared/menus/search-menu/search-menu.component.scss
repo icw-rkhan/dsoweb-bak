@@ -35,18 +35,21 @@
     padding: 15px 15px 5px;
   }
 
-  .post-title {
-    color: #4a4a4a;
-    font-size: 12px;
-    font-weight: 600;
-    font-family: 'SFUI';
-    padding: 15px 15px 0px;
-  }
-
-  .post-sub-title {
-    color: #4a4a4a;
-    font-size: 12px;
-    font-weight: 500;
+  .title-area {
     padding: 15px;
+
+    .post-title {
+      color: #4a4a4a;
+      font-size: 12px;
+      font-weight: 600;
+      font-family: 'SFUI';
+    }
+  
+    .post-sub-title {
+      color: #4a4a4a;
+      font-size: 12px;
+      font-weight: 500;
+      margin-top: 10px;
+    }
   }
 }
