@@ -326,7 +326,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
       });
 
       if (references !== '') {
-        referenceContents = `<p>&nbsp</p><h2>References</h2><ol style="list-style:none">${references}</ol>`;
+        referenceContents = `<p>&nbsp</p><h2>References</h2><ol>${references}</ol>`;
       }
     }
 
@@ -359,12 +359,6 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   activeAuthorLayout() {
     if (this.authorName) {
       this.isAuthorVisible = true;
-
-      // if (!this.authorName.includes('DSODentist')) {
-      //   this.authorContent.nativeElement.style.display = 'none';
-      // } else {
-      //   this.authorName = '';
-      // }
 
       if (this.authorInfo) {
         this.authorContent.nativeElement.style.marginTop = '5px';

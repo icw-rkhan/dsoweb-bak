@@ -315,7 +315,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
       });
 
       if (references !== '') {
-        referenceContents = `<p>&nbsp</p><h2>References</h2><ol style="list-style:none;">${references}</ol>`;
+        referenceContents = `<p>&nbsp</p><h2>References</h2><ol>${references}</ol>`;
       }
     }
 
