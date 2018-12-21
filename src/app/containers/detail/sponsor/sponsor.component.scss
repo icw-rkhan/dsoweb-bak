@@ -316,7 +316,7 @@ div {
         }
 
         li:nth-child(-n+5) {
-            display: block;
+            display: list-item;
         }
 
         position: relative;
@@ -337,7 +337,7 @@ div {
 
     .show-less {
         li {
-            display: block;
+            display: list-item;
         }
     }
 
