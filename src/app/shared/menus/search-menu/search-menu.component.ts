@@ -4,7 +4,6 @@ import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { NgProgress } from '@ngx-progressbar/core';
 
-import { PostService } from '../../../services/post.service';
 import { Post } from '../../../models/post.model';
 import { UniteService } from 'src/app/services/unite.service';
 

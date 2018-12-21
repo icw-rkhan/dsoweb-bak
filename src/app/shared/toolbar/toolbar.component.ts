@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
 import { Router, Event, NavigationEnd, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
@@ -11,7 +11,7 @@ import { NavLinksService } from '../../services/links.service';
   styleUrls: ['./toolbar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ToolbarComponent {
+export class ToolbarComponent implements OnInit, OnDestroy {
 
   @Output() toggleMenu = new EventEmitter();
 
@@ -148,6 +148,20 @@ export class ToolbarComponent {
           this.cdr.markForCheck();
         }
       });
+  }
+
+  ngOnInit() {
+    window.addEventListener('scroll', this.onScrollEvent, true);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.onScrollEvent, true);
+  }
+
+  onScrollEvent = (): void => {
+    this.isSearch = false;
+
+    this.cdr.markForCheck();
   }
 
   fetchIssueId(url: string) {
