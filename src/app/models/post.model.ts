@@ -9,6 +9,7 @@ export class Post implements Serializable<Post> {
   id: string;
   email: string;
   title: string;
+  subTitle: string;
   content: string;
   authorId: string;
   contentTypeId: string;
@@ -53,6 +54,7 @@ export class Post implements Serializable<Post> {
       id: data.id,
       email: data.email,
       title: data.title,
+      subTitle: data.subTitle ? data.subTitle : null,
       content: data.content ? data.content : '',
       authorId: data.authorId,
       contentTypeId: data.contentTypeId,

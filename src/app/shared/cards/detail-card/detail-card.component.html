@@ -3,16 +3,21 @@
       <img [src]="article.thumbnail">
   </p>
   <div class="article-content">
-      <p class="article-title" fxLayout="row">
-          <span>{{article.title}}</span>
-          <a class="bookmark-btn" (click)="onAddBookmark(article)" *ngIf="!article.isBookmark">
-              <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
-          </a>
-          <a class="bookmark-btn" (click)="onRemoveBookmark(article)" *ngIf="article.isBookmark">
-              <mat-icon aria-label="Bookmark">bookmark</mat-icon>
-          </a>
-      </p>
-      <p *ngIf="article.authorName && article.authorName !== ''" class="article-author">By {{article.authorName}}</p>
+      <div fxLayout="row" fxLayoutAlign="space-between start">
+        <div>
+            <div class="article-title">{{article.title}}</div>
+            <div class="article-sub-title">{{article.subTitle}}</div>
+        </div>
+        <div>
+            <a class="bookmark-btn" (click)="onAddBookmark(article)" *ngIf="!article.isBookmark">
+                <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
+            </a>
+            <a class="bookmark-btn" (click)="onRemoveBookmark(article)" *ngIf="article.isBookmark">
+                <mat-icon aria-label="Bookmark">bookmark</mat-icon>
+            </a>
+        </div>
+      </div>
+      <div *ngIf="article.authorName && article.authorName !== ''" class="article-author">By {{article.authorName}}</div>
       <div [id]="id" class="article-detail" [innerHtml]="article.content | safe:'html'"></div>
       <a *ngIf="showReference" (click)="onClickReference()" [ngClass]="{'show-more-btn': showReferenceState === 'Show more', 'show-less-btn': showReferenceState === 'Show less'}">{{showReferenceState}}</a>
   </div>

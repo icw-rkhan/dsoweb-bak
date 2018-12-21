@@ -6,7 +6,7 @@
     margin-right: 25px;
 
     .article-container {
-        height: 50vh;
+        height: 54vh;
         border: 2px solid #879aa8;
         overflow: hidden;
     
@@ -27,18 +27,27 @@
                 margin-bottom: 7px;
             }
     
-            .article-title {
-                color: #4a4a4a;
-                font-size: 17px;
+            .article-title2 {
+                color: #017ab9;
+                font-size: 14px;
                 font-weight: 600;
-                line-height: 20px;
+                line-height: 17px;
+            }
+
+            .article-sub-title2 {
+                color: #000000;
+                font-size: 17px;
+                font-weight: 400;
+                line-height: 17px;
+                margin-top: 5px;
             }
             
             .article-author {
-                color: #c8c8c8;
+                color: #9b9b9b;
                 font-size: 14px;
                 font-weight: 500;
-                margin: 5px 0px 10px;
+                line-height: 17px;
+                margin-top: 5px;
             }
             
             .article-excerpt {
@@ -46,23 +55,34 @@
                 font-size: 14px;
                 line-height: 17px;
                 overflow: hidden;
+                margin-top: 10px;
             }   
         }
     }
     
     .article-footer {
         margin: 15px 0px 60px;
-    
-        .article-title {
-            width: 80%;
+
+        .title-area {
             height: 60px;
-            color: #4a4a4a;
-            font-family: 'SFUI';
-            font-size: 17px;
-            font-weight: 600;
-            text-align: center;
-            line-height: 20px;
             overflow: hidden;
+            line-height: 20px;
+
+            .article-title {
+                color: #4a4a4a;
+                font-family: 'SFUI';
+                font-size: 17px;
+                font-weight: 600;
+                text-align: center;
+            }
+    
+            .article-sub-title {
+                color: #9a9a9a;
+                font-size: 17px;
+                font-weight: 400;
+                line-height: 20px;
+                text-align: center;
+            }
         }
     
         .article-control {

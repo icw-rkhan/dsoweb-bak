@@ -5,24 +5,45 @@
   background-color: white;
   height: 100vh;
   width: 250px;
+
   .search-input {
     padding: 10px 20px;
+
     ::ng-deep mat-form-field {
       color: #000;
-      // width: calc(100vw - 40px);
       width: 100%;
-      .mat-form-field-wrapper{
+
+      .mat-form-field-wrapper {
+        margin: 0px;
         padding: 0px;
+  
+        .mat-form-field-infix {
+            padding: 0px 0px 10px;
+        }
+  
+        .mat-form-field-suffix {
+            top: 9px;
+        }
       }
     }
   }
+
   .search-count {
     color: #879aa8;
     font-size: 12px;
     font-weight: 400;
-    padding: 15px;
+    padding: 15px 15px 5px;
   }
+
   .post-title {
+    color: #4a4a4a;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: 'SFUI';
+    padding: 15px 15px 0px;
+  }
+
+  .post-sub-title {
     color: #4a4a4a;
     font-size: 12px;
     font-weight: 500;

@@ -13,6 +13,7 @@
   </div>
   <div *ngFor="let post of posts" (click)="onUniteDetail(post.id)">
     <div class="post-title">{{post.title}}</div>
+    <div class="post-sub-title">{{post.subTitle}}</div>
     <mat-divider></mat-divider>
   </div>
 </div>

@@ -5,13 +5,17 @@
         </div>
         <div *ngIf="isAD" [innerHtml]="article.content"></div>
         <div *ngIf="!isAD" class="article-content">
-            <p *ngIf="article.title !== 'Issue Cover'" class="article-title">{{article.title}}</p>
+            <p *ngIf="article.title !== 'Issue Cover'" class="article-title2">{{article.title}}</p>
+            <p *ngIf="article.title !== 'Issue Cover'" class="article-sub-title2">{{article.subTitle}}</p>
             <p class="article-author">{{article.authorName}}</p>
             <div class="article-excerpt" [innerHtml]="article.excerpt"></div>
         </div>
     </div>
     <div class="article-footer" fxLayout="column" fxLayoutAlign="center center">
-        <div class="article-title">{{article.title}}</div>
+        <div class="title-area">
+            <div class="article-title">{{article.title}}</div>
+            <div *ngIf="article.subTitle" class="article-sub-title">{{article.subTitle}}</div>
+        </div>
         <div class="article-control">
             <button *ngIf="isBookmark === true" mat-stroked-button (click)="onRemoveBookmark(article.id)">Remove from bookmarks</button>
         </div>

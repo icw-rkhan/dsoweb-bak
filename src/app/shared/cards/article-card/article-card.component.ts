@@ -32,6 +32,10 @@ export class ArticleCardComponent implements OnInit {
     } else {
       this.isAD = false;
     }
+
+    if (this.article.authorName) {
+      this.article.authorName = `by ${this.article.authorName}`;
+    }
   }
 
   onUniteDetail(id: string) {

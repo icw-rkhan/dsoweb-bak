@@ -20,27 +20,38 @@
             font-size: 14px;
             margin-bottom: 7px;
         }
-    
+
+        .bookmark-btn {
+            margin-top: 2px;
+        }
+        
+        span {
+            flex: 1 1 auto;
+            font-family: 'SFUI';
+            line-height: 25px;
+        }
+
         .article-title {
-            color: #4a4a4a;
-            font-size: 20px;
+            color: #017ab9;
+            font-size: 14px;
             font-weight: 600;
-    
-            .bookmark-btn {
-                margin-top: 2px;
-            }
-            
-            span {
-                flex: 1 1 auto;
-                font-family: 'SFUI';
-                line-height: 25px;
-            }
+            line-height: 17px;
+        }
+
+        .article-sub-title {
+            color: #000000;
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 17px;
+            margin-top: 5px;
         }
         
         .article-author {
             color: #9b9b9b;
             font-size: 14px;
-            margin: 7px 0px 25px;
+            font-weight: 500;
+            line-height: 17px;
+            margin-top: 5px;
         }
         
         .article-excerpt {
