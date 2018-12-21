@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ChangeDetectorRef, HostListener } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 
@@ -74,10 +74,20 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
    this.onLoadContent();
+
+   window.addEventListener('scroll', this.onScrollEvent, true);
   }
 
   ngOnDestroy() {
     this.progress.complete();
+
+    window.removeEventListener('scroll', this.onScrollEvent, true);
+  }
+
+  onScrollEvent = (): void => {
+    this.clear();
+
+    this.cdr.markForCheck();
   }
 
   onLoadContent() {
