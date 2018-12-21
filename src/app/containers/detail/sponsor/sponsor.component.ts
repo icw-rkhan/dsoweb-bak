@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef,
-  ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked, Inject } from '@angular/core';
+  ChangeDetectionStrategy, ChangeDetectorRef, Inject, AfterViewChecked } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -24,7 +24,7 @@ import { environment } from '../../../../environments/environment';
   styleUrls: ['./sponsor.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   post: Post;
   rate: number;
@@ -122,6 +122,9 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
         element.appendChild(fragment);
 
         this.isLoaded = true;
+
+        this.cdr.markForCheck();
+
         postSub.unsubscribe();
       },
       err => {
@@ -131,11 +134,13 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
     });
   }
 
-  ngAfterContentChecked() {
+  ngAfterViewChecked() {
     if (this.postContent.nativeElement.innerHTML !== '' && !this.isRendered) {
       this.changeLayoutOfPost();
 
-      this.cdr.markForCheck();
+      if (this.isLoaded) {
+        this.isRendered = true;
+      }
     }
   }
 
@@ -207,16 +212,17 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
 
   // change the layout of a post
   changeLayoutOfPost() {
-    // this.reLayout('a');
     this.reLayout('div');
     this.reLayout('table');
     this.reLayout('figcaption');
+    this.reLayout('ol');
   }
 
   // custome the style of the content
   reLayout(tagName): void {
     const paretTag = this.postContent.nativeElement;
     const tag = paretTag.getElementsByTagName(tagName);
+
     if (tag && tag.length > 0) {
       let i = 0;
 
@@ -236,6 +242,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
             if (prevElement && prevElement.tagName === 'H2' && prevElement.innerHTML.indexOf('References') > -1) {
               if (tag[i].children.length > 5) {
                 tag[i].classList.add('show-more');
+
                 setTimeout(() => {
                   this.showReference = true;
                 });
@@ -301,14 +308,14 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
 
         let sTemp = '';
         tArray.map(st => {
-          sTemp = sTemp + `<p style="padding-left:10px">${st}</p>`;
+          sTemp = sTemp + `<li>${st}</li>`;
         });
 
         references = references + sTemp;
       });
 
       if (references !== '') {
-        referenceContents = `<p>&nbsp</p><h2>References</h2><p>${references}</p>`;
+        referenceContents = `<p>&nbsp</p><h2>References</h2><ol style="list-style:none;">${references}</ol>`;
       }
     }
 
@@ -326,8 +333,6 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterContentChecked 
       pTagArr[1].classList.add('text');
 
       pTagArr[0].style.height = pTagArr[1].offsetHeight + 'px';
-
-      this.isRendered = true;
     }
   }
 

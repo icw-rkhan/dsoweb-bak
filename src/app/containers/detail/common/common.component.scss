@@ -1,7 +1,7 @@
 @import "../../../../responsive";
 
 section {
-    background-color: #fff;
+    background-color: #ffffff;
 }
 
 .inner-content {
@@ -137,52 +137,49 @@ section {
     margin-left: 19px;
     width: calc(100% - 19px);
 
-    #author-avatar {
-        width: auto;
-        height: 32px;
-        padding: 5px;
-        display: table;
+    .author-area {
+        margin-left: 5px;
 
         span {
-            display: table-cell;
             color: #4a4a4a;
             font-family: "SFUI";
             font-size: 18px;
             font-weight: 600;
             padding-right: 10px;
-            vertical-align: middle;
         }
 
         img {
-            display: table-cell;
             width: auto;
             height: 22px;
-            // margin-left: 10px;
-            vertical-align: middle;
         }
 
-        .round-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-    }
-
-    .author-area {
-        margin-left: 5px;
-
-        #author-name {
-            color: #4a4a4a;
-            font-family: "SFUI";
-            font-size: 15px;
-            font-weight: 600;
+        .author-avatar {
+            width: 170px;
+    
+            .round-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+            }
         }
 
-        #author-info {
-            color: #9b9b9b;
-            font-size: 15px;
-            font-weight: 400;
-            margin-top: 5px;
+        .author-details {
+            flex: 1 1 auto;
+            padding-right: 5px;
+
+            .author-name {
+                color: #4a4a4a;
+                font-family: "SFUI";
+                font-size: 15px;
+                font-weight: 600;
+            }
+    
+            .author-info {
+                color: #9b9b9b;
+                font-size: 15px;
+                font-weight: 400;
+                margin-top: 5px;
+            }
         }
     }
 }
@@ -291,8 +288,14 @@ div {
     }
 
     .show-more {
-        max-height: 400px;
-        overflow: hidden;
+        li {
+            display: none;
+        }
+
+        li:nth-child(-n+5) {
+            display: block;
+        }
+
         position: relative;
         &:after {
             content: '';
@@ -310,7 +313,9 @@ div {
     }
 
     .show-less {
-        max-height: 9000px;
+        li {
+            display: block;
+        }
     }
 
     ol, ul {

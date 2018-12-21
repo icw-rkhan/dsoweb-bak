@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener,
-  ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked, Inject } from '@angular/core';
+  ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked, Inject, AfterViewChecked } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';
@@ -22,7 +22,7 @@ import { Post } from '../../../models/post.model';
   styleUrls: ['./common.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
+export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   post: Post;
   rate: number;
@@ -115,6 +115,9 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
         }
 
         this.isLoaded = true;
+
+        this.cdr.markForCheck();
+
         postSub.unsubscribe();
       },
       err => {
@@ -127,11 +130,13 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
     });
   }
 
-  ngAfterContentChecked() {
+  ngAfterViewChecked() {
     if (this.postContent.nativeElement.innerHTML !== '' && !this.isRendered) {
       this.changeLayoutOfPost();
 
-      this.cdr.markForCheck();
+      if (this.isLoaded) {
+        this.isRendered = true;
+      }
     }
   }
 
@@ -225,6 +230,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
   // modify the format of callout
   changeFormatOfCallOut(tag) {
     const pTagArr = tag.getElementsByTagName('p');
+
     if (pTagArr && pTagArr.length === 2) {
       pTagArr[0].classList.add('callout');
       pTagArr[0].classList.add('symbol');
@@ -233,8 +239,6 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
       pTagArr[1].classList.add('text');
 
       pTagArr[0].style.height = pTagArr[1].offsetHeight + 'px';
-
-      this.isRendered = true;
     }
   }
 
@@ -315,14 +319,14 @@ export class CommonComponent implements OnInit, OnDestroy, AfterContentChecked {
 
         let sTemp = '';
         tArray.map(st => {
-          sTemp = sTemp + `<p style="padding-left:10px">${st}</p>`;
+          sTemp = sTemp + `<li>${st}</li>`;
         });
 
         references = references + sTemp;
       });
 
       if (references !== '') {
-        referenceContents = `<p>&nbsp</p><h2>References</h2><p>${references}</p>`;
+        referenceContents = `<p>&nbsp</p><h2>References</h2><ol style="list-style:none">${references}</ol>`;
       }
     }
 
