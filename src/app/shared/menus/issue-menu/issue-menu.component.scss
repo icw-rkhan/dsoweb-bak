@@ -11,14 +11,26 @@
     height: auto;
     padding-top: 15px;
 
-    .article-title {
-        height: auto;
-        font-family: 'SFUI';
-        font-size: 12px;
-        font-weight: 600;
-        line-height: 15px;
-        padding: 15px;
-        white-space: pre-wrap;
+    .title-area {
+        margin-top: 15px;
+        padding: 10px 15px;
+
+        .post-title {
+          color: #4a4a4a;
+          font-size: 12px;
+          font-weight: 600;
+          font-family: 'SFUI';
+          line-height: 15px;
+          text-transform: uppercase;
+        }
+      
+        .post-sub-title {
+          color: #4a4a4a;
+          font-size: 12px;
+          font-weight: 500;
+          margin-top: 15px;
+          line-height: 15px;
+        }
     }
 
     .article-category {

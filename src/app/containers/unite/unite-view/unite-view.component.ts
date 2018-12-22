@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewChecked,
-         ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+         ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 
@@ -12,7 +12,7 @@ import { Post } from '../../../models/post.model';
   styleUrls: ['./unite-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UniteViewComponent implements OnInit, AfterViewChecked {
+export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   id: string;
   coverPage: Post;
@@ -52,6 +52,10 @@ export class UniteViewComponent implements OnInit, AfterViewChecked {
         uniteSub.unsubscribe();
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.progress.complete();
   }
 
   ngAfterViewChecked() {

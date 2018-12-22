@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy,
-        ChangeDetectorRef} from '@angular/core';
+        ChangeDetectorRef,
+        OnDestroy} from '@angular/core';
 import { forkJoin } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -18,7 +19,7 @@ import { AuthService } from '../../../services';
   styleUrls: ['./unite-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UniteDetailComponent implements OnInit {
+export class UniteDetailComponent implements OnInit, OnDestroy {
 
   article: Post;
   articles: Post[];
@@ -82,6 +83,14 @@ export class UniteDetailComponent implements OnInit {
         postSub.unsubscribe();
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.progress.complete();
+  }
+
+  onScroll() {
+    console.log('~~~scroll~~~');
   }
 
   arrayMove(arr, fromIndex, toIndex) {

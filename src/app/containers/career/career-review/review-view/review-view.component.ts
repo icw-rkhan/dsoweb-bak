@@ -34,22 +34,13 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
   ];
 
   sortType = [
-    {'id': 0, 'title': 'ALL Reviews', 'status': 1},
-    {'id': 1, 'title': 'Recommends', 'status': 0},
-    {'id': 2, 'title': 'Approved of CEO', 'status': 0},
-    {'id': 3, 'title': 'Current Employee', 'status': 0},
-    {'id': 4, 'title': 'Former Employee', 'status': 0},
-    {'id': 5, 'title': 'Date (Newest first)', 'status': 0},
-    {'id': 6, 'title': 'Date (Oldest first)', 'status': 0},
+    {'id': 0, 'title': 'Date', 'status': 1},
+    {'id': 1, 'title': 'Rating', 'status': 0}
   ];
 
   refineType = [
-    {'id': 0, 'title': 'All Stars', 'status': 1},
-    {'id': 5, 'title': '5 Stars', 'status': 0},
-    {'id': 4, 'title': '4 Stars', 'status': 0},
-    {'id': 3, 'title': '3 Stars', 'status': 0},
-    {'id': 2, 'title': '2 Stars', 'status': 0},
-    {'id': 1, 'title': '1 Stars', 'status': 0},
+    {'id': 0, 'title': 'Current Employee', 'status': 1},
+    {'id': 1, 'title': 'Former Employee', 'status': 0}
   ];
 
   constructor(

@@ -3,7 +3,7 @@
   right: 0;
   top: 45px;
   background-color: white;
-  height: 100vh;
+  height: calc(100vh - 45px);
   width: 250px;
 
   .search-input {
@@ -43,6 +43,8 @@
       font-size: 12px;
       font-weight: 600;
       font-family: 'SFUI';
+      line-height: 15px;
+      text-transform: uppercase;
     }
   
     .post-sub-title {
@@ -50,6 +52,7 @@
       font-size: 12px;
       font-weight: 500;
       margin-top: 10px;
+      line-height: 15px;
     }
   }
 }

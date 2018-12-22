@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { UniteService } from '../../../services/unite.service';
@@ -7,11 +7,13 @@ import { Post } from '../../../models/post.model';
 @Component({
   selector: 'dso-issue-menu',
   templateUrl: './issue-menu.component.html',
-  styleUrls: ['./issue-menu.component.scss']
+  styleUrls: ['./issue-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class IssueMenuComponent implements OnInit {
+export class IssueMenuComponent implements OnInit, OnDestroy {
 
   @Input() issueId: string;
+  @Output() scrollEvent = new EventEmitter();
 
   date: string;
   categories: string[];
@@ -20,6 +22,7 @@ export class IssueMenuComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private cdr: ChangeDetectorRef,
     private uniteService: UniteService) {
       this.categories = [];
     }
@@ -50,8 +53,16 @@ export class IssueMenuComponent implements OnInit {
         }
       });
 
+      this.cdr.markForCheck();
       uniteSub.unsubscribe();
     });
+  }
+
+  ngOnDestroy() {
+  }
+
+  onScroll() {
+    this.scrollEvent.emit();
   }
 
   onUniteDetail(id: string) {

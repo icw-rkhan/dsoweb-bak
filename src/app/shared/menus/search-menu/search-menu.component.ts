@@ -1,5 +1,6 @@
-import { Component, OnInit, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy, Input, Output, EventEmitter,
+        ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subject, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -10,7 +11,8 @@ import { UniteService } from 'src/app/services/unite.service';
 @Component({
   selector: 'dso-search-menu',
   templateUrl: './search-menu.component.html',
-  styleUrls: ['./search-menu.component.scss']
+  styleUrls: ['./search-menu.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchMenuComponent implements OnInit, OnDestroy {
   @Input() issueId: string;
@@ -24,7 +26,7 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private progress: NgProgress,
-    private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
     private uniteService: UniteService) { }
 
   ngOnInit() {
@@ -39,8 +41,10 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
     this.progress.start();
     this.posts = [];
     this.uniteService.search(this.issueId, searchValue).subscribe(posts => {
-      this.posts = posts;
       this.progress.complete();
+      this.posts = posts;
+
+      this.cdr.markForCheck();
     },
     err => {
       this.progress.complete();
@@ -55,6 +59,7 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.progress.complete();
     this.searchTypingSub.unsubscribe();
   }
 }

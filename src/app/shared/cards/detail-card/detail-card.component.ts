@@ -1,5 +1,5 @@
 import { Component, OnInit, HostListener, Input, ChangeDetectionStrategy,
-  ChangeDetectorRef, ElementRef, ViewChild, AfterContentChecked } from '@angular/core';
+  ChangeDetectorRef, ElementRef, ViewChild, EventEmitter, AfterContentChecked, Output } from '@angular/core';
 
 import { Post } from '../../../models/post.model';
 import { Bookmark } from '../../../models/bookmark.model';
@@ -18,6 +18,8 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
 
   @Input() article: Post;
   @Input() index: number;
+
+  @Output() scrollEvent = new EventEmitter();
 
   id: string;
   isAD: boolean;
@@ -62,6 +64,10 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
     }
 
     this.isLoaded = true;
+  }
+
+  onScroll() {
+    this.scrollEvent.emit();
   }
 
   ngAfterContentChecked() {

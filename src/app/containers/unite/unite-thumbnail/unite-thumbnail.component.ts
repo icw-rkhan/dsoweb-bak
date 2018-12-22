@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { UniteService } from '../../../services/unite.service';
@@ -12,7 +12,7 @@ import { Unite } from '../../../models/unite.model';
   styleUrls: ['./unite-thumbnail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UniteThumbnailComponent implements OnInit {
+export class UniteThumbnailComponent implements OnInit, OnDestroy {
 
   issue: Unite;
   coverPage: Post;
@@ -69,6 +69,10 @@ export class UniteThumbnailComponent implements OnInit {
         uniteSub.unsubscribe();
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.progress.complete();
   }
 
   swipe(action) {

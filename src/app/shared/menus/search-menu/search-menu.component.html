@@ -12,7 +12,7 @@
     {{posts.length}} RESULTS FOUND
   </div>
   <div *ngFor="let post of posts" (click)="onUniteDetail(post.id)">
-    <div class="title-area">
+    <div *ngIf="post.title" class="title-area">
         <div class="post-title">{{post.title}}</div>
         <div *ngIf="post.subTitle" class="post-sub-title">{{post.subTitle}}</div>
     </div>

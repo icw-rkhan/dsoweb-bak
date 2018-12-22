@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
-import { Router, Event, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { NavLinkModel } from '../../models/nav-link.model';
@@ -158,10 +158,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     window.removeEventListener('scroll', this.onScrollEvent, true);
   }
 
-  onScrollEvent = (): void => {
-    this.isSearch = false;
+  onScroll() {
+    console.log('~~~~~~~~');
+  }
 
-    this.cdr.markForCheck();
+  onScrollEvent = (): void => {
+    console.log('~');
   }
 
   fetchIssueId(url: string) {
@@ -199,7 +201,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     if (this.btnTitle === 'menu') {
       this.toggleMenu.emit();
     } else if (this.btnTitle === 'keyboard_backspace') {
-      if (this.url.includes('/unite/view') || this.url.includes('/unite/detail')) {
+      if (this.url.includes('/unite')) {
         this.router.navigate(['/unite']);
       } else {
         this.location.back();

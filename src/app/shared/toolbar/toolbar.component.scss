@@ -101,7 +101,7 @@ button {
 
 ::ng-deep .issue-menu {
   width: 250px;
-  height: 100vh;
+  height: calc(100vh - 45px);
   top: 42px;
   right: 0px;
   overflow: auto;

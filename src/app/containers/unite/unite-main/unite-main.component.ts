@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Unite } from '../../../models/unite.model';
@@ -11,7 +11,7 @@ import { NgProgress } from '@ngx-progressbar/core';
   styleUrls: ['./unite-main.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UniteMainComponent implements OnInit {
+export class UniteMainComponent implements OnInit, OnDestroy {
 
   page: number;
   unites: Unite[];
@@ -40,5 +40,9 @@ export class UniteMainComponent implements OnInit {
 
   ngOnInit() {
 
+  }
+
+  ngOnDestroy() {
+    this.progress.complete();
   }
 }

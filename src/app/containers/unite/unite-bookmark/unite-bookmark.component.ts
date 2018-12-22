@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/internal/operators';
@@ -19,7 +19,7 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./unite-bookmark.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UniteBookmarkComponent implements OnInit {
+export class UniteBookmarkComponent implements OnInit, OnDestroy {
 
   issueId: string;
 
@@ -65,6 +65,10 @@ export class UniteBookmarkComponent implements OnInit {
 
       this.fetchArticles();
     });
+  }
+
+  ngOnDestroy() {
+    this.progress.complete();
   }
 
   fetchArticles() {
