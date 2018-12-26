@@ -18,7 +18,7 @@ export class Job implements Serializable<Job> {
     city: string;
     state: string;
     zipCode: boolean;
-    position: boolean;
+    position: any;
     publishDate: string;
     isSaved: boolean;
     isAttention: boolean;
@@ -49,9 +49,9 @@ export class Job implements Serializable<Job> {
             city: data.city,
             state: data.state,
             zipCode: data.zipCode,
-            position: data.position,
+            position: data.position.coordinates,
             isAttention: data.isAttention,
-            publishDate: this.dateFormat(data.publishDate.toString())
+            publishDate: this.dateFormat(data.publishEnd.toString())
         });
     }
 }
