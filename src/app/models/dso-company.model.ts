@@ -19,13 +19,13 @@ export class DSOCompany implements Serializable<DSOCompany> {
     deserialize(data: any): DSOCompany {
         return <DSOCompany>Object.assign({}, {
             id: data.id,
-            logo: data.logo ? data.logo : null,
+            logo: data.logoURL ? data.logoURL : null,
             name: data.name,
             city: data.city ? data.city : null,
             state: data.state ? data.state : null,
             media: data.media ? data.media : null,
             rating: data.rating ? data.rating : null,
-            reviews: data.reviews ? data.reviews : '0',
+            reviews: data.reviewNum ? data.reviewNum : '0',
             address1: data.address1 ? data.address1 : null,
             address2: data.address2 ? data.address2 : null,
             zip_code: data.zip_code ? data.zip_code : null,

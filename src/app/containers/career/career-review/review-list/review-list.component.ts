@@ -43,7 +43,14 @@ export class ReviewListComponent implements OnInit, OnDestroy {
     this.companyService.dsoCompanies(body).subscribe(companies => {
       this.progress.complete();
 
-      this.companies = companies;
+      if (this.companies) {
+        this.companies = [
+          ...this.companies,
+          ...companies
+        ];
+      } else {
+        this.companies = companies;
+      }
 
       this.cdr.markForCheck();
     },

@@ -25,8 +25,8 @@
     <a mat-icon-button [matMenuTriggerFor]="issueMenu">
       <img src="assets/images/unite/menu.png">
     </a>
-    <mat-menu #issueMenu="matMenu" class="issue-menu" (scroll)="onScroll()">
-      <dso-issue-menu [issueId]="issueId" (scrollEvent)="onScroll()"></dso-issue-menu>
+    <mat-menu #issueMenu="matMenu" class="issue-menu">
+      <dso-issue-menu [issueId]="issueId"></dso-issue-menu>
     </mat-menu>
     <a mat-icon-button [matMenuTriggerFor]="moreMenu">
       <img src="assets/images/unite/more-options.png">
@@ -39,7 +39,7 @@
     </mat-menu>
     <div class="search-panel-backdrop" [ngClass]="{'hide': !isSearch}" (click)="closeSearchPanel()"></div>
     <div *ngIf="isSearch">
-      <dso-search-menu [issueId]="issueId" (closeSearchPanel)="closeSearchPanel()" (scrollEvent)="onScroll()"></dso-search-menu>
+      <dso-search-menu [issueId]="issueId" (closeSearchPanel)="closeSearchPanel()"></dso-search-menu>
     </div>
   </div>
 </div>

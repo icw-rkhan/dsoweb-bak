@@ -158,12 +158,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     window.removeEventListener('scroll', this.onScrollEvent, true);
   }
 
-  onScroll() {
-    console.log('~~~~~~~~');
-  }
-
   onScrollEvent = (): void => {
-    console.log('~');
+    console.log('~ scroll event ~');
   }
 
   fetchIssueId(url: string) {

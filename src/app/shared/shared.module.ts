@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { OverlayModule, Overlay } from '@angular/cdk/overlay';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
@@ -28,6 +29,7 @@ import {
   MatTabsModule,
   MatToolbarModule,
   MatTooltipModule,
+  MAT_MENU_SCROLL_STRATEGY,
 } from '@angular/material';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { ShareModule } from '@ngx-share/core';
@@ -64,6 +66,8 @@ import { CareerContainerComponent } from './career-container/career-container.co
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafePipe } from '../pipes/safe.pipe';
 import { SavedPipe } from '../pipes/save.pipe';
+
+import { MAT_MENU_SCROLL_STRATEGY_FACTORY } from './scroll';
 
 const PIPES = [
   SafePipe,
@@ -106,6 +110,7 @@ export const MODULES = [
   FlexLayoutModule,
   ReactiveFormsModule,
   InfiniteScrollModule,
+  OverlayModule,
   // Angular material modules
   MatToolbarModule,
   MatNativeDateModule,
@@ -151,6 +156,7 @@ export const MODULES = [
     ...COMPONENTS,
     ...PIPES,
   ],
+  providers: [ { provide: MAT_MENU_SCROLL_STRATEGY, deps: [Overlay], useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY }],
   entryComponents: [
     AlertDialogComponent,
     TermPolicyDialogComponent
