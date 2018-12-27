@@ -263,7 +263,7 @@ div {
     text-align: center;
     display: block;
     margin-top: -60px;
-    margin-bottom: 80px;
+    margin-bottom: 40px;
     z-index: 999;
     position: relative;
 }
@@ -311,6 +311,8 @@ div {
     }
 
     .show-more {
+        padding-bottom: 25px;
+
         li {
             display: none;
         }
