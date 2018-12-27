@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 import { Job } from '../../../models/job.model';
 import { Company } from '../../../models/company.model';
@@ -22,6 +23,7 @@ export class CareerDetailComponent implements OnInit {
 
   constructor(
     private router: Router,
+    private location: Location,
     private progress: NgProgress,
     private route: ActivatedRoute,
     private jobService: JobService) {
@@ -49,5 +51,9 @@ export class CareerDetailComponent implements OnInit {
 
   onGoToAddReview(id: string) {
     this.router.navigate([`/career/review/add/${id}`]);
+  }
+
+  onBack() {
+    this.location.back();
   }
 }
