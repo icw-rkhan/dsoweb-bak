@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input } from '@angular/core';
+import { Review } from '../../../models/reivew.model';
 
 @Component({
   selector: 'dso-review-extend-card',
@@ -8,13 +9,13 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class ReviewExtendCardComponent implements OnInit {
 
-  rating: number;
+  @Input() review: Review;
+
   rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
 
   constructor() { }
 
   ngOnInit() {
-    this.rating = 4;
   }
 
 }

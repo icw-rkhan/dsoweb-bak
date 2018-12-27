@@ -13,7 +13,6 @@ import { Review } from '../../../../models/reivew.model';
 export class ReviewDetailComponent implements OnInit, OnDestroy {
 
   review: any;
-  employeeIndicator: string;
 
   rateList = [
     {state: 'inactive'},
@@ -35,14 +34,6 @@ export class ReviewDetailComponent implements OnInit, OnDestroy {
       this.progress.complete();
 
       this.review = params;
-
-      if (this.review.isCurrentEmployee) {
-        this.employeeIndicator = 'Current Employee';
-      }
-
-      if (this.review.isFormerEmployee) {
-        this.employeeIndicator = 'Former Employee';
-      }
 
       this.cdr.markForCheck();
     },

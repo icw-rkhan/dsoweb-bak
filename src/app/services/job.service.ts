@@ -30,9 +30,8 @@ export class JobService {
 
     const headers = this.getHeaders();
 
-    return this.http.post(url, {'jobId': id}, {headers}).pipe(
-      map((response: any) => response.resultMap.map(job => new Job().deserialize(job)))
-    );
+    return this.http.post(url, null, {headers, params: {'id': id}}).pipe(
+      map((response: any) => new Job().deserialize(response.resultMap.data)));
   }
 
   getJobsByCompanyId(id: string): Observable<Job[]> {

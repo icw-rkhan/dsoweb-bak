@@ -8,8 +8,8 @@
 <div class="main-bar" fxLayout="column" fxLayoutAlign="start start">
   <img class="job-head" src="assets/images/career/head2.png">
   <div fxLayout="row" fxLayoutAlign="start center">
-    <img class="job-avatar" src="assets/images/career/log3.png">
-    <p>
+    <img class="job-avatar" [src]="job.logoURL">
+    <p fxLayout="column" fxLayoutAlign="center start">
       <label class="job-title">{{job.jobTitle}}</label>
       <label class="job-company">{{job.companyName}}</label>
       <label class="job-salary">Est. Salary: <span>{{job.salaryStartingValue}} - {{job.salaryEndValue}}</span></label>
@@ -17,7 +17,7 @@
   </div>
   <div class="job-location">
     <p fxLayout="row" fxLayout="start center">
-      <label class="company-location">{{company.location}}</label>
+      <label class="company-location" [innerHtml]="job.address1 + '<br>' + job.address2"></label>
       <span class="space"></span>
       <img src="assets/images/career/location2.png">
     </p>
@@ -26,14 +26,7 @@
 <mat-tab-group mat-stretch-tabs>
   <mat-tab label="DESCRIPTION">
     <p class="job-type">Type: <span>Full Time</span></p>
-    <p>
-      <img src="assets/images/career/check2.png">
-      <span class="job-description">Earn competitive income</span>
-    </p>
-    <p>
-      <img src="assets/images/career/check2.png">
-      <span class="job-description">Enjoy clinical autonomy</span>
-    </p>
+    <p class="job-description">{{job.jobDescription}}</p>
     <p>
       <button mat-raised-button>Apply Now</button>
     </p>
@@ -45,33 +38,33 @@
         <span class="space"></span>
         <span class="company-info" fxLayout="column" fxLayoutAlign="center end">
           <label>http://</label>
-          <label>laquintadentist.com</label>
+          <label></label>
         </span>
       </p>
       <p>
         <span>Year of Foundation</span>
         <span class="space"></span>
-        <span class="company-info">2013</span>
+        <span class="company-info">{{job.foundation}}</span>
       </p>
       <p>
         <span>No. of Employees</span>
         <span class="space"></span>
-        <span class="company-info">30 - 35</span>
+        <span class="company-info">{{job.employees}}</span>
       </p>
       <p>
         <span>Stage</span>
         <span class="space"></span>
-        <span class="company-info">Revenue Growth</span>
+        <span class="company-info">{{job.stage}}</span>
       </p>
       <p>
         <span>Contact Person</span>
         <span class="space"></span>
-        <span class="company-info">John Doe</span>
+        <span class="company-info">{{job.person}}</span>
       </p>
     </div>
     <div class="company-detail">
       <p class="detail-label">Details</p>
-      <p class="detail-contents">Associate Dentist - LaQuinta and its affiliated companies...</p>
+      <p class="detail-contents">{{job.companyDes}}.</p>
       <p>
         <button mat-raised-button>Apply Now</button>
       </p>
@@ -80,7 +73,7 @@
   <mat-tab label="REVIEWS">
     <div class="review-status">
       <div fxLayout="row" fxLayoutAlign="start center">
-        <div class="review-rating">{{company.rating}}</div>
+        <div class="review-rating">{{rating}}</div>
         <div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
           <div *ngFor="let rate of rateList; index as i">
             <img *ngIf="rating>i;else inactive" src="assets/images/career/review-active.png" class="rate-star">
@@ -89,7 +82,7 @@
             </ng-template>
           </div>
         </div>
-        <div class="review-count">{{company.reviews}} reviews</div>
+        <div class="review-count">{{allReviews ? allReviews.length : 0}} reviews</div>
         <div class="space"></div>
         <div>
           <img src="assets/images/career/check2.png">
@@ -103,12 +96,11 @@
     </div>
     <mat-divider></mat-divider>
     <div>
-      <dso-review-extend-card></dso-review-extend-card>
-      <dso-review-extend-card></dso-review-extend-card>
+      <dso-review-extend-card [review]="review" *ngFor="let review of reviews"></dso-review-extend-card>
     </div>
     <div class="detail-footer" fxLayout="column" fxLayoutAlign="center center">
-      <button mat-button>See more</button>
-      <button mat-raised-button (click)="onGoToAddReview(company.companyId)">Write review</button>
+      <button mat-button (click)="loadMore()">{{loadMoreBtn}}</button>
+      <button mat-raised-button (click)="onGoToAddReview(job.companyId)">Write review</button>
     </div>
   </mat-tab>
 </mat-tab-group>

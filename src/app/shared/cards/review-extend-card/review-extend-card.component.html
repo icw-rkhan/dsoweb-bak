@@ -1,11 +1,11 @@
 <mat-card>
-  <div class="job-name">"Lorem ipsum dolor sit amet"</div>
+  <div class="job-name">{{review.reviewTitle}}</div>
   <div fxLayout="row" fxLayout="start center">
-    <div class="job-date">28 June 2018</div>
+    <div class="job-date">{{review.reviewDate}}</div>
     <div class="space"></div>
     <div class="ratebar" fxLayout="row" fxLayoutAlign="center center">
       <div *ngFor="let rate of rateList; index as i">
-        <img *ngIf="rating>i;else inactive" src="assets/images/career/review-small-active.png" class="rate-star">
+        <img *ngIf="this.review.rating>i;else inactive" src="assets/images/career/review-small-active.png" class="rate-star">
         <ng-template #inactive>
         <img src="assets/images/career/review-small-inactive.png" class="rate-star">
         </ng-template>
@@ -15,24 +15,24 @@
   <div class="employee-info">Current Employee - Anonymous Employee</div>
   <div class="review-container">
     <div class="review-label">Pros</div>
-    <div class="review-contents">Lorem ipsum dolor sit amet, consectetur adipisicing...</div>
+    <div class="review-contents">{{review.pros}}</div>
   </div>
   <div class="review-container">
     <div class="review-label">Cons</div>
-    <div class="review-contents">Lorem ipsum dolor sit amet, consectetur adipisicing...</div>
+    <div class="review-contents">{{review.cons}}</div>
   </div>
   <div class="review-container">
     <div class="review-label">Advice to Management</div>
-    <div class="review-contents">Lorem ipsum dolor sit amet, consectetur adipisicing...</div>
+    <div class="review-contents">{{review.advice}}</div>
   </div>
   <div class="spliter"></div>
   <div fxLayout="row" fxLayout="space-between center">
     <div class="review-footer">
-      <img src="assets/images/career/check.png">
+      <img *ngIf="review.isRecommend" src="assets/images/career/check.png">
       <span>Recommends</span>
     </div>
     <div class="review-footer">
-      <img src="assets/images/career/check.png">
+      <img *ngIf="review.isApprove" src="assets/images/career/check.png">
       <span>Approve Of CEO</span>
     </div>
   </div>

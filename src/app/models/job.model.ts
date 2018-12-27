@@ -11,6 +11,7 @@ export class Job implements Serializable<Job> {
     companyId: string;
     companyName: string;
     jobDescription: string;
+    companyDes: string;
     salaryStartingValue: string;
     salaryEndValue: string;
     address1: string;
@@ -19,6 +20,10 @@ export class Job implements Serializable<Job> {
     state: string;
     zipCode: boolean;
     position: any;
+    person: string;
+    stage: string;
+    employees: string;
+    foundation: string;
     publishDate: string;
     isSaved: boolean;
     isAttention: boolean;
@@ -37,10 +42,10 @@ export class Job implements Serializable<Job> {
     deserialize(data: any): Job {
         return <Job>Object.assign({}, {
             id: data.id,
-            logoURL: data.logoURL,
+            logoURL: data.dso.logoURL,
             jobTitle: data.jobTitle,
-            companyId: data.companyId,
-            companyName: data.company,
+            companyId: data.dso.id,
+            companyName: data.dso.name,
             jobDescription: data.jobDescription,
             salaryStartingValue: data.salaryStartingValue,
             salaryEndValue: data.salaryEndValue,
@@ -49,6 +54,11 @@ export class Job implements Serializable<Job> {
             city: data.city,
             state: data.state,
             zipCode: data.zipCode,
+            person: data.person,
+            employees: data.dso.employees,
+            stage: data.dso.stage,
+            companyDes: data.dso.description,
+            foundation: data.dso.year_of_foundation,
             position: data.position.coordinates,
             isAttention: data.isAttention,
             publishDate: this.dateFormat(data.publishEnd.toString())
