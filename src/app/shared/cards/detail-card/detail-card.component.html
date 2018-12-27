@@ -1,4 +1,4 @@
-<div #viewContainer class="article-item" [class.hidden]="!isLoaded" (swipeup)="swipe($event.type)" (swipedown)="swipe($event.type)" (scroll)="onScroll()">
+<div #viewContainer class="article-item" [class.hidden]="!isLoaded" (swipeup)="swipe($event.type)" (swipedown)="swipe($event.type)">
   <p *ngIf="!isNullThumbnail(article.thumbnail)" class="article-thumbnail">
       <img [src]="article.thumbnail">
   </p>

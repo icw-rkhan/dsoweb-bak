@@ -89,10 +89,6 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
     this.progress.complete();
   }
 
-  onScroll() {
-    console.log('~~~scroll~~~');
-  }
-
   arrayMove(arr, fromIndex, toIndex) {
     const element = arr[fromIndex];
     arr.splice(fromIndex, 1);

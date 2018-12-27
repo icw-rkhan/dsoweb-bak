@@ -48,13 +48,13 @@
             position: absolute;
             top: 35px;
             left: 0;
-            padding: 10px 0px 16px;
+            padding: 15px;
             z-index: 10;
 
             li {
                 font-size: 15px;
                 font-weight: 400;
-                line-height: 27px;
+                line-height: 35px;
                 text-align: start;
             }
         }
@@ -86,6 +86,12 @@
                 color: #879aa8;
                 font-size: 11px;
                 line-height: 13px;
+
+                ::ng-deep .mat-icon {
+                    width: 14px;
+                    height: 14px;
+                    font-size: 15px;
+                }
             }
         }
     }

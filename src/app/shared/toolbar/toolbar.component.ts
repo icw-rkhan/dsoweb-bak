@@ -151,11 +151,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    window.addEventListener('scroll', this.onScrollEvent, true);
+    // window.addEventListener('scroll', this.onScrollEvent, true);
   }
 
   ngOnDestroy() {
-    window.removeEventListener('scroll', this.onScrollEvent, true);
+    // window.removeEventListener('scroll', this.onScrollEvent, true);
   }
 
   onScrollEvent = (): void => {

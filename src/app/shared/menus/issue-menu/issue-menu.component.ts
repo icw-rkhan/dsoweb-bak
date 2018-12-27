@@ -61,10 +61,6 @@ export class IssueMenuComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
   }
 
-  onScroll() {
-    this.scrollEvent.emit();
-  }
-
   onUniteDetail(id: string) {
     this.router.navigate([`/unite/detail/${this.issueId}/${id}`]);
   }

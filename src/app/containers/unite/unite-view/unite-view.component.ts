@@ -77,7 +77,7 @@ export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
       parentTag.getElementsByClassName('article-container')[index].style.height =  `calc(100vh - 45px)`;
     }
 
-    this.cdr.detectChanges();
+    this.cdr.markForCheck();
   }
 
   onNormalScreen() {

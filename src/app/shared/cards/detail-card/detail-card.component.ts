@@ -66,10 +66,6 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
     this.isLoaded = true;
   }
 
-  onScroll() {
-    this.scrollEvent.emit();
-  }
-
   ngAfterContentChecked() {
     if (document.getElementById(this.id) && !this.isRendered) {
       this.changeLayoutOfPost();

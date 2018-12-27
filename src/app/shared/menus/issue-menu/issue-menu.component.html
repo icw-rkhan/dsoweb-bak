@@ -1,6 +1,6 @@
 <div class="article-title divider">{{date}}</div>
 <div class="article-title divider">IN THIS ISSUE</div>
-<div class="article-item divider" *ngFor="let category of categories" (scroll)="onScroll()">
+<div class="article-item divider" *ngFor="let category of categories">
   <div class="article-category">{{category}}</div>
   <div *ngFor="let post of posts">
     <div *ngIf="post.categoryName === category" (click)="onUniteDetail(post.id)" class="title-area">

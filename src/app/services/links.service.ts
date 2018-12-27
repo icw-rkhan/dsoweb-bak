@@ -123,7 +123,7 @@ export class NavLinksService {
     });
     this.careerActionLinks.push({
       label: 'Alerts',
-      icon: 'alert',
+      icon: 'bottom_alert',
       route: '/career/alert',
       state: 'inactive'
     });

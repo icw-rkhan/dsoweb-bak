@@ -156,7 +156,7 @@ export const MODULES = [
     ...COMPONENTS,
     ...PIPES,
   ],
-  providers: [ { provide: MAT_MENU_SCROLL_STRATEGY, deps: [Overlay], useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY }],
+  // providers: [ { provide: MAT_MENU_SCROLL_STRATEGY, deps: [Overlay], useFactory: MAT_MENU_SCROLL_STRATEGY_FACTORY }],
   entryComponents: [
     AlertDialogComponent,
     TermPolicyDialogComponent

@@ -14,12 +14,21 @@
       <p class="option-avatar"><img src="assets/images/career/sort.png"></p>
       <p fxLayout="column" fxLayoutAlign="center start">
         <label class="sort-label">SORT BY</label>
-        <label class="refine-label">{{activeSort.title}}</label>
+        <label class="refine-label" fxLayout="row" fxlayoutAlign="start center">
+          <span>{{activeSort.title}}</span>
+          <mat-icon *ngIf="activeSort.title==='Date'">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="activeSort.title!=='Date'">keyboard_arrow_up</mat-icon>
+        </label>
       </p>
     </button>
     <ul [class.hidden]="!isCheckedSort">
       <li *ngFor="let item of sortType; index as i" (click)="onSort(i)" 
-        [class.active]="i===activedSortId" [class.default]="i!==activedSortId">{{item.title}}</li>
+        [class.active]="i===activedSortId" [class.default]="i!==activedSortId"
+        fxLayout="row" fxLayoutAlign="space-between center">
+        <span>{{item.title}}</span>
+        <mat-icon *ngIf="i===0">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="i!==0">keyboard_arrow_up</mat-icon>
+      </li>
     </ul>
   </div>
   <div class="spliter"></div>
@@ -33,7 +42,11 @@
     </button>
     <ul [class.hidden]="!isCheckedRefine">
       <li *ngFor="let item of refineType; index as i" (click)="onRefine(i)"
-        [class.active]="i===activedRefineId" [class.default]="i!==activedRefineId">{{item.title}}</li>
+        [class.active]="i===activedRefineId" [class.default]="i!==activedRefineId"
+        fxLayout="row" fxLayoutAlign="space-between center">
+        <span>{{item.title}}</span>
+        <img *ngIf="i===activedRefineId" src="assets/images/career/check.png">
+      </li>
     </ul>
   </div>
 </div>
