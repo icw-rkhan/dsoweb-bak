@@ -18,3 +18,13 @@ mat-tab-group {
         border-bottom: 0px;
     }
 }
+
+.job-container {
+    height: calc(100vh - 93px);
+    overflow: auto;
+    padding-bottom: 50px;
+}
+
+.btn-go-to-top {
+    bottom: 55px;
+}

@@ -1,22 +1,24 @@
 
 <mat-card fxLayout="row" fxLayoutAlign="start center" (click)="onGoToDetail()">
-  <img *ngIf="job.isAttention" class="log-new" src="assets/images/career/new.png">
-  <div class="job-log">
+    <img *ngIf="dayBetween > 30" class="log-new" src="assets/images/career/new.png">
+  <div class="job-log" (click)="onGoToDetail()">
     <img [src]="job.logoURL">
   </div>
   <div class="job-details" fxLayout="column">
-    <p fxLayout="row" fxLayoutAlign="start center">
+    <p fxLayout="row" fxLayoutAlign="start center" >
       <label class="job-title" >{{job.jobTitle}}</label>
       <span class="space"></span>
       <label class="job-days">{{days}}</label>
     </p>
     <p class="company-name">Supported by {{job.companyName}}</p>
     <p class="job-salary" fxLayout="row" fxLayoutAlign="start center">
-      <img src="assets/images/career/salary.png">
+      <img class="salary-avatar" src="assets/images/career/salary.png">
       <label>{{job.salaryStartingValue}} - {{job.salaryEndValue}}</label>
       <span class="space"></span>
-      <img *ngIf="!job.isSaved" src="assets/images/career/save_inactive.png">
-      <img *ngIf="job.isSaved" src="assets/images/career/save_active.png">
+      <button mat-icon-button (click)="onBookmark($event)">
+        <img *ngIf="!job.isSaved" src="assets/images/career/save_inactive.png">
+        <img *ngIf="job.isSaved" src="assets/images/career/save_active.png">
+      </button>
     </p>
   </div>
 </mat-card>

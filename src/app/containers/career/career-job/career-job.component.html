@@ -1,14 +1,30 @@
 <mat-tab-group mat-stretch-tabs>
   <mat-tab label="APPLIED">
     <div class="jobs-count">{{jobs.length}} Jobs</div>
-    <div>
+    <div id="appliedJobs" class="job-container" infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onLoadMoreAppliedJobs()"
+        [scrollWindow]="false"
+        (scroll)="onScroll1($event)">
       <dso-job-extend-card [job]="job" *ngFor="let job of jobs"></dso-job-extend-card>
     </div>
+    <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn1}" (click)="gotoTop1()">
+      <i class="fa fa-arrow-up"></i>
+    </button>
   </mat-tab>
   <mat-tab label="SAVED">
     <div class="jobs-count">{{savedJobs.length}} Jobs</div>
-    <div>
+    <div id="savedJobs" class="job-container" infiniteScroll
+        [infiniteScrollDistance]="2"
+        [infiniteScrollThrottle]="50"
+        (scrolled)="onLoadMoreSavedJobs()"
+        [scrollWindow]="false"
+        (scroll)="onScroll2($event)">
       <dso-job-extend-card [job]="job" *ngFor="let job of savedJobs"></dso-job-extend-card>
     </div>
+    <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn2}" (click)="gotoTop2()">
+      <i class="fa fa-arrow-up"></i>
+    </button>
   </mat-tab>
 </mat-tab-group>

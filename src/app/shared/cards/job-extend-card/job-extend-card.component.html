@@ -1,7 +1,7 @@
 
 <mat-card (click)="onGoToDetail()">
   <div fxLayout="row" fxLayoutAlign="start center">
-    <img *ngIf="job.isAttention" class="log-new" src="assets/images/career/new.png">
+    <img *ngIf="dayBetween > 30" class="log-new" src="assets/images/career/new.png">
     <div class="job-log">
       <img [src]="job.logoURL">
     </div>
@@ -11,21 +11,22 @@
         <span class="space"></span>
         <label class="job-days">{{days}}</label>
       </p>
-      <p fxLayout="row" fxLayoutAlign="start start">
+      <p fxLayout="row" fxLayoutAlign="start center">
         <span class="company-name">Supported by {{job.companyName}}</span>
         <span class="space"></span>
-        <img *ngIf="!job.isSaved" src="assets/images/career/save_inactive.png">
-        <img *ngIf="job.isSaved" src="assets/images/career/save_active.png">
+        <button mat-icon-button class="bookmark-btn" (click)="onBookmark($event)">
+          <img *ngIf="!job.isSaved" src="assets/images/career/save_inactive.png">
+          <img *ngIf="job.isSaved" src="assets/images/career/save_active.png">
+        </button>
       </p>
     </div>
   </div>
-  <div class="company-desc">{{companyDesc}}</div>
+  <div class="job-desc">{{job.jobDescription}}</div>
   <div class="job-salary" fxLayout="row" fxLayoutAlign="start end">
     <img src="assets/images/career/location.png">
-    <label>{{companyLocation}}</label>
+    <label>{{job.location}}</label>
     <span class="space"></span>
     <img src="assets/images/career/salary2.png">
     <label>{{job.salaryStartingValue}} - {{job.salaryEndValue}}</label>
   </div>
 </mat-card>
-<mat-divider></mat-divider>

@@ -1,7 +1,10 @@
 <div class="top-bar" fxLayout="row" fxLayoutAlign="center center">
   <button mat-icon-button (click)="onBack()"><img src="assets/images/career/arrow_bottom.png"></button>
   <p>
-    <button mat-icon-button><img src="assets/images/career/save.png"></button>
+    <button mat-icon-button (click)="onBookmark()">
+      <img *ngIf="!job.isSaved" src="assets/images/career/save2_inactive.png">
+      <img *ngIf="job.isSaved" src="assets/images/career/save2_active.png">
+    </button>
     <button mat-icon-button><img src="assets/images/career/share.png"></button>
   </p>
 </div>
@@ -28,7 +31,7 @@
     <p class="job-type">Type: <span>Full Time</span></p>
     <p class="job-description">{{job.jobDescription}}</p>
     <p>
-      <button mat-raised-button>Apply Now</button>
+      <button mat-raised-button (click)="onSave()">Apply Now</button>
     </p>
   </mat-tab>
   <mat-tab label="COMPANY">
@@ -38,7 +41,7 @@
         <span class="space"></span>
         <span class="company-info" fxLayout="column" fxLayoutAlign="center end">
           <label>http://</label>
-          <label></label>
+          <label>{{job.companyUrl}}</label>
         </span>
       </p>
       <p>

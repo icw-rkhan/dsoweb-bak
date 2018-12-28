@@ -4,7 +4,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Job } from '../../../models/job.model';
-import { Company } from '../../../models/company.model';
 import { JobService } from '../../../services/job.service';
 import { Review } from '../../../models/reivew.model';
 import { CompanyService } from '../../../services/company.service';
@@ -95,6 +94,57 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   onGoToAddReview(id: string) {
     this.router.navigate([`/career/review/add/${id}`]);
+  }
+
+  onSave() {
+    this.progress.start();
+    this.jobService.saveJob(this.job.id).subscribe((res: any) => {
+      if (res.code === 0) {
+        const subJob = this.jobService.deleteBookmark(this.job.id).subscribe((ress: any) => {
+          this.progress.complete();
+
+          if (ress.code === 0) {
+            this.job.isSaved = false;
+            this.cdr.markForCheck();
+          }
+
+          subJob.unsubscribe();
+        });
+      }
+    },
+    err => {
+      this.progress.complete();
+    });
+  }
+
+  onBookmark() {
+    if (!this.job.isSaved) {
+      this.progress.start();
+      this.jobService.addBookmark(this.job.id).subscribe((res: any) => {
+        this.progress.complete();
+
+        if (res.code === 0) {
+          this.job.isSaved = true;
+          this.cdr.markForCheck();
+        }
+      },
+      err => {
+        this.progress.complete();
+      });
+    } else {
+      this.progress.start();
+      this.jobService.deleteBookmark(this.job.id).subscribe((res: any) => {
+        this.progress.complete();
+
+        if (res.code === 0) {
+          this.job.isSaved = false;
+          this.cdr.markForCheck();
+        }
+      },
+      err => {
+        this.progress.complete();
+      });
+    }
   }
 
   limitReviews(count: number) {

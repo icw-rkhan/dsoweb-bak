@@ -34,9 +34,10 @@ mat-card {
         }
     
         .job-salary {
-            margin-top: 8px;
+            margin-top: 4px;
+            height: 20px;
     
-            img:first-child {
+            .salary-avatar {
                 margin-right: 7px;
             }
     
@@ -44,6 +45,11 @@ mat-card {
                 color: #879aa8;
                 font-size: 12px;
                 font-weight: 500;
+            }
+
+            button {
+                margin-right: -13px;
+                z-index: 10;
             }
         }
     }

@@ -34,14 +34,48 @@ export class JobService {
       map((response: any) => new Job().deserialize(response.resultMap.data)));
   }
 
-  getJobsByCompanyId(id: string): Observable<Job[]> {
-    const url = `${environment.careerAPIUrl}/company/getAllJobsByCompanyId`;
+  savedJobs(body: any): Observable<Job[]> {
+    const url = `${environment.careerAPIUrl}/application/findAll`;
 
     const headers = this.getHeaders();
 
-    return this.http.post(url, {'companyId': id}, {headers}).pipe(
-      map((response: any) => response.resultMap.map(job => new Job().deserialize(job)))
+    return this.http.post(url, body, {headers}).pipe(
+      map((response: any) => response.resultMap.data.map(job => new Job().deserialize(job)))
     );
+  }
+
+  saveJob(id: string) {
+    const url = `${environment.careerAPIUrl}/application/save`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, {'jobId': id}, {headers});
+  }
+
+  bookmarkedJobs(body: any): Observable<Job[]> {
+    const url = `${environment.careerAPIUrl}/bookmark/findAllByUserId`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, body, {headers}).pipe(
+      map((response: any) => response.resultMap.bookmarkList.map(job => new Job().deserialize(job)))
+    );
+  }
+
+  addBookmark(id: string) {
+    const url = `${environment.careerAPIUrl}/bookmark/save`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, {'jobId': id}, {headers});
+  }
+
+  deleteBookmark(id: string) {
+    const url = `${environment.careerAPIUrl}/bookmark/deleteOneById`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, null, {headers, params: {'id': id}});
   }
 
   getHeaders(): HttpHeaders {
