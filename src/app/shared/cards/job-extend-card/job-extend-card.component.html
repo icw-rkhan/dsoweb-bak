@@ -14,7 +14,7 @@
       <p fxLayout="row" fxLayoutAlign="start center">
         <span class="company-name">Supported by {{job.companyName}}</span>
         <span class="space"></span>
-        <button mat-icon-button class="bookmark-btn" (click)="onBookmark($event)">
+        <button mat-icon-button class="bookmark-btn" (click)="onBookmark()">
           <img *ngIf="!job.isSaved" src="assets/images/career/save_inactive.png">
           <img *ngIf="job.isSaved" src="assets/images/career/save_active.png">
         </button>
