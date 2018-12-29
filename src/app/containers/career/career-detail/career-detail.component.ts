@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Job } from '../../../models/job.model';
@@ -18,6 +18,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   id: string;
   rating: string;
+  sharedUrl: string;
   loadMoreBtn: string;
 
   job: Job;
@@ -42,6 +43,12 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
       this.route.params.subscribe(params => {
         this.id = params['id'];
+      });
+
+      this.router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationEnd) {
+          this.sharedUrl = event.url;
+        }
       });
   }
 

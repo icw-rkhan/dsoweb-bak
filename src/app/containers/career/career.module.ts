@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { ShareModule } from '@ngx-share/core';
 
 import { SharedModule } from '../../shared/shared.module';
 import { CareerRoutingModule } from './career.routing';
@@ -18,7 +19,8 @@ import { CareerAlertModule } from './career-alert/career-alert.module';
     SharedModule,
     CareerAlertModule,
     CareerReviewModule,
-    CareerRoutingModule
+    CareerRoutingModule,
+    ShareModule.forRoot()
   ],
   declarations: [
     CareerComponent,

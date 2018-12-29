@@ -27,6 +27,7 @@ export class Job implements Serializable<Job> {
     person: string;
     stage: string;
     ceo: string;
+    type: string;
     employees: string;
     foundation: string;
     publishDate: string;
@@ -34,6 +35,7 @@ export class Job implements Serializable<Job> {
     recommendNum: string;
     approveNum: string;
     isSaved: boolean;
+    isApplied: boolean;
     isAttention: boolean;
 
     // change the format of the data
@@ -73,6 +75,7 @@ export class Job implements Serializable<Job> {
             isSaved: data.jobPO ? data.jobPO.isAttention : data.isAttention,
             ceo: data.jobPO ? data.jobPO.dso.ceo : data.dso.ceo,
             paid: data.jobPO ? data.jobPO.paid : data.paid,
+            type: data.jobPO ? data.jobPO.type : data.type,
             isSponsor: data.jobPO ? data.jobPO.dso.isSponsor : data.dso.isSponsor,
             reviewNum: data.jobPO ? data.jobPO.dso.reviewNum : data.dso.reviewNum,
             recommendNum: data.jobPO ? data.jobPO.dso.recommendNum : data.dso.recommendNum,

@@ -1,5 +1,5 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener,
-  ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, AfterContentChecked, Inject, AfterViewChecked } from '@angular/core';
+  ElementRef, ChangeDetectionStrategy, ChangeDetectorRef, Inject, AfterViewChecked } from '@angular/core';
 import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';

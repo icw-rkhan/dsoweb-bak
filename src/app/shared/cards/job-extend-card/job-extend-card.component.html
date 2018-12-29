@@ -1,7 +1,8 @@
 
 <mat-card (click)="onGoToDetail()">
   <div fxLayout="row" fxLayoutAlign="start center">
-    <img *ngIf="dayBetween > 30" class="log-new" src="assets/images/career/new.png">
+      <img *ngIf="dayBetween > 30 && !job.isApplied" class="log-new" src="assets/images/career/new.png">
+      <img *ngIf="job.isApplied" class="log-new" src="assets/images/career/apply.png">
     <div class="job-log">
       <img [src]="job.logoURL">
     </div>

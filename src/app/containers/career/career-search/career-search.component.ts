@@ -1,11 +1,14 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,
   ViewChild, ElementRef, NgZone, AfterViewInit, OnDestroy } from '@angular/core';
-  import { MapsAPILoader } from '@agm/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
+import { map } from 'rxjs/internal/operators';
+import { MapsAPILoader } from '@agm/core';
+import * as _ from 'lodash';
 
 import { Job } from '../../../models/job.model';
 import { JobService } from '../../../services/job.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'dso-career-search',
@@ -99,7 +102,20 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       'limit': 10
     };
 
-    this.jobService.jobs(body).subscribe(jobs => {
+    const jobService = this.jobService.jobs(body);
+
+    forkJoin(
+      jobService,
+      this.jobService.savedJobs({'skip': this.page * 10, 'limit': 10})
+    ).pipe(
+      map(items => items[0].map(j => {
+        const apply = items[1].find(a => a.id === j.id);
+
+        return Object.assign({}, j, {
+          isApplied: !_.isUndefined(apply)
+        });
+      }))
+    ).subscribe(jobs => {
       this.progress.complete();
 
       this.clear();
