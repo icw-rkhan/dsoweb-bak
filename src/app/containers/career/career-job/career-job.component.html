@@ -1,7 +1,7 @@
 <mat-tab-group mat-stretch-tabs>
   <mat-tab label="APPLIED">
-    <div class="jobs-count">{{jobs.length}} Jobs</div>
-    <div id="appliedJobs" class="job-container" infiniteScroll
+    <div *ngIf="jobs && jobs.length > 0" class="jobs-count">{{jobs.length}} Jobs</div>
+    <div id="appliedJobs" *ngIf="jobs && jobs.length > 0" class="job-container" infiniteScroll
         [infiniteScrollDistance]="2"
         [infiniteScrollThrottle]="50"
         (scrolled)="onLoadMoreAppliedJobs()"
@@ -12,10 +12,14 @@
     <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn1}" (click)="gotoTop1()">
       <i class="fa fa-arrow-up"></i>
     </button>
+    <div *ngIf="jobs.length === 0" class="no-message" fxLayout="column" fxLayoutAlign="center center">
+      <img src="assets/images/career/no_apply_job.png">
+      <p>You have not yet applied for a job through DSODentist</p>
+    </div>
   </mat-tab>
   <mat-tab label="SAVED">
-    <div class="jobs-count">{{savedJobs.length}} Jobs</div>
-    <div id="savedJobs" class="job-container" infiniteScroll
+    <div *ngIf="savedJobs && savedJobs.length > 0" class="jobs-count">{{savedJobs.length}} Jobs</div>
+    <div id="savedJobs" *ngIf="savedJobs && savedJobs.length > 0" class="job-container" infiniteScroll
         [infiniteScrollDistance]="2"
         [infiniteScrollThrottle]="50"
         (scrolled)="onLoadMoreSavedJobs()"
@@ -26,5 +30,9 @@
     <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn2}" (click)="gotoTop2()">
       <i class="fa fa-arrow-up"></i>
     </button>
+    <div *ngIf="savedJobs.length === 0" class="no-message" fxLayout="column" fxLayoutAlign="center center">
+      <img src="assets/images/career/no_save_job.png">
+      <p>You have not saved a job yet.<br>Save jobs to view later from this screen</p>
+    </div>
   </mat-tab>
 </mat-tab-group>

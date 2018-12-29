@@ -28,3 +28,18 @@ mat-tab-group {
 .btn-go-to-top {
     bottom: 55px;
 }
+
+.no-message {
+    width: 100vw;
+    height: calc(100vh - 183px);
+
+    p {
+        color: #000000;
+        width: 250px;
+        margin-top: 100px;
+        font-size: 15px;
+        font-weight: 400;
+        line-height: 20px;
+        text-align: center;
+    }
+}
