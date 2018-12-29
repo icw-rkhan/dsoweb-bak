@@ -35,8 +35,8 @@
     [scrollWindow]="false"
     (scroll)="onScroll($event)">
     <div *ngFor="let job of jobs">
-        <dso-job-card *ngIf="!job.paid && !job.isSponsor" [job]="job" ></dso-job-card>
-        <dso-job-extend-card *ngIf="job.paid || job.isSponsor" [job]="job" ></dso-job-extend-card>
+        <dso-job-card *ngIf="!job.paid && !job.isSponsor" [job]="job" [isApplied]="job.isApplied"></dso-job-card>
+        <dso-job-extend-card *ngIf="job.paid || job.isSponsor" [job]="job" [isApplied]="job.isApplied"></dso-job-extend-card>
     </div>
 </div>
 <div *ngIf="jobs && jobs.length == 0" class="no-content" fxLayout="column" fxLayoutAlign="center center">

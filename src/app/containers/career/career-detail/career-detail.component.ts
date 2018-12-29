@@ -18,6 +18,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   id: string;
   rating: string;
+  isApplied: boolean;
   sharedUrl: string;
   loadMoreBtn: string;
 
@@ -45,6 +46,14 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
         this.id = params['id'];
       });
 
+      this.route.queryParams.subscribe((params: any) => {
+        if (params.isApplied === 'true') {
+          this.isApplied = true;
+        } else {
+          this.isApplied = false;
+        }
+      });
+
       this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
           this.sharedUrl = event.url;
@@ -56,6 +65,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     this.progress.start();
     this.jobService.getJobById(this.id).subscribe(job => {
       this.job = job;
+      this.job.isApplied = this.isApplied;
 
       const body = {
         'dsoId': this.job.companyId,
@@ -70,9 +80,8 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
         if (this.allReviews.length > 0) {
           this.calcRating();
+          this.limitReviews(2);
         }
-
-        this.limitReviews(2);
 
         this.cdr.markForCheck();
         subCompany.unsubscribe();
@@ -112,10 +121,14 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
           if (ress.code === 0) {
             this.job.isSaved = false;
-            this.cdr.markForCheck();
+            this.job.isApplied = true;
+            this.cdr.detectChanges();
           }
 
           subJob.unsubscribe();
+        },
+        err => {
+          this.progress.complete();
         });
       }
     },
@@ -152,6 +165,10 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
         this.progress.complete();
       });
     }
+  }
+
+  onGoToJobScreen() {
+    this.router.navigate(['/career/search']);
   }
 
   limitReviews(count: number) {

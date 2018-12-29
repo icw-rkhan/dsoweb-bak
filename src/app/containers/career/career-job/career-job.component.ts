@@ -29,9 +29,6 @@ export class CareerJobComponent implements OnInit, OnDestroy {
 
       this.showGotoTopBtn1 = false;
       this.showGotoTopBtn2 = false;
-
-      this.jobs = [];
-      this.savedJobs = [];
     }
 
   ngOnInit() {
@@ -65,10 +62,14 @@ export class CareerJobComponent implements OnInit, OnDestroy {
     this.jobService.savedJobs(body).subscribe(jobs => {
       this.progress.complete();
 
-      this.jobs = [
-        ...this.jobs,
-        ...jobs
-      ];
+      if (this.jobs) {
+        this.jobs = [
+          ...this.jobs,
+          ...jobs
+        ];
+      } else {
+        this.jobs = jobs;
+      }
 
       this.cdr.markForCheck();
     },
@@ -87,10 +88,14 @@ export class CareerJobComponent implements OnInit, OnDestroy {
     this.jobService.bookmarkedJobs(body).subscribe(savedJobs => {
       this.progress.complete();
 
-      this.savedJobs = [
-        ...this.savedJobs,
-        ...savedJobs
-      ];
+      if (this.savedJobs) {
+        this.savedJobs = [
+          ...this.savedJobs,
+          ...savedJobs
+        ];
+      } else {
+        this.savedJobs = savedJobs;
+      }
 
       this.cdr.markForCheck();
     },

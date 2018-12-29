@@ -46,7 +46,8 @@
     <p class="job-type">Type: <span>{{job.type}}</span></p>
     <p class="job-description">{{job.jobDescription}}</p>
     <p>
-      <button mat-raised-button (click)="onSave()">Apply Now</button>
+      <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
+      <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
     </p>
   </mat-tab>
   <mat-tab label="COMPANY">

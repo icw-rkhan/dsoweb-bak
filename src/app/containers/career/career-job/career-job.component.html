@@ -7,12 +7,12 @@
         (scrolled)="onLoadMoreAppliedJobs()"
         [scrollWindow]="false"
         (scroll)="onScroll1($event)">
-      <dso-job-extend-card [job]="job" *ngFor="let job of jobs"></dso-job-extend-card>
+      <dso-job-extend-card [job]="job" [isApplied]="true" *ngFor="let job of jobs"></dso-job-extend-card>
     </div>
     <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn1}" (click)="gotoTop1()">
       <i class="fa fa-arrow-up"></i>
     </button>
-    <div *ngIf="jobs.length === 0" class="no-message" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngIf="jobs && jobs.length === 0" class="no-message" fxLayout="column" fxLayoutAlign="center center">
       <img src="assets/images/career/no_apply_job.png">
       <p>You have not yet applied for a job through DSODentist</p>
     </div>
@@ -25,12 +25,12 @@
         (scrolled)="onLoadMoreSavedJobs()"
         [scrollWindow]="false"
         (scroll)="onScroll2($event)">
-      <dso-job-extend-card [job]="job" *ngFor="let job of savedJobs"></dso-job-extend-card>
+      <dso-job-extend-card [job]="job" [isApplied]="false" *ngFor="let job of savedJobs"></dso-job-extend-card>
     </div>
     <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn2}" (click)="gotoTop2()">
       <i class="fa fa-arrow-up"></i>
     </button>
-    <div *ngIf="savedJobs.length === 0" class="no-message" fxLayout="column" fxLayoutAlign="center center">
+    <div *ngIf="savedJobs && savedJobs.length === 0" class="no-message" fxLayout="column" fxLayoutAlign="center center">
       <img src="assets/images/career/no_save_job.png">
       <p>You have not saved a job yet.<br>Save jobs to view later from this screen</p>
     </div>
