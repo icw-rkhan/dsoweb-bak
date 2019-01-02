@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!isPlaceholder">
   <div class="heading">
     <img src="assets/images/career/head.png">
   </div>
@@ -13,3 +13,4 @@
     </mat-grid-list>
   </div>
 </div>
+<div *ngIf="isPlaceholder" class="placeholder"></div>

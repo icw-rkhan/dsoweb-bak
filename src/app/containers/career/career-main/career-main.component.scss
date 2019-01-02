@@ -49,3 +49,16 @@ mat-grid-tile:nth-child(4), mat-grid-tile:nth-child(3) {
     }
 }
 
+.placeholder {
+    width: 100%;
+    background-image: url('../../../../assets/images/bg-2.jpg');
+    background-size: cover;
+    background-position: center center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
