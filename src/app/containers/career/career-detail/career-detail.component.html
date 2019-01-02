@@ -85,7 +85,8 @@
       <p class="detail-label">Details</p>
       <p class="detail-contents">{{job.companyDes}}.</p>
       <p>
-        <button mat-raised-button>Apply Now</button>
+        <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
+        <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
       </p>
     </div>
   </mat-tab>
