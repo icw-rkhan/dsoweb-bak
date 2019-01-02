@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ShareModule } from '@ngx-share/core';
+import { NgCircleProgressModule } from 'ng-circle-progress';
 
 import { SharedModule } from '../../shared/shared.module';
 import { CareerRoutingModule } from './career.routing';
@@ -20,7 +21,17 @@ import { CareerAlertModule } from './career-alert/career-alert.module';
     CareerAlertModule,
     CareerReviewModule,
     CareerRoutingModule,
-    ShareModule.forRoot()
+    ShareModule.forRoot(),
+    NgCircleProgressModule.forRoot({
+      // set defaults here
+      radius: 35,
+      outerStrokeWidth: 5,
+      innerStrokeWidth: 5,
+      space: -5,
+      outerStrokeColor: '#879aa8',
+      innerStrokeColor: '#f1f1f1',
+      animationDuration: 300,
+    }),
   ],
   declarations: [
     CareerComponent,

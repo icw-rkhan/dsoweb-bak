@@ -108,9 +108,10 @@
         </div>
       </div>
       <div class="review-avatar" fxLayout="row" fxLayoutAlign="space-between center">
-        <img src="assets/images/career/progress-80.png">
-        <img src="assets/images/career/progress-95.png">
-        <img src="assets/images/career/review-avatar.png">
+        <circle-progress [radius]="34" [percent]="job.recommendNum" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
+        <circle-progress class="approveProgress" [radius]="34" [percent]="job.approveNum" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
+        <img *ngIf="job.ceo" src="job.ceo">
+        <img *ngIf="!job.ceo" src="assets/images/profile/icon_user_profile.png">
       </div>
     </div>
     <mat-divider></mat-divider>
