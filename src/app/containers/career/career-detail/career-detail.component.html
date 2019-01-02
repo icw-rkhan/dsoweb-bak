@@ -108,8 +108,8 @@
         </div>
       </div>
       <div class="review-avatar" fxLayout="row" fxLayoutAlign="space-between center">
-        <circle-progress [radius]="34" [percent]="job.recommendNum" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
-        <circle-progress class="approveProgress" [radius]="34" [percent]="job.approveNum" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
+        <circle-progress [radius]="34" [percent]="getPercentRecommend()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
+        <circle-progress class="approveProgress" [radius]="34" [percent]="getPercentApprove()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
         <img *ngIf="job.ceo" src="job.ceo">
         <img *ngIf="!job.ceo" src="assets/images/profile/icon_user_profile.png">
       </div>

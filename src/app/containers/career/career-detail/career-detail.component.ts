@@ -184,6 +184,18 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  getPercentRecommend() {
+    const rec = (parseInt(this.job.recommendNum, 10) / parseInt(this.job.reviewNum, 10)) * 100;
+
+    return rec.toFixed(1);
+  }
+
+  getPercentApprove() {
+    const appr = (parseInt(this.job.approveNum, 10) / parseInt(this.job.reviewNum, 10)) * 100;
+
+    return appr.toFixed(1);
+  }
+
   loadMore() {
     if (this.loadMoreBtn === 'See more') {
       this.loadMoreBtn = 'See less';
