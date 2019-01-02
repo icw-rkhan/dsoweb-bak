@@ -72,7 +72,7 @@ export class Job implements Serializable<Job> {
             companyDes: data.jobPO ? data.jobPO.dso.description : data.dso.description,
             foundation: data.jobPO ? data.jobPO.dso.year_of_foundation : data.dso.year_of_foundation,
             position: data.jobPO ? data.jobPO.position.coordinates : data.position.coordinates,
-            isSaved: data.jobPO ? data.jobPO.isAttention : data.isAttention,
+            isApplied: data.jobPO ? data.jobPO.isAttention : data.isAttention,
             ceo: data.jobPO ? data.jobPO.dso.ceo : data.dso.ceo,
             paid: data.jobPO ? data.jobPO.paid : data.paid,
             type: data.jobPO ? data.jobPO.type : data.type,

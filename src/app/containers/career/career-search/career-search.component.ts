@@ -106,13 +106,13 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
     forkJoin(
       jobService,
-      this.jobService.savedJobs({'skip': this.page * 10, 'limit': 10})
+      this.jobService.bookmarkedJobs({'skip': this.page * 10, 'limit': 10})
     ).pipe(
       map(items => items[0].map(j => {
-        const apply = items[1].find(a => a.id === j.id);
+        const bookmark = items[1].find(a => a.id === j.id);
 
         return Object.assign({}, j, {
-          isApplied: !_.isUndefined(apply)
+          isSaved: !_.isUndefined(bookmark)
         });
       }))
     ).subscribe(jobs => {

@@ -13,7 +13,6 @@ import { JobService } from '../../../services/job.service';
 export class JobCardComponent implements OnInit {
 
   @Input()job: Job;
-  @Input() isApplied: boolean;
 
   days: string;
   dayBetween: number;
@@ -53,7 +52,7 @@ export class JobCardComponent implements OnInit {
 
   onGoToDetail() {
     const params: NavigationExtras = {
-      queryParams: {isApplied: this.isApplied}
+      queryParams: {isApplied: this.job.isApplied}
     };
 
     if (!this.isBookmark) {

@@ -7,7 +7,7 @@
         (scrolled)="onLoadMoreAppliedJobs()"
         [scrollWindow]="false"
         (scroll)="onScroll1($event)">
-      <dso-job-extend-card [job]="job" [isApplied]="true" *ngFor="let job of jobs"></dso-job-extend-card>
+      <dso-job-extend-card [job]="job" *ngFor="let job of jobs"></dso-job-extend-card>
     </div>
     <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn1}" (click)="gotoTop1()">
       <i class="fa fa-arrow-up"></i>
@@ -25,7 +25,7 @@
         (scrolled)="onLoadMoreSavedJobs()"
         [scrollWindow]="false"
         (scroll)="onScroll2($event)">
-      <dso-job-extend-card [job]="job" [isApplied]="false" *ngFor="let job of savedJobs"></dso-job-extend-card>
+      <dso-job-extend-card [job]="job" *ngFor="let job of savedJobs"></dso-job-extend-card>
     </div>
     <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn2}" (click)="gotoTop2()">
       <i class="fa fa-arrow-up"></i>

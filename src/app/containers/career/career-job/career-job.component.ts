@@ -97,6 +97,10 @@ export class CareerJobComponent implements OnInit, OnDestroy {
         this.savedJobs = savedJobs;
       }
 
+      this.savedJobs.map(job => {
+        job.isSaved = true;
+      });
+
       this.cdr.markForCheck();
     },
     err => {
