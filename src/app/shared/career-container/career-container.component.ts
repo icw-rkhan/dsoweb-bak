@@ -49,6 +49,11 @@ export class CareerContainerComponent implements OnInit {
 
   onGoTo(url: string) {
     this.showMoreActionBar = false;
-    this.router.navigate([`/career/${url}`]);
+
+    if (url === 'me') {
+      this.router.navigate(['/profile']);
+    } else {
+      this.router.navigate([`/career/${url}`]);
+    }
   }
 }

@@ -1,5 +1,5 @@
 import { Component, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, Event, NavigationEnd } from '@angular/router';
 
 import { NavLinkModel } from '../../models/nav-link.model';
 
@@ -30,10 +30,24 @@ export class SidebarComponent {
     private authService: AuthService,
     private profileService: ProfileService,
     private navLinksService: NavLinksService) {
+      this.links = this.navLinksService.getNavLinks();
 
-    this.getUserInfo();
-    this.baseUrl = environment.profileApiUrl;
-    this.links = this.navLinksService.getNavLinks();
+      this.router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationEnd) {
+
+          this.links.map(link => {
+            if (link.label !== 'Logout') {
+              link.state = 'inactive';
+              if (event.url.includes(link.route)) {
+                link.state = 'active';
+              }
+            }
+          });
+        }
+      });
+
+      this.getUserInfo();
+      this.baseUrl = environment.profileApiUrl;
   }
 
   onClick(link: NavLinkModel) {
@@ -63,7 +77,7 @@ export class SidebarComponent {
         this.userspecialtyName = res.specialty ? res.specialty.name : '';
         this.userPhoto = res.photo_url;
 
-        this.cdr.detectChanges();
+        this.cdr.markForCheck();
         profileSub.unsubscribe();
       },
       err => {

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 
 @Component({
@@ -15,7 +15,7 @@ export class CareerMainComponent implements OnInit {
   constructor(private router: Router) {
     this.links = [
       {title: 'Search', url: '/career/search', icon: 'search'},
-      {title: 'Me', url: '/career/me', icon: 'me'},
+      {title: 'Me', url: '/profile', icon: 'me'},
       {title: 'Review', url: '/career/review', icon: 'review'},
       {title: 'DSO Profiles', url: '/career/dso-profile', icon: 'profiles'}
     ];

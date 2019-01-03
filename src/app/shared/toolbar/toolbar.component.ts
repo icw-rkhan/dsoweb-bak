@@ -97,9 +97,6 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           } else if (event.url.includes('/career/alert')) {
             this.title = 'JOB ALERTS';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/career/me')) {
-            this.title = 'ME';
-            this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career/search') || event.url.includes('/career/detail')) {
             this.title = 'JOBS';
             this.btnTitle = 'keyboard_backspace';
