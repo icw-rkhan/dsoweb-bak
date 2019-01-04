@@ -2,11 +2,11 @@
   <img src="assets/images/career/head3.png">
 </div>
 <div class="company-info" fxLayout="row" fxLayoutAlign="start center">
-  <img class="company-logo" [src]="company.logoUrl">
+  <img *ngIf="company" class="company-logo" [src]="company.logo">
   <div fxLayout="column" fxLayoutAlign="center start">
-    <p class="company-name">{{company.name}}</p>
+    <p *ngIf="company" class="company-name">{{company.name}}</p>
     <p fxLayout="row" fxLayout="start center" class="company-location">
-      <label [innerHtml]="company.address1 + '<br>' + company.address2"></label>
+      <label *ngIf="company" [innerHtml]="company.address1 + '<br>' + company.address2"></label>
       <span class="space"></span>
       <img src="assets/images/career/location2.png">
     </p>
@@ -14,9 +14,16 @@
 </div>
 <mat-tab-group mat-stretch-tabs>
   <mat-tab label="DESCRIPTION">
-    <P class="company-desc">{{company.description}}</P>
+    <P *ngIf="company" class="company-desc">{{company.description}}</P>
   </mat-tab>
   <mat-tab label="JOBS">
+    <div *ngIf="jobs && jobs.length !== 0" class="jobs-count">{{jobs.length}} Jobs</div>
+    <mat-divider></mat-divider>
+    <div id="contents" *ngIf="jobs && jobs.length !== 0">
+        <div *ngFor="let job of jobs">
+            <dso-job-card [job]="job"></dso-job-card>
+        </div>
+    </div>
   </mat-tab>
   <mat-tab label="REVIEWS">
   </mat-tab>

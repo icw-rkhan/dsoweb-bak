@@ -47,13 +47,12 @@ export class CompanyService {
   }
 
   getCompanyById(id: string): Observable<DSOCompany> {
-    const url = `${environment.careerAPIUrl}/company/findOneById`;
+    const url = `${environment.profileApiUrl}/dso/findOneById`;
 
     const headers = this.getHeaders();
 
-    return this.http.post(url, {'companyId': id}, {headers}).pipe(
-      map((response: any) => response.resultMap.map(comment => new DSOCompany().deserialize(comment)))
-    );
+    return this.http.post(url, null, {headers, params: {'dsoId': id}}).pipe(
+      map((response: any) => new DSOCompany().deserialize(response.resultMap.data)));
   }
 
   getHeaders(): HttpHeaders {
