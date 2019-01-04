@@ -1,7 +1,7 @@
 <div class="company-name" (click)="clear()">{{name}}</div>
 <div class="ratebar" fxLayout="row" fxLayoutAlign="center center"  (click)="clear()">
   <div *ngFor="let item of rateList; index as i">
-    <img *ngIf="i<rate;else inactive" class="active" src="assets/images/career/review-small-active.png">
+    <img *ngIf="rate>i;else inactive" class="active" src="assets/images/career/review-small-active.png">
     <ng-template #inactive>
       <img class="inactive" src="assets/images/career/review-small-inactive.png">
     </ng-template>

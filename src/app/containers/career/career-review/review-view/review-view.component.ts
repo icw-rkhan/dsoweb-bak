@@ -110,7 +110,7 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
       totalRating = totalRating + review.rating;
     });
 
-    this.rate = totalRating / this.reviews.length;
+    this.rate = Math.round(totalRating / this.reviews.length);
   }
 
   onSort(index: number) {

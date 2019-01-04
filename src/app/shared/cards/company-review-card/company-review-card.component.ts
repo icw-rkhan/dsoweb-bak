@@ -2,6 +2,7 @@ import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core
 import { Router } from '@angular/router';
 
 import { DSOCompany } from '../../../models/dso-company.model';
+import { parseNumber } from 'libphonenumber-js';
 
 @Component({
   selector: 'dso-company-review-card',
@@ -41,4 +42,11 @@ export class CompanyReviewCardComponent implements OnInit {
     }
   }
 
+  ratingFormat(rating: string) {
+    if (rating) {
+      return parseFloat(rating).toFixed(1);
+    } else {
+      return '';
+    }
+  }
 }

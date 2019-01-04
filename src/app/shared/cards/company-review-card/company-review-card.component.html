@@ -12,7 +12,7 @@
                     <img src="assets/images/career/review-small-inactive.png" class="rate-star">
                     </ng-template>
                 </div>
-                <div *ngIf="type == 0" class="review-rating">{{company.rating}}</div>
+                <div *ngIf="type == 0" class="review-rating">{{ratingFormat(company.rating)}}</div>
             </div>
             <div *ngIf="type == 0" class="space"></div>
             <div class="review-count">{{company.reviews}} Reviews</div>
