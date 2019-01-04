@@ -36,6 +36,7 @@ export class CareerProfileDetailComponent implements OnInit {
         subCompany.unsubscribe();
 
         const body = {
+          'dsoId': id,
           'skip': 0,
           'limit': 0
         };
