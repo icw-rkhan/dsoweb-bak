@@ -1,3 +1,23 @@
-<p>
-  profile-detail works!
-</p>
+<div class="company-avatar">
+  <img src="assets/images/career/head3.png">
+</div>
+<div class="company-info" fxLayout="row" fxLayoutAlign="start center">
+  <img class="company-logo" [src]="company.logoUrl">
+  <div fxLayout="column" fxLayoutAlign="center start">
+    <p class="company-name">{{company.name}}</p>
+    <p fxLayout="row" fxLayout="start center" class="company-location">
+      <label [innerHtml]="company.address1 + '<br>' + company.address2"></label>
+      <span class="space"></span>
+      <img src="assets/images/career/location2.png">
+    </p>
+  </div>
+</div>
+<mat-tab-group mat-stretch-tabs>
+  <mat-tab label="DESCRIPTION">
+    <P class="company-desc">{{company.description}}</P>
+  </mat-tab>
+  <mat-tab label="JOBS">
+  </mat-tab>
+  <mat-tab label="REVIEWS">
+  </mat-tab>
+</mat-tab-group>

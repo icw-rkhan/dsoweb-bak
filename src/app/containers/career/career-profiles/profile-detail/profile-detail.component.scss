@@ -1,0 +1,88 @@
+.company-avatar {
+    img {
+        width: 100%;
+        height: auto;
+    }
+}
+
+.company-info {
+    padding: 14px;
+
+    .company-logo {
+        width: 74px;
+        max-height: 74px;
+        margin-right: 10px;
+    }
+
+    div {
+        flex: 1 1 auto;
+
+        .company-name {
+            color: #4a4a4a;
+            font-size: 18px;
+            font-weight: 600;
+            font-family: 'SFUI';
+            line-height: 22px;
+            margin-bottom: 12px;
+        }
+
+        .company-location   {
+            width: 100%;
+            border-radius: 7px;
+            background: linear-gradient(to right, rgba(251, 252, 252, 1) 0%, rgba(235, 238, 239, 1) 100%);
+
+            label {
+                color: #4a4a4a;
+                margin: 7px 14px 0px;
+                font-size: 12px;
+                font-weight: 500;
+                font-family: 'SFUI';
+                line-height: 18px;
+            }
+
+            img {
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+mat-tab-group {
+    background-color: #ffffff;
+
+    ::ng-deep .mat-tab-header-pagination {
+        display: none;
+    }
+
+    ::ng-deep .mat-tab-label-content {
+        color: #1b1b1b;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'SFUI';
+    }
+
+    ::ng-deep mat-tab-body {
+        padding: 20px;
+        padding-bottom: 50px;
+
+        .company-desc {
+            color: #4a4a4a;
+            font-size: 15px;
+            line-height: 21px;
+            font-weight: 400;
+        }
+    }
+
+    ::ng-deep .mat-tab-label:nth-child(2) {
+        border: 1px solid #d1d0d0;
+    }
+
+    ::ng-deep .mat-tab-label {
+        border-top: 1px solid #d1d0d0;
+        border-bottom: 0px;
+    }
+}
+
+.space {
+    flex: 1 1 auto;
+}

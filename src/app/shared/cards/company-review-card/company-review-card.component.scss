@@ -2,9 +2,12 @@ mat-card {
     padding: 16px;
 
     .company-logo {
-        width: 51px;
-        height: 51px;
         margin-right: 16px;
+
+        img {
+            width: 51px;
+            height: auto;
+        }
     }
 
     .company-name {

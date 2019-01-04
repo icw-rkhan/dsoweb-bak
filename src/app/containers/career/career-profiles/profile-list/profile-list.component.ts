@@ -46,7 +46,7 @@ export class CareerProfileListComponent implements OnInit, OnDestroy {
 
     const body = {
       'pageNumber': this.page,
-      'pageSize': 50
+      'pageSize': 10
     };
 
     this.companyService.dsoCompanies(body).subscribe(companies => {

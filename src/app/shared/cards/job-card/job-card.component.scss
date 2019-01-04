@@ -2,11 +2,12 @@ mat-card {
     padding: 14px;
 
     .job-log {
+        width: 51px;
         margin-right: 13px;
 
         img {
             width: 51px;
-            height: 51px;
+            height: auto;
         }
     }
 
