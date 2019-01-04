@@ -1,17 +1,17 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 
-import { DSOCompany } from '../../../../models/dso-company.model';
 import { CompanyService } from '../../../../services/company.service';
-import { ActivatedRoute } from '@angular/router';
+import { DSOCompany } from '../../../../models/dso-company.model';
 
 @Component({
-  selector: 'dso-career-review-list',
-  templateUrl: './review-list.component.html',
-  styleUrls: ['./review-list.component.scss'],
+  selector: 'dso-career-profile-list',
+  templateUrl: './profile-list.component.html',
+  styleUrls: ['./profile-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReviewListComponent implements OnInit, OnDestroy {
+export class CareerProfileListComponent implements OnInit, OnDestroy {
 
   page: number;
   type: string;
@@ -46,7 +46,7 @@ export class ReviewListComponent implements OnInit, OnDestroy {
 
     const body = {
       'pageNumber': this.page,
-      'pageSize': 10
+      'pageSize': 50
     };
 
     this.companyService.dsoCompanies(body).subscribe(companies => {
@@ -68,6 +68,10 @@ export class ReviewListComponent implements OnInit, OnDestroy {
     });
   }
 
+  onSearch() {
+
+  }
+
   onLoadMore() {
     ++this.page;
 
@@ -83,10 +87,6 @@ export class ReviewListComponent implements OnInit, OnDestroy {
     }
   }
 
-  onSearch() {
-
-  }
-
   gotoTop() {
     document.getElementById('contents').scroll({
       top: 0,
@@ -94,5 +94,4 @@ export class ReviewListComponent implements OnInit, OnDestroy {
       behavior: 'smooth'
     });
   }
-
 }

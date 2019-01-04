@@ -1,11 +1,5 @@
-<div id="contents" infiniteScroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
-    (scrolled)="onLoadMore()"
-    [scrollWindow]="false"
-    (scroll)="onScroll($event)">
-  <dso-company-review-card [company]="company" [type]="1" *ngFor="let company of companies"></dso-company-review-card>
-</div>
-<button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn}" (click)="gotoTop()">
-  <i class="fa fa-arrow-up"></i>
-</button>
+<dso-career-container>
+    <div class="career-container">
+        <router-outlet></router-outlet>
+    </div>
+</dso-career-container>

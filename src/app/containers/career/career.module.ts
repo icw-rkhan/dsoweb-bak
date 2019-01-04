@@ -13,12 +13,14 @@ import { CareerJobComponent } from './career-job/career-job.component';
 import { CareerDetailComponent } from './career-detail/career-detail.component';
 import { CareerReviewModule } from './career-review/career-review.module';
 import { CareerAlertModule } from './career-alert/career-alert.module';
+import { CareerProfilesModule } from './career-profiles/career-profiles.module';
 
 @NgModule({
   imports: [
     SharedModule,
     CareerAlertModule,
     CareerReviewModule,
+    CareerProfilesModule,
     CareerRoutingModule,
     ShareModule.forRoot(),
     NgCircleProgressModule.forRoot({

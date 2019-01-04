@@ -29,10 +29,6 @@ export const ROUTES: Routes = [
                 component: CareerSearchComponent,
             },
             {
-                path: 'dso-profile',
-                component: CareerProfilesComponent
-            },
-            {
                 path: 'my-job',
                 component: CareerJobComponent
             },

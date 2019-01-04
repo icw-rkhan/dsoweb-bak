@@ -9,29 +9,40 @@ import { ReviewViewComponent } from './review-view/review-view.component';
 import { ReviewDetailComponent } from './review-detail/review-detail.component';
 
 export const ROUTES: Routes = [
-  {
-      path: 'career/review',
-      canActivate: [AuthGuard],
-      component: CareerReviewComponent,
-      children: [
-          {
-              path: '',
-              component: ReviewListComponent,
-          },
-          {
-              path: 'add/:id',
-              component: ReviewAddComponent,
-          },
-          {
-              path: 'view/:id/:name',
-              component: ReviewViewComponent,
-          },
-          {
-              path: 'detail/:name',
-              component: ReviewDetailComponent
-          }
-      ]
-  },
+    {
+        path: 'career/review',
+        canActivate: [AuthGuard],
+        component: CareerReviewComponent,
+        children: [
+            {
+                path: '',
+                component: ReviewListComponent,
+            },
+            {
+                path: 'add/:id',
+                component: ReviewAddComponent,
+            },
+            {
+                path: 'view/:id/:name',
+                component: ReviewViewComponent,
+            },
+            {
+                path: 'detail/:name',
+                component: ReviewDetailComponent
+            }
+        ]
+    },
+    {
+        path: 'career/review/:type',
+        canActivate: [AuthGuard],
+        component: CareerReviewComponent,
+        children: [
+            {
+                path: '',
+                component: ReviewListComponent,
+            },
+        ]
+    },
 ];
 
 @NgModule({

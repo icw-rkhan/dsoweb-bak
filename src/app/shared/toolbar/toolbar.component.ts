@@ -131,9 +131,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
             this.visibleCareerAddOption = false;
           }
 
-          if (event.url.includes('/career') && !event.url.includes('/career/search/criteria')
-          && !this.visibleCareerAddOption && !event.url.includes('/career/alert') &&
-          !event.url.includes('/career/review/detail')) {
+          if (event.url === '/career/search' || event.url === '/career/review'
+          || event.url === '/career/dso-profile') {
             this.visibleCareerSearchOption = true;
           } else {
             this.visibleCareerSearchOption = false;
@@ -216,6 +215,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   }
 
   onGoToSearchJobs() {
-    this.router.navigate(['/career/search/criteria']);
+    if (this.url === '/career/dso-profile') {
+      this.router.navigate(['/career/dso-profile/search']);
+    } else if (this.url === '/career/review') {
+      this.router.navigate(['/career/review/search']);
+    } else {
+      this.router.navigate(['/career/search/criteria']);
+    }
   }
 }

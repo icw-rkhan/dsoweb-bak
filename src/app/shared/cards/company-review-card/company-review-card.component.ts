@@ -34,7 +34,11 @@ export class CompanyReviewCardComponent implements OnInit {
   }
 
   onGoToReviewList() {
-    this.router.navigate([`/career/review/view/${this.company.id}/${this.company.name}`]);
+    if (this.type === 0) {
+      this.router.navigate([`/career/review/view/${this.company.id}/${this.company.name}`]);
+    } else {
+      this.router.navigate([`/career/dso-profile/detail/${this.company.id}`]);
+    }
   }
 
 }
