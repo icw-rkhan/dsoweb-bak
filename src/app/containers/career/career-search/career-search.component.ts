@@ -112,7 +112,7 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
         const bookmark = items[1].find(a => a.id === j.id);
 
         return Object.assign({}, j, {
-          isSaved: !_.isUndefined(bookmark)
+          savedId: bookmark ? bookmark.savedId : null
         });
       }))
     ).subscribe(jobs => {

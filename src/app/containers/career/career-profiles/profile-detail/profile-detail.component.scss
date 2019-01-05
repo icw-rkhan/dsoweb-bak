@@ -83,6 +83,67 @@ mat-tab-group {
         .btn-go-to-top {
             bottom: 55px;
         }
+
+        .review-container {
+            padding: 20px;
+
+            .review-status {
+                padding: 0px 12px;
+    
+                .review-rating {
+                    color: #9c9c9c;
+                    font-size: 18px;
+                    font-weight: 800;
+                    font-family: 'SFUI';
+                    margin-right: 12px;
+                }
+    
+                .ratebar {
+                    height: 24px;
+                
+                    .rate-star {
+                        margin-right: 2px;
+                    }
+                }
+    
+                .review-count {
+                    color: #9c9c9c;
+                    font-size: 14px;
+                    font-weight: 400;
+                    margin-left: 15px;
+                }
+    
+                .review-avatar {
+                    margin: 25px 0px 65px;
+    
+                    img {
+                        width: 72px;
+                        height: 72px;
+                        border-radius: 50%;
+                        margin-top: -5px;
+                    }
+    
+                    .approveProgress {
+                        margin-left: -4px;
+                    }
+                }
+            }
+    
+            .detail-footer {
+                button:first-child {
+                    color: #879aa8;
+                    font-size: 16px;
+                    font-weight: 400;
+                    margin-top: 28px;
+                }
+    
+                button:last-child {
+                    width: 100%;
+                    border: 1px solid #dddddd;
+                    margin: 29px 0px;
+                }
+            }
+        }
     }
 
     ::ng-deep .mat-tab-label:nth-child(2) {

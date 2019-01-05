@@ -12,6 +12,7 @@ import { JobService } from '../../../services/job.service';
 })
 export class JobExtendCardComponent implements OnInit {
 
+  @Input()type: number;
   @Input()job: Job;
 
   days: string;
@@ -71,7 +72,7 @@ export class JobExtendCardComponent implements OnInit {
         }
       });
     } else {
-      this.jobService.deleteBookmark(this.job.id).subscribe((res: any) => {
+      this.jobService.deleteBookmark(this.job.savedId).subscribe((res: any) => {
         if (res.code === 0) {
           this.job.isSaved = false;
           this.cdr.markForCheck();

@@ -72,7 +72,7 @@ export class JobCardComponent implements OnInit {
         }
       });
     } else {
-      this.jobService.deleteBookmark(this.job.id).subscribe((res: any) => {
+      this.jobService.deleteBookmark(this.job.savedId).subscribe((res: any) => {
         if (res.code === 0) {
           this.job.isSaved = false;
           this.cdr.markForCheck();

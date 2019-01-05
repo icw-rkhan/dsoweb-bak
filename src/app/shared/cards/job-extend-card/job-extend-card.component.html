@@ -1,7 +1,7 @@
 
 <mat-card (click)="onGoToDetail()">
   <div fxLayout="row" fxLayoutAlign="start center">
-    <img *ngIf="dayBetween > 30 && !job.isApplied" class="log-new" src="assets/images/career/new.png">
+    <img *ngIf="dayBetween > 30 && job.status==1" class="log-new" src="assets/images/career/new.png">
     <img *ngIf="job.isApplied" class="log-new" src="assets/images/career/apply.png">
     <div class="job-log">
       <img [src]="job.logoURL">
@@ -15,7 +15,7 @@
       <p fxLayout="row" fxLayoutAlign="start center">
         <span class="company-name">Supported by {{job.companyName}}</span>
         <span class="space"></span>
-        <button mat-icon-button class="bookmark-btn" (click)="onBookmark()">
+        <button *ngIf="type!==1" mat-icon-button class="bookmark-btn" (click)="onBookmark()">
           <img *ngIf="!job.isSaved" src="assets/images/career/save_inactive.png">
           <img *ngIf="job.isSaved" src="assets/images/career/save_active.png">
         </button>
@@ -25,7 +25,9 @@
   <div class="job-desc">{{job.jobDescription}}</div>
   <div class="job-salary" fxLayout="row" fxLayoutAlign="start end">
     <img src="assets/images/career/location.png">
-    <label>{{job.location}}</label>
+    <label>{{job.city}}</label>
+    <span class="space"></span>
+    <label *ngIf="job.status==3">Closed</label>
     <span class="space"></span>
     <img src="assets/images/career/salary2.png">
     <label>{{job.salaryStartingValue}} - {{job.salaryEndValue}}</label>

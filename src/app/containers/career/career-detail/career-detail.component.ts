@@ -17,7 +17,7 @@ import { CompanyService } from '../../../services/company.service';
 export class CareerDetailComponent implements OnInit, OnDestroy {
 
   id: string;
-  rating: string;
+  rating: number;
   isApplied: boolean;
   sharedUrl: string;
   loadMoreBtn: string;
@@ -36,7 +36,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private jobService: JobService,
     private companyService: CompanyService) {
-      this.rating = '0';
+      this.rating = 0;
       this.loadMoreBtn = 'See more';
 
       this.job = new Job();
@@ -67,6 +67,8 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
       this.job = job;
       this.job.isApplied = this.isApplied;
 
+      this.rating = Math.round(parseFloat(job.rating));
+
       const body = {
         'dsoId': this.job.companyId,
         'sort': 0,
@@ -79,7 +81,6 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
         this.allReviews = reviews;
 
         if (this.allReviews.length > 0) {
-          this.calcRating();
           this.limitReviews(2);
         }
 
@@ -99,15 +100,6 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     this.progress.complete();
   }
 
-  calcRating() {
-    let totalRating = 0;
-    this.allReviews.map(review => {
-      totalRating = totalRating + review.rating;
-    });
-
-    this.rating = (totalRating / this.allReviews.length).toFixed(1);
-  }
-
   onGoToAddReview(id: string) {
     this.router.navigate([`/career/review/add/${id}`]);
   }
@@ -116,7 +108,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     this.progress.start();
     this.jobService.saveJob(this.job.id).subscribe((res: any) => {
       if (res.code === 0) {
-        const subJob = this.jobService.deleteBookmark(this.job.id).subscribe((ress: any) => {
+        const subJob = this.jobService.deleteBookmark(this.job.savedId).subscribe((ress: any) => {
           this.progress.complete();
 
           if (ress.code === 0) {
@@ -139,30 +131,19 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   onBookmark() {
     if (!this.job.isSaved) {
-      this.progress.start();
       this.jobService.addBookmark(this.job.id).subscribe((res: any) => {
-        this.progress.complete();
 
         if (res.code === 0) {
           this.job.isSaved = true;
           this.cdr.markForCheck();
         }
-      },
-      err => {
-        this.progress.complete();
       });
     } else {
-      this.progress.start();
-      this.jobService.deleteBookmark(this.job.id).subscribe((res: any) => {
-        this.progress.complete();
-
+      this.jobService.deleteBookmark(this.job.savedId).subscribe((res: any) => {
         if (res.code === 0) {
           this.job.isSaved = false;
           this.cdr.markForCheck();
         }
-      },
-      err => {
-        this.progress.complete();
       });
     }
   }
@@ -210,5 +191,13 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   onBack() {
     this.location.back();
+  }
+
+  ratingFormat(rating: string) {
+    if (rating) {
+      return parseFloat(rating).toFixed(1);
+    } else {
+      return '';
+    }
   }
 }

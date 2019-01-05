@@ -28,15 +28,18 @@ export class Job implements Serializable<Job> {
     stage: string;
     ceo: string;
     type: string;
+    rating: string;
     employees: string;
     foundation: string;
     publishDate: string;
     reviewNum: string;
     recommendNum: string;
     approveNum: string;
+    savedId: string;
     isSaved: boolean;
     isApplied: boolean;
     isAttention: boolean;
+    status: number;
 
     // change the format of the data
     dateFormat(date: string): any {
@@ -65,6 +68,7 @@ export class Job implements Serializable<Job> {
             location: data.jobPO ? data.jobPO.location : null,
             city: data.jobPO ? data.jobPO.city : data.city,
             state: data.jobPO ? data.jobPO.state : data.state,
+            status: data.jobPO ? data.jobPO.status : data.status,
             zipCode: data.jobPO ? data.jobPO.zipCode : data.zipCode,
             person: data.jobPO ? data.jobPO.person : data.person,
             employees: data.jobPO ? data.jobPO.dso.employees : data.dso.employees,
@@ -72,10 +76,13 @@ export class Job implements Serializable<Job> {
             companyDes: data.jobPO ? data.jobPO.dso.description : data.dso.description,
             foundation: data.jobPO ? data.jobPO.dso.year_of_foundation : data.dso.year_of_foundation,
             position: data.jobPO ? data.jobPO.position.coordinates : data.position.coordinates,
-            isApplied: data.jobPO ? data.jobPO.isAttention : data.isAttention,
+            savedId: data.jobPO ? data.id : null,
+            isSaved: data.jobPO ? data.jobPO.isAttention : data.isAttention,
+            isApplied: data.jobPO ? data.jobPO.isApplication : data.isApplication,
             ceo: data.jobPO ? data.jobPO.dso.ceo : data.dso.ceo,
             paid: data.jobPO ? data.jobPO.paid : data.paid,
             type: data.jobPO ? data.jobPO.type : data.type,
+            rating: data.jobPO ? data.jobPO.dso.rating : data.dso.rating,
             isSponsor: data.jobPO ? data.jobPO.dso.isSponsor : data.dso.isSponsor,
             reviewNum: data.jobPO ? data.jobPO.dso.reviewNum : data.dso.reviewNum,
             recommendNum: data.jobPO ? data.jobPO.dso.recommendNum : data.dso.recommendNum,

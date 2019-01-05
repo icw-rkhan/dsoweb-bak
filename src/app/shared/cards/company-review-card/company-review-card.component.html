@@ -15,7 +15,7 @@
                 <div *ngIf="type == 0" class="review-rating">{{ratingFormat(company.rating)}}</div>
             </div>
             <div *ngIf="type == 0" class="space"></div>
-            <div class="review-count">{{company.reviews}} Reviews</div>
+            <div class="review-count">{{company.reviewNum}} Reviews</div>
         </div>
         <div *ngIf="type == 1 && company.city" class="company-location">{{company.city}}, {{company.state}}</div>
     </div>

@@ -12,7 +12,7 @@ import { Review } from '../../../../models/reivew.model';
 })
 export class ReviewDetailComponent implements OnInit, OnDestroy {
 
-  review: any;
+  review: Review;
   rating: number;
 
   rateList = [
@@ -36,7 +36,7 @@ export class ReviewDetailComponent implements OnInit, OnDestroy {
 
       this.review = params;
 
-      this.rating = Math.round(parseInt(this.review.rating, 10));
+      this.rating = Math.round(this.review.rating);
 
       this.cdr.markForCheck();
     },

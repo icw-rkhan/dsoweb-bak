@@ -30,7 +30,7 @@ export class CompanyReviewCardComponent implements OnInit {
 
   ngOnInit() {
     if (this.company.rating) {
-      this.rating = Math.round(parseInt(this.company.rating, 10));
+      this.rating = Math.round(parseFloat(this.company.rating));
     }
   }
 
