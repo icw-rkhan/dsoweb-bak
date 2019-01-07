@@ -48,7 +48,7 @@ export class HammerConfig extends HammerGestureConfig {
       color: '#354051'
     }),
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCAtQY36wqgDiU7FM7XFQkORvc4A6taTro',
+      apiKey: 'AIzaSyCVNk-yni0M9-jJxH9CPxuhupke3y8bPTE',
       libraries: ['places']
     }),
     // Module import

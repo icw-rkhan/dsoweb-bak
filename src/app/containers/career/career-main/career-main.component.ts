@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
   selector: 'dso-career-main',
@@ -12,7 +13,7 @@ export class CareerMainComponent implements OnInit {
   links: any[];
   isPlaceholder: boolean;
 
-  constructor(private router: Router) {
+  constructor(private router: Router, @Inject(DOCUMENT) private document: any) {
     this.links = [
       {title: 'Search', url: '/career/search', icon: 'search'},
       {title: 'Me', url: '/profile', icon: 'me'},
@@ -20,17 +21,15 @@ export class CareerMainComponent implements OnInit {
       {title: 'DSO Profiles', url: '/career/dso-profile', icon: 'profiles'}
     ];
 
-    this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd) {
-        const url = event.url;
+    const url = this.document.location.origin;
 
-        if (url.includes('devangular1.dsodentist.com')) {
-          this.isPlaceholder = true;
-        } else {
-          this.isPlaceholder = false;
-        }
-      }
-    });
+    if (url.includes('devangular1.dsodentist.com')) {
+      this.isPlaceholder = true;
+    } else {
+      this.isPlaceholder = false;
+    }
+
+    console.log(url);
   }
 
   ngOnInit() {
