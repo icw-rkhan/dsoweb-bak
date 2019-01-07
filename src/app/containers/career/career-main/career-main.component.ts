@@ -24,7 +24,7 @@ export class CareerMainComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         const url = event.url;
 
-        if (url.includes('mobile.dsodentist.com')) {
+        if (url.includes('devangular1.dsodentist.com')) {
           this.isPlaceholder = true;
         } else {
           this.isPlaceholder = false;
