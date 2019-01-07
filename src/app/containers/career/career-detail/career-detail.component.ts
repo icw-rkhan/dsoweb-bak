@@ -132,18 +132,25 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   onBookmark() {
     if (!this.job.isSaved) {
       this.jobService.addBookmark(this.job.id).subscribe((res: any) => {
-
         if (res.code === 0) {
           this.job.isSaved = true;
           this.cdr.markForCheck();
         }
       });
     } else {
-      this.jobService.deleteBookmark(this.job.savedId).subscribe((res: any) => {
-        if (res.code === 0) {
-          this.job.isSaved = false;
-          this.cdr.markForCheck();
-        }
+      this.jobService.bookmarkedJobs({'skip': 0, 'limit': 0}).subscribe(savedJobs => {
+        savedJobs.map(job => {
+          if (job.id === this.job.id) {
+            const subJob = this.jobService.deleteBookmark(job.savedId).subscribe((res: any) => {
+              if (res.code === 0) {
+                this.job.isSaved = false;
+                this.cdr.markForCheck();
+              }
+
+              subJob.unsubscribe();
+            });
+          }
+        });
       });
     }
   }

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
 import { Router, NavigationExtras } from '@angular/router';
 
 import { Job } from '../../../models/job.model';
@@ -14,6 +14,8 @@ export class JobExtendCardComponent implements OnInit {
 
   @Input()type: number;
   @Input()job: Job;
+
+  @Output() removeBookmark = new EventEmitter<string>();
 
   days: string;
   dayBetween: number;
@@ -75,6 +77,8 @@ export class JobExtendCardComponent implements OnInit {
       this.jobService.deleteBookmark(this.job.savedId).subscribe((res: any) => {
         if (res.code === 0) {
           this.job.isSaved = false;
+
+          this.removeBookmark.emit(this.job.savedId);
           this.cdr.markForCheck();
         }
       });

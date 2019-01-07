@@ -25,7 +25,7 @@
         (scrolled)="onLoadMoreSavedJobs()"
         [scrollWindow]="false"
         (scroll)="onScroll2($event)">
-      <dso-job-extend-card [job]="job" *ngFor="let job of savedJobs"></dso-job-extend-card>
+      <dso-job-extend-card [job]="job" (removeBookmark)="removeBookmark($event)" *ngFor="let job of savedJobs"></dso-job-extend-card>
     </div>
     <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn2}" (click)="gotoTop2()">
       <i class="fa fa-arrow-up"></i>

@@ -108,6 +108,18 @@ export class CareerJobComponent implements OnInit, OnDestroy {
     });
   }
 
+  removeBookmark(bookmarkId: string) {
+    let index = 0;
+    this.savedJobs.map(job => {
+      if (job.savedId === bookmarkId) {
+        index = this.savedJobs.indexOf(job);
+      }
+    });
+
+    this.savedJobs.splice(index, 1);
+    this.cdr.markForCheck();
+  }
+
   onScroll1(event) {
     const scrollPosition = event.srcElement.scrollTop;
     if (scrollPosition > 200) {

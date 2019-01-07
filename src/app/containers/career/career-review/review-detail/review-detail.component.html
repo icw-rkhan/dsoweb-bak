@@ -27,11 +27,11 @@
 </div>
 <div class="review-footer" fxLayout="row" fxLayoutAlign="end center">
     <p fxLayout="row" fxLayoutAlign="end center">
-        <img *ngIf="review.isRecommend" src="assets/images/career/check.png">
+        <img *ngIf="review.isRecommend=='true'" src="assets/images/career/check.png">
         <label>Recommends</label>
     </p>
     <p fxLayout="row" fxLayoutAlign="end center">
-        <img *ngIf="review.isApprove" src="assets/images/career/check.png">
+        <img *ngIf="review.isApprove=='true'" src="assets/images/career/check.png">
         <label>Approve of CEO</label>
     </p>
 </div>
