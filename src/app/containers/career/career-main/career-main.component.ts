@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Inject } from '@angular/core';
-import { Router, Event, NavigationEnd } from '@angular/router';
+import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';
 
 @Component({
@@ -23,13 +23,11 @@ export class CareerMainComponent implements OnInit {
 
     const url = this.document.location.origin;
 
-    if (url.includes('devangular1.dsodentist.com')) {
+    if (url.includes('mobile.dsodentist.com')) {
       this.isPlaceholder = true;
     } else {
       this.isPlaceholder = false;
     }
-
-    console.log(url);
   }
 
   ngOnInit() {
