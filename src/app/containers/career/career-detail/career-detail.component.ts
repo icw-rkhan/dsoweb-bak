@@ -18,7 +18,6 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   id: string;
   rating: number;
-  isApplied: boolean;
   sharedUrl: string;
   loadMoreBtn: string;
 
@@ -46,14 +45,6 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
         this.id = params['id'];
       });
 
-      this.route.queryParams.subscribe((params: any) => {
-        if (params.isApplied === 'true') {
-          this.isApplied = true;
-        } else {
-          this.isApplied = false;
-        }
-      });
-
       this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
           this.sharedUrl = event.url;
@@ -65,7 +56,6 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     this.progress.start();
     this.jobService.getJobById(this.id).subscribe(job => {
       this.job = job;
-      this.job.isApplied = this.isApplied;
 
       this.rating = Math.round(parseFloat(job.rating));
 
@@ -108,16 +98,22 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     this.progress.start();
     this.jobService.saveJob(this.job.id).subscribe((res: any) => {
       if (res.code === 0) {
-        const subJob = this.jobService.deleteBookmark(this.job.savedId).subscribe((ress: any) => {
+        this.jobService.bookmarkedJobs({'skip': 0, 'limit': 0}).subscribe(savedJobs => {
           this.progress.complete();
 
-          if (ress.code === 0) {
-            this.job.isSaved = false;
-            this.job.isApplied = true;
-            this.cdr.detectChanges();
-          }
+          savedJobs.map(job => {
+            if (job.id === this.job.id) {
+              const subJob = this.jobService.deleteBookmark(job.savedId).subscribe((ress: any) => {
+                if (ress.code === 0) {
+                  this.job.isSaved = false;
+                  this.job.isApplied = true;
+                  this.cdr.markForCheck();
+                }
 
-          subJob.unsubscribe();
+                subJob.unsubscribe();
+              });
+            }
+          });
         },
         err => {
           this.progress.complete();
