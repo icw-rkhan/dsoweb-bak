@@ -68,7 +68,7 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       // load Places Autocomplete
       this.mapsAPILoader.load().then(() => {
         const autocomplete = new google.maps.places.Autocomplete(this.locationElementRef.nativeElement, {
-          types: ['(cities)']
+          types: ['geocode']
         });
         autocomplete.addListener('place_changed', () => {
           this.ngZone.run(() => {
