@@ -8,7 +8,7 @@
     <button mat-button color="primary">Search</button>
   </form>
 </div>
-<div id="contents" infiniteScroll
+<div *ngIf="companies && companies.length > 0" id="contents" infiniteScroll
     [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="50"
     (scrolled)="onLoadMore()"
@@ -19,3 +19,7 @@
 <button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn}" (click)="gotoTop()">
   <i class="fa fa-arrow-up"></i>
 </button>
+<div *ngIf="companies && companies.length == 0" class="no-content" fxLayout="column" fxLayoutAlign="center center">
+  <img src="assets/images/career/no_search_company.png">
+  <p class="no-message">No results found.<br>Try another DSO/company</p>
+</div>

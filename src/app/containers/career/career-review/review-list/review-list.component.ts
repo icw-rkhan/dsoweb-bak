@@ -15,6 +15,7 @@ export class ReviewListComponent implements OnInit, OnDestroy {
 
   page: number;
   type: string;
+  term: string;
   showGotoTopBtn: boolean;
 
   companies: DSOCompany[];
@@ -45,6 +46,7 @@ export class ReviewListComponent implements OnInit, OnDestroy {
     this.progress.start();
 
     const body = {
+      'searchValue': this.term,
       'pageNumber': this.page,
       'pageSize': 10
     };
@@ -84,7 +86,7 @@ export class ReviewListComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-
+    this.loadContents();
   }
 
   gotoTop() {

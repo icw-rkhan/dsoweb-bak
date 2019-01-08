@@ -15,6 +15,7 @@ export class CareerProfileListComponent implements OnInit, OnDestroy {
 
   page: number;
   type: string;
+  term: string;
   showGotoTopBtn: boolean;
 
   companies: DSOCompany[];
@@ -45,6 +46,7 @@ export class CareerProfileListComponent implements OnInit, OnDestroy {
     this.progress.start();
 
     const body = {
+      'searchValue': this.term,
       'pageNumber': this.page,
       'pageSize': 10
     };
@@ -69,7 +71,7 @@ export class CareerProfileListComponent implements OnInit, OnDestroy {
   }
 
   onSearch() {
-
+    this.loadContents();
   }
 
   onLoadMore() {

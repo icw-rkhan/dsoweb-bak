@@ -40,3 +40,17 @@
         width: 45vw;
     }
 }
+
+.no-content {
+    width: 100%;
+    height: calc(100vh - 94px);
+
+    .no-message {
+        color: #000000;
+        font-size: 15px;
+        font-weight: 400;
+        margin-top: 80px;
+        line-height: 20px;
+        text-align: center;
+    }
+}

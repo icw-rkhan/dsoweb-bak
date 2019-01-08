@@ -24,6 +24,7 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
   isCheckedRefine: boolean;
 
   reviews: Review[];
+  allReviews: Review[];
 
   rateList = [
     {state: false},
@@ -93,7 +94,9 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
     this.companyService.getCommentByCompanyId(body).subscribe(reviews => {
       this.progress.complete();
 
-      this.reviews = reviews;
+      this.allReviews = reviews;
+
+      this.reviews = this.allReviews.filter(review => review.isCurrentEmployee === true);
 
       this.calcRating();
 
@@ -126,7 +129,11 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
     this.isCheckedRefine = false;
     this.activedRefineId = index;
 
-    this.onLoadContent();
+    if (this.activeRefine.id === 0) {
+      this.reviews = this.allReviews.filter(review => review.isCurrentEmployee === true);
+    } else {
+      this.reviews = this.allReviews.filter(review => review.isFormerEmployee === true);
+    }
   }
 
   onCheckSortOption() {
