@@ -43,8 +43,9 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
   ];
 
   refineType = [
-    {'id': 0, 'title': 'Current Employee', 'status': 1},
-    {'id': 1, 'title': 'Former Employee', 'status': 0}
+    {'id': 0, 'title': 'All', 'status': 1},
+    {'id': 1, 'title': 'Current Employee', 'status': 0},
+    {'id': 2, 'title': 'Former Employee', 'status': 0}
   ];
 
   constructor(
@@ -102,7 +103,7 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
 
       this.allReviews = reviews;
 
-      this.reviews = this.allReviews.filter(review => review.isCurrentEmployee === true);
+      this.reviews = this.allReviews;
 
       this.reviews = this.reviews.sort((review1, review2) =>
         new Date(review2.reviewDate).getTime() - new Date(review1.reviewDate).getTime());
@@ -170,10 +171,12 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
     this.isCheckedRefine = false;
     this.activedRefineId = index;
 
-    if (this.activeRefine.id === 0) {
+    if (this.activeRefine.id === 1) {
       this.reviews = this.allReviews.filter(review => review.isCurrentEmployee === true);
-    } else {
+    } else if (this.activeRefine.id === 2) {
       this.reviews = this.allReviews.filter(review => review.isFormerEmployee === true);
+    } else {
+      this.reviews = this.allReviews;
     }
 
     this.flag = true;
