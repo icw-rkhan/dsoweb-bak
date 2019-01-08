@@ -16,18 +16,27 @@
         <label class="sort-label">SORT BY</label>
         <label class="refine-label" fxLayout="row" fxlayoutAlign="start center">
           <span>{{activeSort.title}}</span>
-          <mat-icon *ngIf="activeSort.title==='Date'">keyboard_arrow_down</mat-icon>
-          <mat-icon *ngIf="activeSort.title!=='Date'">keyboard_arrow_up</mat-icon>
+          <mat-icon *ngIf="activeSort.title === 'Date' && !isAscSortByDate ||
+           activeSort.title === 'Rating' && !isAscSortByRating">keyboard_arrow_down</mat-icon>
+          <mat-icon *ngIf="activeSort.title === 'Date' && isAscSortByDate ||
+           activeSort.title === 'Rating' && isAscSortByRating">keyboard_arrow_up</mat-icon>
         </label>
       </p>
     </button>
     <ul [class.hidden]="!isCheckedSort">
-      <li *ngFor="let item of sortType; index as i" (click)="onSort(i)" 
-        [class.active]="i===activedSortId" [class.default]="i!==activedSortId"
+      <li (click)="onSort(0)" 
+        [class.active]="0===activedSortId" [class.default]="0!==activedSortId"
         fxLayout="row" fxLayoutAlign="space-between center">
-        <span>{{item.title}}</span>
-        <mat-icon *ngIf="i===0">keyboard_arrow_down</mat-icon>
-        <mat-icon *ngIf="i!==0">keyboard_arrow_up</mat-icon>
+        <span>{{sortType[0].title}}</span>
+        <mat-icon *ngIf="!isAscSortByDate">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="isAscSortByDate">keyboard_arrow_up</mat-icon>
+      </li>
+      <li (click)="onSort(1)" 
+        [class.active]="1===activedSortId" [class.default]="1!==activedSortId"
+        fxLayout="row" fxLayoutAlign="space-between center">
+        <span>{{sortType[1].title}}</span>
+        <mat-icon *ngIf="!isAscSortByRating">keyboard_arrow_down</mat-icon>
+        <mat-icon *ngIf="isAscSortByRating">keyboard_arrow_up</mat-icon>
       </li>
     </ul>
   </div>

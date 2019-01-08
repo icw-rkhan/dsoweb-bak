@@ -16,12 +16,15 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
   id: string;
   name: string;
   rate: number;
+  flag: boolean;
   activeSort: any;
   activeRefine: any;
   activedSortId: number;
   activedRefineId: number;
   isCheckedSort: boolean;
   isCheckedRefine: boolean;
+  isAscSortByDate: boolean;
+  isAscSortByRating: boolean;
 
   reviews: Review[];
   allReviews: Review[];
@@ -51,10 +54,13 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
     private companyService: CompanyService) {
     this.reviews = [];
 
+    this.flag = false;
     this.activedSortId = 0;
     this.activedRefineId = 0;
     this.isCheckedSort = false;
     this.isCheckedRefine = false;
+    this.isAscSortByDate = false;
+    this.isAscSortByRating = false;
     this.activeSort = this.sortType[0];
     this.activeRefine = this.refineType[0];
 
@@ -98,6 +104,12 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
 
       this.reviews = this.allReviews.filter(review => review.isCurrentEmployee === true);
 
+      this.reviews = this.reviews.sort((review1, review2) =>
+        new Date(review2.reviewDate).getTime() - new Date(review1.reviewDate).getTime());
+
+      this.reviews = this.reviews.sort((review1, review2) =>
+        review2.rating - review1.rating);
+
       this.calcRating();
 
       this.cdr.markForCheck();
@@ -109,19 +121,48 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
 
   calcRating() {
     let totalRating = 0;
-    this.reviews.map(review => {
+    this.allReviews.map(review => {
       totalRating = totalRating + review.rating;
     });
 
-    this.rate = Math.round(totalRating / this.reviews.length);
+    this.rate = Math.round(totalRating / this.allReviews.length);
   }
 
   onSort(index: number) {
     this.activeSort = this.sortType[index];
-    this.isCheckedSort = false;
     this.activedSortId = index;
 
-    this.onLoadContent();
+    if (!this.flag) {
+      this.isCheckedSort = false;
+    }
+
+    const temp = this.reviews;
+
+    if (this.activeSort.id === 0) {
+      if (!this.flag) {
+        this.isAscSortByDate = !this.isAscSortByDate;
+      }
+
+      this.reviews = temp.sort((review1, review2) => {
+        if (this.isAscSortByDate) {
+          return new Date(review1.reviewDate).getTime() - new Date(review2.reviewDate).getTime();
+        } else {
+          return new Date(review2.reviewDate).getTime() - new Date(review1.reviewDate).getTime();
+        }
+      });
+    } else {
+      if (!this.flag) {
+        this.isAscSortByRating = !this.isAscSortByRating;
+      }
+
+      this.reviews = temp.sort((review1, review2) => {
+        if (this.isAscSortByRating) {
+          return review1.rating - review2.rating;
+        } else {
+          return review2.rating - review1.rating;
+        }
+      });
+    }
   }
 
   onRefine(index: number) {
@@ -134,6 +175,12 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
     } else {
       this.reviews = this.allReviews.filter(review => review.isFormerEmployee === true);
     }
+
+    this.flag = true;
+
+    this.onSort(this.activedSortId);
+
+    this.flag = false;
   }
 
   onCheckSortOption() {
