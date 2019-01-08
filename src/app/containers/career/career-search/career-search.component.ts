@@ -43,11 +43,6 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       this.page = 0;
       this.showGotoTopBtn = false;
 
-      // set google maps defaults
-      this.zoom = 4;
-      this.latitude = 39.8282;
-      this.longitude = -98.5795;
-
       this.route.params.subscribe(params => {
         this.type = params['type'];
       });
