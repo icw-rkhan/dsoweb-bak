@@ -114,7 +114,7 @@ mat-tab-group {
                 }
     
                 .review-avatar {
-                    margin: 25px 0px 65px;
+                    margin: 15px;
     
                     img {
                         width: 72px;
@@ -125,6 +125,16 @@ mat-tab-group {
     
                     .approveProgress {
                         margin-left: -4px;
+                    }
+
+                    p {
+                        label {
+                            color: #4a4a4a;
+                            font-size: 12px;
+                            line-height: 15px;
+                            margin-top: 5px;
+                            text-align: center;
+                        }
                     }
                 }
             }

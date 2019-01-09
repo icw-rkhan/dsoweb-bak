@@ -8,6 +8,7 @@ export class DSOCompany implements Serializable<DSOCompany> {
     name: string;
     city: string;
     ceo: string;
+    ceoUrl: string;
     media: string;
     state: string;
     rating: string;
@@ -25,6 +26,7 @@ export class DSOCompany implements Serializable<DSOCompany> {
             logo: data.logoURL ? data.logoURL : null,
             name: data.name,
             ceo: data.ceo ? data.ceo : null,
+            ceoUrl: data.ceoUrl ? data.ceoUrl : null,
             city: data.city ? data.city : null,
             state: data.state ? data.state : null,
             media: data.media ? data.media : null,

@@ -27,6 +27,7 @@ export class Job implements Serializable<Job> {
     person: string;
     stage: string;
     ceo: string;
+    ceoUrl: string;
     type: string;
     rating: string;
     employees: string;
@@ -81,7 +82,8 @@ export class Job implements Serializable<Job> {
             isNew: data.jobPO ? data.jobPO.isNewJob : data.isNewJob,
             isSaved: data.jobPO ? data.jobPO.isAttention : data.isAttention,
             isApplied: data.jobPO ? data.jobPO.isApplication : data.isApplication,
-            ceo: data.jobPO ? data.jobPO.dso.ceopictureurl : data.dso.ceopictureurl,
+            ceoUrl: data.jobPO ? data.jobPO.dso.ceopictureurl : data.dso.ceopictureurl,
+            ceo: data.jobPO ? data.jobPO.ceo : data.dso.ceo,
             paid: data.jobPO ? data.jobPO.paid : data.paid,
             type: data.jobPO ? data.jobPO.type : data.type,
             rating: data.jobPO ? data.jobPO.dso.rating : data.dso.rating,
