@@ -41,7 +41,7 @@
     </p>
   </div>
 </div>
-<mat-tab-group mat-stretch-tabs>
+<mat-tab-group #tabs mat-stretch-tabs>
   <mat-tab label="DESCRIPTION">
     <p class="job-type">Type: <span>{{job.type}}</span></p>
     <p class="job-description">{{job.jobDescription}}</p>
@@ -103,10 +103,6 @@
           </div>
         </div>
         <div *ngIf="allReviews && allReviews.length>0" class="review-count">{{allReviews.length}} reviews</div>
-        <div class="space"></div>
-        <div>
-          <img src="assets/images/career/check2.png">
-        </div>
       </div>
       <div class="review-avatar" fxLayout="row" fxLayoutAlign="space-between center">
         <p fxLayout="column" fxLayoutAlign="center center">
