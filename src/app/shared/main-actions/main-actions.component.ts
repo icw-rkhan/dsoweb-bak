@@ -13,7 +13,7 @@ export class MainActionsComponent implements OnInit {
   navFooterLinks: NavLinkModel[] = [];
 
   private currentUrl: string;
-  public showNavBar = false;
+  showNavBar = false;
 
   constructor(private router: Router) {
     this.currentUrl = router.url;

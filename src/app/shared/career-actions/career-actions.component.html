@@ -1,9 +1,14 @@
-<div class="career-actions" fxLayout="row" fxLayoutAlign="start center">
-  <a *ngFor="let link of links; index as i" fxLayout="column" fxLayoutAlign="center center" 
-                                      class="action-item">
-    <div class="action-avatar" (click)="onGoTo(i)">
-      <img [src]="'assets/images/career/' + link.icon + '_' + link.state + '.png'">
-    </div>
-    <label [class.active]="link.state === 'active'" class="action-title">{{link.label}}</label>
-  </a>
+<div class="career-actions" fxLayout="column" fxLayoutAlign="top center" (swipeup)="onSwipeUp($event)" 
+      (swipedown)="onSwipeDown($event)">
+  <mat-icon *ngIf="!showNavBar" class="show-nav-bar">keyboard_arrow_up</mat-icon>
+  <nav class="footer" [ngClass]="{'hidden': !showNavBar}" mat-tab-nav-bar>
+    <a *ngFor="let link of links; index as i" fxLayout="column" fxLayoutAlign="center center" 
+      class="action-item" (click)="onGoTo(i)">
+      <div class="action-avatar" fxLayout="column" fxLayoutAlign="center center">
+        <img [src]="'assets/images/career/' + link.icon + '_' + link.state + '.png'">
+      </div>
+      <label [class.active]="link.state === 'active'" class="action-title">{{link.label}}</label>
+    </a>
+  </nav>
+  
 </div>

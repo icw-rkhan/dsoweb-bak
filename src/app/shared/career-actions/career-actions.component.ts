@@ -13,6 +13,8 @@ import { NavLinksService } from '../../services/links.service';
 export class CareerActionsComponent implements OnInit {
 
   flag: boolean;
+  showNavBar = false;
+
   links: NavLinkModel[];
 
   @Output() moreEvent = new EventEmitter<number>();
@@ -64,6 +66,14 @@ export class CareerActionsComponent implements OnInit {
 
       this.moreEvent.emit(1);
     }
+  }
+
+  onSwipeUp(event) {
+    this.showNavBar = true;
+  }
+
+  onSwipeDown(event) {
+    this.showNavBar = false;
   }
 
   clear() {

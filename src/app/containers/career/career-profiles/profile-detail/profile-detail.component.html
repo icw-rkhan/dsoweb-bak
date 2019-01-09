@@ -39,7 +39,7 @@
               </ng-template>
             </div>
           </div>
-          <div class="review-count">{{allReviews ? allReviews.length : 0}} reviews</div>
+          <div *ngIf="allReviews && allReviews.length>0" class="review-count">{{allReviews.length}} reviews</div>
           <div class="space"></div>
           <div>
             <img src="assets/images/career/check2.png">
@@ -57,7 +57,7 @@
         <dso-review-extend-card [review]="review" *ngFor="let review of reviews"></dso-review-extend-card>
       </div>
       <div class="detail-footer" fxLayout="column" fxLayoutAlign="center center">
-        <button mat-button (click)="loadMore()">{{loadMoreBtn}}</button>
+        <button *ngIf="allReviews && allReviews.length>0" mat-button (click)="loadMore()">{{loadMoreBtn}}</button>
         <button mat-raised-button (click)="onGoToAddReview(company.id)">Write review</button>
       </div>
     </div>
