@@ -132,6 +132,12 @@ export class CareerProfileDetailComponent implements OnInit {
     }
   }
 
+  onGoToMap() {
+    if (this.company && this.company.position) {
+      this.router.navigate([`/career/map/${this.company.position[0]}/${this.company.position[1]}`]);
+    }
+  }
+
   onGoToAddReview(id: string) {
     this.router.navigate([`/career/review/add/${id}`]);
   }

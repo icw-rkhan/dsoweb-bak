@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { AgmCoreModule } from '@agm/core';
 import { ShareModule } from '@ngx-share/core';
 import { NgCircleProgressModule } from 'ng-circle-progress';
 
@@ -14,6 +15,7 @@ import { CareerDetailComponent } from './career-detail/career-detail.component';
 import { CareerReviewModule } from './career-review/career-review.module';
 import { CareerAlertModule } from './career-alert/career-alert.module';
 import { CareerProfilesModule } from './career-profiles/career-profiles.module';
+import { CareerMapComponent } from './career-map/career-map.component';
 
 @NgModule({
   imports: [
@@ -23,6 +25,10 @@ import { CareerProfilesModule } from './career-profiles/career-profiles.module';
     CareerProfilesModule,
     CareerRoutingModule,
     ShareModule.forRoot(),
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyCVNk-yni0M9-jJxH9CPxuhupke3y8bPTE',
+      libraries: ['places']
+    }),
     NgCircleProgressModule.forRoot({
       // set defaults here
       radius: 35,
@@ -40,6 +46,7 @@ import { CareerProfilesModule } from './career-profiles/career-profiles.module';
     CareerSearchComponent,
     CareerProfilesComponent,
     CareerJobComponent,
-    CareerDetailComponent]
+    CareerDetailComponent,
+    CareerMapComponent]
 })
 export class CareerModule { }

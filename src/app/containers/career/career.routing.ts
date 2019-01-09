@@ -5,10 +5,10 @@ import { AuthGuard } from '../../services/auth/auth-guard';
 import { CareerComponent } from './career.component';
 import { CareerMainComponent } from './career-main/career-main.component';
 import { CareerSearchComponent } from './career-search/career-search.component';
-import { CareerProfilesComponent } from './career-profiles/career-profiles.component';
 import { CareerJobComponent } from './career-job/career-job.component';
 import { CareerAlertComponent } from './career-alert/career-alert.component';
 import { CareerDetailComponent } from './career-detail/career-detail.component';
+import { CareerMapComponent } from './career-map/career-map.component';
 
 export const ROUTES: Routes = [
     {
@@ -39,6 +39,10 @@ export const ROUTES: Routes = [
             {
                 path: 'detail/:id',
                 component: CareerDetailComponent
+            },
+            {
+                path: 'map/:lat/:lng',
+                component: CareerMapComponent
             }
         ]
     },

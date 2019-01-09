@@ -6,9 +6,9 @@
   <div fxLayout="column" fxLayoutAlign="center start">
     <p *ngIf="company" class="company-name">{{company.name}}</p>
     <p fxLayout="row" fxLayout="start center" class="company-location">
-      <label *ngIf="company" [innerHtml]="company.address1 + '<br>' + company.address2"></label>
+      <label *ngIf="company">{{company.address1?company.address1:''}}<br>{{company.address2?company.address2:''}}</label>
       <span class="space"></span>
-      <img src="assets/images/career/location2.png">
+      <img src="assets/images/career/location2.png" (click)="onGoToMap()">
     </p>
   </div>
 </div>
@@ -57,7 +57,7 @@
           <p fxLayout="column" fxLayoutAlign="center center">
             <img *ngIf="company && company.ceoUrl" src="company.ceoUrl">
             <img *ngIf="company && !company.ceoUrl" src="assets/images/profile/icon_user_profile.png">
-            <label>{{company.ceo}}<br>CEO</label>
+            <label>{{company?company.ceo:''}}<br>CEO</label>
           </p>
         </div>
       </div>

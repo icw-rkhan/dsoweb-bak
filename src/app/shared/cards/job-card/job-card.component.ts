@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { Router, NavigationExtras } from '@angular/router';
+import { Router } from '@angular/router';
 
 import { Job } from '../../../models/job.model';
 import { JobService } from '../../../services/job.service';
@@ -51,12 +51,8 @@ export class JobCardComponent implements OnInit {
   }
 
   onGoToDetail() {
-    const params: NavigationExtras = {
-      queryParams: {isApplied: this.job.isApplied}
-    };
-
     if (!this.isBookmark) {
-      this.router.navigate([`/career/detail/${this.job.id}`], params);
+      this.router.navigate([`/career/detail/${this.job.id}`]);
     } else {
       this.isBookmark = false;
     }

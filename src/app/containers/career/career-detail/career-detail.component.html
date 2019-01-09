@@ -35,9 +35,9 @@
   </div>
   <div class="job-location">
     <p fxLayout="row" fxLayout="start center">
-      <label class="company-location" [innerHtml]="job.address1 + '<br>' + job.address2"></label>
+      <label class="company-location">{{job.address1?job.address1:''}}<br>{{job.address2?job.address2:''}}</label>
       <span class="space"></span>
-      <img src="assets/images/career/location2.png">
+      <img src="assets/images/career/location2.png" (click)="onGoToMap()">
     </p>
   </div>
 </div>
@@ -120,7 +120,7 @@
         <p fxLayout="column" fxLayoutAlign="center center">
           <img *ngIf="job.ceoUrl" src="job.ceoUrl">
           <img *ngIf="!job.ceoUrl" src="assets/images/profile/icon_user_profile.png">
-          <label>{{job.ceo}}<br>CEO</label>
+          <label>{{job?job.ceo:''}}<br>CEO</label>
         </p>
       </div>
     </div>

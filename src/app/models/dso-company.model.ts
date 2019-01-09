@@ -15,6 +15,7 @@ export class DSOCompany implements Serializable<DSOCompany> {
     address1: string;
     address2: string;
     zip_code: string;
+    position: any;
     description: string;
     reviewNum: number;
     recommendNum: number;
@@ -31,6 +32,7 @@ export class DSOCompany implements Serializable<DSOCompany> {
             state: data.state ? data.state : null,
             media: data.media ? data.media : null,
             rating: data.rating ? data.rating : null,
+            position: data.position ? data.position.coordinates : null,
             reviewNum: data.reviewNum ? data.reviewNum : 0,
             recommendNum: data.recommendNum ? data.recommendNum : 0,
             approveNum: data.approveNum ? data.approveNum : 0,

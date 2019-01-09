@@ -151,6 +151,12 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     }
   }
 
+  onGoToMap() {
+    if (this.job && this.job.position) {
+      this.router.navigate([`/career/map/${this.job.position[0]}/${this.job.position[1]}`]);
+    }
+  }
+
   onGoToJobScreen() {
     this.router.navigate(['/career/search']);
   }
