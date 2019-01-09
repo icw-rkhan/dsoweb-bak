@@ -39,7 +39,7 @@
               </ng-template>
             </div>
           </div>
-          <div *ngIf="allReviews && allReviews.length>0" class="review-count">{{allReviews.length}} reviews</div>
+          <div class="review-count">{{allReviews?allReviews.length:0}} reviews</div>
         </div>
         <div class="review-avatar" fxLayout="row" fxLayoutAlign="space-between center">
           <p fxLayout="column" fxLayoutAlign="center center">
