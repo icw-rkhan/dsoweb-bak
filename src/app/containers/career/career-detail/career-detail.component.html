@@ -132,4 +132,24 @@
     </mat-tab>
   </mat-tab-group>
 </section>
+<div *ngIf="type!==-1" class="resume-dialog" fxLayout="column" fxLayoutAlign="center center">
+  <div *ngIf="type!==0" fxLayout="column" fxLayoutAlign="center center">
+    <img *ngIf="type==1" src="assets/images/career/submit_resume.png">
+    <label *ngIf="type==1">Submitting your resume...</label>
+    <img *ngIf="type==2" src="assets/images/career/complete_resume.png">
+    <label *ngIf="type==2">Resume submitted.</label>
+  </div>
+  <div *ngIf="type==0" class="upload_resume" fxLayout="column" fxLayoutAlign="center center">
+    <button mat-icon-button (click)="type=-1">
+      <mat-icon>close</mat-icon>
+    </button>
+    <span class="upload-label">Add a resume to your profile</span>
+    <img src="assets/images/career/upload_resume.png">
+    <p fxLayout="column" fxLayoutAlign="center center">
+      Upload Resume
+      <input type="file" accept=".xls, .xlsx, .doc, .docx, .pdf" (change)="selectFile($event)" class="upload-hidden">
+    </p>
+    <span class="upload-message">Microsoft Word or PDF only (15MB)</span>
+  </div>
+</div>
 

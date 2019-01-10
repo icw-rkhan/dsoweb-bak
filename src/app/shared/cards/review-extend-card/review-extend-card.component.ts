@@ -18,11 +18,11 @@ export class ReviewExtendCardComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    if (this.review.isCurrentEmployee) {
+    if (this.review && this.review.isCurrentEmployee) {
       this.employeeIndicator = 'Current Employee';
     }
 
-    if (this.review.isFormerEmployee) {
+    if (this.review && this.review.isFormerEmployee) {
       this.employeeIndicator = 'Former Employee';
     }
   }

@@ -88,8 +88,13 @@ export class CareerProfileDetailComponent implements OnInit {
 
     if (count !== -1) {
       let index = count;
-      for (index = 0; index < 2; index++) {
-        this.reviews.push(this.allReviews[index]);
+
+      if (this.allReviews.length === 1) {
+        this.reviews.push(this.allReviews[0]);
+      } else {
+        for (index = 0; index < 2; index++) {
+          this.reviews.push(this.allReviews[index]);
+        }
       }
     } else {
       this.reviews = this.allReviews;

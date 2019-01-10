@@ -4,9 +4,11 @@ import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 
 import { Job } from '../../../models/job.model';
-import { JobService } from '../../../services/job.service';
 import { Review } from '../../../models/reivew.model';
+import { JobService } from '../../../services/job.service';
 import { CompanyService } from '../../../services/company.service';
+import { AuthService, ProfileService } from '../../../services';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'dso-career-detail',
@@ -17,6 +19,7 @@ import { CompanyService } from '../../../services/company.service';
 export class CareerDetailComponent implements OnInit, OnDestroy {
 
   id: string;
+  type: number;
   rating: number;
   isFixed: boolean;
   sharedUrl: string;
@@ -25,6 +28,12 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   job: Job;
   reviews: Review[];
   allReviews: Review[];
+
+  dialog_types = [
+    {id: 0, title: 'upload'},
+    {id: 1, title: 'submit'},
+    {id: 2, title: 'complete'}
+  ];
 
   rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
 
@@ -35,7 +44,10 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private jobService: JobService,
+    private authService: AuthService,
+    private profileService: ProfileService,
     private companyService: CompanyService) {
+      this.type = -1;
       this.rating = 0;
       this.isFixed = false;
       this.loadMoreBtn = 'See more';
@@ -97,34 +109,86 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   }
 
   onSave() {
-    this.progress.start();
-    this.jobService.saveJob(this.job.id).subscribe((res: any) => {
-      if (res.code === 0) {
-        this.jobService.bookmarkedJobs({'skip': 0, 'limit': 0}).subscribe(savedJobs => {
-          this.progress.complete();
+    const email = this.authService.getUserInfo().user_name;
+    this.profileService.findOneByEmail({email : email}).subscribe(res => {
+      const profile = res.resultMap.data;
 
+      if (profile.document_library) {
+        this.progress.start();
+
+        this.type = this.dialog_types[1].id;
+        this.saveJob();
+      } else {
+        this.type = this.dialog_types[0].id;
+      }
+    });
+  }
+
+  selectFile(file) {
+    this.progress.start();
+    this.type = this.dialog_types[1].id;
+
+    this.profileService.uploadResume(file.srcElement.files[0]).subscribe((event: any) => {
+      if (event instanceof HttpResponse) {
+        const res = event.body;
+
+        if (res['code'] === 0) {
+          this.saveJob();
+        }
+      }
+    });
+  }
+
+  saveJob() {
+    const subJob1 = this.jobService.saveJob(this.job.id).subscribe((res: any) => {
+      this.progress.complete();
+
+      if (res.code === 0) {
+        const subJob2 = this.jobService.bookmarkedJobs({'skip': 0, 'limit': 0}).subscribe(savedJobs => {
           savedJobs.map(job => {
             if (job.id === this.job.id) {
-              const subJob = this.jobService.deleteBookmark(job.savedId).subscribe((ress: any) => {
-                if (ress.code === 0) {
-                  this.job.isSaved = false;
-                  this.job.isApplied = true;
-                  this.cdr.markForCheck();
-                }
-
-                subJob.unsubscribe();
+              const subJob3 = this.jobService.deleteBookmark(job.savedId).subscribe((ress: any) => {
+                subJob3.unsubscribe();
+              },
+              err => {
+                this.handleError(err);
               });
             }
           });
+
+          subJob2.unsubscribe();
         },
         err => {
-          this.progress.complete();
+          this.handleError(err);
         });
+
+        this.job.isSaved = false;
+        this.job.isApplied = true;
+        this.cdr.markForCheck();
       }
+
+      this.type = this.dialog_types[2].id;
+      this.cdr.markForCheck();
+
+      setTimeout(() => {
+        this.type = -1;
+        this.cdr.markForCheck();
+      }, 2000);
+
+      subJob1.unsubscribe();
     },
     err => {
-      this.progress.complete();
+      this.handleError(err);
     });
+  }
+
+  handleError(err: string) {
+    this.progress.complete();
+    this.type = this.dialog_types[2].id;
+
+    setTimeout(() => {
+      this.type  = -1;
+    }, 1500);
   }
 
   onBookmark() {
@@ -168,8 +232,13 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
     if (count !== -1) {
       let index = count;
-      for (index = 0; index < 2; index++) {
-        this.reviews.push(this.allReviews[index]);
+
+      if (this.allReviews.length === 1) {
+        this.reviews.push(this.allReviews[0]);
+      } else {
+        for (index = 0; index < 2; index++) {
+          this.reviews.push(this.allReviews[index]);
+        }
       }
     } else {
       this.reviews = this.allReviews;
@@ -198,6 +267,10 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
       this.limitReviews(2);
     }
+  }
+
+  onClearDialog() {
+    this.type = -1;
   }
 
   onBack() {

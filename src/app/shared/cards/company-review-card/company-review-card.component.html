@@ -3,7 +3,7 @@
         <img [src]="company.logo">
     </div>
     <div class="space">
-        <div class="company-name">{{company.name}}</div>
+        <div class="company-name">{{company?company.name:''}}</div>
         <div fxLayout="row" fxLayoutAlign="start center">
             <div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
                 <div *ngFor="let rate of rateList; index as i">
@@ -12,10 +12,10 @@
                     <img src="assets/images/career/review-small-inactive.png" class="rate-star">
                     </ng-template>
                 </div>
-                <div *ngIf="type == 0" class="review-rating">{{ratingFormat(company.rating)}}</div>
+                <div *ngIf="type == 0" class="review-rating">{{ratingFormat(company?company.rating:'')}}</div>
             </div>
             <div *ngIf="type == 0" class="space"></div>
-            <div class="review-count">{{company.reviewNum}} Reviews</div>
+            <div class="review-count">{{company&&company.reviewNum?company.reviewNum:'0'}} Reviews</div>
         </div>
         <div *ngIf="type == 1 && company.city" class="company-location">{{company.city}}, {{company.state}}</div>
     </div>
