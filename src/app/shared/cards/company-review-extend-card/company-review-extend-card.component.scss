@@ -28,6 +28,7 @@ mat-card {
 
     .review-contents {
         margin-top: 15px;
+        position: relative;
 
         .review-type {
             color: #4a4a4a;
@@ -37,11 +38,13 @@ mat-card {
         }
     
         .review-text {
+            display: block;
             color: #9b9b9b;
             font-size: 12px;
             font-weight: 400;
             line-height: 17px;
-            margin-top: 5px
+            margin-top: 5px;
+            word-wrap: break-word;
         }
     }
 
@@ -67,8 +70,4 @@ mat-card {
 
 .space {
     flex: 1 1 auto;
-}
-
-p {
-    overflow-wrap: break-word;
 }
