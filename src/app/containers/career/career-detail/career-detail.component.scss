@@ -37,6 +37,12 @@ div {
 
     div {
         padding: 16px;
+
+        .log-new {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
     }
 
     .job-avatar {

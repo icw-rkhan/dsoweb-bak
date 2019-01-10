@@ -26,7 +26,8 @@
   </div>
   <div class="main-bar" fxLayout="column" fxLayoutAlign="start start">
     <img class="job-head" src="assets/images/career/head2.png">
-    <div fxLayout="row" fxLayoutAlign="start center">
+    <div fxLayout="row" fxLayoutAlign="start center" style="position: relative">
+        <img *ngIf="job.isApplied" class="log-new" src="assets/images/career/apply.png">
       <img class="job-avatar" [src]="job.logoURL">
       <p fxLayout="column" fxLayoutAlign="center start">
         <label class="job-title">{{job.jobTitle}}</label>
