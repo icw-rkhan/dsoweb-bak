@@ -100,7 +100,8 @@ export class AlertAddComponent implements OnInit, AfterViewInit {
     // load Places Autocomplete
     this.mapsAPILoader.load().then(() => {
       const autocomplete = new google.maps.places.Autocomplete(this.locationElementRef.nativeElement, {
-        types: ['geocode']
+        types: ['geocode'],
+        componentRestrictions: {country: 'us'}
       });
       autocomplete.addListener('place_changed', () => {
         this.ngZone.run(() => {

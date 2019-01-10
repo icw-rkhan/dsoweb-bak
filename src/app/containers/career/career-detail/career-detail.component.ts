@@ -18,6 +18,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   id: string;
   rating: number;
+  isFixed: boolean;
   sharedUrl: string;
   loadMoreBtn: string;
 
@@ -36,6 +37,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     private jobService: JobService,
     private companyService: CompanyService) {
       this.rating = 0;
+      this.isFixed = false;
       this.loadMoreBtn = 'See more';
 
       this.job = new Job();

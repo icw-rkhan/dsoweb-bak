@@ -1,3 +1,8 @@
+section {
+    height: calc(100vh - 45px);
+    overflow: auto;
+}
+
 div {
     background-color: #ffffff;
 }
@@ -5,6 +10,7 @@ div {
 .top-bar {
     width: 100%;
     height: 54px;
+    position: relative;
     background-color: #879aa8;
 
     p {
@@ -110,6 +116,8 @@ mat-tab-group {
     }
 
     ::ng-deep mat-tab-body {
+        max-height: calc(100vh - 93px);
+        overflow: auto;
         padding: 20px;
 
         p {

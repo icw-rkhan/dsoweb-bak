@@ -1,3 +1,8 @@
+section {
+    height: calc(100vh - 45px);
+    overflow: auto;
+}
+
 .company-avatar {
     img {
         width: 100%;
@@ -62,7 +67,8 @@ mat-tab-group {
     }
 
     ::ng-deep mat-tab-body {
-        
+        max-height: calc(100vh - 93px);
+        overflow: auto;
 
         .company-desc {
             color: #4a4a4a;

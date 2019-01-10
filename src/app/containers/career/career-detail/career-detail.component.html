@@ -1,132 +1,135 @@
-<div class="top-bar" fxLayout="row" fxLayoutAlign="center center">
-  <button mat-icon-button (click)="onBack()"><img src="assets/images/career/arrow_bottom.png"></button>
-  <p>
-    <button mat-icon-button (click)="onBookmark()">
-      <img *ngIf="!job.isSaved" src="assets/images/career/save2_inactive.png">
-      <img *ngIf="job.isSaved" src="assets/images/career/save2_active.png">
-    </button>
-    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-      <img src="assets/images/career/share.png">
-    </button>
-    <mat-menu #menu="matMenu" xPosition="before">
-      <div class="share-content">
-          <a url="{{sharedUrl}}" shareButton="facebook">
-              <img class="share-btn" src="assets/images/icons/icon-facebook.png">
-          </a>
-          <a url="{{sharedUrl}}" shareButton="twitter">
-              <img class="share-btn" src="assets/images/icons/icon-twitter.png">
-          </a>
-          <a url="{{sharedUrl}}" shareButton="linkedin">
-              <img class="share-btn" src="assets/images/icons/icon-linkediin.png">
-          </a>
-      </div>
-    </mat-menu>
-  </p>
-</div>
-<div class="main-bar" fxLayout="column" fxLayoutAlign="start start">
-  <img class="job-head" src="assets/images/career/head2.png">
-  <div fxLayout="row" fxLayoutAlign="start center">
-    <img class="job-avatar" [src]="job.logoURL">
-    <p fxLayout="column" fxLayoutAlign="center start">
-      <label class="job-title">{{job.jobTitle}}</label>
-      <label class="job-company">{{job.companyName}}</label>
-      <label class="job-salary">Est. Salary: <span>{{job.salaryStartingValue}} - {{job.salaryEndValue}}</span></label>
-    </p>
-  </div>
-  <div class="job-location">
-    <p fxLayout="row" fxLayout="start center">
-      <label class="company-location">{{job.address1?job.address1:''}}<br>{{job.address2?job.address2:''}}</label>
-      <span class="space"></span>
-      <img src="assets/images/career/location2.png" (click)="onGoToMap()">
-    </p>
-  </div>
-</div>
-<mat-tab-group #tabs mat-stretch-tabs>
-  <mat-tab label="DESCRIPTION">
-    <p class="job-type">Type: <span>{{job.type}}</span></p>
-    <p class="job-description">{{job.jobDescription}}</p>
+<section>
+  <div class="top-bar" fxLayout="row" fxLayoutAlign="center center">
+    <button mat-icon-button (click)="onBack()"><img src="assets/images/career/arrow_bottom.png"></button>
     <p>
-      <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
-      <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
+      <button mat-icon-button (click)="onBookmark()">
+        <img *ngIf="!job.isSaved" src="assets/images/career/save2_inactive.png">
+        <img *ngIf="job.isSaved" src="assets/images/career/save2_active.png">
+      </button>
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+        <img src="assets/images/career/share.png">
+      </button>
+      <mat-menu #menu="matMenu" xPosition="before">
+        <div class="share-content">
+            <a url="{{sharedUrl}}" shareButton="facebook">
+                <img class="share-btn" src="assets/images/icons/icon-facebook.png">
+            </a>
+            <a url="{{sharedUrl}}" shareButton="twitter">
+                <img class="share-btn" src="assets/images/icons/icon-twitter.png">
+            </a>
+            <a url="{{sharedUrl}}" shareButton="linkedin">
+                <img class="share-btn" src="assets/images/icons/icon-linkediin.png">
+            </a>
+        </div>
+      </mat-menu>
     </p>
-  </mat-tab>
-  <mat-tab label="COMPANY">
-    <div class="company-container">
-      <p>
-        <span>Website</span>
-        <span class="space"></span>
-        <span class="company-info" fxLayout="column" fxLayoutAlign="center end">
-          <label>http://</label>
-          <label>{{job.companyUrl}}</label>
-        </span>
-      </p>
-      <p>
-        <span>Year of Foundation</span>
-        <span class="space"></span>
-        <span class="company-info">{{job.foundation}}</span>
-      </p>
-      <p>
-        <span>No. of Employees</span>
-        <span class="space"></span>
-        <span class="company-info">{{job.employees}}</span>
-      </p>
-      <p>
-        <span>Stage</span>
-        <span class="space"></span>
-        <span class="company-info">{{job.stage}}</span>
-      </p>
-      <p>
-        <span>Contact Person</span>
-        <span class="space"></span>
-        <span class="company-info">{{job.person}}</span>
+  </div>
+  <div class="main-bar" fxLayout="column" fxLayoutAlign="start start">
+    <img class="job-head" src="assets/images/career/head2.png">
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <img class="job-avatar" [src]="job.logoURL">
+      <p fxLayout="column" fxLayoutAlign="center start">
+        <label class="job-title">{{job.jobTitle}}</label>
+        <label class="job-company">{{job.companyName}}</label>
+        <label class="job-salary">Est. Salary: <span>{{job.salaryStartingValue}} - {{job.salaryEndValue}}</span></label>
       </p>
     </div>
-    <div class="company-detail">
-      <p class="detail-label">Details</p>
-      <p class="detail-contents">{{job.companyDes}}.</p>
+    <div class="job-location">
+      <p fxLayout="row" fxLayout="start center">
+        <label class="company-location">{{job.address1?job.address1:''}}<br>{{job.address2?job.address2:''}}</label>
+        <span class="space"></span>
+        <img src="assets/images/career/location2.png" (click)="onGoToMap()">
+      </p>
+    </div>
+  </div>
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="DESCRIPTION">
+      <p class="job-type">Type: <span>{{job.type}}</span></p>
+      <p class="job-description">{{job.jobDescription}}</p>
       <p>
         <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
         <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
       </p>
-    </div>
-  </mat-tab>
-  <mat-tab label="REVIEWS">
-    <div class="review-status">
-      <div fxLayout="row" fxLayoutAlign="start center">
-        <div class="review-rating">{{ratingFormat(job.rating)}}</div>
-        <div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
-          <div *ngFor="let rate of rateList; index as i">
-            <img *ngIf="rating>i;else inactive" src="assets/images/career/review-active.png" class="rate-star">
-            <ng-template #inactive>
-            <img src="assets/images/career/review-inactive.png" class="rate-star">
-            </ng-template>
+    </mat-tab>
+    <mat-tab label="COMPANY">
+      <div class="company-container">
+        <p>
+          <span>Website</span>
+          <span class="space"></span>
+          <span class="company-info" fxLayout="column" fxLayoutAlign="center end">
+            <label>http://</label>
+            <label>{{job.companyUrl}}</label>
+          </span>
+        </p>
+        <p>
+          <span>Year of Foundation</span>
+          <span class="space"></span>
+          <span class="company-info">{{job.foundation}}</span>
+        </p>
+        <p>
+          <span>No. of Employees</span>
+          <span class="space"></span>
+          <span class="company-info">{{job.employees}}</span>
+        </p>
+        <p>
+          <span>Stage</span>
+          <span class="space"></span>
+          <span class="company-info">{{job.stage}}</span>
+        </p>
+        <p>
+          <span>Contact Person</span>
+          <span class="space"></span>
+          <span class="company-info">{{job.person}}</span>
+        </p>
+      </div>
+      <div class="company-detail">
+        <p class="detail-label">Details</p>
+        <p class="detail-contents">{{job.companyDes}}.</p>
+        <p>
+          <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
+          <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
+        </p>
+      </div>
+    </mat-tab>
+    <mat-tab label="REVIEWS">
+      <div class="review-status">
+        <div fxLayout="row" fxLayoutAlign="start center">
+          <div class="review-rating">{{ratingFormat(job.rating)}}</div>
+          <div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
+            <div *ngFor="let rate of rateList; index as i">
+              <img *ngIf="rating>i;else inactive" src="assets/images/career/review-active.png" class="rate-star">
+              <ng-template #inactive>
+              <img src="assets/images/career/review-inactive.png" class="rate-star">
+              </ng-template>
+            </div>
           </div>
+          <div class="review-count">{{allReviews?allReviews.length:0}} reviews</div>
         </div>
-        <div class="review-count">{{allReviews?allReviews.length:0}} reviews</div>
+        <div class="review-avatar" fxLayout="row" fxLayoutAlign="space-between center">
+          <p fxLayout="column" fxLayoutAlign="center center">
+            <circle-progress [radius]="34" [percent]="getPercentRecommend()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
+            <label>Recommend<br>to a friend</label>
+          </p>
+          <p fxLayout="column" fxLayoutAlign="center center">
+            <circle-progress class="approveProgress" [radius]="34" [percent]="getPercentApprove()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
+            <label>Approve<br>of CEO</label>
+          </p>
+          <p fxLayout="column" fxLayoutAlign="center center">
+            <img *ngIf="job.ceoUrl" src="job.ceoUrl">
+            <img *ngIf="!job.ceoUrl" src="assets/images/profile/icon_user_profile.png">
+            <label>{{job?job.ceo:''}}<br>CEO</label>
+          </p>
+        </div>
       </div>
-      <div class="review-avatar" fxLayout="row" fxLayoutAlign="space-between center">
-        <p fxLayout="column" fxLayoutAlign="center center">
-          <circle-progress [radius]="34" [percent]="getPercentRecommend()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
-          <label>Recommend<br>to a friend</label>
-        </p>
-        <p fxLayout="column" fxLayoutAlign="center center">
-          <circle-progress class="approveProgress" [radius]="34" [percent]="getPercentApprove()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
-          <label>Approve<br>of CEO</label>
-        </p>
-        <p fxLayout="column" fxLayoutAlign="center center">
-          <img *ngIf="job.ceoUrl" src="job.ceoUrl">
-          <img *ngIf="!job.ceoUrl" src="assets/images/profile/icon_user_profile.png">
-          <label>{{job?job.ceo:''}}<br>CEO</label>
-        </p>
+      <mat-divider></mat-divider>
+      <div>
+        <dso-review-extend-card [review]="review" *ngFor="let review of reviews"></dso-review-extend-card>
       </div>
-    </div>
-    <mat-divider></mat-divider>
-    <div>
-      <dso-review-extend-card [review]="review" *ngFor="let review of reviews"></dso-review-extend-card>
-    </div>
-    <div class="detail-footer" fxLayout="column" fxLayoutAlign="center center">
-      <button *ngIf="allReviews && allReviews.length>0" mat-button (click)="loadMore()">{{loadMoreBtn}}</button>
-      <button mat-raised-button (click)="onGoToAddReview(job.companyId)">Write review</button>
-    </div>
-  </mat-tab>
-</mat-tab-group>
+      <div class="detail-footer" fxLayout="column" fxLayoutAlign="center center">
+        <button *ngIf="allReviews && allReviews.length>0" mat-button (click)="loadMore()">{{loadMoreBtn}}</button>
+        <button mat-raised-button (click)="onGoToAddReview(job.companyId)">Write review</button>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</section>
+

@@ -1,70 +1,73 @@
-<div class="company-avatar">
-  <img src="assets/images/career/head3.png">
-</div>
-<div class="company-info" fxLayout="row" fxLayoutAlign="start center">
-  <img *ngIf="company" class="company-logo" [src]="company.logo">
-  <div fxLayout="column" fxLayoutAlign="center start">
-    <p *ngIf="company" class="company-name">{{company.name}}</p>
-    <p fxLayout="row" fxLayout="start center" class="company-location">
-      <label *ngIf="company">{{company.address1?company.address1:''}}<br>{{company.address2?company.address2:''}}</label>
-      <span class="space"></span>
-      <img src="assets/images/career/location2.png" (click)="onGoToMap()">
-    </p>
-  </div>
-</div>
-<mat-tab-group mat-stretch-tabs>
-  <mat-tab label="DESCRIPTION">
-    <P *ngIf="company" class="company-desc">{{company.description}}</P>
-  </mat-tab>
-  <mat-tab label="JOBS">
-    <div class="jobs-count">{{jobs? jobs.length : 0}} Jobs</div>
-    <mat-divider></mat-divider>
-    <div id="contents" *ngIf="jobs && jobs.length !== 0">
-        <div *ngFor="let job of jobs">
-            <dso-job-card [job]="job"></dso-job-card>
-        </div>
-    </div>
-  </mat-tab>
-  <mat-tab label="REVIEWS">
-    <div class="review-container">
 
-      <div class="review-status">
-        <div fxLayout="row" fxLayoutAlign="start center">
-          <div class="review-rating">{{company? ratingFormat(company.rating) : 0}}</div>
-          <div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
-            <div *ngFor="let rate of rateList; index as i">
-              <img *ngIf="rating>i;else inactive" src="assets/images/career/review-active.png" class="rate-star">
-              <ng-template #inactive>
-              <img src="assets/images/career/review-inactive.png" class="rate-star">
-              </ng-template>
-            </div>
-          </div>
-          <div class="review-count">{{allReviews?allReviews.length:0}} reviews</div>
-        </div>
-        <div class="review-avatar" fxLayout="row" fxLayoutAlign="space-between center">
-          <p fxLayout="column" fxLayoutAlign="center center">
-            <circle-progress [radius]="34" [percent]="getPercentRecommend()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
-            <label>Recommend<br>to a friend</label>
-          </p>
-          <p fxLayout="column" fxLayoutAlign="center center">
-            <circle-progress class="approveProgress" [radius]="34" [percent]="getPercentApprove()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
-            <label>Approve<br>of CEO</label>
-          </p>
-          <p fxLayout="column" fxLayoutAlign="center center">
-            <img *ngIf="company && company.ceoUrl" src="company.ceoUrl">
-            <img *ngIf="company && !company.ceoUrl" src="assets/images/profile/icon_user_profile.png">
-            <label>{{company?company.ceo:''}}<br>CEO</label>
-          </p>
-        </div>
-      </div>
-      <mat-divider></mat-divider>
-      <div>
-        <dso-review-extend-card [review]="review" *ngFor="let review of reviews"></dso-review-extend-card>
-      </div>
-      <div class="detail-footer" fxLayout="column" fxLayoutAlign="center center">
-        <button *ngIf="allReviews && allReviews.length>0" mat-button (click)="loadMore()">{{loadMoreBtn}}</button>
-        <button mat-raised-button (click)="onGoToAddReview(company.id)">Write review</button>
-      </div>
+<section>
+  <div class="company-avatar">
+    <img src="assets/images/career/head3.png">
+  </div>
+  <div class="company-info" fxLayout="row" fxLayoutAlign="start center">
+    <img *ngIf="company" class="company-logo" [src]="company.logo">
+    <div fxLayout="column" fxLayoutAlign="center start">
+      <p *ngIf="company" class="company-name">{{company.name}}</p>
+      <p fxLayout="row" fxLayout="start center" class="company-location">
+        <label *ngIf="company">{{company.address1?company.address1:''}}<br>{{company.address2?company.address2:''}}</label>
+        <span class="space"></span>
+        <img src="assets/images/career/location2.png" (click)="onGoToMap()">
+      </p>
     </div>
-  </mat-tab>
-</mat-tab-group>
+  </div>
+  <mat-tab-group mat-stretch-tabs>
+    <mat-tab label="DESCRIPTION">
+      <P *ngIf="company" class="company-desc">{{company.description}}</P>
+    </mat-tab>
+    <mat-tab label="JOBS">
+      <div class="jobs-count">{{jobs? jobs.length : 0}} Jobs</div>
+      <mat-divider></mat-divider>
+      <div id="contents" *ngIf="jobs && jobs.length !== 0">
+          <div *ngFor="let job of jobs">
+              <dso-job-card [job]="job"></dso-job-card>
+          </div>
+      </div>
+    </mat-tab>
+    <mat-tab label="REVIEWS">
+      <div class="review-container">
+  
+        <div class="review-status">
+          <div fxLayout="row" fxLayoutAlign="start center">
+            <div class="review-rating">{{company? ratingFormat(company.rating) : 0}}</div>
+            <div class="ratebar" fxLayout="row" fxLayoutAlign="start center">
+              <div *ngFor="let rate of rateList; index as i">
+                <img *ngIf="rating>i;else inactive" src="assets/images/career/review-active.png" class="rate-star">
+                <ng-template #inactive>
+                <img src="assets/images/career/review-inactive.png" class="rate-star">
+                </ng-template>
+              </div>
+            </div>
+            <div class="review-count">{{allReviews?allReviews.length:0}} reviews</div>
+          </div>
+          <div class="review-avatar" fxLayout="row" fxLayoutAlign="space-between center">
+            <p fxLayout="column" fxLayoutAlign="center center">
+              <circle-progress [radius]="34" [percent]="getPercentRecommend()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
+              <label>Recommend<br>to a friend</label>
+            </p>
+            <p fxLayout="column" fxLayoutAlign="center center">
+              <circle-progress class="approveProgress" [radius]="34" [percent]="getPercentApprove()" [showSubtitle]="false" [unitsFontSize]="20"></circle-progress>
+              <label>Approve<br>of CEO</label>
+            </p>
+            <p fxLayout="column" fxLayoutAlign="center center">
+              <img *ngIf="company && company.ceoUrl" src="company.ceoUrl">
+              <img *ngIf="company && !company.ceoUrl" src="assets/images/profile/icon_user_profile.png">
+              <label>{{company?company.ceo:''}}<br>CEO</label>
+            </p>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div>
+          <dso-review-extend-card [review]="review" *ngFor="let review of reviews"></dso-review-extend-card>
+        </div>
+        <div class="detail-footer" fxLayout="column" fxLayoutAlign="center center">
+          <button *ngIf="allReviews && allReviews.length>0" mat-button (click)="loadMore()">{{loadMoreBtn}}</button>
+          <button mat-raised-button (click)="onGoToAddReview(company.id)">Write review</button>
+        </div>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+</section>
