@@ -22,6 +22,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   type: number;
   rating: number;
   isFixed: boolean;
+  userProfile: any;
   sharedUrl: string;
   loadMoreBtn: string;
 
@@ -47,7 +48,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private profileService: ProfileService,
     private companyService: CompanyService) {
-      this.type = -1;
+      this.type = 0;
       this.rating = 0;
       this.isFixed = false;
       this.loadMoreBtn = 'See more';
@@ -111,9 +112,9 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   onSave() {
     const email = this.authService.getUserInfo().user_name;
     this.profileService.findOneByEmail({email : email}).subscribe(res => {
-      const profile = res.resultMap.data;
+      this.userProfile = res.resultMap.data;
 
-      if (profile.document_library) {
+      if (this.userProfile.document_library) {
         this.progress.start();
 
         this.type = this.dialog_types[1].id;
@@ -132,7 +133,19 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
       if (event instanceof HttpResponse) {
         const res = event.body;
 
+        console.log(this.userProfile);
+
         if (res['code'] === 0) {
+          this.userProfile.document_library = {
+            document_name: res['resultMap']['resumeName']
+          };
+
+          console.log(this.userProfile);
+
+          this.profileService.saveProfile(this.userProfile).subscribe((res2: any) => {
+            console.log(res2);
+          });
+
           this.saveJob();
         }
       }
