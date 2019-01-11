@@ -134,7 +134,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     this.progress.start();
     this.type = this.dialog_types[1].id;
 
-    this.profileService.uploadResume(file.srcElement.files[0]).subscribe((event: any) => {
+    const subPro = this.profileService.uploadResume(file.srcElement.files[0]).subscribe((event: any) => {
       if (event instanceof HttpResponse) {
         const res = event.body;
 
@@ -143,13 +143,17 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
             document_name: res['resultMap']['resumeName']
           };
 
-          this.profileService.saveProfile(this.userProfile).subscribe((res2: any) => {
+          const subProfile = this.profileService.saveProfile(this.userProfile).subscribe((res2: any) => {
             console.log(res2);
+
+            subProfile.unsubscribe();
           });
 
           this.saveJob();
         }
       }
+
+      subPro.unsubscribe();
     });
   }
 
