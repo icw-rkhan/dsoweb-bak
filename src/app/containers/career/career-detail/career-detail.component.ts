@@ -118,9 +118,14 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
         this.progress.start();
 
         this.type = this.dialog_types[1].id;
+
+        this.cdr.markForCheck();
+
         this.saveJob();
       } else {
         this.type = this.dialog_types[0].id;
+
+        this.cdr.markForCheck();
       }
     });
   }
