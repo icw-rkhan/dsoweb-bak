@@ -144,16 +144,16 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
           };
 
           const subProfile = this.profileService.saveProfile(this.userProfile).subscribe((res2: any) => {
-            console.log(res2);
+            if (res2.code === 0) {
+              this.saveJob();
+            }
 
             subProfile.unsubscribe();
           });
-
-          this.saveJob();
         }
-      }
 
-      subPro.unsubscribe();
+        subPro.unsubscribe();
+      }
     });
   }
 
