@@ -149,11 +149,17 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
             }
 
             subProfile.unsubscribe();
+          },
+          err => {
+            this.handleError(err);
           });
         }
 
         subPro.unsubscribe();
       }
+    },
+    err => {
+      this.handleError(err);
     });
   }
 
@@ -201,6 +207,8 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   }
 
   handleError(err: string) {
+    console.log(err);
+
     this.progress.complete();
     this.type = this.dialog_types[2].id;
 
