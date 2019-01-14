@@ -27,7 +27,7 @@ export class JobCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.dayBetween = this.daysBetween(new Date(this.job.publishDate), new Date());
+    this.dayBetween = this.daysBetween(new Date(this.job.publishDate), new Date(new Date().toDateString()));
     if (this.dayBetween === 0) {
       this.days = 'Today';
     } else {

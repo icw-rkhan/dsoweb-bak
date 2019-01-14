@@ -156,7 +156,6 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   clear() {
-    this.page = 0;
     this.term = '';
     this.location = '';
     this.distance = '';

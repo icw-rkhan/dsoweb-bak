@@ -91,7 +91,7 @@ export class Job implements Serializable<Job> {
             reviewNum: data.jobPO ? data.jobPO.dso.reviewNum : data.dso.reviewNum,
             recommendNum: data.jobPO ? data.jobPO.dso.recommendNum : data.dso.recommendNum,
             approveNum: data.jobPO ? data.jobPO.dso.approveNum : data.dso.approveNum,
-            publishDate: this.dateFormat(data.jobPO ? data.jobPO.publishEnd.toString() : data.publishEnd.toString())
+            publishDate: this.dateFormat(data.jobPO ? data.jobPO.publishOn.toString() : data.publishOn.toString())
         });
     }
 }
