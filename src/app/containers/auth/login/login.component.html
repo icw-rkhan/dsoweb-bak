@@ -17,7 +17,7 @@
         <h2 class="form-title">Log In</h2>
         <form [formGroup]="form">
           <div class="form-group">
-            <input formControlName="username" class="form-control" type="text" placeholder="Email address"
+            <input formControlName="username" class="form-control" type="email" placeholder="Email address"
                   autocorrect="off" autocapitalize="off" spellcheck="off"/>
             <div *ngIf="username.invalid && (username.dirty || username.touched)">
               <div class="invalid-input" *ngIf="username.errors.required">The email can't be blank.</div>
