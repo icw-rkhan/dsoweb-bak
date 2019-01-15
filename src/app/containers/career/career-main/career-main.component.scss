@@ -55,9 +55,9 @@ mat-grid-tile:nth-child(4), mat-grid-tile:nth-child(3) {
     background-size: cover;
     background-position: center center;
     background-repeat: no-repeat;
-    height: 100vh;
+    height: calc(100vh - 45px);
     position: fixed;
-    top: 0;
+    top: 45;
     left: 0;
     z-index: 100;
 }
