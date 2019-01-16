@@ -36,10 +36,9 @@
       </p>
     </div>
     <div class="job-location">
-      <p fxLayout="row" fxLayout="start center" (click)="onGoToMap()">
+      <p fxLayout="row" fxLayoutAlign="space-between center" (click)="onGoToMap()">
         <label class="company-location">{{job.address1?job.address1:''}} {{job.address2?job.address2:''}}<br>
           {{job.city}}, {{job.state}} {{job.zipCode}}</label>
-        <span class="space"></span>
         <img src="assets/images/career/location2.png">
       </p>
     </div>
