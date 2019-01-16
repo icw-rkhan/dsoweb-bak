@@ -28,7 +28,7 @@ export class NavLinksService {
     this.links.push({
       label: 'Education',
       icon: 'education',
-      route: '#',
+      route: '/education',
       state: 'inactive'
     });
     this.links.push({
@@ -40,7 +40,7 @@ export class NavLinksService {
     this.links.push({
       label: 'Events',
       icon: 'events',
-      route: '#',
+      route: '/events',
       state: 'inactive'
     });
     this.links.push({

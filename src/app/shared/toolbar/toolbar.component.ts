@@ -117,6 +117,10 @@ export class ToolbarComponent implements OnInit, OnDestroy {
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/unite')) {
             this.title = 'ALL ISSUES';
+          } else if (event.url.includes('/education')) {
+            this.title = 'EDUCATION';
+          } else if (event.url.includes('/event')) {
+            this.title = 'EVENTS';
           } else if (event.url.includes('/posts')) {
             this.title = 'DSODENTIST';
           } else if (event.url.includes('/bookmarks')) {

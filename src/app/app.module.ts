@@ -20,6 +20,8 @@ import { ProfileModule } from './containers/profile/profile.module';
 import { EditProfileModule } from './containers/edit-profile/edit-profile.module';
 import { UnitePageModule } from './containers/unite/unite-page.module';
 import { CareerModule } from './containers/career/career.module';
+import { EducationModule } from './containers/education/education.module';
+import { EventModule } from './containers/event/event.module';
 
 import { AuthGuard } from './services/auth/auth-guard';
 import { environment } from '../environments/environment';
@@ -36,7 +38,7 @@ export class HammerConfig extends HammerGestureConfig {
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +64,8 @@ export class HammerConfig extends HammerGestureConfig {
     EditProfileModule,
     UnitePageModule,
     CareerModule,
+    EducationModule,
+    EventModule,
     AppRoutingModule,
     MatDatepickerModule,
     GoTopButtonModule
