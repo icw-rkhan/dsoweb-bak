@@ -19,7 +19,7 @@ export class Job implements Serializable<Job> {
     address2: string;
     city: string;
     state: string;
-    zipCode: boolean;
+    zipCode: string;
     location: string;
     position: any;
     paid: boolean;

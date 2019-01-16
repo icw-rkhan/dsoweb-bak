@@ -37,7 +37,7 @@
     </div>
     <div class="job-location">
       <p fxLayout="row" fxLayout="start center" (click)="onGoToMap()">
-        <label class="company-location">{{job.address1?job.address1:''}}<br>{{job.address2?job.address2:''}}</label>
+        <label class="company-location">{{job.address1?job.address1:''}}<br>{{job.city}}, {{job.state}} {{job.zipCode}}</label>
         <span class="space"></span>
         <img src="assets/images/career/location2.png">
       </p>
