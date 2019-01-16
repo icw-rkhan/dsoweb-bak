@@ -8,7 +8,8 @@
     <div fxLayout="column" fxLayoutAlign="center start">
       <p *ngIf="company" class="company-name">{{company.name}}</p>
       <p fxLayout="row" fxLayout="start center" class="company-location" (click)="onGoToMap()">
-        <label *ngIf="company">{{company.address1?company.address1:''}}<br>{{company.city}}, {{company.state}} {{company.zipCode}}</label>
+        <label *ngIf="company">{{company.address1?company.address1:''}} {{company.address2?company.address2:''}}<br>
+            {{company.city}}, {{company.state}} {{company.zipCode}}</label>
         <span class="space"></span>
         <img src="assets/images/career/location2.png">
       </p>
