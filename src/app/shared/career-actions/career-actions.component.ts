@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 
 import { NavLinkModel } from '../../models/nav-link.model';
@@ -10,7 +10,7 @@ import { NavLinksService } from '../../services/links.service';
   styleUrls: ['./career-actions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerActionsComponent implements OnInit {
+export class CareerActionsComponent implements OnInit, OnDestroy {
 
   flag: boolean;
   showNavBar = false;
@@ -44,7 +44,19 @@ export class CareerActionsComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    window.addEventListener('scroll', this.onScrollEvent, true);
+  }
+
+  ngOnDestroy() {
+    window.removeEventListener('scroll', this.onScrollEvent, true);
+  }
+
+  onScrollEvent = (): void => {
+    if (this.links[4].state === 'active') {
+      this.onGoTo(4);
+    }
+  }
 
   onGoTo(i: number) {
     this.clear();

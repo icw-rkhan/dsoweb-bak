@@ -39,6 +39,9 @@
         <dso-job-extend-card *ngIf="job.paid || job.isSponsor" [job]="job"></dso-job-extend-card>
     </div>
 </div>
+<button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn}" (click)="gotoTop()">
+  <i class="fa fa-arrow-up"></i>
+</button>
 <div *ngIf="jobs && jobs.length == 0" class="no-content" fxLayout="column" fxLayoutAlign="center center">
   <img *ngIf="type!=='criteria'" src="assets/images/career/no_available_job.png">
   <p *ngIf="type!=='criteria'" class="no-message">No available jobs at the moment</p>
