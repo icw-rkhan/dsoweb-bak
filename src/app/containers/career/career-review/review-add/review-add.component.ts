@@ -40,9 +40,9 @@ export class ReviewAddComponent implements OnInit {
     this.pros = '';
     this.cons = '';
     this.advice = '';
-    this.isCheckedCE = true;
+    this.isCheckedCE = false;
     this.isCheckedFE = false;
-    this.isCheckedRC = true;
+    this.isCheckedRC = false;
     this.isCheckedAC = false;
 
     this.route.params.subscribe(params => {
