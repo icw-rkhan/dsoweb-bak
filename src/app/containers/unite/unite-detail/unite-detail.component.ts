@@ -1,10 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy,
-        ChangeDetectorRef,
-        OnDestroy} from '@angular/core';
-import { forkJoin } from 'rxjs';
+        ChangeDetectorRef, OnDestroy} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 import { map } from 'rxjs/internal/operators';
+import { forkJoin } from 'rxjs';
 import * as _ from 'lodash';
 
 import { Post } from '../../../models/post.model';
@@ -21,6 +20,7 @@ import { AuthService } from '../../../services';
 })
 export class UniteDetailComponent implements OnInit, OnDestroy {
 
+  type: string;
   article: Post;
   articles: Post[];
 
@@ -43,6 +43,7 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
 
     this.route.params.subscribe(params => {
       const id = params['id'];
+      this.type = params['type'];
       const issueId = params['issueId'];
 
       const postService = this.uniteService.findOneById(issueId);
@@ -65,6 +66,17 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
         }))
       ).subscribe(posts => {
         this.progress.complete();
+
+        const bookmarkedArr = [];
+        if (this.type === 'bookmark') {
+          posts.map(item => {
+            if (item.isBookmark) {
+              bookmarkedArr.push(item);
+            }
+          });
+
+          posts = bookmarkedArr;
+        }
 
         let index = 0;
         posts.map(post => {
@@ -119,5 +131,18 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
         clearInterval(timer);
       }
     }, 0);
+  }
+
+  removeBookmarkedItem(bookmarkId: string) {
+    if (this.type === 'bookmark') {
+      this.articles.map(item => {
+        if (item.bookmarkId === bookmarkId) {
+          const index = this.articles.indexOf(item);
+          this.articles.splice(index, 1);
+
+          this.cdr.markForCheck();
+        }
+      });
+    }
   }
 }

@@ -2,8 +2,14 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewChecke
          ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
+import { map } from 'rxjs/internal/operators';
+import { forkJoin } from 'rxjs';
+import * as _ from 'lodash';
 
+import { BookmarkService } from '../../../services/bookmark.service';
 import { UniteService } from '../../../services/unite.service';
+import { AuthService } from '../../../services';
+
 import { Post } from '../../../models/post.model';
 
 @Component({
@@ -28,7 +34,9 @@ export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
     private progress: NgProgress,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private uniteService: UniteService) {
+    private authService: AuthService,
+    private uniteService: UniteService,
+    private bookmarkService: BookmarkService) {
       this.coverPage = new Post();
       this.coverPage.title = 'cover';
       this.coverPage.thumbnail = 'assets/images/unite/cover-page.png';
@@ -39,7 +47,25 @@ export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.route.params.subscribe(params => {
       this.id = params['id'];
 
-      const uniteSub = this.uniteService.findOneById(this.id).subscribe(posts => {
+      const postService = this.uniteService.findOneById(this.id);
+
+      // get user email
+      const email = this.authService.getUserInfo().user_name;
+
+      // Join bookmarks and post
+      const uniteSub = forkJoin(
+        postService,
+        this.bookmarkService.getAllByEmail(email)
+      ).pipe(
+        map(items => items[0].map(p => {
+          const bookmark = items[1].find(b => b.postId === p.id);
+
+          return Object.assign({}, p, {
+            isBookmark: !_.isUndefined(bookmark),
+            bookmarkId: !_.isUndefined(bookmark) ? bookmark.postId : undefined
+          });
+        }))
+      ).subscribe(posts => {
         this.progress.complete();
 
         this.posts = posts;

@@ -36,7 +36,11 @@ export class ArticleCardComponent implements OnInit {
 
   onUniteDetail(id: string) {
     if (id) {
-      this.router.navigate([`/unite/detail/${this.issueId}/${id}`]);
+      if (this.isBookmark) {
+        this.router.navigate([`/unite/bookmark/detail/${this.issueId}/${id}`]);
+      } else {
+        this.router.navigate([`/unite/thumbnail/detail/${this.issueId}/${id}`]);
+      }
     }
   }
 

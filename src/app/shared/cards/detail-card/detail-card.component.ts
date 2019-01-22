@@ -19,7 +19,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
   @Input() article: Post;
   @Input() index: number;
 
-  @Output() scrollEvent = new EventEmitter();
+  @Output() removeBookmarkedItem = new EventEmitter<String>();
 
   id: string;
   isAD: boolean;
@@ -133,6 +133,8 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
         this.snackBar.open('Bookmark removed', 'OK', {
           duration: 2000,
         });
+
+        this.removeBookmarkedItem.emit(id);
       } else {
         this.article.isBookmark = true;
 

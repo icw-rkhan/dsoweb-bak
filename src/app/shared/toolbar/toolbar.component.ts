@@ -171,7 +171,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   fetchIssueId(url: string) {
     const arr = url.split('/');
 
-    if (arr.length > 3) {
+    if (arr.length > 4) {
+      this.issueId = arr[4];
+    } else if (arr.length > 3) {
       this.issueId = arr[3];
     } else {
       this.issueId = '';
@@ -196,6 +198,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     }
     this.isSearch = false;
     url = `${url}/${this.issueId}`;
+
     this.router.navigate([url]);
   }
 

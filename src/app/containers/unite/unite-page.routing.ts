@@ -37,7 +37,7 @@ export const ROUTES: Routes = [
                 component: UniteDetailComponent
             },
             {
-                path: 'detail/:issueId/:id',
+                path: ':type/detail/:issueId/:id',
                 component: UniteDetailComponent
             },
             {
