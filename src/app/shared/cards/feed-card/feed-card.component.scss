@@ -133,7 +133,7 @@ mat-card {
 }
 
 .excerpt-content {
-  max-height: 130px;
+  height: 135px;
   overflow: hidden;
 }
 
@@ -150,6 +150,7 @@ p.first::first-letter {
   background-color: white;
   bottom: 0;
   letter-spacing: 1px;
+  line-height: 25px;
   right: 0px;
   font-size: 15px;
   font-weight: 600;
