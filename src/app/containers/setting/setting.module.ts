@@ -9,6 +9,8 @@ import { SettingMainComponent } from './setting-main/setting-main.component';
 import { SettingAboutComponent } from './setting-about/setting-about.component';
 import { SettingSupportComponent } from './setting-support/setting-support.component';
 import { SettingPasswordComponent } from './setting-password/setting-password.component';
+import { SettingHelpComponent } from './setting-help/setting-help.component';
+import { SettingContactComponent } from './setting-contact/setting-contact.component';
 
 @NgModule({
   imports: [
@@ -21,7 +23,9 @@ import { SettingPasswordComponent } from './setting-password/setting-password.co
     SettingMainComponent,
     SettingAboutComponent,
     SettingSupportComponent,
-    SettingPasswordComponent
+    SettingPasswordComponent,
+    SettingHelpComponent,
+    SettingContactComponent
   ]
 })
 export class SettingModule { }

@@ -1,3 +1,8 @@
-<p>
-  setting-support works!
-</p>
+<div *ngFor="let link of links" fxLayout="column" fxLayoutAlign="center start" (click)="onGoTo(link.url)">
+  <p fxLayout="row" fxLayoutAlign="start center">
+    <label>{{link.title}}</label>
+    <span class="space"></span>
+    <img src="assets/images/profile/arrow-right.png">
+  </p>
+  <mat-divider></mat-divider>
+</div>
