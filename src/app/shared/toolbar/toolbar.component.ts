@@ -106,6 +106,18 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           } else if (event.url.includes('/career/search') || event.url.includes('/career/detail')) {
             this.title = 'JOBS';
             this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/setting/about')) {
+            this.title = 'ABOUT';
+            this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/setting/support')) {
+            this.title = 'FEEDBACK AND SUPPORT';
+            this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/setting/password')) {
+            this.title = 'CHANGE PASSWORD';
+            this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/setting')) {
+            this.title = 'SETTINGS';
+            this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career')) {
             this.title = 'CAREER';
           } else if (event.url.includes('/search')) {

@@ -14,7 +14,7 @@ export class MainContainerComponent {
   constructor(private router: Router) {
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
-        if (event.url.includes('/unite')) {
+        if (event.url.includes('/unite') || event.url.includes('/setting')) {
           this.displayMainActions = false;
         } else {
           this.displayMainActions = true;

@@ -1,0 +1,20 @@
+div {
+    background-color: #fafbfd;
+    padding: 15px 17px;
+
+    label {
+        color: #000000;
+        font-size: 15px;
+        font-weight: 400;
+        margin-left: 11px;
+    }
+
+    .space {
+        flex: 1 1 auto;
+    }
+
+    .margin {
+        margin-left: 4px;
+        margin-right: 2px;
+    }
+}

@@ -56,6 +56,12 @@ export class NavLinksService {
       state: 'inactive'
     });
     this.links.push({
+      label: 'Settings',
+      icon: 'setting',
+      route: '/setting',
+      state: 'inactive'
+    });
+    this.links.push({
       label: 'Logout',
       icon: 'logout',
       route: '',
@@ -66,7 +72,7 @@ export class NavLinksService {
   makeUniteMainLinks() {
     this.uniteMainLinks.push({
       label: 'Go to Bookmarks',
-      icon: 'assets/images/unite/arrow-right.png',
+      icon: 'assets/images/profile/arrow-right.png',
       route: '/unite/bookmark',
       state: 'active'
     });
@@ -96,7 +102,7 @@ export class NavLinksService {
 
     this.uniteMoreLinks.push({
       label: 'Go to Bookmarks',
-      icon: 'assets/images/unite/arrow-right.png',
+      icon: 'assets/images/profile/arrow-right.png',
       route: '/unite/bookmark',
       state: 'active'
     });
