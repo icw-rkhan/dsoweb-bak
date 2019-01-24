@@ -10,19 +10,19 @@ export class SettingMainComponent implements OnInit {
 
   settings = [
     {
-      'title': 'Feedback and support',
-      'icon': 'feedback',
-      'url': 'setting/support'
+      title: 'Feedback and support',
+      icon: 'feedback',
+      url: 'setting/support'
     },
     {
-      'title': 'About',
-      'icon': 'about',
-      'url': 'setting/about'
+      title: 'About',
+      icon: 'about',
+      url: 'setting/about'
     },
     {
-      'title': 'Change password',
-      'icon': 'lock',
-      'url': 'setting/password'
+      title: 'Change password',
+      icon: 'lock',
+      url: 'setting/password'
     }
   ];
 

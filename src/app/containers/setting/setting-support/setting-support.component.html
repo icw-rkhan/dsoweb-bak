@@ -1,4 +1,4 @@
-<div *ngFor="let link of links" fxLayout="column" fxLayoutAlign="center start" (click)="onGoTo(link.url)">
+<div *ngFor="let link of links" (click)="onGoTo(link.url)">
   <p fxLayout="row" fxLayoutAlign="start center">
     <label>{{link.title}}</label>
     <span class="space"></span>
