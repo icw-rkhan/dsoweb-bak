@@ -262,7 +262,8 @@ mat-tab-group {
     }
 
     ::ng-deep .mat-tab-label:nth-child(2) {
-        border: 1px solid #d1d0d0;
+        border-left: 1px solid #d1d0d0;
+        border-right: 1px solid #d1d0d0;
     }
 
     ::ng-deep .mat-tab-label {

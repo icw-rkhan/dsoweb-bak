@@ -1,0 +1,35 @@
+mat-tab-group {
+    background-color: #ffffff;
+
+    ::ng-deep .mat-tab-header-pagination {
+        display: none;
+    }
+
+    ::ng-deep .mat-tab-label-content {
+        color: #1b1b1b;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'SFUI';
+    }
+
+    ::ng-deep mat-tab-body {
+        height: calc(100vh - 93px);
+        overflow: auto;
+        padding: 19px 14px;
+
+        p {
+            color: #879aa8;
+            font-size: 13px;
+            font-weight: 400px;
+            line-height: 17px;
+
+            strong {
+                font-family: 'SFUI';
+            }
+        }
+    }
+
+    ::ng-deep .mat-tab-label:nth-child(2) {
+        border-left: 1px solid #d1d0d0;
+    }
+}
