@@ -452,6 +452,9 @@ export class EditProfileComponent implements OnInit {
         downloadLink.click();
         document.body.removeChild(downloadLink);
       }
+    },
+    err => {
+      this.sharingService.showLoading(false);
     });
   }
 
