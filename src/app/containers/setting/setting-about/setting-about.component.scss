@@ -23,7 +23,11 @@ mat-tab-group {
             font-weight: 400px;
             line-height: 17px;
 
-            strong {
+            label {
+                text-decoration: underline;
+            }
+
+            strong, label {
                 font-family: 'SFUI';
             }
         }
