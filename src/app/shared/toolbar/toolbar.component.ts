@@ -52,7 +52,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           if (event.url.includes('/posts/sponsor')) {
             this.title = 'SPONSORED CONTENT';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/review/add')) {
+          } else if (event.url.includes('/reviews/add')) {
               this.title = 'ADD A REVIEW';
               this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/reviews/view')) {

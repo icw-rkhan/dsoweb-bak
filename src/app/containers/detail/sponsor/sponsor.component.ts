@@ -431,7 +431,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   // post the page to add reivew with postId
   onAddReview(postId, title, date): void {
-    this.router.navigate([`/review/add/${postId}/${title}/${date}`]);
+    this.router.navigate([`/reviews/add/${postId}/${title}/${date}`]);
   }
 
   // add bookmark
