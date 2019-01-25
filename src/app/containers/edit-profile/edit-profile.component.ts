@@ -407,6 +407,10 @@ export class EditProfileComponent implements OnInit {
       this.sharingService.showLoading(true);
       this.isUploadFile = true;
       this.sharingService.showLoading(false);
+
+      const size = file.srcElement.files[0].size / 1024 / 1024;
+      console.log(size);
+
       this.imageChangedEvent = file;
       if (file.srcElement && file.srcElement.files[0]) {
         this.fileName = file.srcElement.files[0].name;
@@ -463,8 +467,10 @@ export class EditProfileComponent implements OnInit {
   }
 
   imageCroppedFile(file: any) {
+    const f = new File([file], this.fileName);
+
     // upload avatar
-    this.profileService.uploadAvatar(new File([file], this.fileName)).subscribe((res) => {
+    this.profileService.uploadAvatar(f).subscribe((res) => {
       if (res['code'] === 0) {
         this.userProfile.photo_album = {
           photo_name: res['resultMap']['photoName']
