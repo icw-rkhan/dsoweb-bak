@@ -12,7 +12,7 @@
       [posts]="posts" 
       (addBookmark)="addBookmark($event)"
       (removeBookmark)="removeBookmark($event)"
-      [noFoundMessage]="'Search by category name, author, or content type'">
+      [noFoundMessage]="isNothing?no_message:message">
   </dso-feed-grid>
   </div>
 </dso-main-container>

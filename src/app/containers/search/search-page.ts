@@ -19,7 +19,11 @@ import { Bookmark } from '../../models/bookmark.model';
 export class SearchPageComponent implements OnInit {
 
   posts: Post[];
+
+  isNothing: boolean;
   term: string;
+  message: string;
+  no_message: string;
 
   constructor(
     private progress: NgProgress,
@@ -27,6 +31,9 @@ export class SearchPageComponent implements OnInit {
     private authService: AuthService,
     private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar) {
+      this.isNothing = false;
+      this.message = 'Search by category name, author, or content type';
+      this.no_message = 'No content found matching search terms';
   }
 
   ngOnInit(): void {
@@ -62,10 +69,15 @@ export class SearchPageComponent implements OnInit {
     ).subscribe(posts => {
       this.posts = posts;
 
+      if (this.posts.length === 0) {
+        this.isNothing = true;
+      }
+
       this.progress.complete();
       postSub.unsubscribe();
     },
     err => {
+      this.isNothing = true;
       this.progress.complete();
     });
   }
