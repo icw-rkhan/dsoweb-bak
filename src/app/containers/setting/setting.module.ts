@@ -10,7 +10,6 @@ import { SettingAboutComponent } from './setting-about/setting-about.component';
 import { SettingSupportComponent } from './setting-support/setting-support.component';
 import { SettingPasswordComponent } from './setting-password/setting-password.component';
 import { SettingHelpComponent } from './setting-help/setting-help.component';
-import { SettingContactComponent } from './setting-contact/setting-contact.component';
 
 @NgModule({
   imports: [
@@ -24,8 +23,7 @@ import { SettingContactComponent } from './setting-contact/setting-contact.compo
     SettingAboutComponent,
     SettingSupportComponent,
     SettingPasswordComponent,
-    SettingHelpComponent,
-    SettingContactComponent
+    SettingHelpComponent
   ]
 })
 export class SettingModule { }

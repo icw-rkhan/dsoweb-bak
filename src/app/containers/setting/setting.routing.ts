@@ -9,7 +9,6 @@ import { SettingAboutComponent } from './setting-about/setting-about.component';
 import { SettingSupportComponent } from './setting-support/setting-support.component';
 import { SettingPasswordComponent } from './setting-password/setting-password.component';
 import { SettingHelpComponent } from './setting-help/setting-help.component';
-import { SettingContactComponent } from './setting-contact/setting-contact.component';
 
 const routes: Routes = [
     {
@@ -32,10 +31,6 @@ const routes: Routes = [
             {
                 path: 'support/help',
                 component: SettingHelpComponent,
-            },
-            {
-                path: 'support/contact',
-                component: SettingContactComponent,
             },
             {
                 path: 'password',

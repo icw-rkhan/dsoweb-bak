@@ -22,7 +22,8 @@ import { UnitePageModule } from './containers/unite/unite-page.module';
 import { CareerModule } from './containers/career/career.module';
 import { EducationModule } from './containers/education/education.module';
 import { EventModule } from './containers/event/event.module';
-import { SettingModule } from './containers/setting/setting.module'; 
+import { SettingModule } from './containers/setting/setting.module';
+import { SettingContactModule } from './containers/setting/setting-contact/setting-contact.module';
 
 import { AuthGuard } from './services/auth/auth-guard';
 import { environment } from '../environments/environment';
@@ -68,6 +69,7 @@ export class HammerConfig extends HammerGestureConfig {
     EducationModule,
     EventModule,
     SettingModule,
+    SettingContactModule,
     AppRoutingModule,
     MatDatepickerModule,
     GoTopButtonModule

@@ -1,3 +1,28 @@
-<p>
-  setting-contact works!
-</p>
+<div class="contact-title">
+  CONTACT US
+  <button mat-icon-button (click)="onBack()">
+    <img src="assets/images/icons/close-icon.png">
+  </button>
+</div>
+<mat-divider></mat-divider>
+<div class="contact-question">Have a question for us?</div>
+<mat-divider></mat-divider>
+<div class="contact-email">
+  <p class="label">Your email address</p>
+  <p class="email">{{email}}</p>
+</div>
+<mat-divider></mat-divider>
+<div class="contact-comment">
+  <p>Write your question or comment</p>
+  <textarea></textarea>
+</div>
+<mat-divider></mat-divider>
+<div class="contact-attachment" fxLayout="row" fxLayoutAlign="start center">
+  <img src="assets/images/icons/camera.png">
+  <label>Add an attachment</label>
+</div>
+<mat-divider></mat-divider>
+<div class="contact-footer">
+  <p><label>We will do our best to get back<br>to you in less than 24 hrs.</label></p>
+  <p><button mat-flat-button (click)="saveComment()">Send message</button></p>
+</div>
