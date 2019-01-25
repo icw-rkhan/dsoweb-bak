@@ -1,13 +1,15 @@
 <dso-main-container>
   <div content="container">
-    <form name="searchForm" (ngSubmit)="searchForm.form.valid && onSearch()" #searchForm="ngForm" class="search-form"
-          novalidate>
-      <mat-form-field appearance="outline">
-        <input matInput name="term" [(ngModel)]="term" placeholder="Search">
-        <mat-icon matSuffix>search</mat-icon>
-      </mat-form-field>
-      <button mat-button color="primary">Search</button>
-    </form>
+    <div fxLayout="row" fxLayoutAlign="start center" class="search-form">
+      <form name="searchForm" (ngSubmit)="searchForm.form.valid && onSearch()" #searchForm="ngForm"
+        novalidate>
+        <mat-form-field appearance="outline">
+          <input matInput name="term" [(ngModel)]="term" placeholder="Search content" autofocus>
+          <mat-icon matSuffix>search</mat-icon>
+        </mat-form-field>
+      </form>
+      <button mat-button color="primary" (click)="onCancel()">Cancel</button>
+    </div>
     <dso-feed-grid 
       [posts]="posts" 
       (addBookmark)="addBookmark($event)"

@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/internal/operators';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 import { AuthService } from '../../services';
@@ -18,6 +18,7 @@ import { Bookmark } from '../../models/bookmark.model';
 })
 export class SearchPageComponent implements OnInit {
 
+  subPost: Subscription;
   posts: Post[];
 
   isNothing: boolean;
@@ -32,7 +33,7 @@ export class SearchPageComponent implements OnInit {
     private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar) {
       this.isNothing = false;
-      this.message = 'Search by category name, author, or content type';
+      this.message = 'Search by category, author, or content type';
       this.no_message = 'No content found matching search terms';
   }
 
@@ -54,7 +55,7 @@ export class SearchPageComponent implements OnInit {
     const email = this.authService.getUserInfo().user_name;
 
     // Join bookmarks and post
-    const postSub = forkJoin(
+    this.subPost = forkJoin(
       postService,
       this.bookmarkService.getAllByEmail(email)
     ).pipe(
@@ -74,12 +75,26 @@ export class SearchPageComponent implements OnInit {
       }
 
       this.progress.complete();
-      postSub.unsubscribe();
+      this.subPost.unsubscribe();
     },
     err => {
       this.isNothing = true;
       this.progress.complete();
     });
+  }
+
+  onCancel() {
+    this.term = '';
+    this.isNothing = false;
+
+    if (this.subPost) {
+      this.subPost.unsubscribe();
+    }
+
+    this.progress.complete();
+    setTimeout(() => {
+      this.posts = [];
+    }, 100);
   }
 
   addBookmark(value: Bookmark) {
