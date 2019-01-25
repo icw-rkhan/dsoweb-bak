@@ -64,7 +64,7 @@
         <div class="profile__icon upload-icon"></div>
         <div *ngIf="!this.resumeFile" class="profile__content_info">
           <div class="profile_info">
-            <div class="profile_subtitle">Upload Resume</div>
+            <div class="profile_subtitle">Add a resume to your profile - PDF or Microsoft Word only</div>
             <div class="profile-job">
               Your professional information will be imported automatically.
               <input type="file" accept=".xls,.xlsx,.doc,.docx, .pdf" (change)="typeFile = RESUME_FILE; selectFile($event)"
