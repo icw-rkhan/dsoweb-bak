@@ -126,6 +126,10 @@ export class FeedCardComponent implements OnInit {
     this.router.navigate([`/posts/sponsor/${sponsorId}`]);
   }
 
+  onGoTo(categoryId: string) {
+    this.router.navigate([`/category/${categoryId}`]);
+  }
+
   // fetch an author/speaker's name
   fetchAuthorInfo() {
     const excerpt = this.post.excerpt.replace(/(<p[^>]*>\(.*?\).*?<\/p>)/gs, '');

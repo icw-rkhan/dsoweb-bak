@@ -12,6 +12,7 @@ import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
 import { BookmarkService } from '../../services/bookmark.service';
 import { AuthService } from '../../services';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   templateUrl: './category-page.html',
@@ -19,23 +20,29 @@ import { AuthService } from '../../services';
 })
 export class CategoryPageComponent implements OnInit {
 
-  categories$: Category[];
-  posts: Post[];
-  sponsorId: number;
-  isFetching: boolean;
-  categoryId: number;
   page: number;
+  sponsorId: number;
+  categoryId: number;
+  isFetching: boolean;
 
-  private postSub: Subscription;
-  private paramsSub: Subscription;
-  private typeId: number;
+  posts: Post[];
+  categories$: Category[];
 
   constructor(
+    private route: ActivatedRoute,
     private categoryService: CategoryService, private postService: PostService,
     private progress: NgProgress, private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar, private authService: AuthService) {
       this.isFetching = true;
       this.page = 0;
+
+      this.route.params.subscribe(params => {
+        this.categoryId = params['id'];
+
+        if (this.categoryId) {
+          this.fetchPost();
+        }
+      });
   }
 
   ngOnInit(): void {

@@ -2,7 +2,7 @@
   <div content="container">
     <div class="search-form">
       <mat-form-field>
-        <mat-select placeholder="Category" (selectionChange)="selectCategory($event)">
+        <mat-select placeholder="Category" [(ngModel)]="categoryId" (selectionChange)="selectCategory($event)">
           <mat-option *ngFor="let category of categories$" [value]="category?.id">
             {{category?.name}}
           </mat-option>

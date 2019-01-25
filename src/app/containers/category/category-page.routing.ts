@@ -10,6 +10,11 @@ export const ROUTES: Routes = [
     canActivate: [AuthGuard],
     component: CategoryPageComponent
   },
+  {
+    path: 'category/:id',
+    canActivate: [AuthGuard],
+    component: CategoryPageComponent
+  },
 ];
 
 @NgModule({

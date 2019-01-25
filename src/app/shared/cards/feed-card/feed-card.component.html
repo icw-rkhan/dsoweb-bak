@@ -1,6 +1,6 @@
 <mat-card>
   <div class="header">
-    <h3 class="mat-h3">{{post.categoryName}}</h3>
+    <h3 class="mat-h3" (click)="onGoTo(post.categoryId)">{{post.categoryName}}</h3>
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>
