@@ -59,15 +59,13 @@
     </section>
 
     <section class="profile_Education">
-      <div class="profile_title small f300">Upload resume or import data</div>
+      <div class="profile_title small f300">Upload resume</div>
       <div class="profile__content" *ngIf="!this.resumeFile">
         <div class="profile__icon upload-icon"></div>
         <div *ngIf="!this.resumeFile" class="profile__content_info">
           <div class="profile_info">
             <div class="profile_subtitle">Add a resume to your profile - PDF or Microsoft Word only</div>
-            <div class="profile-job">
-              Your professional information will be imported automatically.
-              <input type="file" accept=".doc,.docx,.pdf" (change)="typeFile = RESUME_FILE; selectFile($event)"
+            <div class="profile-job"><input type="file" accept=".doc,.docx,.pdf" (change)="typeFile = RESUME_FILE; selectFile($event)"
               class="upload-hidden">
             </div>
           </div>
