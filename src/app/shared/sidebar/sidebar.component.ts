@@ -18,7 +18,7 @@ export class SidebarComponent {
   @Output() toggleMenu = new EventEmitter();
 
   userName: string;
-  userspecialtyName: string;
+  userLocation: string;
   userPhoto: string;
   baseUrl: String;
 
@@ -74,7 +74,9 @@ export class SidebarComponent {
       (data: any) => {
         const res = data.resultMap.data;
         this.userName = res.full_name;
-        this.userspecialtyName = res.specialty ? res.specialty.name : '';
+        if (res.practiceAddress && res.practiceAddress.city && res.practiceAddress.states) {
+          this.userLocation = res.practiceAddress.city + ', ' + res.practiceAddress.states;
+        }
         this.userPhoto = res.photo_url;
 
         this.cdr.markForCheck();
