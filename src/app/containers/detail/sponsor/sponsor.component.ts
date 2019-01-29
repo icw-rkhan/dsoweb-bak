@@ -424,6 +424,10 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
   }
 
+  feedsByAuthor() {
+    this.router.navigate([`/detail/author/${this.post.authorId}`]);
+  }
+
   // post the page to review all comments with postId
   onViewAll(postId): void {
     this.router.navigate([`/reviews/view/${postId}`]);

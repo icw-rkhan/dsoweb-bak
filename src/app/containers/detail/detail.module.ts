@@ -10,6 +10,7 @@ import { DetailComponent } from './detail.component';
 import { CommonComponent } from './common/common.component';
 import { SponsorComponent } from './sponsor/sponsor.component';
 import { RelativeComponent } from './relative/relative.component';
+import { FeedsByAuthorComponent } from './feeds-by-author/feeds-by-author.component';
 
 @NgModule({
     imports: [
@@ -23,7 +24,8 @@ import { RelativeComponent } from './relative/relative.component';
         DetailComponent,
         CommonComponent,
         SponsorComponent,
-        RelativeComponent
+        RelativeComponent,
+        FeedsByAuthorComponent
     ],
 })
 

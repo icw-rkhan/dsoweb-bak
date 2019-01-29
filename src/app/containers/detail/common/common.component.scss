@@ -30,6 +30,11 @@ section {
     height: auto;
     position: relative;
 
+    img {
+        width: 100%;
+        height: auto;
+    }
+
     .type-icon {
         width: 40px;
         position: absolute;
@@ -131,8 +136,6 @@ section {
         margin-top: 12px;
     }
 }
-
-
 
 .author {
     margin-left: 19px;

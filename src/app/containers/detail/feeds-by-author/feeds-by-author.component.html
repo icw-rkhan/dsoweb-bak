@@ -1,0 +1,28 @@
+<div class="author" #authorContent [class.author-container]="isAuthorVisible" fxLayout="row" fxLayoutAlign="start center" (click)="feedsByAuthor()">
+  <div class="author-area" fxLayout="row" fxLayoutAlign="start center" *ngIf="authorName && authorName.indexOf('DSODentist') > -1">
+    <img src="assets/images/icons/logo-color.png">
+  </div>
+  <div class="author-area" fxLayout="row" fxLayoutAlign="start center" *ngIf="authorName && authorName.indexOf('DSODentist') === -1">
+    <div class="author-avatar" fxLayout="row" fxLayoutAlign="start center">
+      <img [src]="authorAvatar" *ngIf="authorAvatar" class="round-avatar">
+    </div>
+    <div class="author-details" fxLayout="column" fxLayoutAlign="center start">
+      <p class="author-name">
+        {{authorName}}
+      </p>
+      <p *ngIf="authorInfo" class="author-info">
+        {{authorInfo}}
+      </p>
+    </div>
+  </div>
+</div>
+<div>
+  <dso-feed-grid
+    [posts]="posts"
+    [sponsorId]="sponsorId"
+    [loading]="isFetching"
+    (addBookmark)="addBookmark($event)"
+    (removeBookmark)="removeBookmark($event)"
+    (loadMore)="loadMore($event)">
+  </dso-feed-grid>
+</div>

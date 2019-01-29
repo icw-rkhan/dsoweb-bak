@@ -5,6 +5,7 @@ import {AuthGuard} from '../../services/auth/auth-guard';
 import { CommonComponent } from './common/common.component';
 import { SponsorComponent } from './sponsor/sponsor.component';
 import { RelativeComponent } from './relative/relative.component';
+import { FeedsByAuthorComponent } from './feeds-by-author/feeds-by-author.component';
 
 export const ROUTES: Routes = [
     {
@@ -23,7 +24,11 @@ export const ROUTES: Routes = [
         {
           path: 'sponsor/:id/:y/:m/:d/:title',
           component: RelativeComponent,
-        }
+        },
+        {
+          path: 'author/:id',
+          component: FeedsByAuthorComponent,
+        },
       ]
     },
   ];

@@ -45,7 +45,7 @@
             </mat-menu>
         </div>
     </div>
-    <div class="author" #authorContent [class.author-container]="isAuthorVisible" fxLayout="row" fxLayoutAlign="start center">
+    <div class="author" #authorContent [class.author-container]="isAuthorVisible" fxLayout="row" fxLayoutAlign="start center" (click)="feedsByAuthor()">
         <div class="author-area" fxLayout="row" fxLayoutAlign="start center" *ngIf="authorName && authorName.indexOf('DSODentist') > -1">
             <span>By</span><img src="assets/images/icons/logo-color.png">
         </div>
@@ -55,7 +55,7 @@
             </div>
             <div class="author-details" fxLayout="column" fxLayoutAlign="center start">
                 <p class="author-name">
-                {{authorName}}
+                    {{authorName}}
                 </p>
                 <p *ngIf="authorInfo" class="author-info">
                     {{authorInfo}}

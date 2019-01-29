@@ -87,4 +87,5 @@ export class PostArgs {
   type?: number;
   categoryId?: number;
   sponsorId?: number;
+  authorId?: string;
 }

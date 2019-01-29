@@ -18,6 +18,11 @@ section {
     height: auto;
     position: relative;
 
+    img {
+        width: 100%;
+        height: auto;
+    }
+
     .type-icon {
         width: 40px;
         position: absolute;

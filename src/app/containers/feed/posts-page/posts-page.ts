@@ -2,15 +2,16 @@ import { Component, OnDestroy, OnInit, ChangeDetectionStrategy, ChangeDetectorRe
 import { forkJoin, Subscription, Observable } from 'rxjs';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/internal/operators';
 import { MatSnackBar } from '@angular/material';
+import { map } from 'rxjs/internal/operators';
 import * as _ from 'lodash';
 
-import { PostService } from '../../../services/post.service';
-import { Post } from '../../../models/post.model';
-import { AuthService } from '../../../services';
-import { BookmarkService } from '../../../services/bookmark.service';
 import { Bookmark } from '../../../models/bookmark.model';
+import { Post } from '../../../models/post.model';
+
+import { BookmarkService } from '../../../services/bookmark.service';
+import { PostService } from '../../../services/post.service';
+import { AuthService } from '../../../services';
 
 @Component({
   templateUrl: './posts-page.html',
@@ -31,12 +32,12 @@ export class PostsPageComponent implements OnInit, OnDestroy {
 
   constructor(
     private progress: NgProgress,
+    private snackBar: MatSnackBar,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
     private postService: PostService,
-    private bookmarkService: BookmarkService,
-    private snackBar: MatSnackBar) {
+    private bookmarkService: BookmarkService) {
       this.isFeatured = false;
       this.isFetching = true;
       this.pageNum = 0;

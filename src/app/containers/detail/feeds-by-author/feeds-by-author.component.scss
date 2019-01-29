@@ -1,0 +1,54 @@
+.author {
+    margin-left: 19px;
+    width: calc(100% - 19px);
+
+    .author-area {
+        span {
+            color: #4a4a4a;
+            font-family: "SFUI";
+            font-size: 18px;
+            font-weight: 600;
+            padding-right: 10px;
+        }
+
+        img {
+            width: auto;
+            height: 22px;
+        }
+
+        .author-avatar {
+    
+            .round-avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                margin-right: 10px;
+            }
+        }
+
+        .author-details {
+            width: calc(100vw - 100px);
+            padding-right: 5px;
+
+            .author-name {
+                color: #4a4a4a;
+                font-family: "SFUI";
+                font-size: 15px;
+                font-weight: 600;
+            }
+    
+            .author-info {
+                color: #9b9b9b;
+                font-size: 15px;
+                font-weight: 400;
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+::ng-deep .cdk-overlay-pane {
+    .mat-snack-bar-container {
+      border-radius: 0;
+    }
+}

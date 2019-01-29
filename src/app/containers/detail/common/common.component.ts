@@ -342,6 +342,10 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.activeAuthorLayout();
   }
 
+  feedsByAuthor() {
+    this.router.navigate([`/detail/author/${this.post.authorId}`]);
+  }
+
   onClickReference() {
     const reference = this.postContent.nativeElement.getElementsByTagName('ol')[0];
     if (reference.classList.contains('show-more')) {
