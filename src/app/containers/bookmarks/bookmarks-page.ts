@@ -17,6 +17,7 @@ import { FilterDialogStatus } from '../../enums/filter-dialog-status';
 })
 export class BookmarksPageComponent implements OnInit, OnDestroy {
 
+  originPosts: Post[];
   posts: Post[];
 
   private bookmarkSub: Subscription;
@@ -37,10 +38,14 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
     const dialogSub = dialogRef.afterClosed().pipe(
       filter(result => result !== undefined)
     ).subscribe(result => {
-      if (FilterDialogStatus.Clear === result) {
-        this.fetchBookmarks();
+      if (FilterDialogStatus.Clear !== result) {
+        if (result.filterType === 'category') {
+          this.posts = this.originPosts.filter(post => post.categoryId === result.value);
+        } else {
+          this.posts = this.originPosts.filter(post => post.contentTypeId === result.value);
+        }
       } else {
-        this.fetchBookmarks(result);
+        this.posts = this.originPosts;
       }
 
       dialogSub.unsubscribe();
@@ -89,6 +94,7 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
             }
             if (bookmarks.length === ++bookmarksLength) {
               this.posts = posts;
+              this.originPosts = posts;
             }
 
             this.progress.complete();

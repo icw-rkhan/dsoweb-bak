@@ -7,8 +7,8 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <mat-form-field *ngIf="false">
-    <mat-select placeholder="Content Type">
+  <mat-form-field>
+    <mat-select placeholder="Content Type" [(ngModel)]="contentTypeId">
       <mat-option *ngFor="let type of contentTypes" [value]="type.id">
         {{type.name}}
       </mat-option>

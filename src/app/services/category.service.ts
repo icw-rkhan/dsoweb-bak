@@ -4,8 +4,8 @@ import { map, shareReplay } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
 
 import { AuthService } from './auth/auth.service';
-
 import { Category } from '../models/category.model';
+import { ContentType } from '../models/content-type.model';
 
 import { environment } from '../../environments/environment';
 
@@ -43,6 +43,18 @@ export class CategoryService {
     }
 
     return this.categories$;
+  }
+
+  getAllContentTypes(): Observable<ContentType[]> {
+    const url = `${environment.cmsAPIUrl}/category/findAllContentType`;
+
+    const headers = this.getHeaders();
+
+    return this.http.post(url, null, {headers}).pipe(
+      map((response: any) =>
+        response.resultMap.data.map(contentType => new ContentType().deserialize(contentType))
+      )
+    );
   }
 
   getHeaders(): HttpHeaders {
