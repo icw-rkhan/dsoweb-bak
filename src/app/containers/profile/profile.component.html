@@ -145,4 +145,5 @@
   </div>
 </dso-main-container>
 
-<dso-pdf-viewer *ngIf="isResumePreview" [src]="resumePreviewUrl" [title]="resumeFile?.name" (close)="isResumePreview = false"></dso-pdf-viewer>
+<dso-pdf-viewer *ngIf="isResumePreview && resumeType=='PDF'" [src]="resumePreviewUrl" [title]="resumeFile?.name" (close)="isResumePreview = false"></dso-pdf-viewer>
+<dso-doc-viewer *ngIf="isResumePreview && resumeType!=='PDF'" [src]="resumePreviewUrl" [title]="resumeFile?.name" (close)="isResumePreview = false"></dso-doc-viewer>

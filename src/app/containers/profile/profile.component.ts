@@ -14,6 +14,7 @@ import { environment } from '../../../environments/environment';
 })
 export class ProfileComponent implements OnInit {
 
+  resumeType: string;
   is_student: number;
   userInfo: any;
   userProfile: any;
@@ -92,26 +93,22 @@ export class ProfileComponent implements OnInit {
   }
 
   previewResume() {
+    let blob: any;
     this.sharingService.showLoading(true);
     const fileType = this.resumeFile.name.split('.').pop();
     this.profileService.getResume(this.userProfile.resume_url).subscribe((res: any) => {
       this.sharingService.showLoading(false);
-      if (fileType && fileType.toString().toUpperCase() === 'PDF') {
-        const blob = new Blob([res], {type: 'application/pdf'}),
-            url = window.URL.createObjectURL(blob);
-        this.resumePreviewUrl = url;
-        this.isResumePreview = true;
-      } else {
-        const blob = new Blob([res], {type: 'octet/stream'}),
-            url = window.URL.createObjectURL(blob);
-        const downloadLink = document.createElement('a');
-        downloadLink.href = url;
-        downloadLink.download = this.resumeFile.name;
 
-        document.body.appendChild(downloadLink);
-        downloadLink.click();
-        document.body.removeChild(downloadLink);
+      this.resumeType = fileType.toString().toUpperCase();
+      if (this.resumeType === 'PDF') {
+        blob = new Blob([res], {type: 'application/pdf'});
+      } else if (this.resumeType === 'DOC') {
+        blob = new Blob([res], {type: 'application/msword'});
+      } else if (this.resumeType === 'DOCX') {
+        blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
       }
+      this.resumePreviewUrl = window.URL.createObjectURL(blob);
+      this.isResumePreview = true;
     });
   }
 

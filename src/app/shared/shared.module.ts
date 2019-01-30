@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
-import { OverlayModule, Overlay } from '@angular/cdk/overlay';
+import { OverlayModule } from '@angular/cdk/overlay';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {
   MatButtonModule,
@@ -28,8 +28,7 @@ import {
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule,
-  MAT_MENU_SCROLL_STRATEGY,
+  MatTooltipModule
 } from '@angular/material';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { ShareModule } from '@ngx-share/core';
@@ -62,12 +61,11 @@ import { ReviewExtendCardComponent } from './cards/review-extend-card/review-ext
 import { CompanyReviewExtendCardComponent } from './cards/company-review-extend-card/company-review-extend-card.component';
 import { AlertCardComponent } from './cards/alert-card/alert-card.component';
 import { CareerContainerComponent } from './career-container/career-container.component';
+import { DocViewerComponent } from './doc-viewer/doc-viewer.component';
 
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafePipe } from '../pipes/safe.pipe';
 import { SavedPipe } from '../pipes/save.pipe';
-
-import { MAT_MENU_SCROLL_STRATEGY_FACTORY } from './scroll';
 
 const PIPES = [
   SafePipe,
@@ -86,6 +84,7 @@ export const COMPONENTS = [
   CompanyReviewExtendCardComponent,
   JobCardComponent,
   PdfViewerComponent,
+  DocViewerComponent,
   MainActionsComponent,
   FeedGridComponent,
   TermPolicyDialogComponent,
@@ -149,7 +148,7 @@ export const MODULES = [
   ],
   declarations: [
     ...COMPONENTS,
-    ...PIPES,
+    ...PIPES
   ],
   exports: [
     ...MODULES,

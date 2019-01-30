@@ -102,7 +102,7 @@ export class ProfileService {
     const url = `${environment.profileApiUrl}/resumeDownload?${partialUrl}`;
     // const headers = new HttpHeaders()
     //    .set('Content-Type', 'application/octet-stream');
-    return this.http.get(url, { responseType: 'blob' });
+    return this.http.get(url, { responseType: 'arraybuffer' });
   }
 
   deleteDocumentLibraryByEmail(email) {
