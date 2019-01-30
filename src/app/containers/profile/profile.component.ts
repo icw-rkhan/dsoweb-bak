@@ -107,6 +107,7 @@ export class ProfileComponent implements OnInit {
       } else if (this.resumeType === 'DOCX') {
         blob = new Blob([res], {type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'});
       }
+
       this.resumePreviewUrl = window.URL.createObjectURL(blob);
       this.isResumePreview = true;
     });

@@ -206,24 +206,6 @@ section {
     font-size:15px;
 }
 
-.actions {
-    .menu-btn {
-        margin-left: 5px;
-
-        img {
-            margin-top: 10px;
-        }
-    }
-
-    .bookmark-btn {
-        color: #879aa8;
-    }
-
-    .mat-icon {
-        margin-top: 8px;
-    }
-}
-
 .share-btn {
     width: 35px;
     height: auto;
@@ -336,6 +318,48 @@ div {
 
     ul {
         list-style-type: inherit
+    }
+}
+
+.footer {
+    margin-top: 20px;
+    border-top: solid 1px #dddddd;
+    padding: 10px 0px;
+
+    .contents-ctrl {
+        flex: auto;
+
+        button {
+            color: #879aa8;
+            font-size: 13px;
+            font-family: 'SFUI';
+            font-weight: 600;
+            padding: 0px;
+        }
+
+        .disable {
+            opacity: 0.5;
+        }
+    }
+
+    .actions {
+        padding-right: 19px;
+
+        .menu-btn {
+            margin-left: 5px;
+    
+            img {
+                margin-top: 3px;
+            }
+        }
+    
+        .bookmark-btn {
+            color: #879aa8;
+        }
+    
+        .mat-icon {
+            margin-top: 3px;
+        }
     }
 }
 

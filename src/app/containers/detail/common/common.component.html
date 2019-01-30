@@ -102,8 +102,12 @@
     <div fxLayout ="column">
         <dso-review-card [comment]="comment" *ngFor="let comment of comments | slice:0:3"></dso-review-card>
     </div>
-    <div class="inner-content" fxLayout="row">
-        <div class="actions" fxFlex="100" fxLayoutAlign="end start">
+    <div class="inner-content footer" fxLayout="row">
+        <div fxLayout="row" fxLayoutAlign="space-between center" class="contents-ctrl">
+            <button mat-button [class.disable]="isDisabledPrev" [disabled]="isDisabledPrev">Previous</button>
+            <button mat-button [class.disable]="isDisabledNext" [disabled]="isDisabledNext">Next</button>
+        </div>
+        <div class="actions" fxLayout="row" fxLayoutAlign="start center">
             <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.isBookmark">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
             </a>

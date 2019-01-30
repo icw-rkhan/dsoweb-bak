@@ -34,6 +34,8 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   isRendered: boolean;
   authorAvatar: string;
   review_count: number;
+  isDisabledPrev: boolean;
+  isDisabledNext: boolean;
   showReference: boolean;
   isAuthorVisible: boolean;
   showReferenceState: string;
@@ -69,6 +71,8 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.rate = 0;
     this.isLoaded = false;
     this.isRendered = false;
+    this.isDisabledPrev = false;
+    this.isDisabledNext = false;
     this.review_count = 0;
     this.isAuthorVisible = false;
     this.showReferenceState = 'Show more';

@@ -19,7 +19,6 @@ export class DocViewerComponent implements OnInit {
 
   ngOnInit() {
     this.srcPath = this.sanitizer.bypassSecurityTrustResourceUrl(`https://docs.google.com/gview?url=${this.src}&embedded=true`);
-    console.log(this.srcPath);
   }
 
   onClickEvent() {
