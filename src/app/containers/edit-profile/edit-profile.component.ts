@@ -404,13 +404,14 @@ export class EditProfileComponent implements OnInit {
         this.alertService.errorAlert('Upload Failed');
       });
     } else {
-      this.sharingService.showLoading(true);
-      this.isUploadFile = true;
-      this.sharingService.showLoading(false);
-
       const size = file.srcElement.files[0].size / 1024 / 1024;
-      console.log(size);
 
+      if (size > 5) {
+        this.alertService.errorAlert('The size of the image should be less than 5MB');
+        return;
+      }
+
+      this.isUploadFile = true;
       this.imageChangedEvent = file;
       if (file.srcElement && file.srcElement.files[0]) {
         this.fileName = file.srcElement.files[0].name;
