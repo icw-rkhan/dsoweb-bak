@@ -380,6 +380,10 @@ div {
             padding: 0px;
         }
 
+        button:focus {
+            outline: none;
+        }
+
         .disable {
             opacity: 0.5;
         }

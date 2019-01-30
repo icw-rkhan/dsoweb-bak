@@ -27,8 +27,11 @@ import { environment } from '../../../../environments/environment';
 export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   post: Post;
+  posts: Post[];
+
   rate: number;
   adId: string;
+  index: number;
   postId: string;
   sharedUrl: string;
   isLoaded: boolean;
@@ -37,6 +40,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   isRendered: boolean;
   authorAvatar: string;
   review_count: number;
+  contentTypeId: number;
   showReference: boolean;
   isDisabledPrev: boolean;
   isDisabledNext: boolean;
@@ -90,52 +94,120 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.sharedUrl = event.url;
       }
     });
+
+    this.route.params.subscribe(params => {
+      this.postId = params['id'];
+    });
   }
 
   // gets the postId from article page and gets the postInfo and the commentInfo with postId from server
   ngOnInit(): void {
-    this.paramsSub = this.route.params.subscribe(params => {
-      this.progress.start();
-      this.postId = params['id'];
+    this.loadContent();
+  }
 
-      const commentSub = this.commentService.comments(this.postId).subscribe(c => {
-        this.comments = c;
+  loadContent() {
+    this.progress.start();
 
-        commentSub.unsubscribe();
-      },
-      err => {
-        this.progress.complete();
-        commentSub.unsubscribe();
-      });
+    const commentSub = this.commentService.comments(this.postId).subscribe(c => {
+      this.comments = c;
 
-      const postSub = this.postService.fetchById(this.postId).subscribe(p => {
-        this.progress.complete();
-
-        const temp = p;
-        temp.content = this.addRelativeAndReference(temp);
-        temp.content = this.changePreToDiv(temp.content);
-        temp.content = this.setDropcap(temp.content);
-        temp.content = this.modifyADs(temp.content);
-
-        this.post = temp;
-
-        this.fetchAuthorInfo();
-
-        const element = this.postContent.nativeElement;
-        const fragment = document.createRange().createContextualFragment(this.post.content);
-        element.appendChild(fragment);
-
-        this.isLoaded = true;
-
-        this.cdr.markForCheck();
-
-        postSub.unsubscribe();
-      },
-      err => {
-        this.progress.complete();
-        postSub.unsubscribe();
-      });
+      commentSub.unsubscribe();
+    },
+    err => {
+      this.progress.complete();
+      commentSub.unsubscribe();
     });
+
+    const postSub = this.postService.fetchById(this.postId).subscribe(p => {
+      this.progress.complete();
+
+      const temp = p;
+      temp.content = this.addRelativeAndReference(temp);
+      temp.content = this.changePreToDiv(temp.content);
+      temp.content = this.setDropcap(temp.content);
+      temp.content = this.modifyADs(temp.content);
+
+      this.post = temp;
+
+      this.contentTypeId = parseInt(this.post.contentTypeId, 10);
+      this.loadContentsByContentType();
+
+      this.fetchAuthorInfo();
+
+      const element = this.postContent.nativeElement;
+      const fragment = document.createRange().createContextualFragment(this.post.content);
+      element.appendChild(fragment);
+
+      this.isLoaded = true;
+
+      this.cdr.markForCheck();
+
+      window.scroll({
+        top: 0,
+        left: 0
+      });
+
+      postSub.unsubscribe();
+    },
+    err => {
+      this.progress.complete();
+      postSub.unsubscribe();
+    });
+  }
+
+  loadContentsByContentType() {
+    const body = {
+      type: this.contentTypeId,
+      page: 0,
+      per_page: 0
+    };
+
+    this.postService.fetchByContentTypeId(body).subscribe(posts => {
+      posts.map(post => {
+        if (post.id === this.postId) {
+          this.index = posts.indexOf(post);
+        }
+      });
+
+      this.posts = posts;
+      this.checkMoveTo();
+    });
+  }
+
+  checkMoveTo() {
+    if (this.index === 0) {
+      this.isDisabledPrev = true;
+    } else {
+      this.isDisabledPrev = false;
+    }
+
+    if (this.index === this.posts.length - 1 ) {
+      this.isDisabledNext = true;
+    } else {
+      this.isDisabledNext = false;
+    }
+
+    this.cdr.markForCheck();
+  }
+
+  goToPrev() {
+    if (this.index > 0) {
+      this.index--;
+      this.postId = this.posts[this.index].id;
+      this.loadContent();
+
+      this.checkMoveTo();
+    }
+  }
+
+  goToNext() {
+    if (this.index < this.posts.length - 1) {
+      this.index++;
+      this.postId = this.posts[this.index].id;
+      this.loadContent();
+
+      this.checkMoveTo();
+    }
   }
 
   ngAfterViewChecked() {
@@ -196,7 +268,6 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngOnDestroy(): void {
     this.progress.complete();
-    this.paramsSub.unsubscribe();
   }
 
   @HostListener('window:scroll', [])

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output, OnChanges } from '@angular/core';
 
 import { Post } from '../../models/post.model';
 import { Bookmark } from '../../models/bookmark.model';
@@ -9,22 +9,35 @@ import { Bookmark } from '../../models/bookmark.model';
   styleUrls: ['./feed-grid.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FeedGridComponent {
-  @Input() noFoundMessage: string;
-  @Input() sponsorId: number;
+export class FeedGridComponent implements OnChanges {
+
   @Input() posts: Post[];
+  @Input() typeId: number;
   @Input() loading: boolean;
+  @Input() sponsorId: number;
+  @Input() noFoundMessage: string;
 
   @Output() addBookmark = new EventEmitter<Bookmark>();
   @Output() removeBookmark = new EventEmitter<string>();
   @Output() loadMore = new EventEmitter();
 
-  private page: number;
+  page: number;
+
   showGotoTopBtn = false;
 
   constructor() {
     this.noFoundMessage = 'No items found';
     this.page = 0;
+  }
+
+  ngOnChanges() {
+    const element = document.getElementById('article-contents');
+    if (element && this.posts.length === 5) {
+      element.scroll({
+        top: 0,
+        left: 0
+      });
+    }
   }
 
   onAddBookmark(item: Bookmark) {

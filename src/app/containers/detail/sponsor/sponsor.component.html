@@ -130,9 +130,9 @@
     </div>
     <div class="inner-content footer" fxLayout="row">
         <div fxLayout="row" fxLayoutAlign="space-between center" class="contents-ctrl">
-                <button mat-button [class.disable]="isDisabledPrev" [disabled]="isDisabledPrev">Previous</button>
-                <button mat-button [class.disable]="isDisabledNext" [disabled]="isDisabledNext">Next</button>
-            </div>
+            <button mat-button [class.disable]="isDisabledPrev" [disabled]="isDisabledPrev" (click)="goToPrev()">Previous</button>
+            <button mat-button [class.disable]="isDisabledNext" [disabled]="isDisabledNext" (click)="goToNext()">Next</button>
+        </div>
         <div class="actions" fxLayout="row" fxLayoutAlign="start center">
             <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.isBookmark">
                 <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>

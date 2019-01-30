@@ -142,6 +142,11 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
 
       this.cdr.markForCheck();
 
+      window.scroll({
+        top: 0,
+        left: 0
+      });
+
       postSub.unsubscribe();
     },
     err => {
@@ -161,17 +166,48 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
       posts.map(post => {
         if (post.id === this.postId) {
           this.index = posts.indexOf(post);
-
-          if (this.index === 0) {
-            this.isDisabledPrev = true;
-          } else if (this.index === posts.length - 1 ) {
-            this.isDisabledNext = true;
-          }
         }
       });
 
       this.posts = posts;
+      this.checkMoveTo();
     });
+  }
+
+  checkMoveTo() {
+    if (this.index === 0) {
+      this.isDisabledPrev = true;
+    } else {
+      this.isDisabledPrev = false;
+    }
+
+    if (this.index === this.posts.length - 1 ) {
+      this.isDisabledNext = true;
+    } else {
+      this.isDisabledNext = false;
+    }
+
+    this.cdr.markForCheck();
+  }
+
+  goToPrev() {
+    if (this.index > 0) {
+      this.index--;
+      this.postId = this.posts[this.index].id;
+      this.loadContent();
+
+      this.checkMoveTo();
+    }
+  }
+
+  goToNext() {
+    if (this.index < this.posts.length - 1) {
+      this.index++;
+      this.postId = this.posts[this.index].id;
+      this.loadContent();
+
+      this.checkMoveTo();
+    }
   }
 
   setDropcap(): void {

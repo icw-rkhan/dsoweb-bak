@@ -50,6 +50,9 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       // Params
       this.typeId = params['id'];
       this.sponsorId = params['sponsorId'];
+
+      this.pageNum = 0;
+      console.log(this.pageNum);
       this.fetchPosts();
     });
   }

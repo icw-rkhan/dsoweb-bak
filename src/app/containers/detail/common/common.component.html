@@ -63,8 +63,7 @@
             </div>
         </div>
     </div>
-    <div id="contents" #postContent class="inner-content" [innerHtml]="post.content | safe: 'html'">
-    </div>
+    <div id="contents" #postContent class="inner-content" [innerHtml]="post.content | safe: 'html'"></div>
     <a *ngIf="showReference" (click)="onClickReference()" [ngClass]="{'show-more-btn': showReferenceState === 'Show more', 'show-less-btn': showReferenceState === 'Show less'}">{{showReferenceState}}</a>
     <div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
         <div class="review-question">
@@ -104,8 +103,8 @@
     </div>
     <div class="inner-content footer" fxLayout="row">
         <div fxLayout="row" fxLayoutAlign="space-between center" class="contents-ctrl">
-            <button mat-button [class.disable]="isDisabledPrev" [disabled]="isDisabledPrev">Previous</button>
-            <button mat-button [class.disable]="isDisabledNext" [disabled]="isDisabledNext">Next</button>
+            <button mat-button [class.disable]="isDisabledPrev" [disabled]="isDisabledPrev" (click)="goToPrev()">Previous</button>
+            <button mat-button [class.disable]="isDisabledNext" [disabled]="isDisabledNext" (click)="goToNext()">Next</button>
         </div>
         <div class="actions" fxLayout="row" fxLayoutAlign="start center">
             <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.isBookmark">
