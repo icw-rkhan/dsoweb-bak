@@ -162,7 +162,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
       per_page: 0
     };
 
-    this.postService.fetchByContentTypeId(body).subscribe(posts => {
+    const subPost = this.postService.fetchByContentTypeId(body).subscribe(posts => {
       posts.map(post => {
         if (post.id === this.postId) {
           this.index = posts.indexOf(post);
@@ -171,6 +171,8 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
 
       this.posts = posts;
       this.checkMoveTo();
+
+      subPost.unsubscribe();
     });
   }
 

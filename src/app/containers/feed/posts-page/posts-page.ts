@@ -52,7 +52,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
       this.sponsorId = params['sponsorId'];
 
       this.pageNum = 0;
-      console.log(this.pageNum);
       this.fetchPosts();
     });
   }
