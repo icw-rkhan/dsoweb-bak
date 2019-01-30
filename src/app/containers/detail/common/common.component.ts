@@ -25,7 +25,10 @@ import { Post } from '../../../models/post.model';
 export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   post: Post;
+  posts: Post[];
+
   rate: number;
+  index: number;
   postId: string;
   sharedUrl: string;
   isLoaded: boolean;
@@ -34,6 +37,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   isRendered: boolean;
   authorAvatar: string;
   review_count: number;
+  contentTypeId: number;
   isDisabledPrev: boolean;
   isDisabledNext: boolean;
   showReference: boolean;
@@ -41,8 +45,6 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   showReferenceState: string;
 
   comments: Comment[];
-
-  paramsSub: Subscription;
 
   rateList = [
     {status: 'inactive'},
@@ -85,53 +87,15 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.sharedUrl = event.url;
       }
     });
+
+    this.route.params.subscribe(params => {
+      this.postId = params['id'];
+    });
   }
 
   // gets the postId from article page and gets the postInfo and the commentInfo with postId from server
   ngOnInit(): void {
-    this.paramsSub = this.route.params.subscribe(params => {
-      this.progress.start();
-      this.postId = params['id'];
-
-      const commentSub = this.commentService.comments(this.postId).subscribe(c => {
-        this.comments = c;
-
-        commentSub.unsubscribe();
-      },
-      err => {
-        this.progress.complete();
-        commentSub.unsubscribe();
-      });
-
-      const postSub = this.postService.fetchById(this.postId).subscribe(p => {
-        this.progress.complete();
-
-        const temp = p;
-        temp.content = this.addRelativeAndReference(temp);
-        temp.content = this.changePreToDiv(temp.content);
-
-        this.post = temp;
-
-        this.fetchAuthorInfo();
-
-        if (this.post.content) {
-          this.setDropcap();
-        }
-
-        this.isLoaded = true;
-
-        this.cdr.markForCheck();
-
-        postSub.unsubscribe();
-      },
-      err => {
-        this.progress.complete();
-        postSub.unsubscribe();
-      });
-    },
-    err => {
-      this.progress.complete();
-    });
+    this.loadContent();
   }
 
   ngAfterViewChecked() {
@@ -142,6 +106,72 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.isRendered = true;
       }
     }
+  }
+
+  loadContent() {
+    this.progress.start();
+    const commentSub = this.commentService.comments(this.postId).subscribe(c => {
+      this.comments = c;
+
+      commentSub.unsubscribe();
+    },
+    err => {
+      this.progress.complete();
+      commentSub.unsubscribe();
+    });
+
+    const postSub = this.postService.fetchById(this.postId).subscribe(p => {
+      this.progress.complete();
+
+      const temp = p;
+      temp.content = this.addRelativeAndReference(temp);
+      temp.content = this.changePreToDiv(temp.content);
+
+      this.post = temp;
+
+      this.contentTypeId = parseInt(this.post.contentTypeId, 10);
+      this.loadContentsByContentType();
+
+      this.fetchAuthorInfo();
+
+      if (this.post.content) {
+        this.setDropcap();
+      }
+
+      this.isLoaded = true;
+
+      this.cdr.markForCheck();
+
+      postSub.unsubscribe();
+    },
+    err => {
+      this.progress.complete();
+      postSub.unsubscribe();
+    });
+  }
+
+  loadContentsByContentType() {
+    const body = {
+      type: this.contentTypeId,
+      page: 0,
+      per_page: 0
+    };
+
+    this.postService.fetchByContentTypeId(body).subscribe(posts => {
+      posts.map(post => {
+        if (post.id === this.postId) {
+          this.index = posts.indexOf(post);
+
+          if (this.index === 0) {
+            this.isDisabledPrev = true;
+          } else if (this.index === posts.length - 1 ) {
+            this.isDisabledNext = true;
+          }
+        }
+      });
+
+      this.posts = posts;
+    });
   }
 
   setDropcap(): void {
@@ -162,7 +192,6 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngOnDestroy(): void {
     this.progress.complete();
-    this.paramsSub.unsubscribe();
   }
 
   @HostListener('window:scroll', [])

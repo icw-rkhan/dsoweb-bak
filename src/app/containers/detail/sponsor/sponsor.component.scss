@@ -346,6 +346,24 @@ div {
     }
 }
 
+.actions {
+    .menu-btn {
+        margin-left: 5px;
+
+        img {
+            margin-top: 10px;
+        }
+    }
+
+    .bookmark-btn {
+        color: #879aa8;
+    }
+
+    .mat-icon {
+        margin-top: 8px;
+    }
+}
+
 .footer {
     margin-top: 20px;
     border-top: solid 1px #dddddd;
