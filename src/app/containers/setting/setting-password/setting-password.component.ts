@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormGroup, Validators, FormBuilder} from '@angular/forms';
+import { AuthService } from '../../../services';
+import { AlertService } from '../../../services/alert.service';
 
 @Component({
   selector: 'dso-setting-password',
@@ -12,7 +14,10 @@ export class SettingPasswordComponent implements OnInit {
 
   isShowRequirement: boolean;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthService,
+    private alertService: AlertService) {
     this.isShowRequirement = false;
   }
 
@@ -33,6 +38,28 @@ export class SettingPasswordComponent implements OnInit {
 
   get newPassword() {
     return this.form.get('newPassword');
+  }
+
+  onSubmit() {
+    const body = {
+      username: this.authService.getUserInfo().user_name,
+      password: this.form.value.newPassword,
+      old_password: this.form.value.oldPassword
+    };
+
+    this.authService.updatePassword(body).subscribe(res => {
+      if (res.code === 0) {
+        this.clear();
+
+        this.alertService.successAlert('Changed successfully');
+      } else {
+        this.alertService.errorAlert('Changed failed');
+      }
+    });
+  }
+
+  clear() {
+    this.form.reset();
   }
 
 }

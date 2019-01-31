@@ -50,6 +50,13 @@ export class AuthService {
     );
   }
 
+  updatePassword(body: any): Observable<any> {
+    const url = `${environment.profileApiUrl}/userAccount/updatePasswordByUserName`;
+    return this.http.post(url, body).pipe(
+      map(this.extractData)
+    );
+  }
+
   requestAccessToken(body: any): Observable<any> {
     const url = `${environment.profileApiUrl}/linkedInLoginOther`;
     const headers = new HttpHeaders()
