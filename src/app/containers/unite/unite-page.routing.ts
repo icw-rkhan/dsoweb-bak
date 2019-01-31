@@ -41,6 +41,10 @@ export const ROUTES: Routes = [
                 component: UniteDetailComponent
             },
             {
+                path: 'detail/:issueId/:id',
+                component: UniteDetailComponent
+            },
+            {
                 path: 'bookmark/:id',
                 component: UniteBookmarkComponent
             },
