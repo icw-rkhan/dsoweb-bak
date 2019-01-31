@@ -1,4 +1,4 @@
-<div class="author" #authorContent [class.author-container]="isAuthorVisible" fxLayout="row" fxLayoutAlign="start center" (click)="feedsByAuthor()">
+<div class="author" #authorContent [class.author-container]="isAuthorVisible" fxLayout="row" fxLayoutAlign="start center">
   <div class="author-area" fxLayout="row" fxLayoutAlign="start center" *ngIf="authorName && authorName.indexOf('DSODentist') > -1">
     <img src="assets/images/icons/logo-color.png">
   </div>
@@ -19,7 +19,6 @@
 <div>
   <dso-feed-grid
     [posts]="posts"
-    [sponsorId]="sponsorId"
     [loading]="isFetching"
     (addBookmark)="addBookmark($event)"
     (removeBookmark)="removeBookmark($event)"

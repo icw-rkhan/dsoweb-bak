@@ -32,7 +32,7 @@ export class FeedGridComponent implements OnChanges {
 
   ngOnChanges() {
     const element = document.getElementById('article-contents');
-    if (element && this.posts.length === 5) {
+    if (element && this.posts && this.posts.length === 5) {
       element.scroll({
         top: 0,
         left: 0

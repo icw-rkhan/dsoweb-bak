@@ -126,7 +126,7 @@ export class FeedCardComponent implements OnInit {
     this.router.navigate([`/posts/sponsor/${sponsorId}`]);
   }
 
-  onGoTo(categoryId: string) {
+  onGoTo(categoryId: number) {
     this.router.navigate([`/category/${categoryId}`]);
   }
 
