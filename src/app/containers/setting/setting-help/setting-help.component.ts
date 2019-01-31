@@ -1,33 +1,36 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
+
+import { SettingService } from '../../../services/setting.service';
 
 @Component({
   selector: 'dso-setting-help',
   templateUrl: './setting-help.component.html',
-  styleUrls: ['./setting-help.component.scss']
+  styleUrls: ['./setting-help.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SettingHelpComponent implements OnInit {
 
   categories = [
     {
       title: 'General content',
-      url: ''
+      url: 'general'
     },
     {
       title: 'Education',
-      url: ''
+      url: 'education'
     },
     {
       title: 'Career',
-      url: ''
+      url: 'career'
     },
     {
       title: 'Events',
-      url: ''
+      url: 'events'
     },
     {
       title: 'Unite',
-      url: ''
+      url: 'unite'
     },
   ];
 
@@ -36,13 +39,32 @@ export class SettingHelpComponent implements OnInit {
   searchType: string;
   searchResults: any[];
 
-  constructor(private progress: NgProgress) {
+  constructor(
+    private progress: NgProgress,
+    private cdr: ChangeDetectorRef,
+    private settingService: SettingService) {
     this.noResult = false;
     this.searchType = 'Categories';
     this.searchResults = [];
   }
 
   ngOnInit() {
+    const body = {
+      skip: 0,
+      limit: 0
+    };
+
+    this.progress.start();
+    this.settingService.getTopics(body).subscribe(topics => {
+      this.progress.complete();
+
+      this.searchResults = topics;
+
+      this.cdr.markForCheck();
+    },
+    err => {
+      this.progress.complete();
+    });
   }
 
   onSearch() {
