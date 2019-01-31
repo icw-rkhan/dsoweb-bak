@@ -9,7 +9,8 @@
 
   &-content {
     width: 100%;
-    position: absolute;
+    background: linear-gradient(to top, #394555, transparent 100%) !important;
+    position: fixed;
     bottom: 0;
     padding-bottom: 20px;
     p, h2 {

@@ -20,9 +20,6 @@ export class RegisterComponent implements OnInit {
   is_student: number;
   is_linkedin: number;
   form: FormGroup;
-  isScroll: boolean;
-
-  @ViewChild('container')container: ElementRef;
 
   constructor(private router: Router,
               private authService: AuthService,
@@ -33,22 +30,14 @@ export class RegisterComponent implements OnInit {
     this.sharingService.showLoading(true);
     this.isShowPassword = false;
     this.isShowRequirement = false;
-    this.isScroll = false;
   }
 
   ngOnInit() {
-    this.container.nativeElement.style.height = `${window.innerHeight}px`;
-
     this.is_student = +localStorage.getItem('is_student');
     this.initForm();
     setTimeout(() => {
       this.sharingService.showLoading(false);
     });
-  }
-
-  @HostListener('window:resize', [])
-  onresize() {
-    this.container.nativeElement.style.height = `${window.innerHeight}px`;
   }
 
   showDialog(type: string) {

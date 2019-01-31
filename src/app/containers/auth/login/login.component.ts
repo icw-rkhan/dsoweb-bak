@@ -24,8 +24,6 @@ export class LoginComponent implements OnInit {
   isUserAuthenticatedEmittedValue: boolean;
   isInitializedEmittedValue: boolean;
 
-  @ViewChild('container')container: ElementRef;
-
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -40,8 +38,6 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.container.nativeElement.style.height = `${window.innerHeight}px`;
-
     this.sharingService.showLoading(true);
     this.activatedRoute.queryParams.subscribe((params: Params) => {
       const code = params['code'];  // login with linkedin
@@ -55,11 +51,6 @@ export class LoginComponent implements OnInit {
     });
     this.initForm();
     this.is_student = +localStorage.getItem('is_student');
-  }
-
-  @HostListener('window:resize', [])
-  onresize() {
-    this.container.nativeElement.style.height = `${window.innerHeight}px`;
   }
 
   get username() {
