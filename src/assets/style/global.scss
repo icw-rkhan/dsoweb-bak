@@ -12,7 +12,9 @@ body {
 }
 
 .logoBox {
-    padding-top: 10px;
+    position: fixed;
+    bottom: 88vh;
+
     .logo {
         background: url('../images/icons/logo.png') no-repeat;
         background-size: contain;
