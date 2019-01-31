@@ -62,6 +62,6 @@ export class IssueMenuComponent implements OnInit, OnDestroy {
   }
 
   onUniteDetail(id: string) {
-    this.router.navigate([`/unite/detail/${this.issueId}/${id}`]);
+    this.router.navigate([`/unite/common/detail/${this.issueId}/${id}`]);
   }
 }

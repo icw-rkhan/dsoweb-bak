@@ -54,7 +54,7 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
   onUniteDetail(id: string) {
     if (id) {
       this.closeSearchPanel.emit(true);
-      this.router.navigate([`/unite/detail/${this.issueId}/${id}`]);
+      this.router.navigate([`/unite/common/detail/${this.issueId}/${id}`]);
     }
   }
 
