@@ -21,7 +21,7 @@ export class SettingAboutComponent implements OnInit {
     private settingService: SettingService) { }
 
   ngOnInit() {
-    const body = {
+    /*const body = {
       skip: 0,
       limit: 0
     };
@@ -42,7 +42,7 @@ export class SettingAboutComponent implements OnInit {
     },
     err => {
       this.progress.complete();
-    });
+    });*/
   }
 
 }

@@ -17,11 +17,12 @@ mat-tab-group {
         overflow: auto;
         padding: 19px 14px;
 
-        p {
+        pre, li {
             color: #879aa8;
             font-size: 13px;
             font-weight: 400px;
             line-height: 17px;
+            white-space: pre-line;
 
             label {
                 text-decoration: underline;
@@ -30,10 +31,21 @@ mat-tab-group {
             strong, label {
                 font-family: 'SFUI';
             }
-        }
+        }   
     }
 
     ::ng-deep .mat-tab-label:nth-child(2) {
         border-left: 1px solid #d1d0d0;
     }
+}
+
+
+ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 40px;
 }
