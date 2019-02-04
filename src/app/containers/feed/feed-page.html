@@ -1,12 +1,15 @@
 <dso-main-container>
   <div class="header-pic">
-    <img *ngIf="!isGeneral" src={{headerImageUrl}}>
-    <slideshow *ngIf="isGeneral"
+    <img *ngIf="!isGeneral" src={{headerImageUrl}} class="avatar">
+    <slideshow *ngIf="isGeneral" [class.close]="isClose"
       [imageUrls]="slideUrls"
       [autoPlay]="true"
       [minHeight] = "slideHeight"
       [stopAutoPlayOnSlide]="false">
     </slideshow>
+    <button *ngIf="!isClose" mat-icon-button (click)="isClose = true">
+      <img src="assets/images/icons/close-white.png">
+    </button>
   </div>
   <nav mat-tab-nav-bar #tabBar>
     <div *ngFor="let link of navLinks" >

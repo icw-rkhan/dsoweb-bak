@@ -13,6 +13,7 @@ import { environment } from '../../../environments/environment';
 export class FeedPageComponent implements OnInit, OnDestroy {
 
   url: string;
+  isClose: boolean;
   isGeneral: boolean;
   slideUrls: string[];
   slideHeight: string;
@@ -23,6 +24,7 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   private routerSubs: Subscription;
 
   constructor(private router: Router, private route: ActivatedRoute) {
+    this.isClose = false;
     this.currentUrl = router.url;
     this.slideUrls = [
       'assets/images/slide/slide-1.jpg',
