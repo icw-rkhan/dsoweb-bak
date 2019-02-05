@@ -141,7 +141,7 @@ mat-tab-group {
             bottom: 0px;
             left: 0px;
             margin: 0px;
-            padding: 20px 20px 30px; 
+            padding: 20px; 
             z-index: 50;
             
             button {
@@ -167,7 +167,7 @@ mat-tab-group {
             font-size: 16px;
             font-weight: 400;
             line-height: 20px;
-            margin-bottom: 70px;
+            padding-bottom: 120px;
         }
 
         .company-container {
@@ -202,7 +202,7 @@ mat-tab-group {
                 font-size: 15px;
                 font-weight: 400;
                 line-height: 21px;
-                margin-bottom: 50px;
+                padding-bottom: 120px;
             }
         }
 
@@ -236,10 +236,11 @@ mat-tab-group {
                 margin: 15px 0px;
 
                 img {
-                    width: 72px;
-                    height: 72px;
+                    width: 78px;
+                    height: 78px;
                     border-radius: 50%;
-                    margin-top: -5px;
+                    margin-top: 5px;
+                    margin-bottom: 8px;
                 }
 
                 .approveProgress {
@@ -249,6 +250,7 @@ mat-tab-group {
                 p {
                     label {
                         color: #4a4a4a;
+                        width: 70px;
                         font-size: 12px;
                         line-height: 15px;
                         margin-top: 5px;
@@ -259,6 +261,8 @@ mat-tab-group {
         }
 
         .detail-footer {
+            padding-bottom: 60px;
+
             button:first-child {
                 color: #879aa8;
                 font-size: 16px;

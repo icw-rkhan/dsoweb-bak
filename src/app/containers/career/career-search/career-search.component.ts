@@ -52,7 +52,7 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     if (this.type !== 'criteria') {
-      this.onSearch();
+      this.loadContents();
     }
   }
 
@@ -132,12 +132,28 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
         this.jobs = jobs;
       }
 
+      this.jobs.map(job => {
+        if (job.paid || job.isSponsor) {
+          const index = this.jobs.indexOf(job);
+
+          this.jobs = this.arrayMove(this.jobs, index, 0);
+        }
+      });
+
       this.cdr.markForCheck();
     },
     err => {
       console.log(err);
       this.progress.complete();
     });
+  }
+
+  arrayMove(arr, fromIndex, toIndex) {
+    const element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+
+    return arr;
   }
 
   onLoadMore() {
