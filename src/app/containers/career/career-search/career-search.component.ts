@@ -25,6 +25,7 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
   page: number;
   distance: string;
   location: string;
+  isLoadingMore: boolean;
   showGotoTopBtn: boolean;
 
   public latitude: number;
@@ -41,6 +42,7 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
     private jobService: JobService,
     private mapsAPILoader: MapsAPILoader) {
       this.page = 0;
+      this.isLoadingMore = false;
       this.showGotoTopBtn = false;
 
       this.route.params.subscribe(params => {
@@ -87,6 +89,12 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSearch() {
+    this.isLoadingMore = false;
+
+    this.loadContents();
+  }
+
+  loadContents() {
     this.progress.start();
 
     const body = {
@@ -115,7 +123,7 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
       this.clear();
 
-      if (this.jobs) {
+      if (this.jobs && this.isLoadingMore) {
         this.jobs = [
           ...this.jobs,
           ...jobs
@@ -135,7 +143,8 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
   onLoadMore() {
     ++this.page;
 
-    this.onSearch();
+    this.isLoadingMore = true;
+    this.loadContents();
   }
 
   onScroll(event) {
