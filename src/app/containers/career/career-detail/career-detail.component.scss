@@ -124,7 +124,7 @@ mat-tab-group {
     ::ng-deep mat-tab-body {
         max-height: calc(100vh - 93px);
         overflow: auto;
-        padding: 20px;
+        padding: 20px 20px 50px;
 
         p {
             margin-bottom: 20px;
@@ -132,7 +132,18 @@ mat-tab-group {
             img {
                 margin-right: 6px;
             }
+        }
 
+        .ctrl-button {
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.8);
+            position: fixed;
+            bottom: 0px;
+            left: 0px;
+            margin: 0px;
+            padding: 20px 20px 30px; 
+            z-index: 50;
+            
             button {
                 color: #ffffff;
                 width: 100%;
@@ -156,6 +167,7 @@ mat-tab-group {
             font-size: 16px;
             font-weight: 400;
             line-height: 20px;
+            margin-bottom: 50px;
         }
 
         .company-container {
@@ -190,6 +202,7 @@ mat-tab-group {
                 font-size: 15px;
                 font-weight: 400;
                 line-height: 21px;
+                margin-bottom: 50px;
             }
         }
 

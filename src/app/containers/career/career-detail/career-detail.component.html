@@ -47,7 +47,7 @@
     <mat-tab label="DESCRIPTION">
       <p class="job-type">Type: <span>{{job.type}}</span></p>
       <p class="job-description">{{job.jobDescription}}</p>
-      <p>
+      <p class="ctrl-button">
         <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
         <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
       </p>
@@ -86,7 +86,7 @@
       <div class="company-detail">
         <p class="detail-label">Details</p>
         <p class="detail-contents">{{job.companyDes}}.</p>
-        <p>
+        <p class="ctrl-button">
           <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
           <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
         </p>
