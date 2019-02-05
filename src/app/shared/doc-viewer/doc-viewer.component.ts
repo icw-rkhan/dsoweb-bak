@@ -22,7 +22,7 @@ export class DocViewerComponent implements OnInit {
 
   ngOnInit() {
     const email = this.authService.getUserInfo().user_name;
-    const resumeUrl = `${environment.profileApiUrl}/resumeDownLoadByEmail?email=${email}`;
+    const resumeUrl = `${environment.profileApiUrl}/resumeDownLoadByEmail?email='${email}'`;
     this.srcPath = this.sanitizer.bypassSecurityTrustResourceUrl(`https://docs.google.com/gview?url=${resumeUrl}&embedded=true`);
   }
 

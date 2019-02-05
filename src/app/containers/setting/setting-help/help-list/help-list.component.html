@@ -4,13 +4,14 @@
       {{topic.function}}
     </mat-panel-title>
   </mat-expansion-panel-header>
-
-  <p>{{topic.description}}</p>
-  <ul>
-    <li *ngFor="let subDes of topic.subDescription">{{subDes.name}}</li>
-  </ul>
-
-  <p class="text-right">
-    <button mat-button>Go to {{topic.moduleType}} ></button>
-  </p>
+  <div>
+    <p>{{topic.description}}</p>
+    <ul>
+      <li *ngFor="let subDes of topic.subDescription">{{subDes.name}}</li>
+    </ul>
+  
+    <p class="text-right">
+      <button mat-button>Go to {{topic.moduleType}} ></button>
+    </p>
+  </div>
 </mat-expansion-panel>
