@@ -1,0 +1,79 @@
+.header {
+    padding: 27px 0px 15px;
+    text-align: center;
+  
+    img {
+      margin-bottom: 16px;
+    }
+  
+    p {
+      color: #000000;
+      font-size: 20px;
+      font-family: 'SFUI';
+      font-weight: 600;
+      letter-spacing: 1px;
+    }
+  }
+  
+  .search-form {
+    padding: 10px 25px;
+    display: flex;
+    background-color: white;
+  
+    button {
+      margin-left: 10px;
+    }
+
+    mat-icon {
+      color: #dddddd;
+    }
+  
+    ::ng-deep mat-form-field {
+      flex: 1;
+  
+      .mat-form-field-wrapper {
+        margin: 0px;
+        padding: 0px;
+  
+        .mat-form-field-infix {
+            padding: 0px 0px 10px;
+        }
+  
+        .mat-form-field-suffix {
+            top: 9px;
+        }
+      }
+    }
+  }
+  
+  .search-type {
+    color: #879aa8;
+    background-color: #fafbfd;
+    font-size: 13px;
+    font-family: 'SFUI';
+    font-weight: 600;
+    padding: 12px 20px;
+  }
+  
+  p {
+    padding: 18px;
+  
+    label {
+      color: #000000;
+      font-size: 15px;
+      font-weight: 400;
+    }
+  
+    .space {
+      flex: 1 1 auto;
+    }
+  }
+  
+  .no-message {
+    color: #000000;
+    font-size: 11px;
+    font-weight: 400;
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 15px;
+  }

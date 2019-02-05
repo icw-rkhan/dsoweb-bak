@@ -1,0 +1,16 @@
+<mat-expansion-panel *ngFor="let topic of topics" [expanded]="id?true:false" class="expansion-panel">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{topic.function}}
+    </mat-panel-title>
+  </mat-expansion-panel-header>
+
+  <p>{{topic.description}}</p>
+  <ul>
+    <li *ngFor="let subDes of topic.subDescription">{{subDes.name}}</li>
+  </ul>
+
+  <p class="text-right">
+    <button mat-button>Go to {{topic.moduleType}} ></button>
+  </p>
+</mat-expansion-panel>

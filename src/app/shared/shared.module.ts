@@ -28,7 +28,8 @@ import {
   MatTableModule,
   MatTabsModule,
   MatToolbarModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatExpansionModule
 } from '@angular/material';
 import { CustomFormsModule } from 'ngx-custom-validators';
 import { ShareModule } from '@ngx-share/core';
@@ -135,6 +136,7 @@ export const MODULES = [
   MatTabsModule,
   MatGridListModule,
   MatSnackBarModule,
+  MatExpansionModule,
   CustomFormsModule,
   NgxMasonryModule,
   NgProgressHttpModule,

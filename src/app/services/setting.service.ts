@@ -21,6 +21,16 @@ export class SettingService {
 
     }
 
+    topic(id: string): Observable<Topic> {
+        const url = `${environment.settingApiUrl}/faqs/${id}`;
+
+        const headers = this.getHeaders();
+
+        return this.http.post(url, null, {headers}).pipe(map((response: any) =>
+            new Topic().deserialize(response.resultMap)
+        ));
+    }
+
     getTopics(body: any): Observable<Topic[]> {
         const url = `${environment.settingApiUrl}/faqs/list`;
 

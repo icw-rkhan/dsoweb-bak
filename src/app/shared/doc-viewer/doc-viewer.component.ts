@@ -1,6 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 
+import { environment } from '../../../environments/environment';
+import { AuthService } from '../../services';
+
 @Component({
   selector: 'dso-doc-viewer',
   templateUrl: './doc-viewer.component.html',
@@ -14,11 +17,13 @@ export class DocViewerComponent implements OnInit {
 
   srcPath: SafeResourceUrl;
 
-  constructor(private sanitizer: DomSanitizer) {
+  constructor(private sanitizer: DomSanitizer, private authService: AuthService) {
   }
 
   ngOnInit() {
-    this.srcPath = this.sanitizer.bypassSecurityTrustResourceUrl(`https://docs.google.com/gview?url=${this.src}&embedded=true`);
+    const email = this.authService.getUserInfo().user_name;
+    const resumeUrl = `${environment.profileApiUrl}/resumeDownLoadByEmail?email=${email}`;
+    this.srcPath = this.sanitizer.bypassSecurityTrustResourceUrl(`https://docs.google.com/gview?url=${resumeUrl}&embedded=true`);
   }
 
   onClickEvent() {

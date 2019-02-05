@@ -8,7 +8,6 @@ import { SettingMainComponent } from './setting-main/setting-main.component';
 import { SettingAboutComponent } from './setting-about/setting-about.component';
 import { SettingSupportComponent } from './setting-support/setting-support.component';
 import { SettingPasswordComponent } from './setting-password/setting-password.component';
-import { SettingHelpComponent } from './setting-help/setting-help.component';
 
 const routes: Routes = [
     {
@@ -27,10 +26,6 @@ const routes: Routes = [
             {
                 path: 'support',
                 component: SettingSupportComponent,
-            },
-            {
-                path: 'support/help',
-                component: SettingHelpComponent,
             },
             {
                 path: 'password',

@@ -1,0 +1,35 @@
+<div class="header">
+  <img src="assets/images/career/help.png">
+  <p>How can we help you today?</p>
+</div>
+<form name="searchForm" #searchForm="ngForm" class="search-form"
+      novalidate>
+  <mat-form-field appearance="outline">
+  <input matInput name="term" [(ngModel)]="term" placeholder="Search for help topics here" (input)="onSearch($event)">
+  <mat-icon matSuffix (click)="onDefault()">{{isSearching?'cancel':'search'}}</mat-icon>
+  </mat-form-field>
+</form>
+<div *ngIf="noResult" class="no-message">
+  Sorry, no results found.<br>Please use one of the categories below to get more help.
+</div>
+<div class="search-type">{{moduleType}}</div>
+<div *ngIf="searchResults.length == 0">
+  <div *ngFor="let category of categories" (click)="onGoTo(category)">
+      <p fxLayout="row" fxLayoutAlign="start center">
+          <label>{{category.function}}</label>
+          <span class="space"></span>
+          <img src="assets/images/profile/arrow-right.png">
+      </p>
+      <mat-divider></mat-divider>
+  </div>
+</div>
+<div *ngIf="searchResults.length > 0">
+  <div *ngFor="let result of searchResults" (click)="onGoTo(result)">
+    <p fxLayout="row" fxLayoutAlign="start center">
+      <label>{{result.function}}</label>
+      <span class="space"></span>
+      <img src="assets/images/career/arrow_bottom.png">
+    </p>
+    <mat-divider></mat-divider>
+  </div>
+</div>

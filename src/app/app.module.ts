@@ -24,6 +24,7 @@ import { EducationModule } from './containers/education/education.module';
 import { EventModule } from './containers/event/event.module';
 import { SettingModule } from './containers/setting/setting.module';
 import { SettingContactModule } from './containers/setting/setting-contact/setting-contact.module';
+import { SettingHelpModule } from './containers/setting/setting-help/setting-help.module';
 
 import { AuthGuard } from './services/auth/auth-guard';
 import { environment } from '../environments/environment';
@@ -70,6 +71,7 @@ export class HammerConfig extends HammerGestureConfig {
     EventModule,
     SettingModule,
     SettingContactModule,
+    SettingHelpModule,
     AppRoutingModule,
     MatDatepickerModule,
     GoTopButtonModule

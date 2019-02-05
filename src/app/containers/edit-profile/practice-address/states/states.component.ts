@@ -22,7 +22,8 @@ export class StatesComponent implements OnInit {
   }
 
   changeInput(e) {
-    this.states = this.listStates.filter((speciality: any) =>  speciality.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()));
+    this.states = this.listStates.filter((speciality: any) =>
+    speciality.name.toLocaleLowerCase().includes(e.target.value.toLocaleLowerCase()));
   }
 
   _selectState(state: any) {
