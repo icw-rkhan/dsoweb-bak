@@ -15,13 +15,8 @@ export class SettingHelpMainComponent implements OnInit {
   categories = [
     {
       id: '-1',
-      function: 'General Content',
-      moduleType: 'general'
-    },
-    {
-      id: '-1',
-      function: 'General Settings',
-      moduleType: 'settings'
+      function: 'Browse Content',
+      moduleType: 'content'
     },
     {
       id: '-1',
@@ -40,8 +35,13 @@ export class SettingHelpMainComponent implements OnInit {
     },
     {
       id: '-1',
-      function: 'Unite',
+      function: 'UNITE',
       moduleType: 'unite'
+    },
+    {
+      id: '-1',
+      function: 'Settings',
+      moduleType: 'settings'
     },
   ];
 

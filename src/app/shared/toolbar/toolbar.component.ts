@@ -230,7 +230,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     if (this.btnTitle === 'menu') {
       this.toggleMenu.emit();
     } else if (this.btnTitle === 'keyboard_backspace') {
-      if (this.url.includes('/unite')) {
+      if (this.url.includes('/unite/')) {
         this.router.navigate(['/unite']);
       } else {
         this.location.back();
