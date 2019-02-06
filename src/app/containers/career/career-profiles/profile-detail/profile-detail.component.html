@@ -55,8 +55,8 @@
             <p fxLayout="column" fxLayoutAlign="center center">
               <img *ngIf="company && company.ceoUrl" src="company.ceoUrl">
               <img *ngIf="company && !company.ceoUrl" src="assets/images/profile/icon_user_profile.png">
-              <label *ngIf="company.ceo">{{company.ceo}}<br>CEO</label>
-              <label *ngIf="!company.ceo">CEO</label>
+              <label *ngIf="company && company.ceo">{{company.ceo}}<br>CEO</label>
+              <label *ngIf="!company || !company.ceo">CEO</label>
             </p>
           </div>
         </div>
