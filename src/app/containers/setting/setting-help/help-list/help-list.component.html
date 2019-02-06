@@ -1,20 +1,23 @@
-<mat-expansion-panel *ngFor="let topic of topics" [expanded]="id?true:false" class="expansion-panel">
-  <mat-expansion-panel-header>
-    <mat-panel-title>
-      {{topic.function}}
-    </mat-panel-title>
-  </mat-expansion-panel-header>
-  <div>
-    <p>{{topic.description}}</p>
-    <ul>
-      <li *ngFor="let subDes of topic.subDescription">{{subDes.name}}</li>
-    </ul>
-  
-    <p class="text-right">
-      <button mat-button (click)="onGoTo(topic.moduleType)">Go to <span>{{topic.moduleType}}</span> ></button>
-    </p>
-  </div>
-</mat-expansion-panel>
+<section class="container">
+  <mat-expansion-panel *ngFor="let topic of topics" [expanded]="id?true:false" class="expansion-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{topic.function}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div>
+      <p>{{topic.description}}</p>
+      <ul>
+        <li *ngFor="let subDes of topic.subDescription">{{subDes.name}}</li>
+      </ul>
+    
+      <p class="text-right">
+        <button mat-button (click)="onGoTo(topic.moduleType)">Go to <span>{{topic.moduleType}}</span> ></button>
+      </p>
+    </div>
+  </mat-expansion-panel>
+</section>
+
 <div class="footer" fxLayout="row" fxLayoutAlign="start center">
   <div><span>Did not find what you were looking for?</span></div>
   <div><button mat-button (click)="onGoToContact()">Contact Us</button></div>
