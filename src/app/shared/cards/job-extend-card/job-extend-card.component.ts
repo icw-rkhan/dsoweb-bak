@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ChangeDetectorRef,
+        Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Job } from '../../../models/job.model';
@@ -19,6 +20,7 @@ export class JobExtendCardComponent implements OnInit {
 
   days: string;
   dayBetween: number;
+  isShowed: boolean;
   isBookmark: boolean;
 
   constructor(
@@ -26,6 +28,7 @@ export class JobExtendCardComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private jobService: JobService) {
     this.days = '0d';
+    this.isShowed = false;
   }
 
   ngOnInit() {

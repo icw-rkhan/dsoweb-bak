@@ -60,6 +60,7 @@ export class CareerJobComponent implements OnInit, OnDestroy {
 
     this.progress.start();
     this.jobService.savedJobs(body).subscribe(jobs => {
+      console.log(jobs);
       this.progress.complete();
 
       if (this.jobs) {
@@ -74,6 +75,7 @@ export class CareerJobComponent implements OnInit, OnDestroy {
       this.cdr.markForCheck();
     },
     err => {
+      console.log(err);
       this.progress.complete();
     });
   }
@@ -84,10 +86,7 @@ export class CareerJobComponent implements OnInit, OnDestroy {
       'skip': this.savePage * 10
     };
 
-    this.progress.start();
     this.jobService.bookmarkedJobs(body).subscribe(savedJobs => {
-      this.progress.complete();
-
       if (this.savedJobs) {
         this.savedJobs = [
           ...this.savedJobs,
@@ -102,9 +101,6 @@ export class CareerJobComponent implements OnInit, OnDestroy {
       });
 
       this.cdr.markForCheck();
-    },
-    err => {
-      this.progress.complete();
     });
   }
 

@@ -55,10 +55,19 @@ mat-card {
     .job-desc {
         color: #c8c8c9;
         width: 90%;
+        max-height: 51px;
+        overflow: hidden;
         font-size: 13px;
         font-weight: 400;
         line-height: 17px;
         margin-top: 5px;
+        position: relative;
+
+        img {
+            position: absolute;
+            bottom: 2px;
+            right: -4px;
+        }
     }
 }
 
