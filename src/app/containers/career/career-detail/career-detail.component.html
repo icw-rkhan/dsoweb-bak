@@ -45,12 +45,14 @@
   </div>
   <mat-tab-group mat-stretch-tabs>
     <mat-tab label="DESCRIPTION">
-      <!--<p class="job-type">Type: <span>{{job.type}}</span></p>-->
-      <p class="job-description" [innerHtml]="job.jobDescription"></p>
-      <p class="ctrl-button">
-        <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
-        <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
-      </p>
+      <div>
+        <!--<p class="job-type">Type: <span>{{job.type}}</span></p>-->
+        <p class="job-description" [innerHtml]="job.jobDescription"></p>
+        <p class="ctrl-button">
+          <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
+          <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
+        </p>
+      </div>
     </mat-tab>
     <mat-tab label="COMPANY">
       <div class="company-container">
