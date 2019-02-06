@@ -76,4 +76,8 @@ export class SettingHelpListComponent implements OnInit {
       this.router.navigate([`/${u}`]);
     }
   }
+
+  onGoToContact() {
+    this.router.navigate(['/settings/support/contact']);
+  }
 }
