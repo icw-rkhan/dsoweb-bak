@@ -13,7 +13,6 @@ import { SettingService } from '../../../../services/setting.service';
 })
 export class SettingHelpListComponent implements OnInit {
 
-  id: string;
   moduleType: string;
 
   topics: Topic[];
@@ -25,7 +24,6 @@ export class SettingHelpListComponent implements OnInit {
     private cdr: ChangeDetectorRef,
     private settingService: SettingService) {
     this.route.params.subscribe(params => {
-      this.id = params['id'];
       this.moduleType = params['moduleType'];
     });
 
@@ -40,29 +38,16 @@ export class SettingHelpListComponent implements OnInit {
     };
 
     this.progress.start();
-    if (this.id) {
-      this.settingService.topic(this.id).subscribe(topic => {
-        this.progress.complete();
+    this.settingService.getTopics(body).subscribe(topics => {
+      this.progress.complete();
 
-        this.topics.push(topic);
+      this.topics = topics;
 
-        this.cdr.markForCheck();
-      },
-      err => {
-        this.progress.complete();
-      });
-    } else {
-      this.settingService.getTopics(body).subscribe(topics => {
-        this.progress.complete();
-
-        this.topics = topics;
-
-        this.cdr.markForCheck();
-      },
-      err => {
-        this.progress.complete();
-      });
-    }
+      this.cdr.markForCheck();
+    },
+    err => {
+      this.progress.complete();
+    });
   }
 
   onGoTo(url: string) {

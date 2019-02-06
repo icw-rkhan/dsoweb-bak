@@ -93,10 +93,18 @@ export class SettingHelpMainComponent implements OnInit {
   }
 
   onGoTo(topic: Topic) {
-    if (topic.id !== '-1') {
-      this.router.navigate([`/settings/support/help/list/${topic.moduleType}/${topic.id}`]);
-    } else {
-      this.router.navigate([`/settings/support/help/list/${topic.moduleType}`]);
+    this.router.navigate([`/settings/support/help/list/${topic.moduleType}`]);
+  }
+
+  onGoToList(url: string) {
+    if (url) {
+      let u = url.toLocaleLowerCase();
+
+      if (u === 'general') {
+        u = 'posts/type';
+      }
+
+      this.router.navigate([`/${u}`]);
     }
   }
 

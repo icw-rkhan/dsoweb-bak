@@ -19,10 +19,6 @@ const routes: Routes = [
             path: 'list/:moduleType',
             component: SettingHelpListComponent,
         },
-        {
-            path: 'list/:moduleType/:id',
-            component: SettingHelpListComponent,
-        },
     ]
 }
 ];
