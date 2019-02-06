@@ -23,13 +23,22 @@
       <mat-divider></mat-divider>
   </div>
 </div>
-<div *ngIf="searchResults.length > 0">
-  <div *ngFor="let result of searchResults" (click)="onGoTo(result)">
-    <p fxLayout="row" fxLayoutAlign="start center">
-      <label>{{result.function}}</label>
-      <span class="space"></span>
-      <img src="assets/images/career/arrow_bottom.png">
-    </p>
-    <mat-divider></mat-divider>
-  </div>
+<div *ngIf="searchResults.length > 0" class="container">
+  <mat-expansion-panel *ngFor="let topic of searchResults" class="expansion-panel">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{topic.function}}
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="content">
+      <p>{{topic.description}}</p>
+      <ul>
+        <li *ngFor="let subDes of topic.subDescription">{{subDes.name}}</li>
+      </ul>
+    
+      <p class="text-right">
+        <button mat-button (click)="onGoTo(topic.moduleType)">Go to <span>{{topic.moduleType}}</span> ></button>
+      </p>
+    </div>
+  </mat-expansion-panel>
 </div>
