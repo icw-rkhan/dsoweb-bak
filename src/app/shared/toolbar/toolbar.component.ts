@@ -109,22 +109,25 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           } else if (event.url.includes('/career/search') || event.url.includes('/career/detail')) {
             this.title = 'JOBS';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/setting/about')) {
+          } else if (event.url.includes('/settings/about')) {
             this.title = 'ABOUT';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/setting/support/contact')) {
+          } else if (event.url.includes('/settings/support/contact')) {
             this.title = 'CONTACT US';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/setting/support/help')) {
+          } else if (event.url.includes('/settings/support/help/list')) {
+            this.title = event.url.split('/')[event.url.split('/').length - 1].toLocaleUpperCase() + ' FAQS';
+            this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/settings/support/help')) {
             this.title = 'HELP AND FEEDBACK';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/setting/support')) {
+          } else if (event.url.includes('/settings/support')) {
             this.title = 'FEEDBACK AND SUPPORT';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/setting/password')) {
+          } else if (event.url.includes('/settings/password')) {
             this.title = 'CHANGE PASSWORD';
             this.btnTitle = 'keyboard_backspace';
-          } else if (event.url.includes('/setting')) {
+          } else if (event.url.includes('/settings')) {
             this.title = 'SETTINGS';
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/career')) {
