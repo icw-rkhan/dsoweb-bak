@@ -7,7 +7,7 @@ import { SettingHelpListComponent } from './help-list/help-list.component';
 
 const routes: Routes = [
   {
-    path: 'setting/support/help',
+    path: 'settings/support/help',
     canActivate: [AuthGuard],
     component: SettingHelpComponent,
     children: [

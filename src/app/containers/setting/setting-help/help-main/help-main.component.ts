@@ -72,28 +72,7 @@ export class SettingHelpMainComponent implements OnInit {
 
     this.settingService.getTopics(body).subscribe(topics => {
       this.allTopics = topics;
-
-      this.makeTestData();
     });
-  }
-
-  makeTestData() {
-    const topic = new Topic();
-    topic.id = '1';
-    topic.moduleType = 'Settings';
-    topic.function = 'How do I change playback speed?';
-    topic.description = 'You can change the playback speed of the videos in the app. To do this:';
-    topic.subDescription = [
-      {
-        name: 'Tap on General from the Settings screen',
-        steps: '1'
-      },
-      {
-        name: 'Tap on Playback Speed and then tap on the desired value. The app will save screen',
-        steps: '2'
-      }
-    ];
-    this.allTopics.push(topic);
   }
 
   onSearch(e) {
@@ -104,6 +83,8 @@ export class SettingHelpMainComponent implements OnInit {
 
     if (this.searchResults.length > 0) {
       this.moduleType = this.searchResults[0].moduleType;
+
+      this.noResult = false;
     } else {
       this.noResult = true;
     }
@@ -113,9 +94,9 @@ export class SettingHelpMainComponent implements OnInit {
 
   onGoTo(topic: Topic) {
     if (topic.id !== '-1') {
-      this.router.navigate([`/setting/support/help/list/${topic.moduleType}/${topic.id}`]);
+      this.router.navigate([`/settings/support/help/list/${topic.moduleType}/${topic.id}`]);
     } else {
-      this.router.navigate([`/setting/support/help/list/${topic.moduleType}`]);
+      this.router.navigate([`/settings/support/help/list/${topic.moduleType}`]);
     }
   }
 

@@ -11,7 +11,7 @@ import { SettingPasswordComponent } from './setting-password/setting-password.co
 
 const routes: Routes = [
     {
-        path: 'setting',
+        path: 'settings',
         canActivate: [AuthGuard],
         component: SettingComponent,
         children: [

@@ -1,6 +1,7 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
+
 import { Topic } from '../../../../models/topic.model';
 import { SettingService } from '../../../../services/setting.service';
 
@@ -18,6 +19,7 @@ export class SettingHelpListComponent implements OnInit {
   topics: Topic[];
 
   constructor(
+    private router: Router,
     private progress: NgProgress,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
@@ -44,7 +46,6 @@ export class SettingHelpListComponent implements OnInit {
 
         this.topics.push(topic);
 
-        this.makeTestData();
         this.cdr.markForCheck();
       },
       err => {
@@ -56,7 +57,6 @@ export class SettingHelpListComponent implements OnInit {
 
         this.topics = topics;
 
-        this.makeTestData();
         this.cdr.markForCheck();
       },
       err => {
@@ -65,23 +65,15 @@ export class SettingHelpListComponent implements OnInit {
     }
   }
 
-  makeTestData() {
-    const topic = new Topic();
-    topic.id = '1';
-    topic.moduleType = 'Settings';
-    topic.function = 'How do I change playback speed?';
-    topic.description = 'You can change the playback speed of the videos in the app. To do this:';
-    topic.subDescription = [
-      {
-        name: 'Tap on General from the Settings screen',
-        steps: '1'
-      },
-      {
-        name: 'Tap on Playback Speed and then tap on the desired value. The app will save screen',
-        steps: '2'
-      }
-    ];
-    this.topics.push(topic);
-  }
+  onGoTo(url: string) {
+    if (url) {
+      let u = url.toLocaleLowerCase();
 
+      if (u === 'general') {
+        u = 'posts/type';
+      }
+
+      this.router.navigate([`/${u}`]);
+    }
+  }
 }

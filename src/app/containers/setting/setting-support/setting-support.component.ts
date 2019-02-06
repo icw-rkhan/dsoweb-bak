@@ -11,11 +11,11 @@ export class SettingSupportComponent implements OnInit {
   links = [
     {
       title: 'Help and Feedback',
-      url: 'setting/support/help'
+      url: 'settings/support/help'
     },
     {
       title: 'Contact DSODentist',
-      url: 'setting/support/contact'
+      url: 'settings/support/contact'
     }
   ];
 

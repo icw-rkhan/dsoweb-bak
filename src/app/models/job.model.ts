@@ -38,6 +38,7 @@ export class Job implements Serializable<Job> {
     approveNum: string;
     savedId: string;
     isNew: boolean;
+    isUpdated: boolean;
     isSaved: boolean;
     isApplied: boolean;
     isAttention: boolean;
@@ -80,6 +81,7 @@ export class Job implements Serializable<Job> {
             position: data.jobPO ? data.jobPO.position.coordinates : data.position.coordinates,
             savedId: data.jobPO ? data.id : null,
             isNew: data.jobPO ? data.jobPO.isNewJob : data.isNewJob,
+            isUpdated: data.jobPO ? data.jobPO.updated : data.updated,
             isSaved: data.jobPO ? data.jobPO.isAttention : data.isAttention,
             isApplied: data.jobPO ? data.jobPO.isApplication : data.isApplication,
             ceoUrl: data.jobPO ? data.jobPO.dso.ceopictureurl : data.dso.ceopictureurl,

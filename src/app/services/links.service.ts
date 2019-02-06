@@ -58,7 +58,7 @@ export class NavLinksService {
     this.links.push({
       label: 'Settings',
       icon: 'setting',
-      route: '/setting',
+      route: '/settings',
       state: 'inactive'
     });
     this.links.push({

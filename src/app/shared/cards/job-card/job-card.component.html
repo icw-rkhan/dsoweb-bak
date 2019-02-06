@@ -1,6 +1,7 @@
 
 <mat-card fxLayout="row" fxLayoutAlign="start center" (click)="onGoToDetail()">
     <img *ngIf="job.isNew" class="log-new" src="assets/images/career/new.png">
+    <img *ngIf="job.isUpdated" class="log-new" src="assets/images/career/update.png">
     <img *ngIf="job.isApplied" class="log-new" src="assets/images/career/apply.png">
   <div class="job-log" (click)="onGoToDetail()">
     <img [src]="job.logoURL">

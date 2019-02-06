@@ -7,7 +7,7 @@ import { SettingContactComponent } from './setting-contact.component';
 
 const routes: Routes = [
     {
-        path: 'setting/support/contact',
+        path: 'settings/support/contact',
         canActivate: [AuthGuard],
         component: SettingContactComponent
     }

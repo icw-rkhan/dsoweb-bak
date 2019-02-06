@@ -12,17 +12,17 @@ export class SettingMainComponent implements OnInit {
     {
       title: 'Feedback and support',
       icon: 'feedback',
-      url: 'setting/support'
+      url: 'settings/support'
     },
     {
       title: 'About',
       icon: 'about',
-      url: 'setting/about'
+      url: 'settings/about'
     },
     {
       title: 'Change password',
       icon: 'lock',
-      url: 'setting/password'
+      url: 'settings/password'
     }
   ];
 
