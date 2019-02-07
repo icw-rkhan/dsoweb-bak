@@ -15,7 +15,7 @@
     <p class="company-name">Supported by {{job.companyName}}</p>
     <p class="job-salary" fxLayout="row" fxLayoutAlign="start center">
       <img class="salary-avatar" src="assets/images/career/salary.png">
-      <label>{{job.salaryStartingValue}} - {{job.salaryEndValue}}</label>
+      <label>${{job.salaryStartingValue}} - ${{job.salaryEndValue}}</label>
       <span class="space"></span>
       <button mat-icon-button (click)="onBookmark()">
         <img *ngIf="!job.isSaved" src="assets/images/career/save_inactive.png">
