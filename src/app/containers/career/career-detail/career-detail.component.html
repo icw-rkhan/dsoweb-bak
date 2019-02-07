@@ -32,7 +32,7 @@
       <p fxLayout="column" fxLayoutAlign="center start">
         <label class="job-title">{{job.jobTitle}}</label>
         <label class="job-company">{{job.companyName}}</label>
-        <label class="job-salary">Est. Salary: <span>{{job.salaryStartingValue}} - {{job.salaryEndValue}}</span></label>
+        <label class="job-salary">Est. Salary: <span>${{job.salaryStartingValue}} - ${{job.salaryEndValue}}</span></label>
       </p>
     </div>
     <div class="job-location">
@@ -47,7 +47,7 @@
     <mat-tab label="DESCRIPTION">
       <div>
         <!--<p class="job-type">Type: <span>{{job.type}}</span></p>-->
-        <p class="job-description" [innerHtml]="job.jobDescription"></p>
+        <pre class="job-description">{{job.jobDescription}}</pre>
         <p class="ctrl-button">
           <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
           <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
