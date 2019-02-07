@@ -16,7 +16,7 @@
   </div>
   <mat-tab-group mat-stretch-tabs>
     <mat-tab label="DESCRIPTION">
-      <P *ngIf="company" class="company-desc">{{company.description}}</P>
+      <P *ngIf="company" class="company-desc" [innerHtml]="company.description"></P>
     </mat-tab>
     <mat-tab label="JOBS">
       <div class="jobs-count">{{jobs? jobs.length : 0}} Jobs</div>
@@ -29,7 +29,6 @@
     </mat-tab>
     <mat-tab label="REVIEWS">
       <div class="review-container">
-  
         <div class="review-status">
           <div fxLayout="row" fxLayoutAlign="start center">
             <div class="review-rating">{{company? ratingFormat(company.rating) : 0}}</div>
