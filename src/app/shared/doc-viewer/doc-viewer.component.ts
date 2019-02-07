@@ -22,8 +22,8 @@ export class DocViewerComponent implements OnInit {
 
   ngOnInit() {
     const email = this.authService.getUserInfo().user_name;
-    const resumeUrl = `${environment.profileApiUrl}/resumeDownLoadByEmail?email='${email}'&code='Bearer ${localStorage.getItem('token')}'`;
-    this.srcPath = this.sanitizer.bypassSecurityTrustResourceUrl(`https://docs.google.com/gview?url=${resumeUrl}&embedded=true`);
+    const resumeUrl = `${environment.profileApiUrl}/resume?email=${email}&code=${localStorage.getItem('token')}`;
+    this.srcPath = resumeUrl;
   }
 
   onClickEvent() {

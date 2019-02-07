@@ -10,8 +10,8 @@
             </h3>
         </div>
         <div class="main-container">
-            <h1 class="doc-file-name">{{title}}</h1>
-            <iframe [src]="srcPath" class="doc-viewer"></iframe>
+            <div class="doc-file-name">{{title}}</div>
+            <ngx-doc-viewer [url]="srcPath" viewer="google" style="width:100%;height:calc(100vh - 86px);"></ngx-doc-viewer>
         </div>
         </mat-sidenav-content>
     </mat-sidenav-container>

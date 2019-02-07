@@ -36,6 +36,7 @@ import { ShareModule } from '@ngx-share/core';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { ToolbarComponent } from './toolbar/toolbar.component';
@@ -140,7 +141,8 @@ export const MODULES = [
   CustomFormsModule,
   NgxMasonryModule,
   NgProgressHttpModule,
-  PdfViewerModule
+  PdfViewerModule,
+  NgxDocViewerModule
 ];
 
 @NgModule({
