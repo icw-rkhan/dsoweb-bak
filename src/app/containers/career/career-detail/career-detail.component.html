@@ -1,29 +1,30 @@
+
+<div class="top-bar" fxLayout="row" fxLayoutAlign="center center">
+  <button mat-icon-button (click)="onBack()"><img src="assets/images/career/arrow_bottom.png"></button>
+  <p>
+    <button mat-icon-button (click)="onBookmark()">
+      <img *ngIf="!job.isSaved" src="assets/images/career/save2_inactive.png">
+      <img *ngIf="job.isSaved" src="assets/images/career/save2_active.png">
+    </button>
+    <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+      <img src="assets/images/career/share.png">
+    </button>
+    <mat-menu #menu="matMenu" xPosition="before">
+      <div class="share-content">
+          <a url="{{sharedUrl}}" shareButton="facebook">
+              <img class="share-btn" src="assets/images/icons/icon-facebook.png">
+          </a>
+          <a url="{{sharedUrl}}" shareButton="twitter">
+              <img class="share-btn" src="assets/images/icons/icon-twitter.png">
+          </a>
+          <a url="{{sharedUrl}}" shareButton="linkedin">
+              <img class="share-btn" src="assets/images/icons/icon-linkediin.png">
+          </a>
+      </div>
+    </mat-menu>
+  </p>
+</div>
 <section>
-  <div class="top-bar" fxLayout="row" fxLayoutAlign="center center">
-    <button mat-icon-button (click)="onBack()"><img src="assets/images/career/arrow_bottom.png"></button>
-    <p>
-      <button mat-icon-button (click)="onBookmark()">
-        <img *ngIf="!job.isSaved" src="assets/images/career/save2_inactive.png">
-        <img *ngIf="job.isSaved" src="assets/images/career/save2_active.png">
-      </button>
-      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-        <img src="assets/images/career/share.png">
-      </button>
-      <mat-menu #menu="matMenu" xPosition="before">
-        <div class="share-content">
-            <a url="{{sharedUrl}}" shareButton="facebook">
-                <img class="share-btn" src="assets/images/icons/icon-facebook.png">
-            </a>
-            <a url="{{sharedUrl}}" shareButton="twitter">
-                <img class="share-btn" src="assets/images/icons/icon-twitter.png">
-            </a>
-            <a url="{{sharedUrl}}" shareButton="linkedin">
-                <img class="share-btn" src="assets/images/icons/icon-linkediin.png">
-            </a>
-        </div>
-      </mat-menu>
-    </p>
-  </div>
   <div class="main-bar" fxLayout="column" fxLayoutAlign="start start">
     <img class="job-head" src="assets/images/career/head2.png">
     <div fxLayout="row" fxLayoutAlign="start center" style="position: relative">

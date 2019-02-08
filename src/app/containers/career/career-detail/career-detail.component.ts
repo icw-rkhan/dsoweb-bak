@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, HostListener } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
@@ -103,6 +103,12 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.progress.complete();
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScrollEvent(e) {
+    e.preventDefault();
+    console.log(e);
   }
 
   onGoToAddReview(id: string) {
