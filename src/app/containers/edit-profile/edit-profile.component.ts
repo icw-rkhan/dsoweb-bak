@@ -395,6 +395,19 @@ export class EditProfileComponent implements OnInit {
             this.userProfile.document_library = {
               document_name: res['resultMap']['resumeName']
             };
+
+            if (this.userProfile.phone) {
+              this.userProfile.phone = parseNumber(`Phone: ${this.userProfile.phone}`, 'US') ?
+              parseNumber(`Phone: ${this.userProfile.phone}`, 'US').phone : '';
+            }
+
+            this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
+              console.log(data);
+              if (!data.code) {
+                this.fetchProfile(this.userInfo.user_name);
+              }
+            });
+
             this.alertService.successAlert('Uploaded successfully');
           } else {
             this.alertService.errorAlert('Upload Failed');
@@ -455,6 +468,9 @@ export class EditProfileComponent implements OnInit {
 
       this.resumePreviewUrl = window.URL.createObjectURL(blob);
       this.isResumePreview = true;
+    },
+    err => {
+      this.sharingService.showLoading(false);
     });
   }
 
