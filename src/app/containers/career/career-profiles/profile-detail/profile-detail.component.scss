@@ -193,3 +193,52 @@
 .hide {
     display: none;
 }
+
+:host ::ng-deep {
+    h2 {
+        font-family: "SFUI";
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    iframe {
+        max-width: 100%;
+    }
+
+    video {
+        background-color: black;
+        max-width: 100%;
+    }
+
+    figure {
+        max-width: 100%;
+        height: auto;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    strong {
+        font-family: 'SFUI';
+    }
+
+    em {
+        font-style: italic;
+    }
+
+    ol, ul {
+        padding-left: 25px !important;
+        margin-left: 0 !important;
+        margin-bottom: 20px !important;
+    }
+
+    ol {
+        list-style-type: decimal
+    }
+
+    ul {
+        list-style-type: inherit
+    }
+}

@@ -21,7 +21,7 @@
       <button mat-button (click)="onTab('tab3')" [class.active]="tab=='tab3'">REVIEWS</button>
     </div>
     <div [class.show]="tab=='tab1'" [class.hide]="tab!=='tab1'" class="tab-content">
-      <pre *ngIf="company" class="company-desc">{{company.description}}</pre>
+      <pre *ngIf="company" class="company-desc" [innerHtml]="company.description"></pre>
     </div>
     <div [class.show]="tab=='tab2'" [class.hide]="tab!=='tab2'" class="tab-content">
       <div class="jobs-count">{{jobs? jobs.length : 0}} Jobs</div>

@@ -85,7 +85,7 @@
       </div>
       <div class="company-detail">
         <p class="detail-label">Details</p>
-        <pre class="detail-contents">{{job.companyDes}}.</pre>
+        <pre class="detail-contents" [innerHtml]="job.companyDes"></pre>
       </div>
     </div>
     <div [class.show]="tab=='tab3'" [class.hide]="tab!=='tab3'" class="tab-content">
