@@ -115,7 +115,8 @@ section {
     
         ::ng-deep mat-tab-body {
             max-height: calc(100vh - 50px);
-            overflow: auto;
+            overflow: scroll;
+            -webkit-overflow-scrolling:touch;
             padding: 20px;
     
             p {
