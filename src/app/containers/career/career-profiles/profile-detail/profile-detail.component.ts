@@ -89,6 +89,11 @@ export class CareerProfileDetailComponent implements OnInit {
     this.tab = tabId;
 
     window.scrollTo(0, 0);
+
+    const tabs = document.getElementsByClassName('tab-content');
+    tabs[0].scrollTo(0, 0);
+    tabs[1].scrollTo(0, 0);
+    tabs[2].scrollTo(0, 0);
   }
 
   limitReviews(count: number) {
