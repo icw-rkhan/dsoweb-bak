@@ -107,6 +107,12 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     this.progress.complete();
   }
 
+  onTab(tabId: string) {
+    this.tab = tabId;
+
+    window.scrollTo(0, 0);
+  }
+
   onGoToAddReview(id: string) {
     this.router.navigate([`/career/review/add/${id}`]);
   }

@@ -16,9 +16,9 @@
   </div>
   <article class="tab">
     <div class="tab-header">
-      <button mat-button (click)="tab='tab1'" [class.active]="tab=='tab1'">DESCRIPTION</button>
-      <button mat-button (click)="tab='tab2'" [class.active]="tab=='tab2'">JOBS</button>
-      <button mat-button (click)="tab='tab3'" [class.active]="tab=='tab3'">REVIEWS</button>
+      <button mat-button (click)="onTab('tab1')" [class.active]="tab=='tab1'">DESCRIPTION</button>
+      <button mat-button (click)="onTab('tab2')" [class.active]="tab=='tab2'">JOBS</button>
+      <button mat-button (click)="onTab('tab3')" [class.active]="tab=='tab3'">REVIEWS</button>
     </div>
     <div [class.show]="tab=='tab1'" [class.hide]="tab!=='tab1'" class="tab-content">
       <pre *ngIf="company" class="company-desc">{{company.description}}</pre>
