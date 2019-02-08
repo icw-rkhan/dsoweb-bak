@@ -1,3 +1,11 @@
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
+}
+
 .top-bar {
     width: 100%;
     height: 54px;
@@ -13,268 +21,264 @@
         width: 35px;
         height: auto;
         margin-right: 10px;
-      }
-      
+        }
+        
     .share-content {
         padding-left: 10px;
     }
 }
 
-section {
-    .main-bar {
-        .job-head {
-            width: 100%;
-            height: auto;
+.main-bar {
+    .job-head {
+        width: 100%;
+        height: auto;
+    }
+
+    div {
+        padding: 16px;
+
+        .log-new {
+            position: absolute;
+            top: 0;
+            left: 0;
         }
-    
-        div {
-            padding: 16px;
-    
-            .log-new {
-                position: absolute;
-                top: 0;
-                left: 0;
-            }
-        }
-    
-        .job-avatar {
-            width: 60px;
-            height: auto;
-            margin-right: 12px;
-        }
-    
-        .job-title {
-            color: #4a4a4a;
-            font-size: 18px;
+    }
+
+    .job-avatar {
+        width: 60px;
+        height: auto;
+        margin-right: 12px;
+    }
+
+    .job-title {
+        color: #4a4a4a;
+        font-size: 18px;
+        font-weight: 600;
+        font-family: 'SFUI';
+        line-height: 22px;
+    }
+
+    .job-company {
+        color: #879aa8;
+        font-size: 14px;
+        font-weight: 500px;
+        line-height: 22px;
+    }
+
+    .job-salary {
+        color: #4a4a4a;
+        font-size: 11px;
+        font-weight: 400;
+        line-height: 23px;
+
+        span {
+            font-size: 12px;
             font-weight: 600;
             font-family: 'SFUI';
-            line-height: 22px;
         }
-    
-        .job-company {
-            color: #879aa8;
-            font-size: 14px;
-            font-weight: 500px;
-            line-height: 22px;
-        }
-    
-        .job-salary {
-            color: #4a4a4a;
-            font-size: 11px;
-            font-weight: 400;
-            line-height: 23px;
-    
-            span {
+    }
+
+    .job-location {
+        width: 100%;
+        padding-top: 0px;
+
+        p   {
+            border-radius: 7px;
+            background: linear-gradient(to right, rgba(251, 252, 252, 1) 0%, rgba(235, 238, 239, 1) 100%);
+
+            .company-location {
+                color: #4a4a4a;
+                margin: 7px 14px 0px;
                 font-size: 12px;
+                font-weight: 500;
+                font-family: 'SFUI';
+                line-height: 18px;
+            }
+
+            img {
+                margin-top: 5px;
+            }
+        }
+    }
+}
+
+.space {
+    flex: 1 1 auto;
+}
+
+.tab {
+    width: 100%;
+    background-color: #ffffff;
+
+    .active {
+        border-bottom: 2px solid #879aa8;
+        background-color: #f7f7f7;
+    }
+
+    .tab-header {
+        color: #1b1b1b;
+        height: 50px;
+        border-top: 1px solid #d1d0d0;
+        border-bottom: 1px solid #d1d0d0;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: 'SFUI';
+
+        button {
+            width: 33.33%;
+            height: 100%;
+            padding: 0px;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button:nth-child(2) {
+            border-left: 1px solid #d1d0d0;
+            border-right: 1px solid #d1d0d0;
+        }
+    }
+
+    .tab-content {
+        padding: 20px;
+        max-height: calc(100vh - 70px);
+        overflow: auto;
+        
+        pre {
+            white-space: pre-wrap;
+        }
+
+        p {
+            margin-bottom: 20px;
+
+            img {
+                margin-right: 6px;
+            }
+        }
+
+        .job-type {
+            color: #4a4a4a;
+            font-size: 13px;
+            font-weight: 400;
+
+            span {
                 font-weight: 600;
                 font-family: 'SFUI';
             }
         }
-    
-        .job-location {
-            width: 100%;
-            padding-top: 0px;
-    
-            p   {
-                border-radius: 7px;
-                background: linear-gradient(to right, rgba(251, 252, 252, 1) 0%, rgba(235, 238, 239, 1) 100%);
-    
-                .company-location {
-                    color: #4a4a4a;
-                    margin: 7px 14px 0px;
-                    font-size: 12px;
-                    font-weight: 500;
-                    font-family: 'SFUI';
-                    line-height: 18px;
-                }
-    
-                img {
-                    margin-top: 5px;
-                }
-            }
+
+        .job-description {
+            color: #4a4a4a;
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 20px;
+            margin-bottom: 70px;
         }
-    }
-    
-    .space {
-        flex: 1 1 auto;
-    }
-    
-    mat-tab-group {
-        background-color: #ffffff;
-    
-        ::ng-deep .mat-tab-header-pagination {
-            display: none;
-        }
-    
-        ::ng-deep .mat-tab-label-content {
-            color: #1b1b1b;
-            font-size: 14px;
-            font-weight: 500;
-            font-family: 'SFUI';
-        }
-    
-        ::ng-deep mat-tab-body {
-            padding: 20px;
-    
+
+        .company-container {
+            padding: 4px;
+
             p {
-                margin-bottom: 20px;
-    
-                img {
-                    margin-right: 6px;
-                }
-            }
-    
-            .ctrl-button {
-                width: 100%;
-                background-color: rgba(255, 255, 255, 0.8);
-                position: fixed;
-                bottom: 0px;
-                left: 0px;
-                margin: 0px;
-                padding: 20px 20px 30px; 
-                z-index: 50;
-                
-                button {
-                    color: #ffffff;
-                    width: 100%;
-                    background-color: #879aa8;
-                }
-            }
-    
-            .job-type {
-                color: #4a4a4a;
-                font-size: 13px;
-                font-weight: 400;
-    
+                display: flex;
+        
                 span {
-                    font-weight: 600;
-                    font-family: 'SFUI';
+                    color: #4a4a4a;
+                    font-size: 14px;
+                    font-weight: 500;
+                }
+
+                .company-info {
+                    color: #879aa8;
                 }
             }
+        }
+
+        .company-detail {
+            margin-top: 10px;
+
+            .detail-label {
+                color: #b3b9bd;
+                font-size: 14px;
+                font-weight: 400;
+            }
     
-            .job-description {
+            .detail-contents {
                 color: #4a4a4a;
+                font-size: 15px;
+                font-weight: 400;
+                line-height: 21px;
+                margin-bottom: 70px;
+            }
+        }
+
+        .review-status {
+            padding: 0px 12px;
+
+            .review-rating {
+                color: #9c9c9c;
+                font-size: 18px;
+                font-weight: 800;
+                font-family: 'SFUI';
+                margin-right: 12px;
+            }
+
+            .ratebar {
+                height: 24px;
+            
+                .rate-star {
+                    margin-right: 2px;
+                }
+            }
+
+            .review-count {
+                color: #9c9c9c;
+                font-size: 14px;
+                font-weight: 400;
+                margin-left: 15px;
+            }
+
+            .review-avatar {
+                margin: 15px 0px;
+
+                img {
+                    width: 78px;
+                    height: 78px;
+                    border-radius: 50%;
+                    margin-top: 5px;
+                    margin-bottom: 8px;
+                }
+
+                .approveProgress {
+                    margin-left: -4px;
+                }
+
+                p {
+                    label {
+                        color: #4a4a4a;
+                        width: 70px;
+                        font-size: 12px;
+                        line-height: 15px;
+                        margin-top: 5px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+
+        .detail-footer {
+            button:first-child {
+                color: #879aa8;
                 font-size: 16px;
                 font-weight: 400;
-                line-height: 20px;
-                margin-bottom: 70px;
-                white-space: pre-wrap; 
+                margin-top: 28px;
             }
-    
-            .company-container {
-                padding: 4px;
-    
-                p {
-                    display: flex;
-            
-                    span {
-                        color: #4a4a4a;
-                        font-size: 14px;
-                        font-weight: 500;
-                    }
-    
-                    .company-info {
-                        color: #879aa8;
-                    }
-                }
+
+            button:last-child {
+                width: 100%;
+                border: 1px solid #dddddd;
+                margin: 29px 0px;
             }
-    
-            .company-detail {
-                margin-top: 10px;
-    
-                .detail-label {
-                    color: #b3b9bd;
-                    font-size: 14px;
-                    font-weight: 400;
-                }
-        
-                .detail-contents {
-                    color: #4a4a4a;
-                    font-size: 15px;
-                    font-weight: 400;
-                    line-height: 21px;
-                    margin-bottom: 60px;
-                }
-            }
-    
-            .review-status {
-                padding: 0px 12px;
-    
-                .review-rating {
-                    color: #9c9c9c;
-                    font-size: 18px;
-                    font-weight: 800;
-                    font-family: 'SFUI';
-                    margin-right: 12px;
-                }
-    
-                .ratebar {
-                    height: 24px;
-                
-                    .rate-star {
-                        margin-right: 2px;
-                    }
-                }
-    
-                .review-count {
-                    color: #9c9c9c;
-                    font-size: 14px;
-                    font-weight: 400;
-                    margin-left: 15px;
-                }
-    
-                .review-avatar {
-                    margin: 15px 0px;
-    
-                    img {
-                        width: 78px;
-                        height: 78px;
-                        border-radius: 50%;
-                        margin-top: 5px;
-                        margin-bottom: 8px;
-                    }
-    
-                    .approveProgress {
-                        margin-left: -4px;
-                    }
-    
-                    p {
-                        label {
-                            color: #4a4a4a;
-                            width: 70px;
-                            font-size: 12px;
-                            line-height: 15px;
-                            margin-top: 5px;
-                            text-align: center;
-                        }
-                    }
-                }
-            }
-    
-            .detail-footer {
-                button:first-child {
-                    color: #879aa8;
-                    font-size: 16px;
-                    font-weight: 400;
-                    margin-top: 28px;
-                }
-    
-                button:last-child {
-                    width: 100%;
-                    border: 1px solid #dddddd;
-                    margin: 29px 0px;
-                }
-            }
-        }
-    
-        ::ng-deep .mat-tab-label:nth-child(2) {
-            border-left: 1px solid #d1d0d0;
-            border-right: 1px solid #d1d0d0;
-        }
-    
-        ::ng-deep .mat-tab-label {
-            border-top: 1px solid #d1d0d0;
-            border-bottom: 0px;
         }
     }
 }
@@ -350,5 +354,22 @@ section {
             top: 0;
             right: 0;
         }
+    }
+}
+
+.ctrl-button {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    margin: 0px;
+    padding: 20px 20px 30px; 
+    z-index: 50;
+    
+    button {
+        color: #ffffff;
+        width: 100%;
+        background-color: #879aa8;
     }
 }

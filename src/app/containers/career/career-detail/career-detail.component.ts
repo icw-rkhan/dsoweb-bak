@@ -19,6 +19,7 @@ import { HttpResponse } from '@angular/common/http';
 export class CareerDetailComponent implements OnInit, OnDestroy {
 
   id: string;
+  tab: string;
   type: number;
   rating: number;
   isFixed: boolean;
@@ -51,6 +52,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
       this.type = -1;
       this.rating = 0;
       this.isFixed = false;
+      this.tab = 'tab1';
       this.loadMoreBtn = 'See more';
 
       this.job = new Job();

@@ -47,21 +47,43 @@
     }
 }
 
-mat-tab-group {
+.tab {
+    width: 100%;
     background-color: #ffffff;
 
-    ::ng-deep .mat-tab-header-pagination {
-        display: none;
+    .active {
+        border-bottom: 2px solid #879aa8;
+        background-color: #f7f7f7;
     }
 
-    ::ng-deep .mat-tab-label-content {
+    .tab-header {
         color: #1b1b1b;
+        height: 50px;
+        border-top: 1px solid #d1d0d0;
+        border-bottom: 1px solid #d1d0d0;
         font-size: 14px;
         font-weight: 500;
         font-family: 'SFUI';
+
+        button {
+            width: 33.33%;
+            height: 100%;
+            padding: 0px;
+        }
+
+        button:focus {
+            outline: none;
+        }
+
+        button:nth-child(2) {
+            border-left: 1px solid #d1d0d0;
+            border-right: 1px solid #d1d0d0;
+        }
     }
 
-    ::ng-deep mat-tab-body {
+    .tab-content {
+        max-height: calc(100vh - 70px);
+        overflow: auto;
         padding-bottom: 20px;
 
         .company-desc {
@@ -158,18 +180,16 @@ mat-tab-group {
             }
         }
     }
-
-    ::ng-deep .mat-tab-label:nth-child(2) {
-        border-left: 1px solid #d1d0d0;
-        border-right: 1px solid #d1d0d0;
-    }
-
-    ::ng-deep .mat-tab-label {
-        border-top: 1px solid #d1d0d0;
-        border-bottom: 0px;
-    }
 }
 
 .space {
     flex: 1 1 auto;
+}
+
+.show {
+    display: block;
+}
+
+.hide {
+    display: none;
 }

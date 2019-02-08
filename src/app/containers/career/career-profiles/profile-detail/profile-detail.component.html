@@ -14,20 +14,25 @@
       </p>
     </div>
   </div>
-  <mat-tab-group mat-stretch-tabs>
-    <mat-tab label="DESCRIPTION">
+  <article class="tab">
+    <div class="tab-header">
+      <button mat-button (click)="tab='tab1'" [class.active]="tab=='tab1'">DESCRIPTION</button>
+      <button mat-button (click)="tab='tab2'" [class.active]="tab=='tab2'">JOBS</button>
+      <button mat-button (click)="tab='tab3'" [class.active]="tab=='tab3'">REVIEWS</button>
+    </div>
+    <div [class.show]="tab=='tab1'" [class.hide]="tab!=='tab1'" class="tab-content">
       <pre *ngIf="company" class="company-desc">{{company.description}}</pre>
-    </mat-tab>
-    <mat-tab label="JOBS">
+    </div>
+    <div [class.show]="tab=='tab2'" [class.hide]="tab!=='tab2'" class="tab-content">
       <div class="jobs-count">{{jobs? jobs.length : 0}} Jobs</div>
       <mat-divider></mat-divider>
       <div id="contents" *ngIf="jobs && jobs.length !== 0">
-          <div *ngFor="let job of jobs">
-              <dso-job-card [job]="job"></dso-job-card>
-          </div>
+        <div *ngFor="let job of jobs">
+            <dso-job-card [job]="job"></dso-job-card>
+        </div>
       </div>
-    </mat-tab>
-    <mat-tab label="REVIEWS">
+    </div>
+    <div [class.show]="tab=='tab3'" [class.hide]="tab!=='tab3'" class="tab-content">
       <div class="review-container">
         <div class="review-status">
           <div fxLayout="row" fxLayoutAlign="start center">
@@ -68,9 +73,6 @@
           <button mat-raised-button (click)="onGoToAddReview(company.id)">Write review</button>
         </div>
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </div>
+  </article>
 </section>
-<go-top-button [animate]="true" [speed]="50" [acceleration]="2" [scrollDistance]="100" [classNames]="'scroll-top'">
-  <i class="fa fa-arrow-up"></i>
-</go-top-button>

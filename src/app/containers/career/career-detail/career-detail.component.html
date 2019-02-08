@@ -1,4 +1,3 @@
-
 <div class="top-bar" fxLayout="row" fxLayoutAlign="center center">
   <button mat-icon-button (click)="onBack()"><img src="assets/images/career/arrow_bottom.png"></button>
   <p>
@@ -44,18 +43,17 @@
       </p>
     </div>
   </div>
-  <mat-tab-group mat-stretch-tabs>
-    <mat-tab label="DESCRIPTION">
-      <div>
-        <!--<p class="job-type">Type: <span>{{job.type}}</span></p>-->
-        <pre class="job-description">{{job.jobDescription}}</pre>
-        <p class="ctrl-button">
-          <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
-          <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
-        </p>
-      </div>
-    </mat-tab>
-    <mat-tab label="COMPANY">
+  <article class="tab">
+    <div class="tab-header">
+      <button mat-button (click)="tab='tab1'" [class.active]="tab=='tab1'">DESCRIPTION</button>
+      <button mat-button (click)="tab='tab2'" [class.active]="tab=='tab2'">COMPANY</button>
+      <button mat-button (click)="tab='tab3'" [class.active]="tab=='tab3'">REVIEWS</button>
+    </div>
+    <div [class.show]="tab=='tab1'" [class.hide]="tab!=='tab1'" class="tab-content">
+      <!--<div class="job-type">Type: <span>{{job.type}}</span></div>-->
+      <pre class="job-description" [innerHtml]="job.jobDescription"></pre>
+    </div>
+    <div [class.show]="tab=='tab2'" [class.hide]="tab!=='tab2'" class="tab-content">
       <div class="company-container">
         <p>
           <span>Website</span>
@@ -87,14 +85,10 @@
       </div>
       <div class="company-detail">
         <p class="detail-label">Details</p>
-        <p class="detail-contents">{{job.companyDes}}.</p>
-        <p class="ctrl-button">
-          <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
-          <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
-        </p>
+        <pre class="detail-contents">{{job.companyDes}}.</pre>
       </div>
-    </mat-tab>
-    <mat-tab label="REVIEWS">
+    </div>
+    <div [class.show]="tab=='tab3'" [class.hide]="tab!=='tab3'" class="tab-content">
       <div class="review-status">
         <div fxLayout="row" fxLayoutAlign="start center">
           <div class="review-rating">{{ratingFormat(job.rating)}}</div>
@@ -133,9 +127,13 @@
         <button *ngIf="allReviews && allReviews.length>0" mat-button (click)="loadMore()">{{loadMoreBtn}}</button>
         <button mat-raised-button (click)="onGoToAddReview(job.companyId)">Write review</button>
       </div>
-    </mat-tab>
-  </mat-tab-group>
+    </div>
+  </article>
 </section>
+<div [class.show]="tab=='tab1'||tab=='tab2'" [class.hide]="tab=='tab3'" class="ctrl-button">
+  <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
+  <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
+</div>
 <div *ngIf="type!==-1" class="resume-dialog" fxLayout="column" fxLayoutAlign="center center">
   <div *ngIf="type!==0" fxLayout="column" fxLayoutAlign="center center">
     <img *ngIf="type==1" src="assets/images/career/submit_resume.png">
@@ -156,6 +154,4 @@
     <span class="upload-message">Microsoft Word or PDF only (15MB)</span>
   </div>
 </div>
-<go-top-button [animate]="true" [speed]="50" [acceleration]="2" [scrollDistance]="100" [classNames]="'scroll-top'">
-  <i class="fa fa-arrow-up"></i>
-</go-top-button>
+

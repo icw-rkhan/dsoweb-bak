@@ -16,6 +16,7 @@ import { Review } from '../../../../models/reivew.model';
 })
 export class CareerProfileDetailComponent implements OnInit {
 
+  tab: string;
   company: DSOCompany;
   allReviews: Review[];
   reviews: Review[];
@@ -34,6 +35,7 @@ export class CareerProfileDetailComponent implements OnInit {
     private jobService: JobService,
     private companyService: CompanyService) {
       this.rating = 0;
+      this.tab = 'tab1';
       this.loadMoreBtn = 'See more';
     }
 
