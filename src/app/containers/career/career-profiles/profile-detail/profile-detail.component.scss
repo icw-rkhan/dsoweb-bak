@@ -62,9 +62,7 @@ mat-tab-group {
     }
 
     ::ng-deep mat-tab-body {
-        max-height: calc(100vh - 50px);
-        overflow: auto;
-        padding-bottom: 50px;
+        padding-bottom: 20px;
 
         .company-desc {
             color: #4a4a4a;

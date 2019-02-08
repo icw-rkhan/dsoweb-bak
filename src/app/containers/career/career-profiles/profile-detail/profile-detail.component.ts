@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, HostListener } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -81,6 +81,12 @@ export class CareerProfileDetailComponent implements OnInit {
         });
       });
     });
+  }
+
+  @HostListener('window:scroll', ['$event'])
+  onScrollEvent(e) {
+    e.preventDefault();
+    console.log(e);
   }
 
   limitReviews(count: number) {

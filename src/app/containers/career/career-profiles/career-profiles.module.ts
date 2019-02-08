@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { GoTopButtonModule } from 'ng2-go-top-button';
 
 import { SharedModule } from '../../../shared';
 import { CareerProfilesRoutingModule } from './career-profiles.routing';
@@ -9,6 +10,7 @@ import { CareerProfileDetailComponent } from './profile-detail/profile-detail.co
 @NgModule({
   imports: [
     SharedModule,
+    GoTopButtonModule,
     CareerProfilesRoutingModule,
     NgCircleProgressModule.forRoot({
       // set defaults here

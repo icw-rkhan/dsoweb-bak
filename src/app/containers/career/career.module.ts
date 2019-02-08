@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { ShareModule } from '@ngx-share/core';
 import { NgCircleProgressModule } from 'ng-circle-progress';
+import { GoTopButtonModule } from 'ng2-go-top-button';
 
 import { SharedModule } from '../../shared/shared.module';
 import { CareerRoutingModule } from './career.routing';
@@ -24,6 +25,7 @@ import { CareerMapComponent } from './career-map/career-map.component';
     CareerReviewModule,
     CareerProfilesModule,
     CareerRoutingModule,
+    GoTopButtonModule,
     ShareModule.forRoot(),
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCVNk-yni0M9-jJxH9CPxuhupke3y8bPTE',
