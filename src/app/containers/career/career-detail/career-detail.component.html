@@ -51,7 +51,7 @@
     </div>
     <div [class.show]="tab=='tab1'" [class.hide]="tab!=='tab1'" class="tab-content">
       <div class="job-type">Type: <span>{{job.type}}</span></div>
-      <pre class="job-description" [innerHtml]="job.jobDescription"></pre>
+      <pre class="job-description" [innerHtml]="job.jobDescription | safe: 'html'"></pre>
     </div>
     <div [class.show]="tab=='tab2'" [class.hide]="tab!=='tab2'" class="tab-content">
       <div class="company-container">
@@ -85,7 +85,7 @@
       </div>
       <div class="company-detail">
         <p class="detail-label">Details</p>
-        <pre class="detail-contents" [innerHtml]="job.companyDes"></pre>
+        <pre class="detail-contents" [innerHtml]="job.companyDes | safe: 'html'"></pre>
       </div>
     </div>
     <div [class.show]="tab=='tab3'" [class.hide]="tab!=='tab3'" class="tab-content">
