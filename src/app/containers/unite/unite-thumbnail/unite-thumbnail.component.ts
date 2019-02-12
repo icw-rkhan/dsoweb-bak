@@ -5,6 +5,7 @@ import { UniteService } from '../../../services/unite.service';
 import { Post } from '../../../models/post.model';
 import { NgProgress } from '@ngx-progressbar/core';
 import { Unite } from '../../../models/unite.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-unite-thumbnail',
@@ -17,6 +18,8 @@ export class UniteThumbnailComponent implements OnInit, OnDestroy {
   issue: Unite;
   coverPage: Post;
   articles: Post[];
+
+  subRoute: Subscription;
 
   @ViewChild('viewContainer') viewContainer: ElementRef;
 
@@ -35,7 +38,7 @@ export class UniteThumbnailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.progress.start();
 
-    this.route.params.subscribe(params => {
+    this.subRoute = this.route.params.subscribe(params => {
       const id = params['id'];
 
       const body = {
@@ -73,6 +76,8 @@ export class UniteThumbnailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.progress.complete();
+
+    this.subRoute.unsubscribe();
   }
 
   swipe(action) {

@@ -3,7 +3,7 @@ import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewChecke
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 import { map } from 'rxjs/internal/operators';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 import { BookmarkService } from '../../../services/bookmark.service';
@@ -25,6 +25,8 @@ export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   posts: Post[];
 
+  subRoute: Subscription;
+
   SWIPE_ACTION = {LEFT: 'swipeleft', RIGHT: 'swiperight'};
 
   @ViewChild('viewContainer') viewContainer: ElementRef;
@@ -44,7 +46,7 @@ export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngOnInit() {
     this.progress.start();
-    this.route.params.subscribe(params => {
+    this.subRoute = this.route.params.subscribe(params => {
       this.id = params['id'];
 
       const postService = this.uniteService.findOneById(this.id);
@@ -82,6 +84,8 @@ export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   ngOnDestroy() {
     this.progress.complete();
+
+    this.subRoute.unsubscribe();
   }
 
   ngAfterViewChecked() {

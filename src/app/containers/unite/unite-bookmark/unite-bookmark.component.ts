@@ -2,7 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChil
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/internal/operators';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 import { UniteService } from '../../../services/unite.service';
@@ -22,6 +22,7 @@ import { MatSnackBar } from '@angular/material';
 export class UniteBookmarkComponent implements OnInit, OnDestroy {
 
   issueId: string;
+  subRoute: Subscription;
 
   issue: Unite;
   posts: Post[];
@@ -42,7 +43,7 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.progress.start();
 
-    this.route.params.subscribe(params => {
+    this.subRoute = this.route.params.subscribe(params => {
      this.issueId = params['id'];
 
       const body = {
@@ -69,6 +70,8 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.progress.complete();
+
+    this.subRoute.unsubscribe();
   }
 
   fetchArticles() {
@@ -78,7 +81,7 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
     const email = this.authService.getUserInfo().user_name;
 
     // Join bookmarks and post
-    forkJoin(
+    const subJoin = forkJoin(
       unitePosts,
       this.bookmarkService.getAllByEmail(email)
     ).pipe(
@@ -100,6 +103,8 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
       });
 
       this.cdr.markForCheck();
+
+      subJoin.unsubscribe();
     },
     err => {
       this.progress.complete();

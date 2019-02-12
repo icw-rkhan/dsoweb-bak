@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy,
 import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 import { map } from 'rxjs/internal/operators';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 import { Post } from '../../../models/post.model';
@@ -24,6 +24,8 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
   article: Post;
   articles: Post[];
 
+  subRoute: Subscription;
+
   @ViewChild('viewContainer') viewContainer: ElementRef;
 
   SWIPE_ACTION = {LEFT: 'swipeleft', RIGHT: 'swiperight'};
@@ -41,7 +43,7 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.progress.start();
 
-    this.route.params.subscribe(params => {
+    this.subRoute = this.route.params.subscribe(params => {
       const id = params['id'];
       this.type = params['type'];
       const issueId = params['issueId'];
@@ -99,6 +101,8 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.progress.complete();
+
+    this.subRoute.unsubscribe();
   }
 
   arrayMove(arr, fromIndex, toIndex) {
