@@ -402,7 +402,6 @@ export class EditProfileComponent implements OnInit {
             }
 
             this.profileService.saveProfile(this.userProfile).subscribe((data: any) => {
-              console.log(data);
               if (!data.code) {
                 this.fetchProfile(this.userInfo.user_name);
               }

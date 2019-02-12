@@ -35,7 +35,6 @@ import { CustomFormsModule } from 'ngx-custom-validators';
 import { ShareModule } from '@ngx-share/core';
 import { NgxMasonryModule } from 'ngx-masonry';
 import { NgProgressHttpModule } from '@ngx-progressbar/http';
-import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { NgxDocViewerModule } from 'ngx-doc-viewer';
 
 import { SidebarComponent } from './sidebar/sidebar.component';
@@ -47,7 +46,6 @@ import { FeedGridComponent } from './feed-grid/feed-grid.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 import { MainContainerComponent } from './main-container/main-container.component';
 import { ReviewComponent } from './cards/review-card/review-card.component';
-import { PdfViewerComponent } from './pdf-viewer/pdf-viewer.component';
 import { UniteCardComponent } from './cards/unite-card/unite-card.component';
 import { ArticleCardComponent } from './cards/article-card/article-card.component';
 import { ScreenCardComponent } from './cards/screen-card/screen-card.component';
@@ -85,7 +83,6 @@ export const COMPONENTS = [
   CompanyReviewCardComponent,
   CompanyReviewExtendCardComponent,
   JobCardComponent,
-  PdfViewerComponent,
   DocViewerComponent,
   MainActionsComponent,
   FeedGridComponent,
@@ -141,7 +138,6 @@ export const MODULES = [
   CustomFormsModule,
   NgxMasonryModule,
   NgProgressHttpModule,
-  PdfViewerModule,
   NgxDocViewerModule
 ];
 
