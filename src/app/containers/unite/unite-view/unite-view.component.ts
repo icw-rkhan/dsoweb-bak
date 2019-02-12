@@ -89,15 +89,16 @@ export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
   }
 
   ngAfterViewChecked() {
-    this.onRelayout();
+    // this.onRelayout();
   }
 
   @HostListener('window:resize', [])
   onResizeEvent() {
-    this.onRelayout();
+    // this.onRelayout();
   }
 
   onRelayout() {
+    console.log('~');
     const parentTag = this.viewContainer.nativeElement;
     const heightOfCover = parentTag.getElementsByClassName('article-thumbnail')[0].offsetHeight;
     const articleTags = parentTag.getElementsByClassName('article-container');
