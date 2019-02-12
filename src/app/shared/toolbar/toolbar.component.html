@@ -39,9 +39,9 @@
     </mat-menu>
   </div>
 </div>
-<div *ngIf="visibleUniteMoreMenu">
+<article *ngIf="visibleUniteMoreMenu">
   <div *ngIf="isSearch" class="search-panel-backdrop" (click)="closeSearchPanel()"></div>
   <div *ngIf="isSearch">
     <dso-search-menu [issueId]="issueId" (closeSearchPanel)="closeSearchPanel()"></dso-search-menu>
   </div>
-</div>
+</article>
