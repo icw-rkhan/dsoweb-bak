@@ -152,7 +152,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
           this.saveJob();
-        }, 1500);
+        }, 2000);
       } else {
         this.type = this.dialog_types[0].id;
 
