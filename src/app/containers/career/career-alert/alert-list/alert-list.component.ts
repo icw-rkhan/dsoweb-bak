@@ -29,12 +29,13 @@ export class AlertListComponent implements OnInit, OnDestroy {
       'skip': 0
     };
 
-    this.jobAlertService.jobAlerts(body).subscribe(alerts => {
+    const subAlert = this.jobAlertService.jobAlerts(body).subscribe(alerts => {
       this.progress.complete();
 
       this.alerts = alerts;
 
       this.cdr.markForCheck();
+      subAlert.unsubscribe();
     },
     err => {
       this.progress.complete();
@@ -66,8 +67,10 @@ export class AlertListComponent implements OnInit, OnDestroy {
           'status': alert.status
         };
 
-        this.jobAlertService.editAlert(body).subscribe(res => {
+        const subAlert = this.jobAlertService.editAlert(body).subscribe(res => {
           this.progress.complete();
+
+          subAlert.unsubscribe();
         });
       }
     });
@@ -76,12 +79,14 @@ export class AlertListComponent implements OnInit, OnDestroy {
   removeAlert(id: string) {
     this.progress.start();
 
-    this.jobAlertService.deleteAlert(id).subscribe((res: any) => {
+    const subAlert = this.jobAlertService.deleteAlert(id).subscribe((res: any) => {
       this.progress.complete();
 
       if (res.code === 0) {
         this.removeItem(id);
       }
+
+      subAlert.unsubscribe();
     },
     err => {
       this.progress.complete();

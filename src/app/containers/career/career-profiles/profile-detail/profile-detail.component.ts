@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
@@ -7,6 +7,7 @@ import { Job } from '../../../../models/job.model';
 import { JobService } from '../../../../services/job.service';
 import { CompanyService } from '../../../../services/company.service';
 import { Review } from '../../../../models/reivew.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-career-profile-detail',
@@ -14,7 +15,7 @@ import { Review } from '../../../../models/reivew.model';
   styleUrls: ['./profile-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerProfileDetailComponent implements OnInit {
+export class CareerProfileDetailComponent implements OnInit, OnDestroy {
 
   tab: string;
   company: DSOCompany;
@@ -24,6 +25,8 @@ export class CareerProfileDetailComponent implements OnInit {
 
   rating: number;
   loadMoreBtn: string;
+
+  subRoute: Subscription;
 
   rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
 
@@ -41,15 +44,13 @@ export class CareerProfileDetailComponent implements OnInit {
 
   ngOnInit() {
     this.progress.start();
-    this.route.params.subscribe(params => {
+    this.subRoute = this.route.params.subscribe(params => {
       const id = params['id'];
 
       const subCompany = this.companyService.getCompanyById(id).subscribe(company => {
         this.company = company;
 
         this.rating = Math.round(parseFloat(company.rating));
-
-        subCompany.unsubscribe();
 
         const body = {
           'dsoId': id,
@@ -59,8 +60,6 @@ export class CareerProfileDetailComponent implements OnInit {
 
         const subJob = this.jobService.jobs(body).subscribe(jobs => {
           this.jobs = jobs;
-
-          subJob.unsubscribe();
 
           const subReview = this.companyService.getCommentByCompanyId(body).subscribe(reviews => {
             this.progress.complete();
@@ -77,12 +76,21 @@ export class CareerProfileDetailComponent implements OnInit {
           err => {
             this.progress.complete();
           });
+
+          subJob.unsubscribe();
         },
         err => {
           this.progress.complete();
         });
+
+        subCompany.unsubscribe();
       });
     });
+  }
+
+  ngOnDestroy() {
+    this.progress.complete();
+    this.subRoute.unsubscribe();
   }
 
   onTab(tabId: string) {

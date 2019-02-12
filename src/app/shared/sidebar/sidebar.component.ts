@@ -1,4 +1,4 @@
-import { Component, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, Output, EventEmitter, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 
 import { NavLinkModel } from '../../models/nav-link.model';
@@ -7,6 +7,7 @@ import { AuthService, ProfileService } from '../../services';
 import { NavLinksService } from '../../services/links.service';
 
 import { environment } from '../../../environments/environment';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-sidebar',
@@ -14,7 +15,7 @@ import { environment } from '../../../environments/environment';
   styleUrls: ['./sidebar.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SidebarComponent {
+export class SidebarComponent implements OnDestroy {
   @Output() toggleMenu = new EventEmitter();
 
   userName: string;
@@ -24,6 +25,8 @@ export class SidebarComponent {
 
   links: NavLinkModel[] = [];
 
+  subRoute: Subscription;
+
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -32,7 +35,7 @@ export class SidebarComponent {
     private navLinksService: NavLinksService) {
       this.links = this.navLinksService.getNavLinks();
 
-      this.router.events.subscribe((event: Event) => {
+      this.subRoute = this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
 
           this.links.map(link => {
@@ -48,6 +51,10 @@ export class SidebarComponent {
 
       this.getUserInfo();
       this.baseUrl = environment.profileApiUrl;
+  }
+
+  ngOnDestroy() {
+    this.subRoute.unsubscribe();
   }
 
   onClick(link: NavLinkModel) {

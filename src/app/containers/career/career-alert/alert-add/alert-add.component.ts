@@ -71,7 +71,7 @@ export class AlertAddComponent implements OnInit, AfterViewInit {
     if (this.id) {
       this.progress.start();
 
-      this.jobAlertService.jobAlert(this.id).subscribe(alert => {
+      const subAlert = this.jobAlertService.jobAlert(this.id).subscribe(alert => {
         this.progress.complete();
 
         this.keyword = alert.keyword;
@@ -89,6 +89,7 @@ export class AlertAddComponent implements OnInit, AfterViewInit {
         this.locationElementRef.nativeElement.value = this.location;
 
         this.cdr.markForCheck();
+        subAlert.unsubscribe();
       },
       err => {
         this.progress.complete();
@@ -146,11 +147,13 @@ export class AlertAddComponent implements OnInit, AfterViewInit {
         'distance': parseInt(this.distance, 10)
       };
 
-      this.jobAlertService.editAlert(body).subscribe((res: any) => {
+      const subAlert = this.jobAlertService.editAlert(body).subscribe((res: any) => {
         console.log(res);
         if (res.code === 0) {
           this._location.back();
         }
+
+        subAlert.unsubscribe();
       },
       err => {
         console.log(err);
@@ -167,10 +170,12 @@ export class AlertAddComponent implements OnInit, AfterViewInit {
         'distance': parseInt(this.distance, 10)
       };
 
-      this.jobAlertService.addAlert(body).subscribe((res: any) => {
+      const subAlert = this.jobAlertService.addAlert(body).subscribe((res: any) => {
         if (res.code === 0) {
           this._location.back();
         }
+
+        subAlert.unsubscribe();
       },
       err => {
         console.log(err);

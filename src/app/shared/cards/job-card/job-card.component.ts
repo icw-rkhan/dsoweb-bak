@@ -61,18 +61,22 @@ export class JobCardComponent implements OnInit {
   onBookmark() {
     this.isBookmark = true;
     if (!this.job.isSaved) {
-      this.jobService.addBookmark(this.job.id).subscribe((res: any) => {
+      const subJob = this.jobService.addBookmark(this.job.id).subscribe((res: any) => {
         if (res.code === 0) {
           this.job.isSaved = true;
           this.cdr.markForCheck();
         }
+
+        subJob.unsubscribe();
       });
     } else {
-      this.jobService.deleteBookmark(this.job.savedId).subscribe((res: any) => {
+      const subJob = this.jobService.deleteBookmark(this.job.savedId).subscribe((res: any) => {
         if (res.code === 0) {
           this.job.isSaved = false;
           this.cdr.markForCheck();
         }
+
+        subJob.unsubscribe();
       });
     }
   }

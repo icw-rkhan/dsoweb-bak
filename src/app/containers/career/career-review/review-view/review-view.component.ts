@@ -4,6 +4,7 @@ import { NgProgress } from '@ngx-progressbar/core';
 
 import { CompanyService } from '../../../../services/company.service';
 import { Review } from '../../../../models/reivew.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-career-review-view',
@@ -28,6 +29,8 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
 
   reviews: Review[];
   allReviews: Review[];
+
+  subRoute: Subscription;
 
   rateList = [
     {state: false},
@@ -65,7 +68,7 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
     this.activeSort = this.sortType[0];
     this.activeRefine = this.refineType[0];
 
-    this.route.params.subscribe(params => {
+    this.subRoute = this.route.params.subscribe(params => {
       this.id = params['id'];
       this.name = params['name'];
     });
@@ -79,6 +82,8 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.progress.complete();
+
+    this.subRoute.unsubscribe();
 
     window.removeEventListener('scroll', this.onScrollEvent, true);
   }
@@ -98,7 +103,7 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
       'start': this.activeRefine.id
     };
 
-    this.companyService.getCommentByCompanyId(body).subscribe(reviews => {
+    const subCompany = this.companyService.getCommentByCompanyId(body).subscribe(reviews => {
       this.progress.complete();
 
       this.allReviews = reviews;
@@ -114,6 +119,7 @@ export class ReviewViewComponent implements OnInit, OnDestroy {
       this.calcRating();
 
       this.cdr.markForCheck();
+      subCompany.unsubscribe();
     },
     err => {
       this.progress.complete();

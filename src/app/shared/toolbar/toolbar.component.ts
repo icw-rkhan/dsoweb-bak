@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { NavLinkModel } from '../../models/nav-link.model';
 import { NavLinksService } from '../../services/links.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-toolbar',
@@ -30,6 +31,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   uniteMoreLinks: NavLinkModel[];
   uniteListLinks: NavLinkModel[];
 
+  subRoute: Subscription;
+
   constructor(
     private router: Router,
     private location: Location,
@@ -41,7 +44,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
       this.uniteMainLinks = this.linksService.uniteMainLinks;
 
-      this.router.events.subscribe((event: Event) => {
+      this.subRoute = this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
           this.url = event.url;
           this.title = 'DSODENTIST';
@@ -186,6 +189,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     // window.removeEventListener('scroll', this.onScrollEvent, true);
+    this.subRoute.unsubscribe();
   }
 
   onScrollEvent = (): void => {

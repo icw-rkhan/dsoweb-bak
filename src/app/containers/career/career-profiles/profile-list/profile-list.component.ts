@@ -4,6 +4,7 @@ import { NgProgress } from '@ngx-progressbar/core';
 
 import { CompanyService } from '../../../../services/company.service';
 import { DSOCompany } from '../../../../models/dso-company.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-career-profile-list',
@@ -20,6 +21,8 @@ export class CareerProfileListComponent implements OnInit, OnDestroy {
 
   companies: DSOCompany[];
 
+  subRoute: Subscription;
+
   constructor(
     private progress: NgProgress,
     private route: ActivatedRoute,
@@ -27,7 +30,7 @@ export class CareerProfileListComponent implements OnInit, OnDestroy {
     private companyService: CompanyService) {
       this.page = 1;
 
-      this.route.params.subscribe(params => {
+      this.subRoute = this.route.params.subscribe(params => {
         this.type = params['type'];
       });
   }
@@ -40,6 +43,8 @@ export class CareerProfileListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.progress.complete();
+
+    this.subRoute.unsubscribe();
   }
 
   loadContents() {
@@ -51,7 +56,7 @@ export class CareerProfileListComponent implements OnInit, OnDestroy {
       'pageSize': 10
     };
 
-    this.companyService.dsoCompanies(body).subscribe(companies => {
+    const subCompany = this.companyService.dsoCompanies(body).subscribe(companies => {
       this.progress.complete();
 
       if (this.companies) {
@@ -64,6 +69,7 @@ export class CareerProfileListComponent implements OnInit, OnDestroy {
       }
 
       this.cdr.markForCheck();
+      subCompany.unsubscribe();
     },
     err => {
       this.progress.complete();

@@ -47,7 +47,7 @@ export class SettingPasswordComponent implements OnInit {
       old_password: this.form.value.oldPassword
     };
 
-    this.authService.updatePassword(body).subscribe(res => {
+    const subAuth = this.authService.updatePassword(body).subscribe(res => {
       if (res.code === 0) {
         this.clear();
 
@@ -55,6 +55,8 @@ export class SettingPasswordComponent implements OnInit {
       } else {
         this.alertService.errorAlert('Changed failed');
       }
+
+      subAuth.unsubscribe();
     });
   }
 

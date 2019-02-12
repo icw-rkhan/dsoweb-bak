@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 
 import { Review } from '../../../../models/reivew.model';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-career-review-detail',
@@ -23,6 +24,8 @@ export class ReviewDetailComponent implements OnInit, OnDestroy {
     {state: 'inactive'}
   ];
 
+  subRoute: Subscription;
+
   constructor(
     private progress: NgProgress,
     private cdr: ChangeDetectorRef,
@@ -31,7 +34,7 @@ export class ReviewDetailComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.progress.start();
 
-    this.route.queryParams.subscribe((params: Review) => {
+    this.subRoute = this.route.queryParams.subscribe((params: Review) => {
       this.progress.complete();
 
       this.review = params;
@@ -47,6 +50,8 @@ export class ReviewDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.progress.complete();
+
+    this.subRoute.unsubscribe();
   }
 
 }

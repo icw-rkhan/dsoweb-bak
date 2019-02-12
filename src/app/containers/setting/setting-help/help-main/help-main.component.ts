@@ -70,8 +70,10 @@ export class SettingHelpMainComponent implements OnInit {
       limit: 0
     };
 
-    this.settingService.getTopics(body).subscribe(topics => {
+    const subSetting = this.settingService.getTopics(body).subscribe(topics => {
       this.allTopics = topics;
+
+      subSetting.unsubscribe();
     });
   }
 

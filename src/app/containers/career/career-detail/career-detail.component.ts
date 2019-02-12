@@ -9,6 +9,7 @@ import { JobService } from '../../../services/job.service';
 import { CompanyService } from '../../../services/company.service';
 import { AuthService, ProfileService } from '../../../services';
 import { HttpResponse } from '@angular/common/http';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-career-detail',
@@ -30,6 +31,9 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   job: Job;
   reviews: Review[];
   allReviews: Review[];
+
+  subRoute: Subscription;
+  subRoute2: Subscription;
 
   dialog_types = [
     {id: 0, title: 'upload'},
@@ -58,11 +62,11 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
       this.job = new Job();
       this.reviews = [];
 
-      this.route.params.subscribe(params => {
+      this.subRoute = this.route.params.subscribe(params => {
         this.id = params['id'];
       });
 
-      this.router.events.subscribe((event: Event) => {
+      this.subRoute2 = this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
           this.sharedUrl = event.url;
         }
@@ -71,7 +75,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.progress.start();
-    this.jobService.getJobById(this.id).subscribe(job => {
+    const subJob = this.jobService.getJobById(this.id).subscribe(job => {
       this.job = job;
 
       this.rating = Math.round(parseFloat(job.rating));
@@ -97,6 +101,8 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
       err => {
         this.progress.complete();
       });
+
+      subJob.unsubscribe();
     },
     err => {
       this.progress.complete();
@@ -105,6 +111,9 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.progress.complete();
+
+    this.subRoute.unsubscribe();
+    this.subRoute2.unsubscribe();
   }
 
   onTab(tabId: string) {
@@ -124,7 +133,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   onSave() {
     const email = this.authService.getUserInfo().user_name;
-    this.profileService.findOneByEmail({email : email}).subscribe(res => {
+    const subProfile = this.profileService.findOneByEmail({email : email}).subscribe(res => {
       this.userProfile = res.resultMap.data;
 
       if (this.userProfile.document_library) {
@@ -140,6 +149,8 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
         this.cdr.markForCheck();
       }
+
+      subProfile.unsubscribe();
     });
   }
 
@@ -232,26 +243,30 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   onBookmark() {
     if (!this.job.isSaved) {
-      this.jobService.addBookmark(this.job.id).subscribe((res: any) => {
+      const subJob = this.jobService.addBookmark(this.job.id).subscribe((res: any) => {
         if (res.code === 0) {
           this.job.isSaved = true;
           this.cdr.markForCheck();
         }
+
+        subJob.unsubscribe();
       });
     } else {
-      this.jobService.bookmarkedJobs({'skip': 0, 'limit': 0}).subscribe(savedJobs => {
+      const subJob = this.jobService.bookmarkedJobs({'skip': 0, 'limit': 0}).subscribe(savedJobs => {
         savedJobs.map(job => {
           if (job.id === this.job.id) {
-            const subJob = this.jobService.deleteBookmark(job.savedId).subscribe((res: any) => {
+            const subJob2 = this.jobService.deleteBookmark(job.savedId).subscribe((res: any) => {
               if (res.code === 0) {
                 this.job.isSaved = false;
                 this.cdr.markForCheck();
               }
 
-              subJob.unsubscribe();
+              subJob2.unsubscribe();
             });
           }
         });
+
+        subJob.unsubscribe();
       });
     }
   }

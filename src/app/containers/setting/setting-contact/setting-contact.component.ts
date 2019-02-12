@@ -51,7 +51,7 @@ export class SettingContactComponent implements OnInit {
     this.progress.start();
 
     let originalId: string;
-    this.settingService.uploadFile(this.attachedFile).subscribe(res => {
+    const subSetting = this.settingService.uploadFile(this.attachedFile).subscribe(res => {
       if (res.code === 0) {
         originalId = res.resultMap.originalFigureId;
 
@@ -71,6 +71,8 @@ export class SettingContactComponent implements OnInit {
           this.progress.complete();
         });
       }
+
+      subSetting.unsubscribe();
     },
     err => {
       this.progress.complete();

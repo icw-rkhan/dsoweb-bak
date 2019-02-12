@@ -1,5 +1,6 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnDestroy } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-main-container',
@@ -7,12 +8,14 @@ import { Router, Event, NavigationEnd } from '@angular/router';
   styleUrls: ['./main-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainContainerComponent {
+export class MainContainerComponent implements OnDestroy {
 
   @Input() displayMainActions: boolean;
 
+  subRoute: Subscription;
+
   constructor(private router: Router) {
-    this.router.events.subscribe((event: Event) => {
+    this.subRoute = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         if (event.url.includes('/unite') || event.url.includes('/setting')) {
           this.displayMainActions = false;
@@ -21,5 +24,9 @@ export class MainContainerComponent {
         }
       }
     });
+  }
+
+  ngOnDestroy() {
+    this.subRoute.unsubscribe();
   }
 }

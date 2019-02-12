@@ -3,6 +3,7 @@ import { Router, Event, NavigationEnd } from '@angular/router';
 
 import { NavLinkModel } from '../../models/nav-link.model';
 import { NavLinksService } from '../../services/links.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-career-actions',
@@ -19,6 +20,8 @@ export class CareerActionsComponent implements OnInit, OnDestroy {
 
   @Output() moreEvent = new EventEmitter<number>();
 
+  subRoute: Subscription;
+
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
@@ -27,7 +30,7 @@ export class CareerActionsComponent implements OnInit, OnDestroy {
 
     this.links = this.linkService.careerActionLinks;
 
-    this.router.events.subscribe((event: Event) => {
+    this.subRoute = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         const url = event.url;
 
@@ -49,6 +52,8 @@ export class CareerActionsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
+    this.subRoute.unsubscribe();
+
     window.removeEventListener('scroll', this.onScrollEvent, true);
   }
 

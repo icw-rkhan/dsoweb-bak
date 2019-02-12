@@ -67,10 +67,12 @@ export class ReviewAddComponent implements OnInit {
       'isApprove': this.isCheckedAC
     };
 
-    this.companyService.setComment(body).subscribe((res: any) => {
+    const subCompany = this.companyService.setComment(body).subscribe((res: any) => {
       if (res.code === 0) {
         this.location.back();
       }
+
+      subCompany.unsubscribe();
     });
   }
 

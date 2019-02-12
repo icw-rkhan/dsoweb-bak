@@ -1,9 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
 
 import { Topic } from '../../../../models/topic.model';
 import { SettingService } from '../../../../services/setting.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-setting-help-list',
@@ -11,11 +12,13 @@ import { SettingService } from '../../../../services/setting.service';
   styleUrls: ['./help-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingHelpListComponent implements OnInit {
+export class SettingHelpListComponent implements OnInit, OnDestroy {
 
   moduleType: string;
 
   topics: Topic[];
+
+  subRoute: Subscription;
 
   constructor(
     private router: Router,
@@ -23,11 +26,11 @@ export class SettingHelpListComponent implements OnInit {
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
     private settingService: SettingService) {
-    this.route.params.subscribe(params => {
-      this.moduleType = params['moduleType'];
-    });
+      this.subRoute = this.route.params.subscribe(params => {
+        this.moduleType = params['moduleType'];
+      });
 
-    this.topics = [];
+      this.topics = [];
   }
 
   ngOnInit() {
@@ -38,16 +41,23 @@ export class SettingHelpListComponent implements OnInit {
     };
 
     this.progress.start();
-    this.settingService.getTopics(body).subscribe(topics => {
+    const subSetting = this.settingService.getTopics(body).subscribe(topics => {
       this.progress.complete();
 
       this.topics = topics;
 
       this.cdr.markForCheck();
+      subSetting.unsubscribe();
     },
     err => {
       this.progress.complete();
     });
+  }
+
+  ngOnDestroy() {
+    this.progress.complete();
+
+    this.subRoute.unsubscribe();
   }
 
   onGoTo(url: string) {

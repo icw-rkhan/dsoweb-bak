@@ -34,17 +34,20 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
       debounceTime(300)
     ).subscribe(res => {
       this.onSearch(res);
+
+      this.searchTypingSub.unsubscribe();
     });
   }
 
   onSearch(searchValue) {
     this.progress.start();
     this.posts = [];
-    this.uniteService.search(this.issueId, searchValue).subscribe(posts => {
+    const subUnite = this.uniteService.search(this.issueId, searchValue).subscribe(posts => {
       this.progress.complete();
       this.posts = posts;
 
       this.cdr.markForCheck();
+      subUnite.unsubscribe();
     },
     err => {
       this.progress.complete();

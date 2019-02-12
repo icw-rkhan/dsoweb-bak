@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
 import { NavLinkModel } from '../../models/nav-link.model';
 import { Event, NavigationEnd, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-main-actions',
@@ -8,19 +9,21 @@ import { Event, NavigationEnd, Router } from '@angular/router';
   styleUrls: ['./main-actions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainActionsComponent implements OnInit {
+export class MainActionsComponent implements OnInit, OnDestroy {
 
   navFooterLinks: NavLinkModel[] = [];
 
   private currentUrl: string;
   showNavBar = false;
 
+  subRoute: Subscription;
+
   constructor(private router: Router) {
     this.currentUrl = router.url;
   }
 
   ngOnInit(): void {
-    this.router.events.subscribe((event: Event) => {
+    this.subRoute = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
       }
@@ -55,6 +58,10 @@ export class MainActionsComponent implements OnInit {
       icon: 'assets/images/feed/bookmark_inactive.png',
       iconActive: 'assets/images/feed/bookmark_active.png'
     });
+  }
+
+  ngOnDestroy() {
+    this.subRoute.unsubscribe();
   }
 
   isActive(link: NavLinkModel) {

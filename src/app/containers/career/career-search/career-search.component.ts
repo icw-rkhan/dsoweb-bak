@@ -8,7 +8,7 @@ import * as _ from 'lodash';
 
 import { Job } from '../../../models/job.model';
 import { JobService } from '../../../services/job.service';
-import { forkJoin } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-career-search',
@@ -34,6 +34,8 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   jobs: Job[];
 
+  subRoute: Subscription;
+
   constructor(
     private ngZone: NgZone,
     private progress: NgProgress,
@@ -45,7 +47,7 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       this.isLoadingMore = false;
       this.showGotoTopBtn = false;
 
-      this.route.params.subscribe(params => {
+      this.subRoute = this.route.params.subscribe(params => {
         this.type = params['type'];
       });
   }
@@ -58,6 +60,8 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnDestroy() {
     this.progress.complete();
+
+    this.subRoute.unsubscribe();
   }
 
   ngAfterViewInit() {
@@ -107,7 +111,7 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
 
     const jobService = this.jobService.jobs(body);
 
-    forkJoin(
+    const subJob = forkJoin(
       jobService,
       this.jobService.bookmarkedJobs({'skip': this.page * 10, 'limit': 10})
     ).pipe(
@@ -135,6 +139,7 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       this.sortJobs();
 
       this.cdr.markForCheck();
+      subJob.unsubscribe();
     },
     err => {
       console.log(err);

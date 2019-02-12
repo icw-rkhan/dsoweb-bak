@@ -1,5 +1,6 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'dso-career-container',
@@ -7,16 +8,18 @@ import { Router, Event, NavigationEnd } from '@angular/router';
   styleUrls: ['./career-container.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerContainerComponent implements OnInit {
+export class CareerContainerComponent implements OnInit, OnDestroy {
 
   showActionBar: boolean;
   showMoreActionBar: boolean;
+
+  subRoute: Subscription;
 
   constructor(private router: Router) {
     this.showActionBar = true;
     this.showMoreActionBar = false;
 
-    this.router.events.subscribe((event: Event) => {
+    this.subRoute = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         const url = event.url;
 
@@ -33,6 +36,10 @@ export class CareerContainerComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  ngOnDestroy() {
+    this.subRoute.unsubscribe();
   }
 
   clear() {

@@ -33,12 +33,14 @@ export class IssueMenuComponent implements OnInit, OnDestroy {
       'limit': 0
     };
 
-    this.uniteService.findAll(body).subscribe(unites => {
+    const subUnite = this.uniteService.findAll(body).subscribe(unites => {
       unites.map(unite => {
         if (unite.id === this.issueId) {
           this.date = unite.date;
         }
       });
+
+      subUnite.unsubscribe();
     });
 
     const uniteSub = this.uniteService.findOneById(this.issueId).subscribe(posts => {
