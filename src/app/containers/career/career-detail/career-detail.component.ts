@@ -198,10 +198,10 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   saveJob() {
     const subJob1 = this.jobService.saveJob(this.job.id).subscribe((res: any) => {
-      this.progress.complete();
-
       if (res.code === 0) {
         const subJob2 = this.jobService.bookmarkedJobs({'skip': 0, 'limit': 0}).subscribe(savedJobs => {
+          this.progress.complete();
+
           savedJobs.map(job => {
             if (job.id === this.job.id) {
               const subJob3 = this.jobService.deleteBookmark(job.savedId).subscribe((ress: any) => {
@@ -213,24 +213,23 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
             }
           });
 
+          this.job.isSaved = false;
+          this.job.isApplied = true;
+
+          this.type = this.dialog_types[2].id;
+          this.cdr.markForCheck();
+
+          setTimeout(() => {
+            this.type = -1;
+            this.cdr.markForCheck();
+          }, 2000);
+
           subJob2.unsubscribe();
         },
         err => {
           this.handleError(err);
         });
-
-        this.job.isSaved = false;
-        this.job.isApplied = true;
-        this.cdr.markForCheck();
       }
-
-      this.type = this.dialog_types[2].id;
-      this.cdr.markForCheck();
-
-      setTimeout(() => {
-        this.type = -1;
-        this.cdr.markForCheck();
-      }, 2000);
 
       subJob1.unsubscribe();
     },
