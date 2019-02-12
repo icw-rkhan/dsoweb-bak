@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, HostListener } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
@@ -10,6 +10,7 @@ import { CompanyService } from '../../../services/company.service';
 import { AuthService, ProfileService } from '../../../services';
 import { HttpResponse } from '@angular/common/http';
 import { Subscription } from 'rxjs';
+import { MatMenuTrigger } from '@angular/material';
 
 @Component({
   selector: 'dso-career-detail',
@@ -42,6 +43,8 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   ];
 
   rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
+
+  @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   constructor(
     private router: Router,
@@ -114,6 +117,11 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
     this.subRoute.unsubscribe();
     this.subRoute2.unsubscribe();
+  }
+
+  @HostListener('window:scroll', [])
+  onscroll() {
+    this.trigger.closeMenu();
   }
 
   onTab(tabId: string) {
