@@ -83,15 +83,19 @@ export class SettingHelpMainComponent implements OnInit {
 
     this.searchResults = this.allTopics.filter(topic => topic.function.toLocaleLowerCase().includes(term));
 
-    if (this.searchResults.length > 0) {
-      this.moduleType = this.searchResults[0].moduleType;
-
-      this.noResult = false;
+    if (term === '') {
+      this.onDefault();
     } else {
-      this.noResult = true;
-    }
+      if (this.searchResults.length > 0) {
+        this.moduleType = this.searchResults[0].moduleType;
 
-    this.cdr.markForCheck();
+        this.noResult = false;
+      } else {
+        this.noResult = true;
+      }
+
+      this.cdr.markForCheck();
+    }
   }
 
   onGoTo(topic: Topic) {
