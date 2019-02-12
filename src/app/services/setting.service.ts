@@ -49,6 +49,22 @@ export class SettingService {
         response.resultMap.list.map(term => new Term().deserialize(term))));
     }
 
+    contact(body: any): Observable<any> {
+        const url = `${environment.settingApiUrl}/feedback`;
+
+        const headers = this.getHeaders();
+
+        return this.http.post(url, body, {headers});
+    }
+
+    uploadFile(file: any): Observable<any> {
+        const url = `${environment.settingApiUrl}/file/uploadFile`;
+
+        const headers = this.getHeaders();
+
+        return this.http.post(url, {file: file}, {headers});
+    }
+
     getHeaders(): HttpHeaders {
         const headers = new HttpHeaders()
           .append('Authorization', `Bearer ${this.authService.getToken()}`)

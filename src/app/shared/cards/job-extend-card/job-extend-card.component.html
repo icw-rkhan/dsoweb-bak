@@ -23,10 +23,7 @@
       </p>
     </div>
   </div>
-  <div #jobDesc class="job-desc">
-    {{job.jobDescription}}
-    <img *ngIf="isShowed" src="assets/images/icons/ellipsis.png">
-  </div>
+  <div #jobDesc class="job-desc" [innerHtml]="job.jobDescription"></div>
   <div class="job-salary" fxLayout="row" fxLayoutAlign="start end">
     <img src="assets/images/career/location.png">
     <label>{{job.city}}</label>
