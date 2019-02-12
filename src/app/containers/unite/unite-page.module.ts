@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { ModalModule } from 'ngx-bootstrap';
+import { GoTopButtonModule } from 'ng2-go-top-button';
 
 import { SharedModule } from '../../shared/shared.module';
 import { UniteRoutingModule } from './unite-page.routing';
@@ -15,7 +16,8 @@ import { UniteThumbnailComponent } from './unite-thumbnail/unite-thumbnail.compo
     imports: [
         SharedModule,
         ModalModule.forRoot(),
-        UniteRoutingModule
+        UniteRoutingModule,
+        GoTopButtonModule
     ],
     declarations: [
         UnitePageComponent,

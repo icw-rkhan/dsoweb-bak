@@ -22,3 +22,7 @@
       <a *ngIf="showReference" (click)="onClickReference()" [ngClass]="{'show-more-btn': showReferenceState === 'Show more', 'show-less-btn': showReferenceState === 'Show less'}">{{showReferenceState}}</a>
   </div>
 </div>
+
+<button class="btn-go-to-top" [ngClass]="{'show': showGotoTopBtn}" (click)="gotoTop()">
+    <i class="fa fa-arrow-up"></i>
+</button>

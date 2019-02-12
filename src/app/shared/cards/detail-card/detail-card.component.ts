@@ -27,6 +27,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
   isRendered: boolean;
   postRendered: boolean;
   showReference: boolean;
+  showGotoTopBtn: boolean;
   showReferenceState: string;
 
   @ViewChild('viewContainer') viewContainer: ElementRef;
@@ -42,6 +43,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
       this.isLoaded = false;
       this.isRendered = false;
       this.postRendered = false;
+      this.showGotoTopBtn = false;
 
       this.showReferenceState = 'Show more';
   }
@@ -151,6 +153,29 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
   @HostListener('window:resize', [])
   onresize() {
     this.reLayout('div');
+  }
+
+  onScrollEvent() {
+    const scrollPosition = this.viewContainer.nativeElement.scrollTop;
+
+    if (scrollPosition > 200) {
+      this.showGotoTopBtn = true;
+    } else {
+      this.showGotoTopBtn = false;
+    }
+
+    this.cdr.markForCheck();
+  }
+
+  gotoTop() {
+    this.viewContainer.nativeElement.scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
+
+    this.showGotoTopBtn = false;
+    this.cdr.markForCheck();
   }
 
   // change Pre tag to Div tag
@@ -332,6 +357,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
     let index = 0;
 
     const currentPosY = this.viewContainer.nativeElement.scrollTop;
+
     const timer = setInterval(() => {
       if (stepY - index < 10) {
         index ++;
@@ -345,10 +371,11 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
         this.viewContainer.nativeElement.scrollTo(0, currentPosY - index);
       }
 
+      this.onScrollEvent();
+
       if (index >= stepY) {
         clearInterval(timer);
       }
     }, 0);
   }
 }
-
