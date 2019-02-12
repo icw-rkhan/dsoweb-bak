@@ -21,7 +21,6 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
   term: string;
   posts: Post[];
   searchTyping$: Subject<any> = new Subject<any>();
-  searchTypingSub: Subscription = new Subscription();
 
   constructor(
     private router: Router,
@@ -30,12 +29,12 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
     private uniteService: UniteService) { }
 
   ngOnInit() {
-    this.searchTypingSub = this.searchTyping$.pipe(
+    const searchTypingSub = this.searchTyping$.pipe(
       debounceTime(300)
     ).subscribe(res => {
       this.onSearch(res);
 
-      this.searchTypingSub.unsubscribe();
+      searchTypingSub.unsubscribe();
     });
   }
 
@@ -63,6 +62,5 @@ export class SearchMenuComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.progress.complete();
-    this.searchTypingSub.unsubscribe();
   }
 }

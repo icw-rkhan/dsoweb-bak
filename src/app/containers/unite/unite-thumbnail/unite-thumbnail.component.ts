@@ -87,7 +87,7 @@ export class UniteThumbnailComponent implements OnInit, OnDestroy {
     const currentPos = this.viewContainer.nativeElement.scrollLeft;
     const timer = setInterval(() => {
       if (step - index < 10) {
-        index ++;
+        index = index + (step - index);
       } else {
         index = index + 10;
       }
