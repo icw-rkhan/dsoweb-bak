@@ -56,7 +56,10 @@ export class FeedCardComponent implements OnInit {
   }
 
   fetchVideoTag() {
-    this.videoTag = this.post.content.match(/<div.*><iframe.*>.*<\/div>/g)[0];
+    const tags = this.post.content.match(/<div.*><iframe.*>.*<\/div>/g);
+    if (tags) {
+      this.videoTag = tags[0];
+    }
   }
 
   onAddBookmark() {

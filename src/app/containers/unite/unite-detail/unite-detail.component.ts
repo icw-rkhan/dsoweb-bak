@@ -8,9 +8,9 @@ import * as _ from 'lodash';
 
 import { Post } from '../../../models/post.model';
 
+import { AuthService } from '../../../services';
 import { UniteService } from '../../../services/unite.service';
 import { BookmarkService } from '../../../services/bookmark.service';
-import { AuthService } from '../../../services';
 
 @Component({
   selector: 'dso-unite-detail',

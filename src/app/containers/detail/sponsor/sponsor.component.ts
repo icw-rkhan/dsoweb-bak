@@ -227,7 +227,10 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   fetchVideoTag(content: string) {
     const res = content.replace(/<div.*><iframe.*>.*<\/div>/g, '');
 
-    this.vodeoTag = content.match(/<div.*><iframe.*>.*<\/div>/g)[0];
+    const tags = content.match(/<div.*><iframe.*>.*<\/div>/g);
+    if (tags) {
+      this.vodeoTag = tags[0];
+    }
 
     return res.replace(/<hr.*?>/, '');
   }
