@@ -1,16 +1,18 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, HostListener } from '@angular/core';
-import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
+import { AlertService } from 'src/app/services/alert.service';
+import { HttpResponse } from '@angular/common/http';
+import { NgProgress } from '@ngx-progressbar/core';
+import { MatMenuTrigger } from '@angular/material';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { Job } from '../../../models/job.model';
 import { Review } from '../../../models/reivew.model';
 import { JobService } from '../../../services/job.service';
 import { CompanyService } from '../../../services/company.service';
 import { AuthService, ProfileService } from '../../../services';
-import { HttpResponse } from '@angular/common/http';
-import { Subscription } from 'rxjs';
-import { MatMenuTrigger } from '@angular/material';
+
 
 @Component({
   selector: 'dso-career-detail',
@@ -54,6 +56,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private jobService: JobService,
     private authService: AuthService,
+    private alertService: AlertService,
     private profileService: ProfileService,
     private companyService: CompanyService) {
       this.type = -1;
@@ -186,6 +189,12 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
           err => {
             this.handleError(err);
           });
+        } else {
+          this.progress.complete();
+          this.type = -1;
+          this.cdr.markForCheck();
+
+          this.alertService.errorAlert('Upload Failed');
         }
 
         subPro.unsubscribe();

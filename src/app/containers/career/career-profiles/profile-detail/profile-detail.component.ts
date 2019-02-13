@@ -1,13 +1,13 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { DSOCompany } from '../../../../models/dso-company.model';
-import { Job } from '../../../../models/job.model';
-import { JobService } from '../../../../services/job.service';
-import { CompanyService } from '../../../../services/company.service';
 import { Review } from '../../../../models/reivew.model';
-import { Subscription } from 'rxjs';
+import { Job } from '../../../../models/job.model';
+import { CompanyService } from '../../../../services/company.service';
+import { JobService } from '../../../../services/job.service';
 
 @Component({
   selector: 'dso-career-profile-detail',
