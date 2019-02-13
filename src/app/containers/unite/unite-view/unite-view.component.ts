@@ -18,7 +18,7 @@ import { Post } from '../../../models/post.model';
   styleUrls: ['./unite-view.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
+export class UniteViewComponent implements OnInit, OnDestroy {
 
   id: string;
   coverPage: Post;
@@ -86,29 +86,6 @@ export class UniteViewComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.progress.complete();
 
     this.subRoute.unsubscribe();
-  }
-
-  ngAfterViewChecked() {
-    // this.onRelayout();
-  }
-
-  @HostListener('window:resize', [])
-  onResizeEvent() {
-    // this.onRelayout();
-  }
-
-  onRelayout() {
-    console.log('~');
-    const parentTag = this.viewContainer.nativeElement;
-    const heightOfCover = parentTag.getElementsByClassName('article-thumbnail')[0].offsetHeight;
-    const articleTags = parentTag.getElementsByClassName('article-container');
-
-    let index;
-    for (index = 1; index < articleTags.length; index++) {
-      parentTag.getElementsByClassName('article-container')[index].style.height =  `calc(100vh - 45px)`;
-    }
-
-    this.cdr.markForCheck();
   }
 
   onNormalScreen() {

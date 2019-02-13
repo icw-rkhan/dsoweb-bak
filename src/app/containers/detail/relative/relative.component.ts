@@ -1,11 +1,12 @@
 import { Component, OnInit, OnDestroy, Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NgProgress } from '@ngx-progressbar/core';
 import { Subscription } from 'rxjs';
 
 import { PostService } from '../../../services/post.service';
 import { Post } from '../../../models/post.model';
+
 import { environment } from '../../../../environments/environment';
 
 @Component({

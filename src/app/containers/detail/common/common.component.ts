@@ -5,7 +5,6 @@ import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';
 import { NgProgress } from '@ngx-progressbar/core';
 import { formatDate } from '@angular/common';
-import { Subscription } from 'rxjs';
 
 import { BookmarkService } from '../../../services/bookmark.service';
 import { CommentService } from '../../../services/comment.service';
