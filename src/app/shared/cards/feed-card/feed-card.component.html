@@ -4,7 +4,8 @@
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>
-    <div class="image" *ngIf="post.thumbnail; else elseBlock" (click)="onViewDetail()">
+    <div *ngIf="videoTag" class="image" [innerHtml]="videoTag | safe: 'html'"></div>
+    <div *ngIf="!videoTag && post.thumbnail" class="image" (click)="onViewDetail()">
       <img [src]="post.thumbnail"/>
       <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" 
         src="/assets/images/icons/Article@2x.png" />
@@ -19,19 +20,12 @@
       <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '196')" 
         src="/assets/images/icons/TipSheet@2x.png" />
     </div>
-    <ng-template #elseBlock>
-      <div class="image sponsor" (click)="onViewDetail()">
-        <img src="../../../assets/images/sponsor/align-header.png" *ngIf="isAlign(post.sponsorId)"/>
-        <img src="../../../assets/images/sponsor/gsk-header.png" *ngIf="isGsk(post.sponsorId)"/>
-        <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="isNobel(post.sponsorId)"/>
-      </div>
-    </ng-template>
     <img *ngIf="isGsk(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.jpg" (click)="onPostSponsor('gsk')">
     <img *ngIf="isAlign(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/align-banner.jpg" (click)="onPostSponsor('align')">
     <img *ngIf="isNobel(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/nobel-banner.jpg" (click)="onPostSponsor('nobel')">
     <div class="content">
       <div class="content-title">
-        <span class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title"></span>
+        <span class="mat-h2" (click)="onViewDetail()" [innerHtml]="post.title" (click)="onViewDetail()"></span>
         <div class="actions" fxLayout="row" fxLayoutAlign="end start">
           <a class="bookmark-btn" (click)="onAddBookmark()" *ngIf="!post.isBookmark">
             <mat-icon aria-label="Bookmark">bookmark_border</mat-icon>
@@ -57,7 +51,7 @@
           </mat-menu>
         </div>
       </div>
-      <div class="inner-content" (click)="onViewDetail()" style="overflow: hidden">
+      <div class="inner-content" (click)="onViewDetail()" style="overflow: hidden" (click)="onViewDetail()">
         <div id="contents{{no}}" class="mat-body-1" [class.excerpt-content]="!isViewMore" [innerHtml]="postSafeContent"></div>
         <a id="more-text-btn">... more</a>
       </div>

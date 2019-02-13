@@ -33,6 +33,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   adId: string;
   index: number;
   postId: string;
+  vodeoTag: string;
   sharedUrl: string;
   isLoaded: boolean;
   authorName: string;
@@ -122,6 +123,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.progress.complete();
 
       const temp = p;
+      temp.content = this.fetchVideoTag(temp.content);
       temp.content = this.addRelativeAndReference(temp);
       temp.content = this.changePreToDiv(temp.content);
       temp.content = this.setDropcap(temp.content);
@@ -220,6 +222,14 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
         this.isRendered = true;
       }
     }
+  }
+
+  fetchVideoTag(content: string) {
+    const res = content.replace(/<div.*><iframe.*>.*<\/div>/g, '');
+
+    this.vodeoTag = content.match(/<div.*><iframe.*>.*<\/div>/g)[0];
+
+    return res.replace(/<hr.*?>/, '');
   }
 
   modifyADs(html: string) {

@@ -236,7 +236,7 @@
     <div class="upload-content">
       <div class="profile_title small f300 mb10">Upload {{typeFile == RESUME_FILE ? 'Resume': 'Photo'}}</div>
       <div *ngIf="typeFile == RESUME_FILE" class="upload-browse">
-        <input type="file" accept=".xls,.xlsx,.doc,.docx, .pdf" (change)="selectFile($event)"
+        <input type="file" accept=".doc,.docx, .pdf" (change)="selectFile($event)"
                class="upload-hidden">
         <span class="type-upload">Browse</span>
       </div>

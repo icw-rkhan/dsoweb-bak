@@ -3,8 +3,9 @@
         <h3 class="mat-h3">{{post.categoryName}}</h3>
         <span class="mat-body-1">{{post?.date | date: 'mediumDate'}}</span>
     </div>
-    <div class="inner-thumbnail" fxLayout="column">
-        <img *ngIf="post.thumbnail; else elseBlock" src="{{post.thumbnail}}">
+    <div *ngIf="vodeoTag" class="inner-thumbnail" [innerHTML]="vodeoTag | safe: 'html'"></div>
+    <div *ngIf="!vodeoTag" class="inner-thumbnail" fxLayout="column">
+        <img *ngIf="post.thumbnail" src="{{post.thumbnail}}">
         <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" 
             src="/assets/images/icons/Article@2x.png" />
         <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '194')" 
@@ -17,11 +18,6 @@
             src="/assets/images/icons/Video@2x.png" />
         <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '196')" 
             src="/assets/images/icons/TipSheet@2x.png" />
-        <ng-template #elseBlock>
-            <img src="../../../assets/images/sponsor/align-header.png" *ngIf="isAlign(post.sponsorId)"/>
-            <img src="../../../assets/images/sponsor/gsk-header.png" *ngIf="isGsk(post.sponsorId)"/>
-            <img src="../../../assets/images/sponsor/nobel-header.jpg" *ngIf="isNobel(post.sponsorId)"/>
-        </ng-template>
     </div>
     <div>
         <img *ngIf="isGsk(post.sponsorId)" class="inner-thumbnail" src = "assets/images/sponsor/gsk-banner.jpg"

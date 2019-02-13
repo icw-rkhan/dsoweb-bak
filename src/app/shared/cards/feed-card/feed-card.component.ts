@@ -19,6 +19,7 @@ import { environment } from '../../../../environments/environment';
 })
 export class FeedCardComponent implements OnInit {
 
+  videoTag: string;
   sharedUrl: string;
   isViewMore: boolean;
 
@@ -49,7 +50,13 @@ export class FeedCardComponent implements OnInit {
       } else {
         this.sharedUrl = `${this.document.location.origin}/detail/${this.post.id}`;
       }
+
+      this.fetchVideoTag();
     }
+  }
+
+  fetchVideoTag() {
+    this.videoTag = this.post.content.match(/<div.*><iframe.*>.*<\/div>/g)[0];
   }
 
   onAddBookmark() {
