@@ -152,7 +152,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
         setTimeout(() => {
           this.saveJob();
-        }, 2000);
+        }, 1500);
       } else {
         this.type = this.dialog_types[0].id;
 
@@ -222,7 +222,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
           setTimeout(() => {
             this.type = -1;
             this.cdr.markForCheck();
-          }, 2000);
+          }, 1500);
 
           subJob2.unsubscribe();
         },

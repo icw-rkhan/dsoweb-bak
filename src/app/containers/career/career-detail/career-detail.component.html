@@ -135,11 +135,13 @@
   <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
 </div>
 <div *ngIf="type!==-1" class="resume-dialog" fxLayout="column" fxLayoutAlign="center center">
-  <div *ngIf="type!==0" fxLayout="column" fxLayoutAlign="center center">
-    <img *ngIf="type==1" src="assets/images/career/submit_resume.png">
-    <label *ngIf="type==1">Submitting your resume...</label>
-    <img *ngIf="type==2" src="assets/images/career/complete_resume.png">
-    <label *ngIf="type==2">Resume submitted.</label>
+  <div *ngIf="type==1" fxLayout="column" fxLayoutAlign="center center">
+    <img src="assets/images/career/submit_resume.png">
+    <label>Submitting your resume...</label>
+  </div>
+  <div *ngIf="type==2" fxLayout="column" fxLayoutAlign="center center">
+    <img src="assets/images/career/complete_resume.png">
+    <label>Resume submitted.</label>
   </div>
   <div *ngIf="type==0" class="upload_resume" fxLayout="column" fxLayoutAlign="center center">
     <button mat-icon-button (click)="type=-1">
