@@ -3,6 +3,7 @@ import { Location } from '@angular/common';
 
 import { AuthService } from '../../../services';
 import { NgProgress } from '@ngx-progressbar/core';
+import { HttpResponse } from '@angular/common/http';
 import { SettingService } from '../../../services/setting.service';
 
 @Component({
@@ -51,28 +52,28 @@ export class SettingContactComponent implements OnInit {
     this.progress.start();
 
     let originalId: string;
-    const subSetting = this.settingService.uploadFile(this.attachedFile).subscribe(res => {
-      if (res.code === 0) {
-        originalId = res.resultMap.originalFigureId;
+    this.settingService.uploadFile(this.attachedFile).subscribe(res => {
+      if (res instanceof HttpResponse) {
+        if (res.body['code'] === 0) {
+          originalId = res.body['resultMap']['originalFigureId'];
 
-        const body = {
-          feedbackContent: this.content,
-          contactEmail: this.email,
-          attachments: originalId
-        };
+          const body = {
+            feedbackContent: this.content,
+            contactEmail: this.email,
+            attachments: originalId
+          };
 
-        const subContact = this.settingService.contact(body).subscribe(res2 => {
-          this.progress.complete();
+          const subContact = this.settingService.contact(body).subscribe(res2 => {
+            this.progress.complete();
 
-          this.clear();
-          subContact.unsubscribe();
-        },
-        err => {
-          this.progress.complete();
-        });
+            this.clear();
+            subContact.unsubscribe();
+          },
+          err => {
+            this.progress.complete();
+          });
+        }
       }
-
-      subSetting.unsubscribe();
     },
     err => {
       this.progress.complete();
@@ -86,5 +87,6 @@ export class SettingContactComponent implements OnInit {
   clear() {
     this.content = '';
     this.attachedFile = null;
+    this.isUploadFileSlide = false;
   }
 }

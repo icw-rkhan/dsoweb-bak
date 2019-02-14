@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { map } from 'rxjs/internal/operators';
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import * as _ from 'lodash';
 
 import { AuthService } from './auth/auth.service';
@@ -57,12 +57,15 @@ export class SettingService {
         return this.http.post(url, body, {headers});
     }
 
-    uploadFile(file: any): Observable<any> {
+    uploadFile(file) {
         const url = `${environment.settingApiUrl}/file/uploadFile`;
 
-        const headers = this.getHeaders();
+        const form = new FormData();
+        form.append('file', file);
 
-        return this.http.post(url, {file: file}, {headers});
+        return this.http.request(new HttpRequest('POST', url, form, {
+            reportProgress: true
+          }));
     }
 
     getHeaders(): HttpHeaders {

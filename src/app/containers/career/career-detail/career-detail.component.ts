@@ -84,6 +84,8 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     const subJob = this.jobService.getJobById(this.id).subscribe(job => {
       this.job = job;
 
+      this.checkJobType();
+
       this.rating = Math.round(parseFloat(job.rating));
 
       const body = {
@@ -164,6 +166,14 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
       subProfile.unsubscribe();
     });
+  }
+
+  checkJobType() {
+    const type = this.job.type;
+
+    if (type.toLocaleLowerCase() === 'parttime') {
+      this.job.type = 'part-time';
+    }
   }
 
   selectFile(file) {
