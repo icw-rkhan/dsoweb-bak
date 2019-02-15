@@ -1,4 +1,4 @@
-<div class="career-actions" fxLayout="column" fxLayoutAlign="top center" (swipeup)="onSwipeUp($event)" 
+<div #actionsContainer class="career-actions" fxLayout="column" fxLayoutAlign="top center" (swipeup)="onSwipeUp($event)" 
       (swipedown)="onSwipeDown($event)">
   <mat-icon *ngIf="!showNavBar" class="show-nav-bar">keyboard_arrow_up</mat-icon>
   <nav class="footer" [ngClass]="{'hidden': !showNavBar}" mat-tab-nav-bar>

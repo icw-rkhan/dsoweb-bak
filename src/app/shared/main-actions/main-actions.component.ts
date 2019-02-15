@@ -1,7 +1,12 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy } from '@angular/core';
-import { NavLinkModel } from '../../models/nav-link.model';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+
+import { NavLinkModel } from '../../models/nav-link.model';
+
+import { SharingService } from 'src/app/services/sharing.service';
+
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-main-actions',
@@ -18,11 +23,21 @@ export class MainActionsComponent implements OnInit, OnDestroy {
 
   subRoute: Subscription;
 
-  constructor(private router: Router) {
+  @ViewChild('actionsContainer') actionsContainer: ElementRef;
+
+  constructor(private router: Router, private sharingService: SharingService) {
     this.currentUrl = router.url;
   }
 
   ngOnInit(): void {
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      const element = this.actionsContainer.nativeElement;
+      element.style.maxWidth = environment.fixedWidth;
+      element.style.margin = 'auto';
+    }
+
     this.subRoute = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;

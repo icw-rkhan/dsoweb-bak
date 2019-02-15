@@ -1,9 +1,12 @@
-import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter,
+        ChangeDetectorRef, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 
 import { NavLinkModel } from '../../models/nav-link.model';
 import { NavLinksService } from '../../services/links.service';
 import { Subscription } from 'rxjs';
+import { SharingService } from 'src/app/services/sharing.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-career-actions',
@@ -22,10 +25,13 @@ export class CareerActionsComponent implements OnInit, OnDestroy {
 
   subRoute: Subscription;
 
+  @ViewChild('actionsContainer') actionsContainer: ElementRef;
+
   constructor(
     private router: Router,
     private cdr: ChangeDetectorRef,
-    private linkService: NavLinksService) {
+    private linkService: NavLinksService,
+    private sharingService: SharingService) {
     this.flag = false;
 
     this.links = this.linkService.careerActionLinks;
@@ -49,6 +55,14 @@ export class CareerActionsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     window.addEventListener('scroll', this.onScrollEvent, true);
+
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      const element = this.actionsContainer.nativeElement;
+      element.style.maxWidth = environment.fixedWidth;
+      element.style.margin = 'auto';
+    }
   }
 
   ngOnDestroy() {

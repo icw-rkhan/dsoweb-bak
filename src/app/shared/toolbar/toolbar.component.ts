@@ -1,10 +1,14 @@
-import { Component, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy, OnInit, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
+import { Subscription } from 'rxjs';
 
 import { NavLinkModel } from '../../models/nav-link.model';
+
 import { NavLinksService } from '../../services/links.service';
-import { Subscription } from 'rxjs';
+import { SharingService } from 'src/app/services/sharing.service';
+
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'dso-toolbar',
@@ -37,7 +41,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private location: Location,
     private cdr: ChangeDetectorRef,
-    private linksService: NavLinksService) {
+    private linksService: NavLinksService,
+    private sharingService: SharingService) {
       this.visibleUniteMoreMenu = false;
       this.visibleCareerAddOption = false;
       this.visibleCareerSearchOption = true;

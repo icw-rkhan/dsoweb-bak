@@ -6,7 +6,9 @@ import {BehaviorSubject} from 'rxjs';
 })
 export class SharingService {
 
+  deviceType: string;
   isLoading: BehaviorSubject<boolean>;
+
   constructor() {
     this.isLoading = new BehaviorSubject<boolean>(false);
   }
@@ -14,4 +16,12 @@ export class SharingService {
   showLoading(status: boolean): void {
     this.isLoading.next(status);
   }
-}
+
+  getMyDevice(): string {
+    return this.deviceType;
+  }
+
+  setMyDevice(type: string) {
+    this.deviceType = type;
+  }
+ }

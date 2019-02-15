@@ -8,4 +8,5 @@ export const environment = {
   SPONSOR_GSK: '197',
   SPONSOR_ALIGN: '260',
   SPONSOR_NOBEL: '502',
+  fixedWidth: '768px'
 };

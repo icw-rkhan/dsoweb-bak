@@ -1,6 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy, ViewChild, 
+        ElementRef, ChangeDetectorRef } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { SharingService } from 'src/app/services/sharing.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-career-container',
@@ -15,27 +18,41 @@ export class CareerContainerComponent implements OnInit, OnDestroy {
 
   subRoute: Subscription;
 
-  constructor(private router: Router) {
-    this.showActionBar = true;
-    this.showMoreActionBar = false;
+  @ViewChild('menuMask') menuMask: ElementRef;
+  @ViewChild('careerContainer') careerContainer: ElementRef;
 
-    this.subRoute = this.router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd) {
-        const url = event.url;
+  constructor(
+    private router: Router,
+    private cdr: ChangeDetectorRef,
+    private sharingService: SharingService) {
+      this.showActionBar = true;
+      this.showMoreActionBar = false;
 
-        this.clear();
+      this.subRoute = this.router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationEnd) {
+          const url = event.url;
 
-        if (url.includes('/career/detail') || url.includes('/career/review/add') ||
-          url.includes('/career/alert/add')) {
-          this.showActionBar = false;
-        } else {
-          this.showActionBar = true;
+          this.clear();
+
+          if (url.includes('/career/detail') || url.includes('/career/review/add') ||
+            url.includes('/career/alert/add')) {
+            this.showActionBar = false;
+          } else {
+            this.showActionBar = true;
+          }
         }
-      }
-    });
+      });
   }
 
   ngOnInit() {
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      const element = this.careerContainer.nativeElement;
+      element.style.maxWidth = environment.fixedWidth;
+      element.style.position = 'relative';
+      element.style.margin = 'auto';
+    }
   }
 
   ngOnDestroy() {

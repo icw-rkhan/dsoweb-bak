@@ -1,9 +1,7 @@
-<div *ngIf="!isPlaceholder">
-  <div class="heading">
-    <img src="assets/images/career/head.png">
-  </div>
+<div *ngIf="!isPlaceholder" class="career-container">
+  <div class="heading"></div>
   <div>
-    <mat-grid-list cols="2" rowHeight="150px">
+    <mat-grid-list cols="2" rowHeight="fit">
       <mat-grid-tile *ngFor="let link of links">
         <div class="tile-content" fxLayout="column" fxLayoutAlign="center center" (click)="onGoTo(link.url)">
           <img [src]="'assets/images/career/' + link.icon + '.png'">

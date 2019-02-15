@@ -1,37 +1,38 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
-import { AgmCoreModule } from '@agm/core';
+import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
 import { NgProgressModule } from '@ngx-progressbar/core';
 import { MatDatepickerModule } from '@angular/material';
 import { GoTopButtonModule } from 'ng2-go-top-button';
+import { ReactiveFormsModule } from '@angular/forms';
+import { AgmCoreModule } from '@agm/core';
+import { NgModule } from '@angular/core';
 
-import { AppComponent } from './app.component';
-import { AppRoutingModule } from './app.routing';
-import { ReviewsModule } from './containers/reviews/reviews.module';
-import { FeedModule } from './containers/feed/feed.module';
-import { DetailModule } from './containers/detail/detail.module';
-import { SearchPageModule } from './containers/search/search-page.module';
-import { CategoryPageModule } from './containers/category/category-page.module';
-import { BookmarksPageModule } from './containers/bookmarks/bookmarks-page.module';
-import { ProfileModule } from './containers/profile/profile.module';
-import { EditProfileModule } from './containers/edit-profile/edit-profile.module';
-import { UnitePageModule } from './containers/unite/unite-page.module';
-import { CareerModule } from './containers/career/career.module';
-import { EducationModule } from './containers/education/education.module';
-import { EventModule } from './containers/event/event.module';
-import { SettingModule } from './containers/setting/setting.module';
 import { SettingContactModule } from './containers/setting/setting-contact/setting-contact.module';
 import { SettingHelpModule } from './containers/setting/setting-help/setting-help.module';
+import { BookmarksPageModule } from './containers/bookmarks/bookmarks-page.module';
+import { EditProfileModule } from './containers/edit-profile/edit-profile.module';
+import { CategoryPageModule } from './containers/category/category-page.module';
+import { EducationModule } from './containers/education/education.module';
+import { SearchPageModule } from './containers/search/search-page.module';
+import { UnitePageModule } from './containers/unite/unite-page.module';
+import { ReviewsModule } from './containers/reviews/reviews.module';
+import { ProfileModule } from './containers/profile/profile.module';
+import { SettingModule } from './containers/setting/setting.module';
+import { DetailModule } from './containers/detail/detail.module';
+import { CareerModule } from './containers/career/career.module';
+import { EventModule } from './containers/event/event.module';
+import { DeviceDetectorModule } from 'ngx-device-detector';
+import { FeedModule } from './containers/feed/feed.module';
 
-import { AuthGuard } from './services/auth/auth-guard';
-import { environment } from '../environments/environment';
 import { TokenInterceptor } from './services/auth/auth.interceptor';
+import { environment } from '../environments/environment';
+import { AuthGuard } from './services/auth/auth-guard';
+import { AppRoutingModule } from './app.routing';
+import { AppComponent } from './app.component';
 
 import * as Hammer from 'hammerjs';
-import { HammerGestureConfig, HAMMER_GESTURE_CONFIG } from '@angular/platform-browser';
 
 export class HammerConfig extends HammerGestureConfig {
   overrides = <any>{
@@ -45,9 +46,10 @@ export class HammerConfig extends HammerGestureConfig {
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    BrowserAnimationsModule,
+    DeviceDetectorModule.forRoot(),
     NgProgressModule.forRoot({
       meteor: false,
       color: '#354051'

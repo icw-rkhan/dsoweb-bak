@@ -1,10 +1,12 @@
-import { Component, OnDestroy, OnInit, HostListener } from '@angular/core';
 import { ActivatedRoute, Event, NavigationEnd, Router } from '@angular/router';
-
-import { NavLinkModel } from '../../models/nav-link.model';
+import { Component, OnDestroy, OnInit, HostListener, ViewChild, ElementRef } from '@angular/core';
 import { Params } from '@angular/router/src/shared';
 import { Subscription } from 'rxjs';
+
+import { NavLinkModel } from '../../models/nav-link.model';
+
 import { environment } from '../../../environments/environment';
+import { SharingService } from 'src/app/services/sharing.service';
 
 @Component({
   templateUrl: './feed-page.html',
@@ -23,41 +25,50 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   private currentUrl: string;
   private routerSubs: Subscription;
 
-  constructor(private router: Router, private route: ActivatedRoute) {
-    this.isClose = false;
-    this.currentUrl = router.url;
-    this.slideUrls = [
-      'assets/images/slide/slide-1.jpg',
-      'assets/images/slide/slide-2.jpg',
-      'assets/images/slide/slide-3.jpg',
-      'assets/images/slide/slide-4.jpg',
-      'assets/images/slide/slide-5.jpg',
-    ];
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private sharingService: SharingService) {
+      this.isClose = false;
+      this.currentUrl = router.url;
+      this.slideUrls = [
+        'assets/images/slide/slide-1.jpg',
+        'assets/images/slide/slide-2.jpg',
+        'assets/images/slide/slide-3.jpg',
+        'assets/images/slide/slide-4.jpg',
+        'assets/images/slide/slide-5.jpg',
+      ];
 
-    router.events.subscribe((event: Event) => {
-      if (event instanceof NavigationEnd) {
-        this.url = event.url;
-        if (event.url.includes('/posts/sponsor')) {
-          this.isGeneral = false;
-          const sponsorId = event.url.split('/')[3];
+      router.events.subscribe((event: Event) => {
+        if (event instanceof NavigationEnd) {
+          this.url = event.url;
+          if (event.url.includes('/posts/sponsor')) {
+            this.isGeneral = false;
+            const sponsorId = event.url.split('/')[3];
 
-          if (sponsorId === environment.SPONSOR_GSK) {
-            this.headerImageUrl = 'assets/images/sponsor/gsk-header.png';
-          } else if (sponsorId === environment.SPONSOR_NOBEL) {
-            this.headerImageUrl = 'assets/images/sponsor/nobel-header.png';
-          } else if (sponsorId === environment.SPONSOR_ALIGN) {
-            this.headerImageUrl = 'assets/images/sponsor/align-header.png';
+            if (sponsorId === environment.SPONSOR_GSK) {
+              this.headerImageUrl = 'assets/images/sponsor/gsk-header.png';
+            } else if (sponsorId === environment.SPONSOR_NOBEL) {
+              this.headerImageUrl = 'assets/images/sponsor/nobel-header.png';
+            } else if (sponsorId === environment.SPONSOR_ALIGN) {
+              this.headerImageUrl = 'assets/images/sponsor/align-header.png';
+            }
+          } else if (event.url.includes('/posts')) {
+            this.isGeneral = true;
+            this.headerImageUrl = 'assets/images/icons/header-pic.png';
           }
-        } else if (event.url.includes('/posts')) {
-          this.isGeneral = true;
-          this.headerImageUrl = 'assets/images/icons/header-pic.png';
         }
-      }
-    });
+      });
   }
 
   ngOnInit(): void {
-    this.slideHeight = `${Math.round(document.body.clientWidth * 0.55)}px`;
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      this.slideHeight = `${Math.round(parseInt(environment.fixedWidth, 10) * 0.55)}px`;
+    } else {
+      this.slideHeight = `${Math.round(document.body.clientWidth * 0.55)}px`;
+    }
 
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
