@@ -26,12 +26,11 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private activatedRoute: ActivatedRoute,
     private fb: FormBuilder,
     private authService: AuthService,
     private apiError: ApiErrorService,
-    private sharingService: SharingService
-  ) {
+    private sharingService: SharingService,
+    private activatedRoute: ActivatedRoute) {
     this.sharingService.showLoading(true);
     this.isShowPassword = false;
     this.checkIsStudent = false;
@@ -51,6 +50,12 @@ export class LoginComponent implements OnInit {
     });
     this.initForm();
     this.is_student = +localStorage.getItem('is_student');
+
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      console.log(window.document.getElementsByClassName('login-content').length);
+    }
   }
 
   get username() {
