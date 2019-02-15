@@ -1,12 +1,15 @@
 import { Component, OnInit, HostListener, Input, ChangeDetectionStrategy,
   ChangeDetectorRef, ElementRef, ViewChild, EventEmitter, AfterContentChecked, Output } from '@angular/core';
+import { MatSnackBar } from '@angular/material';
 
 import { Post } from '../../../models/post.model';
 import { Bookmark } from '../../../models/bookmark.model';
 
-import { AuthService } from '../../../services';
 import { BookmarkService } from '../../../services/bookmark.service';
-import { MatSnackBar } from '@angular/material';
+import { SharingService } from 'src/app/services/sharing.service';
+import { AuthService } from '../../../services';
+
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-detail-card',
@@ -38,6 +41,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
     private snackBar: MatSnackBar,
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
+    private sharingService: SharingService,
     private bookmarkService: BookmarkService) {
       this.isAD = false;
       this.isLoaded = false;
@@ -66,6 +70,13 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
     }
 
     this.isLoaded = true;
+
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      const element = this.viewContainer.nativeElement;
+      element.style.width = environment.fixedWidth;
+      element.style.position = 'relative';
+    }
   }
 
   ngAfterContentChecked() {

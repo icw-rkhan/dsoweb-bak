@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Location } from '@angular/common';
 
 import { AuthService } from '../../../services';
 import { NgProgress } from '@ngx-progressbar/core';
 import { HttpResponse } from '@angular/common/http';
 import { SettingService } from '../../../services/setting.service';
+import { SharingService } from 'src/app/services/sharing.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-setting-contact',
@@ -19,16 +21,27 @@ export class SettingContactComponent implements OnInit {
   attachedFile: File;
   isUploadFileSlide: boolean;
 
+  @ViewChild('contactContainer') contactContainer: ElementRef;
+
   constructor(
     private location: Location,
     private progress: NgProgress,
     private authService: AuthService,
+    private sharingService: SharingService,
     private settingService: SettingService) {
       this.isUploadFileSlide = false;
       this.email = this.authService.getUserInfo().user_name;
   }
 
   ngOnInit() {
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      const element = this.contactContainer.nativeElement;
+      element.style.maxWidth = environment.fixedWidth;
+      element.style.position = 'relative';
+      element.style.margin = 'auto';
+    }
   }
 
   // upload file

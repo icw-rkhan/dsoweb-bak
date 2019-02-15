@@ -24,6 +24,7 @@ div {
 button {
   position: absolute;
   top: 2px;
+  z-index: 30;
 }
 
 .btn-menu {
@@ -46,6 +47,7 @@ button {
   width: auto;
   right: 0px;
   align-items: center;
+  position: absolute;
 
   .mat-icon-button {
     right: -9px;
@@ -57,7 +59,9 @@ button {
 }
 
 .topic-title {
-  padding: 0px 50px;
+  position: absolute;
+  height: 45px;
+  width: 100%;
   font-size: 15px;
   font-family: 'SFUI';
   font-weight: 600;

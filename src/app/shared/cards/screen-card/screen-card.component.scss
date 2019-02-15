@@ -2,10 +2,11 @@
 @import "../../../../responsive";
 
 .article-item {
+    width: 100vw;
     height: calc(100vh - 45px);
 
     .article-container {
-        width: 100vw;
+        width: 100%;
         background-color: #ffffff;
         overflow: hidden;
 
@@ -50,7 +51,7 @@
     }
 
     .article-footer {
-        margin-top: 53px;
+        margin: 53px 0px 30px;
         
         .unite-arrow {
             width: 14px;

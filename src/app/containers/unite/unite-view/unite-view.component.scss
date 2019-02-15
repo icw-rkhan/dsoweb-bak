@@ -2,13 +2,12 @@
     width: 100%;
     height: calc(100vh - 45px);
     background-color: #000;
+    position: relative;
 
     .view-container {
-        width: 100vw;
+        width: 100%;
         overflow-x: auto;
-
-        dso-screen-card {
-        }
+        position: relative;
 
         dso-screen-card:last-child {
             margin-right: 0px

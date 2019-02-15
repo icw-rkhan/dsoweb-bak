@@ -11,6 +11,7 @@ import { Post } from '../../../models/post.model';
 import { AuthService } from '../../../services';
 import { UniteService } from '../../../services/unite.service';
 import { BookmarkService } from '../../../services/bookmark.service';
+import { SharingService } from 'src/app/services/sharing.service';
 
 @Component({
   selector: 'dso-unite-detail',
@@ -38,6 +39,7 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
     private uniteService: UniteService,
+    private sharingService: SharingService,
     private bookmarkService: BookmarkService) {}
 
   ngOnInit() {
@@ -114,6 +116,11 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
   }
 
   swipe(action) {
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      return;
+    }
+
     const step = document.body.scrollWidth;
     let index = 0;
 

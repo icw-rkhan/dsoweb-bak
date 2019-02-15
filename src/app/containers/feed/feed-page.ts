@@ -98,9 +98,15 @@ export class FeedPageComponent implements OnInit, OnDestroy {
     });
   }
 
-  @HostListener('window:resize', ['$event'])
-  onresize(event) {
-    this.slideHeight = `${Math.round(document.body.clientWidth * 0.55)}px`;
+  @HostListener('window:resize', [])
+  onresize() {
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      this.slideHeight = `${Math.round(parseInt(environment.fixedWidth, 10) * 0.55)}px`;
+    } else {
+      this.slideHeight = `${Math.round(document.body.clientWidth * 0.55)}px`;
+    }
   }
 
   ngOnDestroy(): void {

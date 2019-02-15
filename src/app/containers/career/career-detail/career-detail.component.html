@@ -43,7 +43,7 @@
       </p>
     </div>
   </div>
-  <article class="tab">
+  <article #tabs class="tab">
     <div class="tab-header">
       <button mat-button (click)="onTab('tab1')" [class.active]="tab=='tab1'">DESCRIPTION</button>
       <button mat-button (click)="onTab('tab2')" [class.active]="tab=='tab2'">COMPANY</button>
@@ -130,7 +130,7 @@
     </div>
   </article>
 </section>
-<div [class.show]="tab=='tab1'||tab=='tab2'" [class.hide]="tab=='tab3'" class="ctrl-button">
+<div #ctrlBtns [class.show]="tab=='tab1'||tab=='tab2'" [class.hide]="tab=='tab3'" class="ctrl-button">
   <button *ngIf="!job.isApplied" mat-raised-button (click)="onSave()">Apply Now</button>
   <button *ngIf="job.isApplied" mat-raised-button (click)="onGoToJobScreen()">View similar jobs</button>
 </div>

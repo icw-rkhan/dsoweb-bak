@@ -11,6 +11,9 @@ import { UniteService } from '../../../services/unite.service';
 import { AuthService } from '../../../services';
 
 import { Post } from '../../../models/post.model';
+import { SharingService } from 'src/app/services/sharing.service';
+
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-unite-view',
@@ -38,6 +41,7 @@ export class UniteViewComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
     private uniteService: UniteService,
+    private sharingService: SharingService,
     private bookmarkService: BookmarkService) {
       this.coverPage = new Post();
       this.coverPage.title = 'cover';
@@ -93,7 +97,13 @@ export class UniteViewComponent implements OnInit, OnDestroy {
   }
 
   swipe(action) {
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      return;
+    }
+
     const step = document.body.scrollWidth;
+
     let index = 0;
 
     const currentPos = this.viewContainer.nativeElement.scrollLeft;

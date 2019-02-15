@@ -1,6 +1,9 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
-import { Post } from '../../../models/post.model';
+import { Component, OnInit, Input, ChangeDetectionStrategy, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
+
+import { Post } from '../../../models/post.model';
+import { SharingService } from 'src/app/services/sharing.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-screen-card',
@@ -16,7 +19,9 @@ export class ScreenCardComponent implements OnInit {
   isCover: boolean;
   isAD: boolean;
 
-  constructor(private router: Router) {
+  @ViewChild('card') card: ElementRef;
+
+  constructor(private router: Router, private sharingService: SharingService) {
     this.isAD = false;
     this.isCover = false;
   }
@@ -30,6 +35,13 @@ export class ScreenCardComponent implements OnInit {
       this.isAD = true;
     } else {
       this.isAD = false;
+    }
+
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      const element = this.card.nativeElement;
+      element.style.width = environment.fixedWidth;
+      element.style.position = 'relative';
     }
   }
 

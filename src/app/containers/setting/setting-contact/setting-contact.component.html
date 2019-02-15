@@ -1,37 +1,39 @@
-<div class="contact-title">
-  CONTACT US
-  <button mat-icon-button (click)="onBack()">
-    <img src="assets/images/icons/close-icon.png">
-  </button>
-</div>
-<mat-divider></mat-divider>
-<div class="contact-question">Have a question for us?</div>
-<mat-divider></mat-divider>
-<div class="contact-email">
-  <p class="label">Your email address</p>
-  <p class="email">{{email}}</p>
-</div>
-<mat-divider></mat-divider>
-<div class="contact-comment">
-  <p>Write your question or comment</p>
-  <textarea [(ngModel)]="content"></textarea>
-</div>
-<mat-divider></mat-divider>
-<div class="contact-attachment">
-  <div *ngIf="!isUploadFileSlide" fxLayout="row" fxLayoutAlign="start center">
-    <img src="assets/images/icons/camera.png">
-    <label>Add an attachment</label>
-    <input type="file" (change)="selectFile($event)" accept="image/*">
+<section #contactContainer>
+  <div class="contact-title">
+    CONTACT US
+    <button mat-icon-button (click)="onBack()">
+      <img src="assets/images/icons/close-icon.png">
+    </button>
   </div>
-  <div *ngIf="isUploadFileSlide" fxLayout="row" fxLayoutAlign="start center">
-    <img id="attachedFile">
-    <label>{{fileName}}</label>
-    <span class="space"></span>
-    <button mat-icon-button (click)="isUploadFileSlide=false"><mat-icon>cancel</mat-icon></button>
+  <mat-divider></mat-divider>
+  <div class="contact-question">Have a question for us?</div>
+  <mat-divider></mat-divider>
+  <div class="contact-email">
+    <p class="label">Your email address</p>
+    <p class="email">{{email}}</p>
   </div>
-</div>
-<mat-divider></mat-divider>
-<div class="contact-footer">
-  <p><label>We will do our best to get back<br>to you in less than 24 hrs.</label></p>
-  <p><button mat-flat-button (click)="onContact()">Send message</button></p>
-</div>
+  <mat-divider></mat-divider>
+  <div class="contact-comment">
+    <p>Write your question or comment</p>
+    <textarea [(ngModel)]="content"></textarea>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="contact-attachment">
+    <div *ngIf="!isUploadFileSlide" fxLayout="row" fxLayoutAlign="start center">
+      <img src="assets/images/icons/camera.png">
+      <label>Add an attachment</label>
+      <input type="file" (change)="selectFile($event)" accept="image/*">
+    </div>
+    <div *ngIf="isUploadFileSlide" fxLayout="row" fxLayoutAlign="start center">
+      <img id="attachedFile">
+      <label>{{fileName}}</label>
+      <span class="space"></span>
+      <button mat-icon-button (click)="isUploadFileSlide=false"><mat-icon>cancel</mat-icon></button>
+    </div>
+  </div>
+  <mat-divider></mat-divider>
+  <div class="contact-footer">
+    <p><label>We will do our best to get back<br>to you in less than 24 hrs.</label></p>
+    <p><button mat-flat-button (click)="onContact()">Send message</button></p>
+  </div>
+</section>

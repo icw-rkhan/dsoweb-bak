@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, HostListener } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, HostListener, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { HttpResponse } from '@angular/common/http';
@@ -12,6 +12,8 @@ import { Review } from '../../../models/reivew.model';
 import { JobService } from '../../../services/job.service';
 import { CompanyService } from '../../../services/company.service';
 import { AuthService, ProfileService } from '../../../services';
+import { SharingService } from 'src/app/services/sharing.service';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -46,6 +48,8 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
   rateList = [{state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}, {state: 'inactive'}];
 
+  @ViewChild('tabs') tabs: ElementRef;
+  @ViewChild('ctrlBtns') ctrlBtns: ElementRef;
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
 
   constructor(
@@ -58,6 +62,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private alertService: AlertService,
     private profileService: ProfileService,
+    private sharingService: SharingService,
     private companyService: CompanyService) {
       this.type = -1;
       this.rating = 0;
@@ -80,6 +85,14 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      const element = this.ctrlBtns.nativeElement;
+      element.style.width = environment.fixedWidth;
+      element.style.margin = 'auto';
+      element.style.left = `calc(50vw - ${parseInt(element.style.width, 10) / 2 + 9}px)`;
+    }
+
     this.progress.start();
     const subJob = this.jobService.getJobById(this.id).subscribe(job => {
       this.job = job;

@@ -8,6 +8,7 @@ import { ApiErrorService, AuthService } from '../../../services';
 import { Observable } from 'rxjs';
 import 'rxjs/add/operator/switchMap';
 import { environment } from '../../../../environments/environment';
+import { metaTagsOperators } from '@ngx-share/core';
 
 @Component({
   selector: 'dso-login',
@@ -23,6 +24,8 @@ export class LoginComponent implements OnInit {
   isInitialized: Observable<boolean>;
   isUserAuthenticatedEmittedValue: boolean;
   isInitializedEmittedValue: boolean;
+
+  @ViewChild('loginContent') loginContent: ElementRef;
 
   constructor(
     private router: Router,
@@ -54,7 +57,7 @@ export class LoginComponent implements OnInit {
     const device = this.sharingService.getMyDevice();
 
     if (device === 'desktop') {
-      console.log(window.document.getElementsByClassName('login-content').length);
+      this.loginContent.nativeElement.style.width = environment.fixedWidth;
     }
   }
 
