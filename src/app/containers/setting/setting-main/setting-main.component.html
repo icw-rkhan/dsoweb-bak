@@ -1,6 +1,9 @@
-<div *ngFor="let setting of settings" fxLayout="row" fxLayoutAlign="start center" (click)="onGoTo(setting.url)">
-  <img [class.margin]="setting.icon=='lock'" [src]="'assets/images/career/' + setting.icon + '.png'">
-  <label>{{setting.title}}</label>
-  <span class="space"></span>
-  <img src="assets/images/profile/arrow-right.png">
+<div *ngIf="!isPlaceholder">
+  <div *ngFor="let setting of settings" fxLayout="row" fxLayoutAlign="start center" (click)="onGoTo(setting.url)">
+    <img [class.margin]="setting.icon=='lock'" [src]="'assets/images/career/' + setting.icon + '.png'">
+    <label>{{setting.title}}</label>
+    <span class="space"></span>
+    <img src="assets/images/profile/arrow-right.png">
+  </div>
 </div>
+<div *ngIf="isPlaceholder" class="placeholder"></div>

@@ -18,3 +18,11 @@ div {
         margin-right: 2px;
     }
 }
+
+.placeholder {
+    height: calc(100vh - 45px);
+    background-image: url('../../../../assets/images/bg-2.jpg');
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
