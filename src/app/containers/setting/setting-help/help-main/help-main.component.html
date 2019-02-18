@@ -15,7 +15,7 @@
 <div class="search-type">{{moduleType}}</div>
 <div *ngIf="searchResults.length == 0">
   <div *ngFor="let category of categories" (click)="onGoTo(category)" class="category-btn">
-      <p fxLayout="row" fxLayoutAlign="start center">
+      <p fxLayout="row" fxLayoutAlign="start center" class="setting-item">
           <span>{{category.function}}</span>
           <span class="space"></span>
           <img src="assets/images/profile/arrow-right.png">
@@ -37,7 +37,7 @@
       </ul>
     
       <p class="text-right">
-        <button mat-button (click)="onGoToList(topic.moduleType)">Go to <span>{{topic.moduleType}}</span> ></button>
+        <button mat-button (click)="onGoToList(topic.moduleType)">Go to <span>{{topic.moduleType}} ></span></button>
       </p>
     </div>
   </mat-expansion-panel>

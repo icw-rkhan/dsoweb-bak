@@ -1,5 +1,5 @@
 <dso-main-container [displayMainActions]="false">
-  <div class="profile_content">
+  <div *ngIf="!isResumePreview" class="profile_content">
     <section class="profile-heading">
       <div class="profile-heading_info">
         <div class="img_user">
@@ -138,9 +138,6 @@
         </div>
       </div>
     </section>
-    <section class="profile_footer">
-
-    </section>
   </div>
+  <dso-doc-viewer *ngIf="isResumePreview" [src]="resumePreviewUrl" [title]="resumeFile?.name" (close)="isResumePreview = false"></dso-doc-viewer>
 </dso-main-container>
-<dso-doc-viewer *ngIf="isResumePreview" [src]="resumePreviewUrl" [title]="resumeFile?.name" (close)="isResumePreview = false"></dso-doc-viewer>

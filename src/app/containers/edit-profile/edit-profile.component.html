@@ -1,5 +1,5 @@
 <section #profileContainer class="profile-container">
-  <form #profileForm="ngForm" *ngIf="userProfile !== undefined">
+  <form #profileForm="ngForm" *ngIf="userProfile !== undefined && !isResumePreview">
     <header class="header-profile">
       <nav class="navbar bg-grey">
         <a [routerLink]="['/profile']" class="back-link"><span class="icon-bar icon-back"></span></a>

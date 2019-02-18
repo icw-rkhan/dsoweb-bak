@@ -1,18 +1,14 @@
 <div #previewContainer class="doc-viewer-overlay">
-    <mat-sidenav-container class="sidenav-container doc-viewer-overlay">
-        <mat-sidenav-content class="sidenav-content">
-        <div class="doc-viewer-toolbar">
-            <button mat-icon-button (click)="onClickEvent()" class="btn-menu">
-            <mat-icon>keyboard_backspace</mat-icon>
-            </button>
-            <h3 class="mt-h3 topic-title">
-            RESUME
-            </h3>
-        </div>
-        <div class="main-container">
-            <div class="doc-file-name">{{title}}</div>
-            <ngx-doc-viewer [url]="srcPath" viewer="google" style="width:100%;height:calc(100vh - 86px);"></ngx-doc-viewer>
-        </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
+    <div class="doc-viewer-toolbar">
+        <button mat-icon-button (click)="onClickEvent()" class="btn-menu">
+        <mat-icon>keyboard_backspace</mat-icon>
+        </button>
+        <h3 class="mt-h3 topic-title">
+        RESUME
+        </h3>
+    </div>
+    <div class="main-container">
+        <div class="doc-file-name">{{title}}</div>
+        <ngx-doc-viewer [url]="srcPath" viewer="google" style="width:100%;height:calc(100vh - 86px);"></ngx-doc-viewer>
+    </div>
 </div>

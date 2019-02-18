@@ -35,7 +35,6 @@ export class DocViewerComponent implements OnInit, AfterViewInit {
     if (device === 'desktop') {
       const element = this.previewContainer.nativeElement;
       element.style.maxWidth = environment.fixedWidth;
-      element.style.margin = 'auto';
     }
   }
 

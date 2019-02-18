@@ -56,7 +56,7 @@
   text-transform: capitalize;
 }
 
-p {
+.setting-item {
   padding: 18px;
 
   span {
@@ -84,7 +84,7 @@ p {
   padding: 0px;
   padding-bottom: 150px;
 
-  p {
+  p, span {
       color: #879aa8;
       font-size: 14px;
       font-family: 'SFUI';
