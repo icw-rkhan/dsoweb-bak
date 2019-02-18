@@ -40,7 +40,7 @@ export class ScreenCardComponent implements OnInit {
     const device = this.sharingService.getMyDevice();
     if (device === 'desktop') {
       const element = this.card.nativeElement;
-      element.style.width = environment.fixedWidth;
+      element.style.maxWidth = environment.fixedWidth;
       element.style.position = 'relative';
     }
   }

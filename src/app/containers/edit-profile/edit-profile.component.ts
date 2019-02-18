@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { HttpEventType, HttpResponse } from '@angular/common/http';
 import { ModalDirective } from 'ngx-bootstrap';
 import { Router } from '@angular/router';
@@ -38,11 +38,13 @@ import {isNullOrUndefined} from 'util';
   ]
 })
 
-export class EditProfileComponent implements OnInit {
+export class EditProfileComponent implements OnInit, AfterViewInit {
   @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
   @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
   @ViewChild('educationModel') private educationModel: ModalDirective;
   @ViewChild('AddressModal') private addressModal: ModalDirective;
+  @ViewChild('profileContainer') profileContainer: ElementRef;
+
   is_student: number;
   userInfo: any;
   userProfile: any;
@@ -116,6 +118,16 @@ export class EditProfileComponent implements OnInit {
   ngOnInit() {
     this.is_student = +localStorage.getItem('is_student');
     this.fetchProfile(this.userInfo.user_name);
+  }
+
+  ngAfterViewInit() {
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      const element = this.profileContainer.nativeElement;
+      element.style.width = environment.fixedWidth;
+      element.style.margin = 'auto';
+    }
   }
 
   getMetaData() {

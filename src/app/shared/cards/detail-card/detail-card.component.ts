@@ -74,7 +74,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
     const device = this.sharingService.getMyDevice();
     if (device === 'desktop') {
       const element = this.viewContainer.nativeElement;
-      element.style.width = environment.fixedWidth;
+      element.style.maxWidth = environment.fixedWidth;
       element.style.position = 'relative';
     }
   }

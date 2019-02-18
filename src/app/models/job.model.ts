@@ -58,11 +58,15 @@ export class Job implements Serializable<Job> {
     deserialize(data: any): Job {
         return <Job>Object.assign({}, {
             id: data.jobPO ? data.jobPO.id : data.id,
-            logoURL: data.jobPO ? data.jobPO.dso.logoURL : data.dso.logoURL,
+            logoURL: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.logoURL : null
+                : data.dso ? data.dso.logoURL : null,
             jobTitle: data.jobPO ? data.jobPO.jobTitle : data.jobTitle,
-            companyId: data.jobPO ? data.jobPO.dso.id : data.dso.id,
-            companyUrl: data.jobPO ? data.jobPO.dso.url : data.dso.url,
-            companyName: data.jobPO ? data.jobPO.dso.name : data.dso.name,
+            companyId: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.id : null
+                : data.dso ? data.dso.id : null,
+            companyUrl: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.url : null
+                : data.dso ? data.dso.url : null,
+            companyName: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.name : null
+                : data.dso ? data.dso.name : null,
             jobDescription: data.jobPO ? data.jobPO.jobDescription : data.jobDescription,
             salaryStartingValue: data.jobPO ? data.jobPO.salaryStartingValue : data.salaryStartingValue,
             salaryEndValue: data.jobPO ? data.jobPO.salaryEndValue : data.salaryEndValue,
@@ -74,26 +78,38 @@ export class Job implements Serializable<Job> {
             status: data.jobPO ? data.jobPO.status : data.status,
             zipCode: data.jobPO ? data.jobPO.zipCode : data.zipCode,
             person: data.jobPO ? data.jobPO.person : data.person,
-            employees: data.jobPO ? data.jobPO.dso.employees : data.dso.employees,
-            stage: data.jobPO ? data.jobPO.dso.stage : data.dso.stage,
-            companyDes: data.jobPO ? data.jobPO.dso.description : data.dso.description,
-            foundation: data.jobPO ? data.jobPO.dso.year_of_foundation : data.dso.year_of_foundation,
-            position: data.jobPO ? data.jobPO.position.coordinates : data.position.coordinates,
+            employees: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.employees : null
+                : data.dso ? data.dso.employees : null,
+            stage: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.stage : null
+                : data.dso ? data.dso.stage : null,
+            companyDes: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.description : null
+                : data.dso ? data.dso.description : null,
+            foundation: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.year_of_foundation : null
+                : data.dso ? data.dso.year_of_foundation : null,
+            position: data.jobPO ? data.jobPO.position ? data.jobPO.position.coordinates : null
+                : data.position ? data.position.coordinates : null,
             savedId: data.jobPO ? data.id : null,
             isNew: data.jobPO ? data.jobPO.isNewJob : data.isNewJob,
             isUpdated: data.jobPO ? data.jobPO.updated : data.updated,
             isSaved: data.jobPO ? data.jobPO.isAttention : data.isAttention,
             isApplied: data.jobPO ? data.jobPO.isApplication : data.isApplication,
-            ceoUrl: data.jobPO ? data.jobPO.dso.ceopictureurl : data.dso.ceopictureurl,
-            ceo: data.jobPO ? data.jobPO.ceo : data.dso.ceo,
+            ceoUrl: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.ceopictureurl : null
+                : data.dso ? data.dso.ceopictureurl : null,
+            ceo: data.jobPO ? data.jobPO.ceo : data.dso ? data.dso.ceo : null,
             paid: data.jobPO ? data.jobPO.paid : data.paid,
             type: data.jobPO ? data.jobPO.type : data.type,
-            rating: data.jobPO ? data.jobPO.dso.rating : data.dso.rating,
-            isSponsor: data.jobPO ? data.jobPO.dso.is_sponsor : data.dso.is_sponsor,
-            reviewNum: data.jobPO ? data.jobPO.dso.reviewNum : data.dso.reviewNum,
-            recommendNum: data.jobPO ? data.jobPO.dso.recommendNum : data.dso.recommendNum,
-            approveNum: data.jobPO ? data.jobPO.dso.approveNum : data.dso.approveNum,
-            publishDate: this.dateFormat(data.jobPO ? data.jobPO.publishOn.toString() : data.publishOn.toString())
+            rating: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.rating : null
+                : data.dso ? data.dso.rating : null,
+            isSponsor: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.is_sponsor : null
+                : data.dso ?  data.dso.is_sponsor : null,
+            reviewNum: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.reviewNum : null
+                : data.dso ?  data.dso.reviewNum : null,
+            recommendNum: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.recommendNum : null
+                : data.dso ?  data.dso.recommendNum : null,
+            approveNum: data.jobPO ? data.jobPO.dso ? data.jobPO.dso.approveNum : null
+                : data.dso ?  data.dso.approveNum : null,
+            publishDate: this.dateFormat(data.jobPO ? data.jobPO.publishOn ? data.jobPO.publishOn.toString() : null
+                : data.publishOn ? data.publishOn.toString() : null)
         });
     }
 }

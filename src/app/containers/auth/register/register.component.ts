@@ -4,9 +4,11 @@ import {FormGroup, Validators, FormBuilder} from '@angular/forms';
 import {CustomValidators} from 'ngx-custom-validators';
 import {MatDialog} from '@angular/material';
 
-import {AuthService, ApiErrorService} from '../../../services/index';
 import {TermPolicyDialogComponent} from '../../../shared/dialogs/term-policy-dialog/term-policy-dialog.component';
+import {AuthService, ApiErrorService} from '../../../services/index';
 import {SharingService} from '../../../services/sharing.service';
+
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-register',
@@ -21,15 +23,18 @@ export class RegisterComponent implements OnInit {
   is_linkedin: number;
   form: FormGroup;
 
-  constructor(private router: Router,
-              private authService: AuthService,
-              private fb: FormBuilder,
-              private dialog: MatDialog,
-              private apiError: ApiErrorService,
-              private sharingService: SharingService) {
-    this.sharingService.showLoading(true);
-    this.isShowPassword = false;
-    this.isShowRequirement = false;
+  @ViewChild('registerContent') registerContent: ElementRef;
+
+  constructor(
+    private router: Router,
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private dialog: MatDialog,
+    private apiError: ApiErrorService,
+    private sharingService: SharingService) {
+      this.sharingService.showLoading(true);
+      this.isShowPassword = false;
+      this.isShowRequirement = false;
   }
 
   ngOnInit() {
@@ -38,6 +43,11 @@ export class RegisterComponent implements OnInit {
     setTimeout(() => {
       this.sharingService.showLoading(false);
     });
+
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      this.registerContent.nativeElement.style.maxWidth = environment.fixedWidth;
+    }
   }
 
   showDialog(type: string) {

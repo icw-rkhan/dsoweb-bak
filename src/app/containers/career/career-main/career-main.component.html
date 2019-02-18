@@ -1,6 +1,6 @@
 <div *ngIf="!isPlaceholder" class="career-container">
   <div class="heading"></div>
-  <div>
+  <div class="main-container">
     <mat-grid-list cols="2" rowHeight="fit">
       <mat-grid-tile *ngFor="let link of links">
         <div class="tile-content" fxLayout="column" fxLayoutAlign="center center" (click)="onGoTo(link.url)">

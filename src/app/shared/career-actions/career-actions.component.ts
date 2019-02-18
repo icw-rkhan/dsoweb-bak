@@ -1,5 +1,5 @@
 import { Component, OnInit, ChangeDetectionStrategy, Output, EventEmitter,
-        ChangeDetectorRef, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+        ChangeDetectorRef, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 
 import { NavLinkModel } from '../../models/nav-link.model';
@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./career-actions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerActionsComponent implements OnInit, OnDestroy {
+export class CareerActionsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   flag: boolean;
   showNavBar = false;
@@ -55,20 +55,21 @@ export class CareerActionsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     window.addEventListener('scroll', this.onScrollEvent, true);
-
-    const device = this.sharingService.getMyDevice();
-
-    if (device === 'desktop') {
-      const element = this.actionsContainer.nativeElement;
-      element.style.maxWidth = environment.fixedWidth;
-      element.style.margin = 'auto';
-    }
   }
 
   ngOnDestroy() {
     this.subRoute.unsubscribe();
 
     window.removeEventListener('scroll', this.onScrollEvent, true);
+  }
+
+  ngAfterViewInit() {
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      const element = this.actionsContainer.nativeElement;
+      element.style.maxWidth = environment.fixedWidth;
+    }
   }
 
   onScrollEvent = (): void => {

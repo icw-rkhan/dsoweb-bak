@@ -1,10 +1,15 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,
+      OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
+import { Subscription } from 'rxjs';
 
 import { Topic } from '../../../../models/topic.model';
+
+import { SharingService } from 'src/app/services/sharing.service';
 import { SettingService } from '../../../../services/setting.service';
-import { Subscription } from 'rxjs';
+
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-setting-help-list',
@@ -12,7 +17,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./help-list.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SettingHelpListComponent implements OnInit, OnDestroy {
+export class SettingHelpListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   moduleType: string;
 
@@ -20,11 +25,14 @@ export class SettingHelpListComponent implements OnInit, OnDestroy {
 
   subRoute: Subscription;
 
+  @ViewChild('footerContainer') footerContainer: ElementRef;
+
   constructor(
     private router: Router,
     private progress: NgProgress,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
+    private sharingService: SharingService,
     private settingService: SettingService) {
       this.subRoute = this.route.params.subscribe(params => {
         this.moduleType = params['moduleType'];
@@ -52,6 +60,15 @@ export class SettingHelpListComponent implements OnInit, OnDestroy {
     err => {
       this.progress.complete();
     });
+  }
+
+  ngAfterViewInit() {
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      const element = this.footerContainer.nativeElement;
+      element.style.maxWidth = environment.fixedWidth;
+      element.style.margin = 'auto';
+    }
   }
 
   ngOnDestroy() {

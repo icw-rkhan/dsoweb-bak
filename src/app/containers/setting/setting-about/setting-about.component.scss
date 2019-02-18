@@ -15,6 +15,7 @@ mat-tab-group {
     ::ng-deep mat-tab-body {
         height: calc(100vh - 93px);
         overflow: auto;
+        overflow-x: hidden;
         padding: 19px 14px;
 
         pre, li {

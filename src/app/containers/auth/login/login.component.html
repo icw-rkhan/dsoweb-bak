@@ -7,12 +7,12 @@
     </div>
   </div>
 </nav>
-<section class="login">
+<section #loginContainer class="login">
   <div *ngIf="!checkIsStudent; else isStudentOrNot" class="login-overlay-primary">
     <div class="logoBox">
       <div class="logo"></div>
     </div>
-    <div #loginContent class="login-content">
+    <div #loginContent1 class="login-content">
       <div class="container">
         <h2 class="form-title">Log In</h2>
         <form [formGroup]="form">
@@ -61,7 +61,7 @@
       <div class="logoBox">
         <div class="logo"></div>
       </div>
-      <div class="login-content">
+      <div #loginContent2 class="login-content">
         <div class="container">
           <h2 class="login-title2">Are you a student?</h2>
           <p class="login-detail">We use this information to show personalized content that is relevant to you.</p>

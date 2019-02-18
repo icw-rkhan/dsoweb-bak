@@ -34,8 +34,8 @@ export class CareerContainerComponent implements OnInit, OnDestroy {
 
           this.clear();
 
-          if (url.includes('/career/detail') || url.includes('/career/review/add') ||
-            url.includes('/career/alert/add')) {
+          if (url.includes('/career/detail') || url.includes('/career/dso-profile/detail') ||
+            url.includes('/career/review/add') || url.includes('/career/alert/add')) {
             this.showActionBar = false;
           } else {
             this.showActionBar = true;

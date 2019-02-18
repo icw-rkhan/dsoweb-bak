@@ -58,16 +58,17 @@ font-weight: 600;
 }
 
 .doc-viewer-overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
-  left: 0;
   width: 100%;
   z-index: 100;
   background-color: #e5e5e5;
 
   .main-container {
+    overflow: hidden;
     background-color: #e5e5e5;
     padding-top: 15px;
+
     .doc-file-name {
       text-align: center;
       margin-bottom: 10px;

@@ -13,6 +13,7 @@
     display: block;
   }
   .footer {
+    width: 100%;
     background: white;
     border-top: 1px solid rgba(0, 0, 0, .12);
     transform: translateY(0);
@@ -64,4 +65,9 @@
   mat-icon, span {
     color: #dddddd;
   }
+}
+
+mat-icon {
+  width: auto;
+  height: auto;
 }

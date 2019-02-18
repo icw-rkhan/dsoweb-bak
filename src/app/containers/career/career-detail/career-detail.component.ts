@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, HostListener, ElementRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, HostListener, ElementRef, AfterViewInit } from '@angular/core';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { HttpResponse } from '@angular/common/http';
@@ -22,7 +22,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./career-detail.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerDetailComponent implements OnInit, OnDestroy {
+export class CareerDetailComponent implements OnInit, OnDestroy, AfterViewInit {
 
   id: string;
   tab: string;
@@ -85,14 +85,6 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    const device = this.sharingService.getMyDevice();
-    if (device === 'desktop') {
-      const element = this.ctrlBtns.nativeElement;
-      element.style.width = environment.fixedWidth;
-      element.style.margin = 'auto';
-      element.style.left = `calc(50vw - ${parseInt(element.style.width, 10) / 2 + 9}px)`;
-    }
-
     this.progress.start();
     const subJob = this.jobService.getJobById(this.id).subscribe(job => {
       this.job = job;
@@ -135,6 +127,14 @@ export class CareerDetailComponent implements OnInit, OnDestroy {
 
     this.subRoute.unsubscribe();
     this.subRoute2.unsubscribe();
+  }
+
+  ngAfterViewInit() {
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      const element = this.ctrlBtns.nativeElement;
+      element.style.maxWidth = environment.fixedWidth;
+    }
   }
 
   @HostListener('window:scroll', [])

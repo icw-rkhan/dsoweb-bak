@@ -59,7 +59,7 @@
 p {
   padding: 18px;
 
-  label {
+  span {
     color: #000000;
     font-size: 15px;
     font-weight: 400;
@@ -125,4 +125,8 @@ p {
   button span {
       text-transform: capitalize;
   }
+}
+
+.category-btn:hover {
+  cursor: pointer;
 }

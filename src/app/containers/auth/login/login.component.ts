@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, HostListener, AfterViewInit, OnChanges } from '@angular/core';
 import { Router, Params, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CustomValidators } from 'ngx-custom-validators';
@@ -14,8 +14,9 @@ import { metaTagsOperators } from '@ngx-share/core';
   selector: 'dso-login',
   templateUrl: './login.component.html'
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, AfterViewInit {
 
+  device: string;
   checkIsStudent: boolean;
   isShowPassword: boolean;
   is_student: any;
@@ -25,7 +26,9 @@ export class LoginComponent implements OnInit {
   isUserAuthenticatedEmittedValue: boolean;
   isInitializedEmittedValue: boolean;
 
-  @ViewChild('loginContent') loginContent: ElementRef;
+  @ViewChild('loginContent1') loginContent1: ElementRef;
+  @ViewChild('loginContent2') loginContent2: ElementRef;
+  @ViewChild('loginContainer') loginContainer: ElementRef;
 
   constructor(
     private router: Router,
@@ -53,11 +56,13 @@ export class LoginComponent implements OnInit {
     });
     this.initForm();
     this.is_student = +localStorage.getItem('is_student');
+  }
 
-    const device = this.sharingService.getMyDevice();
-
-    if (device === 'desktop') {
-      this.loginContent.nativeElement.style.width = environment.fixedWidth;
+  ngAfterViewInit() {
+    this.device = this.sharingService.getMyDevice();
+    if (this.device === 'desktop') {
+      const element = this.loginContent1.nativeElement;
+      element.style.maxWidth = environment.fixedWidth;
     }
   }
 
@@ -132,6 +137,13 @@ export class LoginComponent implements OnInit {
 
   signUp() {
     this.checkIsStudent = true;
+
+    setTimeout(() => {
+      if (this.device === 'desktop') {
+        const element = this.loginContent2.nativeElement;
+        element.style.maxWidth = environment.fixedWidth;
+      }
+    }, 0);
   }
 
   redirect(is_student: string) {
