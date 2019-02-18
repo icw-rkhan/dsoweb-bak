@@ -9,7 +9,7 @@ import { Residency } from '../../../models/residency.model';
 export class ResidencyAddComponent implements OnInit {
   @Input('residency') residency: Residency;
   @Output() addResidency: EventEmitter<Residency> = new EventEmitter(null);
-  @Output() selectResidency: EventEmitter<null> = new EventEmitter(null);
+  @Output() selectResidency: EventEmitter<number> = new EventEmitter(null);
   @Output() cancelResidency: EventEmitter<null> = new EventEmitter(null);
   year: number;
   isError = false;
@@ -32,6 +32,7 @@ export class ResidencyAddComponent implements OnInit {
       this.isError = true;
       return;
     }
+    console.log('~~~~');
     this.addResidency.emit(this.residency);
   }
 
@@ -42,7 +43,8 @@ export class ResidencyAddComponent implements OnInit {
   }
 
   selectRedency() {
-    this.selectResidency.emit();
+    const RESIDENCY_ADD = 2;
+    this.selectResidency.emit(RESIDENCY_ADD);
   }
 
   _cancelResidency() {

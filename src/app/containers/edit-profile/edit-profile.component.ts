@@ -39,10 +39,6 @@ import {isNullOrUndefined} from 'util';
 })
 
 export class EditProfileComponent implements OnInit, AfterViewInit {
-  @ViewChild('editResidencyModel') private editResidencyModel: ModalDirective;
-  @ViewChild('SpecialityModal') private specialityModal: ModalDirective;
-  @ViewChild('educationModel') private educationModel: ModalDirective;
-  @ViewChild('AddressModal') private addressModal: ModalDirective;
   @ViewChild('profileContainer') profileContainer: ElementRef;
 
   is_student: number;
@@ -85,7 +81,9 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   filteredSpeciality: any;
   speciality: Specialty;
 
-  baseUrl: String;
+  baseUrl: string;
+  modalType: string;
+  tempResidency: number;
   constructor(private router: Router,
               private authService: AuthService,
               private profileService: ProfileService,
@@ -233,7 +231,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   closeAddressModal() {
     this.editProfileService.S_practiceAddress = JSON.parse(JSON.stringify(this.userProfile.practiceAddress));
     this.isPracticeAddress = false;
-    this.addressModal.hide();
+    this.modalType = null;
   }
 
   setSpeciality(speciality: any) {
@@ -243,7 +241,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
   }
 
   closeSpecialityModal() {
-    this.specialityModal.hide();
+    this.modalType = null;
     this.isEditSpeciality = false;
   }
 
@@ -280,11 +278,11 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
 
   selectedResidency(e: Residency) {
     this.residency = e;
-    this.residency_page = this.RESIDENCY_ADD;
+    this.residency_page = this.tempResidency;
   }
 
   addResidency(e: Residency) {
-    this.editResidencyModel.hide();
+    this.modalType = null;
     this.userProfile.profileResidency.push({
       residency_school: {
         id: e.id,
@@ -296,13 +294,14 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     this.residency = null;
   }
 
-  selectResidency() {
+  selectResidency(residencyType: number) {
     this.residency_page = this.RESIDENCY_AT;
+    this.tempResidency = residencyType;
   }
 
   cancelResidency() {
     this.residency = null;
-    this.editResidencyModel.hide();
+    this.modalType = null;
   }
 
   updateResidency(e: Residency) {
@@ -315,7 +314,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
       end_time: e.year + '-01-01T00:00:00.000Z',
       start_time: (e.year - 1) + '-01-01T00:00:00.000Z'
     };
-    this.editResidencyModel.hide();
+    this.modalType = null;
   }
 
   editResidency(i) {
@@ -327,7 +326,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
       year: moment(this.userProfile.profileResidency[i].end_time).utcOffset(0).year()
     };
     this.residency = new Residency().deserialize(dt);
-    this.editResidencyModel.show();
+    this.modalType = 'Residency';
     this.residency_page = this.RESIDENCY_EDIT;
   }
 
@@ -337,7 +336,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
         (<any[]>this.userProfile.profileResidency).splice(this.residencyIndex, 1);
       }
     }
-    this.editResidencyModel.hide();
+    this.modalType = null;
     this.residencyIndex = -1;
   }
 
@@ -539,7 +538,7 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
     this.education = new Education().deserialize(dt);
     this.education_page = this.RESIDENCY_EDIT;
     this.typeEducation = this.EDIT;
-    this.educationModel.show();
+    this.modalType = 'Education';
   }
 
   onDeleteEducation() {
@@ -549,12 +548,12 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
         this.education = null;
       }
     }
-    this.educationModel.hide();
+    this.modalType = null;
   }
 
   onCancelEducation() {
     this.education = null;
-    this.educationModel.hide();
+    this.modalType = null;
   }
 
   saveEducation(e: Education) {
@@ -580,11 +579,11 @@ export class EditProfileComponent implements OnInit, AfterViewInit {
 
     if (this.typeEducation === this.ADD) {
       this.userProfile.educations.push(educationInfo);
-      this.educationModel.hide();
+      this.modalType = null;
     } else {
       educationInfo.id = `${e.id}`;
       this.userProfile.educations[this.educationIndex] = Object.assign(this.userProfile.educations[this.educationIndex], educationInfo);
-      this.educationModel.hide();
+      this.modalType = null;
     }
   }
 }

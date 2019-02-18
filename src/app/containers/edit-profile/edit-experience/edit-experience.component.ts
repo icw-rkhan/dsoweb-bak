@@ -30,6 +30,7 @@ export class EditExperienceComponent implements OnInit {
 
   isCurrentWork: boolean;
   isDelete: boolean;
+  modalType: string;
 
   title = '';
 

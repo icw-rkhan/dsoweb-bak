@@ -97,6 +97,11 @@ export class UniteViewComponent implements OnInit, OnDestroy {
   }
 
   swipe(action) {
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      return;
+    }
+
     const step = document.body.scrollWidth;
 
     let index = 0;

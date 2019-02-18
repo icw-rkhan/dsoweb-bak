@@ -8,16 +8,16 @@
   </nav>
 </header>
 <div *ngIf="residency" class="profile_content">
-  <section class="personal-info practice-add">
+  <section>
     <div class="personal-container mh-vh">
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Residency at</label>
         <div class="input-mb flex-input" (click)="selectRedency()" *ngIf="residency">{{residency.name}}</div>
-        <span class="arrow-right"></span>
+        <span class="arrow-right" (click)="selectRedency()"></span>
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Year of Completion</label>
-        <input type="text" name="" class="input-mb" (keydown)="keyDown($event)" (input)="changeYear($event)" [value]="residency.year">
+        <input type="text" name="" class="input-mb" (keydown)="keyDown($event)" (input)="changeYear($event)" [value]="year">
         <span *ngIf="isError" class="text-danger">Please enter valid year (1950-now)</span>
         <span class="edit-practice"></span>
       </div>

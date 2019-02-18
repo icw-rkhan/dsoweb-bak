@@ -17,6 +17,7 @@ export class PracticeAddressComponent implements OnInit {
 
   isEditState: boolean;
   listState: any[];
+  modalType: string;
 
   state: any;
 

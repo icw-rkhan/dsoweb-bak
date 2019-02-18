@@ -11,12 +11,18 @@ export class ResidencyEditComponent implements OnInit {
   @Output() updateResidency: EventEmitter<Residency> = new EventEmitter(null);
   @Output() cancelResidency: EventEmitter<null> = new EventEmitter(null);
   @Output() deleteResidency: EventEmitter<null> = new EventEmitter(null);
-  @Output() selectResidency: EventEmitter<null> = new EventEmitter(null);
+  @Output() selectResidency: EventEmitter<number> = new EventEmitter(null);
   isDelete = false;
   isError = false;
+  year: number;
   constructor() { }
 
   ngOnInit() {
+    if (this.residency && this.residency.year) {
+      this.year = this.residency.year;
+    } else {
+      this.year = null;
+    }
   }
 
   _deleteResidency() {
@@ -31,7 +37,8 @@ export class ResidencyEditComponent implements OnInit {
   }
 
   selectRedency() {
-    this.selectResidency.emit();
+    const RESIDENCY_EDIT = 3;
+    this.selectResidency.emit(RESIDENCY_EDIT);
   }
 
   _updateResidency() {

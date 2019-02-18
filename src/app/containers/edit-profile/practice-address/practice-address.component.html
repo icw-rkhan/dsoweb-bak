@@ -8,7 +8,7 @@
   </nav>
 </header>
 <div class="profile_content">
-  <section class="personal-info practice-add">
+  <section>
     <div class="personal-container mh-vh">
       <div class="personal-group practice-group">
         <label class="profile_title mb0">Address 1</label>
@@ -32,17 +32,15 @@
       </div>
       <div class="personal-group practice-group">
         <label class="profile_title mb0">State</label>
-        <input type="text" name="" value="{{address.states}}" class="input-mb" (click)="StateModal.show(); isEditState = true" contenteditable="false">
-        <span class="arrow-right" style="right: 10px" (click)="StateModal.show(); isEditState = true"></span>
+        <input type="text" name="" value="{{address.states}}" class="input-mb" (click)="modalType='State'; isEditState = true" contenteditable="false">
+        <span class="arrow-right" style="right: 10px" (click)="modalType='State'; isEditState = true"></span>
       </div>
       <div class="cancel-row"><a href="javascript:void(0)" (click)="close()">Cancel</a></div>
     </div>
   </section>
 </div>
 
-<div bsModal #StateModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-     aria-labelledby="dialog-sizes-name3"
-     id="StateModal" [config]="{backdrop: 'static'}">
+<div *ngIf="modalType=='State'" class="modal">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-body">
@@ -50,7 +48,7 @@
           [listStates]="listState"
           [state]="state"
           (setState)="setState($event)"
-          (closeState)="StateModal.hide(); isEditState = false"
+          (closeState)="modalType=null; isEditState = false"
           *ngIf="isEditState">
         </app-states>
       </div>
