@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { Event, NavigationEnd, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 
@@ -14,7 +14,7 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./main-actions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MainActionsComponent implements OnInit, OnDestroy {
+export class MainActionsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   navFooterLinks: NavLinkModel[] = [];
 
@@ -30,14 +30,6 @@ export class MainActionsComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    const device = this.sharingService.getMyDevice();
-
-    if (device === 'desktop') {
-      const element = this.actionsContainer.nativeElement;
-      element.style.maxWidth = environment.fixedWidth;
-      element.style.margin = 'auto';
-    }
-
     this.subRoute = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
         this.currentUrl = event.url;
@@ -73,6 +65,15 @@ export class MainActionsComponent implements OnInit, OnDestroy {
       icon: 'assets/images/feed/bookmark_inactive.png',
       iconActive: 'assets/images/feed/bookmark_active.png'
     });
+  }
+
+  ngAfterViewInit() {
+    const device = this.sharingService.getMyDevice();
+
+    if (device === 'desktop') {
+      const element = this.actionsContainer.nativeElement;
+      element.style.maxWidth = environment.fixedWidth;
+    }
   }
 
   ngOnDestroy() {
