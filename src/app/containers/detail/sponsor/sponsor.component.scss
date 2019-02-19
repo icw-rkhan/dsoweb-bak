@@ -168,8 +168,10 @@ p {
 .author {
     margin-left: 19px;
     width: calc(100% - 19px);
+    position: relative;
 
     .author-area {
+        width: 100%;
         margin-left: 5px;
 
         span {

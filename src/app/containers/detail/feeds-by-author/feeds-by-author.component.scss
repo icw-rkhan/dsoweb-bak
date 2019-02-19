@@ -1,8 +1,10 @@
 .author {
     margin-left: 19px;
     width: calc(100% - 19px);
+    position: relative;
 
     .author-area {
+        width: 100%;
         span {
             color: #4a4a4a;
             font-family: "SFUI";
