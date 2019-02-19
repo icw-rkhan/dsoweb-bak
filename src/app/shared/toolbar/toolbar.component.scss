@@ -79,8 +79,11 @@ button {
 ::ng-deep .more-menu {
   width: 180px;
   top: 42px;
-  right: 0px;
   position: absolute;
+
+  @media only screen and (max-width: 768px) {
+    right: 0px;
+  }
 
   .mat-menu-content:not(:empty) {
     padding: 0px;
@@ -108,9 +111,12 @@ button {
   width: 250px;
   height: calc(100vh - 45px);
   top: 42px;
-  right: 0px;
   overflow: auto;
   position: absolute;
+
+  @media only screen and (max-width: 768px) {
+    right: 0px;
+  }
 
   .mat-menu-content:not(:empty) {
     padding: 0px;
@@ -129,7 +135,7 @@ button {
   background-color: transparent;
   height: 100vh;
   width: 100%;
-  z-index: 10;
+  z-index: 2;
   // background-color: rgba(0, 0, 0, 0.5);
   &.hide {
     visibility: hidden;
