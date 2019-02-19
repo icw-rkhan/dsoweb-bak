@@ -1,6 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
-import { DOCUMENT } from '@angular/platform-browser';
-import { Location } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -31,23 +29,7 @@ export class SettingMainComponent implements OnInit {
   ];
 
   constructor(
-    private router: Router,
-    private location: Location,
-    @Inject(DOCUMENT) private document: any) {
-      this.isPlaceholder = false;
-      const url = this.document.location.origin;
-
-      if (url.includes('mobile.dsodentist.com')) {
-        this.location.back();
-      }
-
-      /*
-      if (url.includes('mobile.dsodentist.com')) {
-        this.isPlaceholder = true;
-      } else {
-        this.isPlaceholder = false;
-      }*/
-  }
+    private router: Router) {}
 
   ngOnInit() {
   }
