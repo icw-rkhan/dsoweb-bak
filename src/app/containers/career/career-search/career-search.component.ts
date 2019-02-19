@@ -69,7 +69,8 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       // load Places Autocomplete
       this.mapsAPILoader.load().then(() => {
         const autocomplete = new google.maps.places.Autocomplete(this.locationElementRef.nativeElement, {
-          types: ['geocode']
+          types: ['geocode'],
+          componentRestrictions: {country: 'us'}
         });
         autocomplete.addListener('place_changed', () => {
           this.ngZone.run(() => {
@@ -108,6 +109,8 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       'skip': this.page * 10,
       'limit': 10
     };
+
+    console.log(body);
 
     const jobService = this.jobService.jobs(body);
 

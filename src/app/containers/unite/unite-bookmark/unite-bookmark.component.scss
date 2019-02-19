@@ -3,18 +3,18 @@
     background-color: #efefef;
 
     .unite-bookmark-container {
-        width: 100vw;
+        width: 100%;
         background-color: #efefef;
         overflow: auto;
         scroll-behavior: smooth;
     }
     
     dso-article-card:first-child {
-        padding-left: 15vw;
+        padding-left: 15%;
     }
     
     dso-article-card:last-child {
-        padding-right: calc(15vw - 25px);
+        padding-right: calc(15% - 25px);
     }
     
     .article-info {

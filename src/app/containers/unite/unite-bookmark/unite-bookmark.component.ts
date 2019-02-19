@@ -1,17 +1,18 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
+import { MatSnackBar } from '@angular/material';
 import { map } from 'rxjs/internal/operators';
 import { forkJoin, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
-import { UniteService } from '../../../services/unite.service';
-import { BookmarkService } from '../../../services/bookmark.service';
 import { AuthService } from '../../../services';
+import { UniteService } from '../../../services/unite.service';
+import { SharingService } from 'src/app/services/sharing.service';
+import { BookmarkService } from '../../../services/bookmark.service';
 
 import { Post } from '../../../models/post.model';
 import { Unite } from '../../../models/unite.model';
-import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'dso-unite-bookmark',
@@ -38,6 +39,7 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
     private cdr: ChangeDetectorRef,
     private authService: AuthService,
     private uniteService: UniteService,
+    private sharingService: SharingService,
     private bookmarkService: BookmarkService) {}
 
   ngOnInit() {
@@ -139,6 +141,11 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
   }
 
   swipe(action) {
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      return;
+    }
+
     const step = document.body.scrollWidth * 0.7 + 25;
     let index = 0;
 

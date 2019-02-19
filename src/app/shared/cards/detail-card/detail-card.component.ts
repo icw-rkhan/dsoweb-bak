@@ -26,6 +26,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
 
   id: string;
   isAD: boolean;
+  device: string;
   isLoaded: boolean;
   isRendered: boolean;
   postRendered: boolean;
@@ -71,8 +72,8 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
 
     this.isLoaded = true;
 
-    const device = this.sharingService.getMyDevice();
-    if (device === 'desktop') {
+    this.device = this.sharingService.getMyDevice();
+    if (this.device === 'desktop') {
       const element = this.viewContainer.nativeElement;
       element.style.maxWidth = environment.fixedWidth;
       element.style.position = 'relative';
@@ -364,6 +365,10 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
   }
 
   swipe(action) {
+    if (this.device === 'desktop') {
+      return;
+    }
+
     const stepY = window.screen.height * 0.7;
     let index = 0;
 

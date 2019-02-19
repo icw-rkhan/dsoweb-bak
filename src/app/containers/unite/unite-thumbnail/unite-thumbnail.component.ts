@@ -1,11 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, ViewChild, ElementRef, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-
-import { UniteService } from '../../../services/unite.service';
-import { Post } from '../../../models/post.model';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef,
+        ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
-import { Unite } from '../../../models/unite.model';
+import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
+
+import { SharingService } from 'src/app/services/sharing.service';
+import { UniteService } from '../../../services/unite.service';
+
+import { Post } from '../../../models/post.model';
+import { Unite } from '../../../models/unite.model';
 
 @Component({
   selector: 'dso-unite-thumbnail',
@@ -29,7 +32,8 @@ export class UniteThumbnailComponent implements OnInit, OnDestroy {
     private progress: NgProgress,
     private route: ActivatedRoute,
     private cdr: ChangeDetectorRef,
-    private uniteService: UniteService) {
+    private uniteService: UniteService,
+    private sharingService: SharingService) {
       this.coverPage = new Post();
       this.coverPage.thumbnail = 'assets/images/unite/cover-page.png';
       this.coverPage.title = 'Issue Cover';
@@ -81,6 +85,11 @@ export class UniteThumbnailComponent implements OnInit, OnDestroy {
   }
 
   swipe(action) {
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      return;
+    }
+
     const step = document.body.scrollWidth * 0.7 + 25;
     let index = 0;
 

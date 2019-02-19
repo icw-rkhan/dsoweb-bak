@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy, ViewChild, HostListener, ElementRef, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy,
+        ViewChild, HostListener, ElementRef, AfterViewInit, OnChanges } from '@angular/core';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
 import { AlertService } from 'src/app/services/alert.service';
 import { HttpResponse } from '@angular/common/http';
@@ -27,6 +28,7 @@ export class CareerDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   id: string;
   tab: string;
   type: number;
+  device: string;
   rating: number;
   isFixed: boolean;
   userProfile: any;
@@ -130,8 +132,8 @@ export class CareerDetailComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    const device = this.sharingService.getMyDevice();
-    if (device === 'desktop') {
+    this.device = this.sharingService.getMyDevice();
+    if (this.device === 'desktop') {
       const element = this.ctrlBtns.nativeElement;
       element.style.maxWidth = environment.fixedWidth;
     }

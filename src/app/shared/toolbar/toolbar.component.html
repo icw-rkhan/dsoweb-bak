@@ -37,9 +37,9 @@
         <img [src]="link.icon">
       </a>
     </mat-menu>
-    <div *ngIf="isSearch" class="search-panel-backdrop" (click)="closeSearchPanel()"></div>
     <div *ngIf="isSearch">
       <dso-search-menu [issueId]="issueId" (closeSearchPanel)="closeSearchPanel()"></dso-search-menu>
     </div>
   </div>
 </div>
+<div *ngIf="isSearch" class="search-panel-backdrop" (click)="closeSearchPanel()"></div>

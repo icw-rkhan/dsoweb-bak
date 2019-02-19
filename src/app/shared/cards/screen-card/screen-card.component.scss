@@ -11,10 +11,10 @@
         overflow: hidden;
 
         .article-thumbnail {
-            img {
-                width: 100%;
-                height: auto;
-            }
+            height: calc(100vh - 150px);
+            background-image: url("../../../../assets/images/unite/cover-page.png");
+            background-size: cover;
+            background-repeat: no-repeat;
         }
 
         .article-content {

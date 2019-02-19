@@ -1,8 +1,6 @@
 <div #card class="article-item" (click)="onDetailUnite(article.id)">
     <div class="article-container">
-        <div *ngIf="!isNullThumbnail(article.thumbnail)" class="article-thumbnail" [class.black-color]="isCover">
-            <img [src]="article.thumbnail">
-        </div>
+        <div *ngIf="!isNullThumbnail(article.thumbnail)" class="article-thumbnail" [class.black-color]="isCover"></div>
         <div *ngIf="isAD" [innerHtml]="article.content"></div>
         <div *ngIf="!isCover&&!isAD" class="article-content">
             <p class="article-title">{{article.title}}</p>

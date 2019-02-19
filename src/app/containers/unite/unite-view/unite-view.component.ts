@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ViewChild, ElementRef, AfterViewChecked,
+import { Component, OnInit, HostListener, ViewChild, ElementRef,
          ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
@@ -12,8 +12,6 @@ import { AuthService } from '../../../services';
 
 import { Post } from '../../../models/post.model';
 import { SharingService } from 'src/app/services/sharing.service';
-
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'dso-unite-view',
