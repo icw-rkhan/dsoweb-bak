@@ -391,17 +391,10 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     let referenceContents = '';
-    if (post.references) {
+    if (post.references && post.references.length > 0) {
       let references = '';
       post.references.map((ref: string) => {
-        const tArray = ref.split('\n');
-
-        let sTemp = '';
-        tArray.map(st => {
-          sTemp = sTemp + `<li>${st}</li>`;
-        });
-
-        references = references + sTemp;
+        references = references + `<li>${ref.match(/<p>.*?<\/p>/)[0]}</li>`;
       });
 
       if (references !== '') {
