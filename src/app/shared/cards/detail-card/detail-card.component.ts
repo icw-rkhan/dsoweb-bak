@@ -387,7 +387,7 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
         this.viewContainer.nativeElement.scrollTo(0, currentPosY - index);
       }
 
-      this.onScrollEvent();
+      // this.onScrollEvent();
 
       if (index >= stepY) {
         clearInterval(timer);
