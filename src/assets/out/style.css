@@ -1251,6 +1251,8 @@ a {
   padding: 10px 10px;
   border: none;
   outline: none;
+  font-size: 16px;
+  line-height: 1.5;
 }
 
 .form-group .form-control.withBg {

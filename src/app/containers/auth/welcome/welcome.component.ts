@@ -52,7 +52,7 @@ export class WelcomeComponent implements OnInit, AfterViewInit {
     this.checkIsStudent = true;
 
     setTimeout(() => {
-      if (this.device === 'desktop') {
+      if (this.device === 'desktop' && this.authContent2) {
         const element = this.authContent2.nativeElement;
         element.style.maxWidth = environment.fixedWidth;
       }
