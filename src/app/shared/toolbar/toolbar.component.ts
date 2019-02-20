@@ -172,8 +172,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           }
 
           if (event.url === '/career/search' || event.url === '/career/review' ||
-              event.url === '/career/dso-profile' || event.url.includes('/education/type') ||
-              event.url.includes('/education/sponsor')) {
+              event.url === '/career/dso-profile') {
             this.visibleSearchOption = true;
           } else {
             this.visibleSearchOption = false;
@@ -264,7 +263,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
       this.router.navigate(['/career/dso-profile/search']);
     } else if (this.url === '/career/review') {
       this.router.navigate(['/career/review/search']);
-    } else if (this.url.includes('/career')) {
+    } else {
       this.router.navigate(['/career/search/criteria']);
     }
   }
