@@ -24,7 +24,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
   pageNum: number;
   sponsorId: number;
   isFetching: boolean;
-  isFeatured: boolean;
 
   private postSub: Subscription;
   private paramsSub: Subscription;
@@ -38,7 +37,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     private authService: AuthService,
     private postService: PostService,
     private bookmarkService: BookmarkService) {
-      this.isFeatured = false;
       this.isFetching = true;
       this.pageNum = 0;
   }
@@ -105,8 +103,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
     const email = this.authService.getUserInfo().user_name;
     let postService: Observable<Post[]>;
     if (this.sponsorId) {
-      this.isFeatured = false;
-
       postService = this.postService.fetchBySponsorId({
         type: this.typeId,
         sponsorId: this.sponsorId,
@@ -114,18 +110,15 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         per_page: 5
       });
     } else if (this.typeId) {
-      this.isFeatured = false;
-
       postService = this.postService.fetchByContentTypeId({
         type: this.typeId,
         page: this.pageNum,
         per_page: 5
       });
     } else {
-      this.isFeatured = true;
-
       postService = this.postService.posts({
         page: this.pageNum,
+        isFeatured: true,
         per_page: 5
       });
     }
@@ -144,25 +137,12 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         });
       }))
     ).subscribe(posts => {
-      if (this.isFeatured) {
-        const featuredPosts = [];
+      this.posts = [
+        ...this.posts,
+        ...posts
+      ];
 
-        posts.map(post => {
-          if (post.isFeatured) {
-            featuredPosts.push(post);
-          }
-        });
-
-        this.posts = [
-          ...this.posts,
-          ...featuredPosts
-        ];
-      } else {
-        this.posts = [
-          ...this.posts,
-          ...posts
-        ];
-      }
+      console.log(this.posts);
 
       this.cdr.markForCheck();
       this.progress.complete();

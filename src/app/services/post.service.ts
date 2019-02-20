@@ -31,7 +31,8 @@ export class PostService {
       'authorId': args.authorId ? args.authorId : null,
       'categoryId': args.categoryId ? args.categoryId : null,
       'contentTypeId': args.type ? args.type : null,
-      'sponsorId': args.sponsorId ? args.sponsorId : null
+      'sponsorId': args.sponsorId ? args.sponsorId : null,
+      'isFeatured': args.isFeatured ? args.isFeatured : null
     };
 
     // set auth token
