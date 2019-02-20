@@ -7,7 +7,7 @@
       [minHeight] = "slideHeight"
       [stopAutoPlayOnSlide]="false">
     </slideshow>
-    <button mat-icon-button (click)="slideHeight = 0">
+    <button *ngIf="!isClose" mat-icon-button (click)="slideHeight = 0;isClose = true">
       <img src="assets/images/icons/close-white.png">
     </button>
   </div>
