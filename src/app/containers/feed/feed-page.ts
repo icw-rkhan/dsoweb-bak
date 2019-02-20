@@ -17,7 +17,6 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   url: string;
   isClose: boolean;
   isGeneral: boolean;
-  slideUrls: string[];
   slideHeight: string;
   headerImageUrl: string;
   navLinks: NavLinkModel[] = [];
@@ -25,19 +24,20 @@ export class FeedPageComponent implements OnInit, OnDestroy {
   private currentUrl: string;
   private routerSubs: Subscription;
 
+  slideUrls: string[] = [
+    'assets/images/slide/slide-1.jpg',
+    'assets/images/slide/slide-2.jpg',
+    'assets/images/slide/slide-3.jpg',
+    'assets/images/slide/slide-4.jpg',
+    'assets/images/slide/slide-5.jpg',
+  ];
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
     private sharingService: SharingService) {
       this.isClose = false;
       this.currentUrl = router.url;
-      this.slideUrls = [
-        'assets/images/slide/slide-1.jpg',
-        'assets/images/slide/slide-2.jpg',
-        'assets/images/slide/slide-3.jpg',
-        'assets/images/slide/slide-4.jpg',
-        'assets/images/slide/slide-5.jpg',
-      ];
 
       router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {

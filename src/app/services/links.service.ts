@@ -28,7 +28,7 @@ export class NavLinksService {
     this.links.push({
       label: 'Education',
       icon: 'education',
-      route: '/education',
+      route: '/education/type',
       state: 'inactive'
     });
     this.links.push({

@@ -1,0 +1,95 @@
+.placeholder {
+    height: calc(100vh - 45px);
+    background: url("/assets/images/bg-4.png");
+    background-position: top center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+
+.main-mask {
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    position: absolute;
+    background-color: #f3f4f5;
+    z-index: -2;
+}
+
+article {
+    background: transparent;
+
+    .header {
+        padding: 24px 16px;
+        position: relative;
+        background: transparent;
+
+        .header-mask {
+            width: 100%;
+            height: 80%;
+            top: 0px;
+            left: 0px;
+            position: absolute;
+            background-image: linear-gradient(to bottom, rgba(136, 136, 136, 0.8) 0%, rgba(136, 136, 136, 0.15) 100%);
+            z-index: -1;
+        }
+    }
+
+    .category {
+        padding: 0px 16px 13px;
+
+        span {
+            color: #1a191a;
+            font-size: 17px;
+            font-family: 'SFUI';
+            font-weight: 700;
+        }
+
+        button {
+            color: #879aa8;
+            font-size: 12px;
+            padding: 0px;
+            margin-right: -16px;
+        }
+
+        .mat-button {
+            min-width: 65px;
+        }
+
+        button:focus {
+            outline: none;
+        }
+    }
+
+    nav {
+        background: white;
+
+        ::ng-deep .mat-tab-links {
+            overflow-x: auto;
+        }
+          
+        .mat-tab-link {
+            min-width: 120px;
+            flex: 1;
+            border-right: 1px solid rgba(0, 0, 0, 0.12);
+            
+            &:hover {
+                text-decoration: none;
+            }
+        }
+        
+        .mat-tab-label-active {
+            background-color: #f7f7f7;
+        }
+
+        .active {
+            background: #f7f7f7;
+            border-bottom: 2px solid #879aa8;
+        }
+    }
+
+    .contents {
+        margin-top: 16px;
+        padding-bottom: 50px;
+    }
+}

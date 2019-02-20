@@ -11,7 +11,7 @@
       <img src="assets/images/icons/close-white.png">
     </button>
   </div>
-  <nav mat-tab-nav-bar #tabBar>
+  <nav mat-tab-nav-bar>
     <div *ngFor="let link of navLinks" >
       <a *ngIf="link.route" mat-tab-link #rla="routerLinkActive" [routerLink]="link.route" routerLinkActive
        [class.active]="isActive(link)">

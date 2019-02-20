@@ -1,4 +1,5 @@
-import { Component, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy, OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, EventEmitter, Output, ChangeDetectorRef, ChangeDetectionStrategy,
+        OnInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { Router, Event, NavigationEnd } from '@angular/router';
 import { Location } from '@angular/common';
 import { Subscription } from 'rxjs';
@@ -6,9 +7,6 @@ import { Subscription } from 'rxjs';
 import { NavLinkModel } from '../../models/nav-link.model';
 
 import { NavLinksService } from '../../services/links.service';
-import { SharingService } from 'src/app/services/sharing.service';
-
-import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'dso-toolbar',
@@ -26,10 +24,11 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   btnTitle: string;
   modalType: string;
   isSearch = false;
+  isEducation = false;
 
   visibleUniteMoreMenu: boolean;
   visibleCareerAddOption: boolean;
-  visibleCareerSearchOption: boolean;
+  visibleSearchOption: boolean;
 
   uniteMainLinks: NavLinkModel[];
   uniteMoreLinks: NavLinkModel[];
@@ -41,11 +40,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     private router: Router,
     private location: Location,
     private cdr: ChangeDetectorRef,
-    private linksService: NavLinksService,
-    private sharingService: SharingService) {
+    private linksService: NavLinksService) {
       this.visibleUniteMoreMenu = false;
       this.visibleCareerAddOption = false;
-      this.visibleCareerSearchOption = true;
 
       this.uniteMainLinks = this.linksService.uniteMainLinks;
 
@@ -150,7 +147,8 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           } else if (event.url.includes('/unite')) {
             this.title = 'ALL ISSUES';
           } else if (event.url.includes('/education')) {
-            this.title = 'EDUCATION';
+            this.title = 'LEARNING';
+            this.isEducation = true;
           } else if (event.url.includes('/event')) {
             this.title = 'EVENTS';
           } else if (event.url.includes('/posts')) {
@@ -173,11 +171,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
             this.visibleCareerAddOption = false;
           }
 
-          if (event.url === '/career/search' || event.url === '/career/review'
-          || event.url === '/career/dso-profile') {
-            this.visibleCareerSearchOption = true;
+          if (event.url === '/career/search' || event.url === '/career/review' ||
+              event.url === '/career/dso-profile' || event.url.includes('/education/type') ||
+              event.url.includes('/education/sponsor')) {
+            this.visibleSearchOption = true;
           } else {
-            this.visibleCareerSearchOption = false;
+            this.visibleSearchOption = false;
           }
 
           // if thumbnail page, hide the thumbnail option and show the full-screen option
@@ -260,12 +259,12 @@ export class ToolbarComponent implements OnInit, OnDestroy {
     }
   }
 
-  onGoToSearchJobs() {
+  onGoToSearch() {
     if (this.url === '/career/dso-profile') {
       this.router.navigate(['/career/dso-profile/search']);
     } else if (this.url === '/career/review') {
       this.router.navigate(['/career/review/search']);
-    } else {
+    } else if (this.url.includes('/career')) {
       this.router.navigate(['/career/search/criteria']);
     }
   }

@@ -1,4 +1,4 @@
-<div>
+<article [class.common]="!isEducation" [class.education]="isEducation">
   <button mat-icon-button (click)="onClickEvent()" class="btn-menu">
     <mat-icon>{{btnTitle}}</mat-icon>
   </button>
@@ -16,8 +16,8 @@
       <img src="assets/images/career/add.png">
     </button>
   </div>
-  <div *ngIf="visibleCareerSearchOption" class="navbar-edit-profile">
-    <button mat-icon-button class="add-review" (click)="onGoToSearchJobs()">
+  <div *ngIf="visibleSearchOption" class="navbar-edit-profile">
+    <button mat-icon-button class="add-review" (click)="onGoToSearch()">
       <img src="assets/images/career/search_white.png">
     </button>
   </div>
@@ -38,6 +38,6 @@
       </a>
     </mat-menu>
   </div>
-</div>
+</article>
 <dso-search-menu *ngIf="isSearch" [issueId]="issueId" (closeSearchPanel)="closeSearchPanel()"></dso-search-menu>
 <div *ngIf="isSearch" class="search-panel-backdrop" (click)="closeSearchPanel()"></div>

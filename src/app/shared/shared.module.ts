@@ -50,6 +50,7 @@ import { MainActionsComponent } from './main-actions/main-actions.component';
 import { UniteCardComponent } from './cards/unite-card/unite-card.component';
 import { IssueMenuComponent } from './menus/issue-menu/issue-menu.component';
 import { AlertCardComponent } from './cards/alert-card/alert-card.component';
+import { CourseCardComponent } from './cards/course-card/course-card.component';
 import { ScreenCardComponent } from './cards/screen-card/screen-card.component';
 import { SearchMenuComponent } from './menus/search-menu/search-menu.component';
 import { DetailCardComponent } from './cards/detail-card/detail-card.component';
@@ -81,25 +82,26 @@ export const COMPONENTS = [
   AlertDialogComponent,
   FeedCardComponent,
   ReviewComponent,
-  CompanyReviewCardComponent,
-  CompanyReviewExtendCardComponent,
   JobCardComponent,
   DocViewerComponent,
   MainActionsComponent,
   FeedGridComponent,
-  TermPolicyDialogComponent,
   UniteCardComponent,
   ArticleCardComponent,
   ScreenCardComponent,
   IssueMenuComponent,
   SearchMenuComponent,
   DetailCardComponent,
-  ReviewExtendCardComponent,
+  AlertCardComponent,
+  CourseCardComponent,
+  MainContainerComponent,
   JobExtendCardComponent,
   CareerActionsComponent,
-  AlertCardComponent,
-  MainContainerComponent,
   CareerContainerComponent,
+  TermPolicyDialogComponent,
+  ReviewExtendCardComponent,
+  CompanyReviewCardComponent,
+  CompanyReviewExtendCardComponent
 ];
 
 export const MODULES = [

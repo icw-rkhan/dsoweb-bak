@@ -1,0 +1,32 @@
+<mat-card fxLayout="row" fxLayoutAlign="start top">
+    <div class="course_logo"><img [src]="course.logoUrl"></div>
+    <div class="course_contents">
+        <div fxLayout="row" fxLayoutAlign="start top">
+            <label class="course_title">{{course.title}}</label>
+            <a *ngIf="course.isBookmarked"><mat-icon>bookmark</mat-icon></a>
+            <a *ngIf="!course.isBookmarked"><mat-icon>bookmark_border</mat-icon></a>
+        </div>
+        <div class="course_presenter">{{course.presenter}}</div>
+        <div class="rating_bar" fxLayout="row" fxLayoutAlign="start center">
+            <div *ngFor="let item of rateList; index as i">
+                <img *ngIf="i<rate;else inactive" class="active" src="assets/images/education/star_active.png" (click)="eventRating(i)">
+                <ng-template #inactive>
+                <img class="inactive" src="assets/images/education/star_inactive.png" (click)="eventRating(i)">
+                </ng-template>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAling="start center">
+            <div class="course_level" >
+                <img src="assets/images/education/level.png">
+                <label>{{course.level}}</label>
+            </div>
+            <div class="course_duration">
+                <img src="assets/images/education/duration.png">
+                <label>{{course.duration}}</label>
+            </div>
+            <div class="space"></div>
+            <div *ngIf="course.cost" class="course_cost">${{course.cost}}</div>
+            <div *ngIf="!course.cost" class="course_cost">FREE</div>
+        </div>
+    </div>
+</mat-card>

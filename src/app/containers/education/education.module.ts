@@ -1,16 +1,21 @@
 import { NgModule } from '@angular/core';
+import { SlideshowModule } from 'ng-simple-slideshow';
+
+import { SharedModule } from '../../shared/shared.module';
+import { EducationRoutingModule } from './education.routing';
 
 import { EducationComponent } from './education.component';
-import { EducationRoutingModule } from './education.routing';
-import { SharedModule } from '../../shared/shared.module';
+import { EducationMainComponent } from './education-main/education-main.component';
 
 @NgModule({
     imports: [
         EducationRoutingModule,
-        SharedModule
+        SharedModule,
+        SlideshowModule
     ],
     declarations: [
-        EducationComponent
+        EducationComponent,
+        EducationMainComponent
     ]
 })
 export class EducationModule {}
