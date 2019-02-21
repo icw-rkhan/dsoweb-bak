@@ -385,14 +385,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     if (post.references && post.references.length > 0) {
       let references = '';
       post.references.map((ref: string) => {
-        const arr = ref.match(/<p.*>.*?<\/p>/g);
-
-        let temp = '';
-        arr.map(item => {
-          temp = temp + item;
-        });
-
-        references = references + `<li>${temp}</li>`;
+        references = references + `<li>${ref}</li>`;
       });
 
       if (references !== '') {
