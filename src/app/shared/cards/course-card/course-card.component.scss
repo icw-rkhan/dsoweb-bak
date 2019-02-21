@@ -3,7 +3,6 @@ mat-card {
     border-radius: 0;
     background-color: #ffffff;
     box-shadow: none !important;
-    border-bottom: 1px solid #e9edf1;
 
     .course_logo {
         width: auto;
@@ -92,6 +91,8 @@ mat-card {
 }
 
 .course_sponsor {
+    background-color: #ffffff;
+
     img {
         width: 100%;
     }
