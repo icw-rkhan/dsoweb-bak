@@ -20,12 +20,14 @@ export class EducationMainComponent implements OnInit, OnDestroy {
   sponsorId: number;
   currentUrl: string;
   slideHeight: string;
+  isFeatured: boolean;
   isPlaceholder: boolean;
 
   courses: Course[];
   navLinks: NavLinkModel[] = [];
 
-  private routerSubs: Subscription;
+  routeSub: Subscription;
+  routerSub: Subscription;
 
   slideUrls: string[] = [
     'assets/images/education/course.png',
@@ -49,7 +51,7 @@ export class EducationMainComponent implements OnInit, OnDestroy {
       }
 
       // get a current url
-      this.router.events.subscribe((event: Event) => {
+      this.routerSub = this.router.events.subscribe((event: Event) => {
         if (event instanceof NavigationEnd) {
           this.currentUrl = event.url;
         }
@@ -65,10 +67,16 @@ export class EducationMainComponent implements OnInit, OnDestroy {
       }
 
       // Check when it is a sponsor page
-      this.route.params.subscribe(params => {
+      this.routeSub = this.route.params.subscribe(params => {
         this.id = params['id'];
         this.sponsorId = params['sponsorId'];
         this.navLinks = this.renderTabs(this.sponsorId);
+
+        if (this.id) {
+          this.isFeatured = false;
+        } else {
+          this.isFeatured = true;
+        }
       });
   }
 
@@ -82,6 +90,7 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     course.rating = '4';
     course.level = 'beginner';
     course.duration = '3h 20m';
+    course.sponsorId = '197';
     course.cost = '19.50';
 
     const course2 = new Course();
@@ -100,7 +109,8 @@ export class EducationMainComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    
+    this.routeSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   isActive(link: NavLinkModel) {

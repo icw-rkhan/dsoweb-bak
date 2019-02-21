@@ -1,13 +1,5 @@
-<section #uniteContainer>
-    <mat-sidenav-container class="sidenav-container">
-        <mat-sidenav #sidenav mode="push">
-            <dso-sidebar (toggleMenu)="sidenav.toggle()"></dso-sidebar>
-        </mat-sidenav>
-        <mat-sidenav-content class="sidenav-content">
-            <dso-toolbar (toggleMenu)="sidenav.toggle()"></dso-toolbar>
-            <div class="unite-container">
-                <router-outlet></router-outlet>
-            </div>
-        </mat-sidenav-content>
-    </mat-sidenav-container>
-</section>
+<dso-main-container>
+    <div class="unite-container">
+        <router-outlet></router-outlet>
+    </div>
+</dso-main-container>

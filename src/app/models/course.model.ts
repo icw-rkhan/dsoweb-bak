@@ -9,6 +9,7 @@ export class Course {
     level: string;
     duration: string;
     cost: string;
+    sponsorId: string;
     isBookmarked: boolean;
 
     deserialize(data: any): Course {
@@ -20,6 +21,7 @@ export class Course {
             rating: data.rating,
             level: data.level,
             duration: data.duration,
+            sponsorId: data.sponsorId,
             cost: data.cost
         });
     }

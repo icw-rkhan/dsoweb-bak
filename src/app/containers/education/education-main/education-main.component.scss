@@ -36,7 +36,9 @@ article {
     }
 
     .category {
+        margin-top: 25px;
         padding: 0px 16px 13px;
+        background-color: #f3f4f5;
 
         span {
             color: #1a191a;
@@ -49,11 +51,12 @@ article {
             color: #879aa8;
             font-size: 12px;
             padding: 0px;
-            margin-right: -16px;
+            margin-right: -10px;
         }
 
         .mat-button {
             min-width: 65px;
+            line-height: 17px;
         }
 
         button:focus {
@@ -90,7 +93,11 @@ article {
     }
 
     .contents {
-        margin-top: 16px;
-        padding-bottom: 50px;
+        padding-bottom: 70px;
+        background-color: #f3f4f5;
+
+        .course-common {
+            margin-top: 16px;
+        }
     }
 }

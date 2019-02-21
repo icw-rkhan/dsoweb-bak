@@ -7,15 +7,17 @@ import { NavLinkModel } from '../models/nav-link.model';
   })
 export class NavLinksService {
   links: NavLinkModel[] = [];
-  careerActionLinks: NavLinkModel[] = [];
   uniteMainLinks: NavLinkModel[] = [];
   uniteMoreLinks: NavLinkModel[] = [];
+  careerActionLinks: NavLinkModel[] = [];
+  educationActionLinks: NavLinkModel[] = [];
 
   constructor() {
     this.makeGeneralLinks();
     this.makeUniteMainLinks();
     this.makeCareerActionLinks();
     this.makeUniteFeaturesLinks();
+    this.makeEducationActionLinks();
   }
 
   makeGeneralLinks() {
@@ -137,6 +139,39 @@ export class NavLinksService {
       label: 'More',
       icon: 'more',
       route: '#more',
+      state: 'inactive'
+    });
+  }
+
+  makeEducationActionLinks() {
+    this.educationActionLinks.push({
+      label: 'Catalog',
+      icon: 'catalog',
+      route: '/education',
+      state: 'active'
+    });
+    this.educationActionLinks.push({
+      label: 'Search',
+      icon: 'search',
+      route: '/education/search',
+      state: 'inactive'
+    });
+    this.educationActionLinks.push({
+      label: 'Bookmarks',
+      icon: 'bookmark',
+      route: '/education/bookmark',
+      state: 'inactive'
+    });
+    this.educationActionLinks.push({
+      label: 'Downloads',
+      icon: 'downloads',
+      route: '/education/downloads',
+      state: 'inactive'
+    });
+    this.educationActionLinks.push({
+      label: 'My Courses',
+      icon: 'my-courses',
+      route: '/education/courses',
       state: 'inactive'
     });
   }

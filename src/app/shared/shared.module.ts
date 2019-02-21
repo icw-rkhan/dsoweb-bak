@@ -60,6 +60,8 @@ import { CareerActionsComponent } from './career-actions/career-actions.componen
 import { AlertDialogComponent } from './dialogs/alert-dialog/alert-dialog.component';
 import { CareerContainerComponent } from './career-container/career-container.component';
 import { JobExtendCardComponent } from './cards/job-extend-card/job-extend-card.component';
+import { EducationActionsComponent } from './education-actions/education-actions.component';
+import { EducationContainerComponent } from './education-container/education-container.component';
 import { ReviewExtendCardComponent } from './cards/review-extend-card/review-extend-card.component';
 import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-policy-dialog.component';
 import { CompanyReviewCardComponent } from './cards/company-review-card/company-review-card.component';
@@ -98,9 +100,11 @@ export const COMPONENTS = [
   JobExtendCardComponent,
   CareerActionsComponent,
   CareerContainerComponent,
+  EducationActionsComponent,
   TermPolicyDialogComponent,
   ReviewExtendCardComponent,
   CompanyReviewCardComponent,
+  EducationContainerComponent,
   CompanyReviewExtendCardComponent
 ];
 

@@ -9,12 +9,12 @@ import { SharingService } from 'src/app/services/sharing.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'dso-career-actions',
-  templateUrl: './career-actions.component.html',
-  styleUrls: ['./career-actions.component.scss'],
+  selector: 'dso-education-actions',
+  templateUrl: './education-actions.component.html',
+  styleUrls: ['./education-actions.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CareerActionsComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EducationActionsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   flag: boolean;
   showNavBar = false;
@@ -34,7 +34,7 @@ export class CareerActionsComponent implements OnInit, OnDestroy, AfterViewInit 
     private sharingService: SharingService) {
     this.flag = false;
 
-    this.links = this.linkService.careerActionLinks;
+    this.links = this.linkService.educationActionLinks;
 
     this.subRoute = this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationEnd) {
