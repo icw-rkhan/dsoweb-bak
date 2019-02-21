@@ -21,8 +21,6 @@ export class EducationActionsComponent implements OnInit, OnDestroy, AfterViewIn
 
   links: NavLinkModel[];
 
-  @Output() moreEvent = new EventEmitter<number>();
-
   subRoute: Subscription;
 
   @ViewChild('actionsContainer') actionsContainer: ElementRef;
@@ -82,22 +80,9 @@ export class EducationActionsComponent implements OnInit, OnDestroy, AfterViewIn
     this.clear();
     this.links[i].state = 'active';
 
-    if (this.links[i].route !== '#more') {
-      this.flag = false;
+    this.flag = false;
 
-      this.moreEvent.emit(0);
-
-      this.router.navigate([this.links[i].route]);
-    } else {
-      this.flag = !this.flag;
-      if (this.flag) {
-        this.links[i].state = 'active';
-      } else {
-        this.links[i].state = 'inactive';
-      }
-
-      this.moreEvent.emit(1);
-    }
+    // this.router.navigate([this.links[i].route]);
   }
 
   onSwipeUp(event) {
