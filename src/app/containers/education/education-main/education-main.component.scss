@@ -69,22 +69,29 @@ article {
 
         ::ng-deep .mat-tab-links {
             overflow-x: auto;
-        }
-          
-        .mat-tab-link {
-            min-width: 120px;
-            flex: 1;
-            border-right: 1px solid rgba(0, 0, 0, 0.12);
-            text-transform: uppercase;
+   
+            .mat-tab-link {
+                flex: 1;
+                height: 42px;
+                color: #4a4a4a;
+                font-size: 12px;
+                font-family: 'SFUI';
+                font-weight: 600;
+                opacity: 1;
+                padding: 0px 18px;
+                border-right: 1px solid rgba(0, 0, 0, 0.12);
+                text-transform: uppercase;
+                
+                &:hover {
+                    text-decoration: none;
+                }
+            }
             
-            &:hover {
-                text-decoration: none;
+            .mat-tab-label-active {
+                background-color: #f7f7f7;
             }
         }
-        
-        .mat-tab-label-active {
-            background-color: #f7f7f7;
-        }
+         
 
         .active {
             background: #f7f7f7;
