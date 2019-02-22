@@ -99,7 +99,7 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     course2.logoUrl = 'assets/images/education/course_logo.png';
     course2.presenter = 'Dr.Anna Smith';
     course2.rating = '4';
-    course2.level = 'Intermediate';
+    course2.level = 'intermediate';
     course2.duration = '3h 20m';
     course2.cost = null;
     course2.isBookmarked = true;
@@ -142,35 +142,35 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     });
     navLinks.push({
       label: 'General Dentistry',
-      route: '/education/type/194',
+      route: '/education/type/1',
     });
     navLinks.push({
       label: 'Periodontics',
-      route: '/education/type/31',
+      route: '/education/type/2',
     });
     navLinks.push({
       label: 'Orthodontics',
-      route: '/education/type/31',
+      route: '/education/type/3',
     });
     navLinks.push({
       label: 'Pediatric Dentistry',
-      route: '/education/type/31',
+      route: '/education/type/4',
     });
     navLinks.push({
       label: 'Prosthodontics',
-      route: '/education/type/31',
+      route: '/education/type/5',
     });
     navLinks.push({
       label: 'Endodontics',
-      route: '/education/type/31',
+      route: '/education/type/6',
     });
     navLinks.push({
       label: 'Oral and Maxillofacial',
-      route: '/education/type/31',
+      route: '/education/type/7',
     });
     navLinks.push({
       label: 'Practice Management',
-      route: '/education/type/31',
+      route: '/education/type/8',
     });
 
     return navLinks;

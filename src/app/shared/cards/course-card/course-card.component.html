@@ -18,7 +18,7 @@
             </div>
             <div fxLayout="row" fxLayoutAling="start center">
                 <div class="course_level" >
-                    <img src="assets/images/education/level.png">
+                    <img [src]="'assets/images/education/level-' + course.level + '.png'">
                     <label>{{course.level}}</label>
                 </div>
                 <div class="course_duration">

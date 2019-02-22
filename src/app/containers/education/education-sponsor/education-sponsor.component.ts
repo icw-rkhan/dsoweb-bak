@@ -31,7 +31,7 @@ export class EducationSponsorComponent implements OnInit, OnDestroy {
     course.logoUrl = 'assets/images/education/course_logo.png';
     course.presenter = 'Dr.Anna Smith';
     course.rating = '4';
-    course.level = 'beginner';
+    course.level = 'advanced';
     course.duration = '3h 20m';
     course.sponsorId = '197';
     course.cost = '19.50';
@@ -42,7 +42,7 @@ export class EducationSponsorComponent implements OnInit, OnDestroy {
     course2.logoUrl = 'assets/images/education/course_logo.png';
     course2.presenter = 'Dr.Anna Smith';
     course2.rating = '4';
-    course2.level = 'Intermediate';
+    course2.level = 'expert';
     course2.duration = '3h 20m';
     course2.cost = null;
     course2.isBookmarked = true;
