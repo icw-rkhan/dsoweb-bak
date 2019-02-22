@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
 
 import { Course } from 'src/app/models/course.model';
 import { environment } from 'src/environments/environment';
@@ -7,10 +7,12 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'dso-course-card',
   templateUrl: './course-card.component.html',
-  styleUrls: ['./course-card.component.scss']
+  styleUrls: ['./course-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CourseCardComponent implements OnInit {
 
+  @Input() type: string;
   @Input() course: Course;
 
   rate: number;
@@ -28,6 +30,7 @@ export class CourseCardComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log(this.type);
     if (this.course.rating) {
       this.rate = parseInt(this.course.rating, 10);
     }

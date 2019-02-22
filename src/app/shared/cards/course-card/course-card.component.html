@@ -33,7 +33,7 @@
     </div>
 </mat-card>
 <mat-divider *ngIf="!course.sponsorId"></mat-divider>
-<div *ngIf="course.sponsorId" class="course_sponsor"  (click)="onPostSponsor()">
+<div *ngIf="course.sponsorId && !type" class="course_sponsor"  (click)="onPostSponsor()">
     <img *ngIf="isGsk(course.sponsorId)" src = "assets/images/sponsor/gsk-banner.jpg">
     <img *ngIf="isAlign(course.sponsorId)" src = "assets/images/sponsor/align-banner.jpg">
     <img *ngIf="isNobel(course.sponsorId)" src = "assets/images/sponsor/nobel-banner.jpg">

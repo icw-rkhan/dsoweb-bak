@@ -6,6 +6,7 @@ import { EducationRoutingModule } from './education.routing';
 
 import { EducationComponent } from './education.component';
 import { EducationMainComponent } from './education-main/education-main.component';
+import { EducationSponsorComponent } from './education-sponsor/education-sponsor.component';
 
 @NgModule({
     imports: [
@@ -15,7 +16,8 @@ import { EducationMainComponent } from './education-main/education-main.componen
     ],
     declarations: [
         EducationComponent,
-        EducationMainComponent
+        EducationMainComponent,
+        EducationSponsorComponent
     ]
 })
 export class EducationModule {}

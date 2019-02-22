@@ -24,7 +24,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
   btnTitle: string;
   modalType: string;
   isSearch = false;
-  isEducation = false;
+  isEducation: boolean;
 
   visibleUniteMoreMenu: boolean;
   visibleCareerAddOption: boolean;
@@ -51,6 +51,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           this.url = event.url;
           this.title = 'DSODENTIST';
           this.btnTitle = 'menu';
+          this.isEducation = false;
 
           this.fetchIssueId(event.url);
 
@@ -132,6 +133,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           } else if (event.url.includes('/settings/password')) {
             this.title = 'CHANGE PASSWORD';
             this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/education/sponsor')) {
+            this.title = 'LEARNING';
+            this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/settings')) {
             this.title = 'SETTINGS';
             this.btnTitle = 'keyboard_backspace';
@@ -146,7 +150,7 @@ export class ToolbarComponent implements OnInit, OnDestroy {
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/unite')) {
             this.title = 'ALL ISSUES';
-          } else if (event.url.includes('/education')) {
+          } else if (event.url.includes('/education/type')) {
             this.title = 'LEARNING';
             this.isEducation = true;
           } else if (event.url.includes('/event')) {

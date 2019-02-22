@@ -43,6 +43,7 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: any,
     private sharingService: SharingService) {
       const url = this.document.location.origin;
+      this.navLinks = this.renderTabs();
 
       if (url.includes('mobile.dsodentist.com')) {
         this.isPlaceholder = true;
@@ -70,7 +71,6 @@ export class EducationMainComponent implements OnInit, OnDestroy {
       this.routeSub = this.route.params.subscribe(params => {
         this.id = params['id'];
         this.sponsorId = params['sponsorId'];
-        this.navLinks = this.renderTabs(this.sponsorId);
 
         if (this.id) {
           this.isFeatured = false;
@@ -117,118 +117,62 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     return this.currentUrl === link.route;
   }
 
-  renderTabs(sponsorId: number) {
+  renderTabs() {
     const navLinks: NavLinkModel[] = [];
-    if (sponsorId) {
-      navLinks.push({
-        label: 'Featured',
-        route: `/education/sponsor/${sponsorId}`,
-      });
-      navLinks.push({
-        label: 'Sponsored',
-        subMenu: [
-          {
-            label: 'Align Technology',
-            route: `/education/sponsor/${environment.SPONSOR_ALIGN}`
-          },
-          {
-            label: 'GlaxoSmithKline',
-            route: `/education/sponsor/${environment.SPONSOR_GSK}`
-          },
-          {
-            label: 'Nobel Biocare',
-            route: `/education/sponsor/${environment.SPONSOR_NOBEL}`
-          }
-        ],
-      });
-      navLinks.push({
-        label: 'General Dentistry',
-        route: `/education/sponsor/${sponsorId}/194`,
-      });
-      navLinks.push({
-        label: 'Periodontics',
-        route: `/education/sponsor/${sponsorId}/31`,
-      });
-      navLinks.push({
-        label: 'Orthodontics',
-        route: `/education/sponsor/${sponsorId}/31`,
-      });
-      navLinks.push({
-        label: 'Pediatric Dentistry',
-        route: `/education/sponsor/${sponsorId}/31`,
-      });
-      navLinks.push({
-        label: 'Prosthodontics',
-        route: `/education/sponsor/${sponsorId}/31`,
-      });
-      navLinks.push({
-        label: 'Endodontics',
-        route: `/education/sponsor/${sponsorId}/31`,
-      });
-      navLinks.push({
-        label: 'Oral and Maxillofacial',
-        route: `/education/sponsor/${sponsorId}/31`,
-      });
-      navLinks.push({
-        label: 'Practice Management',
-        route: `/education/sponsor/${sponsorId}/31`,
-      });
-    } else {
-      navLinks.push({
-        label: 'Featured',
-        route: '/education/type',
-      });
-      navLinks.push({
-        label: 'Sponsored',
-        subMenu: [
-          {
-            label: 'Align Technology',
-            route: `/education/sponsor/${environment.SPONSOR_ALIGN}`
-          },
-          {
-            label: 'GlaxoSmithKline',
-            route: `/education/sponsor/${environment.SPONSOR_GSK}`
-          },
-          {
-            label: 'Nobel Biocare',
-            route: `/education/sponsor/${environment.SPONSOR_NOBEL}`
-          }
-        ],
-      });
-      navLinks.push({
-        label: 'General Dentistry',
-        route: '/education/type/194',
-      });
-      navLinks.push({
-        label: 'Periodontics',
-        route: '/education/type/31',
-      });
-      navLinks.push({
-        label: 'Orthodontics',
-        route: '/education/type/31',
-      });
-      navLinks.push({
-        label: 'Pediatric Dentistry',
-        route: '/education/type/31',
-      });
-      navLinks.push({
-        label: 'Prosthodontics',
-        route: '/education/type/31',
-      });
-      navLinks.push({
-        label: 'Endodontics',
-        route: '/education/type/31',
-      });
-      navLinks.push({
-        label: 'Oral and Maxillofacial',
-        route: '/education/type/31',
-      });
-      navLinks.push({
-        label: 'Practice Management',
-        route: '/education/type/31',
-      });
-    }
+    navLinks.push({
+      label: 'Featured',
+      route: '/education/type',
+    });
+    navLinks.push({
+      label: 'Sponsored',
+      subMenu: [
+        {
+          label: 'Align Technology',
+          route: `/education/sponsor/${environment.SPONSOR_ALIGN}`
+        },
+        {
+          label: 'GlaxoSmithKline',
+          route: `/education/sponsor/${environment.SPONSOR_GSK}`
+        },
+        {
+          label: 'Nobel Biocare',
+          route: `/education/sponsor/${environment.SPONSOR_NOBEL}`
+        }
+      ],
+    });
+    navLinks.push({
+      label: 'General Dentistry',
+      route: '/education/type/194',
+    });
+    navLinks.push({
+      label: 'Periodontics',
+      route: '/education/type/31',
+    });
+    navLinks.push({
+      label: 'Orthodontics',
+      route: '/education/type/31',
+    });
+    navLinks.push({
+      label: 'Pediatric Dentistry',
+      route: '/education/type/31',
+    });
+    navLinks.push({
+      label: 'Prosthodontics',
+      route: '/education/type/31',
+    });
+    navLinks.push({
+      label: 'Endodontics',
+      route: '/education/type/31',
+    });
+    navLinks.push({
+      label: 'Oral and Maxillofacial',
+      route: '/education/type/31',
+    });
+    navLinks.push({
+      label: 'Practice Management',
+      route: '/education/type/31',
+    });
+
     return navLinks;
   }
-
 }

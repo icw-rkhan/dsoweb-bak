@@ -1,0 +1,12 @@
+<div class="sponsor-header">
+  <img *ngIf="isGsk(sponsorId)" src = "assets/images/sponsor/gsk-header.png">
+  <img *ngIf="isAlign(sponsorId)" src = "assets/images/sponsor/align-header.png">
+  <img *ngIf="isNobel(sponsorId)" src = "assets/images/sponsor/nobel-header.png">
+  <img *ngIf="isGsk(sponsorId)" src = "assets/images/sponsor/gsk-banner.jpg">
+  <img *ngIf="isAlign(sponsorId)" src = "assets/images/sponsor/align-banner.jpg">
+  <img *ngIf="isNobel(sponsorId)" src = "assets/images/sponsor/nobel-banner.jpg">
+</div>
+<div class="sponsor-category">Sponsored</div>
+<div class="sponsor-contents">
+  <dso-course-card [course]="course" [type]="'sponsor'" *ngFor="let course of courses"></dso-course-card>
+</div>

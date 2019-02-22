@@ -5,6 +5,7 @@ import { AuthGuard } from '../../services/auth/auth-guard';
 
 import { EducationComponent } from './education.component';
 import { EducationMainComponent } from './education-main/education-main.component';
+import { EducationSponsorComponent } from './education-sponsor/education-sponsor.component';
 
 export const ROUTES: Routes = [
     {
@@ -28,12 +29,8 @@ export const ROUTES: Routes = [
             },
             {
                 path: 'sponsor/:sponsorId',
-                component: EducationMainComponent,
-            },
-            {
-                path: 'sponsor/:sponsorId/:id',
-                component: EducationMainComponent,
-            },
+                component: EducationSponsorComponent,
+            }
         ]
     }
 ];
