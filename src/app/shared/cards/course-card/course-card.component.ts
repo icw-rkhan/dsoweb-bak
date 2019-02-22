@@ -30,7 +30,6 @@ export class CourseCardComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.type);
     if (this.course.rating) {
       this.rate = parseInt(this.course.rating, 10);
     }
