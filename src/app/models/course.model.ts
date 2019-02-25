@@ -1,8 +1,11 @@
 import { formatDate } from '@angular/common';
+import { environment } from 'src/environments/environment';
 
 export class Course {
     id: string;
     title: string;
+    curriculumId: string;
+    description: string;
     logoUrl: string;
     presenter: string;
     rating: string;
@@ -12,17 +15,22 @@ export class Course {
     sponsorId: string;
     isBookmarked: boolean;
 
+    getLogoURl(id: string) {
+        return `${environment}/file/downloadFileByObjectId?objectId=${id}`;
+    }
+
     deserialize(data: any): Course {
         return <Course>Object.assign({}, {
-            id: data._id,
-            title: data.title,
-            logoUrl: data.logoUrl,
+            id: data.id,
+            title: data.name,
+            curriculumId: data.curriculumId,
+            logoUrl: this.getLogoURl(data.image),
             presenter: data.presenter,
             rating: data.rating,
-            level: data.level,
-            duration: data.duration,
+            level: data.beginner,
+            duration: data.timeRequired,
             sponsorId: data.sponsorId,
-            cost: data.cost
+            cost: data.free ? null : data.price
         });
     }
 }

@@ -1,22 +1,26 @@
-import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, Params, NavigationEnd, Event } from '@angular/router';
+import { Component, OnInit, Inject, OnDestroy, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/core';
+import { Router, ActivatedRoute, NavigationEnd, Event } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';
+import { NgProgress } from '@ngx-progressbar/core';
 import { Subscription } from 'rxjs';
 
 import { SharingService } from 'src/app/services/sharing.service';
+import { CourseService } from 'src/app/services/course.service';
 import { NavLinkModel } from 'src/app/models/nav-link.model';
+import { Course } from 'src/app/models/course.model';
 
 import { environment } from 'src/environments/environment';
-import { Course } from 'src/app/models/course.model';
 
 @Component({
   selector: 'dso-education-main',
   templateUrl: './education-main.component.html',
-  styleUrls: ['./education-main.component.scss']
+  styleUrls: ['./education-main.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EducationMainComponent implements OnInit, OnDestroy {
 
   id: number;
+  pageNum: number;
   sponsorId: number;
   currentUrl: string;
   slideHeight: string;
@@ -39,9 +43,13 @@ export class EducationMainComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
+    private progress: NgProgress,
     private route: ActivatedRoute,
+    private cdr: ChangeDetectorRef,
+    private courseService: CourseService,
     @Inject(DOCUMENT) private document: any,
     private sharingService: SharingService) {
+      this.pageNum = 1;
       const url = this.document.location.origin;
       this.navLinks = this.renderTabs();
 
@@ -81,6 +89,27 @@ export class EducationMainComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.makeTestData();
+
+    const body = {
+      pgnumber: this.pageNum,
+      pgsize: 5
+    };
+
+    /*
+    this.progress.start();
+    this.courseService.courses(body).subscribe(courses => {
+      this.progress.complete();
+
+      this.courses = courses;
+      this.cdr.markForCheck();
+    },
+    err => {
+      this.progress.complete();
+    });*/
+  }
+
+  makeTestData() {
     this.courses = [];
     const course = new Course();
     course.id = '1';

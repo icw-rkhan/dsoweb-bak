@@ -142,8 +142,6 @@ export class PostsPageComponent implements OnInit, OnDestroy {
         ...posts
       ];
 
-      console.log(this.posts);
-
       this.cdr.markForCheck();
       this.progress.complete();
       this.isFetching = false;
