@@ -128,8 +128,6 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
     ).subscribe(jobs => {
       this.progress.complete();
 
-      this.clear();
-
       if (this.jobs && this.isLoadingMore) {
         this.jobs = [
           ...this.jobs,
@@ -145,7 +143,6 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       subJob.unsubscribe();
     },
     err => {
-      console.log(err);
       this.progress.complete();
     });
   }

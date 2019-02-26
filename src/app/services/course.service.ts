@@ -18,9 +18,7 @@ export class CourseService {
 
   constructor(
       private http: HttpClient,
-      private authService: AuthService) {
-
-  }
+      private authService: AuthService) {}
 
   courses(body: any): Observable<Course[]> {
     const url = `${environment.educationApiUrl}/generic/courses`;
