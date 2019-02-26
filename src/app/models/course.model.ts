@@ -13,6 +13,7 @@ export class Course {
     duration: string;
     cost: string;
     sponsorId: string;
+    bookmarkId: string;
     isBookmarked: boolean;
 
     getLogoURl(id: string) {

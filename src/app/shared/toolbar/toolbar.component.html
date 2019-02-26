@@ -1,5 +1,5 @@
 <article [class.common]="!isEducation" [class.education]="isEducation">
-  <button mat-icon-button (click)="onClickEvent()" class="btn-menu">
+  <button *ngIf="btnTitle" mat-icon-button (click)="onClickEvent()" class="btn-menu">
     <mat-icon>{{btnTitle}}</mat-icon>
   </button>
   <h3 class="mt-h3 topic-title">

@@ -159,7 +159,7 @@ export class NavLinksService {
     this.educationActionLinks.push({
       label: 'Bookmarks',
       icon: 'bookmark',
-      route: '/education/bookmark',
+      route: '/education/bookmarks',
       state: 'inactive'
     });
     this.educationActionLinks.push({

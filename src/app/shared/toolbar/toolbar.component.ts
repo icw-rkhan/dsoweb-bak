@@ -133,6 +133,18 @@ export class ToolbarComponent implements OnInit, OnDestroy {
           } else if (event.url.includes('/settings/password')) {
             this.title = 'CHANGE PASSWORD';
             this.btnTitle = 'keyboard_backspace';
+          } else if (event.url.includes('/education/courses')) {
+            this.title = 'MY COURSES';
+            this.btnTitle = null;
+          } else if (event.url.includes('/education/downloads')) {
+            this.title = 'DOWNLOADES';
+            this.btnTitle = null;
+          } else if (event.url.includes('/education/bookmarks')) {
+            this.title = 'BOOKMARKS';
+            this.btnTitle = null;
+          } else if (event.url.includes('/education/search')) {
+            this.title = 'SEARCH';
+            this.btnTitle = null;
           } else if (event.url.includes('/education/sponsor')) {
             this.title = 'LEARNING';
             this.btnTitle = 'keyboard_backspace';
@@ -150,8 +162,9 @@ export class ToolbarComponent implements OnInit, OnDestroy {
             this.btnTitle = 'keyboard_backspace';
           } else if (event.url.includes('/unite')) {
             this.title = 'ALL ISSUES';
-          } else if (event.url.includes('/education/type')) {
+          } else if (event.url.includes('/education')) {
             this.title = 'LEARNING';
+            this.btnTitle = 'menu';
             this.isEducation = true;
           } else if (event.url.includes('/event')) {
             this.title = 'EVENTS';

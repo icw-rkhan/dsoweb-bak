@@ -5,7 +5,9 @@ import { Observable } from 'rxjs';
 import * as _ from 'lodash';
 
 import { AuthService } from './auth/auth.service';
+
 import { Course } from '../models/course.model';
+import { CourseBookmark } from '../models/course-bookmark.model';
 
 import { environment } from '../../environments/environment';
 
@@ -21,23 +23,23 @@ export class CourseService {
   }
 
   courses(body: any): Observable<Course[]> {
-    const url = `${environment.cmsAPIUrl}/generic/courses`;
+    const url = `${environment.educationApiUrl}/generic/courses`;
     const headers = this.getHeaders();
 
     return this.http.post(url, body, {headers}).pipe(map((response: any) =>
         response.resultMap.data.map(course => new Course().deserialize(course))));
   }
 
-  bookmarks(body: any): Observable<Course[]> {
-    const url = `${environment.cmsAPIUrl}/bookmark/bookmarks`;
+  bookmarks(body: any): Observable<CourseBookmark[]> {
+    const url = `${environment.educationApiUrl}/bookmark/bookmarks`;
     const headers = this.getHeaders();
 
-    return this.http.post(url, null, {headers, params: body}).pipe(map((response: any) =>
-    response.resultMap.data.map(course => new Course().deserialize(course))));
+    return this.http.get(url, {headers, params: body}).pipe(map((response: any) =>
+    response.resultMap.data.map(bookmark => new CourseBookmark().deserialize(bookmark))));
   }
 
   addBookmark(id: string) {
-    const url = `${environment.cmsAPIUrl}/bookmark/bookmark`;
+    const url = `${environment.educationApiUrl}/bookmark/bookmark`;
     const headers = this.getHeaders();
 
     const request = {
@@ -48,7 +50,7 @@ export class CourseService {
   }
 
   removeBookmark(id: string) {
-    const url = `${environment.cmsAPIUrl}/bookmark/bookmark/${id}`;
+    const url = `${environment.educationApiUrl}/bookmark/bookmark/${id}`;
     const headers = this.getHeaders();
 
     return this.http.delete(url, {headers});

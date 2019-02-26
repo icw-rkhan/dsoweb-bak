@@ -82,7 +82,7 @@ export class EducationActionsComponent implements OnInit, OnDestroy, AfterViewIn
 
     this.flag = false;
 
-    // this.router.navigate([this.links[i].route]);
+    this.router.navigate([this.links[i].route]);
   }
 
   onSwipeUp(event) {

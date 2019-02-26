@@ -2,7 +2,9 @@ import { Component, OnInit, Inject, OnDestroy, ChangeDetectionStrategy, ChangeDe
 import { Router, ActivatedRoute, NavigationEnd, Event } from '@angular/router';
 import { DOCUMENT } from '@angular/platform-browser';
 import { NgProgress } from '@ngx-progressbar/core';
-import { Subscription } from 'rxjs';
+import { forkJoin, Subscription } from 'rxjs';
+import { map } from 'rxjs/internal/operators';
+import * as _ from 'lodash';
 
 import { SharingService } from 'src/app/services/sharing.service';
 import { CourseService } from 'src/app/services/course.service';
@@ -19,15 +21,18 @@ import { environment } from 'src/environments/environment';
 })
 export class EducationMainComponent implements OnInit, OnDestroy {
 
-  id: number;
+  typeId: number;
   pageNum: number;
   sponsorId: number;
   currentUrl: string;
   slideHeight: string;
   isFeatured: boolean;
   isPlaceholder: boolean;
+  showGotoTopBtn: boolean;
 
   courses: Course[];
+  recommendCourses: Course[];
+
   navLinks: NavLinkModel[] = [];
 
   routeSub: Subscription;
@@ -50,6 +55,8 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: any,
     private sharingService: SharingService) {
       this.pageNum = 1;
+      this.showGotoTopBtn = false;
+
       const url = this.document.location.origin;
       this.navLinks = this.renderTabs();
 
@@ -77,10 +84,9 @@ export class EducationMainComponent implements OnInit, OnDestroy {
 
       // Check when it is a sponsor page
       this.routeSub = this.route.params.subscribe(params => {
-        this.id = params['id'];
-        this.sponsorId = params['sponsorId'];
+        this.typeId = params['id'];
 
-        if (this.id) {
+        if (this.typeId) {
           this.isFeatured = false;
         } else {
           this.isFeatured = true;
@@ -90,27 +96,18 @@ export class EducationMainComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.makeTestData();
+    // this.loadContents();
+  }
 
-    const body = {
-      pgnumber: this.pageNum,
-      pgsize: 5
-    };
-
-    /*
-    this.progress.start();
-    this.courseService.courses(body).subscribe(courses => {
-      this.progress.complete();
-
-      this.courses = courses;
-      this.cdr.markForCheck();
-    },
-    err => {
-      this.progress.complete();
-    });*/
+  ngOnDestroy() {
+    this.routeSub.unsubscribe();
+    this.routerSub.unsubscribe();
   }
 
   makeTestData() {
     this.courses = [];
+    this.recommendCourses = [];
+
     const course = new Course();
     course.id = '1';
     course.title = 'Purpose Driven Dental Assisting';
@@ -134,12 +131,79 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     course2.isBookmarked = true;
 
     this.courses.push(course);
-    this.courses.push(course2);
+    this.recommendCourses.push(course2);
   }
 
-  ngOnDestroy() {
-    this.routeSub.unsubscribe();
-    this.routerSub.unsubscribe();
+  onLoadMore() {
+    if (!this.isFeatured) {
+      this.pageNum++;
+
+      this.loadContents();
+    }
+  }
+
+  onShowMoreCourses() {
+    this.pageNum++;
+
+    this.loadContents();
+  }
+
+  onShowMoreRecommendCourses() {
+    
+  }
+
+  loadContents() {
+    const body = {
+      pgnumber: this.pageNum,
+      pgsize: 5,
+      categoryId: this.typeId
+    };
+
+    this.progress.start();
+    const courseService = this.courseService.courses(body);
+
+    // Join bookmarks and post
+    const courseSub = forkJoin(
+      courseService,
+      this.courseService.bookmarks({pgnumber: 1, pgsize: 0})
+    ).pipe(
+      map(items => items[0].map(p => {
+        const bookmark = items[1].find(b => b.courseId === p.id);
+
+        return Object.assign({}, p, {
+          isBookmark: !_.isUndefined(bookmark),
+          bookmarkId: !_.isUndefined(bookmark) ? bookmark.id : undefined
+        });
+      }))
+    ).subscribe(courses => {
+      this.progress.complete();
+
+      this.courses = [
+        ...this.courses,
+        ...courses
+      ];
+
+      this.cdr.markForCheck();
+
+      courseSub.unsubscribe();
+    });
+  }
+
+  onScroll(event) {
+    const scrollPosition = event.srcElement.scrollTop;
+    if (scrollPosition > 200) {
+      this.showGotoTopBtn = true;
+    } else {
+      this.showGotoTopBtn = false;
+    }
+  }
+
+  gotoTop() {
+    document.getElementById('contents').scroll({
+      top: 0,
+      left: 0,
+      behavior: 'smooth'
+    });
   }
 
   isActive(link: NavLinkModel) {

@@ -1,8 +1,10 @@
-import { Component, OnInit, Input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, Input, ChangeDetectionStrategy, Output, EventEmitter } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Course } from 'src/app/models/course.model';
+import { CourseService } from 'src/app/services/course.service';
+
 import { environment } from 'src/environments/environment';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'dso-course-card',
@@ -14,6 +16,7 @@ export class CourseCardComponent implements OnInit {
 
   @Input() type: string;
   @Input() course: Course;
+  @Output() removeBookmark = new EventEmitter<string>();
 
   rate: number;
 
@@ -25,7 +28,7 @@ export class CourseCardComponent implements OnInit {
     {state: false}
   ];
 
-  constructor(private router: Router) {
+  constructor(private router: Router, private courseService: CourseService) {
     this.rate = 0;
   }
 
@@ -36,7 +39,33 @@ export class CourseCardComponent implements OnInit {
   }
 
   onPostSponsor() {
-    // this.router.navigate([]);
+    this.router.navigate([`/education/sponsor/${this.course.sponsorId}`]);
+  }
+
+  onBookmark() {
+    const courseSub = this.courseService.addBookmark(this.course.bookmarkId)
+      .subscribe((res: any) => {
+        if (res.resultMap.code === 0) {
+          this.course.isBookmarked = true;
+          this.course.bookmarkId = res.resultMap.id;
+        }
+
+        courseSub.unsubscribe();
+    });
+  }
+
+  onRemoveBookmark() {
+    const courseSub = this.courseService.removeBookmark(this.course.bookmarkId)
+      .subscribe((res: any) => {
+        if (res.resultMap.code === 0) {
+          this.course.isBookmarked = false;
+          this.course.bookmarkId = null;
+
+          this.removeBookmark.emit(this.course.id);
+        }
+
+        courseSub.unsubscribe();
+    });
   }
 
   // check gsk tag

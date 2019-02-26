@@ -8,6 +8,7 @@ export const environment = {
   cmsAPIUrl: 'https://devcmsapi1.dsodentist.com/content/contentservice/v1',
   profileApiUrl: 'https://devupapi1.dsodentist.com/profile/profileservice/v1',
   settingApiUrl: 'https://demohrapi1.dsodentist.com/setting/settingservice/v1',
+  educationApiUrl: '',
   linkedinClientId: '77xn8gu9wv8bfj',
   SPONSOR_GSK: '197',
   SPONSOR_ALIGN: '260',
