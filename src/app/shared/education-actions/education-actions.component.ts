@@ -41,12 +41,12 @@ export class EducationActionsComponent implements OnInit, OnDestroy, AfterViewIn
         this.clear();
 
         this.links.map(link => {
-          if (link.route === url) {
+          if (url.includes(link.route)) {
             link.state = 'active';
-
-            this.cdr.markForCheck();
           }
         });
+
+        this.cdr.markForCheck();
       }
     });
   }

@@ -147,7 +147,7 @@ export class NavLinksService {
     this.educationActionLinks.push({
       label: 'Catalog',
       icon: 'catalog',
-      route: '/education',
+      route: '/education/type',
       state: 'active'
     });
     this.educationActionLinks.push({
