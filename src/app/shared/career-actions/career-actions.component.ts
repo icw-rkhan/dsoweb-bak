@@ -54,6 +54,18 @@ export class CareerActionsComponent implements OnInit, OnDestroy, AfterViewInit 
   }
 
   ngOnInit() {
+    const url = this.router.url;
+
+    this.clear();
+
+    this.links.map(link => {
+      if (link.route === url) {
+        link.state = 'active';
+
+        this.cdr.markForCheck();
+      }
+    });
+
     window.addEventListener('scroll', this.onScrollEvent, true);
   }
 
