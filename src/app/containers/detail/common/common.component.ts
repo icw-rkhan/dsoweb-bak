@@ -26,6 +26,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   post: Post;
   posts: Post[];
+  galleries: any[];
 
   rate: number;
   index: number;
@@ -575,12 +576,23 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     return contentTypeId === catId ? true : false;
   }
 
-  onShowGalleryView() {
+  onShowGalleryView(i: number) {
     this.showGalleryView = true;
+
+    const galleries = this.post.galleries;
+    this.galleries = this.arrayMove(galleries, i, 0);
 
     setTimeout(() => {
       this.galleryView.nativeElement.style.top = this.scrollY + 'px';
     }, 0);
+  }
+
+  arrayMove(arr, fromIndex, toIndex) {
+    const element = arr[fromIndex];
+    arr.splice(fromIndex, 1);
+    arr.splice(toIndex, 0, element);
+
+    return arr;
   }
 
   swipe(action) {

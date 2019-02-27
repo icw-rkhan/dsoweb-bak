@@ -66,13 +66,13 @@
     <div id="contents" #postContent class="inner-content" [innerHtml]="post.content | safe: 'html'"></div>
     <a *ngIf="showReference" (click)="onClickReference()" [ngClass]="{'show-more-btn': showReferenceState === 'Show more', 'show-less-btn': showReferenceState === 'Show less'}">{{showReferenceState}}</a>
     <mat-divider *ngIf="post.galleries"></mat-divider>
-    <div *ngIf="post.galleries" class="gallery" (click)="onShowGalleryView()">
+    <div *ngIf="post.galleries" class="gallery">
         <div class="gallery_label" fxLayout="row" fxLayoutAlign="space-between center">
             <label>Gallery</label>
             <label>{{post.galleries.length}} images</label>
         </div>
         <div fxLayout="row">
-            <img [src]="gallery.thumbnailUrl" *ngFor="let gallery of post.galleries">
+            <img [src]="gallery.thumbnailUrl" *ngFor="let gallery of post.galleries; index as i" (click)="onShowGalleryView(i)">
         </div>
     </div>
     <div class="review" fxLayout="column" fxLayoutAlign="center center" (click)="onAddReview(post.id, post.title, post.date)">
@@ -146,7 +146,7 @@
     <a class="close_button" (click)="showGalleryView=false"></a>
     <div #viewContainer class="galleryContainer" fxLayout="row" fxLayoutAlign="start center"
         (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-        <dso-gallery-card [galleryUrl]="gallery.thumbnailUrl" *ngFor="let gallery of post.galleries"></dso-gallery-card>
+        <dso-gallery-card [galleryUrl]="gallery.thumbnailUrl" *ngFor="let gallery of galleries"></dso-gallery-card>
     </div>
     <label>Image {{currentIndex}} of {{post.galleries.length}}</label>
 </article>
