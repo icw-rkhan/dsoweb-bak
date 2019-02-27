@@ -5,9 +5,32 @@
     width: 100vw;
     height: auto;
     line-height: 0px;
+    background: transparent;
 
     img {
         width: 100%;
         height: auto;
+        margin-bottom: 14px;
+    }
+
+    label {
+        line-height: 24px;
+    }
+
+    .gallery_index {
+        color: #9b9b9b;
+        font-size: 13px;
+        font-weight: 400;
+    }
+
+    .gallery_caption {
+        color: #ffffff;
+        font-size: 17px;
+        font-family: 'SFUI';
+        font-weight: 600;
+    }
+
+    .gallery-label {
+        width: 100%;
     }
 }

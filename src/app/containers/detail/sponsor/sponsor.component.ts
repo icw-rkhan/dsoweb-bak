@@ -1,7 +1,7 @@
 import {Component, OnInit, OnDestroy, ViewChild, HostListener, ElementRef,
   ChangeDetectionStrategy, ChangeDetectorRef, Inject, AfterViewChecked } from '@angular/core';
-import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { ActivatedRoute, Router, Event, NavigationEnd } from '@angular/router';
+import { MatSnackBar, MatMenuTrigger } from '@angular/material';
 import { DOCUMENT } from '@angular/platform-browser';
 import { NgProgress } from '@ngx-progressbar/core';
 import { formatDate } from '@angular/common';
@@ -9,6 +9,7 @@ import { Subscription } from 'rxjs';
 
 import { BookmarkService } from '../../../services/bookmark.service';
 import { CommentService } from '../../../services/comment.service';
+import { SharingService } from 'src/app/services/sharing.service';
 import { PostService } from '../../../services/post.service';
 import { AuthService } from '../../../services';
 
@@ -17,7 +18,6 @@ import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
 
 import { environment } from '../../../../environments/environment';
-import { SharingService } from 'src/app/services/sharing.service';
 
 @Component({
   selector: 'dso-detail-sponsor',

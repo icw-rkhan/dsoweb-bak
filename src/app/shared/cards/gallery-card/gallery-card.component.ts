@@ -10,7 +10,9 @@ import { environment } from 'src/environments/environment';
 })
 export class GalleryCardComponent implements OnInit {
 
-  @Input() galleryUrl: string;
+  @Input() index: number;
+  @Input() count: number;
+  @Input() gallery: any;
 
   @ViewChild('card') card: ElementRef;
 
@@ -19,10 +21,9 @@ export class GalleryCardComponent implements OnInit {
 
   ngOnInit() {
     const device = this.sharingService.getMyDevice();
+    const element = this.card.nativeElement;
     if (device === 'desktop') {
-      const element = this.card.nativeElement;
-      element.style.maxWidth = environment.fixedWidth;
-      element.style.position = 'relative';
+      element.style.width = environment.fixedWidth;
     }
   }
 }

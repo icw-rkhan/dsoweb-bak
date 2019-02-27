@@ -146,7 +146,8 @@
     <a class="close_button" (click)="showGalleryView=false"></a>
     <div #viewContainer class="galleryContainer" fxLayout="row" fxLayoutAlign="start center"
         (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-        <dso-gallery-card [galleryUrl]="gallery.thumbnailUrl" *ngFor="let gallery of galleries"></dso-gallery-card>
+        <dso-gallery-card [gallery]="gallery" [index]="i" [count]="galleries.length"
+            *ngFor="let gallery of galleries;index as i"></dso-gallery-card>
     </div>
-    <label>Image {{currentIndex}} of {{post.galleries.length}}</label>
+    <!--<label>Image {{currentIndex}} of {{post.galleries.length}}</label>-->
 </article>
