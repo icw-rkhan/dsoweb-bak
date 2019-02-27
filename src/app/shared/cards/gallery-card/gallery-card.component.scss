@@ -1,0 +1,13 @@
+@import "../../../../variables";
+@import "../../../../responsive";
+
+.gallery-card {
+    width: 100vw;
+    height: auto;
+    line-height: 0px;
+
+    img {
+        width: 100%;
+        height: auto;
+    }
+}

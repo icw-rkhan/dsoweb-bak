@@ -169,9 +169,9 @@
 </section>
 <article #galleryView *ngIf="showGalleryView" fxLayout="column" fxLayoutAlign="center center">
     <a (click)="showGalleryView=false"></a>
-    <div #viewContainer fxLayout="row" fxLayoutAlign="start center" 
+    <div #viewContainer class="galleryContainer" fxLayout="row" fxLayoutAlign="start center" 
         (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
-        <img [src]="gallery.thumbnailUrl" *ngFor="let gallery of post.galleries">
+        <dso-gallery-card [galleryUrl]="gallery.thumbnailUrl" *ngFor="let gallery of post.galleries"></dso-gallery-card>
     </div>
     <label>Image {{currentIndex}} of {{post.galleries.length}}</label>
 </article>
