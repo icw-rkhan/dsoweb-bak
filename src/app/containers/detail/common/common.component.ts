@@ -14,6 +14,7 @@ import { AuthService } from '../../../services';
 import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
+import { SharingService } from 'src/app/services/sharing.service';
 
 @Component({
   selector: 'dso-detail-common',
@@ -29,11 +30,13 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   rate: number;
   index: number;
   postId: string;
+  scrollY: number;
   sharedUrl: string;
   isLoaded: boolean;
   authorName: string;
   authorInfo: string;
   isRendered: boolean;
+  currentIndex: number;
   authorAvatar: string;
   review_count: number;
   contentTypeId: number;
@@ -41,6 +44,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   isDisabledNext: boolean;
   showReference: boolean;
   isAuthorVisible: boolean;
+  showGalleryView: boolean;
   showReferenceState: string;
 
   comments: Comment[];
@@ -53,9 +57,13 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     {status: 'inactive'}
   ];
 
+  SWIPE_ACTION = {LEFT: 'swipeleft', RIGHT: 'swiperight'};
+
   @ViewChild(MatMenuTrigger) trigger: MatMenuTrigger;
   @ViewChild('postContent') postContent: ElementRef;
   @ViewChild('authorContent') authorContent: ElementRef;
+  @ViewChild('viewContainer') viewContainer: ElementRef;
+  @ViewChild('galleryView') galleryView: ElementRef;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -66,18 +74,24 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     private cdr: ChangeDetectorRef,
     private postService: PostService,
     private authService: AuthService,
+    private sharingService: SharingService,
     private commentService: CommentService,
     private bookmarkService: BookmarkService) {
 
     this.rate = 0;
+    this.scrollY = 0;
+    this.currentIndex = 1;
+    this.review_count = 0;
+
     this.isLoaded = false;
     this.isRendered = false;
+    this.showReference = false;
     this.isDisabledPrev = false;
     this.isDisabledNext = false;
-    this.review_count = 0;
     this.isAuthorVisible = false;
+    this.showGalleryView = false;
+
     this.showReferenceState = 'Show more';
-    this.showReference = false;
 
     this.post = new Post();
 
@@ -233,6 +247,12 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
+    if (this.showGalleryView) {
+      window.scrollTo(0, this.scrollY);
+    } else {
+      this.scrollY = window.scrollY;
+    }
+
     this.trigger.closeMenu();
   }
 
@@ -553,5 +573,49 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   onCheckCategoryType(contentTypeId, catId: string) {
     return contentTypeId === catId ? true : false;
+  }
+
+  onShowGalleryView() {
+    this.showGalleryView = true;
+
+    setTimeout(() => {
+      this.galleryView.nativeElement.style.top = this.scrollY + 'px';
+    }, 0);
+  }
+
+  swipe(action) {
+    const device = this.sharingService.getMyDevice();
+    if (device === 'desktop') {
+      return;
+    }
+
+    const step = document.body.scrollWidth;
+
+    let index = 0;
+
+    if (action === this.SWIPE_ACTION.LEFT && this.currentIndex < this.post.galleries.length) {
+      this.currentIndex ++;
+    } else if (action === this.SWIPE_ACTION.RIGHT && this.currentIndex > 1) {
+      this.currentIndex --;
+    }
+
+    const currentPos = this.viewContainer.nativeElement.scrollLeft;
+    const timer = setInterval(() => {
+      if (step - index < 10) {
+        index = index + (step - index);
+      } else {
+        index = index + 10;
+      }
+
+      if (action === this.SWIPE_ACTION.RIGHT) {
+        this.viewContainer.nativeElement.scrollTo(currentPos - index, 0);
+      } else {
+        this.viewContainer.nativeElement.scrollTo(currentPos + index, 0);
+      }
+
+      if (index >= step) {
+        clearInterval(timer);
+      }
+    }, 0);
   }
 }

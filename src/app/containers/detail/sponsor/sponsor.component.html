@@ -77,6 +77,16 @@
     <div id="contents" #postContent class="inner-content" [innerHtml]="post.content | safe: 'html'">
     </div>
     <a *ngIf="showReference" (click)="onClickReference()" [ngClass]="{'show-more-btn': showReferenceState === 'Show more', 'show-less-btn': showReferenceState === 'Show less'}">{{showReferenceState}}</a>
+    <mat-divider *ngIf="post.galleries"></mat-divider>
+    <div *ngIf="post.galleries" class="gallery" (click)="onShowGalleryView()">
+        <div class="gallery_label" fxLayout="row" fxLayoutAlign="space-between center">
+            <label>Gallery</label>
+            <label>{{post.galleries.length}} images</label>
+        </div>
+        <div fxLayout="row">
+            <img [src]="gallery.thumbnailUrl" *ngFor="let gallery of post.galleries">
+        </div>
+    </div>
     <div class="inner-content sponsor" fxLayout="column" fxLayoutAlign="center center">
         <span *ngIf="isGsk(post.sponsorId)" class="label-sponsor">Want more content from GSK?</span>
         <span *ngIf="isAlign(post.sponsorId)" class="label-sponsor">Want more content from Align?</span>
@@ -157,3 +167,11 @@
         </div>
     </div>
 </section>
+<article #galleryView *ngIf="showGalleryView" fxLayout="column" fxLayoutAlign="center center">
+    <a (click)="showGalleryView=false"></a>
+    <div #viewContainer fxLayout="row" fxLayoutAlign="start center" 
+        (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
+        <img [src]="gallery.thumbnailUrl" *ngFor="let gallery of post.galleries">
+    </div>
+    <label>Image {{currentIndex}} of {{post.galleries.length}}</label>
+</article>

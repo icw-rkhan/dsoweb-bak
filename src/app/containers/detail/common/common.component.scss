@@ -5,6 +5,47 @@ section {
     padding-bottom: 40px;
 }
 
+article {
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(5, 5, 5, .9);
+    position: absolute;
+    z-index: 200;
+
+    .close_button {
+        width: 24px;
+        height: 24px;
+        background: url('../../../../assets/images/icons/close-white.png');
+        position: absolute;
+        z-index: 10;
+        top: 17px;
+        right: 17px;
+    }
+
+    a:hover {
+        cursor: pointer;
+    }
+
+    .galleryContainer {
+        width: 100%;
+        height: auto;
+        overflow-x: auto;
+        position: relative;
+        margin-bottom: 13px;
+
+        img {
+            width: 100%;
+            height: auto;
+        }
+    }
+
+    label {
+        color: #9b9b9b;
+        font-size: 13px;
+        font-weight: 400;
+    }
+}
+
 .inner-content {
     width: 100%;
     height: auto;
@@ -383,6 +424,34 @@ div {
     
         .mat-icon {
             margin-top: 3px;
+        }
+    }
+}
+
+.gallery {
+    padding: 15px 18px 23px;
+    padding-right: 0px;
+
+    .gallery_label {
+        padding-right: 16px;
+        padding-bottom: 16px;
+    }
+
+    div {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: hidden;
+
+        label {
+            color: #9b9b9b;
+            font-size: 13px;
+            font-weight: 400;
+        }
+
+        img {
+            width: auto;
+            height: 133px;
+            margin-right: 10px;
         }
     }
 }
