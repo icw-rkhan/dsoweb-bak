@@ -30,6 +30,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   post: Post;
   posts: Post[];
   galleries: any[];
+  visualEssays: any[];
 
   rate: number;
   adId: string;
@@ -52,6 +53,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   isAuthorVisible: boolean;
   showGalleryView: boolean;
   showReferenceState: string;
+  showVisualEssayView: boolean;
 
   testHtml: string;
 
@@ -74,6 +76,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('authorContent') authorContent: ElementRef;
   @ViewChild('viewContainer') viewContainer: ElementRef;
   @ViewChild('galleryView') galleryView: ElementRef;
+  @ViewChild('visualEssayView') visualEssayView: ElementRef;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -100,6 +103,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.isDisabledNext = false;
     this.isAuthorVisible = false;
     this.showGalleryView = false;
+    this.showVisualEssayView = false;
 
     this.showReferenceState = 'Show more';
 
@@ -309,6 +313,19 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
     }
 
     this.trigger.closeMenu();
+  }
+
+  @HostListener('window:resize', [])
+  onWindowResize() {
+    if (this.galleryView) {
+      this.galleryView.nativeElement.style.top = window.scrollY + 'px';
+      this.scrollY = window.scrollY;
+    }
+
+    if (this.visualEssayView) {
+      this.visualEssayView.nativeElement.style.top = window.scrollY + 'px';
+      this.scrollY = window.scrollY;
+    }
   }
 
   // change Pre tag to Div tag
@@ -700,6 +717,17 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     setTimeout(() => {
       this.galleryView.nativeElement.style.top = this.scrollY + 'px';
+    }, 0);
+  }
+
+  onShowVisualEssayView(i: number) {
+    this.showVisualEssayView = true;
+
+    const visualEssays = this.post.visualEssays[0].visualEssayImages;
+    this.visualEssays = this.arrayMove(visualEssays, i, 0);
+
+    setTimeout(() => {
+      this.visualEssayView.nativeElement.style.top = window.scrollY + 'px';
     }, 0);
   }
 

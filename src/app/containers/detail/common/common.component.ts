@@ -70,7 +70,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('authorContent') authorContent: ElementRef;
   @ViewChild('viewContainer') viewContainer: ElementRef;
   @ViewChild('galleryView') galleryView: ElementRef;
-  @ViewChild('visualEssay') visualEssay: ElementRef;
+  @ViewChild('visualEssayView') visualEssayView: ElementRef;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -272,8 +272,8 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
       this.scrollY = window.scrollY;
     }
 
-    if (this.visualEssay) {
-      this.visualEssay.nativeElement.style.top = window.scrollY + 'px';
+    if (this.visualEssayView) {
+      this.visualEssayView.nativeElement.style.top = window.scrollY + 'px';
       this.scrollY = window.scrollY;
     }
   }
@@ -615,7 +615,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.visualEssays = this.arrayMove(visualEssays, i, 0);
 
     setTimeout(() => {
-      this.visualEssay.nativeElement.style.top = window.scrollY + 'px';
+      this.visualEssayView.nativeElement.style.top = window.scrollY + 'px';
     }, 0);
   }
 

@@ -11,9 +11,9 @@ article {
     background-color: rgba(5, 5, 5, .9);
     position: absolute;
     z-index: 200;
-    top: 0px;
+    overflow: hidden;
 
-    a {
+    .close_button {
         width: 24px;
         height: 24px;
         background: url('../../../../assets/images/icons/close-white.png');
@@ -27,7 +27,7 @@ article {
         cursor: pointer;
     }
 
-    .galleryContainer {
+    .gallery-container {
         width: 100%;
         height: auto;
         overflow-x: auto;
@@ -457,11 +457,22 @@ div {
 
 .gallery {
     padding: 15px 18px 23px;
-    padding-right: 0px;
 
     .gallery_label {
         padding-right: 16px;
         padding-bottom: 16px;
+
+        .image-label {
+            color: #9b9b9b;
+            font-size: 13px;
+        }
+
+        .image-count {
+            color: #879aa8;
+            font-size: 13px;
+            font-family: 'SFUI';
+            font-weight: 600;
+        }
     }
 
     div {
@@ -481,6 +492,87 @@ div {
             margin-right: 10px;
         }
     }
+}
+
+.essay_author {
+    width: 210px;
+    background-color: #627280;
+    padding: 20px 18px;
+    padding-right: 0px;
+
+    p {
+        width: 100%;
+        padding-right: 18px;
+
+        a, .essay_count {
+            color: #879aa8;
+            font-size: 13px;
+            font-family: 'SFUI';
+            font-weight: 700;
+        }
+    }
+
+    .author_avatar {
+        margin-top: 21px;
+        margin-bottom: 20px;
+
+        img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+    }
+
+    .essay_title {
+        color: #ffffff;
+        line-height: 23px; 
+        font-size: 22px;
+        font-family: 'SFUI';
+        font-weight: 600;
+    }
+
+    .author {
+        margin-left: 0px;
+        margin-top: 5px;
+
+        .label {
+            color: #dddddd;
+            font-size: 10px;
+            font-weight: 400;
+            line-height: 12px;
+        }
+
+        .name {
+            color: #ffffff;
+            font-size: 10px;
+            font-family: 'SFUI';
+            font-weight: 700;
+            line-height: 12px;
+            text-transform: uppercase;
+        }
+    }
+
+    .spliter {
+        width: 100%;
+        height: 1px;
+        background-color: #879aa8;
+        margin: 10px 0px;
+        padding-right: 0px;
+    }
+
+    .essay_description {
+        color: #fff;
+        height: calc(100vh - 267px);
+        overflow: auto;
+        font-size: 15px;
+        line-height: 18px;
+    }
+}
+
+.essay_content {
+    width: calc(100% - 210px);
+    background: transparent;
+    overflow-x: auto;
 }
 
 .hidden {
