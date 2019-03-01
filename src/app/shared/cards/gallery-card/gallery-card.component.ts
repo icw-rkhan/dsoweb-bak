@@ -32,9 +32,8 @@ export class GalleryCardComponent implements OnInit {
     const element = this.card.nativeElement;
     if (device === 'desktop') {
       element.style.width = environment.fixedWidth;
-    }
-
-    this.breakpointObserver
+    } else {
+      this.breakpointObserver
       .observe([Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
@@ -45,6 +44,7 @@ export class GalleryCardComponent implements OnInit {
 
         this.cdr.markForCheck();
       });
+    }
   }
 
   returnID() {

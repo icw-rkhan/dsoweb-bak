@@ -30,9 +30,8 @@ export class EssayCardComponent implements OnInit {
     if (device === 'desktop') {
       element.style.width = parseInt(environment.fixedWidth, 10) - 210 + 'px';
       element.style.height = '375px';
-    }
-
-    this.breakpointObserver
+    } else {
+      this.breakpointObserver
       .observe([Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
@@ -41,6 +40,7 @@ export class EssayCardComponent implements OnInit {
           this.card.nativeElement.style.height = '100vh';
         }
       });
+    }
   }
 
   returnID() {
