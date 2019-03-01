@@ -16,6 +16,8 @@ import { Bookmark } from '../../../models/bookmark.model';
 import { Comment } from '../../../models/comment.model';
 import { Post } from '../../../models/post.model';
 
+import { environment } from '../../../../environments/environment';
+
 @Component({
   selector: 'dso-detail-common',
   templateUrl: './common.component.html',
@@ -27,6 +29,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   post: Post;
   posts: Post[];
   galleries: any[];
+  visualEssays: any[];
 
   rate: number;
   index: number;
@@ -34,6 +37,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   scrollY: number;
   sharedUrl: string;
   isLoaded: boolean;
+  contentUrl: string;
   authorName: string;
   authorInfo: string;
   isRendered: boolean;
@@ -46,6 +50,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   showReference: boolean;
   isAuthorVisible: boolean;
   showGalleryView: boolean;
+  showVisualEssayView: boolean;
   showReferenceState: string;
 
   comments: Comment[];
@@ -65,6 +70,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   @ViewChild('authorContent') authorContent: ElementRef;
   @ViewChild('viewContainer') viewContainer: ElementRef;
   @ViewChild('galleryView') galleryView: ElementRef;
+  @ViewChild('visualEssay') visualEssay: ElementRef;
 
   constructor(
     @Inject(DOCUMENT) private document: any,
@@ -83,6 +89,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.scrollY = 0;
     this.currentIndex = 1;
     this.review_count = 0;
+    this.contentUrl = environment.cmsAPIUrl;
 
     this.isLoaded = false;
     this.isRendered = false;
@@ -91,6 +98,7 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.isDisabledNext = false;
     this.isAuthorVisible = false;
     this.showGalleryView = false;
+    this.showVisualEssayView = false;
 
     this.showReferenceState = 'Show more';
 
@@ -248,13 +256,26 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
 
   @HostListener('window:scroll', [])
   onWindowScroll() {
-    if (this.showGalleryView) {
+    if (this.showGalleryView || this.showVisualEssayView) {
       window.scrollTo(0, this.scrollY);
     } else {
       this.scrollY = window.scrollY;
     }
 
     this.trigger.closeMenu();
+  }
+
+  @HostListener('window:resize', [])
+  onWindowResize() {
+    if (this.galleryView) {
+      this.galleryView.nativeElement.style.top = window.scrollY + 'px';
+      this.scrollY = window.scrollY;
+    }
+
+    if (this.visualEssay) {
+      this.visualEssay.nativeElement.style.top = window.scrollY + 'px';
+      this.scrollY = window.scrollY;
+    }
   }
 
   // change Pre tag to Div tag
@@ -583,7 +604,18 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.galleries = this.arrayMove(galleries, i, 0);
 
     setTimeout(() => {
-      this.galleryView.nativeElement.style.top = this.scrollY + 'px';
+      this.galleryView.nativeElement.style.top = window.scrollY + 'px';
+    }, 0);
+  }
+
+  onShowVisualEssayView(i: number) {
+    this.showVisualEssayView = true;
+
+    const visualEssays = this.post.visualEssays[0].visualEssayImages;
+    this.visualEssays = this.arrayMove(visualEssays, i, 0);
+
+    setTimeout(() => {
+      this.visualEssay.nativeElement.style.top = window.scrollY + 'px';
     }, 0);
   }
 
@@ -595,18 +627,34 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     return arr;
   }
 
+  returnID(object: any) {
+    return object.originalID ? object.originalID : object.thumbnailID;
+  }
+
+  returnID2(object: any) {
+    return object.original ? object.original : object.thumbnail;
+  }
+
   swipe(action) {
     const device = this.sharingService.getMyDevice();
     if (device === 'desktop') {
       return;
     }
 
-    const step = document.body.scrollWidth;
+    let step;
+    if (this.showGalleryView) {
+      step = document.body.scrollWidth;
+    } else if (this.showVisualEssayView) {
+      step = document.body.scrollWidth - 210;
+    }
 
     let index = 0;
 
-    if (action === this.SWIPE_ACTION.LEFT && this.currentIndex < this.post.galleries.length) {
-      this.currentIndex ++;
+    if (action === this.SWIPE_ACTION.LEFT) {
+      if ((this.showGalleryView && this.currentIndex < this.post.galleries.length) ||
+      (this.showVisualEssayView && this.currentIndex < this.post.visualEssays[0].visualEssayImages.length)) {
+        this.currentIndex ++;
+      }
     } else if (action === this.SWIPE_ACTION.RIGHT && this.currentIndex > 1) {
       this.currentIndex --;
     }

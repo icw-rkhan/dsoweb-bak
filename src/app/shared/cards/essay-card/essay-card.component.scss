@@ -1,0 +1,30 @@
+@import "../../../../variables";
+@import "../../../../responsive";
+
+.essay-card {
+    width: calc(100vw - 210px);
+    height: 100vh;
+    line-height: 0px;
+    background: transparent;
+    position: relative;
+
+    img {
+        width: auto;
+        height: calc(100% - 70px);
+    }
+
+    .essay-label {
+        width: 100%;
+        height: 70px;
+        overflow-y: auto;
+        padding: 0px 20px;
+        background-color: #ffffff;
+
+        label {
+            color: #4a4a4a;
+            font-size: 15px;
+            font-family: 'SFUI';
+            line-height: 17px;
+        }
+    }
+}

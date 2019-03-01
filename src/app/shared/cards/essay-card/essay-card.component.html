@@ -1,0 +1,6 @@
+<div #card class="essay-card" fxLayout="column" fxLayoutAlign="start center">
+    <img [src]="contentUrl + '/file/downloadFileByObjectId?objectId=' + returnID()">
+    <div fxLayout="row" fxLayoutAlign="start center" class="essay-label">
+        <label *ngIf="essay.caption" [innerHtml]="essay.caption"></label>
+    </div>
+</div>

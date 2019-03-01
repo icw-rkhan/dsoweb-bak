@@ -67,6 +67,7 @@ import { TermPolicyDialogComponent } from './dialogs/term-policy-dialog/term-pol
 import { CompanyReviewCardComponent } from './cards/company-review-card/company-review-card.component';
 import { CompanyReviewExtendCardComponent } from './cards/company-review-extend-card/company-review-extend-card.component';
 import { GalleryCardComponent } from './cards/gallery-card/gallery-card.component';
+import { EssayCardComponent } from './cards/essay-card/essay-card.component';
 
 import { TruncatePipe } from '../pipes/truncate.pipe';
 import { SafePipe } from '../pipes/safe.pipe';
@@ -96,6 +97,7 @@ export const COMPONENTS = [
   SearchMenuComponent,
   DetailCardComponent,
   GalleryCardComponent,
+  EssayCardComponent,
   AlertCardComponent,
   CourseCardComponent,
   MainContainerComponent,

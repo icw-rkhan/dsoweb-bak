@@ -10,7 +10,6 @@
     img {
         width: 100%;
         height: auto;
-        margin-bottom: 14px;
     }
 
     label {
@@ -32,5 +31,12 @@
 
     .gallery-label {
         width: 100%;
+        padding: 10px 13px;
+    }
+
+    .landscape-mode {
+        background: rgba(0, 0, 0, .8);
+        position: absolute;
+        bottom: 0;
     }
 }

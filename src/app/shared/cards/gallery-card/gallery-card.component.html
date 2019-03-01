@@ -1,6 +1,10 @@
 <div #card class="gallery-card" fxLayout="column" fxLayoutAlign="center center">
-    <img [src]="gallery.thumbnailUrl">
-    <div fxLayout="column" fxLayoutAlign="center center" class="gallery-label">
+    <img [src]="contentUrl + '/file/downloadFileByObjectId?objectId=' + returnID()">
+    <div *ngIf="count && !isLandscape" fxLayout="column" fxLayoutAlign="center center" class="gallery-label">
+        <label class="gallery_index">Image {{index + 1}} of {{count}}</label>
+        <label *ngIf="gallery.caption" class="gallery_caption">{{gallery.caption}}</label>
+    </div>
+    <div *ngIf="count && isLandscape" fxLayout="column" fxLayoutAlign="center start" class="gallery-label landscape-mode">
         <label class="gallery_index">Image {{index + 1}} of {{count}}</label>
         <label *ngIf="gallery.caption" class="gallery_caption">{{gallery.caption}}</label>
     </div>

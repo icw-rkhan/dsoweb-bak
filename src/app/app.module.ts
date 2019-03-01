@@ -6,6 +6,7 @@ import { NgProgressModule } from '@ngx-progressbar/core';
 import { MatDatepickerModule } from '@angular/material';
 import { GoTopButtonModule } from 'ng2-go-top-button';
 import { ReactiveFormsModule } from '@angular/forms';
+import { LayoutModule } from '@angular/cdk/layout';
 import { AgmCoreModule } from '@agm/core';
 import { NgModule } from '@angular/core';
 
@@ -45,6 +46,7 @@ export class HammerConfig extends HammerGestureConfig {
     AppComponent,
   ],
   imports: [
+    LayoutModule,
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,

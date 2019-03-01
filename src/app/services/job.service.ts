@@ -12,8 +12,7 @@ import { Job } from '../models/job.model';
 })
 export class JobService {
 
-  constructor(private http: HttpClient, private auth: AuthService) {
-  }
+  constructor(private http: HttpClient, private auth: AuthService) {}
 
   jobs(body: any): Observable<Job[]> {
     const url = `${environment.careerAPIUrl}/job/findAll`;

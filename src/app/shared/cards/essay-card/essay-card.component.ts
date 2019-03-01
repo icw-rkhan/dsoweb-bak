@@ -1,27 +1,24 @@
-import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, Input, ViewChild, ElementRef } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+
 import { SharingService } from 'src/app/services/sharing.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
-  selector: 'dso-gallery-card',
-  templateUrl: './gallery-card.component.html',
-  styleUrls: ['./gallery-card.component.scss'],
+  selector: 'dso-essay-card',
+  templateUrl: './essay-card.component.html',
+  styleUrls: ['./essay-card.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class GalleryCardComponent implements OnInit {
+export class EssayCardComponent implements OnInit {
 
   contentUrl: string;
-  isLandscape: boolean;
 
-  @Input() index: number;
-  @Input() count: number;
-  @Input() gallery: any;
+  @Input() essay: any;
 
   @ViewChild('card') card: ElementRef;
 
   constructor(
-    private cdr: ChangeDetectorRef,
     private sharingService: SharingService,
     private breakpointObserver: BreakpointObserver) {
     this.contentUrl = environment.cmsAPIUrl;
@@ -31,27 +28,22 @@ export class GalleryCardComponent implements OnInit {
     const device = this.sharingService.getMyDevice();
     const element = this.card.nativeElement;
     if (device === 'desktop') {
-      element.style.width = environment.fixedWidth;
+      element.style.width = parseInt(environment.fixedWidth, 10) - 210 + 'px';
+      element.style.height = '375px';
     }
 
     this.breakpointObserver
       .observe([Breakpoints.HandsetPortrait])
       .subscribe((state: BreakpointState) => {
         if (state.matches) {
-          this.isLandscape = false;
+          this.card.nativeElement.style.height = '200px';
         } else {
-          this.isLandscape = true;
+          this.card.nativeElement.style.height = '100vh';
         }
-
-        this.cdr.markForCheck();
       });
   }
 
   returnID() {
-    if (this.count) {
-      return this.gallery.original ? this.gallery.original : this.gallery.thumbnail;
-    } else {
-      return this.gallery.originalID ? this.gallery.originalID : this.gallery.thumbnailID;
-    }
+    return this.essay.originalID ? this.essay.originalID : this.essay.thumbnailID;
   }
 }
