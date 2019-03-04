@@ -31,7 +31,8 @@ export class Post implements Serializable<Post> {
   relativeTopics: any;
   references: any;
   galleries: any[];
-  visualEssays: any[];
+  visualEssay: any;
+  visualEssayIDs: string[];
   isFeatured: boolean;
 
   constructor() {}
@@ -72,7 +73,7 @@ export class Post implements Serializable<Post> {
       bookmarkId: data.bookmarkId,
       isBookmark: data.isBookmark,
       galleries: data.photos,
-      visualEssays: data.visualEssays,
+      visualEssayIDs: data.visualEssayIds,
       excerpt: data.excerpt ? data.excerpt : '',
       thumbnail: data.featuredMedia ? this.getThumbnailUrl(data.featuredMedia.code.thumbnail) : '',
       date: this.dateFormat(data.publishDate.toString()),

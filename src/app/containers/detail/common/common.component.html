@@ -65,7 +65,7 @@
     </div>
     <div id="contents" #postContent class="inner-content" [innerHtml]="post.content | safe: 'html'"></div>
     <a *ngIf="showReference" (click)="onClickReference()" [ngClass]="{'show-more-btn': showReferenceState === 'Show more', 'show-less-btn': showReferenceState === 'Show less'}">{{showReferenceState}}</a>
-    <mat-divider *ngIf="post.galleries || (post.visualEssays && post.visualEssays.length > 0)"></mat-divider>
+    <mat-divider *ngIf="post.galleries"></mat-divider>
     <div *ngIf="post.galleries && post.galleries.length>0" class="gallery" style="padding-right: 0px">
         <div class="gallery_label" fxLayout="row" fxLayoutAlign="space-between center">
             <label class="image-label">Gallery</label>
@@ -76,13 +76,14 @@
                 *ngFor="let gallery of post.galleries; index as i" (click)="onShowGalleryView(i)">
         </div>
     </div>
-    <div *ngIf="post.visualEssays && post.visualEssays.length > 0" class="gallery">
-        <div class="gallery_label" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-divider *ngIf="post.visualEssay && post.visualEssay.visualEssayImages.length > 0"></mat-divider>
+    <div *ngIf="post.visualEssay" class="gallery">
+        <div class="gallery_label" fxLayout="row" fxLayoutAlign="space-between center" style="padding-right: 0px">
             <label class="image-label">Visual Essay</label>
-            <label class="image-count">{{post.visualEssays[0].visualEssayImages.length}} images</label>
+            <label class="image-count">{{post.visualEssay.visualEssayImages.length}} images</label>
         </div>
         <div fxLayout="row" class="essay_contents">
-            <dso-gallery-card [gallery]="visualEssay" *ngFor="let visualEssay of post.visualEssays[0].visualEssayImages; index as i"
+            <dso-gallery-card [gallery]="visualEssay" *ngFor="let visualEssay of post.visualEssay.visualEssayImages; index as i"
             (click)="onShowVisualEssayView(i)"></dso-gallery-card>
         </div>
     </div>
@@ -162,28 +163,28 @@
     </div>
     <!--<label>Image {{currentIndex}} of {{post.galleries.length}}</label>-->
 </article>
-<article #visualEssay *ngIf="showVisualEssayView" fxLayout="row" fxLayoutAlign="start top">
+<article #visualEssayView *ngIf="showVisualEssayView" fxLayout="row" fxLayoutAlign="start top">
     <div class="essay_author">
         <p fxLayout="row" fxLayoutAlign="space-between center">
-            <label class="essay_count">{{currentIndex}} of {{post.visualEssays[0].visualEssayImages.length}}</label>
+            <label class="essay_count">{{currentIndex}} of {{visualEssayImages.length}}</label>
             <a (click)="showVisualEssayView=false"><mat-icon>close</mat-icon></a>
         </p>
-        <p *ngIf="post.visualEssays[0].authorImage" class="author_avatar" 
+        <p *ngIf="post.visualEssay.authorImage" class="author_avatar" 
             fxLayout="row" fxLayoutAlign="center center">
             <img 
-            [src]="contentUrl + '/file/downloadFileByObjectId?objectId=' + returnID(post.visualEssays[0].authorImage)">
+            [src]="contentUrl + '/file/downloadFileByObjectId?objectId=' + returnID(post.visualEssay.authorImage)">
         </p>
-        <p class="essay_title">{{post.visualEssays[0].title}}</p>
+        <p class="essay_title">{{post.visualEssay.title}}</p>
         <p class="author" fxLayout="row" fxLayoutAlign="start center">
             <label class="label">BY&nbsp;</label>
-            <label class="name">{{post.visualEssays[0].authorName}}</label>
+            <label class="name">{{post.visualEssay.authorName}}</label>
         </p>
         <p class="spliter"></p>
-        <p class="essay_description">{{post.visualEssays[0].description}}</p>
+        <p class="essay_description">{{post.visualEssay.description}}</p>
     </div>
     <div #viewContainer class="essay_content" fxLayout="row" fxLayoutAlign="start top"
         (swipeleft)="swipe($event.type)" (swiperight)="swipe($event.type)">
         <dso-essay-card [essay]="visualEssay"
-        *ngFor="let visualEssay of post.visualEssays[0].visualEssayImages"></dso-essay-card>
+        *ngFor="let visualEssay of visualEssayImages"></dso-essay-card>
     </div>
 </article>

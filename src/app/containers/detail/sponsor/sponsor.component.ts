@@ -30,7 +30,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   post: Post;
   posts: Post[];
   galleries: any[];
-  visualEssays: any[];
+  visualEssayImages: any[];
 
   rate: number;
   adId: string;
@@ -150,6 +150,8 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
 
       this.post = temp;
 
+      this.loadVisualEssay();
+
       this.contentTypeId = parseInt(this.post.contentTypeId, 10);
       this.loadContentsByContentType();
 
@@ -195,6 +197,19 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
 
       subPost.unsubscribe();
     });
+  }
+
+  loadVisualEssay() {
+    if (this.post.visualEssayIDs && this.post.visualEssayIDs.length > 0) {
+      const visualSub = this.postService.visualEssays(this.post.visualEssayIDs[0]).subscribe(essay => {
+        this.post.visualEssay = essay;
+
+        visualSub.unsubscribe();
+      },
+      err => {
+        console.log(err);
+      });
+    }
   }
 
   checkMoveTo() {
@@ -723,8 +738,8 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   onShowVisualEssayView(i: number) {
     this.showVisualEssayView = true;
 
-    const visualEssays = this.post.visualEssays[0].visualEssayImages;
-    this.visualEssays = this.arrayMove(visualEssays, i, 0);
+    const visualEssayImages = this.post.visualEssay.visualEssayImages;
+    this.visualEssayImages = this.arrayMove(visualEssayImages, i, 0);
 
     setTimeout(() => {
       this.visualEssayView.nativeElement.style.top = window.scrollY + 'px';
@@ -745,12 +760,20 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
       return;
     }
 
-    const step = document.body.scrollWidth;
+    let step;
+    if (this.showGalleryView) {
+      step = document.body.scrollWidth;
+    } else if (this.showVisualEssayView) {
+      step = document.body.scrollWidth - 210;
+    }
 
     let index = 0;
 
-    if (action === this.SWIPE_ACTION.LEFT && this.currentIndex < this.post.galleries.length) {
-      this.currentIndex ++;
+    if (action === this.SWIPE_ACTION.LEFT) {
+      if ((this.showGalleryView && this.currentIndex < this.post.galleries.length) ||
+      (this.showVisualEssayView && this.currentIndex < this.post.visualEssay.visualEssayImages.length)) {
+        this.currentIndex ++;
+      }
     } else if (action === this.SWIPE_ACTION.RIGHT && this.currentIndex > 1) {
       this.currentIndex --;
     }

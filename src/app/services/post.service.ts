@@ -45,6 +45,20 @@ export class PostService {
     );
   }
 
+  visualEssays(id: string): Observable<any[]> {
+    const url = `${environment.cmsAPIUrl}/content/visualEssay/findOneById`;
+
+    // set auth token
+    const headers = this.getHeaders();
+
+    const params = {
+      id: id
+    };
+
+    return this.http.post(url, null, {headers, params}).pipe(
+      map((response: any) => response.resultMap.data));
+  }
+
   fetchByCategoryId(args: PostArgs): Observable<Post[]> {
     return this.posts(args);
   }
