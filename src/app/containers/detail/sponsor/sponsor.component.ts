@@ -727,18 +727,26 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   onShowGalleryView(i: number) {
     this.showGalleryView = true;
 
-    const galleries = this.post.galleries;
+    const galleries = [];
+    this.post.galleries.map(gallery => {
+      galleries.push(gallery);
+    });
+
     this.galleries = this.arrayMove(galleries, i, 0);
 
     setTimeout(() => {
-      this.galleryView.nativeElement.style.top = this.scrollY + 'px';
+      this.galleryView.nativeElement.style.top = window.scrollY + 'px';
     }, 0);
   }
 
   onShowVisualEssayView(i: number) {
     this.showVisualEssayView = true;
 
-    const visualEssayImages = this.post.visualEssay.visualEssayImages;
+    const visualEssayImages = [];
+    this.post.visualEssay.visualEssayImages.map(image => {
+      visualEssayImages.push(image);
+    });
+
     this.visualEssayImages = this.arrayMove(visualEssayImages, i, 0);
 
     setTimeout(() => {

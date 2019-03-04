@@ -615,10 +615,12 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   onShowGalleryView(i: number) {
     this.showGalleryView = true;
 
-    const galleries = this.post.galleries;
-    this.galleries = this.arrayMove(galleries, i, 0);
+    const galleries = [];
+    this.post.galleries.map(gallery => {
+      galleries.push(gallery);
+    });
 
-    console.log(galleries);
+    this.galleries = this.arrayMove(galleries, i, 0);
 
     setTimeout(() => {
       this.galleryView.nativeElement.style.top = window.scrollY + 'px';
@@ -628,7 +630,11 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
   onShowVisualEssayView(i: number) {
     this.showVisualEssayView = true;
 
-    const visualEssayImages = this.post.visualEssay.visualEssayImages;
+    const visualEssayImages = [];
+    this.post.visualEssay.visualEssayImages.map(image => {
+      visualEssayImages.push(image);
+    });
+
     this.visualEssayImages = this.arrayMove(visualEssayImages, i, 0);
 
     setTimeout(() => {

@@ -83,7 +83,7 @@
             <label class="image-label">Gallery</label>
             <label class="image-count">{{post.galleries.length}} images</label>
         </div>
-        <div fxLayout="row">
+        <div fxLayout="row" fxLayoutAlign="start center">
             <img [src]="contentUrl + '/file/downloadFileByObjectId?objectId=' + returnID2(gallery)"
                 *ngFor="let gallery of post.galleries; index as i" (click)="onShowGalleryView(i)">
         </div>
@@ -94,7 +94,7 @@
             <label class="image-label">Visual Essay</label>
             <label class="image-count">{{post.visualEssay.visualEssayImages.length}} images</label>
         </div>
-        <div fxLayout="row" class="essay_contents">
+        <div fxLayout="row" fxLayoutAlign="start center" class="essay_contents">
             <dso-gallery-card [gallery]="visualEssay" *ngFor="let visualEssay of post.visualEssay.visualEssayImages; index as i"
             (click)="onShowVisualEssayView(i)"></dso-gallery-card>
         </div>
