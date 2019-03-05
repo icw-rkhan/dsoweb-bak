@@ -28,6 +28,14 @@ export class CourseService {
         response.resultMap.data.map(course => new Course().deserialize(course))));
   }
 
+  searchCourses(body: any): Observable<Course[]> {
+    const url = `${environment.educationApiUrl}/generic/courses/search`;
+    const headers = this.getHeaders();
+
+    return this.http.post(url, body, {headers}).pipe(map((response: any) =>
+        response.resultMap.data.map(course => new Course().deserialize(course))));
+  }
+
   bookmarks(body: any): Observable<CourseBookmark[]> {
     const url = `${environment.educationApiUrl}/bookmark/bookmarks`;
     const headers = this.getHeaders();

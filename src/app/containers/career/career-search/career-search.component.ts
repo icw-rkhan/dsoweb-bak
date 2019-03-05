@@ -110,13 +110,11 @@ export class CareerSearchComponent implements OnInit, OnDestroy, AfterViewInit {
       'limit': 10
     };
 
-    console.log(body);
-
     const jobService = this.jobService.jobs(body);
 
     const subJob = forkJoin(
       jobService,
-      this.jobService.bookmarkedJobs({'skip': this.page * 10, 'limit': 10})
+      this.jobService.bookmarkedJobs({'skip': 0, 'limit': 0})
     ).pipe(
       map(items => items[0].map(j => {
         const bookmark = items[1].find(a => a.id === j.id);

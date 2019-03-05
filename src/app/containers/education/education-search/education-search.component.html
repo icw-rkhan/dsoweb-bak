@@ -1,3 +1,21 @@
-<p>
-  education-search works!
-</p>
+<section>
+  <div class="search-options" fxLayout="row" fxLayoutAlign="start center">
+    <form name="searchForm" (ngSubmit)="searchForm.form.valid && onSearch()" #searchForm="ngForm" class="search-form"
+          novalidate>
+      <mat-form-field appearance="outline">
+        <input matInput name="term" [(ngModel)]="term" placeholder="Search" (input)="onChange()">
+        <mat-icon matSuffix>search</mat-icon>
+      </mat-form-field>
+    </form>
+    <button *ngIf="!validCancel" mat-button color="primary" (click)="onSearch()">Search</button>
+    <button *ngIf="validCancel" mat-button color="primary" (click)="onCancel()">Cancel</button>
+  </div>
+  <div *ngIf="courses&&courses.length>0" class="contents">
+    <dso-course-card [course]="course" *ngFor="let course of courses"></dso-course-card>
+  </div>
+</section>
+<section *ngIf="!courses || (courses && courses.length==0)" class="message" fxLayout="column" fxLayoutAlign="start center">
+  <img src="assets/images/education/search-items.png">
+  <label *ngIf="!courses">Search for a course</label>
+  <label *ngIf="courses && courses.length==0">No content found matching search terms</label>
+</section>

@@ -4,11 +4,12 @@
       <form name="searchForm" (ngSubmit)="searchForm.form.valid && onSearch()" #searchForm="ngForm"
         novalidate>
         <mat-form-field appearance="outline">
-          <input matInput name="term" [(ngModel)]="term" placeholder="Search content" autofocus>
+          <input matInput name="term" [(ngModel)]="term" (input)="validCancel=true" placeholder="Search content" autofocus>
           <mat-icon matSuffix>search</mat-icon>
         </mat-form-field>
       </form>
-      <button mat-button color="primary" (click)="onCancel()">Cancel</button>
+      <button *ngIf="!validCancel" mat-button color="primary" (click)="onSearch()">Search</button>
+      <button *ngIf="validCancel" mat-button color="primary" (click)="onCancel()">Cancel</button>
     </div>
     <dso-feed-grid 
       [posts]="posts" 

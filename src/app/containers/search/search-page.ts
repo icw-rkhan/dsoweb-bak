@@ -18,13 +18,15 @@ import { Bookmark } from '../../models/bookmark.model';
 })
 export class SearchPageComponent implements OnInit {
 
-  subPost: Subscription;
   posts: Post[];
 
-  isNothing: boolean;
   term: string;
   message: string;
   no_message: string;
+
+  isNothing: boolean;
+  validCancel: boolean;
+  subPost: Subscription;
 
   constructor(
     private progress: NgProgress,
@@ -33,6 +35,8 @@ export class SearchPageComponent implements OnInit {
     private bookmarkService: BookmarkService,
     private snackBar: MatSnackBar) {
       this.isNothing = false;
+      this.validCancel = false;
+
       this.message = 'Search by category, author, or content type';
       this.no_message = 'No content found matching search terms';
   }
@@ -47,7 +51,7 @@ export class SearchPageComponent implements OnInit {
       'searchValue': this.term,
       'unite': false,
       'skip': 0,
-      'limit': 10
+      'limit': 0
     };
 
     const postService = this.postService.search(body);
@@ -86,6 +90,7 @@ export class SearchPageComponent implements OnInit {
   onCancel() {
     this.term = '';
     this.isNothing = false;
+    this.validCancel = false;
 
     if (this.subPost) {
       this.subPost.unsubscribe();
