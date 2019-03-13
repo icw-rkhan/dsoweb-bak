@@ -4,6 +4,7 @@ import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { CommentService } from '../../../services/comment.service';
+
 import { Comment } from '../../../models/comment.model';
 
 @Component({

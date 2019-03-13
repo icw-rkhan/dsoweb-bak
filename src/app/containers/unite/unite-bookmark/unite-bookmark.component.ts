@@ -24,10 +24,11 @@ import { Unite } from '../../../models/unite.model';
 export class UniteBookmarkComponent implements OnInit, OnDestroy {
 
   issueId: string;
-  subRoute: Subscription;
 
   issue: Unite;
   posts: Post[];
+
+  subRoute: Subscription;
 
   @ViewChild('viewContainer') viewContainer: ElementRef;
 
@@ -77,6 +78,7 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
     this.subRoute.unsubscribe();
   }
 
+  // get contents from API
   fetchArticles() {
     this.posts = [];
 
@@ -114,6 +116,7 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
     });
   }
 
+  // remove bookmark by id
   onRemoveBookmark(id) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
       if (x.code === 0) {
@@ -141,6 +144,7 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
     });
   }
 
+  // user can swipe contents
   swipe(action) {
     const device = this.sharingService.getMyDevice();
     if (device === 'desktop') {

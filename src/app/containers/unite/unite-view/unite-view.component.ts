@@ -7,11 +7,11 @@ import { forkJoin, Subscription } from 'rxjs';
 import * as _ from 'lodash';
 
 import { BookmarkService } from '../../../services/bookmark.service';
+import { SharingService } from 'src/app/services/sharing.service';
 import { UniteService } from '../../../services/unite.service';
 import { AuthService } from '../../../services';
 
 import { Post } from '../../../models/post.model';
-import { SharingService } from 'src/app/services/sharing.service';
 
 @Component({
   selector: 'dso-unite-view',
@@ -22,9 +22,9 @@ import { SharingService } from 'src/app/services/sharing.service';
 export class UniteViewComponent implements OnInit, OnDestroy {
 
   id: string;
-  coverPage: Post;
 
   posts: Post[];
+  coverPage: Post;
 
   subRoute: Subscription;
 
@@ -53,7 +53,7 @@ export class UniteViewComponent implements OnInit, OnDestroy {
 
       const postService = this.uniteService.findOneById(this.id);
 
-      // get user email
+      // get an user's email
       const email = this.authService.getUserInfo().user_name;
 
       // Join bookmarks and post
@@ -94,6 +94,7 @@ export class UniteViewComponent implements OnInit, OnDestroy {
     this.router.navigate([`/unite/thumbnail/${this.id}`]);
   }
 
+  // user can swipe contents
   swipe(action) {
     const device = this.sharingService.getMyDevice();
     if (device === 'desktop') {

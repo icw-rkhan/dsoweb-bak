@@ -22,6 +22,7 @@ import { BookmarkService } from '../../../services/bookmark.service';
 export class UniteDetailComponent implements OnInit, OnDestroy {
 
   type: string;
+
   article: Post;
   articles: Post[];
 
@@ -107,6 +108,7 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
     this.subRoute.unsubscribe();
   }
 
+  // move an item in the array
   arrayMove(arr, fromIndex, toIndex) {
     const element = arr[fromIndex];
     arr.splice(fromIndex, 1);
@@ -115,6 +117,7 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
     return arr;
   }
 
+  // user can swipe contents
   swipe(action) {
     const device = this.sharingService.getMyDevice();
     if (device === 'desktop') {
@@ -144,6 +147,7 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
     }, 0);
   }
 
+  // remove bookmark by id
   removeBookmarkedItem(bookmarkId: string) {
     if (this.type === 'bookmark') {
       this.articles.map(item => {

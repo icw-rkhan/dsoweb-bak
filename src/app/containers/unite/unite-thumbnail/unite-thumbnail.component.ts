@@ -84,6 +84,7 @@ export class UniteThumbnailComponent implements OnInit, OnDestroy {
     this.subRoute.unsubscribe();
   }
 
+  // user can swipe contents
   swipe(action) {
     const device = this.sharingService.getMyDevice();
     if (device === 'desktop') {

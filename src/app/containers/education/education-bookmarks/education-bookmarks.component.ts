@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
 import { NgProgress } from '@ngx-progressbar/core';
-import { forkJoin, Subscription } from 'rxjs';
 import { map } from 'rxjs/internal/operators';
+import { forkJoin } from 'rxjs';
 import * as _ from 'lodash';
 
 import { CourseService } from 'src/app/services/course.service';
@@ -38,7 +38,7 @@ export class EducationBookmarksComponent implements OnInit {
     this.progress.start();
     const courseService = this.courseService.courses(body);
 
-    // Join bookmarks and post
+    // Join bookmarks and posts
     const courseSub = forkJoin(
       courseService,
       this.courseService.bookmarks({pgnumber: 1, pgsize: 0})

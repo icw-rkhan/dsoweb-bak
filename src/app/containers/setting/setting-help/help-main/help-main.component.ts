@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@
 import { Router } from '@angular/router';
 
 import { SettingService } from '../../../../services/setting.service';
+
 import { Topic } from '../../../../models/topic.model';
 
 @Component({

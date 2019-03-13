@@ -8,6 +8,7 @@ import * as _ from 'lodash';
 
 import { SharingService } from 'src/app/services/sharing.service';
 import { CourseService } from 'src/app/services/course.service';
+
 import { NavLinkModel } from 'src/app/models/nav-link.model';
 import { Course } from 'src/app/models/course.model';
 

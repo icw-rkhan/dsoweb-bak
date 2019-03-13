@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef } from '@
 import { NgProgress } from '@ngx-progressbar/core';
 
 import { SettingService } from '../../../services/setting.service';
+
 import { Term } from '../../../models/term.model';
 
 @Component({

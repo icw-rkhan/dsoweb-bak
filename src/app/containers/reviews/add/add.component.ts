@@ -1,12 +1,13 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Location, formatDate } from '@angular/common';
+import { NgProgress } from '@ngx-progressbar/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { NgProgress } from '@ngx-progressbar/core';
 
 import { AuthService, ProfileService } from '../../../services/index';
 import { CommentService } from '../../../services/comment.service';
+
 import { environment } from '../../../../environments/environment';
 
 @Component({
@@ -111,7 +112,7 @@ export class AddComponent implements OnInit, OnDestroy {
     this.rate = i + 1;
   }
 
-  // save the comment and redirect to previous url
+  // save a comment and redirect to previous url
   saveComment() {
     this.body = {
       'email': this.userEmail,

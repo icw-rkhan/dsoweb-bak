@@ -1,9 +1,10 @@
 import { Component, OnInit, ChangeDetectionStrategy, ChangeDetectorRef, OnDestroy } from '@angular/core';
+import { NgProgress } from '@ngx-progressbar/core';
 import { Router } from '@angular/router';
 
 import { Unite } from '../../../models/unite.model';
+
 import { UniteService } from '../../../services/unite.service';
-import { NgProgress } from '@ngx-progressbar/core';
 
 @Component({
   selector: 'dso-unite-main',
@@ -14,10 +15,10 @@ import { NgProgress } from '@ngx-progressbar/core';
 export class UniteMainComponent implements OnInit, OnDestroy {
 
   page: number;
+
   unites: Unite[];
 
   constructor(
-    private router: Router,
     private progress: NgProgress,
     private cdr: ChangeDetectorRef,
     private uniteService: UniteService) {

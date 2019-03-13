@@ -1,11 +1,12 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { HttpResponse } from '@angular/common/http';
+import { NgProgress } from '@ngx-progressbar/core';
 import { Location } from '@angular/common';
 
 import { AuthService } from '../../../services';
-import { NgProgress } from '@ngx-progressbar/core';
-import { HttpResponse } from '@angular/common/http';
-import { SettingService } from '../../../services/setting.service';
 import { SharingService } from 'src/app/services/sharing.service';
+import { SettingService } from '../../../services/setting.service';
+
 import { environment } from 'src/environments/environment';
 
 @Component({
@@ -44,7 +45,7 @@ export class SettingContactComponent implements OnInit {
     }
   }
 
-  // upload file
+  // upload a file
   selectFile(file) {
     this.attachedFile = file.srcElement.files[0];
     this.fileName = this.attachedFile.name;
