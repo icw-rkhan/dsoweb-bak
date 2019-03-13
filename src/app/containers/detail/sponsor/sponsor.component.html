@@ -6,7 +6,8 @@
     <div class="inner-thumbnail" *ngIf="videoTag || post.thumbnail">
         <div *ngIf="videoTag" class="inner-thumbnail" [innerHTML]="videoTag | safe: 'html'"></div>
         <div *ngIf="!videoTag && post.thumbnail" class="inner-thumbnail" fxLayout="column">
-            <img src="{{post.thumbnail}}">
+            <img *ngIf="!isIframeVideo()" [src]="post.thumbnail"/>
+            <div *ngIf="isIframeVideo()" class="iframeThumbnail" [innerHtml]="post.thumbnail | safe: 'html'"></div>
         </div>
         <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" 
             src="/assets/images/icons/Article@2x.png" />

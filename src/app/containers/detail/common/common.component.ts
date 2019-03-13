@@ -572,6 +572,10 @@ export class CommonComponent implements OnInit, OnDestroy, AfterViewChecked {
     });
   }
 
+  isIframeVideo() {
+    return this.post.thumbnail.includes('iframe');
+  }
+
   // get averave rating of the comments by postId
   getRating(comments, type): any {
     if (!comments) {

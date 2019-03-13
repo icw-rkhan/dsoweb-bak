@@ -4,7 +4,8 @@
         <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
     </div>
     <div *ngIf="post.thumbnail" class="inner-thumbnail" fxLayout="column">
-        <img src="{{post.thumbnail}}">
+        <img *ngIf="!isIframeVideo()" [src]="post.thumbnail"/>
+        <div *ngIf="isIframeVideo()" class="iframeThumbnail" [innerHtml]="post.thumbnail | safe: 'html'"></div>
         <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" 
             src="/assets/images/icons/Article@2x.png" />
         <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '194')" 

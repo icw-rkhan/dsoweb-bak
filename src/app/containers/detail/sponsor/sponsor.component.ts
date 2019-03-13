@@ -661,6 +661,10 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
     this.router.navigate([`/posts/sponsor/${sponsorId}`]);
   }
 
+  isIframeVideo() {
+    return this.post.thumbnail.includes('iframe');
+  }
+
   // get average rating of the comments by postId
   getRating(comments, type): any {
     if (!comments) {

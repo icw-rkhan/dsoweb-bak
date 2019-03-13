@@ -48,9 +48,11 @@ export class Post implements Serializable<Post> {
     return '';
   }
 
-  getThumbnailUrl(id: string) {
-    if (id) {
-      return `${environment.cmsAPIUrl}/file/downloadFileByObjectId?objectId=${id}`;
+  getThumbnailUrl(code: any) {
+    if (code && code.thumbnail) {
+      return `${environment.cmsAPIUrl}/file/downloadFileByObjectId?objectId=${code.thumbnail}`;
+    } else if (code && code.iFrameCode) {
+      return code.iFrameCode;
     } else {
       return null;
     }
@@ -79,7 +81,7 @@ export class Post implements Serializable<Post> {
       galleries: data.photos,
       visualEssayIDs: data.visualEssayIds,
       excerpt: data.excerpt ? data.excerpt : '',
-      thumbnail: data.featuredMedia ? this.getThumbnailUrl(data.featuredMedia.code.thumbnail) : null,
+      thumbnail: data.featuredMedia ? this.getThumbnailUrl(data.featuredMedia.code) : null,
       date: this.dateFormat(data.publishDate.toString()),
       link: 'https://www.dsodentist.com',
       isFeatured: data.isFeatured,

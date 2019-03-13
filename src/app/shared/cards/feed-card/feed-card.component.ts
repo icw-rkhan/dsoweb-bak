@@ -158,6 +158,10 @@ export class FeedCardComponent implements OnInit {
     this.postSafeContent = this.sanitizer.bypassSecurityTrustHtml(updatedContent);
   }
 
+  isIframeVideo() {
+    return this.post.thumbnail.includes('iframe');
+  }
+
   // check gsk tag
   isGsk(sponsorId): boolean {
     if (sponsorId === environment.SPONSOR_GSK) {
