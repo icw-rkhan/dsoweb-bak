@@ -37,7 +37,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
   index: number;
   postId: string;
   scrollY: number;
-  vodeoTag: string;
+  videoTag: string;
   sharedUrl: string;
   isLoaded: boolean;
   authorName: string;
@@ -263,7 +263,7 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
 
     const tags = content.match(/<div.*><iframe.*>.*<\/div>/g);
     if (tags) {
-      this.vodeoTag = tags[0];
+      this.videoTag = tags[0];
     }
 
     return res.replace(/<hr.*?>/, '');

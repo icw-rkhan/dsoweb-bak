@@ -3,10 +3,10 @@
         <h3 class="mat-h3">{{post.categoryName}}</h3>
         <span class="mat-body-1">{{post?.date | date: 'mediumDate'}}</span>
     </div>
-    <div class="inner-thumbnail">
-        <div *ngIf="vodeoTag" class="inner-thumbnail" [innerHTML]="vodeoTag | safe: 'html'"></div>
-        <div *ngIf="!vodeoTag" class="inner-thumbnail" fxLayout="column">
-            <img *ngIf="post.thumbnail" src="{{post.thumbnail}}">
+    <div class="inner-thumbnail" *ngIf="videoTag || post.thumbnail">
+        <div *ngIf="videoTag" class="inner-thumbnail" [innerHTML]="videoTag | safe: 'html'"></div>
+        <div *ngIf="!videoTag && post.thumbnail" class="inner-thumbnail" fxLayout="column">
+            <img src="{{post.thumbnail}}">
         </div>
         <img class="type-icon" *ngIf="onCheckCategoryType(post.contentTypeId, '28')" 
             src="/assets/images/icons/Article@2x.png" />

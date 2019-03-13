@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef, ChangeDetectionStrategy,
         ChangeDetectorRef, OnDestroy} from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { NgProgress } from '@ngx-progressbar/core';
+import { ActivatedRoute } from '@angular/router';
 import { map } from 'rxjs/internal/operators';
 import { forkJoin, Subscription } from 'rxjs';
 import * as _ from 'lodash';
@@ -10,8 +10,8 @@ import { Post } from '../../../models/post.model';
 
 import { AuthService } from '../../../services';
 import { UniteService } from '../../../services/unite.service';
-import { BookmarkService } from '../../../services/bookmark.service';
 import { SharingService } from 'src/app/services/sharing.service';
+import { BookmarkService } from '../../../services/bookmark.service';
 
 @Component({
   selector: 'dso-unite-detail',

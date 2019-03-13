@@ -4,7 +4,7 @@
     <span class="mat-body-1">{{post.date | date: 'mediumDate'}}</span>
   </div>
   <mat-card-content>
-    <div class="image">
+    <div class="image" *ngIf="videoTag || post.thumbnail">
       <div *ngIf="videoTag" class="image" [innerHtml]="videoTag | safe: 'html'"></div>
       <div *ngIf="!videoTag && post.thumbnail" class="image" (click)="onViewDetail()">
         <img [src]="post.thumbnail"/>
