@@ -85,7 +85,7 @@ button {
 
 ::ng-deep .more-menu {
   width: 180px;
-  top: 42px;
+  top: 40px;
   position: absolute;
 
   @media only screen and (max-width: 768px) {
@@ -117,7 +117,7 @@ button {
 ::ng-deep .issue-menu {
   width: 250px;
   height: calc(100vh - 45px);
-  top: 42px;
+  top: 40px;
   overflow: auto;
   position: absolute;
 

@@ -57,9 +57,7 @@ export class BookmarksPageComponent implements OnInit, OnDestroy {
   }
 
   remove(post: Post): void {
-    this.progress.start();
     this.bookmarkService.deleteOneById(post.bookmarkId).subscribe((x: any) => {
-      this.progress.complete();
 
       if (x.code === 0) {
         this.posts = this.posts.filter(b => b.id !== post.id);

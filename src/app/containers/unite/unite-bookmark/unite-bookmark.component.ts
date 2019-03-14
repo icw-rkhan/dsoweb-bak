@@ -124,14 +124,7 @@ export class UniteBookmarkComponent implements OnInit, OnDestroy {
           duration: 2000,
         });
 
-        const newPosts = [];
-        this.posts.map(post => {
-          if (post.id !== id) {
-            newPosts.push(post);
-          }
-        });
-
-        this.posts = newPosts;
+        this.posts = this.posts.filter(post => post.id !== id);
 
         this.cdr.markForCheck();
       } else {

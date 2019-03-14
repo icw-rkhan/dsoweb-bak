@@ -5,6 +5,7 @@ import { Course } from 'src/app/models/course.model';
 import { CourseService } from 'src/app/services/course.service';
 
 import { environment } from 'src/environments/environment';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'dso-course-card',
@@ -28,7 +29,10 @@ export class CourseCardComponent implements OnInit {
     {state: false}
   ];
 
-  constructor(private router: Router, private courseService: CourseService) {
+  constructor(
+    private router: Router,
+    private snackBar: MatSnackBar,
+    private courseService: CourseService) {
     this.rate = 0;
   }
 
@@ -62,6 +66,10 @@ export class CourseCardComponent implements OnInit {
           this.course.bookmarkId = null;
 
           this.removeBookmark.emit(this.course.id);
+        } else {
+          this.snackBar.open('Bookmark failed', 'OK', {
+            duration: 2000,
+          });
         }
 
         courseSub.unsubscribe();

@@ -28,11 +28,15 @@ export class EducationMainComponent implements OnInit, OnDestroy {
   currentUrl: string;
   slideHeight: string;
   isFeatured: boolean;
+  isRecommended: boolean;
   isPlaceholder: boolean;
   showGotoTopBtn: boolean;
 
   courses: Course[];
   recommendCourses: Course[];
+
+  totalFeaturedCourses: Course[];
+  totalRecommendCourses: Course[];
 
   navLinks: NavLinkModel[] = [];
 
@@ -56,6 +60,7 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     @Inject(DOCUMENT) private document: any,
     private sharingService: SharingService) {
       this.pageNum = 1;
+      this.isRecommended = false;
       this.showGotoTopBtn = false;
 
       const url = this.document.location.origin;
@@ -96,8 +101,10 @@ export class EducationMainComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.makeTestData();
-    // this.loadContents();
+    this.loadContents();
+
+    this.isRecommended = true;
+    this.loadContents();
   }
 
   ngOnDestroy() {
@@ -105,60 +112,39 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     this.routerSub.unsubscribe();
   }
 
-  makeTestData() {
-    this.courses = [];
-    this.recommendCourses = [];
-
-    const course = new Course();
-    course.id = '1';
-    course.title = 'Purpose Driven Dental Assisting';
-    course.logoUrl = 'assets/images/education/course_logo.png';
-    course.presenter = 'Dr.Anna Smith';
-    course.rating = '4';
-    course.level = 'beginner';
-    course.duration = '3h 20m';
-    course.sponsorId = '197';
-    course.cost = '19.50';
-
-    const course2 = new Course();
-    course2.id = '2';
-    course2.title = 'Modern Dental Extractions - Fast, Painless, & Non-invasive';
-    course2.logoUrl = 'assets/images/education/course_logo.png';
-    course2.presenter = 'Dr.Anna Smith';
-    course2.rating = '4';
-    course2.level = 'intermediate';
-    course2.duration = '3h 20m';
-    course2.cost = null;
-    course2.isBookmarked = true;
-
-    this.courses.push(course);
-    this.recommendCourses.push(course2);
-  }
-
   onLoadMore() {
-    if (!this.isFeatured) {
-      this.pageNum++;
-
-      this.loadContents();
+    if (this.isFeatured) {
+      return;
     }
-  }
 
-  onShowMoreCourses() {
     this.pageNum++;
 
     this.loadContents();
   }
 
+  onShowMoreCourses() {
+    this.courses = this.totalFeaturedCourses;
+  }
+
   onShowMoreRecommendCourses() {
-    
+    this.courses = this.totalRecommendCourses;
   }
 
   loadContents() {
-    const body = {
-      pgnumber: this.pageNum,
-      pgsize: 5,
-      categoryId: this.typeId
-    };
+    let body;
+    if (!this.isFeatured) {
+      body = {
+        pgnumber: this.pageNum,
+        pgsize: 5,
+        categoryId: this.typeId
+      };
+    } else {
+      body = {
+        pgnumber: 1,
+        pgsize: 0,
+        recommended: this.isRecommended
+      };
+    }
 
     this.progress.start();
     const courseService = this.courseService.courses(body);
@@ -179,18 +165,33 @@ export class EducationMainComponent implements OnInit, OnDestroy {
     ).subscribe(courses => {
       this.progress.complete();
 
-      this.courses = [
-        ...this.courses,
-        ...courses
-      ];
+      if (!this.isFeatured) {
+        this.courses = [
+          ...this.courses,
+          ...courses
+        ];
+      } else if (this.isRecommended) {
+        this.recommendCourses = courses.slice(0, 2);
+        this.totalRecommendCourses = courses;
+      } else {
+        this.courses = courses.slice(0, 2);
+        this.totalFeaturedCourses = courses;
+      }
 
       this.cdr.markForCheck();
 
       courseSub.unsubscribe();
+    },
+    err => {
+      this.progress.complete();
     });
   }
 
   onScroll(event) {
+    if (this.isFeatured) {
+      return;
+    }
+
     const scrollPosition = event.srcElement.scrollTop;
     if (scrollPosition > 200) {
       this.showGotoTopBtn = true;

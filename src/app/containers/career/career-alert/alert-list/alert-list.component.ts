@@ -94,13 +94,7 @@ export class AlertListComponent implements OnInit, OnDestroy {
   }
 
   removeItem(id: string) {
-    this.alerts.map(item => {
-      if (item.id === id) {
-        const index = this.alerts.indexOf(item);
-        this.alerts.splice(index, 1);
-
-        this.cdr.markForCheck();
-      }
-    });
+    this.alerts = this.alerts.filter(alert => alert.id !== id);
+    this.cdr.markForCheck();
   }
 }

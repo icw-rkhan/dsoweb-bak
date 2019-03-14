@@ -152,8 +152,8 @@ export class UniteDetailComponent implements OnInit, OnDestroy {
     if (this.type === 'bookmark') {
       this.articles.map(item => {
         if (item.bookmarkId === bookmarkId) {
-          const index = this.articles.indexOf(item);
-          this.articles.splice(index, 1);
+          const id = item.id;
+          this.articles = this.articles.filter(article => article.id !== id);
 
           this.cdr.markForCheck();
         }

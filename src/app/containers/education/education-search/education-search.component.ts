@@ -30,7 +30,6 @@ export class EducationSearchComponent implements OnInit {
     }
 
   ngOnInit() {
-    // this.makeTestData();
   }
 
   onSearch() {
@@ -84,35 +83,6 @@ export class EducationSearchComponent implements OnInit {
     }
 
     this.cdr.markForCheck();
-  }
-
-  makeTestData() {
-    this.courses = [];
-
-    const course = new Course();
-    course.id = '1';
-    course.title = 'Purpose Driven Dental Assisting';
-    course.logoUrl = 'assets/images/education/course_logo.png';
-    course.presenter = 'Dr.Anna Smith';
-    course.rating = '4';
-    course.level = 'beginner';
-    course.duration = '3h 20m';
-    course.cost = '19.50';
-    course.isBookmarked = true;
-
-    const course2 = new Course();
-    course2.id = '2';
-    course2.title = 'Modern Dental Extractions - Fast, Painless, & Non-invasive';
-    course2.logoUrl = 'assets/images/education/course_logo.png';
-    course2.presenter = 'Dr.Anna Smith';
-    course2.rating = '4';
-    course2.level = 'intermediate';
-    course2.duration = '3h 20m';
-    course2.cost = null;
-    course2.isBookmarked = true;
-
-    this.courses.push(course);
-    this.courses.push(course2);
   }
 
   clear() {

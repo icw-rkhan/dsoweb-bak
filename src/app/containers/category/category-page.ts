@@ -111,11 +111,7 @@ export class CategoryPageComponent implements OnInit {
 
   addBookmark(value: Bookmark) {
     const bookmarkSub = this.bookmarkService.saveBookmark(value).subscribe((x: any) => {
-      if (x.code === 0) {
-        this.snackBar.open('Bookmark added', 'OK', {
-          duration: 2000,
-        });
-      } else {
+      if (x.code !== 0) {
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });
@@ -127,11 +123,7 @@ export class CategoryPageComponent implements OnInit {
 
   removeBookmark(id: string) {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
-      if (x.code === 0) {
-        this.snackBar.open('Bookmark removed', 'OK', {
-          duration: 2000,
-        });
-      } else {
+      if (x.code !== 0) {
         this.snackBar.open('Bookmark failed', 'OK', {
           duration: 2000,
         });

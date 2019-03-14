@@ -106,14 +106,14 @@ export class CareerJobComponent implements OnInit, OnDestroy {
   }
 
   removeBookmark(bookmarkId: string) {
-    let index = 0;
+    let id;
     this.savedJobs.map(job => {
       if (job.savedId === bookmarkId) {
-        index = this.savedJobs.indexOf(job);
+        id = job.id;
       }
     });
 
-    this.savedJobs.splice(index, 1);
+    this.savedJobs = this.savedJobs.filter(job => job.id !== id);
     this.cdr.markForCheck();
   }
 

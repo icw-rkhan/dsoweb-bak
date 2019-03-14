@@ -589,10 +589,6 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
     }).subscribe((x: any) => {
       if (x.code === 0) {
         this.post.isBookmark = true;
-
-        this.snackBar.open('Bookmark added', 'OK', {
-          duration: 2000,
-        });
       } else {
         this.post.isBookmark = false;
 
@@ -629,10 +625,6 @@ export class SponsorComponent implements OnInit, OnDestroy, AfterViewChecked {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
       if (x.code === 0) {
         this.post.isBookmark = false;
-
-        this.snackBar.open('Bookmark removed', 'OK', {
-          duration: 2000,
-        });
       } else {
         this.post.isBookmark = true;
 

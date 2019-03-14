@@ -103,10 +103,6 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
     }).subscribe((x: any) => {
       if (x.code === 0) {
         article.isBookmark = true;
-
-        this.snackBar.open('Bookmark added', 'OK', {
-          duration: 2000,
-        });
       } else {
         article.isBookmark = false;
 
@@ -143,10 +139,6 @@ export class DetailCardComponent implements OnInit, AfterContentChecked {
     const bookmarkSub = this.bookmarkService.deleteOneById(id).subscribe((x: any) => {
       if (x.code === 0) {
         this.article.isBookmark = false;
-
-        this.snackBar.open('Bookmark removed', 'OK', {
-          duration: 2000,
-        });
 
         this.removeBookmarkedItem.emit(id);
       } else {
